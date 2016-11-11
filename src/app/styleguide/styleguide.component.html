@@ -1,0 +1,221 @@
+<div id="styleguide">
+  <h1>Styleguide</h1>
+
+  <section>
+    <h2>Default</h2>
+    <div class="styleguide__label">helles/leichtes Design mit <span class="color--primary">Auszeichungs-</span> und <span class="color--secondary">Leitfarbe</span></div>
+    <div class="styleguide__label">
+        Weitere Farben für Aktionen:
+        <span class="color--success">Success</span>
+        <span class="color--error">Error</span>
+      </div>
+    <div class="styleguide__label">Trennen von Inhalten durch Border</div>
+    <div class="styleguide__label">Interaktive Elemente mit leichten Border-Radius ( sofern sinnvoll )</div>
+    <div class="styleguide__label">Kein klassisches Kontext Menü - vermehrt Fullscreen Overlays mit Optionen</div>
+    <div class="styleguide__label">Keine Schatten</div>
+    <div class="styleguide__label"><span class="border--primary" style="padding: 5px;">Border</span> oder <span class="background--primary color--white" style="padding: 5px;">Background</span>?</div>
+  </section>
+
+  <section id="colors">
+    <h2>Colors</h2>
+
+    <div class="styleguide__element">
+      <div class="styleguide__label color--primary">Primary/Accent</div>
+      <div class="styleguide__wrapper background--primary" style="height: 50px"></div>
+    </div>
+    <div class="styleguide__element">
+      <div class="styleguide__label color--secondary">Secondary/Guidance</div>
+      <div class="styleguide__wrapper background--secondary" style="height: 50px"></div>
+    </div>
+    <div class="styleguide__element">
+      <div class="styleguide__label color--success">Success</div>
+      <div class="styleguide__wrapper background--success" style="height: 50px"></div>
+    </div>
+    <div class="styleguide__element">
+      <div class="styleguide__label color--error">Error</div>
+      <div class="styleguide__wrapper background--error" style="height: 50px"></div>
+    </div>
+    <div class="styleguide__element">
+      <div class="styleguide__label">Black</div>
+      <div class="styleguide__wrapper background--black" style="height: 50px"></div>
+    </div>
+    <div class="styleguide__element">
+      <div class="styleguide__label">Darkgray</div>
+      <div class="styleguide__wrapper background--darkgray" style="height: 50px"></div>
+    </div>
+    <div class="styleguide__element">
+      <div class="styleguide__label">Lightgray</div>
+      <div class="styleguide__wrapper background--lightgray" style="height: 50px"></div>
+    </div>
+    <div class="styleguide__element">
+      <div class="styleguide__label">Darkwhite</div>
+      <div class="styleguide__wrapper background--darkwhite" style="height: 50px"></div>
+    </div>
+    <div class="styleguide__element">
+      <div class="styleguide__label">Mediumwhite</div>
+      <div class="styleguide__wrapper background--mediumwhite" style="height: 50px"></div>
+    </div>
+    <div class="styleguide__element">
+      <div class="styleguide__label">White</div>
+      <div class="styleguide__wrapper background--white" style="height: 50px"></div>
+    </div>
+
+  </section>
+
+  <section>
+    <h2>Styling</h2>
+
+    <section>
+      <h3>Separator for Structuring Content</h3>
+
+      <div class="styleguide__element">
+        <div class="styleguide__label">Separator Default</div>
+        <div class="styleguide__wrapper">
+          <h4 class="devider">Navbar</h4>
+          <div>Content</div>
+        </div>
+      </div>
+      <div class="styleguide__element">
+        <div class="styleguide__label">Separator Accent</div>
+        <div class="styleguide__wrapper">
+          <h4 class="devider devider--primary">Headline</h4>
+          <div>Content</div>
+        </div>
+      </div>
+
+    </section>
+
+    <section>
+      <h3>Border Radius</h3>
+      <div class="styleguide__element">
+        <div class="styleguide__label">Border Radius</div>
+        <div class="styleguide__wrapper background--darkwhite background---default" style="height: 50px;">
+        </div>
+      </div>
+    </section>
+
+  </section>
+
+  <section>
+    <h2>Elements</h2>
+
+    <section>
+      <h3>Selectable</h3>
+      <div class="styleguide__element">
+        <div class="styleguide__label">Default Selectable with Hover</div>
+        <div class="styleguide__wrapper">
+          <div class="selectable">Selectable</div>
+        </div>
+      </div>
+      <div class="styleguide__element">
+        <div class="styleguide__label">Default active Selectable with Hover</div>
+        <div class="styleguide__wrapper">
+          <div class="selectable selectable--active">Active Selectable</div>
+        </div>
+      </div>
+    </section>
+
+
+  </section>
+
+  <section>
+    <h2>Buttons</h2>
+
+    <section>
+      <h3>Button Types</h3>
+
+      <div class="styleguide__element" *ngFor="let element of buttonTypes">
+        <div class="styleguide__label">{{ element.header }}</div>
+        <div class="styleguide__wrapper">
+          <pk-button (onClick)="log($event)" [icon]="element.icon" [value]="element.value" class="{{ element.class }}"></pk-button>
+        </div>
+      </div>
+
+    </section>
+
+    <section>
+      <h3>Button Styling</h3>
+
+      <div class="styleguide__element" *ngFor="let element of buttonStyling">
+        <div class="styleguide__label">{{ element.header }}</div>
+        <div class="styleguide__wrapper">
+          <pk-button (onClick)="log($event)" [icon]="element.icon" [value]="element.value" class="{{ element.class }}"></pk-button>
+          <pk-button (onClick)="log($event)" [icon]="element.icon" [value]="element.value" class="element--light {{ element.class }}"></pk-button>
+          <pk-button (onClick)="log($event)" [icon]="element.icon" [value]="element.value" class="element--light element--light-font {{ element.class }}"></pk-button>
+        </div>
+      </div>
+
+    </section>
+
+    <section>
+      <h3>Button Examples</h3>
+
+      <div class="styleguide__element" *ngFor="let element of buttonExamples">
+        <div class="styleguide__label">{{ element.header }}</div>
+        <div class="styleguide__wrapper">
+          <pk-button (onClick)="log($event)" [icon]="element.icon" element--primary></pk-button>
+          <pk-button (onClick)="log($event)" [icon]="element.icon" element--secondary></pk-button>
+          <pk-button (onClick)="log($event)" [icon]="element.icon" element--success></pk-button>
+          <pk-button (onClick)="log($event)" [icon]="element.icon" element--error></pk-button>
+          <pk-button (onClick)="log($event)" [icon]="element.icon" element--hover></pk-button>
+          <pk-button (onClick)="log($event)" [icon]="element.icon" element--primary element--light></pk-button>
+          <pk-button (onClick)="log($event)" [icon]="element.icon" element--primary element--light element--light-font></pk-button>
+        </div>
+      </div>
+
+    </section>
+
+  </section>
+
+  <section class="input">
+    <h2>Form Elements</h2>
+
+    <section>
+      <h3>Input</h3>
+
+      <div class="styleguide__element" *ngFor="let element of inputElements">
+        <div class="styleguide__label">{{ element.header }}</div>
+        <div class="styleguide__wrapper">
+            <pk-form [formElements]="[element]"></pk-form>
+        </div>
+      </div>
+
+    </section>
+
+    <section>
+      <h3>Checkbox</h3>
+
+      <div class="styleguide__element" *ngFor="let element of checkboxElements">
+        <div class="styleguide__label">{{ element.header }}</div>
+        <div class="styleguide__wrapper">
+            <pk-form [formElements]="[element]"></pk-form>
+        </div>
+      </div>
+
+    </section>
+
+    <section>
+      <h3>Radio Buttons</h3>
+
+      <div class="styleguide__element" *ngFor="let element of radioElements">
+        <div class="styleguide__label">{{ element.header }}</div>
+        <div class="styleguide__wrapper">
+            <pk-form [formElements]="[element]"></pk-form>
+        </div>
+      </div>
+
+    </section>
+
+    <section>
+      <h3>Select Buttons</h3>
+
+      <div class="styleguide__element" *ngFor="let element of selectElements">
+        <div class="styleguide__label">{{ element.header }}</div>
+        <div class="styleguide__wrapper">
+            <pk-form [formElements]="[element]"></pk-form>
+        </div>
+      </div>
+
+    </section>
+  </section>
+</div>

@@ -1,0 +1,26 @@
+<div
+    class="element__wrapper"
+    [class.element__invalid]="config.formControl.errors"
+    >
+
+  <label
+    class="element__label"
+    [class.element--required]="config.required"
+    [attr.for]="config.name">
+
+    <div class="element__checkbox"
+      [class.element--active]="config.formControl.value"
+      ></div>
+
+    <span>{{ config.label }}</span>
+
+  </label>
+  <input
+    class="hidden"
+    type="checkbox"
+    [attr.id]="config.name"
+    [attr.name]="config.label"
+    [formControl]="config.formControl">
+
+    <pk-form-validation [control]="config.formControl" [inputLabel]="config.label"></pk-form-validation>
+</div>

@@ -1,0 +1,40 @@
+@import './../../../theme';
+
+.form__elements {
+  @include clearfix();
+  margin: 0 -5px;
+}
+
+.form__element {
+  padding: 0 5px;
+  /*margin-bottom: 10px;*/
+  float: left;
+  width: 100%;
+  position: relative;
+}
+
+@media (min-width: $form-mobile-break + 1) {
+    .form__element {
+        &.form__element--small {
+            width: 50%;
+        }
+    }
+}
+@media (max-width: $form-mobile-break) {
+
+}
+
+.form__buttons {
+  @include clearfix();
+  .left {
+    float: left;
+  }
+  .right {
+    float: right;
+  }
+}
+
+.button.button--edit {
+    display: none;
+}
+

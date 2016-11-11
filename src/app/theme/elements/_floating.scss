@@ -1,0 +1,49 @@
+/**
+*   Floating Elements
+*/
+.floating {
+    position: absolute;
+    z-index: 3;
+
+    &.floating--fixed {
+        position: fixed;
+        z-index: 5;
+
+        &.floating--top-right {
+            top: 40px;
+            right: -80px;
+
+            @media (max-width: 1288px) {
+                right: 40px;
+            }
+        }
+        &.floating--bottom-right {
+            bottom: 40px;
+            right: -80px;
+
+            @media (max-width: 1288px) {
+                right: 40px;
+            }
+        }
+    }
+    &.floating--top-right {
+        top: 9px;
+        right: 9px;
+    }
+    &.floating--bottom-right {
+        bottom: 9px;
+        right: 9px;
+    }
+    &.floating--bottom-left {
+        bottom: 9px;
+        left: 9px;
+    }
+    &.floating--bottom-right-corner {
+        bottom: -10px;
+        right: -10px;
+    }
+    &.floating--bottom-left-corner {
+        bottom: -10px;
+        left: -10px;
+    }
+}

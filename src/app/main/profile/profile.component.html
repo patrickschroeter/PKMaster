@@ -1,0 +1,36 @@
+<div id="profile" class="content--default">
+    <div class="rel">
+        <h1 class="devider devider--primary element element--spacing-bottom-small">Profile</h1>
+        <div class="element element--spacing-bottom-small">
+            <div class="element__wrapper">
+                <div class="element__label">Firstname</div>
+                <div class="element__input element--no-edit">Patrick</div>
+            </div>
+        </div>
+        <div class="element element--spacing-bottom-small">
+            <div class="element__wrapper">
+                <div class="element__label">Lastname</div>
+                <div class="element__input element--no-edit">Schröter</div>
+            </div>
+        </div>
+
+        <pk-devider class="element element--spacing-bottom-small"></pk-devider>
+
+        <div class="element element--spacing-bottom-small">
+            <div class="element__wrapper">
+                <div class="element__label">E-Mail</div>
+                <div class="element__input element--no-edit">patrick.schroeter@hs-augsburg</div>
+            </div>
+        </div>
+        <div class="element element--spacing-bottom-small">
+            <div class="element__wrapper">
+                <div class="element__label">Matrikelnummer</div>
+                <div class="element__input element--no-edit">949225</div>
+            </div>
+        </div>
+
+    </div>
+    <a class="floating floating--fixed floating--top-right " routerLink="/profile/edit">
+        <pk-button class="element--rounded" [icon]="'create'" element--secondary></pk-button>
+    </a>
+</div>

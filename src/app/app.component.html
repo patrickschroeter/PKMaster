@@ -1,0 +1,7 @@
+<router-outlet></router-outlet>
+
+
+<pk-overlay [isOpen]="isOverlayOpen" (toggleOverlay)="toggleOverlay()" class="overlay--fluid overlay--error">
+    <div class="pk-overlay__header">{{ overlayTitle }}</div>
+    <div class="pk-overlay__content">{{ overlayMessage }}</div>
+</pk-overlay>

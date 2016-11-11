@@ -1,0 +1,66 @@
+@import '../theme';
+
+#styleguide {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 25px;
+
+  > section {
+    margin-bottom: 40px;
+    padding: 0 10px 25px;
+    border-bottom: 1px solid #ccc;
+
+    &:not(:nth-last-child) {
+      border-bottom: 1px solid #ccc;
+    }
+  }
+}
+
+section {
+  @include clearfix();
+}
+
+h3 {
+  font-weight: 700;
+  padding: 15px;
+  margin: 25px 0 0;
+  background: $accent-color;
+  color: $white;
+}
+
+.styleguide__element {
+  padding: 30px 15px;
+
+  @include clearfix();
+
+  .styleguide__label {
+    float: left;
+    width: 38.2%;
+    min-width: 200px;
+    max-width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .styleguide__wrapper {
+    float: left;
+    width: 61.8%;
+    min-width: 200px;
+    max-width: 100%;
+  }
+}
+
+
+pk-button {
+  float: left;
+  margin: 5px;
+}
+
+#colors {
+  h2 {
+    margin-bottom: 30px
+  }
+  .styleguide__element {
+    padding-top: 0;
+    padding-bottom: 5px;
+  }
+}

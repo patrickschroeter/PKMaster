@@ -1,0 +1,59 @@
+@import './theme';
+
+html {
+    overflow: hidden;
+    padding-top: $navbar-height;
+}
+
+#wrapper {
+    position: relative;
+    height: 100%;
+
+    &.admin {
+        #nav {
+            background-color: $darkgray;
+            color: $white;
+
+            .selectable {
+                color: $white;
+            }
+        }
+    }
+}
+
+#nav {
+    position: relative;
+    height: $navbar-height;
+    line-height: $navbar-height;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    background-color: $white;
+    z-index: 99;
+}
+
+#content {
+    position: relative;
+    /*background-color: $mediumwhite;*/
+    background-color: $white;
+    max-width: 1024px;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 25px;
+
+    border-left: 1px solid $mediumwhite;
+    border-right: 1px solid $mediumwhite;
+
+    transform: translate3d(0,0,0);
+
+    .content--default {
+        display: block;
+        padding: 24px 0 24px;
+        width: 80%;
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+    }
+}

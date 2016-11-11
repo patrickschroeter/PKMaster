@@ -1,0 +1,146 @@
+/**
+*   The Element (almost all)
+*/
+
+.element {
+    display: block;
+    margin: 0;
+    &.element--spacing-top-large {
+        margin-top: 40px;
+    }
+    &.element--spacing-top-small {
+        margin-top: 15px;
+    }
+    &.element--spacing-bottom-large {
+        margin-bottom: 40px;
+    }
+    &.element--spacing-bottom-small {
+        margin-bottom: 15px;
+    }
+    &.element--spacing-bottom-tiny {
+        margin-bottom: 5px;
+    }
+
+    &.element--inline {
+        display: inline-block;
+    }
+}
+
+.element__wrapper, .form__wrapper {
+    @include clearfix();
+    position: relative;
+
+    &:hover {
+        > .element__validation {
+            display: block;
+        }
+    }
+}
+
+.element__input, .element__textarea {
+    width: 100%;
+    height: 100%;
+    -webkit-appearance: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+
+    &.element--no-edit {
+        border: 2px solid transparent;
+    }
+}
+
+.element__textarea, .element__input, .element__option, .elenemt__option {
+    color: $lightgray;
+    border-radius: $border-radius;
+    border: $border-width solid $mediumwhite;
+    font-family: 'Noto Sans', sans-serif;
+    padding: 8px 8px;
+    @extend .font_small;
+}
+
+.element__input, .element__option, .elenemt__option {
+    line-height: 1.15;
+    font-weight: 400;
+    height: 38px; // hack to remove the 1px diff from div & select
+}
+
+.element__option {
+    @include clearfix();
+
+    float: left;
+    width: 98%;
+
+    position: relative;
+    padding-right: 32px;
+
+    cursor: pointer;
+
+    .element__value {
+        float: left;
+        max-width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .element__icon {
+        position: absolute;
+        top: 6px;
+        right: 4px;
+    }
+}
+
+.element__select {
+    margin: 0 -1%;
+    .element__option {
+        margin: 1%;
+        margin-top: 0;
+    }
+}
+
+.element--show-validation {
+    .element__invalid {
+        .element__input, .element__checkbox, .element__radio, .element__textarea, .element__option {
+            border-color: $error
+        }
+    }
+    .element__validation {
+        /*display: block;*/
+    }
+}
+
+.element__validation {
+    display: none;
+    /*position: absolute;*/
+    position: fixed;
+    /*min-width: 100%;*/
+    max-width: 100%;
+    /*top: 100%;*/
+    /*left: 0;*/
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    padding: 0 30px 30px 0;
+
+    .element__hint {
+        @extend .font_smallest;
+        padding: 5px;
+        margin-top: 3px;
+        border: $border-width solid lighten($accent-color, 25%);
+        border-radius: $border-radius;
+        background-color: lighten($accent-color, 25%);
+
+        display: none;
+
+        &:first-child {
+            display: block;
+        }
+
+        &.element--invalid {
+            border: $border-width solid lighten($error, 0%);
+            background-color: lighten($error, 0%);
+            color: $white;
+        }
+    }
+}

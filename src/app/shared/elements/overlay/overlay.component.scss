@@ -1,0 +1,78 @@
+@import './../../../theme';
+
+:host.overlay {
+    .overlay__container {
+        display: none;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+
+        &.overlay--open {
+            display: block;
+        }
+    }
+
+    .overlay__fallback {
+        background-color: $black;
+        opacity: 0.5;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 5;
+    }
+
+    &:not(.overlay--fluid) {
+        .overlay__wrapper {
+            height: 60%;
+        }
+    }
+
+    &.overlay--error {
+        .overlay__wrapper {
+            background-color: lighten($error, 5%);
+            color: $white;
+        }
+    }
+
+    .overlay__wrapper {
+        @include center();
+        border-radius: $border-radius;
+        padding-top: 55px;
+        background: $white;
+        position: relative;
+        z-index: 6;
+        width: 80%;
+        max-width: 400px;
+
+        .overlay__scroll-content {
+            padding: 25px;
+        }
+
+        .overlay__label {
+            position: absolute;
+            top: 30px;
+            left: 0;
+            width: 100%;
+            padding-left: 32px;
+            padding-right: 32px;
+            z-index: 2;
+        }
+    }
+
+    .overlay__option {
+        margin-bottom: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}

@@ -1,0 +1,25 @@
+<div class="navbar navbar--mobile">
+  <h2>PK 4.0</h2>
+  <div class="navbar__button">
+    <pk-button [icon]="'menu'" class="right element--primary element--light" (onClick)="toggleNavbar()"></pk-button>
+  </div>
+</div>
+<div class="navbar navbar--desktop" [class.navbar--open]="isOpen">
+  <div class="navbar__header">
+    <h2 class="left devider devider--mobile">PK 4.0</h2>
+    <div class="navbar__button">
+      <pk-button [icon]="'clear'" class="right element--primary element--light" (onClick)="toggleNavbar()"></pk-button>
+    </div>
+  </div>
+
+  <a class="navbar__link selectable left" routerLink="/applications" routerLinkActive="selectable--active">Applications</a>
+  <a class="navbar__link selectable left" routerLink="/conferences" routerLinkActive="selectable--active">Conferences</a>
+  <a class="navbar__link selectable left" routerLink="/forms" routerLinkActive="selectable--active">Forms</a>
+  <a class="navbar__link selectable left" routerLink="/profile" routerLinkActive="selectable--active">Profile</a>
+  <a class="navbar__link selectable left" routerLink="/admin" routerLinkActive="selectable--active">Admin</a>
+
+  <pk-devider></pk-devider>
+
+  <a class="navbar__link selectable right" routerLink="/login" routerLinkActive="selectable--active">Logout</a>
+</div>
+<div class="navbar__fallback" [class.navbar__fallback--open]="isOpen" (click)="toggleNavbar()"></div>

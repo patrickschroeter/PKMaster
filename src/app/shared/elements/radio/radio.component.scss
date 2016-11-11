@@ -1,0 +1,28 @@
+@import './../../../theme';
+
+.element__label {
+    cursor: pointer;
+
+    &:hover {
+
+        .element__radio {
+            background: lighten($accent-color, 30%);
+
+            &.element--active {
+                background: lighten($accent-color, 15%);
+            }
+        }
+    }
+}
+
+.element__radio {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border: $border-width solid $accent-color;
+    border-radius: 50%;
+
+    &.element--active {
+        background: $accent-color;
+    }
+}

@@ -1,0 +1,30 @@
+/**
+* Link, Option, Button, Selectable
+*/
+
+.selectable {
+  padding: 10px 15px;
+  color: $black;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: $border-radius;
+
+  &.selectable--active {
+    background-color: lighten($accent-color, 15%);
+    color: $white;
+  }
+
+  &:hover {
+    background-color: $guidance-color;
+    color: $white;
+  }
+}
+
+.overlay {
+    .selectable {
+        margin-bottom: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}

@@ -1,0 +1,124 @@
+@import '../../../theme';
+
+.navbar {
+  @include clearfix();
+}
+
+h2 {
+  margin: 0;
+  line-height: $navbar-height;
+  padding: 0 25px;
+}
+
+.navbar__link {
+  padding-top: 0;
+  padding-bottom: 0;
+  border-radius: 0;
+
+  &:last-child {
+    margin-right: 25px;
+  }
+}
+
+@media (min-width: $navbar-mobile-break + 1) {
+  .left {
+    float: left;
+  }
+
+  .right {
+    float: right;
+  }
+
+  .devider--mobile {
+      border: 0;
+  }
+
+  .navbar--desktop {
+      /*width: 80%;
+      max-width: 1024px;
+      margin: 0 auto;*/
+  }
+
+  .navbar--mobile, .navbar__button, .devider-element {
+    display: none;
+  }
+
+  .navbar__fallback {
+    display: none;
+  }
+}
+
+@media (max-width: $navbar-mobile-break) {
+
+  .devider-element {
+    width: 100%;
+  }
+
+  .navbar__button {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(0, -50%);
+    padding-right: 5px;
+  }
+
+  .navbar--desktop {
+    height: 100vh;
+    width: 100vw;
+    max-width: 300px;
+    position: absolute;
+    top: 0;
+    right: 100%;
+    background-color: $white;
+    z-index: 9;
+
+    visibility: hidden;
+    pointer-events: none;
+
+    transition: visibility .3s linear .3s, transform .3s ease-in-out;
+
+    &.navbar--open {
+      transform: translateX(100%);
+      visibility: visible;
+      pointer-events: auto;
+      transition-delay: 0s;
+    }
+
+    .navbar__header {
+      @include clearfix();
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    h2 {
+      width: 100%;
+    }
+
+    .navbar__link {
+      margin: 5px 25px;
+      display: block;
+    }
+  }
+  .navbar__fallback {
+    background-color: $black;
+    visibility:hidden;
+    opacity:0;
+    transition: visibility 0s linear .3s, opacity .3s linear;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 8;
+
+    &.navbar__fallback--open {
+      visibility: visible;
+      opacity: .8;
+      transition-delay: 0s;
+    }
+  }
+}

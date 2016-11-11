@@ -1,0 +1,24 @@
+<div class="element__wrapper" *ngIf="control.errors">
+    <!--<div class="element__hint element--invalid" *ngIf="control.invalid">
+        {{ inputLabel ? inputLabel : inputName ? inputName : 'Field' }} is invalid.
+    </div>-->
+    <div class="element__hint element--invalid" *ngIf="hasError('required')">
+        {{ inputLabel ? inputLabel : inputName ? inputName : 'Field' }} is required.
+    </div>
+    <div class="element__hint element--invalid" *ngIf="hasError('minlength')">
+        {{ inputLabel ? inputLabel : inputName ? inputName : 'Field' }} requires a length of {{ control.errors.minlength.requiredLength}}. Actual {{ control.errors.minlength.actualLength }}.
+    </div>
+    <div class="element__hint element--invalid" *ngIf="hasError('maxlength')">
+        {{ inputLabel ? inputLabel : inputName ? inputName : 'Field' }} requires a max length of {{ control.errors.maxlength.requiredLength}}. Actual {{ control.errors.maxlength.actualLength }}.
+    </div>
+    <div class="element__hint element--invalid" *ngIf="hasError('internalEmail')">
+        {{ inputLabel ? inputLabel : inputName ? inputName : 'Field' }} is not an external E-Mail address.
+    </div>
+    <div class="element__hint element--invalid" *ngIf="hasError('invalidEmail')">
+        {{ inputLabel ? inputLabel : inputName ? inputName : 'Field' }} is an invalid E-Mail address.
+    </div>
+    <div class="element__hint element--invalid" *ngIf="hasError('notTrue')">
+        {{ inputLabel ? inputLabel : inputName ? inputName : 'Field' }} is required.
+    </div>
+</div>
+

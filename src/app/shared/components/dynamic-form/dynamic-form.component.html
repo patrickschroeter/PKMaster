@@ -1,0 +1,79 @@
+<div class="form__wrapper">
+
+    <form [formGroup]="form" (ngSubmit)="submit(form.value)" [class.element--show-validation]="showValidation">
+
+      <div class="form__elements">
+        <div class="form__element element element--spacing-bottom-small" *ngFor="let element of formElements" [ngClass]="{ 'form__element--small': element.styles && element.styles.indexOf('small') !== -1 }">
+          <div class="rel" [ngSwitch]="element.elementType">
+            <pk-input
+              *ngSwitchCase="'input'"
+              ngDefaultControl
+              [config]="element"
+              ></pk-input>
+
+            <pk-checkbox
+              *ngSwitchCase="'checkbox'"
+              ngDefaultControl
+              [config]="element"
+              ></pk-checkbox>
+
+            <pk-select
+              *ngSwitchCase="'select'"
+              ngDefaultControl
+              [config]="element"
+              ></pk-select>
+
+            <pk-radio
+              *ngSwitchCase="'radio'"
+              ngDefaultControl
+              [config]="element"
+              ></pk-radio>
+
+            <pk-textarea
+              *ngSwitchCase="'textarea'"
+              ngDefaultControl
+              [config]="element"
+              ></pk-textarea>
+
+
+            <pk-devider *ngSwitchCase="'devider'" class="element"></pk-devider>
+
+            <h1 *ngSwitchCase="'h1'" class="devider devider--secondary element">{{ element.value }}</h1>
+            <h2 *ngSwitchCase="'h2'" class="devider element">{{ element.value }}</h2>
+            <h3 *ngSwitchCase="'h3'" class="element">{{ element.value }}</h3>
+            <h4 *ngSwitchCase="'h4'" class="element">{{ element.value }}</h4>
+
+            <div *ngSwitchCase="'info'" class="element">
+                <div class="element__label element--no-wrap">
+                    {{ element.value }}
+                </div>
+            </div>
+          </div>
+          <pk-button *ngIf="editableElement" class="floating floating--bottom-right-corner button button--edit element element--rounded" [icon]="'create'" (onClick)="edit(element)" element--primary></pk-button>
+        </div>
+      </div>
+
+      <ng-content select=".pk-form-after"></ng-content>
+
+      <div class="form__buttons left" *ngIf="hasCancel || hasSubmit">
+        <div class="left" *ngIf="hasCancel">
+          <pk-button
+            [value]="'Cancel'"
+            [icon]="'chevron_left'"
+            [class]="'element--lightgray'"
+            (onClick)="cancel()"></pk-button>
+        </div>
+        <div class="right" *ngIf="hasSubmit" (mouseover)="showValidation = true" (mouseout)="showValidation = false">
+          <pk-button
+            [value]="'OK'"
+            [icon]="'chevron_right'"
+            [class]="form.valid ? 'element--secondary' : 'element--disabled'"
+            [type]="'submit'"></pk-button>
+        </div>
+      </div>
+
+      <!--<div *ngIf="form.hasError('required', 'email')">Email is required</div>-->
+
+    </form>
+
+</div>

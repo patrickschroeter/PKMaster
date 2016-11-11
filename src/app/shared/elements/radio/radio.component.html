@@ -1,0 +1,28 @@
+<div
+    class="element__wrapper"
+    [class.element__invalid]="config.formControl.errors"
+    >
+
+	<label
+        class="element__label"
+        [class.element--required]="config.required"
+        *ngIf="config.label"> {{ config.label }} </label>
+
+	<div class="element__options" *ngFor="let option of config.options">
+		<label
+            class="element__label element--no-validation"
+            [attr.for]="option.value"
+            >
+            <div
+                class="element__radio"
+                [class.element--active]="config.formControl.value === option.value"
+                ></div>
+            <span>{{ option.label }}</span>
+        </label>
+
+		<input class="hidden" type="radio" [attr.id]="option.value" [attr.name]="config.name" [value]="option.value" [formControl]="config.formControl">
+	</div>
+
+    <pk-form-validation [control]="config.formControl" [inputLabel]="config.label"></pk-form-validation>
+
+</div>

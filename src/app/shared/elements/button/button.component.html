@@ -1,0 +1,24 @@
+<div class="element__wrapper">
+	<button
+        class="element__button"
+        [ngClass]="{'element--icon': icon, 'element--text': value}"
+        (click)="emit()"
+        [attr.type]="type"
+        >
+
+        <div
+            class="element__icon"
+            *ngIf="icon"
+            >
+            <i class="material-icons md-18" aria-hidden="true">{{icon}}</i>
+        </div>
+
+        <div
+            class="element__value"
+            *ngIf="value"
+            >
+            {{ value }}
+        </div>
+
+  </button>
+</div>

@@ -1,0 +1,17 @@
+@import './../colors';
+
+
+/**
+* Element Seperator
+*/
+
+.devider {
+    display: block;
+    border-bottom: 1px solid $mediumwhite;
+
+    @each $selector, $color in $colors {
+        &.devider--#{$selector} {
+            border-color: $color;
+        }
+    }
+}

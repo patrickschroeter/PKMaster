@@ -1,0 +1,151 @@
+@import './../../../theme';
+
+:host {
+  @include clearfix();
+}
+
+.element__wrapper {
+  overflow: hidden;
+  position: relative;
+  width: auto;
+  display: flex;
+  float: left;
+}
+
+.element__button {
+  @extend .font_small;
+  display: flex;
+  padding: 5px;
+  // margin: 3px;
+  max-width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  border-radius: $border-radius;
+
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+	        user-select: none;
+
+  cursor: pointer;
+
+  @include clearfix();
+
+  color: $black;
+  border: 1px solid $mediumwhite;
+  background: $mediumwhite;
+  &:hover { background-color: darken($mediumwhite, 5%); }
+  &:active { background-color: darken($mediumwhite, 15%); }
+}
+:host {
+  &[element--light] .element__button, &.element--light .element__button {
+    background: transparent;
+  }
+}
+
+// Color different buttons by given attribute
+
+@each $selector, $color in $colors {
+  :host[element--#{$selector}], :host.element--#{$selector} {
+    $border-color: $color;
+
+    .element__button {
+      border-color: $border-color;
+      &:hover {
+        @if ($border-color == $white) {
+          border-color: darken($border-color, 5%);
+        }
+      }
+      &:active {
+        @if ($border-color == $white) {
+          border-color: darken($border-color, 15%);
+        }
+      }
+
+      // colorful styling
+      background-color: $color;
+      @if (lightness($color) > 70) {
+        color:  $black;
+      } @else {
+        color:  $white;
+      }
+      &:hover {
+        background-color: darken($color, 5%);
+      }
+      &:active {
+        background-color: darken($color, 15%);
+      }
+    }
+
+    &[element--light] .element__button, &.element--light .element__button {
+      background-color: transparent;
+      color: $black;
+      &:hover {
+        background-color: lighten($color, 30%);
+      }
+      &:active {
+        background-color: lighten($color, 25%);
+      }
+    }
+    &[element--light-font] .element__button, &.element--light-font .element__button {
+      color: darken($color, 20%);
+      &:hover {
+        color: $white;
+        background-color: lighten($color, 15%);
+      }
+      &:active {
+        color: $white;
+        background-color: lighten($color, 5%);
+      }
+    }
+  }
+}
+
+:host[element--rounded], :host.element--rounded {
+  .element__button {
+    border-radius: 50%;
+  }
+}
+:host[element--disabled], :host.element--disabled {
+  .element__button {
+    cursor: default;
+    pointer-events: none;
+    color: lighten($black, 50%);
+  }
+}
+
+.element__icon {
+  width: $icon-size-medium;
+  height: $icon-size-medium;
+  min-width: $icon-size-medium;
+
+  text-align: center;
+  position: relative;
+
+  i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.element__value {
+  line-height: $icon-size-medium;
+  flex: 1;
+  padding: 0 5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.element__icon + .element__value {
+  min-width: $default-width;
+}
+
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }

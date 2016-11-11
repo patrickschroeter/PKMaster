@@ -1,0 +1,23 @@
+<div id="form-edit" class="rel" *ngIf="form && !addingElement">
+    <h2 class="devider devider--primary element element--spacing-bottom-small">Edit Form: {{ form.title }}</h2>
+
+    <div class="form" *ngIf="!form.data || form.data.length < 1">
+        No Elements in this form.
+    </div>
+
+    <pk-form
+        *ngIf="form && form.data && form.data.length > 0"
+        [formElements]="form.data"
+        [editableElement]="true"
+        (onEdit)="editElement($event)"
+        (onRemove)="removeElement($event)"
+        [hasSubmit]="form.data.length > 0"
+        [hasCancel]="true"
+        ></pk-form>
+
+    <pk-button class="floating floating--bottom-left" [icon]="'add'" [value]="'Add Element'" element--primary (onClick)="addElement()"></pk-button>
+    <pk-button class="floating floating--bottom-right element--secondary" [value]="'Save Form'" [icon]="'chevron_right'" (onClick)="saveForm()"></pk-button>
+</div>
+
+
+<pk-element-edit *ngIf="addingElement"></pk-element-edit>

@@ -1,0 +1,15 @@
+.list-element {
+    @extend .devider;
+    padding: 17px 0;
+    position: relative;
+
+    .floating {
+        display: none;
+    }
+    &:hover {
+        @extend .devider--secondary;
+        .floating {
+            display: block;
+        }
+    }
+}

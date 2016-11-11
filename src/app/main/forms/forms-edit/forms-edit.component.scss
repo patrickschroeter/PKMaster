@@ -1,0 +1,41 @@
+@import './../../../theme';
+
+.pk-form-after {
+    .rel {
+        @include clearfix();
+        margin: 0 -5px;
+    }
+    .left {
+        margin: 0 5px;
+        float: left;
+        display: block;
+    }
+}
+
+.form {
+    display: block;
+    margin: 9px;
+}
+
+#form-edit {
+    .form {
+        padding: 25px;
+        border: 1px solid $guidance-color;
+        border-radius: $border-radius;
+        margin-bottom: 55px;
+
+        /deep/ {
+            .form__element {
+                padding: 8px;
+                border: 1px dotted transparent;
+                &:hover {
+                    border: 1px dotted $success;
+
+                    .button.button--edit {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+}

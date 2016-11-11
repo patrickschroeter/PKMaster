@@ -1,0 +1,34 @@
+
+<div id="form-add-attribute">
+    <div class="rel">
+        <h2 class="devider devider--primary element element--spacing-bottom-small">Create new Element</h2>
+
+        <pk-form
+            [formElements]="element"
+            [hasSubmit]="elementHasSubmit"
+            (onSubmit)="saveElement($event) "
+            [hasCancel]="true"
+            (onCancel)="cancelElement()"
+            (onChange)="updateElement($event)">
+
+        </pk-form>
+
+        <pk-devider class="element element--spacing-bottom-large element--spacing-top-small divider--secondary"></pk-devider>
+    </div>
+
+    <div class="preview floating floating--fixed floating--bottom-left" *ngIf="elementPreview.length > 0 && elementHasPreview">
+        <h2 class="devider element element--spacing-bottom-small">Element Preview</h2>
+
+        <pk-form
+            [formElements]="elementPreview" ></pk-form>
+
+    </div>
+
+    <div class="floating floating--fixed floating--top-right" *ngIf="elementPreview.length > 0" >
+        <pk-button class="element--secondary element--rounded element--spacing-bottom-small" [icon]="'visibility'" (onClick)="toggleElementPreview()"></pk-button>
+        <pk-button *ngIf="!elementHasValidations" class="element--success element--rounded element--spacing-bottom-tiny" [icon]="'security'" (onClick)="addValidations()" element--primary></pk-button>
+        <pk-button *ngIf="!elementHasStyles" class="element--success element--rounded" [icon]="'color_lens'" (onClick)="addStyles()" element--primary></pk-button>
+        <pk-button class="element--error element--rounded" [icon]="'clear'" (onClick)="removeElement()" element--primary></pk-button>
+
+    </div>
+</div>

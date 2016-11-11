@@ -1,0 +1,34 @@
+@import './../../../theme';
+
+.element__label {
+    cursor: pointer;
+
+    &:hover {
+
+        .element__checkbox {
+            background: lighten($accent-color, 30%);
+
+            &.element--active {
+                background: lighten($accent-color, 15%);
+            }
+        }
+    }
+}
+
+.element__checkbox {
+    border: $border-width solid $accent-color;
+
+    &.element--active {
+        background: $accent-color;
+    }
+}
+
+.element__checkbox {
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    border-radius: $border-radius;
+
+    position: relative;
+    top: 3px;
+}

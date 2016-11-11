@@ -1,0 +1,23 @@
+<div
+    class="element__wrapper"
+    [class.element__invalid]="config.formControl.errors"
+    >
+
+    <label
+        class="element__label"
+        [class.element--required]="config.required"
+        *ngIf="config.label"
+        [attr.for]="config.name">
+        {{ config.label }}
+    </label>
+    <input
+        class="element__input"
+        [attr.id]="config.name"
+        [attr.type]="config.type"
+        [attr.placeholder]="config.placeholder"
+        [formControl]="config.formControl"
+        >
+
+    <pk-form-validation [control]="config.formControl" [inputLabel]="config.label"></pk-form-validation>
+
+</div>

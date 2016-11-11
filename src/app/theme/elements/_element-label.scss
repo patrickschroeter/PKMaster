@@ -1,0 +1,30 @@
+
+
+/**
+* Label
+*/
+
+.element__label {
+    @extend .font_smallest;
+
+    color: $lightgray;
+    padding: 3px 0 5px;
+    display: inline-block;
+    &:not(.element--no-wrap) {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
+
+    &:after {
+        @extend .font_smaller;
+    }
+    &.element--required {
+        &:not(.element--no-validation) {
+            &:after {
+                content: '*'
+            }
+        }
+    }
+}
