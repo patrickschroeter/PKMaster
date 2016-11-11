@@ -27,7 +27,7 @@
     <div class="floating floating--fixed floating--top-right" *ngIf="elementPreview.length > 0" >
         <pk-button class="element--secondary element--rounded element--spacing-bottom-small" [icon]="'visibility'" (onClick)="toggleElementPreview()"></pk-button>
         <pk-button *ngIf="!elementHasValidations" class="element--success element--rounded element--spacing-bottom-tiny" [icon]="'security'" (onClick)="addValidations()" element--primary></pk-button>
-        <pk-button *ngIf="!elementHasStyles" class="element--success element--rounded" [icon]="'color_lens'" (onClick)="addStyles()" element--primary></pk-button>
+        <pk-button *ngIf="!elementHasStyles" class="element--success element--rounded element--spacing-bottom-small" [icon]="'color_lens'" (onClick)="addStyles()" element--primary></pk-button>
         <pk-button class="element--error element--rounded" [icon]="'clear'" (onClick)="removeElement()" element--primary></pk-button>
 
     </div>
