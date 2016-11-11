@@ -10,20 +10,12 @@
         z-index: 5;
 
         &.floating--top-right {
-            top: 40px;
-            right: -80px;
-
-            @media (max-width: 1288px) {
-                right: 40px;
-            }
+            top: 90px;
+            right: 40px;
         }
         &.floating--bottom-right {
             bottom: 40px;
-            right: -80px;
-
-            @media (max-width: 1288px) {
-                right: 40px;
-            }
+            right: 40px;
         }
     }
     &.floating--top-right {
