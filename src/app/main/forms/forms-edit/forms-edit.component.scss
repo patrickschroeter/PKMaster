@@ -19,17 +19,19 @@
 
 #form-edit {
     .form {
-        padding: 25px;
+        padding: $element-grid-base;
         border: 1px solid $guidance-color;
         border-radius: $border-radius;
-        margin-bottom: 55px;
 
         /deep/ {
             .form__element {
-                padding: 8px;
-                border: 1px dotted transparent;
+                /*padding: 8px;*/
+                /*border: 1px dotted transparent;*/
                 &:hover {
+                    /*padding: $element-grid-base/4;
                     border: 1px dotted $accent-color;
+                    margin: -$element-grid-base/4 $element-grid-base/4 $element-grid-base/4;*/
+                    background-color: rgba($guidance-color, 0.2);
 
                     .button.button--edit {
                         display: block;

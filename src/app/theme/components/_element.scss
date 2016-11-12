@@ -6,22 +6,26 @@
     display: block;
     margin: 0;
     &.element--spacing-top-large {
-        margin-top: 32px;
+        margin-top: $element-grid-base;
     }
     &.element--spacing-top-small {
-        margin-top: 16px;
+        margin-top: $element-grid-base/2;
     }
     &.element--spacing-top-tiny {
-        margin-top: 8px;
+        margin-top: $element-grid-base/4;
     }
     &.element--spacing-bottom-large {
-        margin-bottom: 32px;
+        margin-bottom: $element-grid-base;
     }
     &.element--spacing-bottom-small {
-        margin-bottom: 16px;
+        margin-bottom: $element-grid-base/2;
     }
     &.element--spacing-bottom-tiny {
-        margin-bottom: 8px;
+        margin-bottom: $element-grid-base/4;
+    }
+
+    &.element--inner-bottom-small {
+        padding-bottom: $element-grid-base/2;
     }
 
     &.element--inline {
@@ -53,19 +57,24 @@
     }
 }
 
-.element__textarea, .element__input, .element__option, .elenemt__option {
+.element__textarea, .element__input, .element__option {
     color: $lightgray;
     border-radius: $border-radius;
     border: $border-width solid $mediumwhite;
     font-family: 'Noto Sans', sans-serif;
-    padding: 8px 8px;
+    padding: 0 8px;
     @extend .font_small;
+    display: block;
 }
 
-.element__input, .element__option, .elenemt__option {
-    line-height: 1.15;
+.element__input, .element__option {
+    line-height: $element-grid-base;
     font-weight: 400;
-    height: 38px; // hack to remove the 1px diff from div & select
+    height: $element-grid-base; // hack to remove the 1px diff from div & select
+}
+
+.element__textarea {
+    height: 2*$element-grid-base;
 }
 
 .element__option {
@@ -75,7 +84,7 @@
     width: 98%;
 
     position: relative;
-    padding-right: 32px;
+    padding-right: $element-grid-base;
 
     cursor: pointer;
 
@@ -85,11 +94,13 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        position: relative;
+        top: -2px;
     }
 
     .element__icon {
         position: absolute;
-        top: 6px;
+        top: 3px;
         right: 4px;
     }
 }

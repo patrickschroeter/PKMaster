@@ -4,13 +4,13 @@
     >
 
 	<label
-        class="element__label"
+        class="element__label "
         [class.element--required]="config.required"
         *ngIf="config.label"> {{ config.label }} </label>
 
 	<div class="element__options" *ngFor="let option of config.options">
 		<label
-            class="element__label element--no-validation"
+            class="element__label element--no-validation element--align"
             [attr.for]="option.value"
             >
             <div

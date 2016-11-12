@@ -2,6 +2,10 @@
 
 .element__label {
     cursor: pointer;
+    span {
+        position: relative;
+        top: $element-grid-base/8;
+    }
 
     &:hover {
 
@@ -25,10 +29,10 @@
 
 .element__checkbox {
     display: inline-block;
-    width: 17px;
-    height: 17px;
+    width: $element-grid-base/2;
+    height: $element-grid-base/2;
     border-radius: $border-radius;
 
     position: relative;
-    top: 3px;
+    top: $element-grid-base/4;
 }

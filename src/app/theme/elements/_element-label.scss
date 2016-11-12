@@ -8,9 +8,16 @@
     @extend .font_smallest;
 
     color: $lightgray;
-    padding: 3px 0 5px;
-    display: inline-block;
+    display: block;
+
+    /*line-height: $element-grid-base;*/
+
+    &:not(.element--align) {
+        padding-top: $element-grid-base/4;
+    }
+
     &:not(.element--no-wrap) {
+        height: $element-grid-base;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;

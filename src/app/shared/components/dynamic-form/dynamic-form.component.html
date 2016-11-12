@@ -3,7 +3,7 @@
     <form [formGroup]="form" (ngSubmit)="submit(form.value)" [class.element--show-validation]="showValidation">
 
       <div class="form__elements">
-        <div class="form__element element element--spacing-bottom-small" *ngFor="let element of formElements"
+        <div class="form__element element" *ngFor="let element of formElements"
             [ngClass]="{ 'form__element--small': element.styles && element.styles.indexOf('small') !== -1, 'form__element--aligned': element.styles && element.styles.indexOf('aligned') !== -1}">
           <div class="rel" [ngSwitch]="element.elementType">
             <pk-input

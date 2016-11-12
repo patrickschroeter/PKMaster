@@ -2,11 +2,11 @@
 
 .form__elements {
   @include clearfix();
-  margin: 0 -5px;
+  margin: 0 -$element-grid-base/2;
 }
 
 .form__element {
-  padding: 0 5px;
+  padding: $element-grid-base/2;
   /*margin-bottom: 10px;*/
   float: left;
   width: 100%;
@@ -19,7 +19,7 @@
             width: 50%;
         }
         &.form__element--aligned {
-            margin-top: 25px;
+            margin-top: $element-grid-base;
         }
     }
 }
@@ -29,6 +29,7 @@
 
 .form__buttons {
   @include clearfix();
+  margin-top: $element-grid-base;
   .left {
     float: left;
   }

@@ -3,6 +3,11 @@
 .element__label {
     cursor: pointer;
 
+    span {
+        position: relative;
+        top: $element-grid-base/8;
+    }
+
     &:hover {
 
         .element__radio {
@@ -16,8 +21,8 @@
 }
 
 .element__radio {
-    width: 10px;
-    height: 10px;
+    width: $element-grid-base/2;
+    height: $element-grid-base/2;
     display: inline-block;
     border: $border-width solid $accent-color;
     border-radius: 50%;
