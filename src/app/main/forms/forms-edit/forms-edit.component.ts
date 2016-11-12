@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { FormService, AlertService, FormElementService } from './../../../shared';
@@ -8,19 +8,21 @@ import { FormElement } from './../../../swagger';
     selector: 'pk-forms-edit',
     templateUrl: './forms-edit.component.html',
     styleUrls: ['./forms-edit.component.scss'],
-    host: {
-        '[class.content--default]': 'true'
-    },
     providers: [
         FormElementService
     ]
 })
 export class FormsEditComponent implements OnInit {
+    @HostBinding('class') classes = 'content--default';
 
     /** The form to edit */
     private form;
+    /** The form to edit the Form attributes */
+    private editForm;
     /** Flag if Add Element View is open */
     private addingElement: boolean = false;
+    /** Flag if edit Form attributes overlay is open */
+    private isEditingForm: boolean = false;
 
     constructor(
         private router: Router,
@@ -35,7 +37,7 @@ export class FormsEditComponent implements OnInit {
         /** Read Route Param and GET Form with param ID */
         this.activatedRoute.params.forEach((params: Params) => {
             this.formService.getFormById(+params['id']).subscribe((form) => {
-                if (!form) this.router.navigate(['/forms']);
+                if (!form) { this.router.navigate(['/forms']); }
                 this.form = form;
             });
         });
@@ -70,6 +72,37 @@ export class FormsEditComponent implements OnInit {
      */
     removeElement(element: FormElement): void {
         this.formService.removeElement(element);
+    }
+
+    /**
+     * @description toggle the edit form attribute overlay
+     * @return {void}
+     */
+    toggleFormEditing(): void {
+        this.isEditingForm = !this.isEditingForm;
+    }
+    /**
+     * @description edit the form attributes
+     * @return {void}
+     */
+    editFormAttributes(): void {
+        this.formService.getEditFormTemplate().subscribe(form => {
+            this.editForm = form;
+            this.isEditingForm = true;
+        });
+    }
+
+    /**
+     * @description save the form attributes
+     * @param {Form} form
+     * @return {void}
+     */
+    saveFormAttributes(form): void {
+        this.formService.saveFormAttributes(form).subscribe(success => {
+            if (success) {
+                this.isEditingForm = false;
+            }
+        })
     }
 
     /**

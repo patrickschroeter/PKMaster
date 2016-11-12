@@ -1,6 +1,8 @@
 <div id="form-edit" class="rel" *ngIf="form && !addingElement">
     <h2 class="devider devider--primary element element--spacing-bottom-small">Edit Form: {{ form.title }}</h2>
 
+
+
     <div class="form" *ngIf="!form.data || form.data.length < 1">
         No Elements in this form.
     </div>
@@ -16,10 +18,24 @@
         ></pk-form>
 
     <div class="floating floating--top-right floating--fixed">
+        <pk-button class="element--spacing-bottom-small element--rounded" [icon]="'edit'" element--secondary (onClick)="editFormAttributes()"></pk-button>
         <pk-button class="element--spacing-bottom-small element--rounded" [icon]="'add'" element--secondary (onClick)="addElement()"></pk-button>
         <pk-button class="element--spacing-bottom-small element--rounded" [icon]="'save'" (onClick)="saveForm()" element--success></pk-button>
     </div>
 </div>
+
+<pk-overlay [isOpen]="isEditingForm" (toggleOverlay)="toggleFormEditing()">
+    <div class="pk-overlay__header">Edit Form Attributes</div>
+    <div class="pk-overlay__content">
+        <pk-form
+            *ngIf="editForm"
+            [formElements]="editForm"
+            [hasCancel]="false"
+            [hasSubmit]="true"
+            (onSubmit)="saveFormAttributes($event)"
+            ></pk-form>
+    </div>
+</pk-overlay>
 
 
 <pk-element-edit *ngIf="addingElement"></pk-element-edit>

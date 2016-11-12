@@ -1142,7 +1142,7 @@ definitions:
     type: object
     required:
         - id
-        - name
+        - title
         - attributes
     properties:
       id:
@@ -1157,9 +1157,9 @@ definitions:
         type: integer
         format: int32
         description: Last timestamp of modification of the Form
-      name:
+      title:
         type: string
-        description: Name of the Form
+        description: Title of the Form
       fakultaet:
         type: string
         description: Fakultaet of the Form

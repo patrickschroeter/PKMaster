@@ -178,6 +178,40 @@ export class FormService {
         return true;
     }
 
+    /**
+     * @description returns the template to edit form attributes
+     * @param {number} id
+     * @return {Observable}
+     */
+    getEditFormTemplate(id?: number): Observable<any> {
+        let formEdit = [
+            {
+                elementType: 'input',
+                name: 'title',
+                label: 'Titel des Antrages',
+                value: this.form.title,
+                required: true,
+                placeholder: 'Form Title'
+            }
+        ]
+        return new Observable(observer => {
+            setTimeout(() => {
+                observer.next(formEdit);
+                observer.complete();
+            }, 200)
+        })
+    }
+
+    saveFormAttributes(form): Observable<any> {
+        return new Observable(observer => {
+            setTimeout(() => {
+                this.form.title = form.title;
+                observer.next(true);
+                observer.complete();
+            }, 200)
+        })
+    }
+
 
     /**
      * @description Saves the changed Form

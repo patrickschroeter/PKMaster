@@ -127,6 +127,8 @@ validierung? PW, min, max
 initialize application ( first admin user )
 studiengang einrichten
 form restrictions ( user vs dozent )
+form error handling
+success/error notifications
 
 login.component.spec  
 main.component.spec  
