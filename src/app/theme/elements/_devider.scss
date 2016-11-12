@@ -9,6 +9,10 @@
     display: block;
     border-bottom: 1px solid $mediumwhite;
 
+    &.devider--hidden {
+        opacity: 0;
+    }
+
     @each $selector, $color in $colors {
         &.devider--#{$selector} {
             border-color: $color;

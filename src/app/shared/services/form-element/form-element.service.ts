@@ -466,6 +466,10 @@ function types() {
             {
                 value: 'devider',
                 label: 'Devider',
+            },
+            {
+                value: 'hiddenDevider',
+                label: 'hidden Devider',
             }
         ]
     };
@@ -660,6 +664,9 @@ function opts() {
             }
         ],
         devider: [
+
+        ],
+        hiddenDevider: [
 
         ]
     };
