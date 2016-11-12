@@ -55,7 +55,7 @@ export class FormElementService {
      * @description creates an empty view
      * @return {void}
      */
-    editNewElement():void {
+    editNewElement(): void {
         this.resetElement();
     }
 
@@ -284,8 +284,7 @@ export class FormElementService {
         return new Observable(observer => {
             setTimeout(() => {
                 let devider = { elementType: 'devider' };
-                let result = [];
-                result.push(name);
+                let result = [].concat(name);
                 let element = options[elementType];
                 if (element) result = result.concat(element);
                 result.push(devider);
@@ -338,7 +337,7 @@ export class FormElementService {
     getElement(): Observable<FormElement[]> {
         return this.elementRx.asObservable();
     }
-    setElement(element: FormElement[]):void {
+    setElement(element: FormElement[]): void {
         this.element = element;
         this.elementRx.next(this.element);
     }
@@ -351,7 +350,7 @@ export class FormElementService {
     getElementPreview(): Observable<FormElement[]> {
         return this.elementPreviewRx.asObservable();
     }
-    setElementPreview(element: FormElement[]):void {
+    setElementPreview(element: FormElement[]): void {
         this.elementPreviewRx.next(element);
     }
 
@@ -363,7 +362,7 @@ export class FormElementService {
     getElementHasSubmit(): Observable<boolean> {
         return this.elementHasSubmitRx.asObservable();
     }
-    setElementHasSubmit(hasSubmit: boolean):void {
+    setElementHasSubmit(hasSubmit: boolean): void {
         this.elementHasSubmitRx.next(hasSubmit);
     }
 
@@ -375,7 +374,7 @@ export class FormElementService {
     getElementHasPreview(): Observable<boolean> {
         return this.elementHasPreviewRx.asObservable();
     }
-    setElementHasPreview(hasPreview: boolean):void {
+    setElementHasPreview(hasPreview: boolean): void {
         this.elementHasPreviewRx.next(hasPreview);
     }
 
@@ -387,7 +386,7 @@ export class FormElementService {
     getElementHasValidations(): Observable<boolean> {
         return this.elementHasValidationsRx.asObservable();
     }
-    setElementHasValidations(hasValidations: boolean):void {
+    setElementHasValidations(hasValidations: boolean): void {
         this.elementHasValidationsRx.next(hasValidations);
     }
 
@@ -399,7 +398,7 @@ export class FormElementService {
     getElementHasStyles(): Observable<boolean> {
         return this.elementHasStylesRx.asObservable();
     }
-    setElementHasStyles(hasStyles: boolean):void {
+    setElementHasStyles(hasStyles: boolean): void {
         this.elementHasStylesRx.next(hasStyles);
     }
 }
@@ -448,22 +447,22 @@ function types() {
                 value: 'info',
                 label: 'Infotext',
             },
-            // {
-            //     value: 'h1',
-            //     label: 'Headline (h1)',
-            // },
-            // {
-            //     value: 'h2',
-            //     label: 'Headline (h2)',
-            // },
-            // {
-            //     value: 'h3',
-            //     label: 'Headline (h3)',
-            // },
-            // {
-            //     value: 'h4',
-            //     label: 'Headline (h4)',
-            // },
+            {
+                value: 'h1',
+                label: 'Headline (h1)',
+            },
+            {
+                value: 'h2',
+                label: 'Headline (h2)',
+            },
+            {
+                value: 'h3',
+                label: 'Headline (h3)',
+            },
+            {
+                value: 'h4',
+                label: 'Headline (h4)',
+            },
             {
                 value: 'devider',
                 label: 'Devider',
@@ -475,7 +474,7 @@ function types() {
 
 function nm() {
 
-    var nm = {
+    var nm = [{
         elementType: 'input',
         name: 'name',
         label: 'Unique Name (ID)',
@@ -483,7 +482,15 @@ function nm() {
         styles: [
             'small'
         ]
-    };
+    },
+    {
+        elementType: 'checkbox',
+        name: 'required',
+        label: 'Required Field',
+        styles: [
+            'small', 'aligned'
+        ]
+    }];
     return nm;
 }
 
@@ -495,14 +502,6 @@ function opts() {
                 elementType: 'input',
                 name: 'label',
                 label: 'Label of the Input',
-                styles: [
-                    'small'
-                ]
-            },
-            {
-                elementType: 'checkbox',
-                name: 'required',
-                label: 'Required Field',
                 styles: [
                     'small'
                 ]
@@ -538,6 +537,14 @@ function opts() {
             }
         ],
         textarea: [
+            {
+                elementType: 'input',
+                name: 'label',
+                label: 'Label of the Input',
+                styles: [
+                    'small'
+                ]
+            },
             {
                 elementType: 'input',
                 name: 'placeholder',

@@ -18,6 +18,9 @@
         &.form__element--small {
             width: 50%;
         }
+        &.form__element--aligned {
+            margin-top: 25px;
+        }
     }
 }
 @media (max-width: $form-mobile-break) {
