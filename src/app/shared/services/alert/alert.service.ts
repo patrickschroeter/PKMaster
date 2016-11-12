@@ -14,6 +14,9 @@ export class AlertService {
     private isOpenObserver: Observer<boolean>;
     private isOpenObservable: Observable<any>;
 
+    private hintObserver: Observer<string>;
+    private hintObservable: Observable<any>;
+
     constructor() {
         this.titleObservable = new Observable(observer => {
             this.titleObserver = observer;
@@ -23,6 +26,9 @@ export class AlertService {
         });
         this.isOpenObservable = new Observable(observer => {
             this.isOpenObserver = observer;
+        })
+        this.hintObservable = new Observable(observer => {
+            this.hintObserver = observer;
         })
     }
 
@@ -36,6 +42,17 @@ export class AlertService {
         this.titleObserver.next(title);
         this.messageObserver.next(message);
         this.isOpenObserver.next(true);
+    }
+
+    setSuccessHint(message: string) {
+        this.hintObserver.next(message);
+        setTimeout(() => {
+            this.hintObserver.next(null);
+        }, 1000);
+    }
+
+    setHint(message: string) {
+
     }
 
     /**
@@ -60,5 +77,13 @@ export class AlertService {
      */
     getOpenState(): Observable<boolean> {
         return this.isOpenObservable;
+    }
+
+    /**
+     * @description Returns the Hint Message Observer
+     * @return {Observable}
+     */
+    getHintMessage(): Observable<string> {
+        return this.hintObservable;
     }
 }

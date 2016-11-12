@@ -1,15 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'pk-form-validation',
     templateUrl: './form-validation.component.html',
-    styleUrls: ['./form-validation.component.scss'],
-    host: {
-        '[class.element__validation]': 'true'
-    }
+    styleUrls: ['./form-validation.component.scss']
 })
 export class FormValidationComponent implements OnInit {
+    @HostBinding('class') classes = 'hint';
 
     @Input() control: FormControl | FormGroup;
     @Input() inputLabel: string;

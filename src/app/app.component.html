@@ -5,3 +5,9 @@
     <div class="pk-overlay__header">{{ overlayTitle }}</div>
     <div class="pk-overlay__content">{{ overlayMessage }}</div>
 </pk-overlay>
+
+<div class="hint" [class.hint--visible]="hintMessage">
+    <div class="hint-element" *ngIf="hintMessage">
+        {{ hintMessage }}
+    </div>
+</div>

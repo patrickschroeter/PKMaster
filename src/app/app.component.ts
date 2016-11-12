@@ -14,6 +14,8 @@ export class AppComponent implements OnInit {
     private overlayTitle: string;
     private overlayMessage: string;
 
+    private hintMessage: string;
+
     constructor(private alert: AlertService) {  }
 
     ngOnInit() {
@@ -25,6 +27,9 @@ export class AppComponent implements OnInit {
         });
         this.alert.getOpenState().subscribe(isOpen => {
             this.isOverlayOpen = isOpen;
+        })
+        this.alert.getHintMessage().subscribe(message => {
+            this.hintMessage = message;
         })
     }
 
