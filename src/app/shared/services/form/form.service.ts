@@ -12,22 +12,26 @@ export class FormService {
     /** Index of editing Element */
     private editingElementIndex: number;
 
+    private addingElement$: Observer<boolean>;
+    private addingElementRx: Observable<any>;
+
+    private editElementRx: Observable<FormElement>;
+    private editElement$: Observer<FormElement>;
+
     constructor(private alert: AlertService) {
         this.form = {
             title: 'Titel der Form',
             id: 13,
-            data: [{elementType:'h3',name:'header01',value:'Hochschule für Angewandte Wissenschaften Augsburg',styles:['small']},{elementType:'input',name:'date',type:'date',label:'Augsburg, den',styles:['small']},{elementType:'h4',name:'header02',value:'Zulassungsantrag - Abschlussarbeit',styles:['small']},{elementType:'input',name:'matnr',type:'number',label:'Matrikelnummer',validations:['minLength','maxLength'],styles:['small']},{elementType:'input',name:'fakultaet',label:'Fakultaet',styles:['small'],value:['Informatik', 'Gestaltung']},{elementType:'input',name:'Studiengang',label:'Studiengang und Richtung',styles:['small']},{elementType:'textarea',name:'address',label:'Namen und Adresse',styles:['small']},{elementType:'info',name:'info',value:'Hinweise für den Antragsteller: Jemand musste Josef K. verleumdet haben, denn ohne dass er etwas Böses getan hätte, wurde er eines Morgens verhaftet. »Wie ein Hund!« sagte er, es war, als sollte die Scham ihn überleben. Als Gregor Samsa eines Morgens aus unruhigen Träumen erwachte, fand er sich in seinem Bett zu einem ungeheueren Ungeziefer verwandelt.',styles:['small']},{elementType:'info',name:'info2',value:'Und es war ihnen wie eine Bestätigung ihrer neuen Träume und guten Absichten, als am Ziele ihrer Fahrt die Tochter als erste sich erhob und ihren jungen Körper dehnte.'},{elementType:'input',name:'erstpruefer',label:'Aufgabensteller/Erstprüfer',styles:['small']},{elementType:'input',name:'zweitpruefer',label:'Zweitprüfer',styles:['small']},{elementType:'radio',name:'inHouse',label:'Die Arbeit soll bearbeitet werden:',options:[{value:'inside',label:'im Haus'},{value:'outside',label:'außerhalb der HS'}]},{elementType:'textarea',name:'thema',label:'Theme (Zeugnissfassung):',styles:['small']},{elementType:'textarea',name:'company',label:'Name der Firma:',styles:['small']},{elementType:'checkbox',name:'sign',label:'Hiermit bestätige ich die Angaben.',validations:['toBeTrue',]}]
+            data: [{ elementType: 'h3', name: 'header01', value: 'Hochschule für Angewandte Wissenschaften Augsburg', styles: ['small'] }, { elementType: 'input', name: 'date', type: 'date', label: 'Augsburg, den', styles: ['small'] }, { elementType: 'h4', name: 'header02', value: 'Zulassungsantrag - Abschlussarbeit', styles: ['small'] }, { elementType: 'input', name: 'matnr', type: 'number', label: 'Matrikelnummer', validations: ['minLength', 'maxLength'], styles: ['small'] }, { elementType: 'input', name: 'fakultaet', label: 'Fakultaet', styles: ['small'], value: ['Informatik', 'Gestaltung'] }, { elementType: 'input', name: 'Studiengang', label: 'Studiengang und Richtung', styles: ['small'] }, { elementType: 'textarea', name: 'address', label: 'Namen und Adresse', styles: ['small'] }, { elementType: 'info', name: 'info', value: 'Hinweise für den Antragsteller: Jemand musste Josef K. verleumdet haben, denn ohne dass er etwas Böses getan hätte, wurde er eines Morgens verhaftet. »Wie ein Hund!« sagte er, es war, als sollte die Scham ihn überleben. Als Gregor Samsa eines Morgens aus unruhigen Träumen erwachte, fand er sich in seinem Bett zu einem ungeheueren Ungeziefer verwandelt.', styles: ['small'] }, { elementType: 'info', name: 'info2', value: 'Und es war ihnen wie eine Bestätigung ihrer neuen Träume und guten Absichten, als am Ziele ihrer Fahrt die Tochter als erste sich erhob und ihren jungen Körper dehnte.' }, { elementType: 'input', name: 'erstpruefer', label: 'Aufgabensteller/Erstprüfer', styles: ['small'] }, { elementType: 'input', name: 'zweitpruefer', label: 'Zweitprüfer', styles: ['small'] }, { elementType: 'radio', name: 'inHouse', label: 'Die Arbeit soll bearbeitet werden:', options: [{ value: 'inside', label: 'im Haus' }, { value: 'outside', label: 'außerhalb der HS' }] }, { elementType: 'textarea', name: 'thema', label: 'Theme (Zeugnissfassung):', styles: ['small'] }, { elementType: 'textarea', name: 'company', label: 'Name der Firma:', styles: ['small'] }, { elementType: 'checkbox', name: 'sign', label: 'Hiermit bestätige ich die Angaben.', validations: ['toBeTrue'] }]
         };
     }
 
-    private addingElement$: Observer<boolean>;
-    private addingElementRx: Observable<any>;
     /**
      * @description return the observable for the adding element status
      * @return {Observable}
      */
     getAddingElement(): Observable<boolean> {
-        if (!this.addingElementRx) this.addingElementRx = new Observable(observer => { this.addingElement$ = observer; });
+        if (!this.addingElementRx) { this.addingElementRx = new Observable(observer => { this.addingElement$ = observer; }); };
         return this.addingElementRx;
     }
     /**
@@ -39,14 +43,12 @@ export class FormService {
         this.addingElement$.next(addingElement);
     }
 
-    private editElementRx: Observable<FormElement>
-    private editElement$: Observer<FormElement>;
     /**
      * @description return the observable for editing an element
      * @return {Observable}
      */
     onEditElement(): Observable<FormElement> {
-        if (!this.editElementRx) this.editElementRx = new Observable(observer => { this.editElement$ = observer; })
+        if (!this.editElementRx) { this.editElementRx = new Observable(observer => { this.editElement$ = observer; }); };
         return this.editElementRx;
     }
 
@@ -61,8 +63,8 @@ export class FormService {
             setTimeout(() => {
                 observer.next(this.form);
                 observer.complete();
-            }, 200)
-        })
+            }, 200);
+        });
     }
 
     /**
@@ -81,8 +83,8 @@ export class FormService {
             setTimeout(() => {
                 observer.next(this.form);
                 observer.complete();
-            }, 200)
-        })
+            }, 200);
+        });
     }
 
     /**
@@ -107,8 +109,9 @@ export class FormService {
         if (element) {
             for (let i = 0, length = this.form.data.length; i < length; i++) {
                 let formElement = this.form.data[i];
-                if (formElement && formElement.name === element.name)
+                if (formElement && formElement.name === element.name) {
                     this.editingElementIndex = i;
+                };
             }
         }
 
@@ -193,13 +196,13 @@ export class FormService {
                 required: true,
                 placeholder: 'Form Title'
             }
-        ]
+        ];
         return new Observable(observer => {
             setTimeout(() => {
                 observer.next(formEdit);
                 observer.complete();
-            }, 200)
-        })
+            }, 200);
+        });
     }
 
     saveFormAttributes(form): Observable<any> {
@@ -208,8 +211,8 @@ export class FormService {
                 this.form.title = form.title;
                 observer.next(true);
                 observer.complete();
-            }, 200)
-        })
+            }, 200);
+        });
     }
 
 

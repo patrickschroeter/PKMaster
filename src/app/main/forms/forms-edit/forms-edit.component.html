@@ -24,7 +24,7 @@
     </div>
 </div>
 
-<pk-overlay [isOpen]="isEditingForm" (toggleOverlay)="toggleFormEditing()">
+<pk-overlay [isOpen]="isEditingForm" (toggleOverlay)="toggleFormEditing()" class="overlay--fluid">
     <div class="pk-overlay__header">Edit Form Attributes</div>
     <div class="pk-overlay__content">
         <pk-form

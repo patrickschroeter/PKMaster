@@ -102,7 +102,7 @@ export class FormsEditComponent implements OnInit {
             if (success) {
                 this.isEditingForm = false;
             }
-        })
+        });
     }
 
     /**
