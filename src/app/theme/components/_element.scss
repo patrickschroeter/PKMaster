@@ -75,6 +75,7 @@
 
 .element__textarea {
     height: 2*$element-grid-base;
+    padding: 8px;
 }
 
 .element__option {
@@ -111,6 +112,10 @@
         margin: 1%;
         margin-top: 0;
     }
+}
+
+.element--h1, .element--h2, .element--h3, .element--h4 {
+    line-height: $element-grid-base;
 }
 
 .element--show-validation {

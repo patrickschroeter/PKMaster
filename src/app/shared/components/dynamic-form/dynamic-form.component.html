@@ -40,10 +40,10 @@
             <pk-devider *ngSwitchCase="'devider'" class="element"></pk-devider>
             <pk-devider *ngSwitchCase="'hiddenDevider'" class="element devider--hidden"></pk-devider>
 
-            <h1 *ngSwitchCase="'h1'" class="devider devider--secondary element">{{ element.value }}</h1>
-            <h2 *ngSwitchCase="'h2'" class="devider element">{{ element.value }}</h2>
-            <h3 *ngSwitchCase="'h3'" class="element">{{ element.value }}</h3>
-            <h4 *ngSwitchCase="'h4'" class="element">{{ element.value }}</h4>
+            <h1 *ngSwitchCase="'h1'" class="element--h1 devider devider--secondary element">{{ element.value }}</h1>
+            <h2 *ngSwitchCase="'h2'" class="element--h2 devider element">{{ element.value }}</h2>
+            <h3 *ngSwitchCase="'h3'" class="element--h3 element">{{ element.value }}</h3>
+            <h4 *ngSwitchCase="'h4'" class="element--h4 element">{{ element.value }}</h4>
 
             <div *ngSwitchCase="'info'" class="element">
                 <div class="element__label element--no-wrap">

@@ -113,12 +113,13 @@ app/
     /decorators
 ```
 
-## Tools
+## Tools & Patterns
 
 - BEM
 - Sass
 - Atomic Design
 - Angular-Cli / Webpack, Karma, Jasmine
+- Grid in REM
 
 
 ## TODO

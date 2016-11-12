@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Observer, BehaviorSubject } from 'rxjs/Rx';
+import { Observable, BehaviorSubject } from 'rxjs/Rx';
 
 import { FormService } from './../form';
 import { AlertService } from './../alert';
@@ -27,13 +27,13 @@ export class FormElementService {
             } else {
                 this.editNewElement();
             }
-        })
+        });
 
         this.getInputTypeOptions().subscribe(elementTypes => {
             this.selectTypeFormElement = elementTypes;
             this.elementBase = [this.selectTypeFormElement, { elementType: 'devider' }];
             this.resetElement();
-        })
+        });
     }
 
     /**
@@ -75,7 +75,7 @@ export class FormElementService {
         let existing = false;
         let inputTypes = this.selectTypeFormElement.options;
         for (let i = 0, length = inputTypes ? inputTypes.length : 0; i < length; i++) {
-            if (type === inputTypes[i].value) existing = true;
+            if (type === inputTypes[i].value) { existing = true; }
         }
 
         /** Set type as Select Value */
@@ -141,7 +141,7 @@ export class FormElementService {
                 this.setElement(formElement);
                 this.setElementPreview([element]);
             }
-        }
+        };
 
         return true;
     }
@@ -158,9 +158,9 @@ export class FormElementService {
         if (type && type !== this.selectedType) {
             this.selectedType = type;
             this.getOptionsOfInputType(type).subscribe((options) => {
-                this.setElement(this.elementBase.concat(options))
+                this.setElement(this.elementBase.concat(options));
                 this.setElementHasSubmit(true);
-            })
+            });
         }
 
         /** Create or remove Preview Element if name exists */
@@ -189,13 +189,14 @@ export class FormElementService {
 
         /** Check if Validation already exists */
         for (let i = 0, length = this.element.length; i < length; i++) {
-            if (this.element[i].name === 'validations') return;
+            if (this.element[i].name === 'validations') { return; }
         }
 
         /** Get Validation Options */
         this.getValidationsOfInputType(this.selectedType).subscribe((validations) => {
-            if (validations) // catch else case with message?
+            if (validations) { // catch else case with message?
                 this.setElement(this.element.concat(validations));
+            };
             this.setElementHasValidations(true);
         });
     }
@@ -209,13 +210,14 @@ export class FormElementService {
 
         /** Check if Styles already exists */
         for (let i = 0, length = this.element.length; i < length; i++) {
-            if (this.element[i].name === 'styles') return;
+            if (this.element[i].name === 'styles') { return; }
         }
 
         /** Get Styles Options */
         this.getStyles(this.selectedType).subscribe((styles) => {
-            if (styles) // catch else case with message?
-                this.setElement(this.element.concat([styles]))
+            if (styles) { // catch else case with message?
+                this.setElement(this.element.concat([styles]));
+            };
             this.setElementHasStyles(true);
         });
     }
@@ -269,8 +271,8 @@ export class FormElementService {
             setTimeout(() => {
                 observer.next(result);
                 observer.complete();
-            }, 2000)
-        })
+            }, 2000);
+        });
     }
 
     /**
@@ -286,12 +288,12 @@ export class FormElementService {
                 let devider = { elementType: 'devider' };
                 let result = [].concat(name);
                 let element = options[elementType];
-                if (element) result = result.concat(element);
+                if (element) { result = result.concat(element); }
                 result.push(devider);
                 observer.next(result);
                 observer.complete();
-            }, 500)
-        })
+            }, 500);
+        });
     }
 
     /**
@@ -305,8 +307,8 @@ export class FormElementService {
             setTimeout(() => {
                 observer.next(options[elementType]);
                 observer.complete();
-            }, 500)
-        })
+            }, 500);
+        });
     }
 
     /**
@@ -320,8 +322,8 @@ export class FormElementService {
             setTimeout(() => {
                 observer.next(options);
                 observer.complete();
-            }, 500)
-        })
+            }, 500);
+        });
     }
 
     /***************************************
@@ -486,14 +488,6 @@ function nm() {
         styles: [
             'small'
         ]
-    },
-    {
-        elementType: 'checkbox',
-        name: 'required',
-        label: 'Required Field',
-        styles: [
-            'small', 'aligned'
-        ]
     }];
     return nm;
 }
@@ -502,6 +496,14 @@ function opts() {
 
     var opts = {
         input: [
+            {
+                elementType: 'checkbox',
+                name: 'required',
+                label: 'Required Field',
+                styles: [
+                    'small', 'aligned'
+                ]
+            },
             {
                 elementType: 'input',
                 name: 'label',
@@ -542,6 +544,14 @@ function opts() {
         ],
         textarea: [
             {
+                elementType: 'checkbox',
+                name: 'required',
+                label: 'Required Field',
+                styles: [
+                    'small', 'aligned'
+                ]
+            },
+            {
                 elementType: 'input',
                 name: 'label',
                 label: 'Label of the Input',
@@ -557,6 +567,14 @@ function opts() {
         ],
         checkbox: [
             {
+                elementType: 'checkbox',
+                name: 'required',
+                label: 'Required Field',
+                styles: [
+                    'small', 'aligned'
+                ]
+            },
+            {
                 elementType: 'input',
                 name: 'label',
                 label: 'Label',
@@ -564,6 +582,14 @@ function opts() {
             }
         ],
         radio: [
+            {
+                elementType: 'checkbox',
+                name: 'required',
+                label: 'Required Field',
+                styles: [
+                    'small', 'aligned'
+                ]
+            },
             {
                 elementType: 'select',
                 name: 'options',
@@ -592,6 +618,14 @@ function opts() {
 
         ],
         select: [
+            {
+                elementType: 'checkbox',
+                name: 'required',
+                label: 'Required Field',
+                styles: [
+                    'small', 'aligned'
+                ]
+            },
             {
                 elementType: 'input',
                 name: 'label',
@@ -633,7 +667,7 @@ function opts() {
         ],
         h1: [
             {
-                elementType: 'textarea',
+                elementType: 'input',
                 name: 'value',
                 label: 'Content',
                 required: true
@@ -641,7 +675,7 @@ function opts() {
         ],
         h2: [
             {
-                elementType: 'textarea',
+                elementType: 'input',
                 name: 'value',
                 label: 'Content',
                 required: true
@@ -649,7 +683,7 @@ function opts() {
         ],
         h3: [
             {
-                elementType: 'textarea',
+                elementType: 'input',
                 name: 'value',
                 label: 'Content',
                 required: true
@@ -657,7 +691,7 @@ function opts() {
         ],
         h4: [
             {
-                elementType: 'textarea',
+                elementType: 'input',
                 name: 'value',
                 label: 'Content',
                 required: true
