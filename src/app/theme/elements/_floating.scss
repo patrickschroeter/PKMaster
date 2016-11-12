@@ -9,6 +9,7 @@
         position: fixed;
         z-index: 5;
 
+        // floating right
         &.floating--top-right {
             top: 90px;
             right: 40px;
@@ -22,8 +23,42 @@
                 left: 50%;
                 margin-left: 552px;
             }
+            @media (max-width: 700px) {
+                right: 20px;
+            }
+        }
+
+        // floating left
+        &.floating--top-left {
+            top: 90px;
+            left: 40px;
+        }
+        &.floating--bottom-left {
+            bottom: 40px;
+            left: 40px;
+        }
+        &.floating--bottom-left, &.floating--top-left {
+            @media (max-width: 700px) {
+                left: 20px;
+            }
+        }
+
+        // floating top
+        &.floating--top-left, &.floating--top-right {
+            @media (max-width: 700px) {
+                top: 70px;
+            }
+        }
+
+        // floating bottom
+        &.floating--bottom-left, &.floating--bottom-right {
+            @media (max-width: 700px) {
+                bottom: 20px;
+            }
         }
     }
+
+    // floating right
     &.floating--top-right {
         top: 9px;
         right: 9px;
@@ -32,10 +67,14 @@
         bottom: 9px;
         right: 9px;
     }
+
+    // floating left
     &.floating--bottom-left {
         bottom: 9px;
         left: 9px;
     }
+
+    // floating corner bottom
     &.floating--bottom-right-corner {
         bottom: -10px;
         right: -10px;

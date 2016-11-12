@@ -25,10 +25,10 @@
     </div>
 
     <div class="floating floating--fixed floating--top-right" *ngIf="elementPreview.length > 0" >
-        <pk-button class="element--rounded element--spacing-bottom-small" [icon]="'visibility'" (onClick)="toggleElementPreview()" element--success></pk-button>
-        <pk-button *ngIf="!elementHasValidations" class="element--rounded element--spacing-bottom-tiny" [icon]="'security'" (onClick)="addValidations()" element--success></pk-button>
-        <pk-button *ngIf="!elementHasStyles" class="element--rounded element--spacing-bottom-small" [icon]="'color_lens'" (onClick)="addStyles()" element--success></pk-button>
-        <pk-button class="element--rounded" [icon]="'clear'" (onClick)="removeElement()" element--error></pk-button>
+        <pk-button class="element--rounded element--spacing-bottom-small" [icon]="'visibility'" (onClick)="toggleElementPreview()" element--secondary></pk-button>
+        <pk-button *ngIf="!elementHasValidations" class="element--rounded element--spacing-top-tiny" [icon]="'security'" (onClick)="addValidations()" element--secondary></pk-button>
+        <pk-button *ngIf="!elementHasStyles" class="element--rounded element--spacing-top-tiny" [icon]="'color_lens'" (onClick)="addStyles()" element--secondary></pk-button>
+        <pk-button class="element--rounded element--spacing-top-small" [icon]="'clear'" (onClick)="removeElement()" element--error></pk-button>
 
     </div>
 </div>
