@@ -1,0 +1,1384 @@
+# This is the API for PK - the master Thesis of Stephan and Patrick
+swagger: '2.0'
+info:
+  title: PK API
+  description: Move your app forward with the PK API
+  version: "0.0.1"
+# the domain of the service
+host: localhost:8080
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /v0
+produces:
+  - application/json
+
+
+# Root description for all Routes
+# need to be added to the Routes
+tags:
+  - name: permissions
+    description: Route to manage Permissions
+  - name: forms
+    description: Route to manage Forms
+  - name: roles
+    description: Route to manage Roles
+  - name: users
+    description: Route to manage Users
+  - name: applications
+    description: Route to manage Applications
+  - name: conferences
+    description: Route to manage Conferences
+
+# all available API Routes
+
+paths:
+
+  ################################################################
+  ###################### Application Routes ######################
+  ################################################################
+
+  # Application Base
+
+  /applications:
+
+    # GET Applications
+
+    get:
+      summary: GET all Applications
+      description: The Applications Endpoint returns all Applications
+      operationId: getApplications
+      tags:
+        - applications
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/filter"
+        - $ref: "#/parameters/sort"
+      responses:
+        200:
+          description: An array of Applications
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Application'
+
+    # ADD Application
+
+    post:
+      summary: Create new Application
+      operationId: addApplication
+      tags:
+        - applications
+      parameters:
+        - $ref: "#/parameters/token"
+        - name: application
+          in: body
+          description: The new Application Object
+          schema:
+            $ref: '#/definitions/Application'
+      responses:
+        200:
+          description: The new Application Object
+          schema:
+            $ref: '#/definitions/Application'
+
+
+  # Application by ID
+
+  /applications/{application_id}:
+
+    # GET Application by ID
+
+    get:
+      summary: GET one Application by Id
+      operationId: getApplicationById
+      tags:
+        - applications
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/applicationId"
+      responses:
+        200:
+          description: Application by id
+          schema:
+            $ref: '#/definitions/Application'
+
+    # UPDATE Application by ID
+
+    put:
+      summary: Update Application with Id
+      operationId: updateApplicationById
+      tags:
+        - applications
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/applicationId"
+        - name: application
+          in: body
+          description: Application to Update
+          required: true
+          schema:
+            $ref: '#/definitions/Application'
+      responses:
+        200:
+          description: The updated Application
+          schema:
+            $ref: '#/definitions/Application'
+
+    # DELETE Application by ID
+
+    delete:
+      summary: Delete Application with Id
+      operationId: deleteApplicationById
+      tags:
+        - applications
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/applicationId"
+      responses:
+        200:
+          description: Application deleted
+
+
+  # Application Comments
+
+  /applications/{application_id}/comments:
+
+    # ADD Comment to Application
+
+    post:
+      summary: Add comment to Application
+      operationId: addCommentToApplication
+      tags:
+        - applications
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/applicationId"
+        - name: comment
+          in: body
+          description: New Comment
+          required: true
+          schema:
+            $ref: '#/definitions/Comment'
+      responses:
+        200:
+          description: The new Comment Object
+          schema:
+            $ref: '#/definitions/Comment'
+
+  # Application Comment by ID
+
+  /applications/{application_id}/comments/{comment_id}:
+
+    # UPDATE Application Comment by ID
+
+    put:
+      summary: Update a comment with Id
+      operationId: updateApplicationCommentById
+      tags:
+        - applications
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/applicationId"
+        - $ref: "#/parameters/commentId"
+        - name: comment
+          in: body
+          description: Updated Comment
+          required: true
+          schema:
+            $ref: '#/definitions/Comment'
+      responses:
+        200:
+          description: The updated Comment Object
+          schema:
+            $ref: '#/definitions/Comment'
+
+
+  ###############################################################
+  ###################### Converence Routes ######################
+  ###############################################################
+
+  # Conference Base
+
+  /conferences:
+
+    # GET Conferences
+
+    get:
+      summary: GET all Conferences
+      description: The Conferences Endpoint returns all Conferences
+      operationId: getConferences
+      tags:
+        - conferences
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/filter"
+        - $ref: "#/parameters/sort"
+      responses:
+        200:
+          description: An array of Conferences
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Conference'
+
+    # ADD Conference
+
+    post:
+      summary: Create new Conference
+      operationId: addConference
+      tags:
+        - conferences
+      parameters:
+        - $ref: "#/parameters/token"
+        - name: conference
+          in: body
+          description: new Conference Object
+          schema:
+            $ref: '#/definitions/Conference'
+      responses:
+        200:
+          description: The new Conference Object
+          schema:
+            $ref: '#/definitions/Conference'
+
+  # Conference by ID
+
+  /conferences/{conference_id}:
+
+    # GET Conference by ID
+
+    get:
+      summary: GET one Conference by Id
+      operationId: getConferenceById
+      tags:
+        - conferences
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/conferenceId"
+      responses:
+        200:
+          description: Conference by id
+          schema:
+            $ref: '#/definitions/Conference'
+
+    # UPDATE Conference by ID
+
+    put:
+      summary: Update Conference with Id
+      operationId: updateConferenceById
+      tags:
+        - conferences
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/conferenceId"
+        - name: conference
+          in: body
+          description: Conference to Update
+          required: true
+          schema:
+            $ref: '#/definitions/Conference'
+      responses:
+        200:
+          description: The updated Conference Object
+          schema:
+            $ref: '#/definitions/Conference'
+
+    # DELETE Conference by ID
+
+    delete:
+      summary: Delete Conference with Id
+      operationId: deleteConferenceById
+      tags:
+        - conferences
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/conferenceId"
+      responses:
+        200:
+          description: Conference deleted
+
+  # Conference Applications
+
+  /conferences/{conference_id}/applications:
+
+    # GET Conference Applications
+
+    get:
+      summary: GET Applications of Conference with Id
+      operationId: getApplicationsByConference
+      tags:
+        - conferences
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/conferenceId"
+      responses:
+        200:
+          description: All Applications of the Conference
+          schema:
+            type: array
+            items:
+                $ref: '#/definitions/Application'
+
+    # ADD Application to Conference
+
+    post:
+      summary: Add a Application to the Conference
+      operationId: addApplicationToConference
+      tags:
+        - conferences
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/conferenceId"
+        - name: application
+          in: body
+          description: The Application ID
+          schema:
+            type: number
+      responses:
+        200:
+          description: Updated Conference with new Application
+          schema:
+            $ref: '#/definitions/Conference'
+
+    # DELETE Application from Conference
+
+    delete:
+      summary: Delete Application of Conference
+      operationId: deleteApplicationOfConference
+      tags:
+        - conferences
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/conferenceId"
+        - name: application
+          in: body
+          description: The Application ID
+          schema:
+            type: number
+      responses:
+        200:
+          description: Updated Conference without new Application
+          schema:
+            $ref: '#/definitions/Conference'
+
+
+  #########################################################
+  ###################### Form Routes ######################
+  #########################################################
+
+  # Form Base
+
+  /forms:
+
+    # GET Forms
+
+    get:
+      summary: GET all Forms
+      description: The Forms Endpoint returns all Forms
+      operationId: getForms
+      tags:
+        - forms
+      parameters:
+        - $ref: "#/parameters/token"
+      responses:
+        200:
+          description: An array of Forms
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Form'
+
+    # ADD Form
+
+    post:
+      summary: Create new Form
+      operationId: addForm
+      tags:
+        - forms
+      parameters:
+        - $ref: "#/parameters/token"
+        - name: form
+          in: body
+          description: new Form
+          schema:
+            $ref: '#/definitions/Form'
+      responses:
+        200:
+          description: The new Form Object
+          schema:
+            $ref: '#/definitions/Form'
+
+  # Forms by ID
+
+  /forms/{form_id}:
+
+    # GET Form by ID
+
+    get:
+      summary: GET one Form by Id
+      operationId: getFormById
+      tags:
+        - forms
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/formId"
+      responses:
+        200:
+          description: Form by id
+          schema:
+            $ref: '#/definitions/Form'
+
+    # UPDATE Form by ID
+
+    put:
+      summary: Update Form with Id
+      operationId: updateFormById
+      tags:
+        - forms
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/formId"
+        - name: form
+          in: body
+          description: Updated Form
+          required: true
+          schema:
+            $ref: '#/definitions/Form'
+      responses:
+        200:
+          description: The updated Form
+          schema:
+            $ref: '#/definitions/Form'
+
+    # DELETE Form by ID
+
+    delete:
+      summary: Delete Form with Id
+      operationId: deleteFormById
+      tags:
+        - forms
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/formId"
+      responses:
+        200:
+          description: Form deleted
+
+  /forms/config/types:
+
+    # GET Form Config Types
+
+    get:
+      summary: GET the config for input types
+      operationId: getFormConfig
+      tags:
+        - forms
+      parameters:
+        - $ref: "#/parameters/token"
+      responses:
+        200:
+          description: Form Config Types
+          schema:
+            $ref: '#/definitions/FormElement'
+
+  /forms/config/options:
+
+    # GET Form Config Options
+
+    get:
+      summary: GET the config for input options
+      operationId: getFormOptions
+      tags:
+        - forms
+      parameters:
+        - $ref: "#/parameters/token"
+      responses:
+        200:
+          description: Form Config Options
+          schema:
+            type: object
+
+  /forms/config/validations:
+
+    # GET Form Config Validations
+
+    get:
+      summary: GET the config for input Validations
+      operationId: getFormValidations
+      tags:
+        - forms
+      parameters:
+        - $ref: "#/parameters/token"
+      responses:
+        200:
+          description: Form Config Validations
+          schema:
+            type: object
+
+  /forms/config/styles:
+
+    # GET Form Config Styles
+
+    get:
+      summary: GET the config for input Styles
+      operationId: getFormStyles
+      tags:
+        - forms
+      parameters:
+        - $ref: "#/parameters/token"
+      responses:
+        200:
+          description: Form Config Styles
+          schema:
+            type: object
+
+
+
+  ###############################################################
+  ###################### Permission Routes ######################
+  ###############################################################
+
+  # Permission Base
+
+  /permissions:
+
+    # GET Permissions
+
+    get:
+      summary: GET all Permissions
+      description: The Permission Endpoint returns all Permissions
+      operationId: getPermissions
+      tags:
+        - permissions
+      parameters:
+        - $ref: "#/parameters/token"
+      responses:
+        200:
+          description: An array of permission Objects
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Permission'
+
+  # Permission by ID
+
+  /permissions/{permission_id}:
+
+    # GET Permission by ID
+
+    get:
+      summary: GET one Permissions by Id
+      operationId: getPermissionById
+      tags:
+        - permissions
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/permissionId"
+      responses:
+        200:
+          description: Permission by Id
+          schema:
+            $ref: '#/definitions/Permission'
+
+    # UPDATE Permission by ID
+
+    put:
+      summary: Update Permission
+      operationId: updatePermissionById
+      tags:
+        - permissions
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/permissionId"
+        - name: permission
+          in: body
+          description: Permission to Update
+          required: true
+          schema:
+            $ref: '#/definitions/Permission'
+      responses:
+        200:
+          description: An Permission Object
+          schema:
+            $ref: '#/definitions/Permission'
+
+
+  ##########################################################
+  ###################### Roles Routes ######################
+  ##########################################################
+
+  # Roles Base
+
+  /roles:
+
+    # GET Roles
+
+    get:
+      summary: GET all Roles
+      description: The Roles Endpoint returns all Roles
+      operationId: getRoles
+      tags:
+        - roles
+      parameters:
+        - $ref: "#/parameters/token"
+      responses:
+        200:
+          description: An array of Roles
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Role'
+
+    # ADD Role
+
+    post:
+      summary: Create new Role
+      operationId: addRole
+      tags:
+        - roles
+      parameters:
+        - $ref: "#/parameters/token"
+        - name: role
+          in: body
+          description: The new Role Object
+          schema:
+            $ref: '#/definitions/Role'
+      responses:
+        200:
+          description: The new Role Object
+          schema:
+            $ref: '#/definitions/Role'
+
+  # Roles By ID
+
+  /roles/{role_id}:
+
+    # GET Role by ID
+
+    get:
+      summary: GET one Role by Id
+      operationId: getRoleById
+      tags:
+        - roles
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/roleId"
+      responses:
+        200:
+          description: Role by Id
+          schema:
+            $ref: '#/definitions/Role'
+
+    # UPDATE Role by ID
+
+    put:
+      summary: Update Role with Id
+      operationId: updateRoleById
+      tags:
+        - roles
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/roleId"
+        - name: role
+          in: body
+          description: Updated Role
+          required: true
+          schema:
+            $ref: '#/definitions/Role'
+      responses:
+        200:
+          description: The updated Role Object
+          schema:
+            $ref: '#/definitions/Role'
+
+    # DELETE Role by ID
+
+    delete:
+      summary: Delete Role with Id
+      operationId: deleteRoleById
+      tags:
+        - roles
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/roleId"
+      responses:
+        200:
+          description: Role deleted
+
+  # Role Permissions
+
+  /roles/{role_id}/permissions/{permission_id}:
+
+    # ADD Permission to Role
+
+    post:
+      summary: Add Permission to Role
+      operationId: addPermissionToRole
+      tags:
+        - roles
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/roleId"
+        - $ref: "#/parameters/permissionId"
+      responses:
+        200:
+          description: Role added
+
+    # DELETE Permission from Role
+
+    delete:
+      summary: Remove Permission of Role
+      operationId: deletePermissionOfRole
+      tags:
+        - roles
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/roleId"
+        - $ref: "#/parameters/permissionId"
+      responses:
+        200:
+          description: Permission deleted
+
+
+  #########################################################
+  ###################### User Routes ######################
+  #########################################################
+
+  # User Base
+
+  /users:
+
+    # GET Users
+
+    get:
+      summary: GET all User
+      description: The Users Endpoint returns all Users
+      operationId: getUsers
+      tags:
+        - users
+      parameters:
+        - $ref: "#/parameters/token"
+      responses:
+        200:
+          description: An array of Users
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+
+    # ADD User
+
+    post:
+      summary: Create new User from LDAP
+      operationId: addUser
+      tags:
+        - users
+      parameters:
+        - $ref: "#/parameters/token"
+        - name: user
+          in: body
+          description: The User credentials
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        200:
+          description: The new User Object
+          schema:
+            $ref: '#/definitions/User'
+
+  # User by ID
+
+  /users/{user_id}:
+
+    # GET User by ID
+
+    get:
+      summary: GET one User by Id
+      operationId: getUserById
+      tags:
+        - users
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/userId"
+      responses:
+        200:
+          description: User by id
+          schema:
+            $ref: '#/definitions/User'
+
+    # UPDATE User by ID
+
+    put:
+      summary: Update User with Id
+      operationId: updateUserById
+      tags:
+        - users
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/userId"
+        - name: user
+          in: body
+          description: Updated User
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        200:
+          description: The updated User Object
+          schema:
+            $ref: '#/definitions/User'
+
+  # User Reset
+
+  /users/{user_id}/reset:
+
+    # Reset User Password
+
+    put:
+      summary: Reset the User's Password
+      operationId: resetUserPassword
+      tags:
+        - users
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/userId"
+        - name: email
+          in: body
+          description: The User's E-Mail address
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+      responses:
+        200:
+          description: Email to reset Password has been sent.
+
+  # User Password
+
+  /users/{user_id}/password:
+
+    # UPDATE User Password
+
+    put:
+      summary: Update the User's Password
+      operationId: updatetUserPassword
+      tags:
+        - users
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/userId"
+        - name: setPasswordCredentials
+          in: body
+          description: The User's new credentials
+          required: true
+          schema:
+            type: object
+            properties:
+              oldpassword:
+                type: string
+                format: password
+              newpassword:
+                type: string
+                format: password
+      responses:
+        200:
+          description: Password has been changed.
+
+  # User Roles
+
+  /users/{user_id}/role:
+
+    # UPDATE User Roles
+
+    put:
+      summary: Update the User's Role
+      operationId: updateUserRole
+      tags:
+        - users
+      parameters:
+        - $ref: "#/parameters/token"
+        - $ref: "#/parameters/userId"
+        - name: role
+          in: body
+          description: The User's new Role
+          required: true
+          schema:
+            type: number
+            description: Role Id of the new Role
+      responses:
+        200:
+          description: Role has been changed.
+
+
+################################################################
+###################### Definition Objects ######################
+################################################################
+
+definitions:
+
+  # Permission
+
+  Permission:
+    type: object
+    required:
+      - id
+      - name
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: Unique identifier of the Permission
+      created:
+        type: integer
+        format: int32
+        description: Creation timestamp of the Permission
+      modified:
+        type: integer
+        format: int32
+        description: Last timestamp of modification of the Permission
+      name:
+        type: string
+        description: Name of the Permission
+
+  # Role
+
+  Role:
+    type: object
+    required:
+        - id
+        - name
+        - items
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: Unique identifier of the Role
+      created:
+        type: integer
+        format: int32
+        description: Creation timestamp of the Role
+      modified:
+        type: integer
+        format: int32
+        description: Last timestamp of modification of the Role
+      name:
+        type: string
+        description: Name of the Role
+      items:
+        type: array
+        description: A list of all Permissions the Role has
+        items:
+          $ref: '#/definitions/Permission'
+
+  # User
+
+  User:
+    type: object
+    required:
+    - id
+    - email
+    - password
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: Unique identifier of the User
+      created:
+        type: integer
+        format: int32
+        description: Creation timestamp of the User
+      modified:
+        type: integer
+        format: int32
+        description: Last timestamp of modification of the User
+      firstname:
+        type: string
+        description: Firstname of the User
+      lastname:
+        type: string
+        description: Lastname of the User
+      email:
+        type: string
+        description: E-Mail Address of the User
+      password:
+        type: string
+        description: Encrypted password of the User
+        format: password
+      lastLogin:
+        type: integer
+        format: int32
+        description: Timestamp of the last login of the User
+      studiengang:
+        type: string
+        description: Studiengang the User is part of
+
+  # Application
+
+  Application:
+    type: object
+    required:
+        - id
+        - form
+        - attributes
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: Unique identifier of the Application
+      created:
+        type: integer
+        format: int32
+        description: Creation timestamp of the Application
+      modified:
+        type: integer
+        format: int32
+        description: Last timestamp of modification of the Application
+      author:
+        $ref: '#/definitions/User'
+      form:
+        $ref: '#/definitions/Form'
+      attributes:
+        type: array
+        description: All Attributes with Value of the Application
+        items:
+          $ref: '#/definitions/FormElement'
+      assigned:
+        type: array
+        description: Users the Application is assigned to
+        items:
+            $ref: '#/definitions/User'
+      state:
+        $ref: '#/definitions/State'
+
+  # State
+  State:
+    type: object
+    description: The current State of the Application
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: Unique identifier of the State
+      name:
+        type: string
+        description: The Name of the State
+        enum: [available, pending, sold]
+        default: available
+
+  # Comment
+
+  Comment:
+    type: object
+    required:
+        - id
+        - message
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: Unique identifier of the Comment
+      created:
+        type: integer
+        format: int32
+        description: Creation timestamp of the Comment
+      modified:
+        type: integer
+        format: int32
+        description: Last timestamp of modification of the Comment
+      author:
+        $ref: '#/definitions/User'
+      message:
+        type: string
+        description: The Comment Message
+
+  # Conference
+
+  Conference:
+    type: object
+    required:
+        - id
+        - studiengang
+        - date
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: Unique identifier of the Conference
+      created:
+        type: integer
+        format: int32
+        description: Creation timestamp of the Conference
+      modified:
+        type: integer
+        format: int32
+        description: Last timestamp of modification of the Conference
+      author:
+        $ref: '#/definitions/User'
+      studiengang:
+        type: string
+        description: Studiengang of the Conference's PK
+      date:
+        type: string
+        format: date-time
+        description: Date of the Conference
+      participants:
+        type: array
+        description: All PK Members participating the Conference
+        items:
+          $ref: '#/definitions/User'
+      applications:
+        type: array
+        description: All Applications handled in the Conference
+        items:
+          $ref: '#/definitions/Application'
+
+  # Form
+
+  Form:
+    type: object
+    required:
+        - id
+        - name
+        - attributes
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: Unique identifier of the Form
+      created:
+        type: integer
+        format: int32
+        description: Creation timestamp of the Form
+      modified:
+        type: integer
+        format: int32
+        description: Last timestamp of modification of the Form
+      name:
+        type: string
+        description: Name of the Form
+      fakultaet:
+        type: string
+        description: Fakultaet of the Form
+      attributes:
+        type: array
+        description: All Attributes of the Form
+        items:
+          $ref: '#/definitions/FormElement'
+
+  # Form Attribute
+
+  FormElement:
+    type: object
+    required:
+        - id
+        - index
+        - elementType
+        - name
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: Unique identifier of the FormElement
+      created:
+        type: integer
+        format: int32
+        description: Creation timestamp of the FormElement
+      modified:
+        type: integer
+        format: int32
+        description: Last timestamp of modification of the FormElement
+      index:
+        type: integer
+        format: int32
+        description: The Position of the FormElement in the Application itself
+
+      elementType:
+        type: string
+        description: The Type of the Form Element (eg input, checkbox, radio, select, textarea)
+      name:
+        type: string
+        description: Inique readable ID/Name
+      type:
+        type: string
+        description: Input only - type of the input field (eg email, password, text)
+
+      label:
+        type: string
+        description: The label of the FormElement
+      required:
+        type: boolean
+        description: Flag to indicate if the FormElement is required or not
+
+      placeholder:
+        type: string
+        description: Placeholder for the input / textarea
+      validations:
+        type: array
+        description: An Array of Strings for input validation
+        items:
+            type: string
+      multiple:
+        type: boolean
+        description: Select only - ability to select multiple elements
+
+      value:
+        type: array
+        description: The value or the values of the ApplicationAttribute (string or array)
+        items:
+          type: string
+
+      formControl:
+        type: object
+        description: Placeholder for the Form Control of Angular 2
+
+      options:
+        type: array
+        description: Options for Radio and Select
+        items:
+          $ref: '#/definitions/FormOptions'
+
+
+      styles:
+        type: array
+        description: Styles parameters for the visual appearance of the Application
+        items:
+          type: string
+
+  # Error
+
+  Error:
+    type: object
+    required:
+        - code
+        - message
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
+
+  FormOptions:
+    type: object
+    required:
+      - value
+      - label
+    properties:
+      value:
+        type: string
+        description: DB value of the Option
+      label:
+        type: string
+        description: Displayed name
+
+
+###############################################################
+###################### Parameter Objects ######################
+###############################################################
+
+parameters:
+
+  # Auth Token
+
+  token:
+    name: token
+    in: header
+    description: Accesstoken to authenticate with the API
+    required: true
+    type: integer
+    format: int64
+    collectionFormat: csv
+
+  # Permission ID
+
+  permissionId:
+    name: permission_id
+    in: path
+    description: ID of Permission
+    required: true
+    type: number
+    format: integer
+
+  # Role ID
+
+  roleId:
+    name: role_id
+    in: path
+    description: ID of Role
+    required: true
+    type: number
+    format: integer
+
+  # User ID
+
+  userId:
+    name: user_id
+    in: path
+    description: ID of User
+    required: true
+    type: number
+    format: integer
+
+  # Application ID
+
+  applicationId:
+    name: application_id
+    in: path
+    description: ID of the Application
+    required: true
+    type: number
+    format: integer
+
+  # Comment ID
+
+  commentId:
+    name: comment_id
+    in: path
+    description: ID of the Comment
+    required: true
+    type: number
+    format: integer
+
+  # Conference ID
+
+  conferenceId:
+    name: conference_id
+    in: path
+    description: ID of the Conference
+    required: true
+    type: number
+    format: integer
+
+  # Form ID
+
+  formId:
+    name: form_id
+    in: path
+    description: ID of the Form
+    required: true
+    type: number
+    format: integer
+
+  # Filter Query
+
+  filter:
+    name: filter
+    in: query
+    description: Filter the Result
+    required: false
+    type: string
+
+  # Sort Query
+
+  sort:
+    name: sort
+    in: query
+    description: Sort the Result
+    required: false
+    type: string

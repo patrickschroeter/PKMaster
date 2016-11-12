@@ -29,7 +29,7 @@
                 padding: 8px;
                 border: 1px dotted transparent;
                 &:hover {
-                    border: 1px dotted $success;
+                    border: 1px dotted $accent-color;
 
                     .button.button--edit {
                         display: block;

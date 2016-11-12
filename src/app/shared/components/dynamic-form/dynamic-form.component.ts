@@ -109,6 +109,7 @@ export class DynamicFormComponent implements OnInit {
      * @return {void}
      */
     submit(element: Object): void {
+        console.log(element);
         this.onSubmit.emit(element);
     }
 

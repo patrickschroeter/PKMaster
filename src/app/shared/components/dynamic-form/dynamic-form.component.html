@@ -49,7 +49,7 @@
                 </div>
             </div>
           </div>
-          <pk-button *ngIf="editableElement" class="floating floating--bottom-right-corner button button--edit element element--rounded" [icon]="'create'" (onClick)="edit(element)" element--primary></pk-button>
+          <pk-button *ngIf="editableElement" class="floating floating--bottom-right-corner button button--edit element element--rounded" [icon]="'create'" (onClick)="edit(element)" element--secondary></pk-button>
         </div>
       </div>
 
@@ -60,14 +60,14 @@
           <pk-button
             [value]="'Cancel'"
             [icon]="'chevron_left'"
-            [class]="'element--lightgray'"
+            [class]="'element--error'"
             (onClick)="cancel()"></pk-button>
         </div>
         <div class="right" *ngIf="hasSubmit" (mouseover)="showValidation = true" (mouseout)="showValidation = false">
           <pk-button
             [value]="'OK'"
             [icon]="'chevron_right'"
-            [class]="form.valid ? 'element--secondary' : 'element--disabled'"
+            [class]="form.valid ? 'element--success' : 'element--disabled'"
             [type]="'submit'"></pk-button>
         </div>
       </div>

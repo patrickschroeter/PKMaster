@@ -11,12 +11,14 @@
         [editableElement]="true"
         (onEdit)="editElement($event)"
         (onRemove)="removeElement($event)"
-        [hasSubmit]="form.data.length > 0"
-        [hasCancel]="true"
+        [hasSubmit]="false"
+        [hasCancel]="false"
         ></pk-form>
 
-    <pk-button class="floating floating--bottom-left" [icon]="'add'" [value]="'Add Element'" element--primary (onClick)="addElement()"></pk-button>
-    <pk-button class="floating floating--bottom-right element--secondary" [value]="'Save Form'" [icon]="'chevron_right'" (onClick)="saveForm()"></pk-button>
+    <div class="floating floating--top-right floating--fixed">
+        <pk-button class="element--spacing-bottom-small element--rounded" [icon]="'add'" element--secondary (onClick)="addElement()"></pk-button>
+        <pk-button class="element--spacing-bottom-small element--rounded" [icon]="'save'" (onClick)="saveForm()" element--success></pk-button>
+    </div>
 </div>
 
 

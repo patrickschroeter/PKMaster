@@ -14,7 +14,7 @@
 
     </div>
     <div class="floating floating--fixed floating--top-right">
-        <pk-button class="element--rounded element--spacing-bottom-tiny" [icon]="'add'" element--success (onClick)="toggleCreateNew()"></pk-button>
+        <pk-button class="element--rounded element--spacing-bottom-tiny" [icon]="'add'" element--secondary (onClick)="toggleCreateNew()"></pk-button>
     </div>
     <pk-overlay [isOpen]="isOpenNewForm" (toggleOverlay)="toggleCreateNew()" class="overlay--fluid">
         <div class="pk-overlay__header">Create New Form</div>

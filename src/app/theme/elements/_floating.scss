@@ -17,6 +17,12 @@
             bottom: 40px;
             right: 40px;
         }
+        &.floating--bottom-right, &.floating--top-right {
+            @media (min-width: 1258px) {
+                left: 50%;
+                margin-left: 552px;
+            }
+        }
     }
     &.floating--top-right {
         top: 9px;
