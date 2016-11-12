@@ -19,7 +19,7 @@
             width: 50%;
         }
         &.form__element--aligned {
-            margin-top: $element-grid-base;
+            padding-top: $element-grid-base * 1.5;
         }
     }
 }

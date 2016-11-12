@@ -11,6 +11,7 @@
     display: block;
 
     /*line-height: $element-grid-base;*/
+    min-height: $element-grid-base;
 
     &:not(.element--align) {
         padding-top: $element-grid-base/4;

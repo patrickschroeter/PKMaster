@@ -35,4 +35,8 @@
 
     position: relative;
     top: $element-grid-base/4;
+
+    + span {
+        padding-left: $element-grid-base/4;
+    }
 }

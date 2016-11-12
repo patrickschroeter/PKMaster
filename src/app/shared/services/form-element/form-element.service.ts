@@ -160,6 +160,10 @@ export class FormElementService {
             this.getOptionsOfInputType(type).subscribe((options) => {
                 this.setElement(this.elementBase.concat(options));
                 this.setElementHasSubmit(true);
+                this.setElementHasValidations(false);
+                this.setElementHasStyles(false);
+                this.setElementHasPreview(false);
+                this.setElementPreview([]);
             });
         }
 
@@ -759,6 +763,10 @@ function styles() {
             {
                 value: 'small',
                 label: 'Small'
+            },
+            {
+                value: 'aligned',
+                label: 'Aligned ( + 1 rem at top)'
             }
         ],
         styles: [

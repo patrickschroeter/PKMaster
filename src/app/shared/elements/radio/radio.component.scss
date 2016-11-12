@@ -26,8 +26,14 @@
     display: inline-block;
     border: $border-width solid $accent-color;
     border-radius: 50%;
+    position: relative;
+    top: 0.5rem;
 
     &.element--active {
         background: $accent-color;
+    }
+
+    + span {
+        padding-left: $element-grid-base/4;
     }
 }
