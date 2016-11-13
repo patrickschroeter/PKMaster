@@ -3,13 +3,13 @@
 
 
 
-    <div class="form" *ngIf="!form.data || form.data.length < 1">
+    <div class="form" *ngIf="!form.elements || form.elements.length < 1">
         No Elements in this form.
     </div>
 
     <pk-form
-        *ngIf="form && form.data && form.data.length > 0"
-        [formElements]="form.data"
+        *ngIf="form && form.elements && form.elements.length > 0"
+        [formElements]="form.elements"
         [editableElement]="true"
         (onEdit)="editElement($event)"
         (onRemove)="removeElement($event)"
