@@ -21,7 +21,7 @@ export class SelectComponent implements OnInit {
     ngOnInit() {
         this.isOpen = false;
 
-        if (!this.config.formControl) this.config.formControl = new FormControl(this.config.value);
+        if (!this.config.formControl) { this.config.formControl = new FormControl(this.config.value); }
     }
 
     toggleSelectOverlay() {
@@ -36,12 +36,12 @@ export class SelectComponent implements OnInit {
         }
 
         let values = this.config.formControl.value;
-        if (!values) values = [];
+        if (!values) { values = []; }
 
         let value = option.value;
         let index = values.indexOf(value);
         if (index === -1) {
-            values.push(value)
+            values.push(value);
         } else {
             values.splice(index, 1);
         }
@@ -53,7 +53,7 @@ export class SelectComponent implements OnInit {
         let values = this.config.formControl.value;
         let value = option.value;
         let index = values.indexOf(value);
-        if (index !== -1) values.splice(index, 1);
+        if (index !== -1) { values.splice(index, 1); }
         this.config.formControl.setValue(values);
     }
 

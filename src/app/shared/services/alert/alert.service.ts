@@ -51,10 +51,6 @@ export class AlertService {
         }, 1000);
     }
 
-    setHint(message: string) {
-
-    }
-
     /**
      * @description Returns the Title Observer
      * @return {Observable}

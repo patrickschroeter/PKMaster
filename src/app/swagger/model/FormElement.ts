@@ -91,7 +91,7 @@ export interface FormElement {
     /**
      * The value or the values of the ApplicationAttribute (string or array)
      */
-    value?: string | Array<string>;
+    value?: any;
 
     /**
      * Placeholder for the Form Control of Angular 2

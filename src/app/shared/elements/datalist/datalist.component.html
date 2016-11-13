@@ -1,3 +1,53 @@
-<p>
-  datalist works!
-</p>
+<div
+    class="element__wrapper"
+    [class.element__invalid]="config.formControl.errors"
+    >
+
+    <label
+        class="element__label"
+        [class.element--required]="config.required"
+        *ngIf="config.label">
+        {{ config.label }}
+    </label>
+
+    <!-- All selected Elements when multiselect -->
+    <div class="element__select element__options" *ngIf="config.formControl.value && config.formControl.value.length !== 0">
+
+        <div *ngFor="let option of config.options">
+            <div class="element__option" (click)="removeOption(option)">
+                <div class="element__value">{{ option.label }}</div>
+                <i class="element__icon material-icons md-18" aria-hidden="true">clear</i>
+            </div>
+        </div>
+
+        <div class="element__option" (click)="toggleAddOptionOverlay()">
+            <div class="element__value">{{ config.placeholder ? config.placeholder : 'Add Option' }}</div>
+            <i class="element__icon material-icons md-18" aria-hidden="true">add</i>
+        </div>
+
+        <select class="hidden" multiple [attr.id]="config.name" [formControl]="config.formControl">
+            <option *ngFor="let option of config.options" [value]="option.value">{{ option.label }}</option>
+        </select>
+    </div>
+
+    <!-- Default Element if nothing is selected -->
+    <div class="element__select" *ngIf="!config.formControl.value || (config.formControl.value && config.formControl.value.length === 0)">
+        <div class="element__option" (click)="toggleAddOptionOverlay()">
+            <div class="element__value">{{ config.placeholder ? config.placeholder : 'Add Option' }}</div>
+            <i class="element__icon material-icons md-18" aria-hidden="true">add</i>
+        </div>
+    </div>
+
+    <pk-overlay [isOpen]="isOpen" (toggleOverlay)="toggleAddOptionOverlay()" class="overlay--fluid">
+        <div class="pk-overlay__header">{{ config.placeholder ? config.placeholder : 'Add Option' }}</div>
+        <div class="pk-overlay__content">
+            <pk-form
+                [formElements]="addOptionForm"
+                (onSubmit)="addOption($event)"
+                [hasSubmit]="true"></pk-form>
+        </div>
+    </pk-overlay>
+
+    <pk-form-validation [control]="config.formControl" [inputLabel]="config.label" *ngIf="!isOpen"></pk-form-validation>
+
+</div>
