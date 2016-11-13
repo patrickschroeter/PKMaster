@@ -44,7 +44,8 @@ import * as shared from './shared';
     shared.DynamicFormComponent,
     shared.FormValidationComponent,
     shared.DeviderComponent,
-    shared.OverlayComponent
+    shared.OverlayComponent,
+    shared.DatalistComponent
   ],
   imports: [
     BrowserModule,
