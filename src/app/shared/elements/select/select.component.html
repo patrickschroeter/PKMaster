@@ -13,16 +13,16 @@
     <!-- All selected Elements when multiselect -->
     <div class="element__select element__options" *ngIf="config.multiple && config.formControl.value && config.formControl.value.length !== 0">
 
+        <div class="element__option" (click)="toggleSelectOverlay()">
+            <div class="element__value">{{ config.placeholder ? config.placeholder : 'Bitte wählen' }}</div>
+            <i class="element__icon material-icons md-18" aria-hidden="true">keyboard_arrow_down</i>
+        </div>
+
         <div *ngFor="let option of config.options">
             <div *ngIf="config.formControl.value.indexOf(option.value) !== -1" class="element__option" (click)="removeOption(option)">
                 <div class="element__value">{{ option.label }}</div>
                 <i class="element__icon material-icons md-18" aria-hidden="true">clear</i>
             </div>
-        </div>
-
-        <div class="element__option" (click)="toggleSelectOverlay()">
-            <div class="element__value">{{ config.placeholder ? config.placeholder : 'Bitte wählen' }}</div>
-            <i class="element__icon material-icons md-18" aria-hidden="true">keyboard_arrow_down</i>
         </div>
 
 
@@ -42,7 +42,7 @@
     <!-- Selected Element if not multiselect -->
     <div class="element__select" *ngIf="!config.multiple && config.formControl.value ">
 
-        <div *ngFor="let option of config.options">
+        <div *ngFor="let option of config.options" class="clearfix">
             <div *ngIf="config.formControl.value.indexOf(option.value) !== -1" class="element__option" (click)="toggleSelectOverlay()">
                 <div class="element__value">{{ option.label }}</div>
                 <i class="element__icon material-icons md-18" aria-hidden="true">keyboard_arrow_down</i>

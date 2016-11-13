@@ -46,6 +46,7 @@ export class FormElementService {
         delete this.selectTypeFormElement.value;
         delete this.selectTypeFormElement.formControl;
         this.selectedType = null;
+        this.selectedOptions = null;
 
         this.setElement(this.elementBase);
         this.setElementHasValidations(false);
@@ -137,10 +138,13 @@ export class FormElementService {
                     let input = formElement[i];
                     if (element[input.name] && input.name !== 'elementType') {
                         input.value = element[input.name];
+                        if (input.name === 'optionTable') {
+                            this.selectedOptions = element[input.name];
+                            this.updateOptionsOfTable();
+                        }
                     }
                 }
 
-                this.updateOptionsOfTable();
                 this.setElement(formElement);
                 this.setElementPreview([element]);
             }
@@ -163,6 +167,7 @@ export class FormElementService {
             this.getOptionsOfInputType(type).subscribe((options) => {
                 if (this.selectedType) {
                     this.setElement(this.elementBase.concat(options));
+                    this.selectedOptions = null;
                     this.setElementHasSubmit(true);
                     this.setElementHasValidations(false);
                     this.setElementHasStyles(false);
@@ -188,6 +193,7 @@ export class FormElementService {
     }
 
     updateOptionsOfTable() {
+        console.log(this.selectedOptions);
         this.getOptionsOfTable(this.selectedOptions).subscribe(options => {
             let optionElement;
             for (let i = 0, length = this.element.length; i < length; i++) {
@@ -312,7 +318,7 @@ export class FormElementService {
                 this.alert.removeLoading('getInputTypeOptions');
                 observer.next(result);
                 observer.complete();
-            }, 2000);
+            }, 500);
         });
     }
 
@@ -324,7 +330,7 @@ export class FormElementService {
                 this.alert.removeLoading('getOptionsOfTable');
                 observer.next(result[name]);
                 observer.complete();
-            }, 2000);
+            }, 500);
         });
     }
 
@@ -347,7 +353,7 @@ export class FormElementService {
                 result.push(devider);
                 observer.next(result);
                 observer.complete();
-            }, 2000);
+            }, 500);
         });
     }
 
@@ -364,7 +370,7 @@ export class FormElementService {
                 this.alert.removeLoading('getValidationsOfInputType');
                 observer.next(options[elementType]);
                 observer.complete();
-            }, 2000);
+            }, 500);
         });
     }
 
@@ -381,7 +387,7 @@ export class FormElementService {
                 this.alert.removeLoading('getStyles');
                 observer.next(options);
                 observer.complete();
-            }, 2000);
+            }, 500);
         });
     }
 
@@ -912,11 +918,35 @@ function options() {
         language: [
             {
                 value: 'de',
-                label: 'deutsch'
+                label: 'Deutschland'
+            },
+            {
+                value: 'fr',
+                label: 'Frankreich'
+            },
+            {
+                value: 'es',
+                label: 'Spanien'
+            },
+            {
+                value: 'it',
+                label: 'Italien'
+            },
+            {
+                value: 'ir',
+                label: 'Irland'
+            },
+            {
+                value: 'bel',
+                label: 'Belgien'
+            },
+            {
+                value: 'cr',
+                label: 'Croatien'
             },
             {
                 value: 'en',
-                label: 'englisch'
+                label: 'USA'
             }
         ]
     }

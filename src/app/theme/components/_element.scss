@@ -108,6 +108,8 @@
 
 .element__select {
     margin: 0 -1%;
+    max-height: 10rem;
+    overflow-y: auto;
     .element__option {
         margin: 1%;
         margin-top: 0;
