@@ -24,7 +24,7 @@ export class PermissionService implements CanActivate, CanDeactivate<any>, CanAc
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):  Observable<boolean>|Promise<boolean>|boolean {
     let name = state.url.slice(1);
-    return true // hack
+    return true; // hack
     // if (!this.authentication.isLoggedIn()) {
     //   this.router.navigate(['/login']);
     //   return false;
@@ -51,42 +51,42 @@ export class PermissionService implements CanActivate, CanDeactivate<any>, CanAc
 
   guardConferencesRoute(): Observable<any> {
     let user = this.authentication.getUser();
-    return user.map((e)=> {
+    return user.map((e) => {
       return e.isPK;
     });
   }
 
   guardFormsRoute(): Observable<any> {
     let user = this.authentication.getUser();
-    return user.map((e)=> {
+    return user.map((e) => {
       return e.isPK;
     });
   }
 
   guardAdminRoute(): Observable<any> {
     let user = this.authentication.getUser();
-    return user.map((e)=> {
+    return user.map((e) => {
       return e.isAdmin;
     });
   }
 
   guardUsersRoute(): Observable<any> {
     let user = this.authentication.getUser();
-    return user.map((e)=> {
+    return user.map((e) => {
       return e.isAdmin;
     });
   }
 
   guardRolesRoute(): Observable<any> {
     let user = this.authentication.getUser();
-    return user.map((e)=> {
+    return user.map((e) => {
       return e.isAdmin;
     });
   }
 
   guardPermissionsRoute(): Observable<any> {
     let user = this.authentication.getUser();
-    return user.map((e)=> {
+    return user.map((e) => {
       return e.isAdmin;
     });
   }

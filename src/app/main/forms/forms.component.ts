@@ -35,7 +35,7 @@ export class FormsComponent implements OnInit {
                 title: 'Antrag auf Notenanrechnung',
                 id: 4,
             }
-        ]
+        ];
 
         this.newForm = [
             {
@@ -47,7 +47,7 @@ export class FormsComponent implements OnInit {
                     'minLength'
                 ]
             }
-        ]
+        ];
     }
 
     createNewForm(form) {

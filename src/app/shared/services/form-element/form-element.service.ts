@@ -483,7 +483,7 @@ export class FormElementService {
 
 function types() {
 
-    var types = {
+    let types = {
         elementType: 'select',
         name: 'elementType',
         label: 'Element Typ',
@@ -545,7 +545,7 @@ function types() {
 
 function nm() {
 
-    var nm = [{
+    let nm = [{
         elementType: 'input',
         name: 'name',
         label: 'Unique Name (ID)',
@@ -559,7 +559,7 @@ function nm() {
 
 function opts() {
 
-    var opts = {
+    let opts = {
         input: [
             {
                 elementType: 'checkbox',
@@ -681,7 +681,7 @@ function opts() {
             {
                 elementType: 'h4',
                 value: 'Create a custom List or use an existing one.'
-            },{
+            }, {
                 elementType: 'select',
                 name: 'optionTable',
                 label: 'Table of Options',
@@ -828,7 +828,7 @@ function opts() {
 }
 
 function validations() {
-    var validations = {
+    let validations = {
         input: [
             {
                 elementType: 'select',
@@ -870,7 +870,7 @@ function validations() {
 }
 
 function styles() {
-    var styles = {
+    let styles = {
         elementType: 'select',
         name: 'styles',
         label: 'Style Options',
@@ -949,5 +949,5 @@ function options() {
                 label: 'USA'
             }
         ]
-    }
+    };
 }

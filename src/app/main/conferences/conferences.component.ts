@@ -146,7 +146,7 @@ export class ConferencesComponent implements OnInit {
                     'toBeTrue',
                 ]
             }
-        ]
+        ];
     }
 
     save(event) {

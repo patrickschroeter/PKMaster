@@ -180,7 +180,7 @@ export class ApplicationsComponent implements OnInit {
                     'small'
                 ]
             }
-        ]
+        ];
     }
 
     save(event) {

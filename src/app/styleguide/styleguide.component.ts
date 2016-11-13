@@ -82,7 +82,7 @@ export class StyleguideComponent implements OnInit {
                 value: 'Hover',
                 class: 'element--hover'
             }
-        ]
+        ];
 
         this.buttonExamples = [
             {
@@ -149,7 +149,7 @@ export class StyleguideComponent implements OnInit {
                 header: 'Passwort',
                 icon: 'vpn_key'
             },
-        ]
+        ];
 
         this.inputElements = [
             {
@@ -225,7 +225,7 @@ export class StyleguideComponent implements OnInit {
                     'minLength'
                 ]
             }
-        ]
+        ];
 
         this.checkboxElements = [
             {
@@ -245,7 +245,7 @@ export class StyleguideComponent implements OnInit {
                     'toBeTrue'
                 ]
             }
-        ]
+        ];
 
         this.radioElements = [
             {
@@ -292,7 +292,7 @@ export class StyleguideComponent implements OnInit {
                     }
                 ]
             }
-        ]
+        ];
 
         this.selectElements = [
             {
@@ -384,7 +384,7 @@ export class StyleguideComponent implements OnInit {
                 ]
             }
 
-        ]
+        ];
     }
 
     ngOnInit() { }

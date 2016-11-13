@@ -15,10 +15,10 @@ export class FormElement {
   styles?: Object;
 
   // select && radio
-  options?: Array<Object>
+  options?: Array<Object>;
 
   // select
-  multiple?: boolean
+  multiple?: boolean;
 
   formControl: FormControl;
 

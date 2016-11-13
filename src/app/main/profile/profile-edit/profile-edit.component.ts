@@ -42,7 +42,7 @@ export class ProfileEditComponent implements OnInit {
                     'useExternalEmail'
                 ]
             }
-        ]
+        ];
     }
 
     save(event) {

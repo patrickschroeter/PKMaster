@@ -11,7 +11,7 @@ export class AuthenticationService {
   constructor(private router: Router) { }
 
   getUser(): Observable<any> {
-    if (this.user) return this.user;
+    if (this.user) { return this.user; }
     this.router.navigate(['/login']);
   }
 
@@ -27,8 +27,8 @@ export class AuthenticationService {
           isPK: true
         });
         observer.complete();
-      }, 200)
-    })
+      }, 200);
+    });
     return this.user;
   }
 

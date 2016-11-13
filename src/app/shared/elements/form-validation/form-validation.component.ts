@@ -21,8 +21,8 @@ export class FormValidationComponent implements OnInit {
     /**
      * Validate the given Error in the Control
      */
-    hasError(errorName: string) : boolean {
-        if (this.inputName) return this.control.hasError(errorName, [this.inputName]);
+    hasError(errorName: string): boolean {
+        if (this.inputName) { return this.control.hasError(errorName, [this.inputName]); }
         return this.control.hasError(errorName);
     }
 

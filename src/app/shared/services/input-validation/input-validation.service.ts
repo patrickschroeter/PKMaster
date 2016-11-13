@@ -11,7 +11,7 @@ export class InputValidationService {
         useExternalEmail: this.validateExternalEmail,
         isEmail: this.validateEmail,
         toBeTrue: this.validateToBeTrue
-    }
+    };
 
     constructor() { }
 
@@ -22,11 +22,11 @@ export class InputValidationService {
      */
     generateValidationsFromKeys(keyArray = []) {
         let result = [];
-        if (!keyArray) return result;
+        if (!keyArray) { return result; }
         for (let i = 0, length = keyArray.length; i < length; i++) {
             let validationName = keyArray[i];
             let validation = this.validationMapping[validationName];
-            if (validation) result.push(validation);
+            if (validation) { result.push(validation); }
         }
         return result;
     }
@@ -67,7 +67,7 @@ export class InputValidationService {
      */
     validateEmail(control: FormControl): Object {
         if (!control.value.match(/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i)) {
-            return { invalidEmail: true }
+            return { invalidEmail: true };
         }
     }
 
@@ -78,7 +78,7 @@ export class InputValidationService {
      */
     validateToBeTrue(control: FormControl): Object {
         if (control.value !== true) {
-            return { notTrue: true }
+            return { notTrue: true };
         }
     }
 

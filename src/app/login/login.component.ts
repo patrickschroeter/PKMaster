@@ -48,14 +48,14 @@ export class LoginComponent implements OnInit {
             'small'
         ]
       }
-    ]
+    ];
   }
 
   login(evt) {
     console.log(evt);
     this.authentication.login().subscribe(() => {
       this.router.navigate(['/']);
-    })
+    });
   }
 
   log(evt) {

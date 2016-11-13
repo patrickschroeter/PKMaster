@@ -29,13 +29,13 @@ export class AlertService {
         });
         this.isOpenObservable = new Observable(observer => {
             this.isOpenObserver = observer;
-        })
+        });
         this.hintObservable = new Observable(observer => {
             this.hintObserver = observer;
-        })
+        });
         this.loadingObservable = new Observable(observer => {
             this.loadingObserver = observer;
-        })
+        });
     }
 
     /**
@@ -73,7 +73,7 @@ export class AlertService {
             this.loadingRoutes.push({
                 id: id,
                 message: message
-            })
+            });
         }
         this.loadingObserver.next(this.loadingRoutes);
     }
