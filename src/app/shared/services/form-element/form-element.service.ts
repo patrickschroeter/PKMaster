@@ -109,7 +109,7 @@ export class FormElementService {
         /** get Styles Options if required */
         if (element.styles && element.styles.length !== 0) {
             numberOfRequests++;
-            this.getStyles(type).subscribe((opt) => { returnedNumberOfRequests++; styles = opt; update(); });
+            this.getStylesOfInputType(type).subscribe((opt) => { returnedNumberOfRequests++; styles = opt; update(); });
         }
 
         /** Update the Element if all Observers returned */
@@ -161,12 +161,14 @@ export class FormElementService {
         if (type && type !== this.selectedType) {
             this.selectedType = type;
             this.getOptionsOfInputType(type).subscribe((options) => {
-                this.setElement(this.elementBase.concat(options));
-                this.setElementHasSubmit(true);
-                this.setElementHasValidations(false);
-                this.setElementHasStyles(false);
-                this.setElementHasPreview(false);
-                this.setElementPreview([]);
+                if (this.selectedType) {
+                    this.setElement(this.elementBase.concat(options));
+                    this.setElementHasSubmit(true);
+                    this.setElementHasValidations(false);
+                    this.setElementHasStyles(false);
+                    this.setElementHasPreview(false);
+                    this.setElementPreview([]);
+                }
             });
         }
 
@@ -227,10 +229,12 @@ export class FormElementService {
 
         /** Get Validation Options */
         this.getValidationsOfInputType(this.selectedType).subscribe((validations) => {
-            if (validations) { // catch else case with message?
-                this.setElement(this.element.concat(validations));
-            };
-            this.setElementHasValidations(true);
+            if (this.selectedType) {
+                if (validations) { // catch else case with message?
+                    this.setElement(this.element.concat(validations));
+                };
+                this.setElementHasValidations(true);
+            }
         });
     }
 
@@ -247,11 +251,13 @@ export class FormElementService {
         }
 
         /** Get Styles Options */
-        this.getStyles(this.selectedType).subscribe((styles) => {
-            if (styles) { // catch else case with message?
-                this.setElement(this.element.concat([styles]));
-            };
-            this.setElementHasStyles(true);
+        this.getStylesOfInputType(this.selectedType).subscribe((styles) => {
+            if (this.selectedType) {
+                if (styles) { // catch else case with message?
+                    this.setElement(this.element.concat([styles]));
+                };
+                this.setElementHasStyles(true);
+            }
         });
     }
 
@@ -300,8 +306,10 @@ export class FormElementService {
      */
     getInputTypeOptions(): Observable<any> {
         let result = types();
+        this.alert.setLoading('getInputTypeOptions', 'Loading Type Options...');
         return new Observable(observer => {
             setTimeout(() => {
+                this.alert.removeLoading('getInputTypeOptions');
                 observer.next(result);
                 observer.complete();
             }, 2000);
@@ -310,8 +318,10 @@ export class FormElementService {
 
     getOptionsOfTable(name: string): Observable<any> {
         let result = options();
+        this.alert.setLoading('getOptionsOfTable', `${name.toUpperCase()}: Loading Options...`);
         return new Observable(observer => {
             setTimeout(() => {
+                this.alert.removeLoading('getOptionsOfTable');
                 observer.next(result[name]);
                 observer.complete();
             }, 2000);
@@ -326,8 +336,10 @@ export class FormElementService {
     getOptionsOfInputType(elementType: string): Observable<any> {
         let name = nm();
         let options = opts();
+        this.alert.setLoading('getOptionsOfInputType', `${elementType.toUpperCase()}: Loading Options...`);
         return new Observable(observer => {
             setTimeout(() => {
+                this.alert.removeLoading('getOptionsOfInputType');
                 let devider = { elementType: 'devider' };
                 let result = [].concat(name);
                 let element = options[elementType];
@@ -335,7 +347,7 @@ export class FormElementService {
                 result.push(devider);
                 observer.next(result);
                 observer.complete();
-            }, 500);
+            }, 2000);
         });
     }
 
@@ -346,11 +358,13 @@ export class FormElementService {
      */
     getValidationsOfInputType(elementType: string): Observable<any> {
         let options = validations();
+        this.alert.setLoading('getValidationsOfInputType', `${elementType.toUpperCase()}: Loading Validations...`);
         return new Observable(observer => {
             setTimeout(() => {
+                this.alert.removeLoading('getValidationsOfInputType');
                 observer.next(options[elementType]);
                 observer.complete();
-            }, 500);
+            }, 2000);
         });
     }
 
@@ -359,13 +373,15 @@ export class FormElementService {
      * @param {string} elementType
      * @return {Observable}
      */
-    getStyles(elementType: string): Observable<any> {
+    getStylesOfInputType(elementType: string): Observable<any> {
         let options = styles();
+        this.alert.setLoading('getStyles', `${elementType.toUpperCase()}: Loading Styles...`);
         return new Observable(observer => {
             setTimeout(() => {
+                this.alert.removeLoading('getStyles');
                 observer.next(options);
                 observer.complete();
-            }, 500);
+            }, 2000);
         });
     }
 

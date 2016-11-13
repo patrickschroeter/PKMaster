@@ -124,12 +124,13 @@ app/
 
 ## TODO
 
-validierung? PW, min, max
-initialize application ( first admin user )
-studiengang einrichten
-form restrictions ( user vs dozent )
-form error handling
-success/error notifications
+validierung? PW, min, max  
+initialize application ( first admin user )  
+studiengang einrichten  
+form restrictions ( user vs dozent )  
+form error handling  
+~~success/error notifications~~  
+typsichere get options (by element type)
 
 login.component.spec  
 main.component.spec  

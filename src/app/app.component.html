@@ -11,3 +11,10 @@
         {{ hintMessage }}
     </div>
 </div>
+
+<div class="hint hint--top-left" [class.hint--visible]="loadingElements && loadingElements.length != 0">
+    <div class="hint-element hint--normal hint-element--visible hint--rotating-icon" *ngFor="let loading of loadingElements">
+        <i class="material-icons md-18" aria-hidden="true">sync</i>
+        {{ loading.message }}
+    </div>
+</div>

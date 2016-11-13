@@ -16,6 +16,8 @@ export class AppComponent implements OnInit {
 
     private hintMessage: string;
 
+    private loadingElements: Array<{ id, message }>;
+
     constructor(private alert: AlertService) {  }
 
     ngOnInit() {
@@ -30,6 +32,9 @@ export class AppComponent implements OnInit {
         })
         this.alert.getHintMessage().subscribe(message => {
             this.hintMessage = message;
+        })
+        this.alert.getLoading().subscribe(loading => {
+            this.loadingElements = loading;
         })
     }
 

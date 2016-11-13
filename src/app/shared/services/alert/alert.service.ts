@@ -5,17 +5,20 @@ import { Observable, Observer } from 'rxjs/Rx';
 @Injectable()
 export class AlertService {
 
-    private titleObserver: Observer<string>;
     private titleObservable: Observable<any>;
+    private titleObserver: Observer<string>;
 
-    private messageObserver: Observer<string>;
     private messageObservable: Observable<any>;
+    private messageObserver: Observer<string>;
 
-    private isOpenObserver: Observer<boolean>;
     private isOpenObservable: Observable<any>;
+    private isOpenObserver: Observer<boolean>;
 
-    private hintObserver: Observer<string>;
     private hintObservable: Observable<any>;
+    private hintObserver: Observer<string>;
+
+    private loadingObservable: Observable<any>;
+    private loadingObserver: Observer<any>;
 
     constructor() {
         this.titleObservable = new Observable(observer => {
@@ -29,6 +32,9 @@ export class AlertService {
         })
         this.hintObservable = new Observable(observer => {
             this.hintObserver = observer;
+        })
+        this.loadingObservable = new Observable(observer => {
+            this.loadingObserver = observer;
         })
     }
 
@@ -49,6 +55,40 @@ export class AlertService {
         setTimeout(() => {
             this.hintObserver.next(null);
         }, 1000);
+    }
+
+    private loadingRoutes: Array<{ id, message }> = [];
+    setLoading(id: string, message: string) {
+        let element;
+        for (let i = 0, length = this.loadingRoutes.length; i < length; i++) {
+            let loading = this.loadingRoutes[i];
+            if (loading.id === id) {
+                element = loading;
+            }
+        }
+
+        if (element) {
+            element.message = message;
+        } else {
+            this.loadingRoutes.push({
+                id: id,
+                message: message
+            })
+        }
+        this.loadingObserver.next(this.loadingRoutes);
+    }
+    removeLoading(id: string) {
+        let index = -1;
+        for (let i = 0, length = this.loadingRoutes.length; i < length; i++) {
+            let loading = this.loadingRoutes[i];
+            if (loading.id === id) {
+                index = i;
+            }
+        }
+        if (index !== -1) {
+            this.loadingRoutes.splice(index, 1);
+        }
+        this.loadingObserver.next(this.loadingRoutes);
     }
 
     /**
@@ -81,5 +121,13 @@ export class AlertService {
      */
     getHintMessage(): Observable<string> {
         return this.hintObservable;
+    }
+
+    /**
+     * @description Returns the Loading Observer
+     * @return {Observable}
+     */
+    getLoading(): Observable<any> {
+        return this.loadingObservable;
     }
 }
