@@ -140,6 +140,7 @@ export class FormElementService {
                     }
                 }
 
+                this.updateOptionsOfTable();
                 this.setElement(formElement);
                 this.setElementPreview([element]);
             }
@@ -173,26 +174,7 @@ export class FormElementService {
         let optionTable = form.optionTable;
         if (optionTable && optionTable !== this.selectedOptions) {
             this.selectedOptions = optionTable;
-            console.log(optionTable);
-            this.getOptionsOfTable(optionTable).subscribe(options => {
-                console.log(options);
-                console.log(this.element);
-                let optionElement;
-                for (let i = 0, length = this.element.length; i < length; i++) {
-                    let element = this.element[i];
-                    if (element.name === 'options') {
-                        optionElement = element;
-                    }
-                }
-                if (optionElement) {
-                    if (!optionElement.options) {
-                        optionElement.options = options;
-                    } else {
-                        optionElement.options = optionElement.options.concat(options);
-                    }
-                    optionElement.formControl.setValue(options);
-                }
-            });
+            this.updateOptionsOfTable();
         }
 
         /** Create or remove Preview Element if name exists */
@@ -203,6 +185,25 @@ export class FormElementService {
         }
     }
 
+    updateOptionsOfTable() {
+        this.getOptionsOfTable(this.selectedOptions).subscribe(options => {
+            let optionElement;
+            for (let i = 0, length = this.element.length; i < length; i++) {
+                let element = this.element[i];
+                if (element.name === 'options') {
+                    optionElement = element;
+                }
+            }
+            if (optionElement) {
+                if (!optionElement.options) {
+                    optionElement.options = options;
+                } else {
+                    optionElement.options = optionElement.options.concat(options);
+                }
+                optionElement.formControl.setValue(options);
+            }
+        });
+    }
 
     /**
      * @description Toggle the visibility of the Preview Element
