@@ -1212,6 +1212,9 @@ definitions:
       required:
         type: boolean
         description: Flag to indicate if the FormElement is required or not
+      hidden:
+        type: boolean
+        description: Flag to hide an element
 
       placeholder:
         type: string
@@ -1240,6 +1243,9 @@ definitions:
         description: Options for Radio and Select
         items:
           $ref: '#/definitions/FormOptions'
+      optionTable:
+        type: string
+        description: Db Table to get the options from
 
 
       styles:

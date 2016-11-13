@@ -544,6 +544,14 @@ function opts() {
                 styles: [
                     'small'
                 ]
+            },
+            {
+                elementType: 'input',
+                name: 'placeholder',
+                label: 'Placeholder',
+                styles: [
+                    'small'
+                ]
             }
         ],
         textarea: [
@@ -566,7 +574,10 @@ function opts() {
             {
                 elementType: 'input',
                 name: 'placeholder',
-                label: 'Placeholder'
+                label: 'Placeholder',
+                styles: [
+                    'small'
+                ]
             }
         ],
         checkbox: [
@@ -595,10 +606,47 @@ function opts() {
                 ]
             },
             {
+                elementType: 'input',
+                name: 'label',
+                label: 'Label',
+                required: true,
+                styles: [
+                    'small'
+                ]
+            },
+            {
+                elementType: 'devider'
+            },
+            {
                 elementType: 'datalist',
                 name: 'options',
                 label: 'Options',
-                required: true
+                styles: [
+                    'small'
+                ]
+            },{
+                elementType: 'select',
+                name: 'optionTable',
+                label: 'Table of Options',
+                multiple: false,
+                value: 'text',
+                options: [
+                    {
+                        value: 'fakultaet',
+                        label: 'Fakultaeten'
+                    },
+                    {
+                        value: 'user',
+                        label: 'Users'
+                    },
+                    {
+                        value: 'language',
+                        label: 'Languages'
+                    }
+                ],
+                styles: [
+                    'small'
+                ]
             }
 
         ],
@@ -615,12 +663,29 @@ function opts() {
                 elementType: 'input',
                 name: 'label',
                 label: 'Label',
+                styles: [
+                    'small'
+                ]
+            },
+            {
+                elementType: 'input',
+                name: 'placeholder',
+                label: 'Placeholder',
+                styles: [
+                    'small'
+                ]
+            },
+            {
+                elementType: 'devider'
             },
             {
                 elementType: 'datalist',
                 name: 'options',
                 label: 'Options',
-                required: true
+                required: true,
+                styles: [
+                    'small'
+                ]
             }
         ],
         info: [

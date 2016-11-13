@@ -3,61 +3,65 @@
     <form [formGroup]="form" (ngSubmit)="submit(form.value)" [class.element--show-validation]="showValidation">
 
       <div class="form__elements">
-        <div class="form__element element" *ngFor="let element of formElements"
-            [ngClass]="{ 'form__element--small': element.styles && element.styles.indexOf('small') !== -1, 'form__element--aligned': element.styles && element.styles.indexOf('aligned') !== -1}">
-          <div class="rel" [ngSwitch]="element.elementType">
-            <pk-input
-              *ngSwitchCase="'input'"
-              ngDefaultControl
-              [config]="element"
-              ></pk-input>
+          <div class="rel" *ngFor="let element of formElements">
+            <div class="form__element element"
+                *ngIf="!element.hidden"
+                [ngClass]="{ 'form__element--small': element.styles && element.styles.indexOf('small') !== -1, 'form__element--aligned': element.styles && element.styles.indexOf('aligned') !== -1}">
 
-            <pk-checkbox
-              *ngSwitchCase="'checkbox'"
-              ngDefaultControl
-              [config]="element"
-              ></pk-checkbox>
+                <div class="rel" [ngSwitch]="element.elementType">
+                    <pk-input
+                    *ngSwitchCase="'input'"
+                    ngDefaultControl
+                    [config]="element"
+                    ></pk-input>
 
-            <pk-select
-              *ngSwitchCase="'select'"
-              ngDefaultControl
-              [config]="element"
-              ></pk-select>
+                    <pk-checkbox
+                    *ngSwitchCase="'checkbox'"
+                    ngDefaultControl
+                    [config]="element"
+                    ></pk-checkbox>
 
-            <pk-radio
-              *ngSwitchCase="'radio'"
-              ngDefaultControl
-              [config]="element"
-              ></pk-radio>
+                    <pk-select
+                    *ngSwitchCase="'select'"
+                    ngDefaultControl
+                    [config]="element"
+                    ></pk-select>
 
-            <pk-textarea
-              *ngSwitchCase="'textarea'"
-              ngDefaultControl
-              [config]="element"
-              ></pk-textarea>
+                    <pk-radio
+                    *ngSwitchCase="'radio'"
+                    ngDefaultControl
+                    [config]="element"
+                    ></pk-radio>
 
-            <pk-datalist
-              *ngSwitchCase="'datalist'"
-              ngDefaultControl
-              [config]="element"
-              ></pk-datalist>
+                    <pk-textarea
+                    *ngSwitchCase="'textarea'"
+                    ngDefaultControl
+                    [config]="element"
+                    ></pk-textarea>
+
+                    <pk-datalist
+                    *ngSwitchCase="'datalist'"
+                    ngDefaultControl
+                    [config]="element"
+                    ></pk-datalist>
 
 
-            <pk-devider *ngSwitchCase="'devider'" class="element"></pk-devider>
-            <pk-devider *ngSwitchCase="'hiddenDevider'" class="element devider--hidden"></pk-devider>
+                    <pk-devider *ngSwitchCase="'devider'" class="element"></pk-devider>
+                    <pk-devider *ngSwitchCase="'hiddenDevider'" class="element devider--hidden"></pk-devider>
 
-            <h1 *ngSwitchCase="'h1'" class="element--h1 devider devider--secondary element">{{ element.value }}</h1>
-            <h2 *ngSwitchCase="'h2'" class="element--h2 devider element">{{ element.value }}</h2>
-            <h3 *ngSwitchCase="'h3'" class="element--h3 element">{{ element.value }}</h3>
-            <h4 *ngSwitchCase="'h4'" class="element--h4 element">{{ element.value }}</h4>
+                    <h1 *ngSwitchCase="'h1'" class="element--h1 devider devider--secondary element">{{ element.value }}</h1>
+                    <h2 *ngSwitchCase="'h2'" class="element--h2 devider element">{{ element.value }}</h2>
+                    <h3 *ngSwitchCase="'h3'" class="element--h3 element">{{ element.value }}</h3>
+                    <h4 *ngSwitchCase="'h4'" class="element--h4 element">{{ element.value }}</h4>
 
-            <div *ngSwitchCase="'info'" class="element">
-                <div class="element__label element--no-wrap">
-                    {{ element.value }}
+                    <div *ngSwitchCase="'info'" class="element">
+                        <div class="element__label element--no-wrap">
+                            {{ element.value }}
+                        </div>
+                    </div>
                 </div>
+                <pk-button *ngIf="editableElement" class="floating floating--bottom-right-corner button button--edit element element--rounded" [icon]="'create'" (onClick)="edit(element)" element--secondary></pk-button>
             </div>
-          </div>
-          <pk-button *ngIf="editableElement" class="floating floating--bottom-right-corner button button--edit element element--rounded" [icon]="'create'" (onClick)="edit(element)" element--secondary></pk-button>
         </div>
       </div>
 

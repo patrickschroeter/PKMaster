@@ -7,7 +7,7 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 })
 export class DeviderComponent implements OnInit {
 
-    @HostBinding('class.element') element = true;
+    @HostBinding('class.devider') devider = true;
     @HostBinding('class.devider-element') deviderElement = true;
 
     constructor() { }
