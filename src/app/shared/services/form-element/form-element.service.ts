@@ -18,6 +18,8 @@ export class FormElementService {
     /** The current Selected Element Type */
     private selectedType: string;
 
+    private selectedOptions: string;
+
     constructor(private formService: FormService, private alert: AlertService) {
         this.formService.onEditElement().subscribe((element?: FormElement) => {
             if (element) {
@@ -151,7 +153,7 @@ export class FormElementService {
      * @description DynamicForm Change Event
      * @param {object} event The updated Form-Values
      */
-    updateElement(form: FormElement): void {
+    updateElement(form): void {
 
         /** Load Type Options on change */
         let type = form.elementType;
@@ -164,6 +166,32 @@ export class FormElementService {
                 this.setElementHasStyles(false);
                 this.setElementHasPreview(false);
                 this.setElementPreview([]);
+            });
+        }
+
+        /** load optionTable */
+        let optionTable = form.optionTable;
+        if (optionTable && optionTable !== this.selectedOptions) {
+            this.selectedOptions = optionTable;
+            console.log(optionTable);
+            this.getOptionsOfTable(optionTable).subscribe(options => {
+                console.log(options);
+                console.log(this.element);
+                let optionElement;
+                for (let i = 0, length = this.element.length; i < length; i++) {
+                    let element = this.element[i];
+                    if (element.name === 'options') {
+                        optionElement = element;
+                    }
+                }
+                if (optionElement) {
+                    if (!optionElement.options) {
+                        optionElement.options = options;
+                    } else {
+                        optionElement.options = optionElement.options.concat(options);
+                    }
+                    optionElement.formControl.setValue(options);
+                }
             });
         }
 
@@ -274,6 +302,16 @@ export class FormElementService {
         return new Observable(observer => {
             setTimeout(() => {
                 observer.next(result);
+                observer.complete();
+            }, 2000);
+        });
+    }
+
+    getOptionsOfTable(name: string): Observable<any> {
+        let result = options();
+        return new Observable(observer => {
+            setTimeout(() => {
+                observer.next(result[name]);
                 observer.complete();
             }, 2000);
         });
@@ -618,18 +656,12 @@ function opts() {
                 elementType: 'devider'
             },
             {
-                elementType: 'datalist',
-                name: 'options',
-                label: 'Options',
-                styles: [
-                    'small'
-                ]
+                elementType: 'h4',
+                value: 'Create a custom List or use an existing one.'
             },{
                 elementType: 'select',
                 name: 'optionTable',
                 label: 'Table of Options',
-                multiple: false,
-                value: 'text',
                 options: [
                     {
                         value: 'fakultaet',
@@ -647,8 +679,16 @@ function opts() {
                 styles: [
                     'small'
                 ]
+            },
+            {
+                elementType: 'datalist',
+                name: 'options',
+                label: 'Options',
+                required: true,
+                styles: [
+                    'small'
+                ]
             }
-
         ],
         select: [
             {
@@ -677,6 +717,32 @@ function opts() {
             },
             {
                 elementType: 'devider'
+            },
+            {
+                elementType: 'h4',
+                value: 'Create a custom List or use an existing one.'
+            },
+            {
+                elementType: 'select',
+                name: 'optionTable',
+                label: 'Table of Options',
+                options: [
+                    {
+                        value: 'fakultaet',
+                        label: 'Fakultaeten'
+                    },
+                    {
+                        value: 'user',
+                        label: 'Users'
+                    },
+                    {
+                        value: 'language',
+                        label: 'Languages'
+                    }
+                ],
+                styles: [
+                    'small'
+                ]
             },
             {
                 elementType: 'datalist',
@@ -801,4 +867,40 @@ function styles() {
         ]
     };
     return styles;
+}
+
+
+function options() {
+    return {
+        fakultaet: [
+            {
+                value: 'gestaltung',
+                label: 'Gestaltung'
+            },
+            {
+                value: 'informatik',
+                label: 'informatik'
+            }
+        ],
+        user: [
+            {
+                value: 'sf',
+                label: 'Stephan Reichinger'
+            },
+            {
+                value: 'ps',
+                label: 'Patrick Schröter'
+            }
+        ],
+        language: [
+            {
+                value: 'de',
+                label: 'deutsch'
+            },
+            {
+                value: 'en',
+                label: 'englisch'
+            }
+        ]
+    }
 }
