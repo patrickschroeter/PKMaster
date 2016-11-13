@@ -14,6 +14,12 @@ export class ApplicationsComponent implements OnInit {
     ngOnInit() {
         this.form = [
             {
+                elementType: 'datalist',
+                name: 'datalist',
+                label: 'Datalist',
+                required: true
+            },
+            {
                 elementType: 'input',
                 name: 'email',
                 type: 'input',

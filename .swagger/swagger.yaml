@@ -1163,9 +1163,9 @@ definitions:
       fakultaet:
         type: string
         description: Fakultaet of the Form
-      attributes:
+      elements:
         type: array
-        description: All Attributes of the Form
+        description: All elements of the Form
         items:
           $ref: '#/definitions/FormElement'
 

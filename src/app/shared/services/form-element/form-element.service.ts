@@ -595,29 +595,10 @@ function opts() {
                 ]
             },
             {
-                elementType: 'select',
+                elementType: 'datalist',
                 name: 'options',
-                label: 'Available Options',
-                required: true,
-                multiple: true,
-                options: [
-                    {
-                        value: 'text',
-                        label: 'Text'
-                    },
-                    {
-                        value: 'password',
-                        label: 'Password'
-                    },
-                    {
-                        value: 'date',
-                        label: 'Date'
-                    },
-                    {
-                        value: 'number',
-                        label: 'Number'
-                    }
-                ]
+                label: 'Options',
+                required: true
             }
 
         ],
@@ -636,29 +617,10 @@ function opts() {
                 label: 'Label',
             },
             {
-                elementType: 'select',
+                elementType: 'datalist',
                 name: 'options',
-                label: 'Available Options',
-                required: true,
-                multiple: true,
-                options: [
-                    {
-                        value: 'text',
-                        label: 'Text'
-                    },
-                    {
-                        value: 'password',
-                        label: 'Password'
-                    },
-                    {
-                        value: 'date',
-                        label: 'Date'
-                    },
-                    {
-                        value: 'number',
-                        label: 'Number'
-                    }
-                ]
+                label: 'Options',
+                required: true
             }
         ],
         info: [
