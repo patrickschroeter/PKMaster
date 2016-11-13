@@ -31,7 +31,7 @@ export class FormElementService {
             }
         });
 
-        this.getInputTypeOptions().subscribe(elementTypes => {
+        this.getElementTypeOptions().subscribe(elementTypes => {
             this.selectTypeFormElement = elementTypes;
             this.elementBase = [this.selectTypeFormElement, { elementType: 'devider' }];
             this.resetElement();
@@ -92,60 +92,79 @@ export class FormElementService {
 
         /** Request all Options of the selected Type */
         let returnedNumberOfRequests = 0;
-        let options, validations, styles;
+        let optionsOfElementType, validationsOfElementType, stylesOfElementType;
 
         let numberOfRequests = 1; // always get options
-        this.getOptionsOfInputType(type).subscribe((opt) => {
+        this.getOptionsOfElementType(type).subscribe((opt) => {
             returnedNumberOfRequests++;
-            options = opt;
+            optionsOfElementType = opt;
             update();
         });
 
         /** get Validation Options if required */
         if (element.validations && element.validations.length !== 0) {
             numberOfRequests++;
-            this.getValidationsOfInputType(type).subscribe((opt) => { returnedNumberOfRequests++; validations = opt; update(); });
+            this.getValidationsOfInputType(type).subscribe((opt) => {
+                returnedNumberOfRequests++; validationsOfElementType = opt; update();
+            });
         }
 
         /** get Styles Options if required */
         if (element.styles && element.styles.length !== 0) {
             numberOfRequests++;
-            this.getStylesOfInputType(type).subscribe((opt) => { returnedNumberOfRequests++; styles = opt; update(); });
+            this.getStylesOfInputType(type).subscribe((opt) => {
+                returnedNumberOfRequests++; stylesOfElementType = opt; update();
+            });
         }
 
         /** Update the Element if all Observers returned */
         let update = () => {
             if (returnedNumberOfRequests >= numberOfRequests) {
-                let formElement = this.element.concat(options);
+                let generatedFormOfElement = this.element.concat(optionsOfElementType);
 
                 /** Show submit button */
                 this.setElementHasSubmit(true);
 
                 /** Show Validation if existing */
-                if (validations) {
-                    formElement = formElement.concat(validations);
+                if (validationsOfElementType) {
+                    generatedFormOfElement = generatedFormOfElement.concat(validationsOfElementType);
                     this.setElementHasValidations(true);
                 }
 
                 /** Show Styles if existing */
-                if (styles) {
-                    formElement = formElement.concat([styles]);
+                if (stylesOfElementType) {
+                    generatedFormOfElement = generatedFormOfElement.concat([stylesOfElementType]);
                     this.setElementHasStyles(true);
                 }
 
-                /** Add Element Valus to Form */
-                for (let i = 0, length = formElement.length; i < length; i++) {
-                    let input = formElement[i];
+                /** Add Options to Form (radio, select) */
+                let useCustomOptions = true;
+                let optionFormElement;
+                let formElementOptions;
+                for (let i = 0, length = generatedFormOfElement.length; i < length; i++) {
+                    let input = generatedFormOfElement[i];
                     if (element[input.name] && input.name !== 'elementType') {
                         input.value = element[input.name];
+                        console.log(input.name);
                         if (input.name === 'optionTable') {
+                            useCustomOptions = false;
                             this.selectedOptions = element[input.name];
                             this.updateOptionsOfTable();
+                        } else if (input.name === 'options') {
+                            formElementOptions = element[input.name];
+                            optionFormElement = input;
                         }
                     }
                 }
 
-                this.setElement(formElement);
+                /** Add values if no optionTable is set */
+                if (useCustomOptions && formElementOptions && optionFormElement) {
+                    optionFormElement.options = formElementOptions;
+                    optionFormElement.value = formElementOptions;
+                }
+
+                /** Set Element and generate View */
+                this.setElement(generatedFormOfElement);
                 this.setElementPreview([element]);
             }
         };
@@ -164,7 +183,7 @@ export class FormElementService {
         let type = form.elementType;
         if (type && type !== this.selectedType) {
             this.selectedType = type;
-            this.getOptionsOfInputType(type).subscribe((options) => {
+            this.getOptionsOfElementType(type).subscribe((options) => {
                 if (this.selectedType) {
                     this.setElement(this.elementBase.concat(options));
                     this.selectedOptions = null;
@@ -193,7 +212,6 @@ export class FormElementService {
     }
 
     updateOptionsOfTable() {
-        console.log(this.selectedOptions);
         this.getOptionsOfTable(this.selectedOptions).subscribe(options => {
             let optionElement;
             for (let i = 0, length = this.element.length; i < length; i++) {
@@ -310,7 +328,7 @@ export class FormElementService {
      * @description cath all available element types from the server
      * @return {Observable}
      */
-    getInputTypeOptions(): Observable<any> {
+    getElementTypeOptions(): Observable<any> {
         let result = types();
         this.alert.setLoading('getInputTypeOptions', 'Loading Type Options...');
         return new Observable(observer => {
@@ -339,7 +357,7 @@ export class FormElementService {
      * @param {string} elementType
      * @return {Observable}
      */
-    getOptionsOfInputType(elementType: string): Observable<any> {
+    getOptionsOfElementType(elementType: string): Observable<any> {
         let name = nm();
         let options = opts();
         this.alert.setLoading('getOptionsOfInputType', `${elementType.toUpperCase()}: Loading Options...`);
