@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { FormElement } from './../../../swagger';
@@ -6,19 +6,18 @@ import { FormElement } from './../../../swagger';
 @Component({
     selector: 'pk-input',
     templateUrl: './input.component.html',
-    styleUrls: ['./input.component.scss'],
-    host: {
-        '[class.element]': 'true'
-    }
+    styleUrls: ['./input.component.scss']
 })
 export class InputComponent implements OnInit {
+
+    @HostBinding('class.element') element = true;
 
     @Input() config: FormElement;
 
     constructor() { }
 
     ngOnInit() {
-        if (!this.config.formControl) this.config.formControl = new FormControl(this.config.value);
+        if (!this.config.formControl) { this.config.formControl = new FormControl(this.config.value); }
     }
 
 }

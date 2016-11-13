@@ -36,6 +36,12 @@
               [config]="element"
               ></pk-textarea>
 
+            <pk-datalist
+              *ngSwitchCase="'datalist'"
+              ngDefaultControl
+              [config]="element"
+              ></pk-datalist>
+
 
             <pk-devider *ngSwitchCase="'devider'" class="element"></pk-devider>
             <pk-devider *ngSwitchCase="'hiddenDevider'" class="element devider--hidden"></pk-devider>

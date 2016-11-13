@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { FormElement } from './../../../swagger';
@@ -6,12 +6,11 @@ import { FormElement } from './../../../swagger';
 @Component({
     selector: 'pk-textarea',
     templateUrl: './textarea.component.html',
-    styleUrls: ['./textarea.component.scss'],
-    host: {
-        '[class.element]': 'true'
-    }
+    styleUrls: ['./textarea.component.scss']
 })
 export class TextareaComponent implements OnInit {
+
+    @HostBinding('class.element') element = true;
 
     @Input() config: FormElement;
 

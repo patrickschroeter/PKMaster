@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { FormElement } from './../../../swagger';
@@ -6,12 +6,11 @@ import { FormElement } from './../../../swagger';
 @Component({
     selector: 'pk-select',
     templateUrl: './select.component.html',
-    styleUrls: ['./select.component.scss'],
-    host: {
-        '[class.element]': 'true'
-    }
+    styleUrls: ['./select.component.scss']
 })
 export class SelectComponent implements OnInit {
+
+    @HostBinding('class.element') element = true;
 
     @Input() config: FormElement;
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { FormElement } from './../../../swagger';
@@ -6,12 +6,11 @@ import { FormElement } from './../../../swagger';
 @Component({
     selector: 'pk-radio',
     templateUrl: './radio.component.html',
-    styleUrls: ['./radio.component.scss'],
-    host: {
-        '[class.element]': 'true'
-    }
+    styleUrls: ['./radio.component.scss']
 })
 export class RadioComponent implements OnInit {
+
+    @HostBinding('class.element') element = true;
 
     @Input() config: FormElement;
 
