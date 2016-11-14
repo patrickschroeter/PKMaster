@@ -1,19 +1,12 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 
 import { SharedModule } from './../shared/shared.module';
 
 import * as services from './services';
-import * as components from './components';
 
 @NgModule({
-    declarations: [
-        components.NavbarComponent,
-        components.NavbarAdminComponent
-    ],
+    declarations: [],
     imports: [
-        RouterModule,
-
         SharedModule
     ],
     providers: [
@@ -23,9 +16,6 @@ import * as components from './components';
         services.FormService,
         services.AlertService
     ],
-    exports: [
-        components.NavbarComponent,
-        components.NavbarAdminComponent
-    ]
+    exports: []
 })
 export class CoreModule { }

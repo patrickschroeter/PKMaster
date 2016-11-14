@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { MainComponent, ProfileComponent, ProfileEditComponent, ApplicationsComponent, ConferencesComponent, FormsComponent, FormsEditComponent } from './main';
-import { AdminComponent, AdminProfileComponent, RolesComponent, PermissionsComponent, UsersComponent } from './admin';
 
 import { PermissionService } from './core';
 
@@ -24,18 +23,7 @@ const routes: Routes = [
             { path: '', redirectTo: 'applications', pathMatch: 'full' }
         ]
     },
-    {
-        path: 'admin',
-        component: AdminComponent,
-        canActivate: [PermissionService],
-        children: [
-            { path: 'profile', component: AdminProfileComponent },
-            { path: 'roles', component: RolesComponent, canActivate: [PermissionService] },
-            { path: 'permissions', component: PermissionsComponent, canActivate: [PermissionService] },
-            { path: 'users', component: UsersComponent, canActivate: [PermissionService] },
-            { path: '', redirectTo: 'roles', pathMatch: 'full' }
-        ]
-    }
+    { path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule', canActivate: [PermissionService], }
 ];
 
 @NgModule({

@@ -1,21 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { StyleguideComponent } from './';
-import { StyleguideRouting } from './styleguide.routing';
+import * as admin from './';
+import { AdminRouting } from './admin.routing';
 
 import { SharedModule } from './../shared/shared.module';
 
 @NgModule({
     declarations: [
-        StyleguideComponent,
+        admin.AdminComponent,
+        admin.AdminProfileComponent,
+        admin.RolesComponent,
+        admin.PermissionsComponent,
+        admin.UsersComponent
     ],
     imports: [
         CommonModule,
-        StyleguideRouting,
+        AdminRouting,
         SharedModule,
     ],
     providers: [],
     exports: []
 })
-export class StyleguideModule { }
+export class AdminModule { }

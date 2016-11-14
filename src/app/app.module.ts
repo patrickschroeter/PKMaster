@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app.routing';
 
 import { AppComponent } from './app.component';
 import * as main from './main';
-import * as admin from './admin';
 
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
@@ -24,12 +23,6 @@ import { CoreModule } from './core/core.module';
         main.FormsComponent,
         main.FormsEditComponent,
         main.ElementEditComponent,
-
-        admin.AdminComponent,
-        admin.AdminProfileComponent,
-        admin.RolesComponent,
-        admin.PermissionsComponent,
-        admin.UsersComponent,
     ],
     imports: [
         BrowserModule,

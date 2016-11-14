@@ -14,8 +14,6 @@ import { SharedModule } from './../shared/shared.module';
         SharedModule,
     ],
     providers: [],
-    exports: [
-        LoginComponent
-    ]
+    exports: []
 })
 export class LoginModule { }
