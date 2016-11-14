@@ -4,15 +4,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { PkRoutingModule } from './app.routing';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login';
 import * as main from './main';
 import * as admin from './admin';
 import { StyleguideComponent } from './styleguide';
 
-import * as shared from './core';
-
 import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -39,17 +39,14 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     FormsModule,
     HttpModule,
-    PkRoutingModule,
     ReactiveFormsModule,
-    SharedModule
+
+    PkRoutingModule,
+
+    CoreModule,
+    SharedModule,
   ],
-  providers: [
-    shared.AuthenticationService,
-    shared.PermissionService,
-    shared.InputValidationService,
-    shared.FormService,
-    shared.AlertService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
