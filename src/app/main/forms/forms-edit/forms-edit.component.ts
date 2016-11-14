@@ -1,7 +1,7 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { FormService, AlertService, FormElementService } from './../../../shared';
+import { FormService, AlertService, FormElementService } from './../../../core';
 import { FormElement } from './../../../swagger';
 
 @Component({

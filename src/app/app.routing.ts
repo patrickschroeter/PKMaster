@@ -6,7 +6,7 @@ import { MainComponent, ProfileComponent, ProfileEditComponent, ApplicationsComp
 import { AdminComponent, AdminProfileComponent, RolesComponent, PermissionsComponent, UsersComponent } from './admin';
 import { StyleguideComponent } from './styleguide';
 
-import { PermissionService } from './shared';
+import { PermissionService } from './core';
 
 const routes: Routes = [
   { path: 'styleguide', component: StyleguideComponent },

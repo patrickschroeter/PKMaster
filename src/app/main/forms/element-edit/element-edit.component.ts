@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 
-import { FormElementService } from './../../../shared';
+import { FormElementService } from './../../../core';
 import { FormElement } from './../../../swagger';
 
 @Component({

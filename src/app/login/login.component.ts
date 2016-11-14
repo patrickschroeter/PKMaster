@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthenticationService } from './../shared';
+import { AuthenticationService } from './../core';
 
 @Component({
   selector: 'pk-login',

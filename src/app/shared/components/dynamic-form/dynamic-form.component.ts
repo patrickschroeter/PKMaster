@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
 
-import { InputValidationService } from './../../services';
+import { InputValidationService } from './../../../core';
 
 import { FormElement } from './../../../swagger';
 

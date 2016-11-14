@@ -3,14 +3,16 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { PkRoutingModule } from './app-routing.module';
+import { PkRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login';
 import * as main from './main';
 import * as admin from './admin';
 import { StyleguideComponent } from './styleguide';
 
-import * as shared from './shared';
+import * as shared from './core';
+
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -32,27 +34,14 @@ import * as shared from './shared';
     admin.RolesComponent,
     admin.PermissionsComponent,
     admin.UsersComponent,
-
-    shared.NavbarComponent,
-    shared.NavbarAdminComponent,
-    shared.ButtonComponent,
-    shared.InputComponent,
-    shared.CheckboxComponent,
-    shared.SelectComponent,
-    shared.RadioComponent,
-    shared.TextareaComponent,
-    shared.DynamicFormComponent,
-    shared.FormValidationComponent,
-    shared.DeviderComponent,
-    shared.OverlayComponent,
-    shared.DatalistComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     PkRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   providers: [
     shared.AuthenticationService,

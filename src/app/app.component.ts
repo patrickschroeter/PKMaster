@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
-import { AlertService } from './shared';
+import { AlertService } from './core';
 
 @Component({
     selector: 'pk-root',

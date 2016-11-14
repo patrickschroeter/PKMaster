@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { FormService } from './../../shared';
+import { FormService } from './../../core';
 
 @Component({
     selector: 'pk-forms',
