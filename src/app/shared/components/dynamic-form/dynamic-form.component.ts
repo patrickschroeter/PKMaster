@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
+import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, HostBinding } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { InputValidationService } from './../../../core';
 
@@ -8,12 +8,11 @@ import { FormElement } from './../../../swagger';
 @Component({
     selector: 'pk-form',
     templateUrl: './dynamic-form.component.html',
-    styleUrls: ['./dynamic-form.component.scss'],
-    host: {
-        '[class.form]': 'true'
-    }
+    styleUrls: ['./dynamic-form.component.scss']
 })
 export class DynamicFormComponent implements OnInit {
+
+    @HostBinding('class.form') formClass = true;
 
     @Input() formElements: FormElement[];
     @Input() hasCancel: boolean;

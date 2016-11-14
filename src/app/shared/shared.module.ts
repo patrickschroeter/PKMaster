@@ -1,7 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+
+import { CommonModule } from '@angular/common';
 
 import * as components from './components';
 import * as elements from './elements';
@@ -24,7 +25,7 @@ import * as elements from './elements';
         elements.FormValidationComponent
     ],
     imports: [
-        BrowserModule,
+        CommonModule,
         FormsModule,
         HttpModule,
         ReactiveFormsModule
