@@ -24,14 +24,14 @@ export class PermissionService implements CanActivate, CanDeactivate<any>, CanAc
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):  Observable<boolean>|Promise<boolean>|boolean {
     let name = state.url.slice(1);
-    //return true; // hack
-    if (!this.authentication.isLoggedIn()) {
-      this.router.navigate(['/login']);
-      return false;
-    }
+    return true; // hack
+    // if (!this.authentication.isLoggedIn()) {
+    //   this.router.navigate(['/login']);
+    //   return false;
+    // }
 
-    if (name === '') return this.guard['main']();
-    return this.guard[name] ? this.guard[name]() : false;
+    // if (name === '') { return this.guard['main'](); }
+    // return this.guard[name] ? this.guard[name]() : false;
   }
 
   canActivateChild = this.canActivate;
