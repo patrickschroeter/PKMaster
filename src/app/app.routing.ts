@@ -3,12 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { MainComponent, ProfileComponent, ProfileEditComponent, ApplicationsComponent, ConferencesComponent, FormsComponent, FormsEditComponent } from './main';
 import { AdminComponent, AdminProfileComponent, RolesComponent, PermissionsComponent, UsersComponent } from './admin';
-import { StyleguideComponent } from './styleguide';
 
 import { PermissionService } from './core';
 
 const routes: Routes = [
-    { path: 'styleguide', component: StyleguideComponent },
+    { path: 'styleguide', loadChildren: 'app/styleguide/styleguide.module#StyleguideModule' },
     { path: 'login', loadChildren: 'app/login/login.module#LoginModule' },
     {
         path: '',

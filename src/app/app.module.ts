@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
 import * as main from './main';
 import * as admin from './admin';
-import { StyleguideComponent } from './styleguide';
 
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
@@ -16,7 +15,6 @@ import { CoreModule } from './core/core.module';
 @NgModule({
     declarations: [
         AppComponent,
-        StyleguideComponent,
 
         main.MainComponent,
         main.ProfileComponent,
