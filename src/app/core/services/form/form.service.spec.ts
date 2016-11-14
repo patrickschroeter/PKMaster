@@ -9,7 +9,7 @@ fdescribe('Service: Form', () => {
         TestBed.configureTestingModule({
             providers: [
                 FormService,
-                { provide: AlertService, useClass: class { alert: () => {} } }
+                { provide: AlertService, useClass: class { alert: () => {}; } }
             ]
         });
     });

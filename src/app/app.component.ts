@@ -29,13 +29,13 @@ export class AppComponent implements OnInit {
         });
         this.alert.getOpenState().subscribe(isOpen => {
             this.isOverlayOpen = isOpen;
-        })
+        });
         this.alert.getHintMessage().subscribe(message => {
             this.hintMessage = message;
-        })
+        });
         this.alert.getLoading().subscribe(loading => {
             this.loadingElements = loading;
-        })
+        });
     }
 
     toggleOverlay() {
