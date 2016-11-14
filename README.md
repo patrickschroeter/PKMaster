@@ -131,6 +131,9 @@ form restrictions ( user vs dozent )
 form error handling  
 ~~success/error notifications~~  
 typsichere get options (by element type)
+~~unset optionTable on option change~~
+suchfeld bei vielen optionen (select)
+formService als !singleton into element-edit.component?
 
 login.component.spec  
 main.component.spec  

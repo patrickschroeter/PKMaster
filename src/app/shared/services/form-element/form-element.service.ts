@@ -18,7 +18,8 @@ export class FormElementService {
     /** The current Selected Element Type */
     private selectedType: string;
 
-    private selectedOptions: string;
+    private selectedOptionTable: string;
+    private selectedOptionsLength: Array<Object>;
 
     constructor(private formService: FormService, private alert: AlertService) {
         this.formService.onEditElement().subscribe((element?: FormElement) => {
@@ -46,7 +47,7 @@ export class FormElementService {
         delete this.selectTypeFormElement.value;
         delete this.selectTypeFormElement.formControl;
         this.selectedType = null;
-        this.selectedOptions = null;
+        this.selectedOptionTable = null;
 
         this.setElement(this.elementBase);
         this.setElementHasValidations(false);
@@ -145,10 +146,9 @@ export class FormElementService {
                     let input = generatedFormOfElement[i];
                     if (element[input.name] && input.name !== 'elementType') {
                         input.value = element[input.name];
-                        console.log(input.name);
                         if (input.name === 'optionTable') {
                             useCustomOptions = false;
-                            this.selectedOptions = element[input.name];
+                            this.selectedOptionTable = element[input.name];
                             this.updateOptionsOfTable();
                         } else if (input.name === 'options') {
                             formElementOptions = element[input.name];
@@ -186,7 +186,7 @@ export class FormElementService {
             this.getOptionsOfElementType(type).subscribe((options) => {
                 if (this.selectedType) {
                     this.setElement(this.elementBase.concat(options));
-                    this.selectedOptions = null;
+                    this.selectedOptionTable = null;
                     this.setElementHasSubmit(true);
                     this.setElementHasValidations(false);
                     this.setElementHasStyles(false);
@@ -198,9 +198,22 @@ export class FormElementService {
 
         /** load optionTable */
         let optionTable = form.optionTable;
-        if (optionTable && optionTable !== this.selectedOptions) {
-            this.selectedOptions = optionTable;
+        if (optionTable && optionTable !== this.selectedOptionTable) {
+            this.selectedOptionTable = optionTable;
             this.updateOptionsOfTable();
+        }
+
+        /** unset optionTable on option length change TODO: content change? */
+        let options = form.options;
+        if (options && options.length !== this.selectedOptionsLength) {
+            this.selectedOptionsLength = options.length;
+            for (let i = 0, length = this.element.length; i < length; i++) {
+                let element = this.element[i];
+                if (element.name === 'optionTable') {
+                    element.formControl.setValue('');
+                    break;
+                }
+            }
         }
 
         /** Create or remove Preview Element if name exists */
@@ -212,21 +225,23 @@ export class FormElementService {
     }
 
     updateOptionsOfTable() {
-        this.getOptionsOfTable(this.selectedOptions).subscribe(options => {
+        this.getOptionsOfTable(this.selectedOptionTable).subscribe(options => {
             let optionElement;
             for (let i = 0, length = this.element.length; i < length; i++) {
                 let element = this.element[i];
                 if (element.name === 'options') {
                     optionElement = element;
+                    break;
                 }
             }
             if (optionElement) {
-                if (!optionElement.options) {
+                // if (!optionElement.options) {
                     optionElement.options = options;
-                } else {
-                    optionElement.options = optionElement.options.concat(options);
-                }
-                optionElement.formControl.setValue(options);
+                // } else {
+                //     optionElement.options = optionElement.options.concat(options);
+                // }
+                this.selectedOptionsLength = optionElement.options.length;
+                optionElement.formControl.setValue(optionElement.options);
             }
         });
     }
