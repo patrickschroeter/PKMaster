@@ -20,6 +20,8 @@ export class AlertService {
     private loadingObservable: Observable<any>;
     private loadingObserver: Observer<any>;
 
+    private loadingRoutes: Array<{ id, message }> = [];
+
     constructor() {
         this.titleObservable = new Observable(observer => {
             this.titleObserver = observer;
@@ -50,15 +52,26 @@ export class AlertService {
         this.isOpenObserver.next(true);
     }
 
-    setSuccessHint(message: string) {
+
+    /**
+     * @description Streams the Hint to the Listening component
+     * @param {string} message the message of the hint
+     * @return {void}
+     */
+    setSuccessHint(message: string): void {
         this.hintObserver.next(message);
         setTimeout(() => {
             this.hintObserver.next(null);
         }, 1000);
     }
 
-    private loadingRoutes: Array<{ id, message }> = [];
-    setLoading(id: string, message: string) {
+    /**
+     * @description Streams the Loading to the Listening component
+     * @param {string} id the id of the calling function
+     * @param {string} message the message of the loading
+     * @return {void}
+     */
+    setLoading(id: string, message: string): void {
         let element;
         for (let i = 0, length = this.loadingRoutes.length; i < length; i++) {
             let loading = this.loadingRoutes[i];
@@ -77,7 +90,13 @@ export class AlertService {
         }
         this.loadingObserver.next(this.loadingRoutes);
     }
-    removeLoading(id: string) {
+
+    /**
+     * @description Removes the loading
+     * @param {string} id the id of the loading function
+     * @return {void}
+     */
+    removeLoading(id: string): void {
         let index = -1;
         for (let i = 0, length = this.loadingRoutes.length; i < length; i++) {
             let loading = this.loadingRoutes[i];
