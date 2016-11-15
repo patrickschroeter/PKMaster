@@ -74,6 +74,11 @@ export interface FormElement {
     required?: boolean;
 
     /**
+     * Flag to hide an element
+     */
+    hidden?: boolean;
+
+    /**
      * Placeholder for the input / textarea
      */
     placeholder?: string;
@@ -102,6 +107,11 @@ export interface FormElement {
      * Options for Radio and Select
      */
     options?: Array<models.FormOptions>;
+
+    /**
+     * Db Table to get the options from
+     */
+    optionTable?: string;
 
     /**
      * Styles parameters for the visual appearance of the Application

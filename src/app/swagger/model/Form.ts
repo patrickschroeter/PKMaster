@@ -44,9 +44,9 @@ export interface Form {
     modified?: number;
 
     /**
-     * Name of the Form
+     * Title of the Form
      */
-    name?: string;
+    title?: string;
 
     /**
      * Fakultaet of the Form
@@ -54,7 +54,7 @@ export interface Form {
     fakultaet?: string;
 
     /**
-     * All Attributes of the Form
+     * All elements of the Form
      */
-    attributes?: Array<models.FormElement>;
+    elements?: Array<models.FormElement>;
 }
