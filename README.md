@@ -44,7 +44,18 @@ error: remove/cancel and leave state
 
 # Development Architecture
 
+## Karma Config
+
+https://karma-runner.github.io/0.8/config/configuration-file.html
+
 ## Angular CLI
+
+https://cli.angular.io/reference.pdf
+
+or 
+```
+ng --help
+```
 
 Tests with Coverage
 ```
