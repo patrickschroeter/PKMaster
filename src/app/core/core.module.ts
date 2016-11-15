@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { SharedModule } from './../shared/shared.module';
 
 import * as services from './services';
+import * as components from './components';
 
 @NgModule({
-    declarations: [],
+    declarations: [
+        components.AlertComponent
+    ],
     imports: [
+        CommonModule,
         SharedModule
     ],
     providers: [
@@ -16,6 +21,8 @@ import * as services from './services';
         services.FormService,
         services.AlertService
     ],
-    exports: []
+    exports: [
+        components.AlertComponent
+    ]
 })
 export class CoreModule { }

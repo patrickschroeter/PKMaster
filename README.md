@@ -60,12 +60,12 @@ app/
     login/                                      #/login
 
     main/                                       #/ ( wrapper template e.g. navbar )
-        main-dashboard/                         #/ ( default )
+        main-dashboard/                       - #/ ( removed )
 
         profile/                                #/profile
             profile-edit/                       #/profile/edit
 
-        applications/                           #/applications
+        applications/                           #/applications ( default )
             applications-new/                   #/applications/new
             applications-detail/                #/applications/{application_id}
             applications-edit/                  #/applications/{application_id}/edit
@@ -76,14 +76,14 @@ app/
             conferences-edit/                   #/conferences/{conference_id}/edit
         
         forms/                                  #/forms
-            forms-new/                          #/forms/new (removed, creation with Title in #/forms as overlay)
-            forms-detail/                       #/forms/{form_id} (removed -> /edit)
+            forms-new/                        - #/forms/new (removed, creation with Title in #/forms as overlay)
+            forms-detail/                     - #/forms/{form_id} (removed -> /edit)
             forms-edit/                         #/forms/{form_id}/edit
 
     admin/                                      #/admin ( wrapper template e.g. admin-navbar )
-        admin-dashboard/                        #/admin ( default )
+        admin-dashboard/                      - #/admin
 
-        roles/                                  #/admin/roles
+        roles/                                  #/admin/roles ( default )
             roles-new/                          #/admin/roles/new
             roles-detail/                       #/admin/roles/{role_id}
             roles-edit/                         #/admin/roles/{role_id}/edit
@@ -100,6 +100,9 @@ app/
 ## App Architecture: Services, Directives, Pipes...
 ```
 app/
+    /core                       
+        /services               : Singletons
+        /components             : Root Components ( not used atm )
     /shared
         /elements               : elements (base)      without dependencies/components
         /components             : elements (advanced)  with dependencies/components
@@ -158,7 +161,7 @@ navbar.component.spec
 - Sitzungen Kopieren
 - Person mit mehreren Rollen
 - Admin nur formal nicht inhaltlich -> getrennte Oberfläche
-- nicht RZ Email, validierung
+- ~~nicht RZ Email, validierung~~
 - pw SHA256 + Salk (100k) + Session Token
 - MatrNr wenn Student
 - Versionierung? -> immer neu
@@ -181,17 +184,17 @@ navbar.component.spec
 ## 2.November (Rothaug)
 
 - Kai Bergmann sucht 'PK-KD'
-- VM Ware + Sketch oder Figma
-- schlichter mit Farben: eher hell + dunkel + blau
-- Strukturfarben (cold) vs. Interaktionsfarben (hot)
-- aggressiveres Rot wählen
-- Spacing von Labels + kleine als rest
-- Abgrenzung von Informationsbereichen, boxing auf großen screens (Moods)
-- Font Smoothing
-- Google NotoSans
+- ~~VM Ware + Sketch oder Figma~~ war nicht so toll
+- ~~schlichter mit Farben: eher hell + dunkel + blau~~
+- ~~Strukturfarben (cold) vs. Interaktionsfarben (hot)~~
+- ~~aggressiveres Rot wählen~~
+- ~~Spacing von Labels + kleine als rest~~
+- ~~Abgrenzung von Informationsbereichen, boxing auf großen screens (Moods)~~
+- ~~Font Smoothing~~
+- ~~Google NotoSans~~
 - User Journeys: die wege des users zu ziel mit deren häufigkeit
 - Blockbildung + übersichtlichkeit
 - Performance + Tastaturbedienbarkeit
-- Farblicher Kontrast (zb Background) edit vs view
+- ~~Farblicher Kontrast (zb Background) edit vs view~~
 - visuelle highlights (generator) + icos?
 - vgl google forms
