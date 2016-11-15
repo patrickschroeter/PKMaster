@@ -4,7 +4,7 @@ import { TestBed, async, inject } from '@angular/core/testing';
 import { FormService } from './form.service';
 import { AlertService } from './../alert';
 
-fdescribe('Service: Form', () => {
+describe('Service: Form', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [

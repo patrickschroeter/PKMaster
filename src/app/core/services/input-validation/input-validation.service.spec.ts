@@ -5,7 +5,7 @@ import { InputValidationService } from './input-validation.service';
 
 import { Validators, FormControl } from '@angular/forms';
 
-fdescribe('Service: InputValidation', () => {
+describe('Service: InputValidation', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [InputValidationService]
