@@ -224,6 +224,10 @@ export class FormElementService {
         }
     }
 
+    /**
+     * @description Get all Options from the selected TableName and set them as Options
+     * @return {void}
+     */
     updateOptionsOfTable() {
         this.getOptionsOfTable(this.selectedOptionTable).subscribe(options => {
             let optionElement;
@@ -235,11 +239,7 @@ export class FormElementService {
                 }
             }
             if (optionElement) {
-                // if (!optionElement.options) {
-                    optionElement.options = options;
-                // } else {
-                //     optionElement.options = optionElement.options.concat(options);
-                // }
+                optionElement.options = options;
                 this.selectedOptionsLength = optionElement.options.length;
                 optionElement.formControl.setValue(optionElement.options);
             }
@@ -305,8 +305,16 @@ export class FormElementService {
      * @return {void}
      */
     removeElement(): void {
-        this.formService.removeElement(this.element);
-        this.resetElement();
+        let name;
+        for (let i = 0, length = this.element.length; i < length; i++) {
+            let formElement = this.element[i];
+            if (formElement.name === 'name') {
+                name = formElement;
+            }
+        }
+        if (this.formService.removeElement(name)) {
+            this.resetElement();
+        }
     }
 
 

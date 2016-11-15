@@ -129,18 +129,27 @@ export class FormService {
      * @param {FormElement} element the element to remove
      * @return {void}
      */
-    removeElement(element: FormElement): void {
+    removeElement(element?: FormElement): boolean {
         let index = -1;
         for (let i = 0, length = this.form.elements.length; i < length; i++) {
             let input = this.form.elements[i];
-            if (input.name === element.name) {
+            if (input.name === element.value) {
                 index = i;
             }
         }
         if (index !== -1) {
-            this.form.elements.splice(index, 1);
+            if (index === this.editingElementIndex) {
+                this.form.elements.splice(index, 1);
+                this.alert.setSuccessHint(`Element ${element.name} removed.`);
+                this.setAddingElement(false);
+                return true;
+            }
         }
-        this.setAddingElement(false);
+        this.alert.setAlert(
+            'Identifying Error',
+            `There has been an error identifying the correct element.
+            Please make sure the Id/Name has not been change.`);
+        return false;
     }
 
 
