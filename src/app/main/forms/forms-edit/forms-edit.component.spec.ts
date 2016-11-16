@@ -2,27 +2,55 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { FormsEditComponent } from './forms-edit.component';
 
+import { ElementEditComponent } from './..';
+
+import {
+    FormService,
+    FormMock,
+    AlertService,
+    AlertMock
+} from './../../../core';
+
+import {
+    SharedModule
+} from './../../../shared/shared.module';
+
 describe('FormsEditComponent', () => {
-  let component: FormsEditComponent;
-  let fixture: ComponentFixture<FormsEditComponent>;
+    let component: FormsEditComponent;
+    let fixture: ComponentFixture<FormsEditComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ FormsEditComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                FormsEditComponent,
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(FormsEditComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+                ElementEditComponent
+            ],
+            imports: [
+                SharedModule,
+                RouterTestingModule.withRoutes([
+                    { path: '', component: class { } },
+                ])
+            ],
+            providers: [
+                { provide: FormService, useClass: FormMock },
+                { provide: AlertService, useClass: AlertMock }
+            ]
+        })
+            .compileComponents();
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(FormsEditComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

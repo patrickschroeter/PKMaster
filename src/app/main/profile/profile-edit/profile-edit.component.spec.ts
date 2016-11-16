@@ -2,9 +2,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { ProfileEditComponent } from './profile-edit.component';
-import { DynamicFormComponent, InputComponent, CheckboxComponent, SelectComponent, DeviderComponent, RadioComponent, DatalistComponent, TextareaComponent, ButtonComponent, OverlayComponent, FormValidationComponent } from './../../../shared';
+
+import {
+    InputValidationService,
+    InputValidationMock
+} from './../../../core';
+
+import {
+    SharedModule
+} from './../../../shared/shared.module';
 
 describe('ProfileEditComponent', () => {
     let component: ProfileEditComponent;
@@ -13,12 +22,19 @@ describe('ProfileEditComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                ProfileEditComponent,
-                DynamicFormComponent,
-                InputComponent, CheckboxComponent, SelectComponent, DeviderComponent, RadioComponent, DatalistComponent, TextareaComponent, ButtonComponent, OverflowEvent, FormValidationComponent
+                ProfileEditComponent
+            ],
+            imports: [
+                SharedModule,
+                RouterTestingModule.withRoutes([
+                    { path: '', component: class { } },
+                ])
+            ],
+            providers: [
+                { provide: InputValidationService, useClass: InputValidationMock }
             ]
         })
-        .compileComponents();
+            .compileComponents();
     }));
 
     beforeEach(() => {

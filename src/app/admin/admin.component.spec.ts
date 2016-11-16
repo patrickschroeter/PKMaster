@@ -1,11 +1,48 @@
 /* tslint:disable:no-unused-variable */
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { TestBed, async } from '@angular/core/testing';
 import { AdminComponent } from './admin.component';
 
-describe('Component: Admin', () => {
-  it('should create an instance', () => {
-    let component = new AdminComponent();
-    expect(component).toBeTruthy();
-  });
+import {
+    AuthenticationService,
+    AuthenticationMock,
+    InputValidationService,
+    InputValidationMock
+} from './../core';
+
+import {
+    SharedModule
+} from './../shared/shared.module';
+
+describe('AdminComponent', () => {
+    let component: AdminComponent;
+    let fixture: ComponentFixture<AdminComponent>;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                AdminComponent
+            ],
+            imports: [
+                SharedModule,
+                RouterTestingModule.withRoutes([
+                    { path: '', component: class { } },
+                ])
+            ],
+        })
+            .compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(AdminComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

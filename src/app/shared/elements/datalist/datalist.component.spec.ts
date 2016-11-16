@@ -15,13 +15,15 @@ import {
     CheckboxComponent,
     TextareaComponent,
     RadioComponent,
-    SelectComponent } from './../../';
+    SelectComponent
+} from './../../';
 
 import {
     AlertService,
     AlertMock,
     InputValidationService,
-    InputValidationMock } from './../../../core';
+    InputValidationMock
+} from './../../../core';
 
 describe('DatalistComponent', () => {
     let component: DatalistComponent;
@@ -51,7 +53,7 @@ describe('DatalistComponent', () => {
                 { provide: InputValidationService, useClass: InputValidationMock },
             ]
         })
-        .compileComponents();
+            .compileComponents();
     }));
 
     beforeEach(() => {

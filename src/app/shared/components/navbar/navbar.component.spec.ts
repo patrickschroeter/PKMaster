@@ -6,9 +6,10 @@ import { DebugElement } from '@angular/core';
 import { NavbarComponent } from './navbar.component';
 import {
     ButtonComponent,
-    DeviderComponent } from './../../';
+    DeviderComponent
+} from './../../';
 
-fdescribe('NavbarComponent', () => {
+describe('NavbarComponent', () => {
     let component: NavbarComponent;
     let fixture: ComponentFixture<NavbarComponent>;
 
@@ -21,7 +22,7 @@ fdescribe('NavbarComponent', () => {
                 ButtonComponent
             ]
         })
-        .compileComponents();
+            .compileComponents();
     }));
 
     beforeEach(() => {

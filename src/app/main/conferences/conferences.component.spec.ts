@@ -1,8 +1,49 @@
 /* tslint:disable:no-unused-variable */
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { TestBed, async } from '@angular/core/testing';
 import { ConferencesComponent } from './conferences.component';
 
-describe('Component: Conferences', () => {
+import {
+    InputValidationService,
+    InputValidationMock,
+} from './../../core';
 
+import {
+    SharedModule
+} from './../../shared/shared.module';
+
+describe('ConferencesComponent', () => {
+    let component: ConferencesComponent;
+    let fixture: ComponentFixture<ConferencesComponent>;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                ConferencesComponent
+            ],
+            imports: [
+                SharedModule,
+                RouterTestingModule.withRoutes([
+                    { path: '', component: class { } },
+                ])
+            ],
+            providers: [
+                { provide: InputValidationService, useClass: InputValidationMock }
+            ]
+        })
+            .compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ConferencesComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });
