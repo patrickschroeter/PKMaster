@@ -4,6 +4,7 @@ import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { AlertComponent } from './core';
 
 describe('App: Pk', () => {
   let fixture: ComponentFixture<any>;
@@ -12,7 +13,8 @@ describe('App: Pk', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        AlertComponent
       ],
       providers: [],
       imports: [

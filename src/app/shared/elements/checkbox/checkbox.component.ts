@@ -18,7 +18,7 @@ export class CheckboxComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-        if (!this.config.formControl) { this.config.formControl = new FormControl(this.config.value); }
+        if (this.config && !this.config.formControl) { this.config.formControl = new FormControl(this.config.value); }
     }
 
 }

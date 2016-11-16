@@ -1,11 +1,30 @@
 /* tslint:disable:no-unused-variable */
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
-import { TestBed, async } from '@angular/core/testing';
 import { CheckboxComponent } from './checkbox.component';
 
-describe('Component: Checkbox', () => {
-  it('should create an instance', () => {
-    let component = new CheckboxComponent();
-    expect(component).toBeTruthy();
-  });
+describe('CheckboxComponent', () => {
+    let component: CheckboxComponent;
+    let fixture: ComponentFixture<CheckboxComponent>;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                CheckboxComponent
+            ]
+        })
+        .compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(CheckboxComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

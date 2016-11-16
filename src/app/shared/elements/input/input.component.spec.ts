@@ -6,6 +6,8 @@ import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { InputComponent } from './input.component';
 
+import { FormValidationComponent } from './../../';
+
 describe('Component: Input', () => {
   let fixture: ComponentFixture<any>;
   let component: InputComponent;
@@ -14,7 +16,8 @@ describe('Component: Input', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        InputComponent
+        InputComponent,
+        FormValidationComponent
       ],
       imports: [
         FormsModule

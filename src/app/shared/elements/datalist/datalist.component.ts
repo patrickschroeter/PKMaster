@@ -23,7 +23,7 @@ export class DatalistComponent implements OnInit {
     constructor(private alert: AlertService) { }
 
     ngOnInit() {
-        if (!this.config.formControl) { this.config.formControl = new FormControl(this.config.value); }
+        if (this.config && !this.config.formControl) { this.config.formControl = new FormControl(this.config.value); }
 
         this.addOptionForm = [
             {
