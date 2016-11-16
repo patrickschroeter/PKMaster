@@ -23,7 +23,7 @@ import {
     InputValidationService,
     InputValidationMock } from './../../../core';
 
-fdescribe('DatalistComponent', () => {
+describe('DatalistComponent', () => {
     let component: DatalistComponent;
     let fixture: ComponentFixture<DatalistComponent>;
 
@@ -31,6 +31,7 @@ fdescribe('DatalistComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 DatalistComponent,
+
                 InputComponent,
                 OverlayComponent,
                 DynamicFormComponent,

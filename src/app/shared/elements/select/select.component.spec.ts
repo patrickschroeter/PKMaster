@@ -1,11 +1,41 @@
 /* tslint:disable:no-unused-variable */
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
-import { TestBed, async } from '@angular/core/testing';
 import { SelectComponent } from './select.component';
+import {
+    OverlayComponent,
+    FormValidationComponent,
+    ButtonComponent } from './../../';
 
-describe('Component: Select', () => {
-  it('should create an instance', () => {
-    let component = new SelectComponent();
-    expect(component).toBeTruthy();
-  });
+describe('SelectComponent', () => {
+    let component: SelectComponent;
+    let fixture: ComponentFixture<SelectComponent>;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                OverlayComponent,
+                FormValidationComponent,
+                ButtonComponent,
+                SelectComponent
+            ],
+            imports: [
+                ReactiveFormsModule
+            ]
+        })
+        .compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(SelectComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

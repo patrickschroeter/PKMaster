@@ -1,11 +1,37 @@
 /* tslint:disable:no-unused-variable */
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
-import { TestBed, async } from '@angular/core/testing';
 import { TextareaComponent } from './textarea.component';
+import {
+    FormValidationComponent } from './../../';
 
-describe('Component: Textarea', () => {
-  it('should create an instance', () => {
-    let component = new TextareaComponent();
-    expect(component).toBeTruthy();
-  });
+describe('TextareaComponent', () => {
+    let component: TextareaComponent;
+    let fixture: ComponentFixture<TextareaComponent>;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                FormValidationComponent,
+                TextareaComponent
+            ],
+            imports: [
+                ReactiveFormsModule
+            ]
+        })
+        .compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(TextareaComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

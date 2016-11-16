@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, HostBinding } from '@angular/core';
+import { Component, OnInit, OnChanges,  Input, SimpleChanges, Output, EventEmitter, HostBinding } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { InputValidationService } from './../../../core';
@@ -10,7 +10,7 @@ import { FormElement } from './../../../swagger';
     templateUrl: './dynamic-form.component.html',
     styleUrls: ['./dynamic-form.component.scss']
 })
-export class DynamicFormComponent implements OnInit {
+export class DynamicFormComponent implements OnInit, OnChanges {
 
     @HostBinding('class.form') formClass = true;
 
@@ -58,23 +58,24 @@ export class DynamicFormComponent implements OnInit {
      */
     generateFormFromInput(input?): void {
         /** Use this.formElements if not Input is given */
-        if (!input) input = this.formElements;
-        if (!input) throw Error('this.formElements is not defined.');
+        if (!this.formElements) { return; }
+        if (!input) { input = this.formElements; }
+        if (!input) { throw Error('this.formElements is not defined.'); }
         let options = {};
         /** For all Elements in Input[] */
         for (let i = 0, length = input.length; i < length; i++) {
             let element = input[i];
             /** Ignore Data withoud Name (ID) */
-            if (!element || !element.name) continue;
+            if (!element || !element.name) { continue; }
 
             /** Create Array of ValidationFn */
             let activeValidations = this.inputValidation.generateValidationsFromKeys(element.validations);
-            if (element.required) activeValidations.push(Validators.required)
+            if (element.required) { activeValidations.push(Validators.required); }
 
             /** Create new FormControl if not existing */
             if (!element.formControl) {
                 /** FIX for multiselect */
-                if (!element.value) element.value = element.multiple ? null : '';
+                if (!element.value) { element.value = element.multiple ? null : ''; }
                 element.formControl = new FormControl(element.value, Validators.compose(activeValidations));
 
             }

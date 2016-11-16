@@ -1,14 +1,36 @@
 /* tslint:disable:no-unused-variable */
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
-import { TestBed, async } from '@angular/core/testing';
 import { NavbarComponent } from './navbar.component';
+import {
+    ButtonComponent,
+    DeviderComponent } from './../../';
 
-describe('Component: Navbar', () => {
+fdescribe('NavbarComponent', () => {
+    let component: NavbarComponent;
+    let fixture: ComponentFixture<NavbarComponent>;
 
-  it('should be defined')
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                NavbarComponent,
 
-  it('should display \'conferences\' link if the user is allowed to see conferences');
+                DeviderComponent,
+                ButtonComponent
+            ]
+        })
+        .compileComponents();
+    }));
 
-  it('should display \'admin\' link if the user is admin');
+    beforeEach(() => {
+        fixture = TestBed.createComponent(NavbarComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

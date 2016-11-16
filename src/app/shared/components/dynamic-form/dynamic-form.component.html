@@ -1,4 +1,4 @@
-<div class="form__wrapper">
+<div class="form__wrapper" *ngIf="formElements">
 
     <form [formGroup]="form" (ngSubmit)="submit(form.value)" [class.element--show-validation]="showValidation">
 

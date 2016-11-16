@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
 import { DebugElement } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { InputComponent } from './input.component';
@@ -20,7 +20,7 @@ describe('Component: Input', () => {
         FormValidationComponent
       ],
       imports: [
-        FormsModule
+        ReactiveFormsModule
       ]
     });
 
