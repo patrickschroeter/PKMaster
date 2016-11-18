@@ -52,6 +52,12 @@ error: remove/cancel and leave state
 http://pk.multimedia.hs-augsburg.de:8000/swagger/v1/swagger.json
 ```
 
+## UI
+
+```
+http://pk.multimedia.hs-augsburg.de:8000/swagger/ui/index.html#!
+```
+
 ## Karma Config
 
 https://karma-runner.github.io/0.8/config/configuration-file.html
