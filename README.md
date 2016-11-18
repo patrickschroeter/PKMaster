@@ -44,6 +44,14 @@ error: remove/cancel and leave state
 
 # Development Architecture
 
+## Swagger
+
+### Json
+
+```
+http://pk.multimedia.hs-augsburg.de:8000/swagger/v1/swagger.json
+```
+
 ## Karma Config
 
 https://karma-runner.github.io/0.8/config/configuration-file.html

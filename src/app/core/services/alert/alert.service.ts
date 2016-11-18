@@ -47,9 +47,15 @@ export class AlertService {
      * @return {void}
      */
     setAlert(title: string, message: string): void {
-        this.titleObserver.next(title);
-        this.messageObserver.next(message);
-        this.isOpenObserver.next(true);
+        if (this.titleObserver) {
+            this.titleObserver.next(title);
+        }
+        if (this.messageObserver) {
+            this.messageObserver.next(message);
+        }
+        if (this.isOpenObserver) {
+            this.isOpenObserver.next(true);
+        }
     }
 
 
