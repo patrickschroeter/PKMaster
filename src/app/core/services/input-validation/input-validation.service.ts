@@ -27,13 +27,13 @@ export class InputValidationService {
 
         } else if (control.hasError('maxlength')) {
             return `Field requires a max length of
-            {{ control.errors.maxlength.requiredLength}}. Actual
-            {{ control.errors.maxlength.actualLength }}.`;
+            ${ control.errors['maxlength'].requiredLength}. Actual
+            ${ control.errors['maxlength'].actualLength }.`;
 
         } else if (control.hasError('minlength')) {
             return `Field requires a length of
-            {{ control.errors.minlength.requiredLength}}. Actual
-            {{ control.errors.minlength.actualLength }}.`;
+            ${ control.errors['minlength'].requiredLength }. Actual
+            ${ control.errors['minlength'].actualLength }.`;
 
         } else if (control.hasError('required')) {
             return 'Field is required.';

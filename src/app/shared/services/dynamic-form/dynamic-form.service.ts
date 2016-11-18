@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Validators, FormControl, FormBuilder, FormGroup } from '@angular/forms';
 
-import { InputValidationService } from './../../../core';
+import { InputValidationService, AlertService } from './../../../core';
 
 import { FormElement } from './../../../swagger';
 
 @Injectable()
 export class DynamicFormService {
 
-    constructor(private build: FormBuilder, private inputValidation: InputValidationService) { }
+    constructor(
+        private build: FormBuilder,
+        private inputValidation: InputValidationService,
+        private alert: AlertService) { }
 
     /**
      * @description generates a from group from FormElements
@@ -45,8 +48,21 @@ export class DynamicFormService {
             /** FIX for multiselect */
             if (!element.value) { element.value = element.multiple ? null : ''; }
             element.formControl = new FormControl(element.value, Validators.compose(activeValidations));
-
         }
         return true;
+    }
+
+    showElementValidation(element: FormElement): void {
+        if (!element.formControl) { return; }
+        let message = this.inputValidation.getErrorMessage(element.formControl);
+        if (message) {
+            this.alert.setErrorHint(message);
+        } else {
+            this.alert.removeHint();
+        }
+    }
+
+    hideElementValidation() {
+        this.alert.removeHint();
     }
 }

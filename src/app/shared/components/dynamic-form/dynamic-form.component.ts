@@ -1,7 +1,7 @@
 import { Component, OnInit, OnChanges, Input, SimpleChanges, Output, EventEmitter, HostBinding } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
-import { InputValidationService, AlertService } from './../../../core';
+import { InputValidationService } from './../../../core';
 
 import { DynamicFormService } from './../../';
 
@@ -33,8 +33,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     constructor(
         private build: FormBuilder,
         private inputValidation: InputValidationService,
-        private dynamicForm: DynamicFormService,
-        private alert: AlertService) {
+        private dynamicForm: DynamicFormService) {
     }
 
 
@@ -78,15 +77,11 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     }
 
     showElementValidation(element: FormElement): void {
-        if (!element.formControl) { return; }
-        let message = this.inputValidation.getErrorMessage(element.formControl);
-        if (message) {
-            this.alert.setErrorHint(message);
-        }
+        this.dynamicForm.showElementValidation(element);
     }
 
     hideElementValidation() {
-        this.alert.removeHint();
+        this.dynamicForm.hideElementValidation();
     }
 
 
