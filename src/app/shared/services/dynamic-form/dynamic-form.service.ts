@@ -16,7 +16,6 @@ export class DynamicFormService {
      * @return {FormGroup}
      */
     generateFormFromInput(input?: FormElement[]): FormGroup {
-        console.log(input);
         let options = {};
         for (let i = 0, length = input.length; i < length; i++) {
             let element = input[i];
