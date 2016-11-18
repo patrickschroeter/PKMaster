@@ -15,7 +15,9 @@ export class AlertService {
     private isOpenObserver: Observer<boolean>;
 
     private hintObservable: Observable<any>;
-    private hintObserver: Observer<string>;
+    private hintObserver: Observer<Array<any>>;
+
+    private hintType: string;
 
     private loadingObservable: Observable<any>;
     private loadingObserver: Observer<any>;
@@ -58,6 +60,32 @@ export class AlertService {
         }
     }
 
+    /**
+     * @description Streams the Hint to the Listening component
+     * @param {string} message the message of the hint
+     * @return {void}
+     */
+    setHint(message: string): void {
+        this.hintObserver.next([message, this.hintType]);
+    }
+
+    /**
+     * @description removes the Hint
+     * @return {void}
+     */
+    removeHint(): void {
+        this.hintObserver.next([null, null]);
+    }
+
+    /**
+     * @description Streams the Hint to the Listening component
+     * @param {string} message the message of the hint
+     * @return {void}
+     */
+    setErrorHint(message: string): void {
+        this.hintType = 'error';
+        this.setHint(message);
+    }
 
     /**
      * @description Streams the Hint to the Listening component
@@ -65,9 +93,10 @@ export class AlertService {
      * @return {void}
      */
     setSuccessHint(message: string): void {
-        this.hintObserver.next(message);
+        this.hintType = 'success';
+        this.setHint(message);
         setTimeout(() => {
-            this.hintObserver.next(null);
+            this.removeHint();
         }, 1000);
     }
 

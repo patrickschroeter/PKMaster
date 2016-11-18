@@ -2,10 +2,7 @@
     display: none;
     position: fixed;
     max-width: 100%;
-    z-index: 99;
-    right: 0;
-    bottom: 0;
-    padding: 0 40px 40px 0;
+    z-index: 999;
 
     &.hint--top-right {
         right: 0;
@@ -20,6 +17,11 @@
         bottom: auto;
         padding: 90px 0 0 40px;
     }
+    &.hint--bottom-right {
+        right: 0;
+        bottom: 0;
+        padding: 0 40px 40px 0;
+    }
 
     &.hint--visible {
         display: block;
@@ -29,10 +31,10 @@
         @extend .font_smallest;
         padding: 5px;
         margin-top: 3px;
-        border: $border-width solid $success;
         border-radius: $border-radius;
-        background-color: lighten($success, 5%);
-        color: $white;
+        border: $border-width solid $mediumwhite;
+        background-color: $white;
+        color: $darkgray;
 
         display: none;
 
@@ -50,10 +52,15 @@
             background-color: lighten($error, 0%);
             color: $white;
         }
-        &.hint--normal {
-            border: $border-width solid $mediumwhite;
-            background-color: $white;
-            color: $darkgray;
+        &.hint--success {
+            border: $border-width solid $success;
+            background-color: lighten($success, 5%);
+            color: $white;
+        }
+        &.hint--error {
+            border: $border-width solid lighten($error, 0%);
+            background-color: lighten($error, 0%);
+            color: $white;
         }
 
         &.hint--rotating-icon {

@@ -15,6 +15,36 @@ export class InputValidationService {
 
     constructor() { }
 
+    getErrorMessage(control: FormControl): string {
+        if (control.hasError('notTrue')) {
+            return 'Field is required.';
+
+        } else if (control.hasError('invalidEmail')) {
+            return 'Field is an invalid E-Mail address.';
+
+        } else if (control.hasError('internalEmail')) {
+            return 'Field is not an external E-Mail address.';
+
+        } else if (control.hasError('maxlength')) {
+            return `Field requires a max length of
+            {{ control.errors.maxlength.requiredLength}}. Actual
+            {{ control.errors.maxlength.actualLength }}.`;
+
+        } else if (control.hasError('minlength')) {
+            return `Field requires a length of
+            {{ control.errors.minlength.requiredLength}}. Actual
+            {{ control.errors.minlength.actualLength }}.`;
+
+        } else if (control.hasError('required')) {
+            return 'Field is required.';
+
+        } else if (control.invalid) {
+            return 'Field is invalid.';
+
+        }
+        return;
+    }
+
     /**
      * Generates an Array of Validation Functions from the given Array of Keys
      * @param {Array} keyArray all Validation Keys

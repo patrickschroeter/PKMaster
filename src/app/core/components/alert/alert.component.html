@@ -3,8 +3,11 @@
     <div class="pk-overlay__content">{{ overlayMessage }}</div>
 </pk-overlay>
 
-<div class="hint" [class.hint--visible]="hintMessage">
-    <div class="hint-element" *ngIf="hintMessage">
+<div class="hint"
+    [class.hint--visible]="hintMessage">
+    <div class="hint-element" *ngIf="hintMessage"
+        [class.hint--error]="hintType === 'error'"
+        [class.hint--success]="hintType === 'success'">
         {{ hintMessage }}
     </div>
 </div>

@@ -1,12 +1,15 @@
 <div class="form__wrapper" *ngIf="formElements">
 
-    <form [formGroup]="form" (ngSubmit)="submit(form.value)" [class.element--show-validation]="showValidation">
+    <form [formGroup]="form" (ngSubmit)="submit(form.value)" [class.element--show-validation]="showFormValidation">
 
       <div class="form__elements">
           <div class="rel" *ngFor="let element of formElements">
             <div class="form__element element"
                 *ngIf="!element.hidden"
-                [ngClass]="{ 'form__element--small': element.styles && element.styles.indexOf('small') !== -1, 'form__element--aligned': element.styles && element.styles.indexOf('aligned') !== -1}">
+                [ngClass]="{ 'form__element--small': element.styles && element.styles.indexOf('small') !== -1, 'form__element--aligned': element.styles && element.styles.indexOf('aligned') !== -1}"
+                (mouseover)="showElementValidation(element)"
+                (mouseout)="hideElementValidation()"
+                >
 
                 <div class="rel" [ngSwitch]="element.elementType">
                     <pk-input
@@ -75,7 +78,7 @@
             [class]="'element--error'"
             (onClick)="cancel()"></pk-button>
         </div>
-        <div class="right" *ngIf="hasSubmit" (mouseover)="showValidation = true" (mouseout)="showValidation = false">
+        <div class="right" *ngIf="hasSubmit" (mouseover)="showFormValidation = true" (mouseout)="showFormValidation = false">
           <pk-button
             [value]="'OK'"
             [icon]="'chevron_right'"

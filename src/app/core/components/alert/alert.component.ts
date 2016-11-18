@@ -14,6 +14,7 @@ export class AlertComponent implements OnInit {
     private overlayMessage: string;
 
     private hintMessage: string;
+    private hintType: string;
 
     private loadingElements: Array<{ id, message }>;
 
@@ -29,8 +30,9 @@ export class AlertComponent implements OnInit {
         this.alert.getOpenState().subscribe(isOpen => {
             this.isOverlayOpen = isOpen;
         });
-        this.alert.getHintMessage().subscribe(message => {
-            this.hintMessage = message;
+        this.alert.getHintMessage().subscribe(hint => {
+            this.hintMessage = hint[0];
+            this.hintType = hint[1];
         });
         this.alert.getLoading().subscribe(loading => {
             this.loadingElements = loading;
