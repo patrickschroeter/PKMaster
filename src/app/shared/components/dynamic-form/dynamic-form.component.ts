@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 
 import { InputValidationService } from './../../../core';
 
+import { DynamicFormService } from './../../';
+
 import { FormElement } from './../../../swagger';
 
 @Component({
@@ -28,7 +30,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
     private form: FormGroup;
 
-    constructor(private build: FormBuilder, private inputValidation: InputValidationService) {
+    constructor(private build: FormBuilder, private inputValidation: InputValidationService, private dynamicForm: DynamicFormService) {
     }
 
 
@@ -61,31 +63,9 @@ export class DynamicFormComponent implements OnInit, OnChanges {
         if (!this.formElements) { return; }
         if (!input) { input = this.formElements; }
         if (!input) { throw Error('this.formElements is not defined.'); }
-        let options = {};
-        /** For all Elements in Input[] */
-        for (let i = 0, length = input.length; i < length; i++) {
-            let element = input[i];
-            /** Ignore Data withoud Name (ID) */
-            if (!element || !element.name) { continue; }
-
-            /** Create Array of ValidationFn */
-            let activeValidations = this.inputValidation.generateValidationsFromKeys(element.validations);
-            if (element.required) { activeValidations.push(Validators.required); }
-
-            /** Create new FormControl if not existing */
-            if (!element.formControl) {
-                /** FIX for multiselect */
-                if (!element.value) { element.value = element.multiple ? null : ''; }
-                element.formControl = new FormControl(element.value, Validators.compose(activeValidations));
-
-            }
-
-            /** Add new FormControl to FormBuilder-Options[] */
-            options[element.name] = element.formControl;
-        };
 
         /** Create new FormGroup from FormElements[] */
-        this.form = this.build.group(options);
+        this.form = this.dynamicForm.generateFormFromInput(input);
 
         /** Emit Form changes via @Output() */
         this.form.valueChanges.subscribe((event) => {

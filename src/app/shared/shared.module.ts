@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 
 import * as components from './components';
 import * as elements from './elements';
+import * as services from './services';
 
 @NgModule({
     declarations: [
@@ -33,6 +34,9 @@ import * as elements from './elements';
         FormsModule,
         HttpModule,
         ReactiveFormsModule
+    ],
+    providers: [
+        services.DynamicFormService
     ],
     exports: [
         components.DynamicFormComponent,
