@@ -29,6 +29,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     @Output() onRemove: EventEmitter<any> = new EventEmitter<any>();
 
     private form: FormGroup;
+    private isFormValidationVisible: boolean = false;
 
     constructor(
         private build: FormBuilder,
@@ -86,13 +87,32 @@ export class DynamicFormComponent implements OnInit, OnChanges {
         this.dynamicForm.showElementValidation(element);
     }
 
+    /**
+     * @description shows the validation of the formgroup
+     * @param {FormGroup} element the formgroup to validate
+     * @return {void}
+     */
+    showFormValidation(form: FormGroup) {
+        this.isFormValidationVisible = true;
+        this.dynamicForm.showValidation(form);
+    }
+
 
     /**
      * @description hides the validation of any element
      * @return {void}
      */
-    hideElementValidation(): void {
+    hideValidation(): void {
         this.dynamicForm.hideValidation();
+    }
+
+    /**
+     * @description hides the validation of form
+     * @return {void}
+     */
+    hideFormValidation() {
+        this.isFormValidationVisible = false;
+        this.hideValidation();
     }
 
 
@@ -112,7 +132,9 @@ export class DynamicFormComponent implements OnInit, OnChanges {
      */
     submit(element: Object): void {
         console.log(element);
-        this.onSubmit.emit(element);
+        if (this.form.valid) {
+            this.onSubmit.emit(element);
+        }
     }
 
 

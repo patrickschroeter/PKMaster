@@ -1,6 +1,6 @@
 <div class="form__wrapper" *ngIf="formElements">
 
-    <form [formGroup]="form" (ngSubmit)="submit(form.value)" [class.element--show-validation]="showFormValidation">
+    <form [formGroup]="form" (ngSubmit)="submit(form.value)" [class.element--show-validation]="isFormValidationVisible">
 
       <div class="form__elements">
           <div class="rel" *ngFor="let element of formElements">
@@ -8,7 +8,7 @@
                 *ngIf="!element.hidden"
                 [ngClass]="{ 'form__element--small': element.styles && element.styles.indexOf('small') !== -1, 'form__element--aligned': element.styles && element.styles.indexOf('aligned') !== -1}"
                 (mouseover)="showElementValidation(element)"
-                (mouseout)="hideElementValidation()"
+                (mouseout)="hideValidation()"
                 >
 
                 <div class="rel" [ngSwitch]="element.elementType">
@@ -78,7 +78,9 @@
             [class]="'element--error'"
             (onClick)="cancel()"></pk-button>
         </div>
-        <div class="right" *ngIf="hasSubmit" (mouseover)="showFormValidation = true" (mouseout)="showFormValidation = false">
+        <div class="right" *ngIf="hasSubmit"
+            (mouseover)="showFormValidation(form)"
+            (mouseout)="hideFormValidation()">
           <pk-button
             [value]="'OK'"
             [icon]="'chevron_right'"
@@ -86,8 +88,6 @@
             [type]="'submit'"></pk-button>
         </div>
       </div>
-
-      <!--<div *ngIf="form.hasError('required', 'email')">Email is required</div>-->
 
     </form>
 
