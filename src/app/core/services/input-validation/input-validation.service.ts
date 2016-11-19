@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Validators, ValidatorFn, FormControl } from '@angular/forms';
+import { Validators, ValidatorFn, FormControl, FormGroup } from '@angular/forms';
 
 @Injectable()
 export class InputValidationService {
@@ -15,7 +15,7 @@ export class InputValidationService {
 
     constructor() { }
 
-    getErrorMessage(control: FormControl): string {
+    getErrorMessage(control: FormControl | FormGroup): string {
         if (control.hasError('notTrue')) {
             return 'Field is required.';
 
@@ -34,6 +34,12 @@ export class InputValidationService {
             return `Field requires a length of
             ${ control.errors['minlength'].requiredLength }. Actual
             ${ control.errors['minlength'].actualLength }.`;
+
+        } else if (control.hasError('areEqual')) {
+            if (control.errors['areEqual'].message) {
+                return control.errors['areEqual'].message;
+            }
+            return 'The given values dont match';
 
         } else if (control.hasError('required')) {
             return 'Field is required.';
@@ -112,4 +118,23 @@ export class InputValidationService {
         }
     }
 
+
+    areEqual(names: string[], message?) {
+
+        return function(group: FormGroup) {
+            let value;
+            for (let i = 0, length = names.length; i < length; i++) {
+                let control = group.controls[names[i]];
+                if (!value) {
+                    value = control.value;
+                } else if (value !== control.value) {
+                    return {
+                        areEqual: {
+                            message: message
+                        }
+                    };
+                }
+            }
+        };
+    }
 }

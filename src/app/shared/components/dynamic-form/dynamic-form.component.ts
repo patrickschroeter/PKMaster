@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, Input, SimpleChanges, Output, EventEmitter, HostBinding } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { InputValidationService } from './../../../core';
 
@@ -76,12 +76,23 @@ export class DynamicFormComponent implements OnInit, OnChanges {
         });
     }
 
+
+    /**
+     * @description shows the validation of the element
+     * @param {FormElement} element the element to validate
+     * @return {void}
+     */
     showElementValidation(element: FormElement): void {
         this.dynamicForm.showElementValidation(element);
     }
 
-    hideElementValidation() {
-        this.dynamicForm.hideElementValidation();
+
+    /**
+     * @description hides the validation of any element
+     * @return {void}
+     */
+    hideElementValidation(): void {
+        this.dynamicForm.hideValidation();
     }
 
 

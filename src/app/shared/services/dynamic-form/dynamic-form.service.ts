@@ -18,7 +18,7 @@ export class DynamicFormService {
      * @param {FormElement[]} input the input configuration
      * @return {FormGroup}
      */
-    generateFormFromInput(input?: FormElement[]): FormGroup {
+    generateFormFromInput(input?: FormElement[], config = {}): FormGroup {
         let options = {};
         for (let i = 0, length = input.length; i < length; i++) {
             let element = input[i];
@@ -28,7 +28,7 @@ export class DynamicFormService {
             /** Add new FormControl to FormBuilder-Options[] */
             options[element.name] = element.formControl;
         };
-        return this.build.group(options);
+        return this.build.group(options, config);
     }
 
     /**
@@ -52,9 +52,24 @@ export class DynamicFormService {
         return true;
     }
 
+
+    /**
+     * @description shows error validation of an element
+     * @param {FormElement} element
+     * @return {boolean}
+     */
     showElementValidation(element: FormElement): void {
         if (!element.formControl) { return; }
-        let message = this.inputValidation.getErrorMessage(element.formControl);
+        this.showValidation(element.formControl);
+    }
+
+    /**
+     * @description shows error validation
+     * @param {FormGroup|FormControl} form the form object to validate
+     * @return {void}
+     */
+    showValidation(form: FormGroup | FormControl) {
+        let message = this.inputValidation.getErrorMessage(form);
         if (message) {
             this.alert.setErrorHint(message);
         } else {
@@ -62,7 +77,11 @@ export class DynamicFormService {
         }
     }
 
-    hideElementValidation() {
+    /**
+     * @description hides error validation
+     * @return {void}
+     */
+    hideValidation(): void {
         this.alert.removeHint();
     }
 }

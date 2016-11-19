@@ -45,7 +45,9 @@ import * as services from './services';
 
         elements.OverlayComponent,
         elements.ButtonComponent,
-        elements.DeviderComponent
+        elements.DeviderComponent,
+
+        elements.InputComponent
     ]
 })
 export class SharedModule { }

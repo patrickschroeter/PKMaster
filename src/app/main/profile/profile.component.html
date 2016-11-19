@@ -41,10 +41,45 @@
 <pk-overlay [isOpen]="isChangingPassword" (toggleOverlay)="togglePasswordOverlay()">
     <div class="pk-overlay__header">Change Password</div>
     <div class="pk-overlay__content">
-        <pk-form
-            [formElements]="changePasswordForm"
-            [hasSubmit]="true"
-            (onSubmit)="changePassword($event)"
-        ></pk-form>
+        <div class="form__wrapper">
+            <form [formGroup]="changePasswordForm"
+                (ngSubmit)="submit(form.value)"
+                [class.element--show-validation]="isFormValidationVisible">
+
+                <div class="form__elements">
+                    <div class="rel" *ngFor="let element of changePasswordElements">
+                        <div class="form__element element"
+                            *ngIf="!element.hidden"
+                            [ngClass]="{ 'form__element--small': element.styles && element.styles.indexOf('small') !== -1, 'form__element--aligned': element.styles && element.styles.indexOf('aligned') !== -1}"
+                            (mouseover)="showElementValidation(element)"
+                            (mouseout)="hideElementValidation()"
+                            >
+
+                            <div class="rel">
+                                <pk-input
+                                ngDefaultControl
+                                [config]="element"
+                                ></pk-input>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form__buttons left">
+                    <div class="right"
+                        (mouseover)="showFormValidation(changePasswordForm)"
+                        (mouseout)="hideFormValidation()">
+                        <pk-button
+                            [value]="'OK'"
+                            [icon]="'chevron_right'"
+                            [class]="changePasswordForm.valid ? 'element--success' : 'element--disabled'"
+                            [type]="'submit'"></pk-button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
     </div>
 </pk-overlay>
