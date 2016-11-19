@@ -10,7 +10,9 @@ import {
     FormElementService,
     FormElementMock,
     InputValidationService,
-    InputValidationMock
+    InputValidationMock,
+    AlertService,
+    AlertMock
 } from './../../../core';
 
 import {
@@ -34,7 +36,8 @@ describe('ElementEditComponent', () => {
             ],
             providers: [
                 { provide: FormElementService, useClass: FormElementMock },
-                { provide: InputValidationService, useClass: InputValidationMock }
+                { provide: InputValidationService, useClass: InputValidationMock },
+                { provide: AlertService, useClass: AlertMock }
             ]
         })
             .compileComponents();

@@ -14,4 +14,8 @@ export class InputValidationMock {
         return [];
     }
 
+    areEqual() {
+        return function() {};
+    }
+
 }

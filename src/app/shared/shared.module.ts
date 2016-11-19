@@ -24,9 +24,7 @@ import * as services from './services';
         elements.SelectComponent,
         elements.RadioComponent,
         elements.TextareaComponent,
-        elements.DatalistComponent,
-
-        elements.FormValidationComponent
+        elements.DatalistComponent
     ],
     imports: [
         CommonModule,
@@ -45,7 +43,9 @@ import * as services from './services';
 
         elements.OverlayComponent,
         elements.ButtonComponent,
-        elements.DeviderComponent
+        elements.DeviderComponent,
+
+        elements.InputComponent
     ]
 })
 export class SharedModule { }

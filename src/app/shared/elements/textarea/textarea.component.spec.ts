@@ -5,8 +5,6 @@ import { DebugElement } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { TextareaComponent } from './textarea.component';
-import {
-    FormValidationComponent } from './../../';
 
 describe('TextareaComponent', () => {
     let component: TextareaComponent;
@@ -15,7 +13,6 @@ describe('TextareaComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                FormValidationComponent,
                 TextareaComponent
             ],
             imports: [

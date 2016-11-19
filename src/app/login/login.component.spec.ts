@@ -10,7 +10,9 @@ import {
     AuthenticationService,
     AuthenticationMock,
     InputValidationService,
-    InputValidationMock
+    InputValidationMock,
+    AlertService,
+    AlertMock
 } from './../core';
 
 import {
@@ -34,7 +36,8 @@ describe('LoginComponent', () => {
             ],
             providers: [
                 { provide: AuthenticationService, useClass: AuthenticationMock },
-                { provide: InputValidationService, useClass: InputValidationMock }
+                { provide: InputValidationService, useClass: InputValidationMock },
+                { provide: AlertService, useClass: AlertMock }
             ]
         })
             .compileComponents();
