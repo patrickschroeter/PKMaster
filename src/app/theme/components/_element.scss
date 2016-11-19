@@ -36,12 +36,6 @@
 .element__wrapper, .form__wrapper {
     @include clearfix();
     position: relative;
-
-    &:hover {
-        > .hint {
-            display: block;
-        }
-    }
 }
 
 .element__input, .element__textarea {
@@ -126,7 +120,9 @@
             border-color: $error
         }
     }
-    .hint {
-        /*display: block;*/
+}
+.element__input, .element__checkbox, .element__radio, .element__textarea, .element__option {
+    &:hover {
+        border-color: lighten($accent-color, 25%);
     }
 }
