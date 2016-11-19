@@ -1,6 +1,6 @@
 .list-element {
     @extend .devider;
-    padding: 17px 0;
+    @include clearfix();
     position: relative;
 
     .floating {
@@ -11,5 +11,33 @@
         .floating {
             display: block;
         }
+    }
+
+    .list-element__state {
+        width: 30px;
+        height: 30px;
+        border: $border-radius solid $accent-color;
+        border-radius: 50%;
+        margin: 13px;
+        display: block;
+        float: left;
+    }
+
+    .list-element__name {
+        display: block;
+        float: left;
+        margin: 17px 10px;
+        width: 40%;
+
+        &:hover {
+            color: $guidance-color;
+        }
+    }
+
+    .list-element__date {
+        display: block;
+        float: left;
+        margin: 17px 10px;
+        width: 40%;
     }
 }
