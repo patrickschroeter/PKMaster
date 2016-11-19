@@ -5,8 +5,6 @@ import { DebugElement } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { RadioComponent } from './radio.component';
-import {
-    FormValidationComponent } from './../../';
 
 describe('RadioComponent', () => {
     let component: RadioComponent;
@@ -15,7 +13,6 @@ describe('RadioComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                FormValidationComponent,
                 RadioComponent
             ],
             imports: [

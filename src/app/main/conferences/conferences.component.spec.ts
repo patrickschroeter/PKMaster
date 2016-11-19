@@ -9,6 +9,8 @@ import { ConferencesComponent } from './conferences.component';
 import {
     InputValidationService,
     InputValidationMock,
+    AlertService,
+    AlertMock
 } from './../../core';
 
 import {
@@ -31,7 +33,8 @@ describe('ConferencesComponent', () => {
                 ])
             ],
             providers: [
-                { provide: InputValidationService, useClass: InputValidationMock }
+                { provide: InputValidationService, useClass: InputValidationMock },
+                { provide: AlertService, useClass: AlertMock }
             ]
         })
             .compileComponents();

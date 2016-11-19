@@ -8,20 +8,24 @@ import { DynamicFormComponent } from './dynamic-form.component';
 import {
     InputComponent,
     OverlayComponent,
-    FormValidationComponent,
     ButtonComponent,
     DeviderComponent,
     CheckboxComponent,
     TextareaComponent,
     RadioComponent,
     SelectComponent,
-    DatalistComponent } from './../../';
+    DatalistComponent,
+
+    DynamicFormService,
+    DynamicFormMock
+} from './../../';
 
 import {
     AlertService,
     AlertMock,
     InputValidationService,
-    InputValidationMock } from './../../../core';
+    InputValidationMock
+} from './../../../core';
 
 describe('DynamicFormComponent', () => {
     let component: DynamicFormComponent;
@@ -36,7 +40,6 @@ describe('DynamicFormComponent', () => {
                 InputComponent,
                 OverlayComponent,
                 ButtonComponent,
-                FormValidationComponent,
                 DeviderComponent,
                 CheckboxComponent,
                 TextareaComponent,
@@ -49,9 +52,10 @@ describe('DynamicFormComponent', () => {
             providers: [
                 { provide: AlertService, useClass: AlertMock },
                 { provide: InputValidationService, useClass: InputValidationMock },
+                { provide: DynamicFormService, useClass: DynamicFormMock },
             ]
         })
-        .compileComponents();
+            .compileComponents();
     }));
 
     beforeEach(() => {

@@ -10,7 +10,9 @@ import {
     FormService,
     FormMock,
     InputValidationService,
-    InputValidationMock
+    InputValidationMock,
+    AlertService,
+    AlertMock
 } from './../../core';
 
 import {
@@ -34,7 +36,8 @@ describe('FormsComponent', () => {
             ],
             providers: [
                 { provide: FormService, useClass: FormMock },
-                { provide: InputValidationService, useClass: InputValidationMock }
+                { provide: InputValidationService, useClass: InputValidationMock },
+                { provide: AlertService, useClass: AlertMock }
             ]
         })
             .compileComponents();

@@ -7,7 +7,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SelectComponent } from './select.component';
 import {
     OverlayComponent,
-    FormValidationComponent,
     ButtonComponent } from './../../';
 
 describe('SelectComponent', () => {
@@ -18,7 +17,6 @@ describe('SelectComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 OverlayComponent,
-                FormValidationComponent,
                 ButtonComponent,
                 SelectComponent
             ],

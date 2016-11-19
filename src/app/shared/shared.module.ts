@@ -24,9 +24,7 @@ import * as services from './services';
         elements.SelectComponent,
         elements.RadioComponent,
         elements.TextareaComponent,
-        elements.DatalistComponent,
-
-        elements.FormValidationComponent
+        elements.DatalistComponent
     ],
     imports: [
         CommonModule,

@@ -5,11 +5,18 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { AuthenticationService } from './authentication.service';
 
+import {
+    AlertService,
+    AlertMock
+} from './../';
+
 describe('Service: Authentication', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                AuthenticationService
+                AuthenticationService,
+
+                { provide: AlertService, useClass: AlertMock }
             ],
             imports: [
                 RouterTestingModule.withRoutes([

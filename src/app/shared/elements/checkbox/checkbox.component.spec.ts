@@ -5,8 +5,7 @@ import { DebugElement } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { CheckboxComponent } from './checkbox.component';
-import {
-    FormValidationComponent } from './../../';
+// import { } from './../../';
 
 describe('CheckboxComponent', () => {
     let component: CheckboxComponent;
@@ -15,7 +14,6 @@ describe('CheckboxComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                FormValidationComponent,
                 CheckboxComponent
             ],
             imports: [

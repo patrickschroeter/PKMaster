@@ -5,24 +5,23 @@ import { DebugElement } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { DatalistComponent } from './datalist.component';
+
 import {
-    InputComponent,
     OverlayComponent,
-    DynamicFormComponent,
-    FormValidationComponent,
     ButtonComponent,
+    SelectComponent,
+    RadioComponent,
+    TextareaComponent,
     DeviderComponent,
     CheckboxComponent,
-    TextareaComponent,
-    RadioComponent,
-    SelectComponent
-} from './../../';
+    InputComponent
+} from './../';
+
+import { DynamicFormComponent } from './../../components';
 
 import {
     AlertService,
-    AlertMock,
-    InputValidationService,
-    InputValidationMock
+    AlertMock
 } from './../../../core';
 
 describe('DatalistComponent', () => {
@@ -34,11 +33,10 @@ describe('DatalistComponent', () => {
             declarations: [
                 DatalistComponent,
 
-                InputComponent,
                 OverlayComponent,
                 DynamicFormComponent,
                 ButtonComponent,
-                FormValidationComponent,
+                InputComponent,
                 DeviderComponent,
                 CheckboxComponent,
                 TextareaComponent,
@@ -50,7 +48,6 @@ describe('DatalistComponent', () => {
             ],
             providers: [
                 { provide: AlertService, useClass: AlertMock },
-                { provide: InputValidationService, useClass: InputValidationMock },
             ]
         })
             .compileComponents();

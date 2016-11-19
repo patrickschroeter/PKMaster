@@ -2,9 +2,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ProfileComponent } from './profile.component';
+
+import {
+    AuthenticationService,
+    AuthenticationMock,
+    AlertService,
+    AlertMock,
+    InputValidationService,
+    InputValidationMock
+} from './../../core';
 
 import {
     SharedModule
@@ -20,10 +30,16 @@ describe('ProfileComponent', () => {
                 ProfileComponent
             ],
             imports: [
+                ReactiveFormsModule,
                 SharedModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: class { } },
-                ])
+                ]),
+            ],
+            providers: [
+                { provide: AuthenticationService, useClass: AuthenticationMock },
+                { provide: AlertService, useClass: AlertMock },
+                { provide: InputValidationService, useClass: InputValidationMock },
             ]
         })
             .compileComponents();
