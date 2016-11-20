@@ -3,14 +3,30 @@
         <h1 class="devider devider--primary element element--spacing-bottom-small">Applications</h1>
 
         <div class="list">
-            <div class="list-element" *ngFor="let application of applications">
-                <div class="list-element__state" routerLink="/applications/{{ application.id }}">{{ application.state.name }}</div>
-                <a class="list-element__name" routerLink="/applications/{{ application.id }}">{{ application.form.title }}</a>
-                <div class="list-element__date" routerLink="/applications/{{ application.id }}">{{ application.created }}</div>
+            <div class="list-element" *ngFor="let application of applications"
+                [ngClass]="{
+                    'list-element--created': application.state === 'created',
+                    'list-element--submitted': application.state === 'submitted',
+                    'list-element--rescinded': application.state === 'rescinded',
+                    'list-element--deactivated': application.state === 'deactivated',
+                    'list-element--pending': application.state === 'pending',
+                    'list-element--accepted': application.state === 'accepted',
+                    'list-element--denied': application.state === 'denied'
+                }">
+                <div class="list-element__state-icon" [attr.tooltip]="application.state"></div>
+                <a class="list-element--context list-element__name" routerLink="/applications/{{ application.id }}">{{ application.form.title }}</a>
+                <div class="list-element--context list-element__date">{{ application.created }}</div>
+                <div class="list-element--context list-element__state">{{ application.state }}</div>
+                <div class="list-element--context list-element__modified">{{ application.modified }}</div>
 
-                <a class="floating floating--top-right " routerLink="/applications/{{ application.id }}/edit">
-                    <pk-button class="element--rounded" [icon]="'create'" element--secondary></pk-button>
-                </a>
+                <div class="floating floating--top-right floating--horizontal">
+                    <pk-button class="element--rounded element--spacing-left-large" [icon]="'send'" element--success></pk-button>
+                    <a routerLink="/applications/{{ application.id }}/edit">
+                        <pk-button class="element--rounded" [icon]="'create'" element--secondary></pk-button>
+                    </a>
+                    <pk-button class="element--rounded" [icon]="'undo'" element--error></pk-button>
+                    <pk-button class="element--rounded" [icon]="'delete'" element--error></pk-button>
+                </div>
             </div>
         </div>
     </div>

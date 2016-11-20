@@ -24,6 +24,16 @@
         margin-bottom: $element-grid-base/4;
     }
 
+    &.element--spacing-left-large {
+        margin-left: $element-grid-base;
+    }
+    &.element--spacing-left-small {
+        margin-left: $element-grid-base/2;
+    }
+    &.element--spacing-left-tiny {
+        margin-left: $element-grid-base/4;
+    }
+
     &.element--inner-bottom-small {
         padding-bottom: $element-grid-base/2;
     }

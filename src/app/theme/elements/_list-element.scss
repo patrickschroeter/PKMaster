@@ -2,32 +2,82 @@
     @extend .devider;
     @include clearfix();
     position: relative;
+    display: flex;
 
-    .floating {
-        display: none;
+    // -> denied
+    &.list-element--created {
+        $current-color: $accent-color;
+        .list-element__state-icon { border-color: $current-color; background: $current-color }
+        .list-element__state { color: $current-color }
+    }
+    &.list-element--submitted {
+        $current-color: $guidance-color;
+        .list-element__state-icon { border-color: $current-color; background: $current-color }
+        .list-element__state { color: $current-color }
+    }
+    &.list-element--rescinded {
+        $current-color: $lightgray;
+        .list-element__state-icon { border-color: $current-color; background: $current-color }
+        .list-element__state { color: $current-color }
+    }
+    &.list-element--deactivated {
+        $current-color: $darkwhite;
+        color: $current-color;
+        .list-element__state-icon { border-color: $current-color; background: $current-color }
+    }
+    &.list-element--pending {
+        $current-color: $guidance-color;
+        .list-element__state-icon { border-color: $current-color; background: $current-color }
+        .list-element__state { color: $current-color }
+    }
+    &.list-element--accepted {
+        $current-color: $success;
+        .list-element__state-icon { border-color: $current-color; background: $current-color }
+        .list-element__state { color: $current-color }
+        .list-element__modified { color: $current-color }
+    }
+    &.list-element--denied {
+        $current-color: $error;
+        .list-element__state-icon { border-color: $current-color; background: $current-color }
+        .list-element__state { color: $current-color }
+        .list-element__modified { color: $current-color }
     }
     &:hover {
         @extend .devider--secondary;
         .floating {
             display: block;
         }
+        .list-element__date, .list-element__modified, .list-element__state {
+            display: none;
+        }
     }
 
-    .list-element__state {
+    .floating {
+        display: none;
+    }
+
+    .list-element__state-icon {
         width: 30px;
         height: 30px;
-        border: $border-radius solid $accent-color;
+        border: $border-width solid $accent-color;
+        background: $accent-color;
         border-radius: 50%;
         margin: 13px;
         display: block;
         float: left;
     }
 
-    .list-element__name {
+    .list-element--context {
         display: block;
         float: left;
         margin: 17px 10px;
-        width: 40%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .list-element__name {
+        flex: 1;
 
         &:hover {
             color: $guidance-color;
@@ -35,9 +85,22 @@
     }
 
     .list-element__date {
-        display: block;
-        float: left;
-        margin: 17px 10px;
-        width: 40%;
+        @extend .font_small;
+        line-height: 23px;
+        width: 12%;
+    }
+
+    .list-element__state {
+        @extend .font_small;
+        line-height: 23px;
+        width: 15%;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+
+    .list-element__modified {
+        @extend .font_small;
+        line-height: 23px;
+        width: 12%;
     }
 }

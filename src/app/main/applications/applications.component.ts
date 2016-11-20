@@ -17,18 +17,60 @@ export class ApplicationsComponent implements OnInit {
         this.applications = [
             {
                 id: 1,
-                state: State.NameEnum.available,
+                state: State.NameEnum.created,
+                created: 20160731,
+                form: {
+                    title: 'Antrag auf Bachelorarbeit'
+                }
+            },
+            {
+                id: 2,
+                state: State.NameEnum.submitted,
                 created: 20160731,
                 form: {
                     title: 'Antrag auf Masterarbeit'
                 }
             },
             {
-                id: 2,
-                state: State.NameEnum.available,
+                id: 3,
+                state: State.NameEnum.rescinded,
                 created: 20160731,
                 form: {
                     title: 'Antrag auf Notenanrechnung'
+                }
+            },
+            {
+                id: 4,
+                state: State.NameEnum.deactivated,
+                created: 20160731,
+                form: {
+                    title: 'Antrag auf Notenänderung'
+                }
+            },
+            {
+                id: 5,
+                state: State.NameEnum.pending,
+                created: 20160731,
+                form: {
+                    title: 'Antrag auf Anrechnung der Ausbildung'
+                }
+            },
+            {
+                id: 6,
+                state: State.NameEnum.accepted,
+                created: 20160731,
+                modified: 20161120,
+                form: {
+                    title: 'Antrag auf Anrechnung von Studienfächern'
+                }
+            },
+            {
+                id: 7,
+                state: State.NameEnum.denied,
+                created: 20160731,
+                modified: 20161120,
+                form: {
+                    title: 'Antrag auf Urlaubssemester'
                 }
             }
         ]

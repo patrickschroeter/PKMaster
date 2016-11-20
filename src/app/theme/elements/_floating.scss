@@ -83,4 +83,11 @@
         bottom: -10px;
         left: -10px;
     }
+
+    &.floating--horizontal {
+        & > * {
+            float: right;
+            margin-left: $element-grid-base/4;
+        }
+    }
 }
