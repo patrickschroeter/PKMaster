@@ -17,6 +17,7 @@ import { SharedModule } from './../shared/shared.module';
         main.FormsComponent,
         main.FormsEditComponent,
         main.ElementEditComponent,
+        main.ApplicationsDetailComponent,
     ],
     imports: [
         CommonModule,
