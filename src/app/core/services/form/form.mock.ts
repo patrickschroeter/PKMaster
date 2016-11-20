@@ -22,4 +22,20 @@ export class FormMock {
     onEditElement(): Observable<any> {
         return new Observable(observer => { });
     }
+
+
+    /**
+     * @description returns the observable to get a form by the given id
+     * @param {number} id
+     * @return {Observable}
+     */
+    getFormById(id: number): Observable<any> {
+        return new Observable(observer => {
+            /** http getFormById(id) => this.currentForm = result */
+            setTimeout(() => {
+                observer.next({});
+                observer.complete();
+            }, 200);
+        });
+    }
 }
