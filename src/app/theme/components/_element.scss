@@ -95,9 +95,9 @@
 }
 
 .element__input, .element__option {
-    line-height: $element-grid-base;
+    line-height: calc(#{$element-grid-base} - #{$border-width});
     font-weight: 400;
-    height: $element-grid-base; // hack to remove the 1px diff from div & select
+    height: $element-grid-base;
 }
 
 .element__textarea {
