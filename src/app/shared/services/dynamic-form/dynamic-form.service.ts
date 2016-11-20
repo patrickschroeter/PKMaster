@@ -37,7 +37,7 @@ export class DynamicFormService {
      * @return {boolean}
      */
     extendElement(element: FormElement): boolean {
-        if (!element || !element.name) { return false; }
+        if (!element || !element.name || element.disabled) { return false; }
 
         /** Create Array of ValidationFn */
         let activeValidations = this.inputValidation.generateValidationsFromKeys(element.validations);

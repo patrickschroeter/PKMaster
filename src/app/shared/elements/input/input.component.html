@@ -12,11 +12,18 @@
         {{ config.label }}
     </label>
     <input
+        *ngIf="!config.disabled"
         class="element__input"
         [attr.id]="config.name"
         [attr.type]="config.type"
         [attr.placeholder]="config.placeholder"
         [formControl]="config.formControl"
         >
+    <div
+        *ngIf="config.disabled"
+        class="element__input element--disabled"
+        >
+        {{ config.value }}
+        </div>
 
 </div>

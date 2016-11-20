@@ -1,20 +1,29 @@
 @import './../../../theme';
 
 .element__label {
-    cursor: pointer;
 
     span {
         position: relative;
         top: $element-grid-base/8;
     }
+}
 
-    &:hover {
+.element__options {
+    &:not(.element--disabled) {
 
-        .element__radio {
-            background: lighten($accent-color, 30%);
+        .element__label {
 
-            &.element--active {
-                background: lighten($accent-color, 15%);
+            cursor: pointer;
+
+            &:hover {
+
+                .element__radio {
+                    background: lighten($accent-color, 30%);
+
+                    &.element--active {
+                        background: lighten($accent-color, 15%);
+                    }
+                }
             }
         }
     }
@@ -35,5 +44,13 @@
 
     + span {
         padding-left: $element-grid-base/4;
+    }
+}
+.element__options.element--disabled .element__radio {
+    border-color: $mediumwhite;
+
+    &.element--active {
+        background: $darkwhite;
+        border-color: transparent;
     }
 }

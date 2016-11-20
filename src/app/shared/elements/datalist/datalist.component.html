@@ -12,34 +12,44 @@
     </label>
 
     <!-- All selected Elements when multiselect -->
-    <div class="element__select element__options" *ngIf="config.formControl.value && config.formControl.value.length !== 0">
+    <div class="element__select element__options"
+        *ngIf="config.formControl.value && config.formControl.value.length !== 0"
+        [class.element--disabled]="config.disabled">
 
-        <div class="element__option" (click)="toggleAddOptionOverlay()">
+        <div *ngIf="!config.disabled" class="element__option" (click)="toggleAddOptionOverlay()">
             <div class="element__value">{{ config.placeholder ? config.placeholder : 'Add Option' }}</div>
             <i class="element__icon material-icons md-18" aria-hidden="true">add</i>
         </div>
 
         <div *ngFor="let option of config.options" class="clearfix">
-            <div class="element__option" (click)="removeOption(option)">
+            <div *ngIf="!config.disabled" class="element__option" (click)="removeOption(option)">
                 <div class="element__value">{{ option.label }}</div>
                 <i class="element__icon material-icons md-18" aria-hidden="true">clear</i>
             </div>
+            <div *ngIf="config.disabled" class="element__option" >
+                <div class="element__value">{{ option.label }}</div>
+            </div>
         </div>
 
-        <select class="hidden" multiple [attr.id]="config.name" [formControl]="config.formControl">
+        <select *ngIf="!config.disabled" class="hidden" multiple [attr.id]="config.name" [formControl]="config.formControl">
             <option *ngFor="let option of config.options" [value]="option.value">{{ option.label }}</option>
         </select>
     </div>
 
     <!-- Default Element if nothing is selected -->
-    <div class="element__select" *ngIf="!config.formControl.value || (config.formControl.value && config.formControl.value.length === 0)">
-        <div class="element__option" (click)="toggleAddOptionOverlay()">
+    <div class="element__select element__options"
+        *ngIf="!config.formControl.value || (config.formControl.value && config.formControl.value.length === 0)"
+        [class.element--disabled]="config.disabled">
+        <div *ngIf="!config.disabled" class="element__option" (click)="toggleAddOptionOverlay()">
             <div class="element__value">{{ config.placeholder ? config.placeholder : 'Add Option' }}</div>
             <i class="element__icon material-icons md-18" aria-hidden="true">add</i>
         </div>
+        <div *ngIf="config.disabled" class="element__option">
+            <div class="element__value">{{ 'No Option Selected' }}</div>
+        </div>
     </div>
 
-    <pk-overlay [isOpen]="isOpen" (toggleOverlay)="toggleAddOptionOverlay()" class="overlay--fluid">
+    <pk-overlay [isOpen]="isOpen" (toggleOverlay)="toggleAddOptionOverlay()" class="overlay--fluid" *ngIf="!config.disabled">
         <div class="pk-overlay__header">{{ config.placeholder ? config.placeholder : 'Add Option' }}</div>
         <div class="pk-overlay__content">
             <pk-form

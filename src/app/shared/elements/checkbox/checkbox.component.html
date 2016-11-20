@@ -7,16 +7,19 @@
   <label
     class="element__label element--align"
     [class.element--required]="config.required"
+    [class.element--disabled]="config.disabled"
     [attr.for]="config.name">
 
     <div class="element__checkbox"
       [class.element--active]="config.formControl.value"
+      [class.element--disabled]="config.disabled"
       ></div>
 
     <span>{{ config.label }}</span>
 
   </label>
   <input
+    *ngIf="!config.disabled"
     class="hidden"
     type="checkbox"
     [attr.id]="config.name"

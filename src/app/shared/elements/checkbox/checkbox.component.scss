@@ -1,19 +1,21 @@
 @import './../../../theme';
 
 .element__label {
-    cursor: pointer;
     span {
         position: relative;
         top: $element-grid-base/8;
     }
 
-    &:hover {
+    &:not(.element--disabled) {
+        cursor: pointer;
+        &:hover {
 
-        .element__checkbox {
-            background: lighten($accent-color, 30%);
+            .element__checkbox {
+                background: lighten($accent-color, 30%);
 
-            &.element--active {
-                background: lighten($accent-color, 15%);
+                &.element--active {
+                    background: lighten($accent-color, 15%);
+                }
             }
         }
     }
@@ -24,6 +26,15 @@
 
     &.element--active {
         background: $accent-color;
+    }
+
+    &.element--disabled {
+        border-color: transparent;
+        border-bottom-color: $mediumwhite;
+        &.element--active {
+            background: $darkwhite;
+            border-color: transparent;
+        }
     }
 }
 
