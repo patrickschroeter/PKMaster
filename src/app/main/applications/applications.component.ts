@@ -20,7 +20,7 @@ export class ApplicationsComponent implements OnInit {
                 state: State.NameEnum.created,
                 created: 20160731,
                 form: {
-                    title: 'Antrag auf Bachelorarbeit'
+                    title: 'Bachelorarbeit'
                 }
             },
             {
@@ -28,7 +28,7 @@ export class ApplicationsComponent implements OnInit {
                 state: State.NameEnum.submitted,
                 created: 20160731,
                 form: {
-                    title: 'Antrag auf Masterarbeit'
+                    title: 'Masterarbeit'
                 }
             },
             {
@@ -36,7 +36,7 @@ export class ApplicationsComponent implements OnInit {
                 state: State.NameEnum.rescinded,
                 created: 20160731,
                 form: {
-                    title: 'Antrag auf Notenanrechnung'
+                    title: 'Notenanrechnung'
                 }
             },
             {
@@ -44,7 +44,7 @@ export class ApplicationsComponent implements OnInit {
                 state: State.NameEnum.deactivated,
                 created: 20160731,
                 form: {
-                    title: 'Antrag auf Notenänderung'
+                    title: 'Notenänderung'
                 }
             },
             {
@@ -52,7 +52,7 @@ export class ApplicationsComponent implements OnInit {
                 state: State.NameEnum.pending,
                 created: 20160731,
                 form: {
-                    title: 'Antrag auf Anrechnung der Ausbildung'
+                    title: 'Anrechnung der Ausbildung'
                 }
             },
             {
@@ -61,7 +61,7 @@ export class ApplicationsComponent implements OnInit {
                 created: 20160731,
                 modified: 20161120,
                 form: {
-                    title: 'Antrag auf Anrechnung von Studienfächern'
+                    title: 'Anrechnung von Studienfächern'
                 }
             },
             {
@@ -70,7 +70,7 @@ export class ApplicationsComponent implements OnInit {
                 created: 20160731,
                 modified: 20161120,
                 form: {
-                    title: 'Antrag auf Urlaubssemester'
+                    title: 'Urlaubssemester'
                 }
             }
         ]
