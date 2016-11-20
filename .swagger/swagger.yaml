@@ -1066,8 +1066,8 @@ definitions:
       name:
         type: string
         description: The Name of the State
-        enum: [available, pending, sold]
-        default: available
+        enum: [created, submitted, rescinded, deactivated, pending,accepted, denied]
+        default: created
 
   # Comment
 

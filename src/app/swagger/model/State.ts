@@ -44,8 +44,12 @@ export interface State {
 export namespace State {
 
     export enum NameEnum { 
-        available = <any> 'available',
+        created = <any> 'created',
+        submitted = <any> 'submitted',
+        rescinded = <any> 'rescinded',
+        deactivated = <any> 'deactivated',
         pending = <any> 'pending',
-        sold = <any> 'sold',
+        accepted = <any> 'accepted',
+        denied = <any> 'denied',
     }
 }
