@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Observer } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 
 import { AlertService } from './../alert';
 import { FormService } from './../form';
@@ -17,10 +17,6 @@ export class ApplicationService {
 
         // hack
         this.formService.getFormById(1).subscribe(form => {
-            if (!form || !form.elements) { return; }
-            for (let i = 0, length = form.elements.length; i < length; i++) {
-                form.elements[i].disabled = true;
-            }
             this.application.form = form;
         });
         // hack end

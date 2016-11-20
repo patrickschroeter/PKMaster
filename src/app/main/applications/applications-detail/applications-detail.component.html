@@ -4,6 +4,7 @@
     <pk-form
         *ngIf="application.form?.elements?.length > 0"
         [formElements]="application.form.elements"
+        [disabled]="true"
         ></pk-form>
 
     <div class="floating floating--top-right floating--fixed">

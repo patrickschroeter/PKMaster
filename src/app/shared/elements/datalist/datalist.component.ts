@@ -15,6 +15,7 @@ export class DatalistComponent implements OnInit {
     @HostBinding('class.element') element = true;
 
     @Input() config: FormElement;
+    @Input() disabled: boolean;
 
     private isOpen: boolean;
 
@@ -45,6 +46,10 @@ export class DatalistComponent implements OnInit {
                 ]
             }
         ];
+    }
+
+    isDisabled() {
+        return this.disabled || this.config.disabled;
     }
 
     toggleAddOptionOverlay() {

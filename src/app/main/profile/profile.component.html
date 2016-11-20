@@ -1,7 +1,7 @@
 <div id="profile">
     <div class="rel">
         <h1 class="devider devider--primary element element--spacing-bottom-small">Profile</h1>
-        <div class="element element--spacing-bottom-small">
+        <!--<div class="element element--spacing-bottom-small">
             <div class="element__wrapper">
                 <div class="element__label">Firstname</div>
                 <div class="element__input element--disaled">Patrick</div>
@@ -27,7 +27,11 @@
                 <div class="element__label">Matrikelnummer</div>
                 <div class="element__input element--disaled">949225</div>
             </div>
-        </div>
+        </div>-->
+        <pk-form
+            [formElements]="form"
+            [disabled]="true"
+            ></pk-form>
 
     </div>
     <div class="floating floating--fixed floating--top-right">

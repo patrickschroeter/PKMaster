@@ -5,7 +5,7 @@ import { AuthenticationService, AlertService, InputValidationService } from './.
 
 import { DynamicFormService } from './../../shared';
 
-import { FormElement } from './../../swagger';
+import { FormElement, Form } from './../../swagger';
 
 @Component({
     selector: 'pk-profile',
@@ -21,6 +21,8 @@ export class ProfileComponent implements OnInit {
     private changePasswordForm: FormGroup;
     private changePasswordElements: FormElement[];
 
+    private form: Form;
+
     constructor(
         private auth: AuthenticationService,
         private alert: AlertService,
@@ -31,6 +33,42 @@ export class ProfileComponent implements OnInit {
 
     ngOnInit() {
         this.isChangingPassword = false;
+
+        this.form = [
+            {
+                elementType: 'input',
+                name: 'firstname',
+                required: false,
+                label: 'Firstname',
+                value: 'Patrick'
+            },
+            {
+                elementType: 'input',
+                name: 'lastname',
+                required: false,
+                label: 'Lastname'
+            },
+            {
+                elementType: 'devider'
+            },
+            {
+                elementType: 'input',
+                name: 'email',
+                type: 'email',
+                required: true,
+                label: 'E-Mail',
+
+                validations: [
+                    'isEmail',
+                    'useExternalEmail'
+                ]
+            },
+            {
+                elementType: 'input',
+                label: 'Matrikelnummer',
+                value: '949225'
+            }
+        ];
 
         this.changePasswordElements = [
             {

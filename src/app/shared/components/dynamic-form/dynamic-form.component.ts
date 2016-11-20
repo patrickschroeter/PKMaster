@@ -21,6 +21,8 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     @Input() hasSubmit: boolean;
     @Input() editableElement: boolean;
 
+    @Input() disabled: boolean;
+
     @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
     @Output() onCancel: EventEmitter<any> = new EventEmitter<any>();
     @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
@@ -84,6 +86,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
      * @return {void}
      */
     showElementValidation(element: FormElement): void {
+        if (element.disabled || this.disabled) { return; }
         this.dynamicForm.showElementValidation(element);
     }
 
@@ -93,6 +96,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
      * @return {void}
      */
     showFormValidation(form: FormGroup) {
+        if (this.disabled) { return; }
         this.isFormValidationVisible = true;
         this.dynamicForm.showValidation(form);
     }

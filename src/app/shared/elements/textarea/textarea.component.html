@@ -12,7 +12,7 @@
     {{ config.label }}
   </label>
   <textarea
-    *ngIf="!config.disabled"
+    *ngIf="!isDisabled()"
     class="element__textarea"
     [attr.id]="config.name"
     [attr.type]="config.type"
@@ -21,7 +21,7 @@
     ></textarea>
 
     <div
-        *ngIf="config.disabled"
+        *ngIf="isDisabled()"
         class="element__textarea element--disabled"
         >
         {{ config.value }}

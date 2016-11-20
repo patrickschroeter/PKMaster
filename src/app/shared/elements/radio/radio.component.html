@@ -9,7 +9,7 @@
         [class.element--required]="config.required"
         *ngIf="config.label"> {{ config.label }} </label>
 
-	<div class="element__options" *ngFor="let option of config.options" [class.element--disabled]="config.disabled">
+	<div class="element__options" *ngFor="let option of config.options" [class.element--disabled]="isDisabled()">
 		<label
             class="element__label element--no-validation element--align"
             [attr.for]="option.value"
@@ -21,7 +21,7 @@
             <span>{{ option.label }}</span>
         </label>
 
-		<input *ngIf="!config.disabled" class="hidden" type="radio" [attr.id]="option.value" [attr.name]="config.name" [value]="option.value" [formControl]="config.formControl">
+		<input *ngIf="!isDisabled()" class="hidden" type="radio" [attr.id]="option.value" [attr.name]="config.name" [value]="option.value" [formControl]="config.formControl">
 	</div>
 
 </div>
