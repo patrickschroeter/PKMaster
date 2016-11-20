@@ -19,7 +19,8 @@ import * as components from './components';
         services.PermissionService,
         services.InputValidationService,
         services.FormService,
-        services.AlertService
+        services.AlertService,
+        services.ApplicationService
     ],
     exports: [
         components.AlertComponent

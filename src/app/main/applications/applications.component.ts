@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { ApplicationService } from './../../core';
+
 import { Application, State, FormElement } from './../../swagger';
-
-
 
 @Component({
     selector: 'pk-applications',
@@ -17,7 +17,7 @@ export class ApplicationsComponent implements OnInit {
 
     private newApplication: FormElement[];
 
-    constructor(private router: Router) { }
+    constructor(private router: Router, private applicationService: ApplicationService) { }
 
     ngOnInit() {
         this.applications = [
@@ -81,14 +81,14 @@ export class ApplicationsComponent implements OnInit {
             }
         ]
         this.newApplication = [
-            {
-                elementType: 'input',
-                name: 'application-title',
-                label: 'Custom Application Title (optional):',
-                styles: [
-                    'small'
-                ]
-            },
+            // {
+            //     elementType: 'input',
+            //     name: 'application-title',
+            //     label: 'Custom Application Title (optional):',
+            //     styles: [
+            //         'small'
+            //     ]
+            // },
             {
                 elementType: 'radio',
                 name: 'application-form',
@@ -119,8 +119,11 @@ export class ApplicationsComponent implements OnInit {
         this.isOpenNewApplication = !this.isOpenNewApplication;
     }
 
-    createNewApplication(event) {
-        console.log(event)
-        // this.router.navigate([`/forms/`, created['id'], 'edit']);
+    createNewApplication(application) {
+        this.applicationService.createNewApplication(application).subscribe((created) => {
+            if (created['id']) {
+                this.router.navigate([`/applications/`, created['id'], 'edit']);
+            }
+        });
     }
 }
