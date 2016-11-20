@@ -31,6 +31,12 @@
         </div>
     </div>
     <div class="floating floating--fixed floating--top-right">
-        <pk-button class="element--rounded" [icon]="'add'" element--secondary></pk-button>
+        <pk-button class="element--rounded" [icon]="'add'" element--secondary (onClick)="toggleCreateNew()"></pk-button>
     </div>
+    <pk-overlay [isOpen]="isOpenNewApplication" (toggleOverlay)="toggleCreateNew()" class="overlay--fluid">
+        <div class="pk-overlay__header">Create New Application</div>
+        <div class="pk-overlay__content">
+            <pk-form [formElements]="newApplication" [hasSubmit]="true" (onSubmit)="createNewApplication($event)"></pk-form>
+        </div>
+    </pk-overlay>
 </div>

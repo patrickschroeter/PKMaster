@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { Application, State } from './../../swagger';
+import { Application, State, FormElement } from './../../swagger';
+
+
 
 @Component({
     selector: 'pk-applications',
@@ -10,8 +13,11 @@ import { Application, State } from './../../swagger';
 export class ApplicationsComponent implements OnInit {
 
     private applications: Application[];
+    private isOpenNewApplication: boolean = false;
 
-    constructor() { }
+    private newApplication: FormElement[];
+
+    constructor(private router: Router) { }
 
     ngOnInit() {
         this.applications = [
@@ -74,13 +80,47 @@ export class ApplicationsComponent implements OnInit {
                 }
             }
         ]
+        this.newApplication = [
+            {
+                elementType: 'input',
+                name: 'application-title',
+                label: 'Custom Application Title (optional):',
+                styles: [
+                    'small'
+                ]
+            },
+            {
+                elementType: 'radio',
+                name: 'application-form',
+                label: 'Select Form:',
+                required: true,
+                options: [
+                    {
+                        value: 'thesis',
+                        label: 'Abschlussarbeit',
+                    },
+                    {
+                        value: 'notes-change',
+                        label: 'Notenänderung',
+                    },
+                    {
+                        value: 'notes-late',
+                        label: 'Notenanrechnung',
+                    }
+                ],
+                styles: [
+                    'small'
+                ]
+            }
+        ]
     }
 
-    save(event) {
-
+    toggleCreateNew() {
+        this.isOpenNewApplication = !this.isOpenNewApplication;
     }
 
-    cancel(event) {
-
+    createNewApplication(event) {
+        console.log(event)
+        // this.router.navigate([`/forms/`, created['id'], 'edit']);
     }
 }
