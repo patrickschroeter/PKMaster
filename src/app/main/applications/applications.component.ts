@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ApplicationService } from './../../core';
@@ -11,6 +11,7 @@ import { Application, State, FormElement } from './../../swagger';
     styleUrls: ['./applications.component.scss']
 })
 export class ApplicationsComponent implements OnInit {
+    @HostBinding('class') classes = 'content--default';
 
     private applications: Application[];
     private isOpenNewApplication: boolean = false;

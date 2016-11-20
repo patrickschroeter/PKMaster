@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { FormService } from './../../core';
@@ -9,6 +9,7 @@ import { FormService } from './../../core';
     styleUrls: ['./forms.component.scss']
 })
 export class FormsComponent implements OnInit {
+    @HostBinding('class') classes = 'content--default';
 
     private forms: Array<Object>;
     private newForm: Array<any>;

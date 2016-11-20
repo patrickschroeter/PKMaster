@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'pk-conferences',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./conferences.component.scss']
 })
 export class ConferencesComponent implements OnInit {
+    @HostBinding('class') classes = 'content--default';
 
     private form: Array<Object>;
 

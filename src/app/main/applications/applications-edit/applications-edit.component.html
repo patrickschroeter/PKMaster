@@ -1,3 +1,16 @@
-<p>
-  applications-edit works!
-</p>
+<div id="application-edit" class="rel" *ngIf="application">
+    <h2 class="devider devider--primary element element--spacing-bottom-small">Edit Application: {{ application.title }}</h2>
+
+    <pk-form
+        *ngIf="application.form?.elements?.length > 0"
+        [formElements]="application.form.elements"
+        [hasSubmit]="true"
+        (onSubmit)="saveApplication($event)"
+        ></pk-form>
+
+    <div class="floating floating--top-right floating--fixed">
+        <!--<pk-button class="element--spacing-bottom-small element--rounded" [icon]="'save'" (onClick)="saveApplication()" element--success></pk-button>-->
+        <pk-button class="element--rounded element--spacing-bottom-small" [icon]="'undo'" element--error></pk-button>
+        <pk-button class="element--rounded" [icon]="'delete'" element--error></pk-button>
+    </div>
+</div>

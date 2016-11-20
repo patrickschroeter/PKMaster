@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { AuthenticationService, AlertService, InputValidationService } from './../../core';
@@ -13,6 +13,7 @@ import { FormElement } from './../../swagger';
     styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+    @HostBinding('class') classes = 'content--default';
 
     private isChangingPassword: boolean;
     private isFormValidationVisible: boolean = false;
