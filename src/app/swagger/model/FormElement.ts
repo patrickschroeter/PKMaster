@@ -79,6 +79,11 @@ export interface FormElement {
     hidden?: boolean;
 
     /**
+     * Flag to disable an element
+     */
+    disabled?: boolean;
+
+    /**
      * Placeholder for the input / textarea
      */
     placeholder?: string;

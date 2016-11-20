@@ -1212,9 +1212,13 @@ definitions:
       required:
         type: boolean
         description: Flag to indicate if the FormElement is required or not
+
       hidden:
         type: boolean
         description: Flag to hide an element
+      disabled:
+        type: boolean
+        description: Flag to disable an element
 
       placeholder:
         type: string

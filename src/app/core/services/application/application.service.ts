@@ -17,6 +17,9 @@ export class ApplicationService {
 
         // hack
         this.formService.getFormById(1).subscribe(form => {
+            for (let i = 0, length = form.elements.length; i < length; i++) {
+                form.elements[i].disabled = true;
+            }
             this.application.form = form;
         });
         // hack end
@@ -49,6 +52,7 @@ export class ApplicationService {
         // hack
         this.formService.getFormById(1).subscribe(form => {
             this.application.form.elements = form.elements;
+
         });
         // hack end
         this.application = {
