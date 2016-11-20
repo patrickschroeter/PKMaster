@@ -16,6 +16,7 @@ import { SharedModule } from './../shared/shared.module';
         main.ApplicationsComponent,
         main.ApplicationsDetailComponent,
         main.ApplicationsEditComponent,
+        main.ApplicationsNewComponent,
 
         main.ConferencesComponent,
 
