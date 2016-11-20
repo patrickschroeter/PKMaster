@@ -10,14 +10,20 @@ import { SharedModule } from './../shared/shared.module';
 @NgModule({
     declarations: [
         main.MainComponent,
+
         main.ProfileComponent,
+
         main.ApplicationsComponent,
+        main.ApplicationsDetailComponent,
+        main.ApplicationsEditComponent,
+
         main.ConferencesComponent,
+
         main.ProfileEditComponent,
+
         main.FormsComponent,
         main.FormsEditComponent,
         main.ElementEditComponent,
-        main.ApplicationsDetailComponent,
     ],
     imports: [
         CommonModule,

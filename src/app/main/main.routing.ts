@@ -16,6 +16,7 @@ const routes: Routes = [
             { path: 'profile/edit', component: main.ProfileEditComponent },
             { path: 'applications', component: main.ApplicationsComponent },
             { path: 'applications/:id', component: main.ApplicationsDetailComponent },
+            { path: 'applications/:id/edit', component: main.ApplicationsEditComponent },
             { path: 'conferences', component: main.ConferencesComponent, canActivate: [PermissionService] },
             { path: 'forms', component: main.FormsComponent, canActivate: [PermissionService], pathMatch: 'full' },
             { path: 'forms/:id/edit', component: main.FormsEditComponent },
