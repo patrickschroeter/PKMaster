@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import { AlertService } from './../alert';
 import { FormService } from './../form';
 
-import { Application } from './../../../swagger';
+import { Application, FormElement } from './../../../swagger';
 
 @Injectable()
 export class ApplicationService {
@@ -18,6 +18,7 @@ export class ApplicationService {
         // hack
         this.formService.getFormById(1).subscribe(form => {
             this.application.form = form;
+            this.application.attributes = form.elements;
         });
         // hack end
         this.application = {
@@ -49,7 +50,7 @@ export class ApplicationService {
         // hack
         this.formService.getFormById(1).subscribe(form => {
             this.application.form.elements = form.elements;
-
+            this.application.attributes = form.elements;
         });
         // hack end
         this.application = {
@@ -74,7 +75,11 @@ export class ApplicationService {
      * @description Saves the changed application
      * @return {void}
      */
-    saveApplication(): Observable<Application> {
+    saveApplication(form): Observable<Application> {
+        for (let i = 0, length = this.application.attributes.length; i < length; i++) {
+            let element: FormElement = this.application.attributes[i];
+            element.value = form[element.name];
+        };
         this.alert.setLoading('saveApplication', 'Save Application...')
         return new Observable(observer => {
             setTimeout(() => {

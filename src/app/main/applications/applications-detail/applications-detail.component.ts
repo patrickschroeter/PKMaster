@@ -30,12 +30,4 @@ export class ApplicationsDetailComponent implements OnInit {
             });
         });
     }
-
-    saveApplication(application) {
-        this.applicationService.saveApplication().subscribe(result => {
-            this.router.navigate(['/applications']);
-        });
-    }
-
-
 }

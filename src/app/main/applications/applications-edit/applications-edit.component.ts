@@ -31,8 +31,8 @@ export class ApplicationsEditComponent implements OnInit {
         });
     }
 
-    saveApplication(application) {
-        this.applicationService.saveApplication().subscribe(result => {
+    saveApplication(form) {
+        this.applicationService.saveApplication(form).subscribe(result => {
             this.router.navigate(['/applications']);
         });
     }

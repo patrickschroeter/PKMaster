@@ -2,8 +2,8 @@
     <h2 class="devider devider--primary element element--spacing-bottom-small">Edit Application: {{ application.title }}</h2>
 
     <pk-form
-        *ngIf="application.form?.elements?.length > 0"
-        [formElements]="application.form.elements"
+        *ngIf="application.attributes?.length > 0"
+        [formElements]="application.attributes"
         [hasSubmit]="true"
         (onSubmit)="saveApplication($event)"
         ></pk-form>
