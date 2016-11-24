@@ -75,13 +75,13 @@ export class AlertService {
 
     private addMessage(id: string, type: string, message: string): Message {
         let index = -1;
-        let hint;
         for (let i = 0, length = this.hints.length; i < length; i++) {
             let hint = this.hints[i];
             if (hint.id === id) {
                 index = i;
             }
         }
+        let hint;
         if (index === -1) {
             hint = new Message(id, type, message);
             this.hints.push(hint);
