@@ -45,17 +45,22 @@ export class AlertService {
         }
     }
 
-
     setErrorHint(id: string, message: string): void {
-        this.addMessage(id, 'error', message);
-        setTimeout(() => {
+        let hint = this.addMessage(id, 'error', message);
+        if (hint.timeout) {
+            clearTimeout(hint.timeout);
+        }
+        hint.timeout = setTimeout(() => {
             this.removeHint(id);
         }, 1000);
     }
 
     setSuccessHint(id: string, message: string): void {
-        this.addMessage(id, 'success', message);
-        setTimeout(() => {
+        let hint = this.addMessage(id, 'success', message);
+        if (hint.timeout) {
+            clearTimeout(hint.timeout);
+        }
+        hint.timeout = setTimeout(() => {
             this.removeHint(id);
         }, 1000);
     }
@@ -68,8 +73,9 @@ export class AlertService {
         this.removeHint(id);
     }
 
-    private addMessage(id: string, type: string, message: string): void {
+    private addMessage(id: string, type: string, message: string): Message {
         let index = -1;
+        let hint;
         for (let i = 0, length = this.hints.length; i < length; i++) {
             let hint = this.hints[i];
             if (hint.id === id) {
@@ -77,13 +83,13 @@ export class AlertService {
             }
         }
         if (index === -1) {
-            this.hints.push({
-                id: id,
-                message: message,
-                type: type
-            });
+            hint = new Message(id, type, message);
+            this.hints.push(hint);
             this.hintObserver.next(this.hints);
+        } else {
+            hint = this.hints[index];
         }
+        return hint;
     }
 
     removeHint(id: string): void {
