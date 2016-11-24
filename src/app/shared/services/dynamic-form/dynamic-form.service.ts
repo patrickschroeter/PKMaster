@@ -71,17 +71,7 @@ export class DynamicFormService {
     showValidation(form: FormGroup | FormControl) {
         let message = this.inputValidation.getErrorMessage(form);
         if (message) {
-            this.alert.setErrorHint(message);
-        } else {
-            this.alert.removeHint();
+            this.alert.setErrorHint(message , message);
         }
-    }
-
-    /**
-     * @description hides error validation
-     * @return {void}
-     */
-    hideValidation(): void {
-        this.alert.removeHint();
     }
 }

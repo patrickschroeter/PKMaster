@@ -101,7 +101,7 @@ export class FormsEditComponent implements OnInit {
         this.formService.saveFormAttributes(form).subscribe(success => {
             if (success) {
                 this.isEditingForm = false;
-                this.alert.setSuccessHint('Form attributes saved.');
+                this.alert.setSuccessHint('form_attribute_saved', 'Form attributes saved.');
             }
         });
     }

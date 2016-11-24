@@ -101,22 +101,12 @@ export class DynamicFormComponent implements OnInit, OnChanges {
         this.dynamicForm.showValidation(form);
     }
 
-
-    /**
-     * @description hides the validation of any element
-     * @return {void}
-     */
-    hideValidation(): void {
-        this.dynamicForm.hideValidation();
-    }
-
     /**
      * @description hides the validation of form
      * @return {void}
      */
     hideFormValidation() {
         this.isFormValidationVisible = false;
-        this.hideValidation();
     }
 
 

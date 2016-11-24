@@ -33,11 +33,4 @@ export class DynamicFormMock {
      */
     showValidation(form: FormGroup | FormControl) {
     }
-
-    /**
-     * @description hides error validation
-     * @return {void}
-     */
-    hideValidation(): void {
-    }
 }

@@ -8,7 +8,6 @@
                 *ngIf="!element.hidden"
                 [ngClass]="{ 'form__element--small': element.styles && element.styles.indexOf('small') !== -1, 'form__element--aligned': element.styles && element.styles.indexOf('aligned') !== -1}"
                 (mouseover)="showElementValidation(element)"
-                (mouseout)="hideValidation()"
                 >
 
                 <div class="rel" [ngSwitch]="element.elementType">

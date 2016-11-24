@@ -80,7 +80,7 @@ export class DatalistComponent implements OnInit {
             if (override === -1) {
                 this.config.options.push(element);
             } else {
-                this.alert.setSuccessHint('Option updated');
+                this.alert.setSuccessHint('option_updated', 'Option updated');
                 this.config.options[override].label = element.label;
             }
         }

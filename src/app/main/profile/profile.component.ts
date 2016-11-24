@@ -125,7 +125,7 @@ export class ProfileComponent implements OnInit {
         this.togglePasswordOverlay();
         this.auth.changePassword(event.password, event.newpassword).subscribe(
             () => {
-                this.alert.setSuccessHint('Password changed.');
+                this.alert.setSuccessHint('password_changed', 'Password changed.');
             },
             () => {
                 this.alert.setAlert('Error', 'There was an error changing your password. Please try again later.');
@@ -140,14 +140,6 @@ export class ProfileComponent implements OnInit {
      */
     showElementValidation(element: FormElement): void {
         this.dynamicForm.showElementValidation(element);
-    }
-
-    /**
-     * @description hides the validation of any element
-     * @return {void}
-     */
-    hideElementValidation(): void {
-        this.dynamicForm.hideValidation();
     }
 
     /**
@@ -166,7 +158,6 @@ export class ProfileComponent implements OnInit {
      */
     hideFormValidation() {
         this.isFormValidationVisible = false;
-        this.dynamicForm.hideValidation();
     }
 
 }

@@ -1,15 +1,16 @@
-<div *ngIf="isOverlayOpen || hintMessage || (loadingElements && loadingElements.length != 0)">
+<div *ngIf="isOverlayOpen || (hintElements && hintElements.length != 0) || (loadingElements && loadingElements.length != 0)">
     <pk-overlay [isOpen]="isOverlayOpen" (toggleOverlay)="toggleOverlay()" class="overlay--fluid overlay--error">
         <div class="pk-overlay__header">{{ overlayTitle }}</div>
         <div class="pk-overlay__content">{{ overlayMessage }}</div>
     </pk-overlay>
 
-    <div class="hint hint--bottom-right"
-        [class.hint--visible]="hintMessage">
-        <div class="hint-element" *ngIf="hintMessage"
-            [class.hint--error]="hintType === 'error'"
-            [class.hint--success]="hintType === 'success'">
-            {{ hintMessage }}
+    <div class="hint hint--bottom-right" [class.hint--visible]="hintElements && hintElements.length != 0">
+        <div class="hint-element hint-element--visible" *ngFor="let element of hintElements"
+            [class.hint--error]="element.type === 'error'"
+            [class.hint--rotating-icon]="element.type === 'loading'"
+            [class.hint--success]="element.type === 'success'">
+            <i *ngIf="element.type === 'loading'" class="material-icons md-18" aria-hidden="true">sync</i>
+            {{ element.message }}
         </div>
     </div>
 

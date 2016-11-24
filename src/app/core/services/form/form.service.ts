@@ -159,7 +159,7 @@ export class FormService {
         if (index !== -1) {
             if (index === this.editingElementIndex) {
                 this.form.elements.splice(index, 1);
-                this.alert.setSuccessHint(`Element ${element.name} removed.`);
+                this.alert.setSuccessHint('element_removed', `Element ${element.name} removed.`);
                 this.setAddingElement(false);
                 return true;
             }

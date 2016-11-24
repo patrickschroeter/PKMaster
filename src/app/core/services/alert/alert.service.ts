@@ -2,37 +2,24 @@ import { Injectable } from '@angular/core';
 
 import { Observable, Observer } from 'rxjs/Rx';
 
+import { Message } from './';
+
 @Injectable()
 export class AlertService {
 
-    private titleObservable: Observable<any>;
-    private titleObserver: Observer<string>;
-
-    private messageObservable: Observable<any>;
-    private messageObserver: Observer<string>;
-
-    private isOpenObservable: Observable<any>;
-    private isOpenObserver: Observer<boolean>;
+    private alertObservable: Observable<any>;
+    private alertObserver: Observer<any>;
 
     private hintObservable: Observable<any>;
     private hintObserver: Observer<Array<any>>;
-
-    private hintType: string;
+    private hints: Array<Message> = [];
 
     private loadingObservable: Observable<any>;
     private loadingObserver: Observer<any>;
 
-    private loadingRoutes: Array<{ id, message }> = [];
-
     constructor() {
-        this.titleObservable = new Observable(observer => {
-            this.titleObserver = observer;
-        });
-        this.messageObservable = new Observable(observer => {
-            this.messageObserver = observer;
-        });
-        this.isOpenObservable = new Observable(observer => {
-            this.isOpenObserver = observer;
+        this.alertObservable = new Observable(observer => {
+            this.alertObserver = observer;
         });
         this.hintObservable = new Observable(observer => {
             this.hintObserver = observer;
@@ -49,131 +36,79 @@ export class AlertService {
      * @return {void}
      */
     setAlert(title: string, message: string): void {
-        if (this.titleObserver) {
-            this.titleObserver.next(title);
-        }
-        if (this.messageObserver) {
-            this.messageObserver.next(message);
-        }
-        if (this.isOpenObserver) {
-            this.isOpenObserver.next(true);
+        if (this.alertObserver) {
+            this.alertObserver.next({
+                title: title,
+                message: message,
+                isOpen: true
+            });
         }
     }
 
-    /**
-     * @description Streams the Hint to the Listening component
-     * @param {string} message the message of the hint
-     * @return {void}
-     */
-    setHint(message: string): void {
-        this.hintObserver.next([message, this.hintType]);
-    }
 
-    /**
-     * @description removes the Hint
-     * @return {void}
-     */
-    removeHint(): void {
-        this.hintObserver.next([null, null]);
-    }
-
-    /**
-     * @description Streams the Hint to the Listening component
-     * @param {string} message the message of the hint
-     * @return {void}
-     */
-    setErrorHint(message: string): void {
-        this.hintType = 'error';
-        this.setHint(message);
-    }
-
-    /**
-     * @description Streams the Hint to the Listening component
-     * @param {string} message the message of the hint
-     * @return {void}
-     */
-    setSuccessHint(message: string): void {
-        this.hintType = 'success';
-        this.setHint(message);
+    setErrorHint(id: string, message: string): void {
+        this.addMessage(id, 'error', message);
         setTimeout(() => {
-            this.removeHint();
+            this.removeHint(id);
         }, 1000);
     }
 
-    /**
-     * @description Streams the Loading to the Listening component
-     * @param {string} id the id of the calling function
-     * @param {string} message the message of the loading
-     * @return {void}
-     */
-    setLoading(id: string, message: string): void {
-        let element;
-        for (let i = 0, length = this.loadingRoutes.length; i < length; i++) {
-            let loading = this.loadingRoutes[i];
-            if (loading.id === id) {
-                element = loading;
-            }
-        }
-
-        if (element) {
-            element.message = message;
-        } else {
-            this.loadingRoutes.push({
-                id: id,
-                message: message
-            });
-        }
-        this.loadingObserver.next(this.loadingRoutes);
+    setSuccessHint(id: string, message: string): void {
+        this.addMessage(id, 'success', message);
+        setTimeout(() => {
+            this.removeHint(id);
+        }, 1000);
     }
 
-    /**
-     * @description Removes the loading
-     * @param {string} id the id of the loading function
-     * @return {void}
-     */
+    setLoading(id: string, message: string): void {
+        this.addMessage(id, 'loading', message);
+    }
+
     removeLoading(id: string): void {
+        this.removeHint(id);
+    }
+
+    private addMessage(id: string, type: string, message: string): void {
         let index = -1;
-        for (let i = 0, length = this.loadingRoutes.length; i < length; i++) {
-            let loading = this.loadingRoutes[i];
-            if (loading.id === id) {
+        for (let i = 0, length = this.hints.length; i < length; i++) {
+            let hint = this.hints[i];
+            if (hint.id === id) {
+                index = i;
+            }
+        }
+        if (index === -1) {
+            this.hints.push({
+                id: id,
+                message: message,
+                type: type
+            });
+            this.hintObserver.next(this.hints);
+        }
+    }
+
+    removeHint(id: string): void {
+        let index = -1;
+        for (let i = 0, length = this.hints.length; i < length; i++) {
+            let hint = this.hints[i];
+            if (hint.id === id) {
                 index = i;
             }
         }
         if (index !== -1) {
-            this.loadingRoutes.splice(index, 1);
+            this.hints.splice(index, 1);
+            this.hintObserver.next(this.hints);
         }
-        this.loadingObserver.next(this.loadingRoutes);
     }
 
-    /**
-     * @description Returns the Title Observer
-     * @return {Observable}
-     */
-    getTitle(): Observable<string> {
-        return this.titleObservable;
-    }
-
-    /**
-     * @description Returns the Message Observer
-     * @return {Observable}
-     */
-    getMessage(): Observable<string> {
-        return this.messageObservable;
-    }
-
-    /**
-     * @description Returns the isOpen Observer
-     * @return {Observable}
-     */
-    getOpenState(): Observable<boolean> {
-        return this.isOpenObservable;
+    getAlert(): Observable<any> {
+        return this.alertObservable;
     }
 
     /**
      * @description Returns the Hint Message Observer
      * @return {Observable}
      */
-    getHintMessage(): Observable<string> {
+    getHintMessages(): Observable<Array<Message>> {
         return this.hintObservable;
     }
 
