@@ -30,7 +30,7 @@ export class FormService {
                 elementType: 'select',
                 name: 'select',
                 label: 'Select',
-                multiple: false,
+                multiple: true,
                 options: [
                     {
                         value: '1',

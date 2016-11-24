@@ -77,13 +77,18 @@
 }
 
 .element__textarea, .element__input, .element__option {
-    color: $lightgray;
+    color: $input-color;
     border-radius: $border-radius;
-    border: $border-width solid $mediumwhite;
+    border: $border-width solid $element-border;
+    background-color: $element-background;
     font-family: 'Noto Sans', sans-serif;
     padding: 0 8px;
     @extend .font_small;
     display: block;
+
+    &.option--default {
+        color: $option-color-default;
+    }
 }
 
 .element__options.element--disabled .element__option {
@@ -129,6 +134,11 @@
             position: absolute;
             top: 3px;
             right: 4px;
+
+            &.md-20 {
+                top: 5px;
+                right: 6px;
+            }
         }
     }
     &:not(.element--disabled) {
@@ -155,12 +165,12 @@
 .element--show-validation {
     .element__invalid {
         .element__input, .element__checkbox, .element__radio, .element__textarea, .element__option {
-            border-color: $error
+            border-color: $element-border-invalid
         }
     }
 }
 .element__input, .element__checkbox, .element__radio, .element__textarea, .element__options:not(.element--disabled) .element__option {
     &:hover:not(.element--disabled) {
-        border-color: lighten($accent-color, 25%);
+        border-color: $element-border-hover;
     }
 }

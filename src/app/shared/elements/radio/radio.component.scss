@@ -18,10 +18,11 @@
             &:hover {
 
                 .element__radio {
-                    background: lighten($accent-color, 30%);
+                    background: $toggl-background-hover;
+                    border-color: $accent-color;
 
                     &.element--active {
-                        background: lighten($accent-color, 15%);
+                        background: $toggl-background-active-hover;
                     }
                 }
             }
@@ -33,13 +34,15 @@
     width: $element-grid-base/2;
     height: $element-grid-base/2;
     display: inline-block;
-    border: $border-width solid $accent-color;
+    border: $border-width solid $element-border;
+    background: $element-background;
     border-radius: 50%;
     position: relative;
     top: 0.5rem;
 
     &.element--active {
         background: $accent-color;
+        border-color: $accent-color;
     }
 
     + span {
@@ -47,10 +50,10 @@
     }
 }
 .element__options.element--disabled .element__radio {
-    border-color: $mediumwhite;
+    border-color: $element-border;
 
     &.element--active {
-        background: $darkwhite;
+        background: $element-border;
         border-color: transparent;
     }
 }

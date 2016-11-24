@@ -223,3 +223,27 @@ navbar.component.spec
 - ~~Farblicher Kontrast (zb Background) edit vs view~~
 - visuelle highlights (generator) + icos?
 - vgl google forms
+
+## 22.November (Rothaug)
+
+- ~~Farbe checkbox & Radio raus? -> dünnerer Rand?~~
+- ~~Labels aggressiver/dunkler~~
+- ~~Felder schwarz (auf weiß)~~ -> akzentpunkte: hintergrund grau/rotlich (minimalkontrast), labels müssen funktionieren
+- Liste weiß auf hover?
+- buttons: unterscheidung icon vs button (liste) -> kleiner punkt, outline, zustandsabhängig/progress -> piktogramm
+- Angtrag status kleiner, regular
+- Header zu nah an linie, keine linie? dafür vor liste
+- buttons reinanimieren
+- content hinter buttons
+- sortierung
+- detail spacing label <-> input
+- Form X zu groß im vgl. pfeil
+- default heller als gesetzte werte
+- hintergrund für form -> layout test, vgl. kirby
+- vorsicht mit richtungsmetapher: < != cancel, > != ok
+- alert mehr whitespace (zu klein)
+- buttons mit natürlicher breite
+- KONTRAST -> vgl. kirby
+- Notifications unten rechts: loadig & error & success
+- content linksseitig -> notifications rechts -> vgl. kirby; was bei formen overview?
+- Fläche? -> Statusmeldung, Passpartout

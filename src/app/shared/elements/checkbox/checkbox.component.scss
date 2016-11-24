@@ -11,10 +11,11 @@
         &:hover {
 
             .element__checkbox {
-                background: lighten($accent-color, 30%);
+                background: $toggl-background-hover;
+                border-color: $accent-color;
 
                 &.element--active {
-                    background: lighten($accent-color, 15%);
+                    background: $toggl-background-active-hover;
                 }
             }
         }
@@ -22,17 +23,19 @@
 }
 
 .element__checkbox {
-    border: $border-width solid $accent-color;
+    border: $border-width solid $element-border;
+    background: $element-background;
 
     &.element--active {
         background: $accent-color;
+        border-color: $accent-color;
     }
 
     &.element--disabled {
         border-color: transparent;
-        border-bottom-color: $mediumwhite;
+        border-bottom-color: $element-border;
         &.element--active {
-            background: $darkwhite;
+            background: $element-border;
             border-color: transparent;
         }
     }

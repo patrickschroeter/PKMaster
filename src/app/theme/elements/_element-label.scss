@@ -7,7 +7,7 @@
 .element__label {
     @extend .font_smallest;
 
-    color: $lightgray;
+    color: $label-color;
     display: block;
 
     /*line-height: $element-grid-base;*/
