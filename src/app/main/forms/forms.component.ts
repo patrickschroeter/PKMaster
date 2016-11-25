@@ -26,7 +26,7 @@ export class FormsComponent implements OnInit {
         this.newForm = [
             {
                 elementType: 'input',
-                name: 'form-name',
+                name: 'title',
                 label: 'Form Name:',
                 required: true,
                 validations: [

@@ -127,10 +127,11 @@ export class FormService {
      * @return {Observable}
      */
     createNewForm(form: Form): Observable<Form> {
+        console.log(form);
         this.form = {
-            title: form['form-name'],
+            title: form.id ? 'Copy of ' + form.title : form.title,
             id: 13,
-            elements: []
+            elements: form.id ? this.form.elements : []
         };
 
         return new Observable(observer => {

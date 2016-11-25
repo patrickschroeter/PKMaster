@@ -32,6 +32,9 @@ export class AlertMock {
      * @description Returns the Hint Message Observer
      * @return {Observable}
      */
+    getHintMessages() {
+
+    }
     getHintMessage(): Observable<any> {
         return new Observable(observer => {
             observer.next('hint');
