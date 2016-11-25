@@ -71,7 +71,16 @@
     <pk-overlay [isOpen]="isOpen" (toggleOverlay)="toggleSelectOverlay()" *ngIf="!isDisabled()">
         <div class="pk-overlay__header">{{ config.label }}</div>
         <div class="pk-overlay__content">
-            <div class="overlay__option selectable" *ngFor="let option of config.options" (click)="select(option)" [class.selectable--active]="config.formControl.value && config.formControl.value.indexOf(option.value) !== -1">
+            <div *ngIf="config.options.length > 5" class="overlay__option element">
+                <input
+                    class="element__input"
+                    id="search-field"
+                    placeholder="Search"
+                    [ngModel]="searchstring"
+                    (ngModelChange)="filterOptions($event)"
+                    >
+            </div>
+            <div class="overlay__option selectable" *ngFor="let option of (filteredOptions ? filteredOptions : config.options)" (click)="select(option)" [class.selectable--active]="config.formControl.value && config.formControl.value.indexOf(option.value) !== -1">
                     {{ option.label }}
             </div>
         </div>

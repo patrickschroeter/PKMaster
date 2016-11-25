@@ -42,6 +42,45 @@ export class FormService {
                         label: 'Zweites!',
                     }
                 ]
+            },{
+                elementType: 'select',
+                name: 'select2',
+                label: 'Select',
+                multiple: true,
+                options: [
+                    {
+                        value: 'de',
+                        label: 'Deutschland'
+                    },
+                    {
+                        value: 'fr',
+                        label: 'Frankreich'
+                    },
+                    {
+                        value: 'es',
+                        label: 'Spanien'
+                    },
+                    {
+                        value: 'it',
+                        label: 'Italien'
+                    },
+                    {
+                        value: 'ir',
+                        label: 'Irland'
+                    },
+                    {
+                        value: 'bel',
+                        label: 'Belgien'
+                    },
+                    {
+                        value: 'cr',
+                        label: 'Croatien'
+                    },
+                    {
+                        value: 'en',
+                        label: 'USA'
+                    }
+                ]
             }]
         };
         this.forms = [
