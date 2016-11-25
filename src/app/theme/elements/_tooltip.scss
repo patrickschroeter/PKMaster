@@ -1,7 +1,6 @@
 [tooltip] {
     position: relative;
     text-decoration: none;
-    cursor: help;
 
     &:after {
         @extend .font_smallest;

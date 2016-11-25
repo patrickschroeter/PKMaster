@@ -20,12 +20,20 @@
                 <div class="list-element--context list-element__modified">{{ application.modified }}</div>
 
                 <div class="floating floating--top-right floating--horizontal">
-                    <pk-button class="element--rounded element--spacing-left-large" [icon]="'send'" element--success></pk-button>
-                    <a routerLink="/applications/{{ application.id }}/edit">
+                    <pk-button
+                        *ngIf="application.state === 'created'"
+                        class="element--rounded element--spacing-left-large" [icon]="'send'" element--success></pk-button>
+                    <a
+                        *ngIf="['created', 'rescinded'].indexOf(application.state) !== -1"
+                        routerLink="/applications/{{ application.id }}/edit">
                         <pk-button class="element--rounded" [icon]="'create'" element--secondary></pk-button>
                     </a>
-                    <pk-button class="element--rounded" [icon]="'undo'" element--error></pk-button>
-                    <pk-button class="element--rounded" [icon]="'delete'" element--error></pk-button>
+                    <pk-button
+                        *ngIf="['submitted'].indexOf(application.state) !== -1"
+                        class="element--rounded" [icon]="'undo'" element--error></pk-button>
+                    <pk-button
+                        *ngIf="['created', 'rescinded'].indexOf(application.state) !== -1"
+                         class="element--rounded" [icon]="'delete'" element--error></pk-button>
                 </div>
             </div>
         </div>
