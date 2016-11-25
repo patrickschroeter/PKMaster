@@ -167,7 +167,7 @@
 .element--show-validation {
     .element__invalid {
         .element__input, .element__checkbox, .element__radio, .element__textarea, .element__option {
-            border-color: $element-border-invalid
+            border-color: $element-border-invalid;
         }
     }
 }

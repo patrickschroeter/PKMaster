@@ -153,19 +153,16 @@
         }
     }
 
-    .list-element__date {
+    .list-element__date, .list-element__state, .list-element__modified, .list-element__version {
         @extend .font_smaller;
         line-height: 23px;
-        width: 12%;
-        min-width: 70px;
-        @media (max-width: 600px) {
-            display: none;
-        }
+    }
+    .list-element__date, .list-element__modified, .list-element__version {
+         width: 12%;
+         min-width: 70px;
     }
 
     .list-element__state {
-        @extend .font_smaller;
-        line-height: 23px;
         width: 15%;
         min-width: 100px;
         text-transform: uppercase;
@@ -174,11 +171,13 @@
         }
     }
 
+    .list-element__date {
+        @media (max-width: 600px) {
+            display: none;
+        }
+    }
+
     .list-element__modified {
-        @extend .font_smaller;
-        line-height: 23px;
-        width: 12%;
-        min-width: 70px;
         @media (max-width: 500px) {
             display: none;
         }
