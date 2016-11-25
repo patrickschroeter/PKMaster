@@ -48,24 +48,27 @@
         @include center();
         border-radius: $border-radius;
         padding-top: 55px;
-        background: $white;
+        background: $mediumwhite;
         position: relative;
         z-index: 6;
         width: 80%;
-        max-width: 400px;
+        max-width: 500px;
 
         .overlay__scroll-content {
-            padding: 25px;
+            padding: 45px;
+            background: $white;
+            color: $darkgray;
         }
 
         .overlay__label {
             position: absolute;
-            top: 30px;
+            top: 17px;
             left: 0;
             width: 100%;
-            padding-left: 32px;
-            padding-right: 32px;
+            padding-left: 45px;
+            padding-right: 45px;
             z-index: 2;
+            font-weight: 700;
         }
     }
 
