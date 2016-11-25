@@ -229,12 +229,12 @@ navbar.component.spec
 - ~~Farbe checkbox & Radio raus? -> dünnerer Rand?~~
 - ~~Labels aggressiver/dunkler~~
 - ~~Felder schwarz (auf weiß)~~ -> akzentpunkte: hintergrund grau/rotlich (minimalkontrast), labels müssen funktionieren
-- Liste weiß auf hover?
-- buttons: unterscheidung icon vs button (liste) -> kleiner punkt, outline, zustandsabhängig/progress -> piktogramm
-- Angtrag status kleiner, regular
-- Header zu nah an linie, keine linie? dafür vor liste
-- buttons reinanimieren
-- content hinter buttons
+- ~~Liste weiß auf hover?~~
+- ~~buttons: unterscheidung icon vs button (liste)~~ -> kleiner punkt, outline, zustandsabhängig/progress -> piktogramm
+- ~~Angtrag status kleiner, regular~~
+- ~~Header zu nah an linie, keine linie? dafür vor liste~~
+- ~~buttons reinanimieren~~
+- ~~content hinter buttons~~
 - sortierung
 - detail spacing label <-> input
 - ~~Form X zu groß im vgl. pfeil~~

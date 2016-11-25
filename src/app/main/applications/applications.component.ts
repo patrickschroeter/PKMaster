@@ -1,7 +1,7 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ApplicationService } from './../../core';
+import { ApplicationService, AlertService } from './../../core';
 
 import { Application, State, FormElement } from './../../swagger';
 
@@ -18,7 +18,10 @@ export class ApplicationsComponent implements OnInit {
 
     private newApplication: FormElement[];
 
-    constructor(private router: Router, private applicationService: ApplicationService) { }
+    constructor(
+        private router: Router,
+        private applicationService: ApplicationService,
+        private alert: AlertService) { }
 
     ngOnInit() {
         this.applications = [
@@ -116,11 +119,29 @@ export class ApplicationsComponent implements OnInit {
         ]
     }
 
+    submitApplication(application: Application) {
+        this.applicationService.submitApplication(application).subscribe(result => {
+            this.alert.setSuccessHint(`submitApplication${application.id}`, 'Application submitted');
+        });
+    }
+
+    rescindApplication(application: Application) {
+        this.applicationService.rescindApplication(application).subscribe(result => {
+            this.alert.setSuccessHint(`rescindApplication${application.id}`, 'Application rescinded');
+        });
+    }
+
+    deactivateApplication(application: Application) {
+        this.applicationService.deactivateApplication(application).subscribe(result => {
+            this.alert.setSuccessHint(`deactivateApplication${application.id}`, 'Application deactivated');
+        });
+    }
+
     toggleCreateNew() {
         this.isOpenNewApplication = !this.isOpenNewApplication;
     }
 
-    createNewApplication(application) {
+    createNewApplication(application: Application) {
         this.applicationService.createNewApplication(application).subscribe((created) => {
             if (created['id']) {
                 this.router.navigate([`/applications/`, created['id'], 'edit']);

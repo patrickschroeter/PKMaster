@@ -10,17 +10,17 @@
     // -> denied
     &.list-element--created {
         $current-color: $accent-color;
-        .list-element__state-icon { border-color: $current-color; background: $current-color }
+        .list-element__state-icon { border-color: $current-color; background: transparent }
         .list-element__state { color: $current-color }
     }
     &.list-element--submitted {
         $current-color: $guidance-color;
-        .list-element__state-icon { border-color: $current-color; background: $current-color }
+        .list-element__state-icon { border-color: $current-color; background: transparent }
         .list-element__state { color: $current-color }
     }
     &.list-element--rescinded {
         $current-color: $lightgray;
-        .list-element__state-icon { border-color: $current-color; background: $current-color }
+        .list-element__state-icon { border-color: $current-color; background: transparent }
         .list-element__state { color: $current-color }
     }
     &.list-element--deactivated {
@@ -30,7 +30,7 @@
     }
     &.list-element--pending {
         $current-color: $guidance-color;
-        .list-element__state-icon { border-color: $current-color; background: $current-color }
+        .list-element__state-icon { border-color: $current-color; background: transparent }
         .list-element__state { color: $current-color }
     }
     &.list-element--accepted {

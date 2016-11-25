@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import { AlertService } from './../alert';
 import { FormService } from './../form';
 
-import { Application, FormElement } from './../../../swagger';
+import { Application, FormElement, State } from './../../../swagger';
 
 @Injectable()
 export class ApplicationService {
@@ -70,6 +70,42 @@ export class ApplicationService {
         });
     }
 
+    submitApplication(application: Application): Observable<Application> {
+        this.alert.setLoading(`submitApplication${application.id}`, 'Submit Application...');
+        return new Observable(observer => {
+            setTimeout(() => {
+                this.alert.removeLoading(`submitApplication${application.id}`);
+                application.state = State.NameEnum.submitted;
+                observer.next(application);
+                observer.complete();
+            }, 200);
+        });
+    }
+
+    rescindApplication(application: Application): Observable<Application> {
+        this.alert.setLoading(`rescindApplication${application.id}`, 'Rescind Application...');
+        return new Observable(observer => {
+            setTimeout(() => {
+                this.alert.removeLoading(`rescindApplication${application.id}`);
+                application.state = State.NameEnum.rescinded;
+                observer.next(application);
+                observer.complete();
+            }, 200);
+        });
+    }
+
+    deactivateApplication(application: Application): Observable<Application> {
+        this.alert.setLoading(`deactivateApplication${application.id}`, 'Deactivate Application...');
+        return new Observable(observer => {
+            setTimeout(() => {
+                this.alert.removeLoading(`deactivateApplication${application.id}`);
+                application.state = State.NameEnum.deactivated;
+                console.log(application);
+                observer.next(application);
+                observer.complete();
+            }, 200);
+        });
+    }
 
     /**
      * @description Saves the changed application
