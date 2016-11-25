@@ -237,8 +237,8 @@ navbar.component.spec
 - content hinter buttons
 - sortierung
 - detail spacing label <-> input
-- Form X zu groß im vgl. pfeil
-- default heller als gesetzte werte
+- ~~Form X zu groß im vgl. pfeil~~
+- ~~default heller als gesetzte werte~~
 - hintergrund für form -> layout test, vgl. kirby
 - vorsicht mit richtungsmetapher: < != cancel, > != ok
 - alert mehr whitespace (zu klein)

@@ -36,21 +36,22 @@ html {
 
 #content {
     position: relative;
-    /*background-color: $mediumwhite;*/
-    background-color: $white;
-    max-width: 1024px;
+    background-color: $mediumwhite;
+    // background-color: $white;
+    // max-width: 1024px;
+    max-width: calc(50% + 512px);
     min-height: 100%;
-    margin: 0 auto;
+    // margin: 0 auto;
     padding: 25px;
 
-    border-left: 1px solid $mediumwhite;
-    border-right: 1px solid $mediumwhite;
+    // border-left: 1px solid $mediumwhite;
+    border-right: 1px solid $darkwhite;
 
     .content--default {
         display: block;
         padding: 24px 0 24px;
         width: 80%;
-        max-width: 800px;
+        max-width: 1024px;
         margin: 0 auto;
         position: relative;
     }

@@ -40,13 +40,19 @@ export class ProfileComponent implements OnInit {
                 name: 'firstname',
                 required: false,
                 label: 'Firstname',
-                value: 'Patrick'
+                value: 'Patrick',
+                styles: [
+                    'small'
+                ]
             },
             {
                 elementType: 'input',
                 name: 'lastname',
                 required: false,
-                label: 'Lastname'
+                label: 'Lastname',
+                styles: [
+                    'small'
+                ]
             },
             {
                 elementType: 'devider'
@@ -61,12 +67,19 @@ export class ProfileComponent implements OnInit {
                 validations: [
                     'isEmail',
                     'useExternalEmail'
+                ],
+                styles: [
+                    'small'
                 ]
             },
             {
                 elementType: 'input',
                 label: 'Matrikelnummer',
-                value: '949225'
+                value: '949225',
+                disabled: true,
+                styles: [
+                    'small'
+                ]
             }
         ];
 

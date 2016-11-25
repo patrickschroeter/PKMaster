@@ -21,6 +21,11 @@
         right: 0;
         bottom: 0;
         padding: 0 40px 40px 0;
+
+        @media (min-width: 1258px) {
+            left: 50%;
+            margin-left: 552px;
+        }
     }
 
     &.hint--visible {
@@ -35,6 +40,7 @@
         border: $border-width solid $mediumwhite;
         background-color: $white;
         color: $darkgray;
+        // min-width: 240px;
 
         display: none;
 
@@ -67,7 +73,7 @@
             padding-left: 28px;
             i {
                 position: absolute;
-                top: 1px;
+                top: 5px;
                 left: 2px;
                 @extend .rotating;
             }

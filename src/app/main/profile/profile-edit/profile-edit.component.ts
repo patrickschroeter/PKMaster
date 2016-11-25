@@ -20,13 +20,19 @@ export class ProfileEditComponent implements OnInit {
                 name: 'firstname',
                 required: false,
                 label: 'Firstname',
-                value: 'Patrick'
+                value: 'Patrick',
+                styles: [
+                    'small'
+                ]
             },
             {
                 elementType: 'input',
                 name: 'lastname',
                 required: false,
-                label: 'Lastname'
+                label: 'Lastname',
+                styles: [
+                    'small'
+                ]
             },
             {
                 elementType: 'devider'
@@ -41,6 +47,9 @@ export class ProfileEditComponent implements OnInit {
                 validations: [
                     'isEmail',
                     'useExternalEmail'
+                ],
+                styles: [
+                    'small'
                 ]
             }
         ];

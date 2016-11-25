@@ -54,6 +54,9 @@ export class DatalistComponent implements OnInit {
 
     toggleAddOptionOverlay() {
         this.isOpen = !this.isOpen;
+        for (let i = 0, length = this.addOptionForm.length; i < length; i++) {
+            this.addOptionForm[i].value = '';
+        }
     }
 
     addOption(element) {
