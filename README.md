@@ -239,11 +239,11 @@ navbar.component.spec
 - detail spacing label <-> input
 - ~~Form X zu groß im vgl. pfeil~~
 - ~~default heller als gesetzte werte~~
-- hintergrund für form -> layout test, vgl. kirby
+- ~~hintergrund für form -> layout test, vgl. kirby~~
 - vorsicht mit richtungsmetapher: < != cancel, > != ok
-- alert mehr whitespace (zu klein)
+- ~~alert mehr whitespace (zu klein)~~
 - buttons mit natürlicher breite
 - KONTRAST -> vgl. kirby
-- Notifications unten rechts: loadig & error & success
-- content linksseitig -> notifications rechts -> vgl. kirby; was bei formen overview?
-- Fläche? -> Statusmeldung, Passpartout
+- ~~Notifications unten rechts: loadig & error & success~~
+- ~~content linksseitig -> notifications rechts -> vgl. kirby; was bei formen overview?~~
+- ~~Fläche? -> Statusmeldung, Passpartout~~

@@ -3,6 +3,13 @@
         <h1 class="element element--spacing-bottom-small">Applications</h1>
 
         <div class="list">
+            <div class="list-element list-element--header">
+                <div (click)="sortBy('state')" class="list-element--context list-element__state-icon"></div>
+                <div (click)="sortBy('title')" class="list-element--context list-element__name">Title</div>
+                <div (click)="sortBy('created')" class="list-element--context list-element__date">Created</div>
+                <div (click)="sortBy('state')" class="list-element--context list-element__state">Status</div>
+                <div (click)="sortBy('modified')" class="list-element--context list-element__modified">Modified</div>
+            </div>
             <div class="list-element" *ngFor="let application of applications"
                 [ngClass]="{
                     'list-element--created': application.state === 'created',

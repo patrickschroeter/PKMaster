@@ -1,6 +1,6 @@
 .list-element {
     @extend .devider;
-    &:first-child {
+    &:not(.list-element--header):first-child {
         border-top: 1px solid $darkwhite;
     }
     @include clearfix();
@@ -46,7 +46,7 @@
         .list-element__modified { color: $current-color }
     }
     $delta-t: 0.1;
-    &:hover {
+    &:not(.list-element--header):hover {
         // @extend .devider--secondary;
         background: $white;
         .floating {
@@ -124,6 +124,15 @@
         }
     }
 
+    .list-element--context {
+        display: block;
+        float: left;
+        margin: 17px 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
     .list-element__state-icon {
         min-width: 16px;
         height: 16px;
@@ -133,15 +142,6 @@
         margin: 20px;
         display: block;
         float: left;
-    }
-
-    .list-element--context {
-        display: block;
-        float: left;
-        margin: 17px 10px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
     }
 
     .list-element__name {
@@ -181,6 +181,21 @@
         min-width: 70px;
         @media (max-width: 500px) {
             display: none;
+        }
+    }
+
+    &.list-element--header {
+        .list-element--context {
+            font-weight: 700;
+            text-transform: capitalize;
+            cursor: pointer;
+            &:hover {
+                color: $guidance-color;
+            }
+        }
+        .list-element__state-icon {
+            background-color: $black;
+            border-color: $black;
         }
     }
 }
