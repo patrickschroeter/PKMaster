@@ -19,24 +19,9 @@ export class FormsComponent implements OnInit {
     constructor(private formService: FormService, private router: Router) { }
 
     ngOnInit() {
-        this.forms = [
-            {
-                title: 'Antrag auf Bachelorarbeit',
-                id: 1,
-            },
-            {
-                title: 'Antrag auf Masterarbeit',
-                id: 2,
-            },
-            {
-                title: 'Antrag auf Notennachberechnung',
-                id: 3,
-            },
-            {
-                title: 'Antrag auf Notenanrechnung',
-                id: 4,
-            }
-        ];
+        this.formService.getForms().subscribe(result => {
+            this.forms = result;
+        })
 
         this.newForm = [
             {
@@ -49,6 +34,10 @@ export class FormsComponent implements OnInit {
                 ]
             }
         ];
+    }
+
+    sortBy(sortValue: string) {
+        this.formService.getForms(sortValue);
     }
 
     createNewForm(form) {

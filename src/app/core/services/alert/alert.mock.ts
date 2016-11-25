@@ -22,33 +22,9 @@ export class AlertMock {
      */
     removeLoading(id: string): void { }
 
-    /**
-     * @description Returns the Title Observer
-     * @return {Observable}
-     */
-    getTitle(): Observable<any> {
+    getAlert() {
         return new Observable(observer => {
-            observer.next('title');
-        });
-    }
-
-    /**
-     * @description Returns the Message Observer
-     * @return {Observable}
-     */
-    getMessage(): Observable<any> {
-        return new Observable(observer => {
-            observer.next('message');
-        });
-    }
-
-    /**
-     * @description Returns the isOpen Observer
-     * @return {Observable}
-     */
-    getOpenState(): Observable<any> {
-        return new Observable(observer => {
-            observer.next(true);
+            observer.next('alert');
         });
     }
 

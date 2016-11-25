@@ -51,4 +51,12 @@ export class ApplicationMock {
         });
     }
 
+    getApplications(sort?: string): Observable<any> {
+        return new Observable(observer => {
+            setTimeout(() => {
+                observer.next('applications');
+            }, 200);
+        });
+    }
+
 }

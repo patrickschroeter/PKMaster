@@ -3,8 +3,15 @@
         <h1 class="element element--spacing-bottom-small">Forms</h1>
 
         <div class="list">
+            <div class="list-element list-element--header">
+                <div (click)="sortBy('title')" class="list-element--context list-element__name">Title</div>
+                <div (click)="sortBy('created')" class="list-element--context list-element__created">Created</div>
+            </div>
             <div class="list-element" *ngFor="let form of forms">
                 <a class="list-element--context list-element__name" routerLink="/forms/{{ form.id }}/edit">{{ form.title }}</a>
+                <div class="list-element--context list-element__created">
+                    {{ form.created }}
+                </div>
 
                 <a class="floating floating--top-right " routerLink="/forms/{{ form.id }}/edit">
                     <pk-button class="element--rounded" [icon]="'create'" element--secondary></pk-button>

@@ -13,32 +13,4 @@ describe('Service: Alert', () => {
   it('should ...', inject([AlertService], (service: AlertService) => {
     expect(service).toBeTruthy();
   }));
-
-  it('should provide the alert title', inject([AlertService], (service: AlertService) => {
-      let element;
-      service.getTitle().subscribe(response => {
-          element = response;
-      });
-
-      expect(element).toBeUndefined();
-
-      service.setAlert('title', 'message');
-
-      expect(element).toBeDefined();
-      expect(element).toBe('title');
-  }));
-
-  it('should provide the alert message', inject([AlertService], (service: AlertService) => {
-      let element;
-      service.getMessage().subscribe(response => {
-          element = response;
-      });
-
-      expect(element).toBeUndefined();
-
-      service.setAlert('error', 'message');
-
-      expect(element).toBeDefined();
-      expect(element).toBe('message');
-  }));
 });

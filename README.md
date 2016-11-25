@@ -152,13 +152,13 @@ app/
 
 ## TODO
 
-validierung? PW, min, max  
+validierung? ~PW, min, max~  
 initialize application ( first admin user )  
 studiengang einrichten  
 form restrictions ( user vs dozent )  
-form error handling  
+~form error handling~  
 ~~success/error notifications~~  
-typsichere get options (by element type)
+~typsichere get options (by element type)~
 ~~unset optionTable on option change~~
 suchfeld bei vielen optionen (select)
 formService als !singleton into element-edit.component?

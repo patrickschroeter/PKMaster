@@ -149,5 +149,6 @@
 }
 
 .element__icon + .element__value {
-  min-width: $default-width;
+//   min-width: $default-width;
+    margin-right: 7px;
 }

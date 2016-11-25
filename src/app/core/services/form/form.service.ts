@@ -8,7 +8,8 @@ import { FormElement, Form } from './../../../swagger';
 export class FormService {
 
     /** The form to edit */
-    private form;
+    private form: Form;
+    private forms: Form[];
     /** Index of editing Element */
     private editingElementIndex: number;
 
@@ -43,6 +44,28 @@ export class FormService {
                 ]
             }]
         };
+        this.forms = [
+            {
+                title: 'Antrag auf Bachelorarbeit',
+                id: 1,
+                created: 20160622
+            },
+            {
+                title: 'Antrag auf Masterarbeit',
+                id: 2,
+                created: 20160503
+            },
+            {
+                title: 'Antrag auf Notennachberechnung',
+                id: 3,
+                created: 20160725
+            },
+            {
+                title: 'Antrag auf Notenanrechnung',
+                id: 4,
+                created: 20160212
+            }
+        ];
     }
 
     /**
@@ -81,6 +104,18 @@ export class FormService {
             /** http getFormById(id) => this.currentForm = result */
             setTimeout(() => {
                 observer.next(this.form);
+                observer.complete();
+            }, 200);
+        });
+    }
+
+    getForms(sort?: string): Observable<any> {
+        if (sort) {
+            this.forms.sort(function(a, b) {return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
+        }
+        return new Observable(observer => {
+            setTimeout(() => {
+                observer.next(this.forms);
                 observer.complete();
             }, 200);
         });
