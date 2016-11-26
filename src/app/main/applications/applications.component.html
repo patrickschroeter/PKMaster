@@ -22,9 +22,9 @@
                 }">
                 <div class="list-element__state-icon" [attr.tooltip]="application.state"></div>
                 <a class="list-element--context list-element__name" routerLink="/applications/{{ application.id }}">{{ application.form.title }}</a>
-                <div class="list-element--context list-element__date">{{ application.created }}</div>
+                <div class="list-element--context list-element__date">{{ application.created | date }}</div>
                 <div class="list-element--context list-element__state">{{ application.state }}</div>
-                <div class="list-element--context list-element__modified">{{ application.modified }}</div>
+                <div class="list-element--context list-element__modified">{{ application.modified | date }}</div>
 
                 <div class="floating floating--top-right floating--horizontal">
                     <pk-button

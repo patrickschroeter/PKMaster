@@ -87,22 +87,26 @@ export class FormService {
             {
                 title: 'Antrag auf Bachelorarbeit',
                 id: 1,
-                created: 20160622
+                created: 674467500,
+                restricted: true
             },
             {
                 title: 'Antrag auf Masterarbeit',
                 id: 2,
-                created: 20160503
+                created: 1315382700,
+                restricted: false
             },
             {
                 title: 'Antrag auf Notennachberechnung',
                 id: 3,
-                created: 20160725
+                created: 1455613500,
+                restricted: true
             },
             {
                 title: 'Antrag auf Notenanrechnung',
                 id: 4,
-                created: 20160212
+                created: 1477555500,
+                restricted: false
             }
         ];
     }
@@ -165,16 +169,18 @@ export class FormService {
      * @param {Form} form
      * @return {Observable}
      */
-    createNewForm(form: Form): Observable<Form> {
+    createNewForm(form: Form): Observable<any> {
         console.log(form);
         this.form = {
             title: form.id ? 'Copy of ' + form.title : form.title,
             id: 13,
-            elements: form.id ? this.form.elements : []
+            elements: form.id ? this.form.elements : [],
+            created: Date.now()
         };
 
         return new Observable(observer => {
             setTimeout(() => {
+                this.forms.push(this.form);
                 observer.next(this.form);
                 observer.complete();
             }, 200);

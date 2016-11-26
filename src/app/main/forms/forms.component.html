@@ -4,22 +4,28 @@
 
         <div class="list">
             <div class="list-element list-element--header">
+                <div (click)="sortBy('restricted')" class="list-element--context list-element__state-icon"></div>
                 <div (click)="sortBy('title')" class="list-element--context list-element__name">Title</div>
                 <div (click)="sortBy('created')" class="list-element--context list-element__date">Created</div>
                 <div class="list-element--context list-element__version">Version</div>
                 <div class="list-element--context list-element__state">Status</div>
             </div>
-            <div class="list-element" *ngFor="let form of forms">
+            <div class="list-element" *ngFor="let form of forms"
+                [ngClass]="{
+                    'list-element--restricted': form.restricted,
+                    'list-element--no-restricted': !form.restricted
+                }">
+                <div class="list-element__state-icon"></div>
                 <a class="list-element--context list-element__name" routerLink="/forms/{{ form.id }}/edit">{{ form.title }}</a>
                 <div class="list-element--context list-element__date">
-                    {{ form.created }}
+                    {{ form.created | date }}
                 </div>
                 <div class="list-element--context list-element__version">{{ form.version }}</div>
                 <div class="list-element--context list-element__state">{{ form.status }}</div>
 
                 <div class="floating floating--top-right floating--horizontal">
                     <a routerLink="/forms/{{ form.id }}/edit">
-                        <pk-button class="element--rounded element--spacing-left-small" [icon]="'create'" element--secondary></pk-button>
+                        <pk-button class="element--rounded" [icon]="'create'" element--secondary></pk-button>
                     </a>
                     <pk-button class="element--rounded" [icon]="'content_copy'" (onClick)="createNewForm(form)" element--secondary></pk-button>
                 </div>

@@ -21,7 +21,7 @@ export class FormsComponent implements OnInit {
     ngOnInit() {
         this.formService.getForms().subscribe(result => {
             this.forms = result;
-        })
+        });
 
         this.newForm = [
             {
@@ -31,6 +31,18 @@ export class FormsComponent implements OnInit {
                 required: true,
                 validations: [
                     'minLength'
+                ],
+                styles: [
+                    'small'
+                ]
+            },
+            {
+                elementType: 'checkbox',
+                name: 'restricted',
+                label: 'Restricted',
+                styles: [
+                    'small',
+                    'aligned'
                 ]
             }
         ];

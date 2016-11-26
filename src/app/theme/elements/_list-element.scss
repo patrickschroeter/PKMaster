@@ -45,6 +45,14 @@
         .list-element__state { color: $current-color }
         .list-element__modified { color: $current-color }
     }
+    &.list-element--restricted {
+        $current-color: $error;
+        .list-element__state-icon { border-color: $current-color; background: transparent }
+    }
+    &.list-element--no-restricted {
+        $current-color: $success;
+        .list-element__state-icon { border-color: $current-color; background: transparent }
+    }
     $delta-t: 0.1;
     &:not(.list-element--header):hover {
         // @extend .devider--secondary;
