@@ -84,8 +84,8 @@ export class ElementEditComponent implements OnInit {
         this.elementService.saveElement(element);
     }
 
-    copyElement(element: FormElement): void {
-        this.elementService.saveElement(element, false);
+    copyElement(element: FormElement, type: 'clone' | 'add'): void {
+        this.elementService.saveElement(element, type);
     }
 
     /**

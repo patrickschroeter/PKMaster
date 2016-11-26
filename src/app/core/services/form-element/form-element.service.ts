@@ -327,15 +327,16 @@ export class FormElementService {
     /**
      * @description Adds the element to the current Form
      * @param {FormElement} elmenent the element to add to the form
+     * @param {Number} reset 0: add, reset, close; 1:add, reset; 3: add
      * @return {void}
      */
-    saveElement(element: FormElement, reset: boolean = true): void {
-        if (this.formService.addElementToForm(element, reset)) {
-            if (reset) {
+    saveElement(element: FormElement, mode?: 'clone' | 'add'): void {
+        if (this.formService.addElementToForm(element, mode)) {
+            console.log(mode);
+            if (!mode || mode === 'add') {
                 this.resetElement();
-            } else {
-                this.alert.setSuccessHint('save-element-no-reset', 'Element added successful');
             }
+            this.alert.setSuccessHint('save-element-no-reset', 'Element added successful');
         } else {
             this.alert.setAlert('Error', 'The given name (ID) is already in use. Please choose a new unique one.');
         }

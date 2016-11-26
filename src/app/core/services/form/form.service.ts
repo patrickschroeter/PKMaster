@@ -259,7 +259,7 @@ export class FormService {
      * @param {FormElement} element the FormElement as JSON
      * @return {boolean}
      */
-    addElementToForm(element: FormElement, reset = true): boolean {
+    addElementToForm(element: FormElement, mode?: 'clone' | 'add'): boolean {
         /** Forms don't have Presets yet */
         // delete element.value;
 
@@ -286,7 +286,7 @@ export class FormService {
         }
 
         /** Reset the Add Attribute View */
-        if (reset) {
+        if (!mode) {
             this.setAddingElement(false);
         }
         this.editingElementIndex = -1;
