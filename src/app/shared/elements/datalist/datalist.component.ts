@@ -26,6 +26,10 @@ export class DatalistComponent implements OnInit {
     ngOnInit() {
         if (this.config && !this.config.formControl) { this.config.formControl = new FormControl(this.config.value); }
 
+        this.initAddOptionsForm();
+    }
+
+    initAddOptionsForm() {
         this.addOptionForm = [
             {
                 elementType: 'input',
@@ -88,6 +92,7 @@ export class DatalistComponent implements OnInit {
             }
         }
         this.toggleAddOptionOverlay();
+        this.initAddOptionsForm();
     }
 
     removeOption(element) {
