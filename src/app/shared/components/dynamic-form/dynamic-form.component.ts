@@ -10,7 +10,8 @@ import { FormElement } from './../../../swagger';
 @Component({
     selector: 'pk-form',
     templateUrl: './dynamic-form.component.html',
-    styleUrls: ['./dynamic-form.component.scss']
+    styleUrls: ['./dynamic-form.component.scss'],
+    exportAs: 'dynamicForm'
 })
 export class DynamicFormComponent implements OnInit, OnChanges {
 

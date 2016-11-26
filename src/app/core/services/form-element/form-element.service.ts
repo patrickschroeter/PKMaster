@@ -329,9 +329,13 @@ export class FormElementService {
      * @param {FormElement} elmenent the element to add to the form
      * @return {void}
      */
-    saveElement(element: FormElement): void {
-        if (this.formService.addElementToForm(element)) {
-            this.resetElement();
+    saveElement(element: FormElement, reset: boolean = true): void {
+        if (this.formService.addElementToForm(element, reset)) {
+            if (reset) {
+                this.resetElement();
+            } else {
+                this.alert.setSuccessHint('save-element-no-reset', 'Element added successful');
+            }
         } else {
             this.alert.setAlert('Error', 'The given name (ID) is already in use. Please choose a new unique one.');
         }

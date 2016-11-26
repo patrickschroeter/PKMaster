@@ -259,7 +259,7 @@ export class FormService {
      * @param {FormElement} element the FormElement as JSON
      * @return {boolean}
      */
-    addElementToForm(element: FormElement): boolean {
+    addElementToForm(element: FormElement, reset = true): boolean {
         /** Forms don't have Presets yet */
         // delete element.value;
 
@@ -286,7 +286,9 @@ export class FormService {
         }
 
         /** Reset the Add Attribute View */
-        this.setAddingElement(false);
+        if (reset) {
+            this.setAddingElement(false);
+        }
         this.editingElementIndex = -1;
         return true;
     }

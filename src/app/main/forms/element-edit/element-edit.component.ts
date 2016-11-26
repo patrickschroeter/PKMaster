@@ -84,6 +84,10 @@ export class ElementEditComponent implements OnInit {
         this.elementService.saveElement(element);
     }
 
+    copyElement(element: FormElement): void {
+        this.elementService.saveElement(element, false);
+    }
+
     /**
      * @description cancel the current element
      * @return {void}
