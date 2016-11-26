@@ -191,7 +191,13 @@ export class FormElementService {
                     this.setElementHasValidations(false);
                     this.setElementHasStyles(false);
                     this.setElementHasPreview(false);
-                    this.setElementPreview([]);
+                    this.setElementPreview([form]);
+                    for (let i = 0, length = this.element.length; i < length; i++) {
+                        let element = this.element[i];
+                        if (form[element.name]) {
+                            element.value = form[element.name];
+                        }
+                    }
                 }
             });
         }
