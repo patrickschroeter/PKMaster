@@ -45,14 +45,14 @@ export class AlertService {
         }
     }
 
-    setErrorHint(id: string, message: string): void {
+    setErrorHint(id: string, message: string, time?: number): void {
         let hint = this.addMessage(id, 'error', message);
         if (hint.timeout) {
             clearTimeout(hint.timeout);
         }
         hint.timeout = setTimeout(() => {
             this.removeHint(id);
-        }, 1000);
+        }, time ? time : 1000);
     }
 
     setSuccessHint(id: string, message: string): void {

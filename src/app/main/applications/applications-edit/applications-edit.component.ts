@@ -2,7 +2,7 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { ApplicationService, AlertService } from './../../../core';
-import { Application } from './../../../swagger';
+import { Application, State } from './../../../swagger';
 
 @Component({
     selector: 'pk-applications-edit',
@@ -25,7 +25,16 @@ export class ApplicationsEditComponent implements OnInit {
         /** Read Route Param and GET Application with param ID */
         this.activatedRoute.params.forEach((params: Params) => {
             this.applicationService.getApplicationById(+params['id']).subscribe((application) => {
-                if (!application) { this.router.navigate(['/applications']); }
+                // TODO catch in service
+                if (!application) {
+                    this.router.navigate(['/applications']);
+                    this.alert.setErrorHint('no-application-found', `The is no application with the requested Id: ${params['id']}`, 2000);
+                    return;
+                } else if ( application.state && [State.NameEnum.rescinded, State.NameEnum.created].indexOf(application.state) === -1) {
+                    this.router.navigate(['/applications']);
+                    this.alert.setErrorHint('no-application-edit', `It's not allowed to edit this application`, 2000);
+                    return;
+                }
                 this.application = application;
             });
         });

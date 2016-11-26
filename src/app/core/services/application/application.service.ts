@@ -96,6 +96,7 @@ export class ApplicationService {
         return new Observable(observer => {
             /** http getApplicationById(id) => this.currentApplication = result */
             setTimeout(() => {
+                this.application.id = id;
                 observer.next(this.application);
                 observer.complete();
             }, 200);
@@ -173,7 +174,6 @@ export class ApplicationService {
             setTimeout(() => {
                 this.alert.removeLoading(`deactivateApplication${application.id}`);
                 application.state = State.NameEnum.deactivated;
-                console.log(application);
                 observer.next(application);
                 observer.complete();
             }, 200);
@@ -192,6 +192,12 @@ export class ApplicationService {
         this.alert.setLoading('saveApplication', 'Save Application...')
         return new Observable(observer => {
             setTimeout(() => {
+                for (let i = 0, length = this.applications.length; i < length; i++) {
+                    let element = this.applications[i];
+                    if (element.id === this.application.id) {
+                        element.state = State.NameEnum.created;
+                    }
+                }
                 this.alert.removeLoading('saveApplication');
                 observer.next(this.application);
                 observer.complete();
