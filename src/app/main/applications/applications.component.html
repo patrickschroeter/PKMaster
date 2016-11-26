@@ -54,7 +54,10 @@
     <pk-overlay [isOpen]="isOpenNewApplication" (toggleOverlay)="toggleCreateNew()" class="overlay--fluid">
         <div class="pk-overlay__header">Create New Application</div>
         <div class="pk-overlay__content">
-            <pk-form [formElements]="newApplication" [hasSubmit]="true" (onSubmit)="createNewApplication($event)"></pk-form>
+
+            <div class="overlay__option selectable" *ngFor="let option of applicationTypes" (click)="createNewApplication(option)">
+                    {{ option.label }}
+            </div>
         </div>
     </pk-overlay>
 </div>

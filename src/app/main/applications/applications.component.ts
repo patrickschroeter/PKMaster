@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { ApplicationService, AlertService } from './../../core';
 
-import { Application, State, FormElement } from './../../swagger';
+import { Application } from './../../swagger';
 
 @Component({
     selector: 'pk-applications',
@@ -16,7 +16,7 @@ export class ApplicationsComponent implements OnInit {
     private applications: Application[];
     private isOpenNewApplication: boolean = false;
 
-    private newApplication: FormElement[];
+    private applicationTypes: Array<{value, label}>;
 
     constructor(
         private router: Router,
@@ -27,39 +27,20 @@ export class ApplicationsComponent implements OnInit {
         this.applicationService.getApplications().subscribe(result => {
             this.applications = result;
         });
-        this.newApplication = [
-            // {
-            //     elementType: 'input',
-            //     name: 'application-title',
-            //     label: 'Custom Application Title (optional):',
-            //     styles: [
-            //         'small'
-            //     ]
-            // },
+        this.applicationTypes = [
             {
-                elementType: 'radio',
-                name: 'application-form',
-                label: 'Select Form:',
-                required: true,
-                options: [
-                    {
-                        value: 'thesis',
-                        label: 'Abschlussarbeit',
-                    },
-                    {
-                        value: 'notes-change',
-                        label: 'Notenänderung',
-                    },
-                    {
-                        value: 'notes-late',
-                        label: 'Notenanrechnung',
-                    }
-                ],
-                styles: [
-                    'small'
-                ]
+                value: 'thesis',
+                label: 'Abschlussarbeit',
+            },
+            {
+                value: 'notes-change',
+                label: 'Notenänderung',
+            },
+            {
+                value: 'notes-late',
+                label: 'Notenanrechnung',
             }
-        ]
+        ];
     }
 
     sortBy(sortValue: string) {
