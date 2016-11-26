@@ -639,6 +639,10 @@ function opts() {
                         label: 'Date'
                     },
                     {
+                        value: 'email',
+                        label: 'E-Mail'
+                    },
+                    {
                         value: 'number',
                         label: 'Number'
                     }

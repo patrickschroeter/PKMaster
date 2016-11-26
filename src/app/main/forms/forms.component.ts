@@ -23,29 +23,9 @@ export class FormsComponent implements OnInit {
             this.forms = result;
         });
 
-        this.newForm = [
-            {
-                elementType: 'input',
-                name: 'title',
-                label: 'Form Name:',
-                required: true,
-                validations: [
-                    'minLength'
-                ],
-                styles: [
-                    'small'
-                ]
-            },
-            {
-                elementType: 'checkbox',
-                name: 'restricted',
-                label: 'Restricted',
-                styles: [
-                    'small',
-                    'aligned'
-                ]
-            }
-        ];
+        this.formService.getEditFormTemplate().subscribe(result => {
+            this.newForm = result;
+        });
     }
 
     sortBy(sortValue: string) {

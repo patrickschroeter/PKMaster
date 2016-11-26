@@ -86,7 +86,7 @@ export class FormsEditComponent implements OnInit {
      * @return {void}
      */
     editFormAttributes(): void {
-        this.formService.getEditFormTemplate().subscribe(form => {
+        this.formService.getEditFormTemplate(this.form.id).subscribe(form => {
             this.editForm = form;
             this.isEditingForm = true;
         });

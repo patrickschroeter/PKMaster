@@ -175,7 +175,8 @@ export class FormService {
             title: form.id ? 'Copy of ' + form.title : form.title,
             id: 13,
             elements: form.id ? this.form.elements : [],
-            created: Date.now()
+            created: Date.now(),
+            restricted: form.restricted
         };
 
         return new Observable(observer => {
@@ -300,10 +301,25 @@ export class FormService {
             {
                 elementType: 'input',
                 name: 'title',
-                label: 'Titel des Antrages',
-                value: this.form.title,
+                label: 'Form Name:',
+                value: id ? this.form.title : '',
                 required: true,
-                placeholder: 'Form Title'
+                validations: [
+                    'minLength'
+                ],
+                styles: [
+                    'small'
+                ]
+            },
+            {
+                elementType: 'checkbox',
+                name: 'restricted',
+                label: 'Restricted',
+                value: id ? this.form.restricted : false,
+                styles: [
+                    'small',
+                    'aligned'
+                ]
             }
         ];
         return new Observable(observer => {
