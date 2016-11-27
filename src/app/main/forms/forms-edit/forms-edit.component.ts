@@ -70,8 +70,8 @@ export class FormsEditComponent implements OnInit {
      * @param {FormElement} element
      * @return {void}
      */
-    removeElement(element: FormElement): void {
-        this.formService.removeElement(element);
+    removeElement(element: FormElement, index: number): void {
+        this.formService.removeElement(element, index);
     }
 
     /**

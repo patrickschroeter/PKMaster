@@ -10,10 +10,10 @@
     <pk-dynamic-form *ngIf="form && form.elements && form.elements.length > 0" [formElements]="form.elements" #dynamicForm>
         <pk-dynamic-form-content>
 
-            <pk-dynamic-form-element *ngFor="let element of form.elements" [element]="element">
+            <pk-dynamic-form-element *ngFor="let element of form.elements, let i = index" [element]="element">
                 <pk-floating bottom-right-corner horizontal>
                     <pk-button rounded class="button button--edit element" [icon]="'create'" (onClick)="editElement(element)" element--secondary></pk-button>
-                    <pk-button rounded class="button button--edit element" [icon]="'clear'" (onClick)="removeElement(element)" element--error></pk-button>
+                    <pk-button rounded class="button button--edit element" [icon]="'clear'" (onClick)="removeElement(element, i)" element--error></pk-button>
                 </pk-floating>
             </pk-dynamic-form-element>
 
