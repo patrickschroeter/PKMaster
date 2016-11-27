@@ -1,12 +1,11 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { FormElement } from './../../../swagger';
+import { FormElement } from './../../../../swagger';
 
 @Component({
     selector: 'pk-select',
-    templateUrl: './select.component.html',
-    styleUrls: ['./select.component.scss'],
+    templateUrl: './select.component.html'
 })
 export class SelectComponent implements OnInit {
 

@@ -1,16 +1,17 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { FormElement } from './../../../swagger';
+import { FormElement } from './../../../../swagger';
 
 @Component({
-    selector: 'pk-input',
-    templateUrl: './input.component.html',
-    styleUrls: ['./input.component.scss']
+    selector: 'pk-checkbox',
+    templateUrl: './checkbox.component.html',
+    styleUrls: ['./checkbox.component.scss']
 })
-export class InputComponent implements OnInit {
+export class CheckboxComponent implements OnInit {
 
     @HostBinding('class.element') element = true;
+    @HostBinding('class.element--primary') elementPrimary = true;
 
     @Input() config: FormElement;
     @Input() disabled: boolean;

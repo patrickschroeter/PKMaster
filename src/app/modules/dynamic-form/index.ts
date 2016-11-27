@@ -8,3 +8,5 @@ export * from './dynamic-form-element';
 export * from './dynamic-form-default';
 export * from './dynamic-form-edit';
 export * from './dynamic-form-disabled';
+
+export * from './elements';

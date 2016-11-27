@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { AuthenticationService, AlertService, InputValidationService } from './../../core';
 
-import { DynamicFormService } from './../../shared';
+import { DynamicFormService } from './../../modules/dynamic-form';
 
 import { FormElement, Form } from './../../swagger';
 

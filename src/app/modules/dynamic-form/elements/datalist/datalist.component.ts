@@ -1,14 +1,13 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { AlertService } from './../../../core';
+import { AlertService } from './../../../../core';
 
-import { FormElement } from './../../../swagger';
+import { FormElement } from './../../../../swagger';
 
 @Component({
     selector: 'pk-datalist',
-    templateUrl: './datalist.component.html',
-    styleUrls: ['./datalist.component.scss']
+    templateUrl: './datalist.component.html'
 })
 export class DatalistComponent implements OnInit {
 

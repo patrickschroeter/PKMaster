@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
 
@@ -13,14 +13,29 @@ import {
     DynamicFormElementComponent,
     DynamicFormContentComponent,
 
-    DynamicFormService
+    DynamicFormService,
+
+    DynamicFormDefaultComponent,
+    DynamicFormEditComponent,
+    DynamicFormDisabledComponent,
+
+    CheckboxComponent,
+    DatalistComponent,
+    InputComponent,
+    RadioComponent,
+    SelectComponent,
+    TextareaComponent
 } from './';
-import { DynamicFormDefaultComponent } from './dynamic-form-default/dynamic-form-default.component';
-import { DynamicFormEditComponent } from './dynamic-form-edit/dynamic-form-edit.component';
-import { DynamicFormDisabledComponent } from './dynamic-form-disabled/dynamic-form-disabled.component';
 
 @NgModule({
     declarations: [
+        CheckboxComponent,
+        DatalistComponent,
+        InputComponent,
+        RadioComponent,
+        SelectComponent,
+        TextareaComponent,
+
         DynamicFormComponent,
         DynamicFormCancelComponent,
         DynamicFormSubmitComponent,
@@ -34,6 +49,7 @@ import { DynamicFormDisabledComponent } from './dynamic-form-disabled/dynamic-fo
     imports: [
         CommonModule,
         ReactiveFormsModule,
+        FormsModule,
 
         SharedModule,
         FloatingModule
@@ -50,7 +66,9 @@ import { DynamicFormDisabledComponent } from './dynamic-form-disabled/dynamic-fo
         DynamicFormCancelComponent,
         DynamicFormSubmitComponent,
         DynamicFormElementComponent,
-        DynamicFormContentComponent
+        DynamicFormContentComponent,
+
+        InputComponent
     ]
 })
 export class DynamicFormModule { }
