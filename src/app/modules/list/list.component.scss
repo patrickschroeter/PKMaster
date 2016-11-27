@@ -1,0 +1,195 @@
+@import './../../theme';
+
+.list__header {
+    .list-element__attribute {
+        font-weight: 700;
+        text-transform: capitalize;
+        cursor: pointer;
+        &:hover {
+            color: $guidance-color;
+        }
+    }
+    .list-element__attribute--state-icon {
+        background-color: transparent;
+        border-color: $black;
+    }
+}
+
+.list__content {
+
+}
+
+.list-element {
+    @extend .devider;
+    @include clearfix();
+    position: relative;
+    display: flex;
+
+    .list-element__attribute {
+        display: block;
+        float: left;
+        margin: 17px 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &.list-element__attribute--state-icon {
+            min-width: 16px;
+            height: 16px;
+            border: $border-width solid $accent-color;
+            background: $accent-color;
+            border-radius: 50%;
+            margin: 20px;
+            display: block;
+            float: left;
+        }
+
+        &.list-element__attribute--name {
+            flex: 1;
+            transition: color .3s ease-in-out;
+
+            &:hover {
+                color: $guidance-color;
+            }
+        }
+
+        &.list-element__attribute--state,
+        &.list-element__attribute--date,
+        &.list-element__attribute--modified,
+        &.list-element__attribute--version {
+            @extend .font_smaller;
+            line-height: 23px;
+        }
+        &.list-element__attribute--date,
+        &.list-element__attribute--modified,
+        &.list-element__attribute--version {
+            width: 12%;
+            min-width: 70px;
+        }
+
+        &.list-element__attribute--state {
+            width: 15%;
+            min-width: 100px;
+            text-transform: uppercase;
+            @media (max-width: 700px) {
+                display: none;
+            }
+        }
+
+        &.list-element__attribute--date {
+            @media (max-width: 600px) {
+                display: none;
+            }
+        }
+
+        &.list-element__attribute--modified {
+            @media (max-width: 500px) {
+                display: none;
+            }
+        }
+    }
+
+    // States
+
+    &.list-element__attribute--created {
+        $current-color: $accent-color;
+        .list-element__attribute--state-icon { border-color: $current-color; background: transparent }
+        .list-element__attribute--state { color: $current-color }
+    }
+    &.list-element__attribute--submitted {
+        $current-color: $guidance-color;
+        .list-element__attribute--state-icon { border-color: $current-color; background: transparent }
+        .list-element__attribute--state { color: $current-color }
+    }
+    &.list-element__attribute--rescinded {
+        $current-color: $lightgray;
+        .list-element__attribute--state-icon { border-color: $current-color; background: transparent }
+        .list-element__attribute--state { color: $current-color }
+    }
+    &.list-element__attribute--deactivated {
+        $current-color: $darkwhite;
+        color: $current-color;
+        .list-element__attribute--state-icon { border-color: $current-color; background: $current-color }
+    }
+    &.list-element__attribute--pending {
+        $current-color: $guidance-color;
+        .list-element__attribute--state-icon { border-color: $current-color; background: transparent }
+        .list-element__attribute--state { color: $current-color }
+    }
+    &.list-element__attribute--accepted {
+        $current-color: $success;
+        .list-element__attribute--state-icon { border-color: $current-color; background: $current-color }
+        .list-element__attribute--state { color: $current-color }
+        .list-element__attribute--modified { color: $current-color }
+    }
+    &.list-element__attribute--denied {
+        $current-color: $error;
+        .list-element__attribute--state-icon { border-color: $current-color; background: $current-color }
+        .list-element__attribute--state { color: $current-color }
+        .list-element__attribute--modified { color: $current-color }
+    }
+    &.list-element__attribute--restricted {
+        $current-color: $error;
+        .list-element__attribute--state-icon { border-color: $current-color; background: transparent }
+    }
+    &.list-element__attribute--no-restricted {
+        $current-color: $success;
+        .list-element__attribute--state-icon { border-color: $current-color; background: transparent }
+    }
+
+    // Button Animation
+
+    $delta-t: 0.1;
+    transition: background .3s ease-in-out, border-color .3s ease-in-out;
+
+    &:not(.list-element__attribute--header):hover {
+        background: $white;
+        .floating {
+            visibility: visible;
+            transition-delay: 0s;
+            > * {
+                transform: translateX(-15px);
+                visibility: visible;
+                opacity: 1;
+            }
+            @for $i from 1 through 4 {
+                > *:first-child:nth-last-child(#{$i}),
+                > *:first-child:nth-last-child(#{$i}) ~ * {
+                    @for $j from 1 through $i {
+                        &:nth-child(#{$j}) {
+                            transform: scale(1) translateX(-12px);
+                            transition-delay: #{$delta-t * ($i + 1 - $j) + 0.1}s;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .floating {
+        visibility: hidden;
+        transition: visibility .5s linear .5s;
+        > * {
+            position: relative;
+            visibility: hidden;
+            opacity: 0;
+            transform-origin: center;
+            transform: scale(0.9);
+        }
+        @for $i from 1 through 4 {
+            > *:first-child:nth-last-child(#{$i}),
+            > *:first-child:nth-last-child(#{$i}) ~ * {
+                @for $j from 1 through $i {
+                    &:nth-child(#{$j}) {
+                        left: 12px;
+                        transition:
+                            opacity .3s ease-in-out #{ $delta-t * $j + 0.0 }s,
+                            visibility .3s linear #{ $delta-t * $j + 0.3 }s,
+                            transform .3s ease-in-out #{ $delta-t * $j + 0 }s;
+                    }
+                }
+            }
+        }
+    }
+
+}

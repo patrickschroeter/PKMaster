@@ -2,7 +2,20 @@
     <div class="rel">
         <h1 class="element element--spacing-bottom-small">Applications</h1>
 
-        <div class="list">
+        <pk-list>
+            <pk-list-header>
+                <pk-list-attribute>Title</pk-list-attribute>
+                <pk-list-attribute>Created</pk-list-attribute>
+            </pk-list-header>
+            <pk-list-content>
+                <pk-list-element>
+                    <pk-list-attribute>'title'</pk-list-attribute>
+                    <pk-list-attribute>'created'</pk-list-attribute>
+                </pk-list-element>
+            </pk-list-content>
+        </pk-list>
+
+        <!--<div class="list">
             <div class="list-element list-element--header">
                 <div (click)="sortBy('state')" class="list-element--context list-element__state-icon"></div>
                 <div (click)="sortBy('title')" class="list-element--context list-element__name">Title</div>
@@ -46,7 +59,7 @@
                          class="element--rounded" [icon]="'delete'" element--error></pk-button>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
     <div class="floating floating--fixed floating--top-right">
         <pk-button class="element--rounded" [icon]="'add'" element--secondary (onClick)="toggleCreateNew()"></pk-button>

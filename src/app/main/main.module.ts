@@ -6,6 +6,7 @@ import * as main from './';
 import { MainRouting } from './main.routing';
 
 import { SharedModule } from './../shared/shared.module';
+import { ListModule } from './../modules/list/list.module';
 
 @NgModule({
     declarations: [
@@ -30,6 +31,7 @@ import { SharedModule } from './../shared/shared.module';
         ReactiveFormsModule,
         MainRouting,
         SharedModule,
+        ListModule
     ],
     providers: [],
     exports: []
