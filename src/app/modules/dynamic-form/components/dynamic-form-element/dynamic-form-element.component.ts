@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { DynamicFormService } from './../services';
+import { DynamicFormService } from './../../services';
 
-import { FormElement } from './../../../swagger';
+import { FormElement } from './../../../../swagger';
 
 @Component({
     selector: 'pk-dynamic-form-element',
