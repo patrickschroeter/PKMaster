@@ -1,4 +1,18 @@
 <div class="login-wrapper">
-  <h1 class="">PK 4.0</h1>
-  <pk-form [formElements]="loginForm" [hasSubmit]="true" (onSubmit)="login($event)"></pk-form>
+    <h1 class="">PK 4.0</h1>
+
+    <pk-dynamic-form [formElements]="loginForm" #dynamicForm>
+        <pk-dynamic-form-content>
+
+            <pk-dynamic-form-element *ngFor="let element of loginForm" [element]="element"></pk-dynamic-form-element>
+
+        </pk-dynamic-form-content>
+
+        <pk-dynamic-form-submit>
+            <pk-button (onClick)="login(dynamicForm.form.value)"[value]="'OK'" [icon]="'chevron_right'" [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
+                [type]="'submit'"></pk-button>
+        </pk-dynamic-form-submit>
+
+    </pk-dynamic-form>
+
 </div>

@@ -7,19 +7,23 @@
         No Elements in this form.
     </div>
 
-    <pk-form
-        *ngIf="form && form.elements && form.elements.length > 0"
-        [formElements]="form.elements"
-        [editableElement]="true"
-        (onEdit)="editElement($event)"
-        (onRemove)="removeElement($event)"
-        [hasSubmit]="false"
-        [hasCancel]="false"
-        ></pk-form>
+    <pk-dynamic-form *ngIf="form && form.elements && form.elements.length > 0" [formElements]="form.elements" #dynamicForm>
+        <pk-dynamic-form-content>
+
+            <pk-dynamic-form-element *ngFor="let element of form.elements" [element]="element">
+                <pk-floating bottom-right-corner horizontal>
+                    <pk-button rounded class="button button--edit element" [icon]="'create'" (onClick)="editElement(element)" element--secondary></pk-button>
+                    <pk-button rounded class="button button--edit element" [icon]="'clear'" (onClick)="removeElement(element)" element--error></pk-button>
+                </pk-floating>
+            </pk-dynamic-form-element>
+
+        </pk-dynamic-form-content>
+
+    </pk-dynamic-form>
 
     <pk-floating top-right fixed>
         <pk-button rounded class="element--spacing-bottom-small" [icon]="'edit'" rounded element--secondary (onClick)="editFormAttributes()"></pk-button>
-        <pk-button class="element--spacing-bottom-small" [icon]="'add'" element--secondary (onClick)="addElement()"></pk-button>
+        <pk-button rounded class="element--spacing-bottom-small" [icon]="'add'" element--secondary (onClick)="addElement()"></pk-button>
         <pk-button rounded class="element--spacing-bottom-small" [icon]="'save'" (onClick)="saveForm()" element--success></pk-button>
     </pk-floating>
 </div>
@@ -27,13 +31,25 @@
 <pk-overlay [isOpen]="isEditingForm" (toggleOverlay)="toggleFormEditing()" class="overlay--fluid">
     <div class="pk-overlay__header">Edit Form Attributes</div>
     <div class="pk-overlay__content">
-        <pk-form
-            *ngIf="editForm"
-            [formElements]="editForm"
-            [hasCancel]="false"
-            [hasSubmit]="true"
-            (onSubmit)="saveFormAttributes($event)"
-            ></pk-form>
+
+        <pk-dynamic-form *ngIf="editForm" [formElements]="editForm" #dynamicForm>
+            <pk-dynamic-form-content>
+
+                <pk-dynamic-form-element *ngFor="let element of editForm" [element]="element"></pk-dynamic-form-element>
+
+            </pk-dynamic-form-content>
+
+            <pk-dynamic-form-submit>
+                <pk-button
+                    [value]="'OK'"
+                    [icon]="'chevron_right'"
+                    [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
+                    [type]="'submit'"
+                    (onClick)="saveFormAttributes(dynamicForm.form.value)"></pk-button>
+            </pk-dynamic-form-submit>
+
+        </pk-dynamic-form>
+
     </div>
 </pk-overlay>
 

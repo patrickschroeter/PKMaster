@@ -1,12 +1,7 @@
 <div id="application-edit" class="rel" *ngIf="application">
     <h2 class="element element--spacing-bottom-small">Edit Application: {{ application.title }}</h2>
 
-    <pk-form
-        *ngIf="application.attributes?.length > 0"
-        [formElements]="application.attributes"
-        [hasSubmit]="true"
-        (onSubmit)="saveApplication($event)"
-        ></pk-form>
+    <pk-dynamic-form-default *ngIf="application.attributes?.length > 0" [form]="application.attributes" (onSubmit)="saveApplication($event)"></pk-dynamic-form-default>
 
     <pk-floating top-right fixed>
         <!--<pk-button rounded *ngIf="dynamicForm.form.valid" class="element--spacing-bottom-small" [icon]="'save'" (onClick)="saveApplication(dynamicForm.form.value)" element--success></pk-button>-->

@@ -3,26 +3,42 @@
     <div class="rel">
         <h2 class="element element--spacing-bottom-small">Create new Element</h2>
 
-        <pk-form
-            #dynamicForm
-            [formElements]="element"
-            [hasSubmit]="elementHasSubmit"
-            (onSubmit)="saveElement($event) "
-            [hasCancel]="true"
-            (onCancel)="cancelElement()"
-            (onChange)="updateElement($event)">
+        <pk-dynamic-form [formElements]="element" #dynamicForm (onChange)="updateElement($event)">
+            <pk-dynamic-form-content>
 
-        </pk-form>
+                <pk-dynamic-form-element *ngFor="let attribute of element" [element]="attribute"></pk-dynamic-form-element>
+
+            </pk-dynamic-form-content>
+
+            <pk-dynamic-form-submit>
+                <pk-button
+                    [value]="'OK'"
+                    [icon]="'chevron_right'"
+                    [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
+                    [type]="'submit'"
+                    (onClick)="saveElement(dynamicForm.form.value)"></pk-button>
+            </pk-dynamic-form-submit>
+
+        </pk-dynamic-form>
 
         <pk-devider class="element element--spacing-bottom-large element--spacing-top-small divider--secondary"></pk-devider>
     </div>
 
-    <div class="preview" *ngIf="elementPreview.length > 0 && elementHasPreview">
+    <div *ngIf="elementPreview.length > 0 && elementHasPreview">
         <pk-floating fixed bottom-left>
-            <h2 class="devider element element--spacing-bottom-small">Element Preview</h2>
+            <div class="preview">
+                <h2 class="devider element element--spacing-bottom-small">Element Preview</h2>
 
-            <pk-form
-                [formElements]="elementPreview" ></pk-form>
+                <pk-dynamic-form [formElements]="elementPreview" #dynamicForm>
+                    <pk-dynamic-form-content>
+
+                        <pk-dynamic-form-element *ngFor="let element of elementPreview" [element]="element"></pk-dynamic-form-element>
+
+                    </pk-dynamic-form-content>
+
+                </pk-dynamic-form>
+
+            </div>
         </pk-floating>
     </div>
 

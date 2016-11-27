@@ -1,0 +1,9 @@
+<pk-dynamic-form [formElements]="form">
+
+    <pk-dynamic-form-content>
+
+        <pk-dynamic-form-element *ngFor="let element of form" [element]="element" [disabled]="true"></pk-dynamic-form-element>
+
+    </pk-dynamic-form-content>
+
+</pk-dynamic-form>

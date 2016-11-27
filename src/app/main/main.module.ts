@@ -8,6 +8,7 @@ import { MainRouting } from './main.routing';
 import { SharedModule } from './../shared/shared.module';
 import { ListModule } from './../modules/list/list.module';
 import { FloatingModule } from './../modules/floating/floating.module';
+import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module';
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import { FloatingModule } from './../modules/floating/floating.module';
         MainRouting,
         SharedModule,
         ListModule,
-        FloatingModule
+        FloatingModule,
+        DynamicFormModule
     ],
     providers: [],
     exports: []

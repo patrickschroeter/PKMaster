@@ -1,10 +1,15 @@
 <div id="profile">
     <div class="rel">
         <h1 class="element element--spacing-bottom-small">Profile</h1>
-        <pk-form
-            [formElements]="form"
-            [disabled]="true"
-            ></pk-form>
+
+        <pk-dynamic-form [formElements]="form" #dynamicForm>
+            <pk-dynamic-form-content>
+
+                <pk-dynamic-form-element *ngFor="let element of form" [element]="element" [disabled]="true"></pk-dynamic-form-element>
+
+            </pk-dynamic-form-content>
+
+        </pk-dynamic-form>
 
     </div>
 

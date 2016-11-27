@@ -49,7 +49,12 @@ import { FloatingModule } from './../modules/floating/floating.module';
         elements.ButtonComponent,
         elements.DeviderComponent,
 
-        elements.InputComponent
+        elements.InputComponent,
+        elements.CheckboxComponent,
+        elements.SelectComponent,
+        elements.RadioComponent,
+        elements.TextareaComponent,
+        elements.DatalistComponent
     ]
 })
 export class SharedModule { }

@@ -2,7 +2,8 @@
     <div class="rel">
         <h1 class="element element--spacing-bottom-small">Conferences</h1>
 
-        <pk-form [formElements]="form" [hasSubmit]="true" (onSubmit)="save($event) " [hasCancel]="true" (onCancel)="cancel($event)"></pk-form>
+        <pk-dynamic-form-default [form]="form"></pk-dynamic-form-default>
+
     </div>
     <pk-floating fixed top-right>
         <pk-button rounded class="element--spacing-bottom-tiny" [icon]="'create'" element--secondary></pk-button>

@@ -1,0 +1,35 @@
+<div *ngIf="!element.hidden">
+    <div class="form__element element"
+        [ngClass]="{ 'form__element--small': element.styles && element.styles.indexOf('small') !== -1, 'form__element--aligned': element.styles && element.styles.indexOf('aligned') !== -1}"
+        (mouseover)="showElementValidation(element)">
+        <div class="rel" [ngSwitch]="element.elementType">
+            <pk-input       *ngSwitchCase="'input'"     ngDefaultControl [config]="element" [disabled]="disabled"></pk-input>
+
+            <pk-checkbox    *ngSwitchCase="'checkbox'"  ngDefaultControl [config]="element" [disabled]="disabled"></pk-checkbox>
+
+            <pk-select      *ngSwitchCase="'select'"    ngDefaultControl [config]="element" [disabled]="disabled"></pk-select>
+
+            <pk-radio       *ngSwitchCase="'radio'"     ngDefaultControl [config]="element" [disabled]="disabled"></pk-radio>
+
+            <pk-textarea    *ngSwitchCase="'textarea'"  ngDefaultControl [config]="element" [disabled]="disabled"></pk-textarea>
+
+            <pk-datalist    *ngSwitchCase="'datalist'"  ngDefaultControl [config]="element" [disabled]="disabled"></pk-datalist>
+
+
+            <pk-devider *ngSwitchCase="'devider'" class="element"></pk-devider>
+            <pk-devider *ngSwitchCase="'hiddenDevider'" class="element devider--hidden"></pk-devider>
+
+            <h1 *ngSwitchCase="'h1'" class="element--h1 devider devider--secondary element">{{ element.value }}</h1>
+            <h2 *ngSwitchCase="'h2'" class="element--h2 devider element">{{ element.value }}</h2>
+            <h3 *ngSwitchCase="'h3'" class="element--h3 element">{{ element.value }}</h3>
+            <h4 *ngSwitchCase="'h4'" class="element--h4 element">{{ element.value }}</h4>
+
+            <div *ngSwitchCase="'info'" class="element">
+                <div class="element__label element--no-wrap">
+                    {{ element.value }}
+                </div>
+            </div>
+        </div>
+        <ng-content></ng-content>
+    </div>
+</div>

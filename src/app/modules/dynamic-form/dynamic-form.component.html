@@ -1,0 +1,22 @@
+<div class="form__wrapper" *ngIf="formElements">
+
+    <form [formGroup]="form" [class.element--show-validation]="isFormValidationVisible">
+
+        <div class="form__elements">
+            <ng-content select="pk-dynamic-form-content"></ng-content>
+        </div>
+
+        <div class="form__buttons left">
+            <div class="left">
+                <ng-content select="pk-dynamic-form-cancel"></ng-content>
+            </div>
+            <div class="right"
+                (mouseover)="showFormValidation(form)"
+                (mouseout)="hideFormValidation()">
+                <ng-content select="pk-dynamic-form-submit"></ng-content>
+            </div>
+        </div>
+
+    </form>
+
+</div>

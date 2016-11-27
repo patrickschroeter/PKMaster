@@ -9,7 +9,6 @@
 
     color: $label-color;
     display: block;
-    font-weight: 700;
 
     /*line-height: $element-grid-base;*/
     min-height: $element-grid-base;
@@ -19,6 +18,7 @@
     }
 
     &:not(.element--no-wrap) {
+        font-weight: 700;
         height: $element-grid-base;
         overflow: hidden;
         white-space: nowrap;

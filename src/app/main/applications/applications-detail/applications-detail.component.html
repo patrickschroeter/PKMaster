@@ -1,11 +1,7 @@
 <div id="application-detail" class="rel" *ngIf="application">
     <h2 class="element element--spacing-bottom-small">Application: {{ application.title }}</h2>
 
-    <pk-form
-        *ngIf="application.attributes?.length > 0"
-        [formElements]="application.attributes"
-        [disabled]="true"
-        ></pk-form>
+    <pk-dynamic-form-disabled *ngIf="application.attributes?.length > 0" [form]="application.attributes"></pk-dynamic-form-disabled>
 
     <pk-list>
         <pk-list-header>
