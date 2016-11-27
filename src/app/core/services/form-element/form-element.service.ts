@@ -34,7 +34,7 @@ export class FormElementService {
 
         this.getElementTypeOptions().subscribe(elementTypes => {
             this.selectTypeFormElement = elementTypes;
-            this.elementBase = [this.selectTypeFormElement, { elementType: 'devider' }];
+            this.elementBase = [this.selectTypeFormElement];
             this.resetElement();
         });
     }

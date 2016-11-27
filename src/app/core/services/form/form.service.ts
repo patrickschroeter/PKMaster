@@ -344,6 +344,7 @@ export class FormService {
         return new Observable(observer => {
             setTimeout(() => {
                 this.form.title = form.title;
+                this.form.restricted = form.restricted;
                 observer.next(true);
                 observer.complete();
             }, 200);
