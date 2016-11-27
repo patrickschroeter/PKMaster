@@ -4,62 +4,45 @@
 
         <pk-list>
             <pk-list-header>
-                <pk-list-attribute [className]="'name'">Title</pk-list-attribute>
-                <pk-list-attribute [className]="'date'">Created</pk-list-attribute>
+                <pk-list-attribute (click)="sortBy('state')" [name]="'state-icon'"></pk-list-attribute>
+                <pk-list-attribute [name]="'name'">Title</pk-list-attribute>
+                <pk-list-attribute (click)="sortBy('created')" [name]="'date'">Created</pk-list-attribute>
+                <pk-list-attribute (click)="sortBy('state')" [name]="'state'">Status</pk-list-attribute>
+                <pk-list-attribute (click)="sortBy('modified')" [name]="'modified'">Modified</pk-list-attribute>
             </pk-list-header>
             <pk-list-content>
-                <pk-list-element *ngFor="let application of applications">
-                    <pk-list-attribute [className]="'name'">{{ application.form.title }}</pk-list-attribute>
-                    <pk-list-attribute [className]="'date'">{{ application.created }}</pk-list-attribute>
+                <pk-list-element *ngFor="let application of applications" [name]="application.state">
+                    <pk-list-attribute [name]="'state-icon'" [attr.tooltip]="application.state"></pk-list-attribute>
+                    <pk-list-attribute [name]="'name'">
+                        <a routerLink="/applications/{{ application.id }}">{{ application.form.title }}</a>
+                    </pk-list-attribute>
+                    <pk-list-attribute [name]="'date'">{{ application.created | date }}</pk-list-attribute>
+                    <pk-list-attribute [name]="'state'">{{ application.state }}</pk-list-attribute>
+                    <pk-list-attribute [name]="'modified'">{{ application.modified | date }}</pk-list-attribute>
+
+                    <div class="floating floating--top-right floating--horizontal">
+                        <pk-button
+                            *ngIf="application.state === 'created'"
+                            (onClick)="submitApplication(application)"
+                            class="element--rounded element--spacing-left-large" [icon]="'send'" element--success></pk-button>
+                        <a
+                            *ngIf="['created', 'rescinded'].indexOf(application.state) !== -1"
+                            routerLink="/applications/{{ application.id }}/edit">
+                            <pk-button class="element--rounded" [icon]="'create'" element--secondary></pk-button>
+                        </a>
+                        <pk-button
+                            *ngIf="['submitted'].indexOf(application.state) !== -1"
+                            (onClick)="rescindApplication(application)"
+                            class="element--rounded" [icon]="'undo'" element--error></pk-button>
+                        <pk-button
+                            *ngIf="['created', 'rescinded'].indexOf(application.state) !== -1"
+                            (onClick)="deactivateApplication(application)"
+                            class="element--rounded" [icon]="'delete'" element--error></pk-button>
+                    </div>
                 </pk-list-element>
             </pk-list-content>
         </pk-list>
 
-        <!--<div class="list">
-            <div class="list-element list-element--header">
-                <div (click)="sortBy('state')" class="list-element--context list-element__state-icon"></div>
-                <div (click)="sortBy('title')" class="list-element--context list-element__name">Title</div>
-                <div (click)="sortBy('created')" class="list-element--context list-element__date">Created</div>
-                <div (click)="sortBy('state')" class="list-element--context list-element__state">Status</div>
-                <div (click)="sortBy('modified')" class="list-element--context list-element__modified">Modified</div>
-            </div>
-            <div class="list-element" *ngFor="let application of applications"
-                [ngClass]="{
-                    'list-element--created': application.state === 'created',
-                    'list-element--submitted': application.state === 'submitted',
-                    'list-element--rescinded': application.state === 'rescinded',
-                    'list-element--deactivated': application.state === 'deactivated',
-                    'list-element--pending': application.state === 'pending',
-                    'list-element--accepted': application.state === 'accepted',
-                    'list-element--denied': application.state === 'denied'
-                }">
-                <div class="list-element__state-icon" [attr.tooltip]="application.state"></div>
-                <a class="list-element--context list-element__name" routerLink="/applications/{{ application.id }}">{{ application.form.title }}</a>
-                <div class="list-element--context list-element__date">{{ application.created | date }}</div>
-                <div class="list-element--context list-element__state">{{ application.state }}</div>
-                <div class="list-element--context list-element__modified">{{ application.modified | date }}</div>
-
-                <div class="floating floating--top-right floating--horizontal">
-                    <pk-button
-                        *ngIf="application.state === 'created'"
-                        (onClick)="submitApplication(application)"
-                        class="element--rounded element--spacing-left-large" [icon]="'send'" element--success></pk-button>
-                    <a
-                        *ngIf="['created', 'rescinded'].indexOf(application.state) !== -1"
-                        routerLink="/applications/{{ application.id }}/edit">
-                        <pk-button class="element--rounded" [icon]="'create'" element--secondary></pk-button>
-                    </a>
-                    <pk-button
-                        *ngIf="['submitted'].indexOf(application.state) !== -1"
-                        (onClick)="rescindApplication(application)"
-                        class="element--rounded" [icon]="'undo'" element--error></pk-button>
-                    <pk-button
-                        *ngIf="['created', 'rescinded'].indexOf(application.state) !== -1"
-                        (onClick)="deactivateApplication(application)"
-                         class="element--rounded" [icon]="'delete'" element--error></pk-button>
-                </div>
-            </div>
-        </div>-->
     </div>
     <div class="floating floating--fixed floating--top-right">
         <pk-button class="element--rounded" [icon]="'add'" element--secondary (onClick)="toggleCreateNew()"></pk-button>

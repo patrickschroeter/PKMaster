@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding, ElementRef, Renderer, AfterViewInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'pk-list-element',
-  templateUrl: './list-element.component.html',
-  styleUrls: ['./list-element.component.scss']
+    selector: 'pk-list-element',
+    template: '<ng-content></ng-content>'
 })
-export class ListElementComponent implements OnInit {
+export class ListElementComponent implements OnInit, AfterViewInit {
 
-  constructor() { }
+    @HostBinding('class.list-element') element = true;
 
-  ngOnInit() {
-  }
+    @Input() name;
 
+    constructor(private renderer: Renderer, private elementRef: ElementRef) { }
+
+    ngOnInit() {
+    }
+
+    ngAfterViewInit() {
+        if (this.name) {
+            this.renderer.setElementClass(this.elementRef.nativeElement, `list-element--${this.name}`, true);
+        }
+    }
 }

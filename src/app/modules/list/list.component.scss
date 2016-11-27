@@ -2,17 +2,19 @@
 
 .list {
     .list__header {
-        .list-element__attribute {
-            font-weight: 700;
-            text-transform: capitalize;
-            cursor: pointer;
-            &:hover {
-                color: $guidance-color;
+        .list-element {
+            .list-element__attribute {
+                font-weight: 700;
+                text-transform: capitalize;
+                cursor: pointer;
+                &:hover {
+                    color: $guidance-color;
+                }
             }
-        }
-        .list-element__attribute--state-icon {
-            background-color: transparent;
-            border-color: $black;
+            .list-element__attribute--state-icon {
+                background-color: transparent;
+                border-color: $black;
+            }
         }
     }
 
@@ -50,7 +52,7 @@
             flex: 1;
             transition: color .3s ease-in-out;
 
-            &:hover {
+            a:hover {
                 color: $guidance-color;
             }
         }
@@ -93,48 +95,48 @@
 
     // States
 
-    &.list-element__attribute--created {
+    &.list-element--created {
         $current-color: $accent-color;
         .list-element__attribute--state-icon { border-color: $current-color; background: transparent }
         .list-element__attribute--state { color: $current-color }
     }
-    &.list-element__attribute--submitted {
+    &.list-element--submitted {
         $current-color: $guidance-color;
         .list-element__attribute--state-icon { border-color: $current-color; background: transparent }
         .list-element__attribute--state { color: $current-color }
     }
-    &.list-element__attribute--rescinded {
+    &.list-element--rescinded {
         $current-color: $lightgray;
         .list-element__attribute--state-icon { border-color: $current-color; background: transparent }
         .list-element__attribute--state { color: $current-color }
     }
-    &.list-element__attribute--deactivated {
+    &.list-element--deactivated {
         $current-color: $darkwhite;
         color: $current-color;
         .list-element__attribute--state-icon { border-color: $current-color; background: $current-color }
     }
-    &.list-element__attribute--pending {
+    &.list-element--pending {
         $current-color: $guidance-color;
         .list-element__attribute--state-icon { border-color: $current-color; background: transparent }
         .list-element__attribute--state { color: $current-color }
     }
-    &.list-element__attribute--accepted {
+    &.list-element--accepted {
         $current-color: $success;
         .list-element__attribute--state-icon { border-color: $current-color; background: $current-color }
         .list-element__attribute--state { color: $current-color }
         .list-element__attribute--modified { color: $current-color }
     }
-    &.list-element__attribute--denied {
+    &.list-element--denied {
         $current-color: $error;
         .list-element__attribute--state-icon { border-color: $current-color; background: $current-color }
         .list-element__attribute--state { color: $current-color }
         .list-element__attribute--modified { color: $current-color }
     }
-    &.list-element__attribute--restricted {
+    &.list-element--restricted {
         $current-color: $error;
         .list-element__attribute--state-icon { border-color: $current-color; background: transparent }
     }
-    &.list-element__attribute--no-restricted {
+    &.list-element--no-restricted {
         $current-color: $success;
         .list-element__attribute--state-icon { border-color: $current-color; background: transparent }
     }

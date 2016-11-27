@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'pk-list-content',
-  templateUrl: './list-content.component.html',
-  styleUrls: ['./list-content.component.scss']
+  template: '<ng-content></ng-content>'
 })
 export class ListContentComponent implements OnInit {
 

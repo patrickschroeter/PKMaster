@@ -2,8 +2,7 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 
 @Component({
     selector: 'pk-list-header',
-    templateUrl: './list-header.component.html',
-    styleUrls: ['./list-header.component.scss']
+    template: '<ng-content></ng-content>'
 })
 export class ListHeaderComponent implements OnInit {
 

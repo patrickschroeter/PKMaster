@@ -2,14 +2,13 @@ import { Component, OnInit, Input, Renderer, ElementRef, AfterViewInit, HostBind
 
 @Component({
     selector: 'pk-list-attribute',
-    templateUrl: './list-attribute.component.html',
-    styleUrls: ['./list-attribute.component.scss']
+    template: '<ng-content></ng-content>'
 })
 export class ListAttributeComponent implements OnInit, AfterViewInit {
 
     @HostBinding('class.list-element__attribute') attribute = true;
 
-    @Input() className;
+    @Input() name;
 
     constructor(private renderer: Renderer, private elementRef: ElementRef) { }
 
@@ -17,8 +16,8 @@ export class ListAttributeComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        if (this.className) {
-            this.renderer.setElementClass(this.elementRef.nativeElement, `list-element__attribute--${this.className}`, true);
+        if (this.name) {
+            this.renderer.setElementClass(this.elementRef.nativeElement, `list-element__attribute--${this.name}`, true);
         }
     }
 
