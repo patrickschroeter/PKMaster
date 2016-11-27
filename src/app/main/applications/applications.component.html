@@ -20,7 +20,8 @@
                     <pk-list-attribute [name]="'state'">{{ application.state }}</pk-list-attribute>
                     <pk-list-attribute [name]="'modified'">{{ application.modified | date }}</pk-list-attribute>
 
-                    <div class="floating floating--top-right floating--horizontal">
+                    <!--<div class="floating floating--top-right floating--horizontal">-->
+                    <pk-floating horizontal top-right>
                         <pk-button
                             *ngIf="application.state === 'created'"
                             (onClick)="submitApplication(application)"
@@ -38,7 +39,7 @@
                             *ngIf="['created', 'rescinded'].indexOf(application.state) !== -1"
                             (onClick)="deactivateApplication(application)"
                             class="element--rounded" [icon]="'delete'" element--error></pk-button>
-                    </div>
+                    </pk-floating>
                 </pk-list-element>
             </pk-list-content>
         </pk-list>
