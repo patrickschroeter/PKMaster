@@ -83,7 +83,42 @@ export class ApplicationService {
         ];
         // hack end
         this.application = {
-            id: 17
+            id: 17,
+            comments: [
+                {
+                    id: 1,
+                    author: {
+                        salutation: 'Prof.'
+                        name: 'Kowa'
+                    },
+                    message: 'Awesome Code!',
+                    created: 1477555500,
+                    isPrivate: false,
+                    isMandatory: false
+                },
+                {
+                    id: 2,
+                    author: {
+                        salutation: 'Prof.'
+                        name: 'Rothaug'
+                    },
+                    message: 'Awesome Design!',
+                    created: 1477685500,
+                    isPrivate: false,
+                    isMandatory: true
+                },
+                {
+                    id: 3,
+                    author: {
+                        salutation: 'Prof.'
+                        name: 'Bergmann'
+                    },
+                    message: 'Awesome Tool!',
+                    created: 1477685500,
+                    isPrivate: true,
+                    isMandatory: true
+                }
+            ]
         };
      }
 
