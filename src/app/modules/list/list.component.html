@@ -5,9 +5,7 @@
         <div (click)="sortBy('created')" class="list-element--context list-element__date">Created</div>
         <div (click)="sortBy('state')" class="list-element--context list-element__state">Status</div>
         <div (click)="sortBy('modified')" class="list-element--context list-element__modified">Modified</div>-->
-        <div class="list-element">
-            <ng-content select="pk-list-header"></ng-content>
-        </div>
+        <ng-content select="pk-list-header"></ng-content>
     </div>
     <div class="list__content">
         <ng-content select="pk-list-content"></ng-content>

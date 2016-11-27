@@ -1,22 +1,24 @@
 @import './../../theme';
 
-.list__header {
-    .list-element__attribute {
-        font-weight: 700;
-        text-transform: capitalize;
-        cursor: pointer;
-        &:hover {
-            color: $guidance-color;
+.list {
+    .list__header {
+        .list-element__attribute {
+            font-weight: 700;
+            text-transform: capitalize;
+            cursor: pointer;
+            &:hover {
+                color: $guidance-color;
+            }
+        }
+        .list-element__attribute--state-icon {
+            background-color: transparent;
+            border-color: $black;
         }
     }
-    .list-element__attribute--state-icon {
-        background-color: transparent;
-        border-color: $black;
+
+    .list__content {
+
     }
-}
-
-.list__content {
-
 }
 
 .list-element {

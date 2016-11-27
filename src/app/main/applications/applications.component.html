@@ -4,13 +4,13 @@
 
         <pk-list>
             <pk-list-header>
-                <pk-list-attribute>Title</pk-list-attribute>
-                <pk-list-attribute>Created</pk-list-attribute>
+                <pk-list-attribute [className]="'name'">Title</pk-list-attribute>
+                <pk-list-attribute [className]="'date'">Created</pk-list-attribute>
             </pk-list-header>
             <pk-list-content>
-                <pk-list-element>
-                    <pk-list-attribute>'title'</pk-list-attribute>
-                    <pk-list-attribute>'created'</pk-list-attribute>
+                <pk-list-element *ngFor="let application of applications">
+                    <pk-list-attribute [className]="'name'">{{ application.form.title }}</pk-list-attribute>
+                    <pk-list-attribute [className]="'date'">{{ application.created }}</pk-list-attribute>
                 </pk-list-element>
             </pk-list-content>
         </pk-list>

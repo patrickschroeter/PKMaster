@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 
 @Component({
-  selector: 'pk-list-header',
-  templateUrl: './list-header.component.html',
-  styleUrls: ['./list-header.component.scss']
+    selector: 'pk-list-header',
+    templateUrl: './list-header.component.html',
+    styleUrls: ['./list-header.component.scss']
 })
 export class ListHeaderComponent implements OnInit {
 
-  constructor() { }
+    @HostBinding('class.list-element') element = true;
 
-  ngOnInit() {
-  }
+    constructor() { }
+
+    ngOnInit() {
+    }
 
 }
