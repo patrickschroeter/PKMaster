@@ -2,40 +2,37 @@
     <div class="rel">
         <h1 class="element element--spacing-bottom-small">Forms</h1>
 
-        <div class="list">
-            <div class="list-element list-element--header">
-                <div (click)="sortBy('restricted')" class="list-element--context list-element__state-icon"></div>
-                <div (click)="sortBy('title')" class="list-element--context list-element__name">Title</div>
-                <div (click)="sortBy('created')" class="list-element--context list-element__date">Created</div>
-                <div class="list-element--context list-element__version">Version</div>
-                <div class="list-element--context list-element__state">Status</div>
-            </div>
-            <div class="list-element" *ngFor="let form of forms"
-                [ngClass]="{
-                    'list-element--restricted': form.restricted,
-                    'list-element--no-restricted': !form.restricted
-                }">
-                <div class="list-element__state-icon"></div>
-                <a class="list-element--context list-element__name" routerLink="/forms/{{ form.id }}/edit">{{ form.title }}</a>
-                <div class="list-element--context list-element__date">
-                    {{ form.created | date }}
-                </div>
-                <div class="list-element--context list-element__version">{{ form.version }}</div>
-                <div class="list-element--context list-element__state">{{ form.status }}</div>
+        <pk-list>
+            <pk-list-header>
+                <pk-list-attribute (click)="sortBy('restricted')" [name]="'state-icon'"></pk-list-attribute>
+                <pk-list-attribute (click)="sortBy('title')" [name]="'name'">Title</pk-list-attribute>
+                <pk-list-attribute (click)="sortBy('created')" [name]="'date'">Created</pk-list-attribute>
+                <pk-list-attribute [name]="'version'">Version</pk-list-attribute>
+                <pk-list-attribute [name]="'state'">Status</pk-list-attribute>
+            </pk-list-header>
+            <pk-list-content>
+                <pk-list-element *ngFor="let form of forms" [name]="form.restricted ? 'restricted' : 'no-restricted'">
+                    <pk-list-attribute [name]="'state-icon'"></pk-list-attribute>
+                    <pk-list-attribute [name]="'name'">
+                        <a routerLink="/forms/{{ form.id }}/edit">{{ form.title }}</a>
+                    </pk-list-attribute>
+                    <pk-list-attribute [name]="'date'">{{ form.created | date }}</pk-list-attribute>
+                    <pk-list-attribute [name]="'version'">{{ form.version }}</pk-list-attribute>
+                    <pk-list-attribute [name]="'state'">{{ form.status }}</pk-list-attribute>
 
-                <div class="floating floating--top-right floating--horizontal">
-                    <a routerLink="/forms/{{ form.id }}/edit">
-                        <pk-button class="element--rounded" [icon]="'create'" element--secondary></pk-button>
-                    </a>
-                    <pk-button class="element--rounded" [icon]="'content_copy'" (onClick)="createNewForm(form)" element--secondary></pk-button>
-                </div>
-            </div>
-        </div>
-
+                    <pk-floating top-right horizontal>
+                        <a routerLink="/forms/{{ form.id }}/edit">
+                            <pk-button class="element--rounded" [icon]="'create'" element--secondary></pk-button>
+                        </a>
+                        <pk-button class="element--rounded" [icon]="'content_copy'" (onClick)="createNewForm(form)" element--secondary></pk-button>
+                    </pk-floating>
+                </pk-list-element>
+            </pk-list-content>
+        </pk-list>
     </div>
-    <div class="floating floating--fixed floating--top-right">
+    <pk-floating fixed top-right>
         <pk-button class="element--rounded element--spacing-bottom-tiny" [icon]="'add'" element--secondary (onClick)="toggleCreateNew()"></pk-button>
-    </div>
+    </pk-floating>
     <pk-overlay [isOpen]="isOpenNewForm" (toggleOverlay)="toggleCreateNew()" class="overlay--fluid">
         <div class="pk-overlay__header">Create New Form</div>
         <div class="pk-overlay__content">

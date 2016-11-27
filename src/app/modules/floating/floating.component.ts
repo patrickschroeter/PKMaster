@@ -2,7 +2,7 @@ import { Component, OnInit, Renderer, ElementRef, AfterViewInit, HostBinding, Vi
 
 @Component({
     selector: 'pk-floating',
-    templateUrl: './floating.component.html',
+    template: '<ng-content></ng-content>',
     styleUrls: ['./floating.component.scss'],
     encapsulation: ViewEncapsulation.None
 })

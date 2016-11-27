@@ -68,7 +68,9 @@
                         </div>
                     </div>
                 </div>
-                <pk-button *ngIf="editableElement" class="floating floating--bottom-right-corner button button--edit element element--rounded" [icon]="'create'" (onClick)="edit(element)" element--secondary></pk-button>
+                <pk-floating bottom-right-corner *ngIf="editableElement">
+                    <pk-button class="button button--edit element element--rounded" [icon]="'create'" (onClick)="edit(element)" element--secondary></pk-button>
+                </pk-floating>
             </div>
         </div>
       </div>

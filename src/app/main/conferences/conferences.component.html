@@ -4,8 +4,8 @@
 
         <pk-form [formElements]="form" [hasSubmit]="true" (onSubmit)="save($event) " [hasCancel]="true" (onCancel)="cancel($event)"></pk-form>
     </div>
-    <div class="floating floating--fixed floating--top-right">
+    <pk-floating fixed top-right>
         <pk-button class="element--rounded element--spacing-bottom-tiny" [icon]="'create'" element--secondary></pk-button>
         <pk-button class="element--rounded" [icon]="'add'" element--success></pk-button>
-    </div>
+    </pk-floating>
 </div>

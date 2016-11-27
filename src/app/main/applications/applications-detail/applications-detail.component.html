@@ -7,12 +7,12 @@
         [disabled]="true"
         ></pk-form>
 
-    <div class="floating floating--top-right floating--fixed">
+    <pk-floating top-right fixed>
         <a routerLink="/applications/{{ application.id }}/edit">
             <pk-button class="element--rounded element--spacing-bottom-small" [icon]="'create'" element--secondary></pk-button>
         </a>
         <pk-button class="element--rounded element--spacing-bottom-large" [icon]="'send'" element--success></pk-button>
         <pk-button class="element--rounded element--spacing-bottom-small" [icon]="'undo'" element--error></pk-button>
         <pk-button class="element--rounded" [icon]="'delete'" element--error></pk-button>
-    </div>
+    </pk-floating>
 </div>

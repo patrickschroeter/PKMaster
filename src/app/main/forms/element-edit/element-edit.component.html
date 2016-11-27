@@ -17,39 +17,41 @@
         <pk-devider class="element element--spacing-bottom-large element--spacing-top-small divider--secondary"></pk-devider>
     </div>
 
-    <div class="preview floating floating--fixed floating--bottom-left" *ngIf="elementPreview.length > 0 && elementHasPreview">
-        <h2 class="devider element element--spacing-bottom-small">Element Preview</h2>
+    <div class="preview" *ngIf="elementPreview.length > 0 && elementHasPreview">
+        <pk-floating fixed bottom-left>
+            <h2 class="devider element element--spacing-bottom-small">Element Preview</h2>
 
-        <pk-form
-            [formElements]="elementPreview" ></pk-form>
-
+            <pk-form
+                [formElements]="elementPreview" ></pk-form>
+        </pk-floating>
     </div>
 
-    <div class="floating floating--fixed floating--top-right" *ngIf="elementPreview.length > 0 && dynamicForm.form.valid" >
-        <pk-button
-            class="element--rounded element--spacing-bottom-small" [icon]="'visibility'" (onClick)="toggleElementPreview()" element--secondary></pk-button>
-
-        <div *ngIf="!elementHasValidations || !elementHasStyles" class="element element--spacing-bottom-small">
-            <pk-button *ngIf="!elementHasValidations"
-                class="element--rounded" [icon]="'security'" (onClick)="addValidations()" element--secondary></pk-button>
-            <pk-button *ngIf="!elementHasStyles"
-                class="element--rounded" [icon]="'color_lens'" (onClick)="addStyles()" element--secondary></pk-button>
-        </div>
-
-        <div class="element element--spacing-bottom-small">
+    <div *ngIf="elementPreview.length > 0 && dynamicForm.form.valid" >
+        <pk-floating fixed top-right>
             <pk-button
-                class="element--rounded" [icon]="'content_copy'" (onClick)="copyElement(dynamicForm.form.value, 'clone')" element--success></pk-button>
-            <pk-button
-                class="element--rounded" [icon]="'add'" (onClick)="copyElement(dynamicForm.form.value, 'add')" element--success></pk-button>
+                class="element--rounded element--spacing-bottom-small" [icon]="'visibility'" (onClick)="toggleElementPreview()" element--secondary></pk-button>
+
+            <div *ngIf="!elementHasValidations || !elementHasStyles" class="element element--spacing-bottom-small">
+                <pk-button *ngIf="!elementHasValidations"
+                    class="element--rounded" [icon]="'security'" (onClick)="addValidations()" element--secondary></pk-button>
+                <pk-button *ngIf="!elementHasStyles"
+                    class="element--rounded" [icon]="'color_lens'" (onClick)="addStyles()" element--secondary></pk-button>
+            </div>
+
+            <div class="element element--spacing-bottom-small">
+                <pk-button
+                    class="element--rounded" [icon]="'content_copy'" (onClick)="copyElement(dynamicForm.form.value, 'clone')" element--success></pk-button>
+                <pk-button
+                    class="element--rounded" [icon]="'add'" (onClick)="copyElement(dynamicForm.form.value, 'add')" element--success></pk-button>
+
+                <pk-button
+                    class="element--rounded" [icon]="'save'" (onClick)="saveElement(dynamicForm.form.value)" element--success></pk-button>
+            </div>
 
             <pk-button
-                class="element--rounded" [icon]="'save'" (onClick)="saveElement(dynamicForm.form.value)" element--success></pk-button>
-        </div>
-
-        <pk-button
-            class="element--rounded element--spacing-bottom-small" [icon]="'clear'" (onClick)="cancelElement()" element--error></pk-button>
-        <pk-button
-            class="element--rounded" [icon]="'delete'" (onClick)="removeElement()" element--error></pk-button>
-
+                class="element--rounded element--spacing-bottom-small" [icon]="'clear'" (onClick)="cancelElement()" element--error></pk-button>
+            <pk-button
+                class="element--rounded" [icon]="'delete'" (onClick)="removeElement()" element--error></pk-button>
+        </pk-floating>
     </div>
 </div>

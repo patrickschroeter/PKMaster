@@ -1,45 +1,19 @@
 <div id="profile">
     <div class="rel">
         <h1 class="element element--spacing-bottom-small">Profile</h1>
-        <!--<div class="element element--spacing-bottom-small">
-            <div class="element__wrapper">
-                <div class="element__label">Firstname</div>
-                <div class="element__input element--disaled">Patrick</div>
-            </div>
-        </div>
-        <div class="element element--spacing-bottom-small">
-            <div class="element__wrapper">
-                <div class="element__label">Lastname</div>
-                <div class="element__input element--disaled">Schröter</div>
-            </div>
-        </div>
-
-        <pk-devider class="element element--spacing-bottom-small"></pk-devider>
-
-        <div class="element element--spacing-bottom-small">
-            <div class="element__wrapper">
-                <div class="element__label">E-Mail</div>
-                <div class="element__input element--disaled">patrick.schroeter@hs-augsburg</div>
-            </div>
-        </div>
-        <div class="element element--spacing-bottom-small">
-            <div class="element__wrapper">
-                <div class="element__label">Matrikelnummer</div>
-                <div class="element__input element--disaled">949225</div>
-            </div>
-        </div>-->
         <pk-form
             [formElements]="form"
             [disabled]="true"
             ></pk-form>
 
     </div>
-    <div class="floating floating--fixed floating--top-right">
+
+    <pk-floating fixed top-right>
         <a  routerLink="/profile/edit">
             <pk-button class="element--rounded element--spacing-bottom-small" [icon]="'create'" element--secondary></pk-button>
         </a>
         <pk-button class="element--rounded" [icon]="'security'" element--secondary (onClick)="togglePasswordOverlay()"></pk-button>
-    </div>
+    </pk-floating>
 </div>
 
 <pk-overlay [isOpen]="isChangingPassword" (toggleOverlay)="togglePasswordOverlay()" class="overlay--fluid">

@@ -17,11 +17,11 @@
         [hasCancel]="false"
         ></pk-form>
 
-    <div class="floating floating--top-right floating--fixed">
+    <pk-floating top-right fixed>
         <pk-button class="element--spacing-bottom-small element--rounded" [icon]="'edit'" element--secondary (onClick)="editFormAttributes()"></pk-button>
         <pk-button class="element--spacing-bottom-small element--rounded" [icon]="'add'" element--secondary (onClick)="addElement()"></pk-button>
         <pk-button class="element--spacing-bottom-small element--rounded" [icon]="'save'" (onClick)="saveForm()" element--success></pk-button>
-    </div>
+    </pk-floating>
 </div>
 
 <pk-overlay [isOpen]="isEditingForm" (toggleOverlay)="toggleFormEditing()" class="overlay--fluid">

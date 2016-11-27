@@ -20,7 +20,6 @@
                     <pk-list-attribute [name]="'state'">{{ application.state }}</pk-list-attribute>
                     <pk-list-attribute [name]="'modified'">{{ application.modified | date }}</pk-list-attribute>
 
-                    <!--<div class="floating floating--top-right floating--horizontal">-->
                     <pk-floating horizontal top-right>
                         <pk-button
                             *ngIf="application.state === 'created'"
@@ -45,9 +44,9 @@
         </pk-list>
 
     </div>
-    <div class="floating floating--fixed floating--top-right">
+    <pk-floating fixed top-right>
         <pk-button class="element--rounded" [icon]="'add'" element--secondary (onClick)="toggleCreateNew()"></pk-button>
-    </div>
+    </pk-floating>
     <pk-overlay [isOpen]="isOpenNewApplication" (toggleOverlay)="toggleCreateNew()" class="overlay--fluid">
         <div class="pk-overlay__header">Create New Application</div>
         <div class="pk-overlay__content">

@@ -9,6 +9,8 @@ import * as components from './components';
 import * as elements from './elements';
 import * as services from './services';
 
+import { FloatingModule } from './../modules/floating/floating.module';
+
 @NgModule({
     declarations: [
         components.DynamicFormComponent,
@@ -31,7 +33,9 @@ import * as services from './services';
         RouterModule,
         FormsModule,
         HttpModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+
+        FloatingModule
     ],
     providers: [
         services.DynamicFormService
