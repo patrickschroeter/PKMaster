@@ -21,23 +21,19 @@
                     <pk-list-attribute [name]="'modified'">{{ application.modified | date }}</pk-list-attribute>
 
                     <pk-floating horizontal top-right>
-                        <pk-button
-                            *ngIf="application.state === 'created'"
+                        <pk-button rounded *ngIf="application.state === 'created'"
                             (onClick)="submitApplication(application)"
-                            class="element--rounded element--spacing-left-large" [icon]="'send'" element--success></pk-button>
-                        <a
-                            *ngIf="['created', 'rescinded'].indexOf(application.state) !== -1"
+                            class="element--spacing-left-large" [icon]="'send'" element--success></pk-button>
+                        <a  *ngIf="['created', 'rescinded'].indexOf(application.state) !== -1"
                             routerLink="/applications/{{ application.id }}/edit">
-                            <pk-button class="element--rounded" [icon]="'create'" element--secondary></pk-button>
+                            <pk-button rounded [icon]="'create'" element--secondary></pk-button>
                         </a>
-                        <pk-button
-                            *ngIf="['submitted'].indexOf(application.state) !== -1"
+                        <pk-button rounded *ngIf="['submitted'].indexOf(application.state) !== -1"
                             (onClick)="rescindApplication(application)"
-                            class="element--rounded" [icon]="'undo'" element--error></pk-button>
-                        <pk-button
-                            *ngIf="['created', 'rescinded'].indexOf(application.state) !== -1"
+                            [icon]="'undo'" element--error></pk-button>
+                        <pk-button rounded *ngIf="['created', 'rescinded'].indexOf(application.state) !== -1"
                             (onClick)="deactivateApplication(application)"
-                            class="element--rounded" [icon]="'delete'" element--error></pk-button>
+                            [icon]="'delete'" element--error></pk-button>
                     </pk-floating>
                 </pk-list-element>
             </pk-list-content>
@@ -45,7 +41,7 @@
 
     </div>
     <pk-floating fixed top-right>
-        <pk-button class="element--rounded" [icon]="'add'" element--secondary (onClick)="toggleCreateNew()"></pk-button>
+        <pk-button rounded [icon]="'add'" element--secondary (onClick)="toggleCreateNew()"></pk-button>
     </pk-floating>
     <pk-overlay [isOpen]="isOpenNewApplication" (toggleOverlay)="toggleCreateNew()" class="overlay--fluid">
         <div class="pk-overlay__header">Create New Application</div>

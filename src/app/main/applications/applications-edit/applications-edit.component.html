@@ -9,8 +9,8 @@
         ></pk-form>
 
     <pk-floating top-right fixed>
-        <!--<pk-button *ngIf="dynamicForm.form.valid" class="element--spacing-bottom-small element--rounded" [icon]="'save'" (onClick)="saveApplication(dynamicForm.form.value)" element--success></pk-button>-->
-        <pk-button class="element--rounded element--spacing-bottom-small" [icon]="'undo'" element--error></pk-button>
-        <pk-button class="element--rounded" [icon]="'delete'" element--error></pk-button>
+        <!--<pk-button rounded *ngIf="dynamicForm.form.valid" class="element--spacing-bottom-small" [icon]="'save'" (onClick)="saveApplication(dynamicForm.form.value)" element--success></pk-button>-->
+        <pk-button rounded class="element--spacing-bottom-small" [icon]="'undo'" element--error></pk-button>
+        <pk-button rounded [icon]="'delete'" element--error></pk-button>
     </pk-floating>
 </div>

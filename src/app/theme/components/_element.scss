@@ -25,7 +25,7 @@
     }
 
     &.element--spacing-left-large {
-        margin-left: $element-grid-base;
+        margin-left: $element-grid-base !important; // TODO: conflict with floating.floating--horizontal
     }
     &.element--spacing-left-small {
         margin-left: $element-grid-base/2;

@@ -22,16 +22,16 @@
 
                     <pk-floating top-right horizontal>
                         <a routerLink="/forms/{{ form.id }}/edit">
-                            <pk-button class="element--rounded" [icon]="'create'" element--secondary></pk-button>
+                            <pk-button rounded [icon]="'create'" element--secondary></pk-button>
                         </a>
-                        <pk-button class="element--rounded" [icon]="'content_copy'" (onClick)="createNewForm(form)" element--secondary></pk-button>
+                        <pk-button rounded [icon]="'content_copy'" (onClick)="createNewForm(form)" element--secondary></pk-button>
                     </pk-floating>
                 </pk-list-element>
             </pk-list-content>
         </pk-list>
     </div>
     <pk-floating fixed top-right>
-        <pk-button class="element--rounded element--spacing-bottom-tiny" [icon]="'add'" element--secondary (onClick)="toggleCreateNew()"></pk-button>
+        <pk-button rounded class="element--spacing-bottom-tiny" [icon]="'add'" element--secondary (onClick)="toggleCreateNew()"></pk-button>
     </pk-floating>
     <pk-overlay [isOpen]="isOpenNewForm" (toggleOverlay)="toggleCreateNew()" class="overlay--fluid">
         <div class="pk-overlay__header">Create New Form</div>
