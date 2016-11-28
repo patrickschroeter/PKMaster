@@ -24,6 +24,9 @@ export class FormsEditComponent implements OnInit {
     /** Flag if edit Form attributes overlay is open */
     private isEditingForm: boolean = false;
 
+    private isPresetOverlay: boolean = false;
+    private presets: { value: string, label: string}[];
+
     constructor(
         private router: Router,
         private activatedRoute: ActivatedRoute,
@@ -63,6 +66,37 @@ export class FormsEditComponent implements OnInit {
      */
     addElement(): void {
         this.formService.editElement();
+    }
+    
+    addPreset(option?) {
+        if (!option) {
+            this.isPresetOverlay = true;
+            this.presets = [
+                {
+                    value: 'devider',
+                    label: 'Devider',
+                },
+                {
+                    value: 'email-extern',
+                    label: 'E-Mail (extern)',
+                },
+                {
+                    value: 'matnr',
+                    label: 'Matrikelnummer',
+                }
+            ]
+        } else {
+            if (this.formService.addPresetToForm(option.value)) {
+                this.alert.setSuccessHint('add-preset', `Preset ${option.label} added.`);
+            } else {
+                this.alert.setAlert('Error', 'The given name (ID) is already in use. Please choose a new unique one.');
+            }
+            this.isPresetOverlay = false;
+        }
+    }
+
+    togglePresetOverlay() {
+        this.isPresetOverlay = !this.isPresetOverlay;
     }
 
     /**

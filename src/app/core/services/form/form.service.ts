@@ -143,6 +143,7 @@ export class FormService {
      * @return {Observable}
      */
     getFormById(id: number): Observable<Form> {
+        // TODO: load real data
         return new Observable(observer => {
             /** http getFormById(id) => this.currentForm = result */
             setTimeout(() => {
@@ -156,6 +157,7 @@ export class FormService {
         if (sort) {
             this.forms.sort(function(a, b) {return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
         }
+        // TODO: load real data
         return new Observable(observer => {
             setTimeout(() => {
                 observer.next(this.forms);
@@ -179,6 +181,7 @@ export class FormService {
             restricted: form.restricted
         };
 
+        // TODO: save real data
         return new Observable(observer => {
             setTimeout(() => {
                 this.forms.push(this.form);
@@ -301,6 +304,12 @@ export class FormService {
         return true;
     }
 
+    addPresetToForm(name: string) {
+        this.editingElementIndex = -1;
+        // TODO: load real data
+        return this.addElementToForm({"elementType":"input","name":"matnr","required":true,"label":"Matrikelnummer","type":"number","placeholder":"","styles":["small"],"value":""}, 'clone');
+    }
+
     /**
      * @description returns the template to edit form attributes
      * @param {number} id
@@ -332,6 +341,7 @@ export class FormService {
                 ]
             }
         ];
+        // TODO: load real data
         return new Observable(observer => {
             setTimeout(() => {
                 observer.next(formEdit);
@@ -341,6 +351,7 @@ export class FormService {
     }
 
     saveFormAttributes(form): Observable<any> {
+        // TODO: save real data
         return new Observable(observer => {
             setTimeout(() => {
                 this.form.title = form.title;
@@ -357,6 +368,7 @@ export class FormService {
      * @return {void}
      */
     saveForm(): void {
+        // TODO: save real data
         console.log(this.form);
         let elements = [];
         for (let i = 0, length = this.form.elements.length; i < length; i++) {
@@ -368,7 +380,7 @@ export class FormService {
     }
 }
 
-var notennachmeldung = [{"elementType":"h3","name":"header","value":"Antrag auf Notennachmeldung/Notenänderung* an die Prüfungskommision"},{"elementType":"select","name":"studiengang","required":true,"label":"","placeholder":"Sudiengang wählen","optionTable":"","options":[{"value":"architektur","label":"Studiengang Architektur"},{"value":"bauingenieurwesen","label":"Studiengang Bauingenieurwesen"},{"value":"e2d","label":"Studiengang E2D"}],"value":""},{"elementType":"input","name":"name","required":true,"label":"Name, Vorname","type":"text","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"marnr","required":true,"label":"Matrikelnummer","type":"number","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"street","required":true,"label":"Straße","type":"text","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"housenr","required":false,"label":"Hausnummer","type":"number","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"plz","required":"","label":"Postleitzahl","type":"number","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"city","required":true,"label":"Wohnort","type":"text","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"email","required":"","label":"Email","type":"text","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"phone","required":"","label":"Telefon","type":"number","placeholder":"","styles":["small"],"value":""},{"elementType":"devider","name":"dev1","value":""},{"elementType":"input","name":"fach","required":true,"label":"Prüfungsfach","type":"text","placeholder":"","value":""}];
+var notennachmeldung = [{"elementType":"h3","name":"header","value":"Antrag auf Notennachmeldung/Notenänderung* an die Prüfungskommision"},{"elementType":"select","name":"studiengang","required":true,"label":"","placeholder":"Sudiengang wählen","optionTable":"","options":[{"value":"architektur","label":"Studiengang Architektur"},{"value":"bauingenieurwesen","label":"Studiengang Bauingenieurwesen"},{"value":"e2d","label":"Studiengang E2D"}],"value":""},{"elementType":"input","name":"name","required":true,"label":"Name, Vorname","type":"text","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"matnr","required":true,"label":"Matrikelnummer","type":"number","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"street","required":true,"label":"Straße","type":"text","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"housenr","required":false,"label":"Hausnummer","type":"number","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"plz","required":"","label":"Postleitzahl","type":"number","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"city","required":true,"label":"Wohnort","type":"text","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"email","required":"","label":"Email","type":"text","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"phone","required":"","label":"Telefon","type":"number","placeholder":"","styles":["small"],"value":""},{"elementType":"devider","name":"dev1","value":""},{"elementType":"input","name":"fach","required":true,"label":"Prüfungsfach","type":"text","placeholder":"","value":""}];
 
 var secondform = [
     {

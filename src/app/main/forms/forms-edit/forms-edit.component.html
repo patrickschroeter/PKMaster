@@ -24,9 +24,19 @@
     <pk-floating top-right fixed>
         <pk-button rounded class="element--spacing-bottom-small" [icon]="'edit'" rounded element--secondary (onClick)="editFormAttributes()"></pk-button>
         <pk-button rounded class="element--spacing-bottom-small" [icon]="'add'" element--secondary (onClick)="addElement()"></pk-button>
+        <pk-button rounded class="element--spacing-bottom-small" [icon]="'library_add'" element--secondary (onClick)="addPreset()"></pk-button>
         <pk-button rounded class="element--spacing-bottom-small" [icon]="'save'" (onClick)="saveForm()" element--success></pk-button>
     </pk-floating>
 </div>
+
+<pk-overlay [isOpen]="isPresetOverlay" (toggleOverlay)="togglePresetOverlay()">
+    <div class="pk-overlay__header">Add Element Preset</div>
+    <div class="pk-overlay__content">
+        <div class="overlay__option selectable" *ngFor="let option of presets" (click)="addPreset(option)">
+                    {{ option.label }}
+        </div>
+    </div>
+</pk-overlay>
 
 <pk-overlay [isOpen]="isEditingForm" (toggleOverlay)="toggleFormEditing()" class="overlay--fluid">
     <div class="pk-overlay__header">Edit Form Attributes</div>

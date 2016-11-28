@@ -332,7 +332,6 @@ export class FormElementService {
      */
     saveElement(element: FormElement, mode?: 'clone' | 'add'): void {
         if (this.formService.addElementToForm(element, mode)) {
-            console.log(mode);
             if (!mode || mode === 'add') {
                 this.resetElement();
             }
