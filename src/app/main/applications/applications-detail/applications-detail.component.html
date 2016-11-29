@@ -24,10 +24,10 @@
 
     <pk-floating top-right fixed>
         <a routerLink="/applications/{{ application.id }}/edit">
-            <pk-button rounded class="element--spacing-bottom-small" [icon]="'create'" element--secondary></pk-button>
+            <pk-button rounded [pkAlert]="'Edit Application'" class="element--spacing-bottom-small" [icon]="'create'" element--secondary></pk-button>
         </a>
-        <pk-button rounded class="element--spacing-bottom-large" [icon]="'send'" element--success></pk-button>
-        <pk-button rounded class="element--spacing-bottom-small" [icon]="'undo'" element--error></pk-button>
-        <pk-button rounded [icon]="'delete'" element--error></pk-button>
+        <pk-button rounded [pkAlert]="'Submit Application'" class="element--spacing-bottom-large" [icon]="'send'" element--success></pk-button>
+        <pk-button rounded [pkAlert]="'Recind Application'" class="element--spacing-bottom-small" [icon]="'undo'" element--error></pk-button>
+        <pk-button rounded [pkAlert]="'Deactivate Application'" [icon]="'delete'" element--error></pk-button>
     </pk-floating>
 </div>

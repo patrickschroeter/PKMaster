@@ -5,7 +5,7 @@
 
     <pk-floating top-right fixed>
         <!--<pk-button rounded *ngIf="dynamicForm.form.valid" class="element--spacing-bottom-small" [icon]="'save'" (onClick)="saveApplication(dynamicForm.form.value)" element--success></pk-button>-->
-        <pk-button rounded class="element--spacing-bottom-small" [icon]="'undo'" element--error></pk-button>
-        <pk-button rounded [icon]="'delete'" element--error></pk-button>
+        <pk-button rounded [pkAlert]="'Recind Application'" class="element--spacing-bottom-small" [icon]="'undo'" element--error></pk-button>
+        <pk-button rounded [pkAlert]="'Deactivate Application'" [icon]="'delete'" element--error></pk-button>
     </pk-floating>
 </div>

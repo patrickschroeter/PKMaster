@@ -21,17 +21,17 @@
                     <pk-list-attribute [name]="'modified'">{{ application.modified | date }}</pk-list-attribute>
 
                     <pk-floating horizontal top-right>
-                        <pk-button rounded *ngIf="application.state === 'created'"
+                        <pk-button rounded *ngIf="application.state === 'created'" [pkAlert]="'Submit Application'"
                             (onClick)="submitApplication(application)"
                             class="element--spacing-left-large" [icon]="'send'" element--success></pk-button>
                         <a  *ngIf="['created', 'rescinded'].indexOf(application.state) !== -1"
                             routerLink="/applications/{{ application.id }}/edit">
-                            <pk-button rounded [icon]="'create'" element--secondary></pk-button>
+                            <pk-button rounded [pkAlert]="'Edit Application'" [icon]="'create'" element--secondary></pk-button>
                         </a>
-                        <pk-button rounded *ngIf="['submitted'].indexOf(application.state) !== -1"
+                        <pk-button rounded *ngIf="['submitted'].indexOf(application.state) !== -1" [pkAlert]="'Recind Application'"
                             (onClick)="rescindApplication(application)"
                             [icon]="'undo'" element--error></pk-button>
-                        <pk-button rounded *ngIf="['created', 'rescinded'].indexOf(application.state) !== -1"
+                        <pk-button rounded *ngIf="['created', 'rescinded'].indexOf(application.state) !== -1" [pkAlert]="'Deactivate Application'"
                             (onClick)="deactivateApplication(application)"
                             [icon]="'delete'" element--error></pk-button>
                     </pk-floating>
@@ -41,7 +41,7 @@
 
     </div>
     <pk-floating fixed top-right>
-        <pk-button rounded [icon]="'add'" element--secondary (onClick)="toggleCreateNew()"></pk-button>
+        <pk-button rounded [pkAlert]="'Create Application'" [icon]="'add'" element--secondary (onClick)="toggleCreateNew()"></pk-button>
     </pk-floating>
     <pk-overlay [isOpen]="isOpenNewApplication" (toggleOverlay)="toggleCreateNew()" class="overlay--fluid">
         <div class="pk-overlay__header">Create New Application</div>

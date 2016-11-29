@@ -63,6 +63,10 @@ export class DynamicFormService {
         this.showValidation(element.formControl);
     }
 
+    hideValidation() {
+        this.alert.removeHint('validation');
+    }
+
     /**
      * @description shows error validation
      * @param {FormGroup|FormControl} form the form object to validate

@@ -27,4 +27,8 @@ export class DynamicFormElementComponent implements OnInit {
     showElementValidation(element: FormElement): void {
         this.dynamicForm.showElementValidation(element);
     }
+
+    hideElementValidation(): void {
+        this.dynamicForm.hideValidation();
+    }
 }
