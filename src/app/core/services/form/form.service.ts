@@ -115,7 +115,7 @@ export class FormService {
      * @description return the observable for the adding element status
      * @return {Observable}
      */
-    getAddingElement(): Observable<boolean> {
+    public getAddingElement(): Observable<boolean> {
         if (!this.addingElementRx) { this.addingElementRx = new Observable(observer => { this.addingElement$ = observer; }); };
         return this.addingElementRx;
     }
@@ -124,7 +124,7 @@ export class FormService {
      * @param {boolean} addingElement
      * @return {void}
      */
-    setAddingElement(addingElement: boolean) {
+    public setAddingElement(addingElement: boolean) {
         this.addingElement$.next(addingElement);
     }
 
@@ -132,7 +132,7 @@ export class FormService {
      * @description return the observable for editing an element
      * @return {Observable}
      */
-    onEditElement(): Observable<FormElement> {
+    public onEditElement(): Observable<FormElement> {
         if (!this.editElementRx) { this.editElementRx = new Observable(observer => { this.editElement$ = observer; }); };
         return this.editElementRx;
     }
@@ -142,7 +142,7 @@ export class FormService {
      * @param {number} id
      * @return {Observable}
      */
-    getFormById(id: number): Observable<Form> {
+    public getFormById(id: number): Observable<Form> {
         // TODO: load real data
         return new Observable(observer => {
             /** http getFormById(id) => this.currentForm = result */
@@ -153,7 +153,7 @@ export class FormService {
         });
     }
 
-    getForms(sort?: string): Observable<any> {
+    public getForms(sort?: string): Observable<any> {
         if (sort) {
             this.forms.sort(function(a, b) {return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
         }
@@ -171,7 +171,7 @@ export class FormService {
      * @param {Form} form
      * @return {Observable}
      */
-    createNewForm(form: Form): Observable<any> {
+    public createNewForm(form: Form): Observable<any> {
         console.log(form);
         this.form = {
             title: form.id ? 'Copy of ' + form.title : form.title,
@@ -196,7 +196,7 @@ export class FormService {
      * @param {string} type the invalid type
      * @return {void}
      */
-    editElementError(type: string): void {
+    public editElementError(type: string): void {
         this.alert.setAlert('Warning', `The requrested Element Type (${type}) is not valid. Please Contact your administrator.`);
         this.setAddingElement(false);
     }
@@ -207,7 +207,7 @@ export class FormService {
      * @param {FormElement} element the element to edit
      * @return {void}
      */
-    editElement(element?: FormElement): void {
+    public editElement(element?: FormElement): void {
 
         this.editingElementIndex = -1;
         if (element) {
@@ -233,7 +233,7 @@ export class FormService {
      * @param {FormElement} element the element to remove
      * @return {void}
      */
-    removeElement(element?: FormElement, index?: number): boolean {
+    public removeElement(element?: FormElement, index?: number): boolean {
         if (typeof index !== 'undefined') {
             if (this.form.elements[index].name === element.name) {
                 this.form.elements.splice(index, 1);
@@ -270,7 +270,7 @@ export class FormService {
      * @param {FormElement} element the FormElement as JSON
      * @return {boolean}
      */
-    addElementToForm(element: FormElement, mode?: 'clone' | 'add'): boolean {
+    public addElementToForm(element: FormElement, mode?: 'clone' | 'add'): boolean {
         /** Forms don't have Presets yet */
         // delete element.value;
 
@@ -304,7 +304,7 @@ export class FormService {
         return true;
     }
 
-    addPresetToForm(name: string) {
+    public addPresetToForm(name: string) {
         this.editingElementIndex = -1;
         // TODO: load real data
         return this.addElementToForm({"elementType":"input","name":"matnr","required":true,"label":"Matrikelnummer","type":"number","placeholder":"","styles":["small"],"value":""}, 'clone');
@@ -315,7 +315,7 @@ export class FormService {
      * @param {number} id
      * @return {Observable}
      */
-    getEditFormTemplate(id?: number): Observable<any> {
+    public getEditFormTemplate(id?: number): Observable<any> {
         let formEdit = [
             {
                 elementType: 'input',
@@ -350,7 +350,7 @@ export class FormService {
         });
     }
 
-    saveFormAttributes(form): Observable<any> {
+    public saveFormAttributes(form): Observable<any> {
         // TODO: save real data
         return new Observable(observer => {
             setTimeout(() => {
@@ -367,7 +367,7 @@ export class FormService {
      * @description Saves the changed Form
      * @return {void}
      */
-    saveForm(): void {
+    public saveForm(): void {
         // TODO: save real data
         console.log(this.form);
         let elements = [];

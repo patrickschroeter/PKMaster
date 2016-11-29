@@ -12,16 +12,16 @@ export class AuthenticationService {
 
     constructor(private router: Router, private alert: AlertService) { }
 
-    getUser(): Observable<any> {
+    public getUser(): Observable<any> {
         if (this.user) { return this.user; }
         this.router.navigate(['/login']);
     }
 
-    isLoggedIn() {
+    public isLoggedIn() {
         return !!this.user;
     }
 
-    login(): Observable<any> {
+    public login(): Observable<any> {
         this.user = new Observable(observer => {
             setTimeout(() => {
                 observer.next({
@@ -34,7 +34,7 @@ export class AuthenticationService {
         return this.user;
     }
 
-    changePassword(oldpassword: string, newpassword: string): Observable<any> {
+    public changePassword(oldpassword: string, newpassword: string): Observable<any> {
         this.alert.setLoading('changePassword', `Changing Password...`);
         return new Observable(observer => {
             setTimeout(() => {

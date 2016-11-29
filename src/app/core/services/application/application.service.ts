@@ -127,7 +127,7 @@ export class ApplicationService {
      * @param {number} id
      * @return {Observable}
      */
-    getApplicationById(id: number): Observable<Application> {
+    public getApplicationById(id: number): Observable<Application> {
         return new Observable(observer => {
             /** http getApplicationById(id) => this.currentApplication = result */
             setTimeout(() => {
@@ -138,7 +138,7 @@ export class ApplicationService {
         });
     }
 
-    getApplications(sort?: string): Observable<any> {
+    public getApplications(sort?: string): Observable<any> {
         if (sort) {
             this.applications.sort(function(a, b) {return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
         }
@@ -155,7 +155,7 @@ export class ApplicationService {
      * @param {Application} application
      * @return {Observable}
      */
-    createNewApplication(application: Application): Observable<Application> {
+    public createNewApplication(application: Application): Observable<Application> {
         // hack
         this.formService.getFormById(1).subscribe(form => {
             this.application.form.elements = form.elements;
@@ -179,7 +179,7 @@ export class ApplicationService {
         });
     }
 
-    submitApplication(application: Application): Observable<Application> {
+    public submitApplication(application: Application): Observable<Application> {
         this.alert.setLoading(`submitApplication${application.id}`, 'Submit Application...');
         return new Observable(observer => {
             setTimeout(() => {
@@ -191,7 +191,7 @@ export class ApplicationService {
         });
     }
 
-    rescindApplication(application: Application): Observable<Application> {
+    public rescindApplication(application: Application): Observable<Application> {
         this.alert.setLoading(`rescindApplication${application.id}`, 'Rescind Application...');
         return new Observable(observer => {
             setTimeout(() => {
@@ -203,7 +203,7 @@ export class ApplicationService {
         });
     }
 
-    deactivateApplication(application: Application): Observable<Application> {
+    public deactivateApplication(application: Application): Observable<Application> {
         this.alert.setLoading(`deactivateApplication${application.id}`, 'Deactivate Application...');
         return new Observable(observer => {
             setTimeout(() => {
@@ -219,7 +219,7 @@ export class ApplicationService {
      * @description Saves the changed application
      * @return {void}
      */
-    saveApplication(form): Observable<Application> {
+    public saveApplication(form): Observable<Application> {
         for (let i = 0, length = this.application.attributes.length; i < length; i++) {
             let element: FormElement = this.application.attributes[i];
             element.value = form[element.name];

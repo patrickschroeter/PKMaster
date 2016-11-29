@@ -43,7 +43,7 @@ export class FormElementService {
      * @description Reset all Parameters of the Add Element View
      * @return {void}
      */
-    resetElement(): void {
+    private resetElement(): void {
         delete this.selectTypeFormElement.value;
         delete this.selectTypeFormElement.formControl;
         this.selectedType = null;
@@ -59,7 +59,7 @@ export class FormElementService {
      * @description creates an empty view
      * @return {void}
      */
-    editNewElement(): void {
+    private editNewElement(): void {
         this.resetElement();
     }
 
@@ -69,7 +69,7 @@ export class FormElementService {
      * @param {FormElement} element the FormElement to edit
      * @return {void}
      */
-    editExistingElement(element: FormElement): boolean {
+    private editExistingElement(element: FormElement): boolean {
 
         this.resetElement();
 
@@ -177,7 +177,7 @@ export class FormElementService {
      * @description DynamicForm Change Event
      * @param {object} event The updated Form-Values
      */
-    updateElement(form): void {
+    public updateElement(form): void {
 
         /** Load Type Options on change */
         let type = form.elementType;
@@ -234,7 +234,7 @@ export class FormElementService {
      * @description Get all Options from the selected TableName and set them as Options
      * @return {void}
      */
-    updateOptionsOfTable() {
+    private updateOptionsOfTable() {
         this.getOptionsOfTable(this.selectedOptionTable).subscribe(options => {
             let optionElement;
             for (let i = 0, length = this.element.length; i < length; i++) {
@@ -256,7 +256,7 @@ export class FormElementService {
      * @description Toggle the visibility of the Preview Element
      * @return {void}
      */
-    toggleElementPreview(): void {
+    public toggleElementPreview(): void {
         this.setElementHasPreview(!this.elementHasPreviewRx.getValue());
     }
 
@@ -265,7 +265,7 @@ export class FormElementService {
      * @description enable Validation in Add Element View
      * @return {void}
      */
-    addValidations(): void {
+    public addValidations(): void {
 
         /** Check if Validation already exists */
         for (let i = 0, length = this.element.length; i < length; i++) {
@@ -288,7 +288,7 @@ export class FormElementService {
      * @description enable Styles in Add Element View
      * @return {void}
      */
-    addStyles(): void {
+    public addStyles(): void {
 
         /** Check if Styles already exists */
         for (let i = 0, length = this.element.length; i < length; i++) {
@@ -310,7 +310,7 @@ export class FormElementService {
      * @description remove the current element from the form
      * @return {void}
      */
-    removeElement(): void {
+    public removeElement(): void {
         let name;
         for (let i = 0, length = this.element.length; i < length; i++) {
             let formElement = this.element[i];
@@ -330,7 +330,7 @@ export class FormElementService {
      * @param {Number} reset 0: add, reset, close; 1:add, reset; 3: add
      * @return {void}
      */
-    saveElement(element: FormElement, mode?: 'clone' | 'add'): void {
+    public saveElement(element: FormElement, mode?: 'clone' | 'add'): void {
         if (this.formService.addElementToForm(element, mode)) {
             if (!mode || mode === 'add') {
                 this.resetElement();
@@ -346,7 +346,7 @@ export class FormElementService {
      * @description Cancel the Editation or Creation of an Element
      * @return {void}
      */
-    cancelElement(): void {
+    public cancelElement(): void {
         this.resetElement();
         this.formService.setAddingElement(false);
     }
@@ -361,7 +361,7 @@ export class FormElementService {
      * @description cath all available element types from the server
      * @return {Observable}
      */
-    getElementTypeOptions(): Observable<any> {
+    private getElementTypeOptions(): Observable<any> {
         let result = types();
         this.alert.setLoading('getInputTypeOptions', 'Loading Type Options...');
         return new Observable(observer => {
@@ -373,7 +373,7 @@ export class FormElementService {
         });
     }
 
-    getOptionsOfTable(name: string): Observable<any> {
+    private getOptionsOfTable(name: string): Observable<any> {
         let result = options();
         this.alert.setLoading('getOptionsOfTable', `${name.toUpperCase()}: Loading Options...`);
         return new Observable(observer => {
@@ -390,7 +390,7 @@ export class FormElementService {
      * @param {string} elementType
      * @return {Observable}
      */
-    getOptionsOfElementType(elementType: string): Observable<any> {
+    private getOptionsOfElementType(elementType: string): Observable<any> {
         let name = nm();
         let options = opts();
         this.alert.setLoading('getOptionsOfInputType', `${elementType.toUpperCase()}: Loading Options...`);
@@ -413,7 +413,7 @@ export class FormElementService {
      * @param {string} elementType
      * @return {Observable}
      */
-    getValidationsOfInputType(elementType: string): Observable<any> {
+    private getValidationsOfInputType(elementType: string): Observable<any> {
         let options = validations();
         this.alert.setLoading('getValidationsOfInputType', `${elementType.toUpperCase()}: Loading Validations...`);
         return new Observable(observer => {
@@ -430,7 +430,7 @@ export class FormElementService {
      * @param {string} elementType
      * @return {Observable}
      */
-    getStylesOfInputType(elementType: string): Observable<any> {
+    private getStylesOfInputType(elementType: string): Observable<any> {
         let options = styles();
         this.alert.setLoading('getStyles', `${elementType.toUpperCase()}: Loading Styles...`);
         return new Observable(observer => {
@@ -452,10 +452,10 @@ export class FormElementService {
      * @description BehaviorSubject for the element
      */
     private elementRx: BehaviorSubject<FormElement[]> = new BehaviorSubject(this.element);
-    getElement(): Observable<FormElement[]> {
+    public getElement(): Observable<FormElement[]> {
         return this.elementRx.asObservable();
     }
-    setElement(element: FormElement[]): void {
+    private setElement(element: FormElement[]): void {
         this.element = element;
         this.elementRx.next(this.element);
     }
@@ -465,10 +465,10 @@ export class FormElementService {
      * @description BehaviorSubject for the preview element
      */
     private elementPreviewRx: BehaviorSubject<FormElement[]> = new BehaviorSubject(null);
-    getElementPreview(): Observable<FormElement[]> {
+    public getElementPreview(): Observable<FormElement[]> {
         return this.elementPreviewRx.asObservable();
     }
-    setElementPreview(element: FormElement[]): void {
+    private setElementPreview(element: FormElement[]): void {
         this.elementPreviewRx.next(element);
     }
 
@@ -477,10 +477,10 @@ export class FormElementService {
      * @description BehaviorSubject for has Submit
      */
     private elementHasSubmitRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
-    getElementHasSubmit(): Observable<boolean> {
+    public getElementHasSubmit(): Observable<boolean> {
         return this.elementHasSubmitRx.asObservable();
     }
-    setElementHasSubmit(hasSubmit: boolean): void {
+    private setElementHasSubmit(hasSubmit: boolean): void {
         this.elementHasSubmitRx.next(hasSubmit);
     }
 
@@ -489,10 +489,10 @@ export class FormElementService {
      * @description BehaviorSubject for has preview
      */
     private elementHasPreviewRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
-    getElementHasPreview(): Observable<boolean> {
+    public getElementHasPreview(): Observable<boolean> {
         return this.elementHasPreviewRx.asObservable();
     }
-    setElementHasPreview(hasPreview: boolean): void {
+    private setElementHasPreview(hasPreview: boolean): void {
         this.elementHasPreviewRx.next(hasPreview);
     }
 
@@ -501,10 +501,10 @@ export class FormElementService {
      * @description BehaviorSubject for has validations
      */
     private elementHasValidationsRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
-    getElementHasValidations(): Observable<boolean> {
+    public getElementHasValidations(): Observable<boolean> {
         return this.elementHasValidationsRx.asObservable();
     }
-    setElementHasValidations(hasValidations: boolean): void {
+    private setElementHasValidations(hasValidations: boolean): void {
         this.elementHasValidationsRx.next(hasValidations);
     }
 
@@ -513,10 +513,10 @@ export class FormElementService {
      * @description BehaviorSubject for has styles
      */
     private elementHasStylesRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
-    getElementHasStyles(): Observable<boolean> {
+    public getElementHasStyles(): Observable<boolean> {
         return this.elementHasStylesRx.asObservable();
     }
-    setElementHasStyles(hasStyles: boolean): void {
+    private setElementHasStyles(hasStyles: boolean): void {
         this.elementHasStylesRx.next(hasStyles);
     }
 }

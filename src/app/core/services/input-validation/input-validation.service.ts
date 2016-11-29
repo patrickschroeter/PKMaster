@@ -15,7 +15,7 @@ export class InputValidationService {
 
     constructor() { }
 
-    getErrorMessage(control: FormControl | FormGroup): string {
+    public getErrorMessage(control: FormControl | FormGroup): string {
         if (control.hasError('notTrue')) {
             return 'Field is required.';
 
@@ -56,7 +56,7 @@ export class InputValidationService {
      * @param {Array} keyArray all Validation Keys
      * @return {Array} returns an array with all Validatin functions
      */
-    generateValidationsFromKeys(keyArray = []) {
+    public generateValidationsFromKeys(keyArray = []) {
         let result = [];
         if (!keyArray) { return result; }
         for (let i = 0, length = keyArray.length; i < length; i++) {
@@ -72,7 +72,7 @@ export class InputValidationService {
      * @param {number} length the min Length to be valid
      * @return {ValidatorFn} return a Validation Function
      */
-    validateMinLength(length: number): ValidatorFn {
+    private validateMinLength(length: number): ValidatorFn {
         return Validators.minLength(length);
     }
 
@@ -81,7 +81,7 @@ export class InputValidationService {
      * @param {number} length the max Length to be valid
      * @return {ValidatorFn} return a Validation Function
      */
-    validateMaxLength(length: number): ValidatorFn {
+    private validateMaxLength(length: number): ValidatorFn {
         return Validators.maxLength(length);
     }
 
@@ -90,7 +90,7 @@ export class InputValidationService {
      * @param {FormControl} control the FormControl to be tested
      * @return {Object} return a Object with Information if validation fails
      */
-    validateExternalEmail(control: FormControl): Object {
+    private validateExternalEmail(control: FormControl): Object {
         if (control.value.match(/hs-augsburg/)) {
             return { internalEmail: true };
         }
@@ -101,7 +101,7 @@ export class InputValidationService {
      * @param {FormControl} control the FormControl to be tested
      * @return {Object} return a Object with Information if validation fails
      */
-    validateEmail(control: FormControl): Object {
+    private validateEmail(control: FormControl): Object {
         if (!control.value.match(/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i)) {
             return { invalidEmail: true };
         }
@@ -112,14 +112,14 @@ export class InputValidationService {
      * @param {FormControl} control the FormControl to be tested
      * @return {Object} return a Object with Information if validation fails
      */
-    validateToBeTrue(control: FormControl): Object {
+    private validateToBeTrue(control: FormControl): Object {
         if (control.value !== true) {
             return { notTrue: true };
         }
     }
 
 
-    areEqual(names: string[], message?) {
+    public areEqual(names: string[], message?) {
 
         return function(group: FormGroup) {
             let value;

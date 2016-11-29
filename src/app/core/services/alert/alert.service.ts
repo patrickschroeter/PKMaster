@@ -35,7 +35,7 @@ export class AlertService {
      * @param {string} message the message of the alert
      * @return {void}
      */
-    setAlert(title: string, message: string): void {
+    public setAlert(title: string, message: string): void {
         if (this.alertObserver) {
             this.alertObserver.next({
                 title: title,
@@ -45,23 +45,19 @@ export class AlertService {
         }
     }
 
-    setHint(id: string, message: string, time?: number): void {
-        this.add(id, 'hint', message, time);
-    }
-
-    setTooltip(message: string, time?: number): void {
+    public setTooltip(message: string, time?: number): void {
         this.add('tooltip', 'tooltip', message, time);
     }
 
-    setErrorHint(id: string, message: string, time?: number): void {
+    public setErrorHint(id: string, message: string, time?: number): void {
         this.add(id, 'error', message, time);
     }
 
-    setSuccessHint(id: string, message: string): void {
+    public setSuccessHint(id: string, message: string): void {
         this.add(id, 'success', message, 1000);
     }
 
-    setLoading(id: string, message: string): void {
+    public setLoading(id: string, message: string): void {
         this.addMessage(id, 'loading', message);
     }
 
@@ -95,7 +91,7 @@ export class AlertService {
         return hint;
     }
 
-    removeHint(id: string): void {
+    public removeHint(id: string): void {
         let index = -1;
         for (let i = 0, length = this.hints.length; i < length; i++) {
             let hint = this.hints[i];
@@ -111,7 +107,7 @@ export class AlertService {
         }
     }
 
-    getAlert(): Observable<any> {
+    public getAlert(): Observable<any> {
         return this.alertObservable;
     }
 
@@ -119,7 +115,7 @@ export class AlertService {
      * @description Returns the Hint Message Observer
      * @return {Observable}
      */
-    getHintMessages(): Observable<Array<Message>> {
+    public getHintMessages(): Observable<Array<Message>> {
         return this.hintObservable;
     }
 
@@ -127,7 +123,7 @@ export class AlertService {
      * @description Returns the Loading Observer
      * @return {Observable}
      */
-    getLoading(): Observable<any> {
+    public getLoading(): Observable<any> {
         return this.loadingObservable;
     }
 }
