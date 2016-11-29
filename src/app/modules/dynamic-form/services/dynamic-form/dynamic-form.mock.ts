@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-import { FormElement } from './../../../swagger';
+import { FormElement } from './../../../../swagger';
 
 @Injectable()
 export class DynamicFormMock {

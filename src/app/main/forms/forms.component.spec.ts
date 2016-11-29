@@ -15,9 +15,10 @@ import {
     AlertMock
 } from './../../core';
 
-import {
-    SharedModule
-} from './../../shared/shared.module';
+import { SharedModule } from './../../shared/shared.module';
+import { ListModule } from './../../modules/list/list.module';
+import { FloatingModule } from './../../modules/floating/floating.module';
+import { DynamicFormModule } from './../../modules/dynamic-form/dynamic-form.module';
 
 describe('FormsComponent', () => {
     let component: FormsComponent;
@@ -32,7 +33,10 @@ describe('FormsComponent', () => {
                 SharedModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: class { } },
-                ])
+                ]),
+                ListModule,
+                FloatingModule,
+                DynamicFormModule
             ],
             providers: [
                 { provide: FormService, useClass: FormMock },

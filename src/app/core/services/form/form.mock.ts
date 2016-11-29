@@ -5,30 +5,16 @@ import { Observable } from 'rxjs/Rx';
 @Injectable()
 export class FormMock {
 
-    constructor() {}
+    constructor() { }
 
-    /**
-     * @description return the observable for the adding element status
-     * @return {Observable}
-     */
     getAddingElement(): Observable<any> {
-        return new Observable(observer => { });
+        return new Observable(observer => { observer.next('adding'); });
     }
 
-    /**
-     * @description return the observable for editing an element
-     * @return {Observable}
-     */
     onEditElement(): Observable<any> {
-        return new Observable(observer => { });
+        return new Observable(observer => { observer.next('edit'); });
     }
 
-
-    /**
-     * @description returns the observable to get a form by the given id
-     * @param {number} id
-     * @return {Observable}
-     */
     getFormById(id: number): Observable<any> {
         return new Observable(observer => {
             /** http getFormById(id) => this.currentForm = result */
@@ -39,7 +25,14 @@ export class FormMock {
         });
     }
 
-    getForms() {
+    getForms(sort?: string): Observable<any> {
+        return new Observable(observer => { observer.next([]); });
+    }
 
+    getEditFormTemplate(id?: number): Observable<any> {
+        return new Observable(observer => { observer.next([]); });
+    }
+
+    editElementError(type: string): void {
     }
 }

@@ -12,12 +12,16 @@ import {
     FormService,
     FormMock,
     AlertService,
-    AlertMock
+    AlertMock,
+    InputValidationService,
+    InputValidationMock
 } from './../../../core';
 
 import {
     SharedModule
 } from './../../../shared/shared.module';
+import { DynamicFormModule } from './../../../modules/dynamic-form/dynamic-form.module';
+import { FloatingModule } from './../../../modules/floating/floating.module';
 
 describe('FormsEditComponent', () => {
     let component: FormsEditComponent;
@@ -34,9 +38,12 @@ describe('FormsEditComponent', () => {
                 SharedModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: class { } },
-                ])
+                ]),
+                DynamicFormModule,
+                FloatingModule
             ],
             providers: [
+                { provide: InputValidationService, useClass: InputValidationMock },
                 { provide: FormService, useClass: FormMock },
                 { provide: AlertService, useClass: AlertMock }
             ]

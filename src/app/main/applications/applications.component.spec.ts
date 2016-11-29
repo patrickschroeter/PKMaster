@@ -18,6 +18,8 @@ import {
 import {
     SharedModule
 } from './../../shared/shared.module';
+import { ListModule } from './../../modules/list/list.module';
+import { FloatingModule } from './../../modules/floating/floating.module';
 
 describe('ApplicationsComponent', () => {
     let component: ApplicationsComponent;
@@ -32,7 +34,9 @@ describe('ApplicationsComponent', () => {
                 SharedModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: class { } },
-                ])
+                ]),
+                ListModule,
+                FloatingModule
             ],
             providers: [
                 { provide: InputValidationService, useClass: InputValidationMock },

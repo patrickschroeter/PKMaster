@@ -10,7 +10,7 @@ import {
     InputValidationMock,
     AlertService,
     AlertMock
-} from './../../../core';
+} from './../../../../core';
 
 describe('Service: DynamicForm', () => {
     beforeEach(() => {

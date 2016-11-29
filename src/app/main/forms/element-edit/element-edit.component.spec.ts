@@ -18,6 +18,8 @@ import {
 import {
     SharedModule
 } from './../../../shared/shared.module';
+import { DynamicFormModule } from './../../../modules/dynamic-form/dynamic-form.module';
+import { FloatingModule } from './../../../modules/floating/floating.module';
 
 describe('ElementEditComponent', () => {
     let component: ElementEditComponent;
@@ -32,7 +34,9 @@ describe('ElementEditComponent', () => {
                 SharedModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: class { } },
-                ])
+                ]),
+                DynamicFormModule,
+                FloatingModule
             ],
             providers: [
                 { provide: FormElementService, useClass: FormElementMock },

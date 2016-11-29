@@ -10,6 +10,7 @@ import {
     OverlayComponent,
     ButtonComponent
 } from './../../../shared';
+import { FloatingModule } from './../../../modules/floating/floating.module';
 
 describe('AlertComponent', () => {
     let component: AlertComponent;
@@ -22,6 +23,9 @@ describe('AlertComponent', () => {
 
                 OverlayComponent,
                 ButtonComponent
+            ],
+            imports: [
+                FloatingModule
             ],
             providers: [
                 { provide: AlertService, useClass: AlertMock }

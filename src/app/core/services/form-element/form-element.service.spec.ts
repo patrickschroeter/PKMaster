@@ -30,12 +30,10 @@ describe('Service: FormElement', () => {
             element = result;
         });
 
-        expect(element).not.toBeDefined();
-        expect(element).toBeUndefined();
+        expect(element).toEqual([]);
 
         service.setElement([{ name: 'element' }]);
 
-        expect(element).toBeDefined();
         expect(element[0]['name']).toBe('element');
     }));
 
@@ -46,11 +44,10 @@ describe('Service: FormElement', () => {
             preview = result;
         });
 
-        expect(preview).toBeNull();
+        expect(preview).toEqual([]);
 
         service.setElementPreview([{ name: 'preview' }]);
 
-        expect(preview).toBeDefined();
         expect(preview[0]['name']).toBe('preview');
     }));
 

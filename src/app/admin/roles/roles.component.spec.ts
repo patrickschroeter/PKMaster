@@ -2,27 +2,55 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { RolesComponent } from './roles.component';
 
+import {
+    AlertService,
+    AlertMock,
+    InputValidationService,
+    InputValidationMock
+} from './../../core';
+
+import { SharedModule } from './../../shared/shared.module';
+import { ListModule } from './../../modules/list/list.module';
+import { FloatingModule } from './../../modules/floating/floating.module';
+import { DynamicFormModule } from './../../modules/dynamic-form/dynamic-form.module';
+
 describe('RolesComponent', () => {
-  let component: RolesComponent;
-  let fixture: ComponentFixture<RolesComponent>;
+    let component: RolesComponent;
+    let fixture: ComponentFixture<RolesComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ RolesComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                RolesComponent
+            ],
+            imports: [
+                RouterTestingModule.withRoutes([
+                    { path: '', component: class { } },
+                ]),
+                SharedModule,
+                ListModule,
+                FloatingModule,
+                DynamicFormModule
+            ],
+            providers: [
+                { provide: InputValidationService, useClass: InputValidationMock },
+                { provide: AlertService, useClass: AlertMock }
+            ]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(RolesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(RolesComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

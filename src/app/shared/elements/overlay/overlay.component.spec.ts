@@ -5,7 +5,7 @@ import { DebugElement } from '@angular/core';
 
 import { OverlayComponent } from './overlay.component';
 import { ButtonComponent } from './../../';
-// import { A } from './../../../core';
+import { FloatingModule } from './../../../modules/floating/floating.module';
 
 describe('OverlayComponent', () => {
     let component: OverlayComponent;
@@ -16,6 +16,9 @@ describe('OverlayComponent', () => {
             declarations: [
                 OverlayComponent,
                 ButtonComponent
+            ],
+            imports: [
+                FloatingModule
             ]
         })
         .compileComponents();

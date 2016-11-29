@@ -2,12 +2,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { SelectComponent } from './select.component';
+
 import {
     OverlayComponent,
-    ButtonComponent } from './../../';
+    ButtonComponent
+} from './../../../../shared';
+
+import { DynamicFormComponent } from './../../';
+import { FloatingModule } from './../../../../modules/floating/floating.module';
 
 describe('SelectComponent', () => {
     let component: SelectComponent;
@@ -21,10 +26,12 @@ describe('SelectComponent', () => {
                 SelectComponent
             ],
             imports: [
-                ReactiveFormsModule
+                ReactiveFormsModule,
+                FloatingModule,
+                FormsModule
             ]
         })
-        .compileComponents();
+            .compileComponents();
     }));
 
     beforeEach(() => {

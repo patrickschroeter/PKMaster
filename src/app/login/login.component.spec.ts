@@ -18,6 +18,9 @@ import {
 import {
     SharedModule
 } from './../shared/shared.module';
+import {
+    DynamicFormModule
+} from './../modules/dynamic-form/dynamic-form.module';
 
 describe('LoginComponent', () => {
     let component: LoginComponent;
@@ -32,7 +35,8 @@ describe('LoginComponent', () => {
                 SharedModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: class { } },
-                ])
+                ]),
+                DynamicFormModule
             ],
             providers: [
                 { provide: AuthenticationService, useClass: AuthenticationMock },

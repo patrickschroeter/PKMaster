@@ -88,7 +88,7 @@ export class ApplicationService {
                 {
                     id: 1,
                     author: {
-                        salutation: 'Prof.'
+                        salutation: 'Prof.',
                         name: 'Kowa'
                     },
                     message: 'Awesome Code!',
@@ -99,7 +99,7 @@ export class ApplicationService {
                 {
                     id: 2,
                     author: {
-                        salutation: 'Prof.'
+                        salutation: 'Prof.',
                         name: 'Rothaug'
                     },
                     message: 'Awesome Design!',
@@ -110,7 +110,7 @@ export class ApplicationService {
                 {
                     id: 3,
                     author: {
-                        salutation: 'Prof.'
+                        salutation: 'Prof.',
                         name: 'Bergmann'
                     },
                     message: 'Awesome Tool!',
@@ -224,7 +224,7 @@ export class ApplicationService {
             let element: FormElement = this.application.attributes[i];
             element.value = form[element.name];
         };
-        this.alert.setLoading('saveApplication', 'Save Application...')
+        this.alert.setLoading('saveApplication', 'Save Application...');
         return new Observable(observer => {
             setTimeout(() => {
                 for (let i = 0, length = this.applications.length; i < length; i++) {

@@ -14,6 +14,9 @@ import {
 } from './../../../core';
 
 import { SharedModule } from './../../../shared/shared.module';
+import { DynamicFormModule } from './../../../modules/dynamic-form/dynamic-form.module';
+import { ListModule } from './../../../modules/list/list.module';
+import { FloatingModule } from './../../../modules/floating/floating.module';
 
 describe('ApplicationsDetailComponent', () => {
     let component: ApplicationsDetailComponent;
@@ -28,7 +31,10 @@ describe('ApplicationsDetailComponent', () => {
                 SharedModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: class { } },
-                ])
+                ]),
+                DynamicFormModule,
+                ListModule,
+                FloatingModule
             ],
             providers: [
                 { provide: ApplicationService, useClass: ApplicationMock },

@@ -1,4 +1,4 @@
-<div *ngIf="!element.hidden">
+<div *ngIf="element && !element.hidden">
     <div class="form__element element"
         [ngClass]="{ 'form__element--small': element.styles && element.styles.indexOf('small') !== -1, 'form__element--aligned': element.styles && element.styles.indexOf('aligned') !== -1}"
         (mouseover)="showElementValidation(element)"

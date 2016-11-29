@@ -19,6 +19,8 @@ import {
 import {
     SharedModule
 } from './../../shared/shared.module';
+import { DynamicFormModule } from './../../modules/dynamic-form/dynamic-form.module';
+import { FloatingModule } from './../../modules/floating/floating.module';
 
 describe('ProfileComponent', () => {
     let component: ProfileComponent;
@@ -31,10 +33,12 @@ describe('ProfileComponent', () => {
             ],
             imports: [
                 ReactiveFormsModule,
-                SharedModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: class { } },
                 ]),
+                SharedModule,
+                DynamicFormModule,
+                FloatingModule
             ],
             providers: [
                 { provide: AuthenticationService, useClass: AuthenticationMock },

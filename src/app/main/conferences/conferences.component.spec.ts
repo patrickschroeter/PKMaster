@@ -16,6 +16,8 @@ import {
 import {
     SharedModule
 } from './../../shared/shared.module';
+import { DynamicFormModule } from './../../modules/dynamic-form/dynamic-form.module';
+import { FloatingModule } from './../../modules/floating/floating.module';
 
 describe('ConferencesComponent', () => {
     let component: ConferencesComponent;
@@ -30,7 +32,9 @@ describe('ConferencesComponent', () => {
                 SharedModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: class { } },
-                ])
+                ]),
+                DynamicFormModule,
+                FloatingModule
             ],
             providers: [
                 { provide: InputValidationService, useClass: InputValidationMock },

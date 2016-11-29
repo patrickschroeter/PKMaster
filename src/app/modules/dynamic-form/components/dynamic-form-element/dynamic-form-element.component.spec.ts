@@ -2,27 +2,77 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { DynamicFormElementComponent } from './dynamic-form-element.component';
 
+import {
+    DynamicFormComponent,
+    DynamicFormContentComponent,
+    DynamicFormSubmitComponent,
+    DynamicFormCancelComponent,
+
+    TextareaComponent,
+    InputComponent,
+    DatalistComponent,
+    RadioComponent,
+    CheckboxComponent,
+    SelectComponent,
+
+    DynamicFormService,
+    DynamicFormMock
+} from './../../';
+
+import {
+    InputValidationService,
+    InputValidationMock
+} from './../../../../core';
+
+import { SharedModule } from './../../../../shared/shared.module';
+import { FloatingModule } from './../../../../modules/floating/floating.module';
+
 describe('DynamicFormElementComponent', () => {
-  let component: DynamicFormElementComponent;
-  let fixture: ComponentFixture<DynamicFormElementComponent>;
+    let component: DynamicFormElementComponent;
+    let fixture: ComponentFixture<DynamicFormElementComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ DynamicFormElementComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                DynamicFormElementComponent,
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DynamicFormElementComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+                DynamicFormComponent,
+                DynamicFormContentComponent,
+                DynamicFormElementComponent,
+                DynamicFormSubmitComponent,
+                DynamicFormCancelComponent,
+                TextareaComponent,
+                InputComponent,
+                DatalistComponent,
+                RadioComponent,
+                CheckboxComponent,
+                SelectComponent
+            ],
+            imports: [
+                SharedModule,
+                FloatingModule,
+                ReactiveFormsModule,
+                FormsModule
+            ],
+            providers: [
+                { provide: InputValidationService, useClass: InputValidationMock },
+                { provide: DynamicFormService, useClass: DynamicFormMock }
+            ]
+        })
+            .compileComponents();
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(DynamicFormElementComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });
