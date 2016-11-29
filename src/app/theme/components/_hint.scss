@@ -68,16 +68,24 @@
             background-color: lighten($error, 0%);
             color: $white;
         }
+        &.hint--tooltip {
+            border: $border-width solid lighten($guidance-color, 5%);
+            background-color: lighten($guidance-color, 5%);
+            color: $white;
+        }
 
-        &.hint--rotating-icon {
+        &.hint--rotating-icon, &.hint--tooltip {
             padding-left: 28px;
             i {
                 position: absolute;
                 top: 5px;
                 left: 2px;
+            }
+        }
+        &.hint--rotating-icon {
+            i {
                 @extend .rotating;
             }
-
         }
     }
 }

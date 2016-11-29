@@ -172,7 +172,7 @@ export class ApplicationService {
         this.alert.setLoading('createNewApplication', 'Create Application...');
         return new Observable(observer => {
             setTimeout(() => {
-                this.alert.removeLoading('createNewApplication');
+                this.alert.removeHint('createNewApplication');
                 observer.next(this.application);
                 observer.complete();
             }, 200);
@@ -183,7 +183,7 @@ export class ApplicationService {
         this.alert.setLoading(`submitApplication${application.id}`, 'Submit Application...');
         return new Observable(observer => {
             setTimeout(() => {
-                this.alert.removeLoading(`submitApplication${application.id}`);
+                this.alert.removeHint(`submitApplication${application.id}`);
                 application.state = State.NameEnum.submitted;
                 observer.next(application);
                 observer.complete();
@@ -195,7 +195,7 @@ export class ApplicationService {
         this.alert.setLoading(`rescindApplication${application.id}`, 'Rescind Application...');
         return new Observable(observer => {
             setTimeout(() => {
-                this.alert.removeLoading(`rescindApplication${application.id}`);
+                this.alert.removeHint(`rescindApplication${application.id}`);
                 application.state = State.NameEnum.rescinded;
                 observer.next(application);
                 observer.complete();
@@ -207,7 +207,7 @@ export class ApplicationService {
         this.alert.setLoading(`deactivateApplication${application.id}`, 'Deactivate Application...');
         return new Observable(observer => {
             setTimeout(() => {
-                this.alert.removeLoading(`deactivateApplication${application.id}`);
+                this.alert.removeHint(`deactivateApplication${application.id}`);
                 application.state = State.NameEnum.deactivated;
                 observer.next(application);
                 observer.complete();
@@ -233,7 +233,7 @@ export class ApplicationService {
                         element.state = State.NameEnum.created;
                     }
                 }
-                this.alert.removeLoading('saveApplication');
+                this.alert.removeHint('saveApplication');
                 observer.next(this.application);
                 observer.complete();
             }, 200);

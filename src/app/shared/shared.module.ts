@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 
 import * as components from './components';
 import * as elements from './elements';
+import * as directives from './directives';
 
 import { FloatingModule } from './../modules/floating/floating.module';
 
@@ -18,6 +19,8 @@ import { FloatingModule } from './../modules/floating/floating.module';
         elements.OverlayComponent,
         elements.ButtonComponent,
         elements.DeviderComponent,
+
+        directives.AlertDirective
     ],
     imports: [
         CommonModule,
@@ -37,7 +40,9 @@ import { FloatingModule } from './../modules/floating/floating.module';
 
         elements.OverlayComponent,
         elements.ButtonComponent,
-        elements.DeviderComponent
+        elements.DeviderComponent,
+
+        directives.AlertDirective
     ]
 })
 export class SharedModule { }

@@ -7,17 +7,14 @@
     <div class="hint hint--bottom-right" [class.hint--visible]="hintElements && hintElements.length != 0">
         <div class="hint-element hint-element--visible" *ngFor="let element of hintElements"
             [class.hint--error]="element.type === 'error'"
+            [class.hint--tooltip]="element.type === 'tooltip'"
             [class.hint--rotating-icon]="element.type === 'loading'"
             [class.hint--success]="element.type === 'success'">
-            <i *ngIf="element.type === 'loading'" class="material-icons md-18" aria-hidden="true">sync</i>
+            <span [ngSwitch]="element.type">
+                <i *ngSwitchCase="'loading'" class="material-icons md-18" aria-hidden="true">sync</i>
+                <i *ngSwitchCase="'tooltip'" class="material-icons md-18" aria-hidden="true">help</i>
+            </span>
             {{ element.message }}
-        </div>
-    </div>
-
-    <div class="hint hint--top-left" [class.hint--visible]="loadingElements && loadingElements.length != 0">
-        <div class="hint-element hint--normal hint-element--visible hint--rotating-icon" *ngFor="let loading of loadingElements">
-            <i class="material-icons md-18" aria-hidden="true">sync</i>
-            {{ loading.message }}
         </div>
     </div>
 </div>

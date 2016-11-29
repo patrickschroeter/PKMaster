@@ -40,7 +40,7 @@ export class AuthenticationService {
             setTimeout(() => {
                 observer.next();
                 // observer.error();
-                this.alert.removeLoading('changePassword');
+                this.alert.removeHint('changePassword');
                 observer.complete();
             }, 200);
         });

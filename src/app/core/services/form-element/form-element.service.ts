@@ -366,7 +366,7 @@ export class FormElementService {
         this.alert.setLoading('getInputTypeOptions', 'Loading Type Options...');
         return new Observable(observer => {
             setTimeout(() => {
-                this.alert.removeLoading('getInputTypeOptions');
+                this.alert.removeHint('getInputTypeOptions');
                 observer.next(result);
                 observer.complete();
             }, 500);
@@ -378,7 +378,7 @@ export class FormElementService {
         this.alert.setLoading('getOptionsOfTable', `${name.toUpperCase()}: Loading Options...`);
         return new Observable(observer => {
             setTimeout(() => {
-                this.alert.removeLoading('getOptionsOfTable');
+                this.alert.removeHint('getOptionsOfTable');
                 observer.next(result[name]);
                 observer.complete();
             }, 500);
@@ -396,7 +396,7 @@ export class FormElementService {
         this.alert.setLoading('getOptionsOfInputType', `${elementType.toUpperCase()}: Loading Options...`);
         return new Observable(observer => {
             setTimeout(() => {
-                this.alert.removeLoading('getOptionsOfInputType');
+                this.alert.removeHint('getOptionsOfInputType');
                 let devider = { elementType: 'devider' };
                 let result = [].concat(name);
                 let element = options[elementType];
@@ -418,7 +418,7 @@ export class FormElementService {
         this.alert.setLoading('getValidationsOfInputType', `${elementType.toUpperCase()}: Loading Validations...`);
         return new Observable(observer => {
             setTimeout(() => {
-                this.alert.removeLoading('getValidationsOfInputType');
+                this.alert.removeHint('getValidationsOfInputType');
                 observer.next(options[elementType]);
                 observer.complete();
             }, 500);
@@ -435,7 +435,7 @@ export class FormElementService {
         this.alert.setLoading('getStyles', `${elementType.toUpperCase()}: Loading Styles...`);
         return new Observable(observer => {
             setTimeout(() => {
-                this.alert.removeLoading('getStyles');
+                this.alert.removeHint('getStyles');
                 observer.next(options);
                 observer.complete();
             }, 500);

@@ -22,10 +22,10 @@
     </pk-dynamic-form>
 
     <pk-floating top-right fixed>
-        <pk-button rounded class="element--spacing-bottom-small" [icon]="'edit'" rounded element--secondary (onClick)="editFormAttributes()"></pk-button>
-        <pk-button rounded class="element--spacing-bottom-small" [icon]="'add'" element--secondary (onClick)="addElement()"></pk-button>
-        <pk-button rounded class="element--spacing-bottom-small" [icon]="'library_add'" element--secondary (onClick)="addPreset()"></pk-button>
-        <pk-button rounded class="element--spacing-bottom-small" [icon]="'save'" (onClick)="saveForm()" element--success></pk-button>
+        <pk-button rounded [pkAlert]="'Edit Form Attributes'" class="element--spacing-bottom-small" [icon]="'edit'" rounded element--secondary (onClick)="editFormAttributes()"></pk-button>
+        <pk-button rounded [pkAlert]="'Add Form Element'" class="element--spacing-bottom-small" [icon]="'add'" element--secondary (onClick)="addElement()"></pk-button>
+        <pk-button rounded [pkAlert]="'Add Element Preset'" class="element--spacing-bottom-small" [icon]="'library_add'" element--secondary (onClick)="addPreset()"></pk-button>
+        <pk-button rounded [pkAlert]="'Save Form'" class="element--spacing-bottom-small" [icon]="'save'" (onClick)="saveForm()" element--success></pk-button>
     </pk-floating>
 </div>
 
@@ -51,7 +51,7 @@
 
             <pk-dynamic-form-submit>
                 <pk-button
-                    [value]="'´Save'"
+                    [value]="'Save'"
                     [icon]="'save'"
                     [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
                     [type]="'submit'"

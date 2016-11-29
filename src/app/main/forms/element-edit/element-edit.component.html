@@ -45,28 +45,36 @@
     <div *ngIf="elementPreview.length > 0 && dynamicForm.form.valid" >
         <pk-floating fixed top-right>
             <pk-button
+                [pkAlert]="'Toggle Preview'"
                 rounded class="element--spacing-bottom-small" [icon]="'visibility'" (onClick)="toggleElementPreview()" element--secondary></pk-button>
 
             <div *ngIf="!elementHasValidations || !elementHasStyles" class="element element--spacing-bottom-small">
                 <pk-button *ngIf="!elementHasValidations"
+                    [pkAlert]="'Add Validations'"
                     rounded [icon]="'security'" (onClick)="addValidations()" element--secondary></pk-button>
                 <pk-button *ngIf="!elementHasStyles"
+                    [pkAlert]="'Add Styling'"
                     rounded [icon]="'color_lens'" (onClick)="addStyles()" element--secondary></pk-button>
             </div>
 
             <div class="element element--spacing-bottom-small">
                 <pk-button
+                    [pkAlert]="'Save & Copy Element'"
                     rounded [icon]="'content_copy'" (onClick)="copyElement(dynamicForm.form.value, 'clone')" element--success></pk-button>
                 <pk-button
+                    [pkAlert]="'Save & Add Element'"
                     rounded [icon]="'add'" (onClick)="copyElement(dynamicForm.form.value, 'add')" element--success></pk-button>
 
                 <pk-button
+                    [pkAlert]="'Save Element'"
                     rounded [icon]="'save'" (onClick)="saveElement(dynamicForm.form.value)" element--success></pk-button>
             </div>
 
             <pk-button rounded
+                [pkAlert]="'Cancel Element'"
                 class="element--spacing-bottom-small" [icon]="'clear'" (onClick)="cancelElement()" element--error></pk-button>
             <pk-button rounded
+                [pkAlert]="'Delete Element (if possible)'"
                 [icon]="'delete'" (onClick)="removeElement()" element--error></pk-button>
         </pk-floating>
     </div>

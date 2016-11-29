@@ -45,32 +45,34 @@ export class AlertService {
         }
     }
 
+    setHint(id: string, message: string, time?: number): void {
+        this.add(id, 'hint', message, time);
+    }
+
+    setTooltip(message: string, time?: number): void {
+        this.add('tooltip', 'tooltip', message, time);
+    }
+
     setErrorHint(id: string, message: string, time?: number): void {
-        let hint = this.addMessage(id, 'error', message);
-        if (hint.timeout) {
-            clearTimeout(hint.timeout);
-        }
-        hint.timeout = setTimeout(() => {
-            this.removeHint(id);
-        }, time ? time : 1000);
+        this.add(id, 'error', message, time);
     }
 
     setSuccessHint(id: string, message: string): void {
-        let hint = this.addMessage(id, 'success', message);
-        if (hint.timeout) {
-            clearTimeout(hint.timeout);
-        }
-        hint.timeout = setTimeout(() => {
-            this.removeHint(id);
-        }, 1000);
+        this.add(id, 'success', message, 1000);
     }
 
     setLoading(id: string, message: string): void {
         this.addMessage(id, 'loading', message);
     }
 
-    removeLoading(id: string): void {
-        this.removeHint(id);
+    private add(id: string, type: string, message: string, time?: number): void {
+        let hint = this.addMessage(id, type, message);
+        if (hint.timeout) {
+            clearTimeout(hint.timeout);
+        }
+        hint.timeout = setTimeout(() => {
+            this.removeHint(id);
+        }, time ? time : 1000);
     }
 
     private addMessage(id: string, type: string, message: string): Message {
@@ -88,6 +90,7 @@ export class AlertService {
             this.hintObserver.next(this.hints);
         } else {
             hint = this.hints[index];
+            hint.message = message;
         }
         return hint;
     }
@@ -98,6 +101,8 @@ export class AlertService {
             let hint = this.hints[i];
             if (hint.id === id) {
                 index = i;
+                clearTimeout(hint.timeout);
+                break;
             }
         }
         if (index !== -1) {

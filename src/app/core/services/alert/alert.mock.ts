@@ -20,7 +20,7 @@ export class AlertMock {
      * @param {string} id the id of the loading function
      * @return {void}
      */
-    removeLoading(id: string): void { }
+    removeHint(id: string): void { }
 
     getAlert() {
         return new Observable(observer => {

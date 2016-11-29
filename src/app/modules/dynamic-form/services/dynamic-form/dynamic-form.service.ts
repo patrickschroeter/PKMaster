@@ -71,7 +71,7 @@ export class DynamicFormService {
     showValidation(form: FormGroup | FormControl) {
         let message = this.inputValidation.getErrorMessage(form);
         if (message) {
-            this.alert.setErrorHint(message , message);
+            this.alert.setErrorHint('validation' , message);
         }
     }
 }
