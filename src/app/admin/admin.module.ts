@@ -5,6 +5,9 @@ import * as admin from './';
 import { AdminRouting } from './admin.routing';
 
 import { SharedModule } from './../shared/shared.module';
+import { ListModule } from './../modules/list/list.module';
+import { FloatingModule } from './../modules/floating/floating.module';
+import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module';
 
 @NgModule({
     declarations: [
@@ -18,6 +21,9 @@ import { SharedModule } from './../shared/shared.module';
         CommonModule,
         AdminRouting,
         SharedModule,
+        ListModule,
+        FloatingModule,
+        DynamicFormModule
     ],
     providers: [],
     exports: []
