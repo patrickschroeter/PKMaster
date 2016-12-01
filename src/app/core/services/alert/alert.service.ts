@@ -17,17 +17,7 @@ export class AlertService {
     private loadingObservable: Observable<any>;
     private loadingObserver: Observer<any>;
 
-    constructor() {
-        this.alertObservable = new Observable(observer => {
-            this.alertObserver = observer;
-        });
-        this.hintObservable = new Observable(observer => {
-            this.hintObserver = observer;
-        });
-        this.loadingObservable = new Observable(observer => {
-            this.loadingObserver = observer;
-        });
-    }
+    constructor() { }
 
     /**
      * @description Streams the Alert to the Listening component
@@ -108,6 +98,11 @@ export class AlertService {
     }
 
     public getAlert(): Observable<any> {
+        if (!this.alertObservable) {
+            this.alertObservable = new Observable(observer => {
+                this.alertObserver = observer;
+            });
+        }
         return this.alertObservable;
     }
 
@@ -116,6 +111,11 @@ export class AlertService {
      * @return {Observable}
      */
     public getHintMessages(): Observable<Array<Message>> {
+        if (!this.hintObservable) {
+            this.hintObservable = new Observable(observer => {
+                this.hintObserver = observer;
+            });
+        }
         return this.hintObservable;
     }
 
@@ -124,6 +124,11 @@ export class AlertService {
      * @return {Observable}
      */
     public getLoading(): Observable<any> {
+        if (!this.loadingObserver) {
+            this.loadingObservable = new Observable(observer => {
+                this.loadingObserver = observer;
+            });
+        }
         return this.loadingObservable;
     }
 }
