@@ -9,35 +9,21 @@ export class AlertMock {
 
     constructor() { }
 
-    setLoading(id: string, message: string): void { }
+    public setLoading(id: string, message: string): void { }
 
-    removeHint(id: string): void { }
+    public removeHint(id: string): void { }
 
-    setAlert() {
+    public setAlert(title: string, message: string): void { }
 
+    public getAlert(): Observable<any> {
+        return new Observable(observer => { observer.next('alert'); });
     }
 
-    getAlert(): Observable<any> {
-        return new Observable(observer => {
-            observer.next('alert');
-        });
+    public getHintMessages(): Observable<any> {
+        return new Observable(observer => { observer.next([]); });
     }
 
-    getHintMessages(): Observable<any> {
-        return new Observable(observer => {
-            observer.next([]);
-        });
-    }
-
-    getHintMessage(): Observable<any> {
-        return new Observable(observer => {
-            observer.next('hint');
-        });
-    }
-
-    getLoading(): Observable<any> {
-        return new Observable(observer => {
-            observer.next(['loading']);
-        });
+    public getLoading(): Observable<any> {
+        return new Observable(observer => { observer.next(['loading']); });
     }
 }

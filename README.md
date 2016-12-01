@@ -155,40 +155,31 @@ app/
 validierung? ~PW, min, max~  
 initialize application ( first admin user )  
 studiengang einrichten  
-form restrictions ( user vs dozent )  
+~~form restrictions ( user vs dozent )~~  
 ~form error handling~  
 ~~success/error notifications~~  
 ~typsichere get options (by element type)~
 ~~unset optionTable on option change~~
-suchfeld bei vielen optionen (select)
+~~suchfeld bei vielen optionen (select)~~
 formService als !singleton into element-edit.component?
-
-login.component.spec  
-main.component.spec  
-applications.component.spec  
-conferences.component.spec  
-main-dashboard.component.spec  
-profile.dashboard.spec  
-dynamic-form.component.spec  
-navbar.component.spec  
 
 # Meetings
 
 ## 13.Oktober (Kowa)
 
-- sobald Antrag eingereicht - nicht mehr löschbar
+- ~~sobald Antrag eingereicht - nicht mehr löschbar~~
 - sitzung in Antrag verlinkt
 - Akzeptierung mit Bedingung (16 statt 20 Wochen) -> textlich in Kommentar
 - teilberechtigungen ( zb Sekreteriat )
-- andere Formulare für Dozenten
+- ~~andere Formulare für Dozenten~~
 - nicht Fakultäts - sonder PK-Gebunden (Studiengang)
 - Facheigene & Fachfremde Fächer
 - Sitzungen Kopieren
 - Person mit mehreren Rollen
-- Admin nur formal nicht inhaltlich -> getrennte Oberfläche
+- ~~Admin nur formal nicht inhaltlich -> getrennte Oberfläche~~
 - ~~nicht RZ Email, validierung~~
 - pw SHA256 + Salk (100k) + Session Token
-- MatrNr wenn Student
+- ~~MatrNr wenn Student~~
 - Versionierung? -> immer neu
 - Dozent: Lehrbeauftragter, Professor, wissenschaftl. Angestellte
 - Post + Put statt nur Post
@@ -200,7 +191,7 @@ navbar.component.spec
 - Application: filled direct in App?`
 - User deaktivieren ?
 - Antrag für fremde Personen erstellen (Dozent, Pk+Chef) -> für mehrere Studenten, zb Notenänderung
-- Antrag deaktivieren (zurückziehen)
+- ~~Antrag deaktivieren (zurückziehen)~~
 - Dozent bestätigen + Note eintragen (zusatz info angeben) -> kommentare?
 - Antrag mit änderung Annehmen
 - Feld entfernen: unsichtbar außer wert vorhanden -> nicht neu befüllbar
@@ -208,7 +199,7 @@ navbar.component.spec
 
 ## 2.November (Rothaug)
 
-- Kai Bergmann sucht 'PK-KD'
+- ~~Kai Bergmann sucht 'PK-KD'~~
 - ~~VM Ware + Sketch oder Figma~~ war nicht so toll
 - ~~schlichter mit Farben: eher hell + dunkel + blau~~
 - ~~Strukturfarben (cold) vs. Interaktionsfarben (hot)~~
@@ -235,14 +226,14 @@ navbar.component.spec
 - ~~Header zu nah an linie, keine linie? dafür vor liste~~
 - ~~buttons reinanimieren~~
 - ~~content hinter buttons~~
-- sortierung
+- ~~sortierung~~
 - detail spacing label <-> input
 - ~~Form X zu groß im vgl. pfeil~~
 - ~~default heller als gesetzte werte~~
 - ~~hintergrund für form -> layout test, vgl. kirby~~
-- vorsicht mit richtungsmetapher: < != cancel, > != ok
+- ~~vorsicht mit richtungsmetapher: < != cancel, > != ok~~
 - ~~alert mehr whitespace (zu klein)~~
-- buttons mit natürlicher breite
+- ~~buttons mit natürlicher breite~~
 - KONTRAST -> vgl. kirby
 - ~~Notifications unten rechts: loadig & error & success~~
 - ~~content linksseitig -> notifications rechts -> vgl. kirby; was bei formen overview?~~
