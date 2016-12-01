@@ -180,6 +180,10 @@ export class ApplicationService {
     }
 
     public submitApplication(application: Application): Observable<Application> {
+        if ([State.NameEnum.created].indexOf(application.state) === -1) {
+            this.alert.setAlert('Not Allowed', 'This operation is not allowed.');
+            return new Observable(observer => { observer.error('Error'); });
+        }
         this.alert.setLoading(`submitApplication${application.id}`, 'Submit Application...');
         return new Observable(observer => {
             setTimeout(() => {
@@ -192,6 +196,10 @@ export class ApplicationService {
     }
 
     public rescindApplication(application: Application): Observable<Application> {
+        if ([State.NameEnum.submitted].indexOf(application.state) === -1) {
+            this.alert.setAlert('Not Allowed', 'This operation is not allowed.');
+            return new Observable(observer => { observer.error('Error'); });
+        }
         this.alert.setLoading(`rescindApplication${application.id}`, 'Rescind Application...');
         return new Observable(observer => {
             setTimeout(() => {
@@ -204,6 +212,10 @@ export class ApplicationService {
     }
 
     public deactivateApplication(application: Application): Observable<Application> {
+        if ([State.NameEnum.created, State.NameEnum.rescinded].indexOf(application.state) === -1) {
+            this.alert.setAlert('Not Allowed', 'This operation is not allowed.');
+            return new Observable(observer => { observer.error('Error'); });
+        }
         this.alert.setLoading(`deactivateApplication${application.id}`, 'Deactivate Application...');
         return new Observable(observer => {
             setTimeout(() => {
@@ -220,10 +232,12 @@ export class ApplicationService {
      * @return {void}
      */
     public saveApplication(form): Observable<Application> {
-        for (let i = 0, length = this.application.attributes.length; i < length; i++) {
-            let element: FormElement = this.application.attributes[i];
-            element.value = form[element.name];
-        };
+        if (this.application.attributes) {
+            for (let i = 0, length = this.application.attributes.length; i < length; i++) {
+                let element: FormElement = this.application.attributes[i];
+                element.value = form[element.name];
+            };
+        }
         this.alert.setLoading('saveApplication', 'Save Application...');
         return new Observable(observer => {
             setTimeout(() => {

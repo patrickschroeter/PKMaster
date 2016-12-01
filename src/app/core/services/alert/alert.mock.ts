@@ -13,6 +13,10 @@ export class AlertMock {
 
     removeHint(id: string): void { }
 
+    setAlert() {
+
+    }
+
     getAlert(): Observable<any> {
         return new Observable(observer => {
             observer.next('alert');

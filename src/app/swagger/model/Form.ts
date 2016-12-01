@@ -58,5 +58,6 @@ export interface Form {
      */
     elements?: Array<models.FormElement>;
 
-    restricted?: boolean;
+    restrictedAccess?: boolean;
+    isPublic?: boolean;
 }

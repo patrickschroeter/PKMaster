@@ -88,25 +88,25 @@ export class FormService {
                 title: 'Antrag auf Bachelorarbeit',
                 id: 1,
                 created: 674467500,
-                restricted: true
+                restrictedAccess: true
             },
             {
                 title: 'Antrag auf Masterarbeit',
                 id: 2,
                 created: 1315382700,
-                restricted: false
+                restrictedAccess: false
             },
             {
                 title: 'Antrag auf Notennachberechnung',
                 id: 3,
                 created: 1455613500,
-                restricted: true
+                restrictedAccess: true
             },
             {
                 title: 'Antrag auf Notenanrechnung',
                 id: 4,
                 created: 1477555500,
-                restricted: false
+                restrictedAccess: false
             }
         ];
     }
@@ -178,7 +178,8 @@ export class FormService {
             id: 13,
             elements: form.id ? this.form.elements : [],
             created: Date.now(),
-            restricted: form.restricted
+            restrictedAccess: form.restrictedAccess,
+            isPublic: true
         };
 
         // TODO: save real data
@@ -332,9 +333,9 @@ export class FormService {
             },
             {
                 elementType: 'checkbox',
-                name: 'restricted',
+                name: 'restrictedAccess',
                 label: 'Restricted',
-                value: id ? this.form.restricted : false,
+                value: id ? this.form.restrictedAccess : false,
                 styles: [
                     'small',
                     'aligned'
@@ -355,7 +356,7 @@ export class FormService {
         return new Observable(observer => {
             setTimeout(() => {
                 this.form.title = form.title;
-                this.form.restricted = form.restricted;
+                this.form.restrictedAccess = form.restrictedAccess;
                 observer.next(true);
                 observer.complete();
             }, 200);
