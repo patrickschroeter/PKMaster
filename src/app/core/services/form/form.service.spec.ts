@@ -2,14 +2,18 @@
 
 import { TestBed, async, inject } from '@angular/core/testing';
 import { FormService } from './form.service';
-import { AlertService } from './../alert';
+import {
+    AlertService,
+    AlertMock
+} from './../alert';
+import { FormMock, FormElementMock } from './../';
 
-describe('Service: Form', () => {
+fdescribe('Service: Form', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
                 FormService,
-                { provide: AlertService, useClass: class { alert: () => {}; } }
+                { provide: AlertService, useClass: AlertMock }
             ]
         });
     });
@@ -20,12 +24,26 @@ describe('Service: Form', () => {
 
     /** getAddingElement + setAddingElement */
     it('should provide access to the addingElement Variable', inject([FormService], (service: FormService) => {
-        expect(service).toBeTruthy();
+        let element;
+        service.getAddingElement().subscribe(result => {
+            element = result;
+        });
+        expect(element).toBeFalsy();
+        service.setAddingElement(true);
+        expect(element).toBeTruthy();
+        service.setAddingElement(false);
+        expect(element).toBeFalsy();
     }));
 
     /** onEditElement + next */
     it('should provide access to the editElement Variable', inject([FormService], (service: FormService) => {
-        expect(service).toBeTruthy();
+        let element;
+        service.onEditElement().subscribe(result => {
+            element = result;
+        });
+        expect(element).toBeUndefined();
+        service.editElement(FormElementMock.FORMELEMENT);
+        expect(element).toEqual(FormElementMock.FORMELEMENT);
     }));
 
     /** getFormById */

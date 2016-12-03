@@ -29,4 +29,9 @@ describe('Service: Authentication', () => {
     it('should ...', inject([AuthenticationService], (service: AuthenticationService) => {
         expect(service).toBeTruthy();
     }));
+
+    it('should provide the user object', () => { });
+    it('should navigate to login if no user is stored', () => { });
+    it('should return the user observable', () => { });
+    it('should change the password', () => { });
 });

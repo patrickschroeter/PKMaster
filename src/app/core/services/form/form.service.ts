@@ -119,6 +119,7 @@ export class FormService {
         if (!this.addingElementRx) { this.addingElementRx = new Observable(observer => { this.addingElement$ = observer; }); };
         return this.addingElementRx;
     }
+
     /**
      * @description emits the adding element observable
      * @param {boolean} addingElement
@@ -153,6 +154,11 @@ export class FormService {
         });
     }
 
+    /**
+     * @description get the form with the given id with optional sorting
+     * @param {string} sort key to sort the result
+     * @return {Observable}
+     */
     public getForms(sort?: string): Observable<any> {
         if (sort) {
             this.forms.sort(function(a, b) {return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
@@ -201,7 +207,6 @@ export class FormService {
         this.alert.setAlert('Warning', `The requrested Element Type (${type}) is not valid. Please Contact your administrator.`);
         this.setAddingElement(false);
     }
-
 
     /**
      * @description Open the Add Element View with the Element as preset
@@ -265,7 +270,6 @@ export class FormService {
         return false;
     }
 
-
     /**
      * @description add the FormElement to the Form
      * @param {FormElement} element the FormElement as JSON
@@ -305,7 +309,12 @@ export class FormService {
         return true;
     }
 
-    public addPresetToForm(name: string) {
+    /**
+     * @description adds a preset to the current form
+     * @param {string} name the key/id/name of the preset
+     * @return {void}
+     */
+    public addPresetToForm(name: string): void {
         this.editingElementIndex = -1;
         // TODO: load real data
         return this.addElementToForm({"elementType":"input","name":"matnr","required":true,"label":"Matrikelnummer","type":"number","placeholder":"","styles":["small"],"value":""}, 'clone');
@@ -351,7 +360,12 @@ export class FormService {
         });
     }
 
-    public saveFormAttributes(form): Observable<any> {
+    /**
+     * @description save the attributes (title, etc) of the form
+     * @param {Form} form the edit-form with the data to save
+     * @return {Observable}
+     */
+    public saveFormAttributes(form: Form): Observable<any> {
         // TODO: save real data
         return new Observable(observer => {
             setTimeout(() => {
