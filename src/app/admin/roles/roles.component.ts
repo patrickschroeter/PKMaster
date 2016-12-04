@@ -17,7 +17,7 @@ export class RolesComponent implements OnInit {
     ngOnInit() {
         this.newRole =  [
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'title',
                 label: 'Role Name:',
                 value: '',

@@ -3,18 +3,18 @@ import { Observable, BehaviorSubject } from 'rxjs/Rx';
 
 import { FormService } from './../form';
 import { AlertService } from './../alert';
-import { FormElement } from './../../../swagger';
+import { Field } from './../../../swagger';
 
 @Injectable()
 export class FormElementService {
 
     /** The current Element as FormElement[] */
-    private element: FormElement[];
+    private element: Field[];
     /** The default view for adding new Element */
-    private elementBase: FormElement[] = [];
+    private elementBase: Field[] = [];
 
     /** The Select Element for the Element Type */
-    private selectTypeFormElement: FormElement = {};
+    private selectTypeFormElement: Field = {};
     /** The current Selected Element Type */
     private selectedType: string;
 
@@ -22,7 +22,7 @@ export class FormElementService {
     private selectedOptionsLength: Array<Object>;
 
     constructor(private formService: FormService, private alert: AlertService) {
-        this.formService.onEditElement().subscribe((element?: FormElement) => {
+        this.formService.onEditElement().subscribe((element?: Field) => {
             if (element) {
                 if (!this.editExistingElement(element)) {
                     this.formService.editElementError(this.selectedType);
@@ -32,8 +32,8 @@ export class FormElementService {
             }
         });
 
-        this.getElementTypeOptions().subscribe(elementTypes => {
-            this.selectTypeFormElement = elementTypes;
+        this.getElementTypeOptions().subscribe(fieldTypes => {
+            this.selectTypeFormElement = fieldTypes;
             this.elementBase = [this.selectTypeFormElement];
             this.resetElement();
         });
@@ -45,7 +45,7 @@ export class FormElementService {
      */
     private resetElement(): void {
         delete this.selectTypeFormElement.value;
-        delete this.selectTypeFormElement.formControl;
+        delete this.selectTypeFormElement['formControl'];
         this.selectedType = null;
         this.selectedOptionTable = null;
 
@@ -69,11 +69,11 @@ export class FormElementService {
      * @param {FormElement} element the FormElement to edit
      * @return {void}
      */
-    private editExistingElement(element: FormElement): boolean {
+    private editExistingElement(element: Field): boolean {
 
         this.resetElement();
 
-        let type = element['elementType'];
+        let type = element['fieldType'];
 
         /** Check if the required Element Type exists in Select Options */
         let existing = false;
@@ -144,7 +144,7 @@ export class FormElementService {
                 let formElementOptions;
                 for (let i = 0, length = generatedFormOfElement.length; i < length; i++) {
                     let input = generatedFormOfElement[i];
-                    if (element[input.name] && input.name !== 'elementType') {
+                    if (element[input.name] && input.name !== 'fieldType') {
                         input.value = element[input.name];
                         if (input.name === 'optionTable') {
                             useCustomOptions = false;
@@ -180,7 +180,7 @@ export class FormElementService {
     public updateElement(form): void {
 
         /** Load Type Options on change */
-        let type = form.elementType;
+        let type = form.fieldType;
         if (type && type !== this.selectedType) {
             this.selectedType = type;
             this.getOptionsOfElementType(type).subscribe((options) => {
@@ -216,7 +216,7 @@ export class FormElementService {
             for (let i = 0, length = this.element.length; i < length; i++) {
                 let element = this.element[i];
                 if (element.name === 'optionTable') {
-                    element.formControl.setValue('');
+                    element['formControl'].setValue('');
                     break;
                 }
             }
@@ -247,7 +247,7 @@ export class FormElementService {
             if (optionElement) {
                 optionElement.options = options;
                 this.selectedOptionsLength = optionElement.options.length;
-                optionElement.formControl.setValue(optionElement.options);
+                optionElement['formControl'].setValue(optionElement.options);
             }
         });
     }
@@ -330,7 +330,7 @@ export class FormElementService {
      * @param {Number} reset 0: add, reset, close; 1:add, reset; 3: add
      * @return {void}
      */
-    public saveElement(element: FormElement, mode?: 'clone' | 'add'): void {
+    public saveElement(element: Field, mode?: 'clone' | 'add'): void {
         if (this.formService.addElementToForm(element, mode)) {
             if (!mode || mode === 'add') {
                 this.resetElement();
@@ -387,19 +387,19 @@ export class FormElementService {
 
     /**
      * @description cath all available options of the element type from the server
-     * @param {string} elementType
+     * @param {string} fieldType
      * @return {Observable}
      */
-    private getOptionsOfElementType(elementType: string): Observable<any> {
+    private getOptionsOfElementType(fieldType: string): Observable<any> {
         let name = nm();
         let options = opts();
-        this.alert.setLoading('getOptionsOfInputType', `${elementType.toUpperCase()}: Loading Options...`);
+        this.alert.setLoading('getOptionsOfInputType', `${fieldType.toUpperCase()}: Loading Options...`);
         return new Observable(observer => {
             setTimeout(() => {
                 this.alert.removeHint('getOptionsOfInputType');
-                let devider = { elementType: 'devider' };
+                let devider = { fieldType: 'devider' };
                 let result = [].concat(name);
-                let element = options[elementType];
+                let element = options[fieldType];
                 if (element) { result = result.concat(element); }
                 result.push(devider);
                 observer.next(result);
@@ -410,16 +410,16 @@ export class FormElementService {
 
     /**
      * @description cath all available validations of the element type from the server
-     * @param {string} elementType
+     * @param {string} fieldType
      * @return {Observable}
      */
-    private getValidationsOfInputType(elementType: string): Observable<any> {
+    private getValidationsOfInputType(fieldType: string): Observable<any> {
         let options = validations();
-        this.alert.setLoading('getValidationsOfInputType', `${elementType.toUpperCase()}: Loading Validations...`);
+        this.alert.setLoading('getValidationsOfInputType', `${fieldType.toUpperCase()}: Loading Validations...`);
         return new Observable(observer => {
             setTimeout(() => {
                 this.alert.removeHint('getValidationsOfInputType');
-                observer.next(options[elementType]);
+                observer.next(options[fieldType]);
                 observer.complete();
             }, 500);
         });
@@ -427,12 +427,12 @@ export class FormElementService {
 
     /**
      * @description cath all available styles of the element type from the server
-     * @param {string} elementType
+     * @param {string} fieldType
      * @return {Observable}
      */
-    private getStylesOfInputType(elementType: string): Observable<any> {
+    private getStylesOfInputType(fieldType: string): Observable<any> {
         let options = styles();
-        this.alert.setLoading('getStyles', `${elementType.toUpperCase()}: Loading Styles...`);
+        this.alert.setLoading('getStyles', `${fieldType.toUpperCase()}: Loading Styles...`);
         return new Observable(observer => {
             setTimeout(() => {
                 this.alert.removeHint('getStyles');
@@ -451,11 +451,11 @@ export class FormElementService {
     /**
      * @description BehaviorSubject for the element
      */
-    private elementRx: BehaviorSubject<FormElement[]> = new BehaviorSubject(this.element);
-    public getElement(): Observable<FormElement[]> {
+    private elementRx: BehaviorSubject<Field[]> = new BehaviorSubject(this.element);
+    public getElement(): Observable<Field[]> {
         return this.elementRx.asObservable();
     }
-    private setElement(element: FormElement[]): void {
+    private setElement(element: Field[]): void {
         this.element = element;
         this.elementRx.next(this.element);
     }
@@ -464,11 +464,11 @@ export class FormElementService {
     /**
      * @description BehaviorSubject for the preview element
      */
-    private elementPreviewRx: BehaviorSubject<FormElement[]> = new BehaviorSubject(null);
-    public getElementPreview(): Observable<FormElement[]> {
+    private elementPreviewRx: BehaviorSubject<Field[]> = new BehaviorSubject(null);
+    public getElementPreview(): Observable<Field[]> {
         return this.elementPreviewRx.asObservable();
     }
-    private setElementPreview(element: FormElement[]): void {
+    private setElementPreview(element: Field[]): void {
         this.elementPreviewRx.next(element);
     }
 
@@ -535,11 +535,11 @@ export class FormElementService {
 function types() {
 
     let types = {
-        elementType: 'select',
-        name: 'elementType',
+        fieldType: 'select',
+        name: 'fieldType',
         label: 'Element Typ',
         required: true,
-        multiple: false,
+        multipleSelect: false,
         options: [
             {
                 value: 'input',
@@ -597,7 +597,7 @@ function types() {
 function nm() {
 
     let nm = [{
-        elementType: 'input',
+        fieldType: 'input',
         name: 'name',
         label: 'Unique Name (ID)',
         required: true,
@@ -613,7 +613,7 @@ function opts() {
     let opts = {
         input: [
             {
-                elementType: 'checkbox',
+                fieldType: 'checkbox',
                 name: 'required',
                 label: 'Required Field',
                 styles: [
@@ -621,7 +621,7 @@ function opts() {
                 ]
             },
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'label',
                 label: 'Label of the Input',
                 styles: [
@@ -629,11 +629,11 @@ function opts() {
                 ]
             },
             {
-                elementType: 'select',
+                fieldType: 'select',
                 name: 'type',
                 label: 'Type of Content',
                 required: true,
-                multiple: false,
+                multipleSelect: false,
                 value: 'text',
                 options: [
                     {
@@ -662,7 +662,7 @@ function opts() {
                 ]
             },
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'placeholder',
                 label: 'Placeholder',
                 styles: [
@@ -672,7 +672,7 @@ function opts() {
         ],
         textarea: [
             {
-                elementType: 'checkbox',
+                fieldType: 'checkbox',
                 name: 'required',
                 label: 'Required Field',
                 styles: [
@@ -680,7 +680,7 @@ function opts() {
                 ]
             },
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'label',
                 label: 'Label of the Input',
                 styles: [
@@ -688,7 +688,7 @@ function opts() {
                 ]
             },
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'placeholder',
                 label: 'Placeholder',
                 styles: [
@@ -698,7 +698,7 @@ function opts() {
         ],
         checkbox: [
             {
-                elementType: 'checkbox',
+                fieldType: 'checkbox',
                 name: 'required',
                 label: 'Required Field',
                 styles: [
@@ -706,7 +706,7 @@ function opts() {
                 ]
             },
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'label',
                 label: 'Label',
                 required: true
@@ -714,7 +714,7 @@ function opts() {
         ],
         radio: [
             {
-                elementType: 'checkbox',
+                fieldType: 'checkbox',
                 name: 'required',
                 label: 'Required Field',
                 styles: [
@@ -722,7 +722,7 @@ function opts() {
                 ]
             },
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'label',
                 label: 'Label',
                 required: true,
@@ -731,13 +731,13 @@ function opts() {
                 ]
             },
             {
-                elementType: 'devider'
+                fieldType: 'devider'
             },
             {
-                elementType: 'h4',
+                fieldType: 'h4',
                 value: 'Create a custom List or use an existing one.'
             }, {
-                elementType: 'select',
+                fieldType: 'select',
                 name: 'optionTable',
                 label: 'Table of Options',
                 options: [
@@ -759,7 +759,7 @@ function opts() {
                 ]
             },
             {
-                elementType: 'datalist',
+                fieldType: 'datalist',
                 name: 'options',
                 label: 'Options',
                 required: true,
@@ -770,7 +770,7 @@ function opts() {
         ],
         select: [
             {
-                elementType: 'checkbox',
+                fieldType: 'checkbox',
                 name: 'required',
                 label: 'Required Field',
                 styles: [
@@ -778,7 +778,7 @@ function opts() {
                 ]
             },
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'label',
                 label: 'Label',
                 styles: [
@@ -786,7 +786,7 @@ function opts() {
                 ]
             },
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'placeholder',
                 label: 'Placeholder',
                 styles: [
@@ -794,14 +794,14 @@ function opts() {
                 ]
             },
             {
-                elementType: 'devider'
+                fieldType: 'devider'
             },
             {
-                elementType: 'h4',
+                fieldType: 'h4',
                 value: 'Create a custom List or use an existing one.'
             },
             {
-                elementType: 'select',
+                fieldType: 'select',
                 name: 'optionTable',
                 label: 'Table of Options',
                 options: [
@@ -823,7 +823,7 @@ function opts() {
                 ]
             },
             {
-                elementType: 'datalist',
+                fieldType: 'datalist',
                 name: 'options',
                 label: 'Options',
                 required: true,
@@ -834,7 +834,7 @@ function opts() {
         ],
         info: [
             {
-                elementType: 'textarea',
+                fieldType: 'textarea',
                 name: 'value',
                 label: 'Content',
                 required: true
@@ -842,7 +842,7 @@ function opts() {
         ],
         h1: [
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'value',
                 label: 'Content',
                 required: true
@@ -850,7 +850,7 @@ function opts() {
         ],
         h2: [
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'value',
                 label: 'Content',
                 required: true
@@ -858,7 +858,7 @@ function opts() {
         ],
         h3: [
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'value',
                 label: 'Content',
                 required: true
@@ -866,7 +866,7 @@ function opts() {
         ],
         h4: [
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'value',
                 label: 'Content',
                 required: true
@@ -886,10 +886,10 @@ function validations() {
     let validations = {
         input: [
             {
-                elementType: 'select',
+                fieldType: 'select',
                 name: 'validations',
                 label: 'Validation Options',
-                multiple: true,
+                multipleSelect: true,
                 options: [
                     {
                         value: 'isEmail',
@@ -926,10 +926,10 @@ function validations() {
 
 function styles() {
     let styles = {
-        elementType: 'select',
+        fieldType: 'select',
         name: 'styles',
         label: 'Style Options',
-        multiple: true,
+        multipleSelect: true,
         options: [
             {
                 value: 'small',

@@ -155,28 +155,28 @@ export class StyleguideComponent implements OnInit {
             {
                 header: 'Default Input',
 
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'input-default',
                 value: 'Default'
             },
             {
                 header: 'Input with Label',
 
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'input-label',
                 label: 'Label'
             },
             {
                 header: 'Input with Placeholder',
 
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'input-placeholder',
                 placeholder: 'E-mail'
             },
             {
                 header: 'Required Input',
 
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'input-required',
                 label: 'Required',
                 required: true
@@ -184,15 +184,15 @@ export class StyleguideComponent implements OnInit {
             {
                 header: 'Password Input',
 
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'input-password',
                 label: 'Password',
-                type: 'password',
+                contentType: 'password',
             },
             {
                 header: 'Validated Input',
 
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'input-validation',
                 validations: [
                     'useExternalEmail',
@@ -204,7 +204,7 @@ export class StyleguideComponent implements OnInit {
             {
                 header: 'Small Input',
 
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'input-small',
                 styles: [
                     'small'
@@ -213,7 +213,7 @@ export class StyleguideComponent implements OnInit {
             {
                 header: 'Textarea (with the same options)',
 
-                elementType: 'textarea',
+                fieldType: 'textarea',
                 name: 'input-textarea',
                 placeholder: 'Some text will be here...',
                 required: true,
@@ -231,14 +231,14 @@ export class StyleguideComponent implements OnInit {
             {
                 header: 'Default Checkbox',
 
-                elementType: 'checkbox',
+                fieldType: 'checkbox',
                 name: 'agree',
                 label: 'I\'m Batman.',
             },
             {
                 header: 'ToBeTrue (Required) Checkbox',
 
-                elementType: 'checkbox',
+                fieldType: 'checkbox',
                 name: 'student',
                 label: 'This is Sparta!',
                 validations: [
@@ -251,7 +251,7 @@ export class StyleguideComponent implements OnInit {
             {
                 header: 'Default Radiobuttons',
 
-                elementType: 'radio',
+                fieldType: 'radio',
                 name: 'radio-default',
                 label: 'Default Radio',
                 value: 'a',
@@ -273,7 +273,7 @@ export class StyleguideComponent implements OnInit {
             {
                 header: 'Required Radiobuttons',
 
-                elementType: 'radio',
+                fieldType: 'radio',
                 name: 'radio-required',
                 label: 'required Radio',
                 required: true,
@@ -298,11 +298,11 @@ export class StyleguideComponent implements OnInit {
             {
                 header: 'Default (single) Select',
 
-                elementType: 'select',
+                fieldType: 'select',
                 name: 'country',
                 label: 'Land',
                 required: true,
-                multiple: false,
+                multipleSelect: false,
                 options: [
                     {
                         value: 'de',
@@ -341,10 +341,10 @@ export class StyleguideComponent implements OnInit {
             {
                 header: 'Multi-Select',
 
-                elementType: 'select',
+                fieldType: 'select',
                 name: 'country',
                 label: 'Land',
-                multiple: true,
+                multipleSelect: true,
                 styles: [
                     'small'
                 ],

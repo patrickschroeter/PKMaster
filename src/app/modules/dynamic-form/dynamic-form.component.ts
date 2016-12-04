@@ -5,7 +5,7 @@ import { InputValidationService } from './../../core';
 
 import { DynamicFormService } from './services';
 
-import { FormElement } from './../../swagger';
+import { Field } from './../../swagger';
 
 @Component({
     selector: 'pk-dynamic-form',
@@ -17,7 +17,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
     @HostBinding('class.form') formClass = true;
 
-    @Input() formElements: FormElement[];
+    @Input() formElements: Field[];
 
     @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
 

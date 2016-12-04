@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { DynamicFormService } from './../../services';
 
-import { FormElement } from './../../../../swagger';
+import { Field } from './../../../../swagger';
 
 @Component({
     selector: 'pk-dynamic-form-element',
@@ -24,7 +24,7 @@ export class DynamicFormElementComponent implements OnInit {
      * @param {FormElement} element the element to validate
      * @return {void}
      */
-    showElementValidation(element: FormElement): void {
+    showElementValidation(element: Field): void {
         this.dynamicForm.showElementValidation(element);
     }
 

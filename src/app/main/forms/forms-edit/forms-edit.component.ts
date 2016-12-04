@@ -2,7 +2,7 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { FormService, AlertService, FormElementService } from './../../../core';
-import { FormElement } from './../../../swagger';
+import { Field } from './../../../swagger';
 
 @Component({
     selector: 'pk-forms-edit',
@@ -56,7 +56,7 @@ export class FormsEditComponent implements OnInit {
      * @param {FormElement} element
      * @return {void}
      */
-    editElement(element: FormElement): void {
+    editElement(element: Field): void {
         this.formService.editElement(element);
     }
 
@@ -104,7 +104,7 @@ export class FormsEditComponent implements OnInit {
      * @param {FormElement} element
      * @return {void}
      */
-    removeElement(element: FormElement, index: number): void {
+    removeElement(element: Field, index: number): void {
         this.formService.removeElement(element, index);
     }
 

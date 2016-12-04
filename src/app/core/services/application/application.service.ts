@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import { AlertService } from './../alert';
 import { FormService } from './../form';
 
-import { Application, FormElement, State } from './../../../swagger';
+import { Application, Field, Status } from './../../../swagger';
 
 @Injectable()
 export class ApplicationService {
@@ -23,59 +23,59 @@ export class ApplicationService {
         });
         this.applications = [
             {
-                id: 1,
-                state: State.NameEnum.created,
-                created: 20160631,
+                id: '1',
+                status: 'created',
+                created: new Date(2016, 6, 4),
                 form: {
                     title: 'Bachelorarbeit'
                 }
             },
             {
-                id: 2,
-                state: State.NameEnum.submitted,
-                created: 20160730,
+                id: '2',
+                status: 'submitted',
+                created: new Date(2016, 7, 12),
                 form: {
                     title: 'Masterarbeit'
                 }
             },
             {
-                id: 3,
-                state: State.NameEnum.rescinded,
-                created: 20160801,
+                id: '3',
+                status: 'rescinded',
+                created: new Date(2016, 5, 21),
                 form: {
                     title: 'Notenanrechnung'
                 }
             },
             {
-                id: 4,
-                state: State.NameEnum.deactivated,
-                created: 20160716,
+                id: '4',
+                status: 'deactivated',
+                created: new Date(2016, 4, 1),
                 form: {
                     title: 'Notenänderung'
                 }
             },
             {
-                id: 5,
-                state: State.NameEnum.pending,
-                created: 20160525,
+                id: '5',
+                status: 'pending',
+                created: new Date(2016, 9, 23),
                 form: {
                     title: 'Anrechnung der Ausbildung'
                 }
             },
             {
-                id: 6,
-                state: State.NameEnum.accepted,
-                created: 20160619,
-                modified: 20160620,
+                id: '6',
+                status: 'accepted',
+                created: new Date(2016, 2, 5),
+                modified: new Date(2016, 11, 14),
                 form: {
                     title: 'Anrechnung von Studienfächern'
                 }
             },
             {
-                id: 7,
-                state: State.NameEnum.denied,
-                created: 20160731,
-                modified: 20161220,
+                id: '7',
+                status: 'denied',
+                created: new Date(2016, 10, 5),
+                modified: new Date(2016, 12, 5),
                 form: {
                     title: 'Urlaubssemester'
                 }
@@ -163,7 +163,7 @@ export class ApplicationService {
         });
         // hack end
         this.application = {
-            id: 17,
+            id: '17',
             form: {
                 title: application['application-form']
             }
@@ -180,7 +180,7 @@ export class ApplicationService {
     }
 
     public submitApplication(application: Application): Observable<Application> {
-        if ([State.NameEnum.created].indexOf(application.state) === -1) {
+        if (['created'].indexOf(application.status.name) === -1) {
             this.alert.setAlert('Not Allowed', 'This operation is not allowed.');
             return new Observable(observer => { observer.error('Error'); });
         }
@@ -188,7 +188,7 @@ export class ApplicationService {
         return new Observable(observer => {
             setTimeout(() => {
                 this.alert.removeHint(`submitApplication${application.id}`);
-                application.state = State.NameEnum.submitted;
+                application.status = 'submitted';
                 observer.next(application);
                 observer.complete();
             }, 200);
@@ -196,7 +196,7 @@ export class ApplicationService {
     }
 
     public rescindApplication(application: Application): Observable<Application> {
-        if ([State.NameEnum.submitted].indexOf(application.state) === -1) {
+        if (['submitted'].indexOf(application.status.name) === -1) {
             this.alert.setAlert('Not Allowed', 'This operation is not allowed.');
             return new Observable(observer => { observer.error('Error'); });
         }
@@ -204,7 +204,7 @@ export class ApplicationService {
         return new Observable(observer => {
             setTimeout(() => {
                 this.alert.removeHint(`rescindApplication${application.id}`);
-                application.state = State.NameEnum.rescinded;
+                application.status = 'rescinded';
                 observer.next(application);
                 observer.complete();
             }, 200);
@@ -212,7 +212,7 @@ export class ApplicationService {
     }
 
     public deactivateApplication(application: Application): Observable<Application> {
-        if ([State.NameEnum.created, State.NameEnum.rescinded].indexOf(application.state) === -1) {
+        if (['created', 'rescinded'].indexOf(application.status.name) === -1) {
             this.alert.setAlert('Not Allowed', 'This operation is not allowed.');
             return new Observable(observer => { observer.error('Error'); });
         }
@@ -220,7 +220,7 @@ export class ApplicationService {
         return new Observable(observer => {
             setTimeout(() => {
                 this.alert.removeHint(`deactivateApplication${application.id}`);
-                application.state = State.NameEnum.deactivated;
+                application.status = 'deactivated';
                 observer.next(application);
                 observer.complete();
             }, 200);
@@ -234,7 +234,7 @@ export class ApplicationService {
     public saveApplication(form): Observable<Application> {
         if (this.application.attributes) {
             for (let i = 0, length = this.application.attributes.length; i < length; i++) {
-                let element: FormElement = this.application.attributes[i];
+                let element: Field = this.application.attributes[i];
                 element.value = form[element.name];
             };
         }
@@ -244,7 +244,7 @@ export class ApplicationService {
                 for (let i = 0, length = this.applications.length; i < length; i++) {
                     let element = this.applications[i];
                     if (element.id === this.application.id) {
-                        element.state = State.NameEnum.created;
+                        element.status = 'created';
                     }
                 }
                 this.alert.removeHint('saveApplication');

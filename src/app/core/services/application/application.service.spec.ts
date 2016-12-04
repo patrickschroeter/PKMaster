@@ -11,7 +11,7 @@ import {
 import { AlertService, AlertMock } from './../alert';
 
 import { ApplicationMock } from './';
-import { State } from './../../../swagger';
+import { Status } from './../../../swagger';
 
 describe('Service: Application', () => {
     beforeEach(() => {
@@ -81,19 +81,19 @@ describe('Service: Application', () => {
     })));
 
     describe('Function: rescindApplication', () => {
-        it('should change the state so rescinded if allowed', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+        it('should change the status so rescinded if allowed', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
             let element;
-            service.rescindApplication({ state: State.NameEnum.submitted }).subscribe(result => {
+            service.rescindApplication({ status: 'submitted' }).subscribe(result => {
                 element = result;
             });
             expect(element).toBeUndefined();
             tick(1000);
-            expect(element.state).toEqual(State.NameEnum.rescinded);
+            expect(element.status).toEqual('rescinded');
         })));
-        it('should throw and alert an error if state change is not allowed', fakeAsync(inject([ApplicationService, AlertService], (service: ApplicationService, alert: AlertService) => {
+        it('should throw and alert an error if status change is not allowed', fakeAsync(inject([ApplicationService, AlertService], (service: ApplicationService, alert: AlertService) => {
             let response;
             spyOn(alert, 'setAlert');
-            service.rescindApplication({ state: State.NameEnum.deactivated }).subscribe(result => {
+            service.rescindApplication({ status: 'deactivated' }).subscribe(result => {
                 response = 'success';
             }, error => {
                 response = 'error';
@@ -105,19 +105,19 @@ describe('Service: Application', () => {
     });
 
     describe('Function: deactivateApplication', () => {
-        it('should change the appliation state to deactivated if allowed', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+        it('should change the appliation status to deactivated if allowed', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
             let element;
-            service.deactivateApplication({ state: State.NameEnum.created }).subscribe(result => {
+            service.deactivateApplication({ status: 'created' }).subscribe(result => {
                 element = result;
             });
             expect(element).toBeUndefined();
             tick(1000);
-            expect(element.state).toEqual(State.NameEnum.deactivated);
+            expect(element.status).toEqual('deactivated');
         })));
-        it('should throw and alert an error if state change is not allowed', fakeAsync(inject([ApplicationService, AlertService], (service: ApplicationService, alert: AlertService) => {
+        it('should throw and alert an error if status change is not allowed', fakeAsync(inject([ApplicationService, AlertService], (service: ApplicationService, alert: AlertService) => {
             let response;
             spyOn(alert, 'setAlert');
-            service.deactivateApplication({ state: State.NameEnum.deactivated }).subscribe(result => {
+            service.deactivateApplication({ status: 'deactivated' }).subscribe(result => {
                 response = 'success';
             }, error => {
                 response = 'error';
@@ -129,19 +129,19 @@ describe('Service: Application', () => {
     });
 
     describe('Function: submitApplication', () => {
-        it('should change the application state to submitted if allowed', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+        it('should change the application status to submitted if allowed', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
             let element;
-            service.submitApplication({ state: State.NameEnum.created }).subscribe(result => {
+            service.submitApplication({ status: 'created' }).subscribe(result => {
                 element = result;
             });
             expect(element).toBeUndefined();
             tick(1000);
-            expect(element.state).toEqual(State.NameEnum.submitted);
+            expect(element.status).toEqual('submitted');
         })));
-        it('should throw and alert an error if state change is not allowed', fakeAsync(inject([ApplicationService, AlertService], (service: ApplicationService, alert: AlertService) => {
+        it('should throw and alert an error if status change is not allowed', fakeAsync(inject([ApplicationService, AlertService], (service: ApplicationService, alert: AlertService) => {
             let response;
             spyOn(alert, 'setAlert');
-            service.submitApplication({ state: State.NameEnum.deactivated }).subscribe(result => {
+            service.submitApplication({ status: 'deactivated' }).subscribe(result => {
                 response = 'success';
             }, error => {
                 response = 'error';

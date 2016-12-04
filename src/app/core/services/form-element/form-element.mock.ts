@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Rx';
 @Injectable()
 export class FormElementMock {
 
-    static FORMELEMENT = { elementType: 'input', name: 'date', type: 'date', label: 'Augsburg, den', styles: ['small'] };
+    static FORMELEMENT = { fieldType: 'input', name: 'date', contentType: 'date', label: 'Augsburg, den', styles: ['small'] };
 
     constructor() {}
 

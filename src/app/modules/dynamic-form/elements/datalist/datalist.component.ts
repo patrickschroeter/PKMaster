@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 
 import { AlertService } from './../../../../core';
 
-import { FormElement } from './../../../../swagger';
+import { Field } from './../../../../swagger';
 
 @Component({
     selector: 'pk-datalist',
@@ -13,7 +13,7 @@ export class DatalistComponent implements OnInit {
 
     @HostBinding('class.element') element = true;
 
-    @Input() config: FormElement;
+    @Input() config: Field;
     @Input() disabled: boolean;
 
     private isOpen: boolean;
@@ -23,7 +23,7 @@ export class DatalistComponent implements OnInit {
     constructor(private alert: AlertService) { }
 
     ngOnInit() {
-        if (this.config && !this.config.formControl) { this.config.formControl = new FormControl(this.config.value); }
+        if (this.config && !this.config['formControl']) { this.config['formControl'] = new FormControl(this.config.value); }
 
         this.initAddOptionsForm();
     }
@@ -31,7 +31,7 @@ export class DatalistComponent implements OnInit {
     initAddOptionsForm() {
         this.addOptionForm = [
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'value',
                 required: true,
                 placeholder: 'Value (unique Id)',
@@ -40,7 +40,7 @@ export class DatalistComponent implements OnInit {
                 ]
             },
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'label',
                 required: true,
                 placeholder: 'Display Name',
@@ -64,7 +64,7 @@ export class DatalistComponent implements OnInit {
 
     addOption(element) {
         // add value to values
-        let values = this.config.formControl.value;
+        let values = this.config['formControl'].value;
         if (!values) { values = []; }
 
         let index = this.indexOf(element, values);
@@ -74,7 +74,7 @@ export class DatalistComponent implements OnInit {
             values[index].label = element.label;
         }
 
-        this.config.formControl.setValue(values);
+        this.config['formControl'].setValue(values);
 
         // add element to options
 
@@ -96,10 +96,10 @@ export class DatalistComponent implements OnInit {
 
     removeOption(element) {
         // remove value from values
-        let values = this.config.formControl.value;
+        let values = this.config['formControl'].value;
         let index = this.indexOf(element, values);
         if (index !== -1) { values.splice(index, 1); }
-        this.config.formControl.setValue(values);
+        this.config['formControl'].setValue(values);
 
         // remove element from options
         if (this.indexOf(element, this.config.options) !== -1) {

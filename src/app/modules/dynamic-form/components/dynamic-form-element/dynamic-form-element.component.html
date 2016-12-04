@@ -3,7 +3,7 @@
         [ngClass]="{ 'form__element--small': element.styles && element.styles.indexOf('small') !== -1, 'form__element--aligned': element.styles && element.styles.indexOf('aligned') !== -1}"
         (mouseover)="showElementValidation(element)"
         (mouseout)="hideElementValidation()">
-        <div class="rel" [ngSwitch]="element.elementType">
+        <div class="rel" [ngSwitch]="element.fieldType">
             <pk-input       *ngSwitchCase="'input'"     ngDefaultControl [config]="element" [disabled]="disabled"></pk-input>
 
             <pk-checkbox    *ngSwitchCase="'checkbox'"  ngDefaultControl [config]="element" [disabled]="disabled"></pk-checkbox>

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { FormElement } from './../../../../swagger';
+import { Field } from './../../../../swagger';
 
 @Component({
     selector: 'pk-select',
@@ -11,7 +11,7 @@ export class SelectComponent implements OnInit {
 
     @HostBinding('class.element') element = true;
 
-    @Input() config: FormElement;
+    @Input() config: Field;
     @Input() disabled: boolean;
 
     private isOpen: boolean;
@@ -24,7 +24,7 @@ export class SelectComponent implements OnInit {
     ngOnInit() {
         this.isOpen = false;
 
-        if (this.config && !this.config.formControl) { this.config.formControl = new FormControl(this.config.value); }
+        if (this.config && !this.config['formControl']) { this.config['formControl'] = new FormControl(this.config.value); }
     }
 
     isDisabled() {
@@ -36,13 +36,13 @@ export class SelectComponent implements OnInit {
     }
 
     select(option) {
-        if (!this.config.multiple) {
-            this.config.formControl.setValue(option.value);
+        if (!this.config.multipleSelect) {
+            this.config['formControl'].setValue(option.value);
             this.toggleSelectOverlay();
             return;
         }
 
-        let values = this.config.formControl.value;
+        let values = this.config['formControl'].value;
         if (!values) { values = []; }
 
         let value = option.value;
@@ -53,7 +53,7 @@ export class SelectComponent implements OnInit {
             values.splice(index, 1);
         }
 
-        this.config.formControl.setValue(values);
+        this.config['formControl'].setValue(values);
     }
 
     filterOptions(event) {
@@ -71,11 +71,11 @@ export class SelectComponent implements OnInit {
     }
 
     removeOption(option) {
-        let values = this.config.formControl.value;
+        let values = this.config['formControl'].value;
         let value = option.value;
         let index = values.indexOf(value);
         if (index !== -1) { values.splice(index, 1); }
-        this.config.formControl.setValue(values);
+        this.config['formControl'].setValue(values);
     }
 
 }

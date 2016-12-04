@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 
 import { FormElementService } from './../../../core';
-import { FormElement } from './../../../swagger';
+import { Field } from './../../../swagger';
 
 @Component({
     selector: 'pk-element-edit',
@@ -11,9 +11,9 @@ import { FormElement } from './../../../swagger';
 export class ElementEditComponent implements OnInit {
 
     /** The current Element as FormElement[] */
-    private element: Array<FormElement>;
+    private element: Array<Field>;
     /** The new Element interpreted as new FormElement */
-    private elementPreview: Array<FormElement> = [];
+    private elementPreview: Array<Field> = [];
     /** Flag if View has Submit Enabled */
     private elementHasSubmit: boolean = false;
     /** Flag if View has Preview Enabled */
@@ -47,7 +47,7 @@ export class ElementEditComponent implements OnInit {
      * @param {FormElement} form
      * @return {void}
      */
-    updateElement(form: FormElement): void {
+    updateElement(form: Field): void {
         this.elementService.updateElement(form);
     }
 
@@ -80,11 +80,11 @@ export class ElementEditComponent implements OnInit {
      * @param {FormElement} element
      * @return {void}
      */
-    saveElement(element: FormElement): void {
+    saveElement(element: Field): void {
         this.elementService.saveElement(element);
     }
 
-    copyElement(element: FormElement, type: 'clone' | 'add'): void {
+    copyElement(element: Field, type: 'clone' | 'add'): void {
         this.elementService.saveElement(element, type);
     }
 

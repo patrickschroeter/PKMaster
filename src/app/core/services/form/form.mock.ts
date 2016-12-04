@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 @Injectable()
 export class FormMock {
 
-    static FORM = { title: 'Titel der Form', id: 13, elements: [ { elementType: 'h3', name: 'header01', value: 'Hochschule für Angewandte Wissenschaften Augsburg', styles: ['small'] }, { elementType: 'input', name: 'date', type: 'date', label: 'Augsburg, den', styles: ['small'] }]};
+    static FORM = { title: 'Titel der Form', id: 13, elements: [ { fieldType: 'h3', name: 'header01', value: 'Hochschule für Angewandte Wissenschaften Augsburg', styles: ['small'] }, { fieldType: 'input', name: 'date', type: 'date', label: 'Augsburg, den', styles: ['small'] }]};
 
     constructor() { }
 

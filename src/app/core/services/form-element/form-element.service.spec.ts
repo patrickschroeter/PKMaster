@@ -6,7 +6,7 @@ import { FormElementService } from './form-element.service';
 import { AlertService, AlertMock } from './../alert';
 import { FormService, FormMock } from './../form';
 
-import { FormElement } from './../../../swagger';
+import { Field } from './../../../swagger';
 
 describe('Service: FormElement', () => {
     beforeEach(() => {

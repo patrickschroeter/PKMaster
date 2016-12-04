@@ -4,14 +4,14 @@
 
         <pk-list>
             <pk-list-header>
-                <pk-list-attribute (click)="sortBy('restricted')" [name]="'state-icon'"></pk-list-attribute>
+                <pk-list-attribute (click)="sortBy('restrictedAccess')" [name]="'state-icon'"></pk-list-attribute>
                 <pk-list-attribute (click)="sortBy('title')" [name]="'name'">Title</pk-list-attribute>
                 <pk-list-attribute (click)="sortBy('created')" [name]="'date'">Created</pk-list-attribute>
                 <pk-list-attribute [name]="'version'">Version</pk-list-attribute>
                 <pk-list-attribute [name]="'state'">Status</pk-list-attribute>
             </pk-list-header>
             <pk-list-content>
-                <pk-list-element *ngFor="let form of forms" [name]="form.restricted ? 'restricted' : 'no-restricted'">
+                <pk-list-element *ngFor="let form of forms" [name]="form.restrictedAccess ? 'restricted' : 'no-restricted'">
                     <pk-list-attribute [name]="'state-icon'"></pk-list-attribute>
                     <pk-list-attribute [name]="'name'">
                         <a routerLink="/forms/{{ form.id }}/edit">{{ form.title }}</a>

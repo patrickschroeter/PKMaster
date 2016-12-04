@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs/Rx';
 
 import { AlertService } from './../alert';
-import { FormElement, Form } from './../../../swagger';
+import { Field, Form } from './../../../swagger';
 
 @Injectable()
 export class FormService {
@@ -16,22 +16,22 @@ export class FormService {
     private addingElement$: Observer<boolean>;
     private addingElementRx: Observable<any>;
 
-    private editElementRx: Observable<FormElement>;
-    private editElement$: Observer<FormElement>;
+    private editElementRx: Observable<Field>;
+    private editElement$: Observer<Field>;
 
     constructor(private alert: AlertService) {
         this.form = {
             title: 'Titel der Form',
             id: 13,
-            elements: [{ elementType: 'h3', name: 'header01', value: 'Hochschule für Angewandte Wissenschaften Augsburg', styles: ['small'] }, { elementType: 'input', name: 'date', type: 'date', label: 'Augsburg, den', styles: ['small'] }, { elementType: 'h4', name: 'header02', value: 'Zulassungsantrag - Abschlussarbeit', styles: ['small'] }, { elementType: 'input', name: 'matnr', type: 'number', label: 'Matrikelnummer', validations: ['minLength', 'maxLength'], styles: ['small'] }, { elementType: 'input', name: 'fakultaet', label: 'Fakultaet', styles: ['small'], value: ['Informatik', 'Gestaltung'] }, { elementType: 'input', name: 'Studiengang', label: 'Studiengang und Richtung', styles: ['small'] }, { elementType: 'textarea', name: 'address', label: 'Namen und Adresse', styles: ['small'] }, { elementType: 'info', name: 'info', value: 'Hinweise für den Antragsteller: Jemand musste Josef K. verleumdet haben, denn ohne dass er etwas Böses getan hätte, wurde er eines Morgens verhaftet. »Wie ein Hund!« sagte er, es war, als sollte die Scham ihn überleben. Als Gregor Samsa eines Morgens aus unruhigen Träumen erwachte, fand er sich in seinem Bett zu einem ungeheueren Ungeziefer verwandelt.', styles: ['small'] }, { elementType: 'info', name: 'info2', value: 'Und es war ihnen wie eine Bestätigung ihrer neuen Träume und guten Absichten, als am Ziele ihrer Fahrt die Tochter als erste sich erhob und ihren jungen Körper dehnte.' }, { elementType: 'input', name: 'erstpruefer', label: 'Aufgabensteller/Erstprüfer', styles: ['small'] }, { elementType: 'input', name: 'zweitpruefer', label: 'Zweitprüfer', styles: ['small'] }, { elementType: 'radio', name: 'inHouse', label: 'Die Arbeit soll bearbeitet werden:', options: [{ value: 'inside', label: 'im Haus' }, { value: 'outside', label: 'außerhalb der HS' }] }, { elementType: 'textarea', name: 'thema', label: 'Theme (Zeugnissfassung):', styles: ['small'] }, { elementType: 'textarea', name: 'company', label: 'Name der Firma:', styles: ['small'] }, { elementType: 'checkbox', name: 'sign', label: 'Hiermit bestätige ich die Angaben.', validations: ['toBeTrue'] }, {
-                elementType: 'datalist',
+            elements: [{ fieldType: 'h3', name: 'header01', value: 'Hochschule für Angewandte Wissenschaften Augsburg', styles: ['small'] }, { fieldType: 'input', name: 'date', contentType: 'date', label: 'Augsburg, den', styles: ['small'] }, { fieldType: 'h4', name: 'header02', value: 'Zulassungsantrag - Abschlussarbeit', styles: ['small'] }, { fieldType: 'input', name: 'matnr', contentType: 'number', label: 'Matrikelnummer', validations: ['minLength', 'maxLength'], styles: ['small'] }, { fieldType: 'input', name: 'fakultaet', label: 'Fakultaet', styles: ['small'], value: ['Informatik', 'Gestaltung'] }, { fieldType: 'input', name: 'Studiengang', label: 'Studiengang und Richtung', styles: ['small'] }, { fieldType: 'textarea', name: 'address', label: 'Namen und Adresse', styles: ['small'] }, { fieldType: 'info', name: 'info', value: 'Hinweise für den Antragsteller: Jemand musste Josef K. verleumdet haben, denn ohne dass er etwas Böses getan hätte, wurde er eines Morgens verhaftet. »Wie ein Hund!« sagte er, es war, als sollte die Scham ihn überleben. Als Gregor Samsa eines Morgens aus unruhigen Träumen erwachte, fand er sich in seinem Bett zu einem ungeheueren Ungeziefer verwandelt.', styles: ['small'] }, { fieldType: 'info', name: 'info2', value: 'Und es war ihnen wie eine Bestätigung ihrer neuen Träume und guten Absichten, als am Ziele ihrer Fahrt die Tochter als erste sich erhob und ihren jungen Körper dehnte.' }, { fieldType: 'input', name: 'erstpruefer', label: 'Aufgabensteller/Erstprüfer', styles: ['small'] }, { fieldType: 'input', name: 'zweitpruefer', label: 'Zweitprüfer', styles: ['small'] }, { fieldType: 'radio', name: 'inHouse', label: 'Die Arbeit soll bearbeitet werden:', options: [{ value: 'inside', label: 'im Haus' }, { value: 'outside', label: 'außerhalb der HS' }] }, { fieldType: 'textarea', name: 'thema', label: 'Theme (Zeugnissfassung):', styles: ['small'] }, { fieldType: 'textarea', name: 'company', label: 'Name der Firma:', styles: ['small'] }, { fieldType: 'checkbox', name: 'sign', label: 'Hiermit bestätige ich die Angaben.', validations: ['toBeTrue'] }, {
+                fieldType: 'datalist',
                 name: 'datalist',
                 label: 'datalist'
             },{
-                elementType: 'select',
+                fieldType: 'select',
                 name: 'select',
                 label: 'Select',
-                multiple: true,
+                multipleSelect: true,
                 options: [
                     {
                         value: '1',
@@ -43,10 +43,10 @@ export class FormService {
                     }
                 ]
             },{
-                elementType: 'select',
+                fieldType: 'select',
                 name: 'select2',
                 label: 'Select',
-                multiple: true,
+                multipleSelect: true,
                 options: [
                     {
                         value: 'de',
@@ -133,7 +133,7 @@ export class FormService {
      * @description return the observable for editing an element
      * @return {Observable}
      */
-    public onEditElement(): Observable<FormElement> {
+    public onEditElement(): Observable<Field> {
         if (!this.editElementRx) { this.editElementRx = new Observable(observer => { this.editElement$ = observer; }); };
         return this.editElementRx;
     }
@@ -213,7 +213,7 @@ export class FormService {
      * @param {FormElement} element the element to edit
      * @return {void}
      */
-    public editElement(element?: FormElement): void {
+    public editElement(element?: Field): void {
 
         this.editingElementIndex = -1;
         if (element) {
@@ -239,7 +239,7 @@ export class FormService {
      * @param {FormElement} element the element to remove
      * @return {void}
      */
-    public removeElement(element?: FormElement, index?: number): boolean {
+    public removeElement(element?: Field, index?: number): boolean {
         if (typeof index !== 'undefined') {
             if (this.form.elements[index].name === element.name) {
                 this.form.elements.splice(index, 1);
@@ -275,7 +275,7 @@ export class FormService {
      * @param {FormElement} element the FormElement as JSON
      * @return {boolean}
      */
-    public addElementToForm(element: FormElement, mode?: 'clone' | 'add'): boolean {
+    public addElementToForm(element: Field, mode?: 'clone' | 'add'): boolean {
         /** Forms don't have Presets yet */
         // delete element.value;
 
@@ -317,7 +317,7 @@ export class FormService {
     public addPresetToForm(name: string): void {
         this.editingElementIndex = -1;
         // TODO: load real data
-        return this.addElementToForm({"elementType":"input","name":"matnr","required":true,"label":"Matrikelnummer","type":"number","placeholder":"","styles":["small"],"value":""}, 'clone');
+        return this.addElementToForm({"fieldType":"input","name":"matnr","required":true,"label":"Matrikelnummer","type":"number","placeholder":"","styles":["small"],"value":""}, 'clone');
     }
 
     /**
@@ -328,7 +328,7 @@ export class FormService {
     public getEditFormTemplate(id?: number): Observable<any> {
         let formEdit = [
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'title',
                 label: 'Form Name:',
                 value: id ? this.form.title : '',
@@ -341,7 +341,7 @@ export class FormService {
                 ]
             },
             {
-                elementType: 'checkbox',
+                fieldType: 'checkbox',
                 name: 'restrictedAccess',
                 label: 'Restricted',
                 value: id ? this.form.restrictedAccess : false,
@@ -388,26 +388,26 @@ export class FormService {
         let elements = [];
         for (let i = 0, length = this.form.elements.length; i < length; i++) {
             let element = Object.assign({}, this.form.elements[i]);
-            delete element.formControl;
+            delete element['formControl'];
             elements.push(element);
         }
         console.log(JSON.stringify(elements));
     }
 }
 
-var notennachmeldung = [{"elementType":"h3","name":"header","value":"Antrag auf Notennachmeldung/Notenänderung* an die Prüfungskommision"},{"elementType":"select","name":"studiengang","required":true,"label":"","placeholder":"Sudiengang wählen","optionTable":"","options":[{"value":"architektur","label":"Studiengang Architektur"},{"value":"bauingenieurwesen","label":"Studiengang Bauingenieurwesen"},{"value":"e2d","label":"Studiengang E2D"}],"value":""},{"elementType":"input","name":"name","required":true,"label":"Name, Vorname","type":"text","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"matnr","required":true,"label":"Matrikelnummer","type":"number","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"street","required":true,"label":"Straße","type":"text","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"housenr","required":false,"label":"Hausnummer","type":"number","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"plz","required":"","label":"Postleitzahl","type":"number","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"city","required":true,"label":"Wohnort","type":"text","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"email","required":"","label":"Email","type":"text","placeholder":"","styles":["small"],"value":""},{"elementType":"input","name":"phone","required":"","label":"Telefon","type":"number","placeholder":"","styles":["small"],"value":""},{"elementType":"devider","name":"dev1","value":""},{"elementType":"input","name":"fach","required":true,"label":"Prüfungsfach","type":"text","placeholder":"","value":""}];
+var notennachmeldung = [{"fieldType":"h3","name":"header","value":"Antrag auf Notennachmeldung/Notenänderung* an die Prüfungskommision"},{"fieldType":"select","name":"studiengang","required":true,"label":"","placeholder":"Sudiengang wählen","optionTable":"","options":[{"value":"architektur","label":"Studiengang Architektur"},{"value":"bauingenieurwesen","label":"Studiengang Bauingenieurwesen"},{"value":"e2d","label":"Studiengang E2D"}],"value":""},{"fieldType":"input","name":"name","required":true,"label":"Name, Vorname","contentType":"text","placeholder":"","styles":["small"],"value":""},{"fieldType":"input","name":"matnr","required":true,"label":"Matrikelnummer","contentType":"number","placeholder":"","styles":["small"],"value":""},{"fieldType":"input","name":"street","required":true,"label":"Straße","contentType":"text","placeholder":"","styles":["small"],"value":""},{"fieldType":"input","name":"housenr","required":false,"label":"Hausnummer","contentType":"number","placeholder":"","styles":["small"],"value":""},{"fieldType":"input","name":"plz","required":"","label":"Postleitzahl","contentType":"number","placeholder":"","styles":["small"],"value":""},{"fieldType":"input","name":"city","required":true,"label":"Wohnort","contentType":"text","placeholder":"","styles":["small"],"value":""},{"fieldType":"input","name":"email","required":"","label":"Email","contentType":"text","placeholder":"","styles":["small"],"value":""},{"fieldType":"input","name":"phone","required":"","label":"Telefon","contentType":"number","placeholder":"","styles":["small"],"value":""},{"fieldType":"devider","name":"dev1","value":""},{"fieldType":"input","name":"fach","required":true,"label":"Prüfungsfach","contentType":"text","placeholder":"","value":""}];
 
 var secondform = [
     {
-        elementType: 'datalist',
+        fieldType: 'datalist',
         name: 'datalist',
         label: 'Datalist',
         required: true
     },
     {
-        elementType: 'input',
+        fieldType: 'input',
         name: 'email',
-        type: 'input',
+        contentType: 'input',
         required: true,
         placeholder: 'E-Mail',
         validations: [
@@ -419,9 +419,9 @@ var secondform = [
         ]
     },
     {
-        elementType: 'input',
+        fieldType: 'input',
         name: 'password',
-        type: 'password',
+        contentType: 'password',
         required: true,
         placeholder: 'Password',
         validations: [
@@ -433,16 +433,16 @@ var secondform = [
         ]
     },
     {
-        elementType: 'input',
+        fieldType: 'input',
         name: 'date',
-        type: 'date'
+        contentType: 'date'
     },
     {
-        elementType: 'input',
+        fieldType: 'input',
         name: 'text',
     },
     {
-        elementType: 'checkbox',
+        fieldType: 'checkbox',
         name: 'privacy',
         label: 'Sell your Soul?',
         validations: [
@@ -450,11 +450,11 @@ var secondform = [
         ]
     },
     {
-        elementType: 'select',
+        fieldType: 'select',
         name: 'country',
         label: 'Land',
         required: true,
-        multiple: false,
+        multipleSelect: false,
         options: [
             {
                 value: 'de',
@@ -491,11 +491,11 @@ var secondform = [
         ]
     },
     {
-        elementType: 'select',
+        fieldType: 'select',
         name: 'country',
         label: 'Land',
         required: true,
-        multiple: true,
+        multipleSelect: true,
         placeholder: 'Wo kommst du her?',
         options: [
             {
@@ -533,7 +533,7 @@ var secondform = [
         ]
     },
     {
-        elementType: 'radio',
+        fieldType: 'radio',
         name: 'language',
         label: 'Sprache',
         required: true,
@@ -549,14 +549,14 @@ var secondform = [
         ]
     },
     {
-        elementType: 'textarea',
+        fieldType: 'textarea',
         name: 'desc',
         label: 'Description',
         required: true,
         value: 'de'
     },
     {
-        elementType: 'textarea',
+        fieldType: 'textarea',
         name: 'info',
         label: 'Info',
         required: true,

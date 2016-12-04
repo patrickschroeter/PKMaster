@@ -3,7 +3,7 @@ import { Validators, FormControl, FormBuilder, FormGroup } from '@angular/forms'
 
 import { InputValidationService, AlertService } from './../../../../core';
 
-import { FormElement } from './../../../../swagger';
+import { Field } from './../../../../swagger';
 
 @Injectable()
 export class DynamicFormService {
@@ -18,7 +18,7 @@ export class DynamicFormService {
      * @param {FormElement[]} input the input configuration
      * @return {FormGroup}
      */
-    public generateFormFromInput(input?: FormElement[], config = {}): FormGroup {
+    public generateFormFromInput(input?: Field[], config = {}): FormGroup {
         let options = {};
         for (let i = 0, length = input.length; i < length; i++) {
             let element = input[i];
@@ -26,7 +26,7 @@ export class DynamicFormService {
             if (!this.extendElement(element)) { continue; }
 
             /** Add new FormControl to FormBuilder-Options[] */
-            options[element.name] = element.formControl;
+            options[element.name] = element['formControl'];
         };
         return this.build.group(options, config);
     }
@@ -36,7 +36,7 @@ export class DynamicFormService {
      * @param {FormElement} element
      * @return {boolean}
      */
-    private extendElement(element: FormElement): boolean {
+    private extendElement(element: Field): boolean {
         if (!element || !element.name || element.disabled) { return false; }
 
         /** Create Array of ValidationFn */
@@ -44,10 +44,10 @@ export class DynamicFormService {
         if (element.required) { activeValidations.push(Validators.required); }
 
         /** Create new FormControl if not existing */
-        if (!element.formControl) {
+        if (!element['formControl']) {
             /** FIX for multiselect */
-            if (!element.value) { element.value = element.multiple ? null : ''; }
-            element.formControl = new FormControl(element.value, Validators.compose(activeValidations));
+            if (!element.value) { element.value = element.multipleSelect ? null : ''; }
+            element['formControl'] = new FormControl(element.value, Validators.compose(activeValidations));
         }
         return true;
     }
@@ -58,9 +58,9 @@ export class DynamicFormService {
      * @param {FormElement} element
      * @return {boolean}
      */
-    public showElementValidation(element: FormElement): void {
-        if (!element.formControl) { return; }
-        this.showValidation(element.formControl);
+    public showElementValidation(element: Field): void {
+        if (!element['formControl']) { return; }
+        this.showValidation(element['formControl']);
     }
 
     public hideValidation() {
