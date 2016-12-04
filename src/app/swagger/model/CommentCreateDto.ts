@@ -25,14 +25,10 @@
 'use strict';
 import * as models from './models';
 
-export interface Comment {
+export interface CommentCreateDto {
     
 
-    id?: string;
-
     text?: string;
-
-    created?: Date;
 
     isPrivate?: boolean;
 
@@ -41,8 +37,4 @@ export interface Comment {
     userId?: string;
 
     applicationId?: string;
-
-    application?: models.Application;
-
-    user?: models.AppUser;
 }

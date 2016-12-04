@@ -25,24 +25,14 @@
 'use strict';
 import * as models from './models';
 
-export interface Comment {
+export interface UserHasRole {
     
 
-    id?: string;
-
-    text?: string;
-
-    created?: Date;
-
-    isPrivate?: boolean;
-
-    requiresChanges?: boolean;
+    roleId?: string;
 
     userId?: string;
 
-    applicationId?: string;
-
-    application?: models.Application;
+    role?: models.Role;
 
     user?: models.AppUser;
 }

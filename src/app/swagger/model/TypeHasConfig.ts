@@ -25,24 +25,14 @@
 'use strict';
 import * as models from './models';
 
-export interface Comment {
+export interface TypeHasConfig {
     
 
-    id?: string;
+    configId?: string;
 
-    text?: string;
+    fieldTypeId?: string;
 
-    created?: Date;
+    config?: models.Config;
 
-    isPrivate?: boolean;
-
-    requiresChanges?: boolean;
-
-    userId?: string;
-
-    applicationId?: string;
-
-    application?: models.Application;
-
-    user?: models.AppUser;
+    fieldType?: models.FieldType;
 }

@@ -25,24 +25,30 @@
 'use strict';
 import * as models from './models';
 
-export interface Comment {
+export interface FieldCreateDto {
     
 
-    id?: string;
+    name?: string;
 
-    text?: string;
+    fieldType?: string;
 
-    created?: Date;
+    label?: string;
 
-    isPrivate?: boolean;
+    required?: boolean;
 
-    requiresChanges?: boolean;
+    multipleSelect?: boolean;
 
-    userId?: string;
+    value?: string;
 
-    applicationId?: string;
+    contentType?: string;
 
-    application?: models.Application;
+    placeholder?: string;
 
-    user?: models.AppUser;
+    options?: string;
+
+    enumOptionsTableId?: string;
+
+    fieldHasStyle?: Array<string>;
+
+    fieldHasValidation?: Array<string>;
 }

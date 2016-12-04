@@ -25,22 +25,12 @@
 'use strict';
 import * as models from './models';
 
-export interface Comment {
+export interface Assignment {
     
 
-    id?: string;
-
-    text?: string;
-
-    created?: Date;
-
-    isPrivate?: boolean;
-
-    requiresChanges?: boolean;
+    applicationId?: string;
 
     userId?: string;
-
-    applicationId?: string;
 
     application?: models.Application;
 

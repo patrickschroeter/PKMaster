@@ -25,24 +25,14 @@
 'use strict';
 import * as models from './models';
 
-export interface Comment {
+export interface FormCreateDto {
     
 
-    id?: string;
+    name?: string;
 
-    text?: string;
+    restrictedAccess?: boolean;
 
-    created?: Date;
+    isPublic?: boolean;
 
-    isPrivate?: boolean;
-
-    requiresChanges?: boolean;
-
-    userId?: string;
-
-    applicationId?: string;
-
-    application?: models.Application;
-
-    user?: models.AppUser;
+    formHasField?: Array<models.FieldCreateDto>;
 }

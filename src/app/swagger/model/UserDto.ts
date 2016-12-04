@@ -25,24 +25,28 @@
 'use strict';
 import * as models from './models';
 
-export interface Comment {
+export interface UserDto {
     
 
     id?: string;
 
-    text?: string;
+    firstname?: string;
+
+    lastname?: string;
+
+    email?: string;
+
+    password?: string;
+
+    saltString?: string;
+
+    matNr?: number;
+
+    ldapId?: number;
+
+    active?: boolean;
 
     created?: Date;
 
-    isPrivate?: boolean;
-
-    requiresChanges?: boolean;
-
-    userId?: string;
-
-    applicationId?: string;
-
-    application?: models.Application;
-
-    user?: models.AppUser;
+    userHasRole?: Array<string>;
 }

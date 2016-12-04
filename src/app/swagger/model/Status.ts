@@ -25,24 +25,12 @@
 'use strict';
 import * as models from './models';
 
-export interface Comment {
+export interface Status {
     
 
     id?: string;
 
-    text?: string;
+    name?: string;
 
-    created?: Date;
-
-    isPrivate?: boolean;
-
-    requiresChanges?: boolean;
-
-    userId?: string;
-
-    applicationId?: string;
-
-    application?: models.Application;
-
-    user?: models.AppUser;
+    application?: Array<models.Application>;
 }

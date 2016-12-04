@@ -25,24 +25,26 @@
 'use strict';
 import * as models from './models';
 
-export interface Comment {
+export interface ApplicationCreateDto {
     
 
-    id?: string;
+    filledForm?: string;
 
-    text?: string;
+    version?: number;
 
-    created?: Date;
+    isCurrent?: boolean;
 
-    isPrivate?: boolean;
-
-    requiresChanges?: boolean;
+    previousVersion?: string;
 
     userId?: string;
 
-    applicationId?: string;
+    conferenceId?: string;
 
-    application?: models.Application;
+    statusId?: string;
 
-    user?: models.AppUser;
+    formId?: string;
+
+    assignments?: Array<string>;
+
+    comments?: Array<string>;
 }

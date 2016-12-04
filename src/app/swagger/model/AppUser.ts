@@ -25,24 +25,34 @@
 'use strict';
 import * as models from './models';
 
-export interface Comment {
+export interface AppUser {
     
 
     id?: string;
 
-    text?: string;
+    firstname?: string;
+
+    lastname?: string;
+
+    email?: string;
+
+    password?: string;
+
+    saltString?: string;
+
+    matNr?: number;
+
+    ldapId?: number;
+
+    active?: boolean;
 
     created?: Date;
 
-    isPrivate?: boolean;
+    application?: Array<models.Application>;
 
-    requiresChanges?: boolean;
+    assignment?: Array<models.Assignment>;
 
-    userId?: string;
+    comment?: Array<models.Comment>;
 
-    applicationId?: string;
-
-    application?: models.Application;
-
-    user?: models.AppUser;
+    userHasRole?: Array<models.UserHasRole>;
 }
