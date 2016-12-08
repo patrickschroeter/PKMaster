@@ -23,10 +23,11 @@ export class DynamicFormService {
         for (let i = 0, length = input.length; i < length; i++) {
             let element = input[i];
 
-            if (!this.extendElement(element)) { continue; }
+            let formControl = this.extendElement(element);
+            if (!formControl) { continue; }
 
             /** Add new FormControl to FormBuilder-Options[] */
-            options[element.name] = element['formControl'];
+            options[element.name] = formControl;
         };
         return this.build.group(options, config);
     }
@@ -36,20 +37,16 @@ export class DynamicFormService {
      * @param {FormElement} element
      * @return {boolean}
      */
-    private extendElement(element: Field): boolean {
-        if (!element || !element.name || element.disabled) { return false; }
+    private extendElement(element: Field): FormControl {
+        if (!element || !element.name || element.disabled) { return null; }
 
         /** Create Array of ValidationFn */
         let activeValidations = this.inputValidation.generateValidationsFromKeys(element.validations);
         if (element.required) { activeValidations.push(Validators.required); }
 
-        /** Create new FormControl if not existing */
-        if (!element['formControl']) {
-            /** FIX for multiselect */
-            if (!element.value) { element.value = element.multipleSelect ? null : ''; }
-            element['formControl'] = new FormControl(element.value, Validators.compose(activeValidations));
-        }
-        return true;
+        /** FIX for multiselect */
+        if (!element.value) { element.value = element.multipleSelect ? null : ''; }
+        return new FormControl(element.value, Validators.compose(activeValidations));
     }
 
 
@@ -75,7 +72,7 @@ export class DynamicFormService {
     public showValidation(form: FormGroup | FormControl) {
         let message = this.inputValidation.getErrorMessage(form);
         if (message) {
-            this.alert.setErrorHint('validation' , message);
+            this.alert.setErrorHint('validation', message);
         }
     }
 }

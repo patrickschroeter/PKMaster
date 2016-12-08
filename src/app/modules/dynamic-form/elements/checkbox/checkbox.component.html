@@ -1,7 +1,7 @@
 <div
     *ngIf="config"
     class="element__wrapper"
-    [class.element__invalid]="config['formControl'].errors"
+    [class.element__invalid]="formControl.errors"
     >
 
   <label
@@ -11,7 +11,7 @@
     [attr.for]="config.name">
 
     <div class="element__checkbox"
-      [class.element--active]="config['formControl'].value"
+      [class.element--active]="formControl.value"
       [class.element--disabled]="isDisabled()"
       ></div>
 
@@ -24,5 +24,5 @@
     type="checkbox"
     [attr.id]="config.name"
     [attr.name]="config.label"
-    [formControl]="config['formControl']">
+    [formControl]="formControl">
 </div>

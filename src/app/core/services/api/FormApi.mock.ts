@@ -17,6 +17,7 @@ export class FormApiMock {
                 if (form) {
                     observer.next(newform);
                 } else {
+                    console.error('Error creating Form');
                     observer.error('Error creating Form');
                 }
                 observer.complete();
@@ -32,6 +33,7 @@ export class FormApiMock {
                 if (forms) {
                     observer.next(forms);
                 } else {
+                    console.error('No Forms found');
                     observer.error('No Forms found');
                 }
                 observer.complete();
@@ -40,14 +42,15 @@ export class FormApiMock {
     }
 
     public getFormById(formId: string, token?: number, extraHttpRequestParams?: any): Observable<any> {
-        console.log('%cMock:' + '%c getFormById', 'color: #F44336', 'color: #fefefe');
+        console.log('%cMock:' + `%c getFormById ${formId}`, 'color: #F44336', 'color: #fefefe');
         let form = this._form(formId);
         return new Observable(observer => {
             setTimeout(() => {
                 if (form) {
                     observer.next(form);
                 } else {
-                    observer.error('No Form with id found');
+                    console.error(`No Form with ID ${formId} found`);
+                    observer.error(`No Form with ID ${formId} found`);
                 }
                 observer.complete();
             }, 500);
@@ -55,14 +58,15 @@ export class FormApiMock {
     }
 
     public updateFormById(formId: number, token?: number, form?: Form, extraHttpRequestParams?: any): Observable<any> {
-        console.log('%cMock:' + '%c updateFormById', 'color: #F44336', 'color: #fefefe');
+        console.log('%cMock:' + `%c updateFormById ${formId}`, 'color: #F44336', 'color: #fefefe');
         let updatedForm = this._formUpdate(formId, form);
         return new Observable(observer => {
             setTimeout(() => {
                 if (form) {
                     observer.next(updatedForm);
                 } else {
-                    observer.error('No Form with id found');
+                    console.error(`No Form with ID ${formId} found`);
+                    observer.error(`No Form with ID ${formId} found`);
                 }
                 observer.complete();
             }, 500);

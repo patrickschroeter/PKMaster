@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, AbstractControl } from '@angular/forms';
+
+import { DynamicFormComponent } from './../../dynamic-form.component';
 
 import { AlertService } from './../../../../core';
 
@@ -20,10 +22,19 @@ export class DatalistComponent implements OnInit {
 
     private addOptionForm;
 
-    constructor(private alert: AlertService) { }
+    private formControl: AbstractControl;
+
+    constructor(private parent: DynamicFormComponent, private alert: AlertService) { }
 
     ngOnInit() {
-        if (this.config && !this.config['formControl']) { this.config['formControl'] = new FormControl(this.config.value); }
+        if (this.parent &&
+            this.parent['form'] &&
+            this.parent['form'].controls &&
+            this.parent['form'].controls[this.config.name]) {
+            this.formControl = this.parent['form'].controls[this.config.name];
+        } else {
+            this.formControl = new FormControl(this.config.value)
+        }
 
         this.initAddOptionsForm();
     }

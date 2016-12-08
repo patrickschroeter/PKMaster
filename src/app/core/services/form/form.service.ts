@@ -272,7 +272,10 @@ export class FormService {
         // TODO: save real data
         this.form.title = submit.title;
         this.form.restrictedAccess = submit.restrictedAccess;
+        this.alert.setLoading('saveFormAttributes', 'Save Form...');
         return this.formApi.updateFormById(submit.id, 80082, submit).map(form => {
+            this.alert.removeHint('saveFormAttributes');
+            this.alert.setSuccessHint('saveFormAttributes', 'Form Saved!');
             return this.form = form;
         });
     }
@@ -285,15 +288,12 @@ export class FormService {
     public saveForm(): void {
         // stringify
         console.log(this.form);
-        let elements = [];
-        for (let i = 0, length = this.form.elements.length; i < length; i++) {
-            let element = Object.assign({}, this.form.elements[i]);
-            delete element['formControl'];
-            elements.push(element);
-        }
-        console.log(JSON.stringify(elements));
+        console.log(JSON.stringify(this.form));
         // TODO: save real data
+        this.alert.setLoading('saveForm', 'Save Form...');
         return this.formApi.updateFormById(this.form.id, 80082, this.form).map(form => {
+            this.alert.removeHint('saveForm');
+            this.alert.setSuccessHint('saveForm', 'Form Saved!');
             return this.form = form;
         });
     }

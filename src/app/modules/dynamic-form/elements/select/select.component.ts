@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, AbstractControl } from '@angular/forms';
+
+import { DynamicFormComponent } from './../../dynamic-form.component';
 
 import { Field } from './../../../../swagger';
 
@@ -19,12 +21,20 @@ export class SelectComponent implements OnInit {
     private searchstring: string;
     private filteredOptions: Array<{ value?, label? }>;
 
-    constructor() { }
+    private formControl: AbstractControl;
+
+    constructor(private parent: DynamicFormComponent) { }
 
     ngOnInit() {
+        if (this.parent &&
+            this.parent['form'] &&
+            this.parent['form'].controls &&
+            this.parent['form'].controls[this.config.name]) {
+            this.formControl = this.parent['form'].controls[this.config.name];
+        } else {
+            this.formControl = new FormControl(this.config.value)
+        }
         this.isOpen = false;
-
-        if (this.config && !this.config['formControl']) { this.config['formControl'] = new FormControl(this.config.value); }
     }
 
     isDisabled() {

@@ -1,7 +1,7 @@
 <div
     *ngIf="config"
     class="element__wrapper"
-    [class.element__invalid]="config['formControl'].errors"
+    [class.element__invalid]="formControl.errors"
     >
 
 	<label
@@ -16,12 +16,12 @@
             >
             <div
                 class="element__radio"
-                [class.element--active]="config['formControl'].value === option.value"
+                [class.element--active]="formControl.value === option.value"
                 ></div>
             <span>{{ option.label }}</span>
         </label>
 
-		<input *ngIf="!isDisabled()" class="hidden" type="radio" [attr.id]="option.value" [attr.name]="config.name" [value]="option.value" [formControl]="config['formControl']">
+		<input *ngIf="!isDisabled()" class="hidden" type="radio" [attr.id]="option.value" [attr.name]="config.name" [value]="option.value" [formControl]="formControl">
 	</div>
 
 </div>

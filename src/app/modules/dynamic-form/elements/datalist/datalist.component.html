@@ -1,7 +1,7 @@
 <div
     *ngIf="config"
     class="element__wrapper"
-    [class.element__invalid]="config['formControl'].errors"
+    [class.element__invalid]="formControl.errors"
     >
 
     <label
@@ -13,7 +13,7 @@
 
     <!-- All selected Elements when multiselect -->
     <div class="element__select element__options"
-        *ngIf="config['formControl'].value && config['formControl'].value.length !== 0"
+        *ngIf="formControl.value && formControl.value.length !== 0"
         [class.element--disabled]="isDisabled()">
 
         <div *ngIf="!isDisabled()" class="element__option option--default" (click)="toggleAddOptionOverlay()">
@@ -31,14 +31,14 @@
             </div>
         </div>
 
-        <select *ngIf="!isDisabled()" class="hidden" multiple [attr.id]="config.name" [formControl]="config['formControl']">
+        <select *ngIf="!isDisabled()" class="hidden" multiple [attr.id]="config.name" [formControl]="formControl">
             <option *ngFor="let option of config.options" [value]="option.value">{{ option.label }}</option>
         </select>
     </div>
 
     <!-- Default Element if nothing is selected -->
     <div class="element__select element__options"
-        *ngIf="!config['formControl'].value || (config['formControl'].value && config['formControl'].value.length === 0)"
+        *ngIf="!formControl.value || (formControl.value && formControl.value.length === 0)"
         [class.element--disabled]="isDisabled()">
         <div *ngIf="!isDisabled()" class="element__option option--default" (click)="toggleAddOptionOverlay()">
             <div class="element__value">{{ config.placeholder ? config.placeholder : 'Add Option' }}</div>
