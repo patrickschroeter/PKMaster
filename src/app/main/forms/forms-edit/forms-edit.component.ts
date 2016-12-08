@@ -25,14 +25,14 @@ export class FormsEditComponent implements OnInit {
     private isEditingForm: boolean = false;
 
     private isPresetOverlay: boolean = false;
-    private presets: { value: string, label: string}[];
+    private presets: { value: string, label: string }[];
 
     constructor(
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private formService: FormService,
         private alert: AlertService,
-        private elementService: FormElementService ) { }
+        private elementService: FormElementService) { }
 
 
     ngOnInit() {
@@ -44,7 +44,11 @@ export class FormsEditComponent implements OnInit {
                 this.alert.removeHint('getFormById');
                 if (!form) { this.router.navigate(['/forms']); }
                 this.form = form;
-            }, error => { /** TODO: catch */ });
+            }, error => {
+                /** TODO: catch */
+                this.router.navigate(['/forms']);
+                this.alert.removeHint('getFormById');
+            });
         });
 
         /** subscribe to the add element flag */

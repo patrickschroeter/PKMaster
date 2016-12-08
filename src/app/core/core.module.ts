@@ -22,7 +22,8 @@ import * as components from './components';
         services.AlertService,
         services.ApplicationService,
 
-        services.FormApiMock
+        services.FormApiMock,
+        services.ApplicationApiMock
     ],
     exports: [
         components.AlertComponent

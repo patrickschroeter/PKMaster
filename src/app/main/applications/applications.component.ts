@@ -1,9 +1,9 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ApplicationService, AlertService } from './../../core';
+import { ApplicationService, AlertService, FormService } from './../../core';
 
-import { Application } from './../../swagger';
+import { Application, Form } from './../../swagger';
 
 @Component({
     selector: 'pk-applications',
@@ -21,26 +21,24 @@ export class ApplicationsComponent implements OnInit {
     constructor(
         private router: Router,
         private applicationService: ApplicationService,
-        private alert: AlertService) { }
+        private alert: AlertService,
+        private formService: FormService) { }
 
     ngOnInit() {
         this.applicationService.getApplications().subscribe(result => {
             this.applications = result;
         });
-        this.applicationTypes = [
-            {
-                value: 'thesis',
-                label: 'Abschlussarbeit',
-            },
-            {
-                value: 'notes-change',
-                label: 'Notenänderung',
-            },
-            {
-                value: 'notes-late',
-                label: 'Notenanrechnung',
+
+        this.formService.getForms().subscribe(forms => {
+            this.applicationTypes = [];
+            for (let i = 0, length = forms.length; i < length; i ++) {
+                let element = forms[i];
+                this.applicationTypes.push({
+                    value: element.id,
+                    label: element.title
+                });
             }
-        ];
+        });
     }
 
     sortBy(sortValue: string) {
@@ -69,7 +67,12 @@ export class ApplicationsComponent implements OnInit {
         this.isOpenNewApplication = !this.isOpenNewApplication;
     }
 
-    createNewApplication(application: Application) {
+    createNewApplication(form) {
+        let application: Application = {
+            form: {
+                id: form.value
+            }
+        }
         this.applicationService.createNewApplication(application).subscribe((created) => {
             if (created['id']) {
                 this.router.navigate([`/applications/`, created['id'], 'edit']);

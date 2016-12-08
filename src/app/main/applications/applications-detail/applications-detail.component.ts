@@ -24,9 +24,12 @@ export class ApplicationsDetailComponent implements OnInit {
 
         /** Read Route Param and GET Application with param ID */
         this.activatedRoute.params.forEach((params: Params) => {
-            this.applicationService.getApplicationById(+params['id']).subscribe((application) => {
-                if (!application) { this.router.navigate(['/applications']); }
+            this.applicationService.getApplicationById(params['id']).subscribe((application) => {
+                if (!application) { return this.router.navigate(['/applications']); }
                 this.application = application;
+            }, error => {
+                console.error(error);
+                this.router.navigate(['/applications']);
             });
         });
     }
