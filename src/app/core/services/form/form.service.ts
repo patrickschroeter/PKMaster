@@ -285,7 +285,7 @@ export class FormService {
      * @description Saves the changed Form
      * @return {void}
      */
-    public saveForm(): void {
+    public saveForm(): Observable<any> {
         // stringify
         console.log(this.form);
         console.log(JSON.stringify(this.form));
@@ -293,7 +293,6 @@ export class FormService {
         this.alert.setLoading('saveForm', 'Save Form...');
         return this.formApi.updateFormById(this.form.id, 80082, this.form).map(form => {
             this.alert.removeHint('saveForm');
-            this.alert.setSuccessHint('saveForm', 'Form Saved!');
             return this.form = form;
         });
     }

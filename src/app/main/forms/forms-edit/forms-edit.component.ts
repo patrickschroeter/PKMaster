@@ -151,7 +151,9 @@ export class FormsEditComponent implements OnInit {
      * @return {void}
      */
     saveForm(): void {
-        this.formService.saveForm();
+        this.formService.saveForm().subscribe(form => {
+            this.alert.setSuccessHint('saveForm', 'Form Saved!');
+        });
     }
 
     /**
