@@ -4,6 +4,8 @@ import { Observable, Observer } from 'rxjs/Rx';
 import { AlertService } from './../alert';
 import { Field, Form } from './../../../swagger';
 
+import { FormApiMock } from './../api';
+
 @Injectable()
 export class FormService {
 
@@ -19,97 +21,7 @@ export class FormService {
     private editElementRx: Observable<Field>;
     private editElement$: Observer<Field>;
 
-    constructor(private alert: AlertService) {
-        this.form = {
-            title: 'Titel der Form',
-            id: 13,
-            elements: [{ fieldType: 'h3', name: 'header01', value: 'Hochschule für Angewandte Wissenschaften Augsburg', styles: ['small'] }, { fieldType: 'input', name: 'date', contentType: 'date', label: 'Augsburg, den', styles: ['small'] }, { fieldType: 'h4', name: 'header02', value: 'Zulassungsantrag - Abschlussarbeit', styles: ['small'] }, { fieldType: 'input', name: 'matnr', contentType: 'number', label: 'Matrikelnummer', validations: ['minLength', 'maxLength'], styles: ['small'] }, { fieldType: 'input', name: 'fakultaet', label: 'Fakultaet', styles: ['small'], value: ['Informatik', 'Gestaltung'] }, { fieldType: 'input', name: 'Studiengang', label: 'Studiengang und Richtung', styles: ['small'] }, { fieldType: 'textarea', name: 'address', label: 'Namen und Adresse', styles: ['small'] }, { fieldType: 'info', name: 'info', value: 'Hinweise für den Antragsteller: Jemand musste Josef K. verleumdet haben, denn ohne dass er etwas Böses getan hätte, wurde er eines Morgens verhaftet. »Wie ein Hund!« sagte er, es war, als sollte die Scham ihn überleben. Als Gregor Samsa eines Morgens aus unruhigen Träumen erwachte, fand er sich in seinem Bett zu einem ungeheueren Ungeziefer verwandelt.', styles: ['small'] }, { fieldType: 'info', name: 'info2', value: 'Und es war ihnen wie eine Bestätigung ihrer neuen Träume und guten Absichten, als am Ziele ihrer Fahrt die Tochter als erste sich erhob und ihren jungen Körper dehnte.' }, { fieldType: 'input', name: 'erstpruefer', label: 'Aufgabensteller/Erstprüfer', styles: ['small'] }, { fieldType: 'input', name: 'zweitpruefer', label: 'Zweitprüfer', styles: ['small'] }, { fieldType: 'radio', name: 'inHouse', label: 'Die Arbeit soll bearbeitet werden:', options: [{ value: 'inside', label: 'im Haus' }, { value: 'outside', label: 'außerhalb der HS' }] }, { fieldType: 'textarea', name: 'thema', label: 'Theme (Zeugnissfassung):', styles: ['small'] }, { fieldType: 'textarea', name: 'company', label: 'Name der Firma:', styles: ['small'] }, { fieldType: 'checkbox', name: 'sign', label: 'Hiermit bestätige ich die Angaben.', validations: ['toBeTrue'] }, {
-                fieldType: 'datalist',
-                name: 'datalist',
-                label: 'datalist'
-            },{
-                fieldType: 'select',
-                name: 'select',
-                label: 'Select',
-                multipleSelect: true,
-                options: [
-                    {
-                        value: '1',
-                        label: 'Erster!',
-                    },
-                    {
-                        value: '2',
-                        label: 'Zweites!',
-                    }
-                ]
-            },{
-                fieldType: 'select',
-                name: 'select2',
-                label: 'Select',
-                multipleSelect: true,
-                options: [
-                    {
-                        value: 'de',
-                        label: 'Deutschland'
-                    },
-                    {
-                        value: 'fr',
-                        label: 'Frankreich'
-                    },
-                    {
-                        value: 'es',
-                        label: 'Spanien'
-                    },
-                    {
-                        value: 'it',
-                        label: 'Italien'
-                    },
-                    {
-                        value: 'ir',
-                        label: 'Irland'
-                    },
-                    {
-                        value: 'bel',
-                        label: 'Belgien'
-                    },
-                    {
-                        value: 'cr',
-                        label: 'Croatien'
-                    },
-                    {
-                        value: 'en',
-                        label: 'USA'
-                    }
-                ]
-            }]
-        };
-        this.forms = [
-            {
-                title: 'Antrag auf Bachelorarbeit',
-                id: 1,
-                created: 674467500,
-                restrictedAccess: true
-            },
-            {
-                title: 'Antrag auf Masterarbeit',
-                id: 2,
-                created: 1315382700,
-                restrictedAccess: false
-            },
-            {
-                title: 'Antrag auf Notennachberechnung',
-                id: 3,
-                created: 1455613500,
-                restrictedAccess: true
-            },
-            {
-                title: 'Antrag auf Notenanrechnung',
-                id: 4,
-                created: 1477555500,
-                restrictedAccess: false
-            }
-        ];
-    }
+    constructor(private alert: AlertService, private formApi: FormApiMock) { }
 
     /**
      * @description return the observable for the adding element status
@@ -143,14 +55,10 @@ export class FormService {
      * @param {number} id
      * @return {Observable}
      */
-    public getFormById(id: number): Observable<Form> {
+    public getFormById(id: string): Observable<Form> {
         // TODO: load real data
-        return new Observable(observer => {
-            /** http getFormById(id) => this.currentForm = result */
-            setTimeout(() => {
-                observer.next(this.form);
-                observer.complete();
-            }, 200);
+        return this.formApi.getFormById(id).map(form => {
+            return this.form = form;
         });
     }
 
@@ -160,41 +68,36 @@ export class FormService {
      * @return {Observable}
      */
     public getForms(sort?: string): Observable<any> {
+        let observable = this.formApi.getForms();
+        // TODO: sort on Server
         if (sort) {
-            this.forms.sort(function(a, b) {return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
+            return observable.map(element => {
+                return element.sort(function(a, b) {return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
+            });
         }
         // TODO: load real data
-        return new Observable(observer => {
-            setTimeout(() => {
-                observer.next(this.forms);
-                observer.complete();
-            }, 200);
+        return observable.map(forms => {
+            return this.forms = forms;
         });
     }
 
     /**
      * @description returns the observable to get the new created form
-     * @param {Form} form
+     * @param {Form} submit to copy or new form
      * @return {Observable}
      */
-    public createNewForm(form: Form): Observable<any> {
-        console.log(form);
-        this.form = {
-            title: form.id ? 'Copy of ' + form.title : form.title,
-            id: 13,
-            elements: form.id ? this.form.elements : [],
-            created: Date.now(),
-            restrictedAccess: form.restrictedAccess,
+    public createNewForm(submit: Form): Observable<any> {
+        console.log(submit);
+        let newform: Form = {
+            title: submit.id ? 'Copy of ' + submit.title : submit.title,
+            elements: submit.id ? submit.elements : [],
+            restrictedAccess: submit.restrictedAccess,
             isPublic: true
         };
 
         // TODO: save real data
-        return new Observable(observer => {
-            setTimeout(() => {
-                this.forms.push(this.form);
-                observer.next(this.form);
-                observer.complete();
-            }, 200);
+        return this.formApi.addForm(111, newform).map(form => {
+            return this.form = form;
         });
     }
 
@@ -365,15 +268,12 @@ export class FormService {
      * @param {Form} form the edit-form with the data to save
      * @return {Observable}
      */
-    public saveFormAttributes(form: Form): Observable<any> {
+    public saveFormAttributes(submit: Form): Observable<any> {
         // TODO: save real data
-        return new Observable(observer => {
-            setTimeout(() => {
-                this.form.title = form.title;
-                this.form.restrictedAccess = form.restrictedAccess;
-                observer.next(true);
-                observer.complete();
-            }, 200);
+        this.form.title = submit.title;
+        this.form.restrictedAccess = submit.restrictedAccess;
+        return this.formApi.updateFormById(submit.id, 80082, submit).map(form => {
+            return this.form = form;
         });
     }
 
@@ -383,7 +283,7 @@ export class FormService {
      * @return {void}
      */
     public saveForm(): void {
-        // TODO: save real data
+        // stringify
         console.log(this.form);
         let elements = [];
         for (let i = 0, length = this.form.elements.length; i < length; i++) {
@@ -392,177 +292,9 @@ export class FormService {
             elements.push(element);
         }
         console.log(JSON.stringify(elements));
+        // TODO: save real data
+        return this.formApi.updateFormById(this.form.id, 80082, this.form).map(form => {
+            return this.form = form;
+        });
     }
 }
-
-var notennachmeldung = [{"fieldType":"h3","name":"header","value":"Antrag auf Notennachmeldung/Notenänderung* an die Prüfungskommision"},{"fieldType":"select","name":"studiengang","required":true,"label":"","placeholder":"Sudiengang wählen","optionTable":"","options":[{"value":"architektur","label":"Studiengang Architektur"},{"value":"bauingenieurwesen","label":"Studiengang Bauingenieurwesen"},{"value":"e2d","label":"Studiengang E2D"}],"value":""},{"fieldType":"input","name":"name","required":true,"label":"Name, Vorname","contentType":"text","placeholder":"","styles":["small"],"value":""},{"fieldType":"input","name":"matnr","required":true,"label":"Matrikelnummer","contentType":"number","placeholder":"","styles":["small"],"value":""},{"fieldType":"input","name":"street","required":true,"label":"Straße","contentType":"text","placeholder":"","styles":["small"],"value":""},{"fieldType":"input","name":"housenr","required":false,"label":"Hausnummer","contentType":"number","placeholder":"","styles":["small"],"value":""},{"fieldType":"input","name":"plz","required":"","label":"Postleitzahl","contentType":"number","placeholder":"","styles":["small"],"value":""},{"fieldType":"input","name":"city","required":true,"label":"Wohnort","contentType":"text","placeholder":"","styles":["small"],"value":""},{"fieldType":"input","name":"email","required":"","label":"Email","contentType":"text","placeholder":"","styles":["small"],"value":""},{"fieldType":"input","name":"phone","required":"","label":"Telefon","contentType":"number","placeholder":"","styles":["small"],"value":""},{"fieldType":"devider","name":"dev1","value":""},{"fieldType":"input","name":"fach","required":true,"label":"Prüfungsfach","contentType":"text","placeholder":"","value":""}];
-
-var secondform = [
-    {
-        fieldType: 'datalist',
-        name: 'datalist',
-        label: 'Datalist',
-        required: true
-    },
-    {
-        fieldType: 'input',
-        name: 'email',
-        contentType: 'input',
-        required: true,
-        placeholder: 'E-Mail',
-        validations: [
-            'useExternalEmail',
-            'isEmail'
-        ],
-        styles: [
-            'small'
-        ]
-    },
-    {
-        fieldType: 'input',
-        name: 'password',
-        contentType: 'password',
-        required: true,
-        placeholder: 'Password',
-        validations: [
-            'minLength',
-            'maxLength'
-        ],
-        styles: [
-            'small'
-        ]
-    },
-    {
-        fieldType: 'input',
-        name: 'date',
-        contentType: 'date'
-    },
-    {
-        fieldType: 'input',
-        name: 'text',
-    },
-    {
-        fieldType: 'checkbox',
-        name: 'privacy',
-        label: 'Sell your Soul?',
-        validations: [
-            'toBeTrue',
-        ]
-    },
-    {
-        fieldType: 'select',
-        name: 'country',
-        label: 'Land',
-        required: true,
-        multipleSelect: false,
-        options: [
-            {
-                value: 'de',
-                label: 'Deutschland'
-            },
-            {
-                value: 'fr',
-                label: 'Frankreich'
-            },
-            {
-                value: 'es',
-                label: 'Spanien'
-            },
-            {
-                value: 'it',
-                label: 'Italien'
-            },
-            {
-                value: 'ir',
-                label: 'Irland'
-            },
-            {
-                value: 'bel',
-                label: 'Belgien'
-            },
-            {
-                value: 'cr',
-                label: 'Croatien'
-            },
-            {
-                value: 'en',
-                label: 'USA'
-            }
-        ]
-    },
-    {
-        fieldType: 'select',
-        name: 'country',
-        label: 'Land',
-        required: true,
-        multipleSelect: true,
-        placeholder: 'Wo kommst du her?',
-        options: [
-            {
-                value: 'de',
-                label: 'Deutschland'
-            },
-            {
-                value: 'fr',
-                label: 'Frankreich'
-            },
-            {
-                value: 'es',
-                label: 'Spanien'
-            },
-            {
-                value: 'it',
-                label: 'Italien'
-            },
-            {
-                value: 'ir',
-                label: 'Irland'
-            },
-            {
-                value: 'bel',
-                label: 'Belgien'
-            },
-            {
-                value: 'cr',
-                label: 'Croatien'
-            },
-            {
-                value: 'en',
-                label: 'USA'
-            }
-        ]
-    },
-    {
-        fieldType: 'radio',
-        name: 'language',
-        label: 'Sprache',
-        required: true,
-        options: [
-            {
-                value: 'de',
-                label: 'deutsch'
-            },
-            {
-                value: 'en',
-                label: 'englisch'
-            }
-        ]
-    },
-    {
-        fieldType: 'textarea',
-        name: 'desc',
-        label: 'Description',
-        required: true,
-        value: 'de'
-    },
-    {
-        fieldType: 'textarea',
-        name: 'info',
-        label: 'Info',
-        required: true,
-        placeholder: 'Something',
-        styles: [
-            'small'
-        ]
-    }
-];

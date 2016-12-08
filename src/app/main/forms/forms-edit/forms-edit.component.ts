@@ -39,10 +39,12 @@ export class FormsEditComponent implements OnInit {
 
         /** Read Route Param and GET Form with param ID */
         this.activatedRoute.params.forEach((params: Params) => {
-            this.formService.getFormById(+params['id']).subscribe((form) => {
+            this.alert.setLoading('getFormById', 'Loading Form...');
+            this.formService.getFormById(params['id']).subscribe((form) => {
+                this.alert.removeHint('getFormById');
                 if (!form) { this.router.navigate(['/forms']); }
                 this.form = form;
-            });
+            }, error => { /** TODO: catch */ });
         });
 
         /** subscribe to the add element flag */
@@ -67,7 +69,7 @@ export class FormsEditComponent implements OnInit {
     addElement(): void {
         this.formService.editElement();
     }
-    
+
     addPreset(option?) {
         if (!option) {
             this.isPresetOverlay = true;

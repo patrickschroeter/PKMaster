@@ -20,7 +20,9 @@ import * as components from './components';
         services.InputValidationService,
         services.FormService,
         services.AlertService,
-        services.ApplicationService
+        services.ApplicationService,
+
+        services.FormApiMock
     ],
     exports: [
         components.AlertComponent
