@@ -146,31 +146,4 @@ export class ProfileComponent implements OnInit {
         );
     }
 
-    /**
-     * @description shows the validation of the element
-     * @param {FormElement} element the element to validate
-     * @return {void}
-     */
-    showElementValidation(element: Field): void {
-        this.dynamicForm.showElementValidation(element);
-    }
-
-    /**
-     * @description shows the validation of the formgroup
-     * @param {FormGroup} element the formgroup to validate
-     * @return {void}
-     */
-    showFormValidation(form: FormGroup) {
-        this.isFormValidationVisible = true;
-        this.dynamicForm.showValidation(form);
-    }
-
-    /**
-     * @description hides the validation of form
-     * @return {void}
-     */
-    hideFormValidation() {
-        this.isFormValidationVisible = false;
-    }
-
 }

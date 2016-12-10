@@ -24,44 +24,18 @@
 <pk-overlay [isOpen]="isChangingPassword" (toggleOverlay)="togglePasswordOverlay()" class="overlay--fluid">
     <div class="pk-overlay__header">Change Password</div>
     <div class="pk-overlay__content">
-        <div class="form__wrapper">
-            <form [formGroup]="changePasswordForm"
-                (ngSubmit)="submit(form.value)"
-                [class.element--show-validation]="isFormValidationVisible">
-
-                <div class="form__elements">
-                    <div class="rel" *ngFor="let element of changePasswordElements">
-                        <div class="form__element element"
-                            *ngIf="!element.hidden"
-                            [ngClass]="{ 'form__element--small': element.styles && element.styles.indexOf('small') !== -1, 'form__element--aligned': element.styles && element.styles.indexOf('aligned') !== -1}"
-                            (mouseover)="showElementValidation(element)"
-                            >
-
-                            <div class="rel">
-                                <pk-input
-                                ngDefaultControl
-                                [config]="element"
-                                ></pk-input>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form__buttons left">
-                    <div class="right"
-                        (mouseover)="showFormValidation(changePasswordForm)"
-                        (mouseout)="hideFormValidation()">
-                        <pk-button
-                            [value]="'Save'"
-                            icon="security"
-                            [class]="changePasswordForm.valid ? 'element--success' : 'element--disabled'"
-                            [type]="'submit'"></pk-button>
-                    </div>
-                </div>
-
-            </form>
-
-        </div>
+        <pk-dynamic-form [formGroup]="changePasswordForm">
+            <pk-dynamic-form-content>
+                <pk-dynamic-form-element *ngFor="let element of changePasswordElements" [element]="element"></pk-dynamic-form-element>
+            </pk-dynamic-form-content>
+            <pk-dynamic-form-submit>
+                <pk-button
+                    (onClick)="submit(changePasswordForm)"
+                    [value]="'Save'"
+                    icon="security"
+                    [class]="changePasswordForm.valid ? 'element--success' : 'element--disabled'"
+                    [type]="'submit'"></pk-button>
+            </pk-dynamic-form-submit>
+        </pk-dynamic-form>
     </div>
 </pk-overlay>

@@ -18,6 +18,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     @HostBinding('class.form') formClass = true;
 
     @Input() formElements: Field[];
+    @Input() formGroup: FormGroup;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
 
@@ -36,7 +37,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
      * @return {void}
      */
     ngOnInit(): void {
-        this.generateFormFromInput();
+        // this.generateFormFromInput();
     }
 
 
@@ -46,7 +47,11 @@ export class DynamicFormComponent implements OnInit, OnChanges {
      * @return {void}
      */
     ngOnChanges(changes: SimpleChanges): void {
-        this.generateFormFromInput();
+        if (this.formGroup) {
+            this.form = this.formGroup;
+        } else {
+            this.generateFormFromInput();
+        }
     }
 
 
