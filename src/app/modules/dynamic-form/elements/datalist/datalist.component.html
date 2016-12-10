@@ -64,7 +64,7 @@
                     <pk-button
                         *ngIf="dynamicForm?.form"
                         [value]="'Add'"
-                        [icon]="'playlist_add'"
+                        icon="playlist_add"
                         [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
                         [type]="'submit'"
                         (onClick)="addOption(dynamicForm.form.value)"></pk-button>

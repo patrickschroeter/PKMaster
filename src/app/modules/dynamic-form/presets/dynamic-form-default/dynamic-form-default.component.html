@@ -9,7 +9,7 @@
         <pk-button
             *ngIf="dynamicForm?.form"
             [value]="'Save'"
-            [icon]="'save'"
+            icon="save"
             [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
             [type]="'submit'"
             (onClick)="submit(dynamicForm.form.value)"></pk-button>
@@ -18,7 +18,7 @@
     <pk-dynamic-form-cancel>
         <pk-button
             [value]="'Cancel'"
-            [icon]="'clear'"
+            icon="clear"
             [class]="'element--error'"
             (onClick)="cancel()"></pk-button>
     </pk-dynamic-form-cancel>

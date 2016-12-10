@@ -55,7 +55,8 @@ import {
         FloatingModule
     ],
     providers: [
-        DynamicFormService
+        DynamicFormService,
+        DynamicFormComponent
     ],
     exports: [
         DynamicFormDefaultComponent,

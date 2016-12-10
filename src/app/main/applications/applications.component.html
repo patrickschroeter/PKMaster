@@ -4,36 +4,36 @@
 
         <pk-list>
             <pk-list-header>
-                <!--<pk-list-attribute (click)="sortBy('status')" [name]="'state-icon'"></pk-list-attribute>-->
-                <pk-list-attribute (click)="sortBy('status')" [name]="'state'">Status</pk-list-attribute>
-                <pk-list-attribute [name]="'name'">Title</pk-list-attribute>
-                <pk-list-attribute (click)="sortBy('created')" [name]="'date'">Created</pk-list-attribute>
-                <pk-list-attribute (click)="sortBy('modified')" [name]="'modified'">Modified</pk-list-attribute>
+                <!--<pk-list-attribute name="state-icon" (click)="sortBy('status')"></pk-list-attribute>-->
+                <pk-list-attribute name="state" (click)="sortBy('status')">Status</pk-list-attribute>
+                <pk-list-attribute name="name">Title</pk-list-attribute>
+                <pk-list-attribute name="date" (click)="sortBy('created')">Created</pk-list-attribute>
+                <pk-list-attribute name="modified" (click)="sortBy('modified')">Modified</pk-list-attribute>
             </pk-list-header>
             <pk-list-content>
                 <pk-list-element *ngFor="let application of applications" [name]="application.status?.name">
-                    <!--<pk-list-attribute [name]="'state-icon'" [attr.tooltip]="application.status"></pk-list-attribute>-->
-                    <pk-list-attribute [name]="'state'">{{ application.status?.name }}</pk-list-attribute>
-                    <pk-list-attribute [name]="'name'">
+                    <!--<pk-list-attribute name="state-icon" [attr.tooltip]="application.status"></pk-list-attribute>-->
+                    <pk-list-attribute name="state">{{ application.status?.name }}</pk-list-attribute>
+                    <pk-list-attribute name="name">
                         <a routerLink="/applications/{{ application.id }}">{{ application.form.title }}</a>
                     </pk-list-attribute>
-                    <pk-list-attribute [name]="'date'">{{ application.created | date }}</pk-list-attribute>
-                    <pk-list-attribute [name]="'modified'">{{ application.modified | date }}</pk-list-attribute>
+                    <pk-list-attribute name="date">{{ application.created | date }}</pk-list-attribute>
+                    <pk-list-attribute name="modified">{{ application.modified | date }}</pk-list-attribute>
 
                     <pk-floating horizontal top-right>
-                        <pk-button rounded *ngIf="application.status?.name === 'created'" [pkAlert]="'Submit Application'"
+                        <pk-button rounded *ngIf="application.status?.name === 'created'" pkAlert="Submit Application"
                             (onClick)="submitApplication(application)"
-                            class="element--spacing-left-large" [icon]="'send'" element--success></pk-button>
+                            class="element--spacing-left-large" icon="send" element--success></pk-button>
                         <a  *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
                             routerLink="/applications/{{ application.id }}/edit">
-                            <pk-button rounded [pkAlert]="'Edit Application'" [icon]="'create'" element--secondary></pk-button>
+                            <pk-button rounded pkAlert="Edit Application" icon="create" element--secondary></pk-button>
                         </a>
-                        <pk-button rounded *ngIf="['submitted'].indexOf(application.status?.name) !== -1" [pkAlert]="'Recind Application'"
+                        <pk-button rounded *ngIf="['submitted'].indexOf(application.status?.name) !== -1" pkAlert="Recind Application"
                             (onClick)="rescindApplication(application)"
-                            [icon]="'undo'" element--error></pk-button>
-                        <pk-button rounded *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1" [pkAlert]="'Deactivate Application'"
+                            icon="undo" element--error></pk-button>
+                        <pk-button rounded *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1" pkAlert="Deactivate Application"
                             (onClick)="deactivateApplication(application)"
-                            [icon]="'delete'" element--error></pk-button>
+                            icon="delete" element--error></pk-button>
                     </pk-floating>
                 </pk-list-element>
             </pk-list-content>
@@ -41,7 +41,7 @@
 
     </div>
     <pk-floating fixed top-right>
-        <pk-button rounded [pkAlert]="'Create Application'" [icon]="'add'" element--secondary (onClick)="toggleCreateNew()"></pk-button>
+        <pk-button rounded pkAlert="Create Application" icon="add" element--secondary (onClick)="toggleCreateNew()"></pk-button>
     </pk-floating>
     <pk-overlay [isOpen]="isOpenNewApplication" (toggleOverlay)="toggleCreateNew()" class="overlay--fluid">
         <div class="pk-overlay__header">Create New Application</div>
