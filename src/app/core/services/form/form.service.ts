@@ -4,7 +4,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 import { AlertService } from './../alert';
 import { Field, Form } from './../../../swagger';
 
-import { FormApiMock } from './../api';
+import { FormApi } from './../../../swagger/api/FormApi';
 
 @Injectable()
 export class FormService {
@@ -21,7 +21,7 @@ export class FormService {
     private editElementRx: Observable<Field>;
     private editElement$: Observer<Field>;
 
-    constructor(private alert: AlertService, private formApi: FormApiMock) { }
+    constructor(private alert: AlertService, private formApi: FormApi) { }
 
     /**
      * @description return the observable for the adding element status

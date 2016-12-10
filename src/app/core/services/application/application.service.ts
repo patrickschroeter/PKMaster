@@ -3,7 +3,8 @@ import { Observable } from 'rxjs/Rx';
 
 import { AlertService } from './../alert';
 import { FormService } from './../form';
-import { ApplicationApiMock } from './../api';
+
+import { ApplicationApi } from './../../../swagger/api/ApplicationApi';
 
 import { Application, Field, Status } from './../../../swagger';
 
@@ -16,7 +17,7 @@ export class ApplicationService {
     constructor(
         private formService: FormService,
         private alert: AlertService,
-        private applicationApi: ApplicationApiMock) {
+        private applicationApi: ApplicationApi) {
      }
 
     /**

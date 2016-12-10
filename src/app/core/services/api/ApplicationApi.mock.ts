@@ -3,13 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 import { Application } from './../../../swagger';
-
-import { FormApiMock } from './FormApi.mock';
+import { FormApi } from './../../../swagger/api/FormApi';
 
 @Injectable()
 export class ApplicationApiMock {
 
-    constructor(private formApi: FormApiMock) { }
+    constructor(private formApi: FormApi) { }
 
     public getApplicationById (applicationId: string, token?: number, extraHttpRequestParams?: any ) : Observable<any> {
         console.log('%cMock:' + `%c getApplicationById ${applicationId}`, 'color: #F44336', 'color: #fefefe');
