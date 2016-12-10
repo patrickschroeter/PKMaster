@@ -28,7 +28,7 @@ export class ApplicationsEditComponent implements OnInit {
                 // TODO catch in service
                 if (!application) {
                     return this.onError(params['id']);
-                } else if ( application.status && ['recinded', 'created'].indexOf(application.status.name) === -1) {
+                } else if ( application.status && ['rescinded', 'created'].indexOf(application.status.name) === -1) {
                     this.router.navigate(['/applications']);
                     this.alert.setErrorHint('no-application-edit', `It's not allowed to edit this application`, 2000);
                     return;
@@ -48,7 +48,21 @@ export class ApplicationsEditComponent implements OnInit {
 
     saveApplication(form) {
         this.applicationService.saveApplication(form).subscribe(result => {
-            this.router.navigate(['/applications']);
+            this.router.navigate([`/applications/`, form.id]);
+        });
+    }
+
+    submitApplication(application: Application) {
+        this.applicationService.submitApplication(application).subscribe(result => {
+            this.alert.setSuccessHint(`submitApplication${application.id}`, 'Application submitted');
+            this.router.navigate([`/applications/`, result.id]);
+        });
+    }
+
+    deactivateApplication(application: Application) {
+        this.applicationService.deactivateApplication(application).subscribe(result => {
+            this.alert.setSuccessHint(`deactivateApplication${application.id}`, 'Application deactivated');
+            this.router.navigate([`/applications/`, result.id]);
         });
     }
 

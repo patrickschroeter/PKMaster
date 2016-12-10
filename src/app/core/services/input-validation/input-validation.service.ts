@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Validators, ValidatorFn, FormControl, FormGroup } from '@angular/forms';
+import { Validators, ValidatorFn, FormControl, FormGroup, AbstractControl } from '@angular/forms';
 
 @Injectable()
 export class InputValidationService {
@@ -15,7 +15,7 @@ export class InputValidationService {
 
     constructor() { }
 
-    public getErrorMessage(control: FormControl | FormGroup): string {
+    public getErrorMessage(control: FormControl | FormGroup | AbstractControl): string {
         if (control.hasError('notTrue')) {
             return 'Field is required.';
 

@@ -33,4 +33,22 @@ export class ApplicationsDetailComponent implements OnInit {
             });
         });
     }
+
+    submitApplication(application: Application) {
+        this.applicationService.submitApplication(application).subscribe(result => {
+            this.alert.setSuccessHint(`submitApplication${application.id}`, 'Application submitted');
+        });
+    }
+
+    rescindApplication(application: Application) {
+        this.applicationService.rescindApplication(application).subscribe(result => {
+            this.alert.setSuccessHint(`rescindApplication${application.id}`, 'Application rescinded');
+        });
+    }
+
+    deactivateApplication(application: Application) {
+        this.applicationService.deactivateApplication(application).subscribe(result => {
+            this.alert.setSuccessHint(`deactivateApplication${application.id}`, 'Application deactivated');
+        });
+    }
 }

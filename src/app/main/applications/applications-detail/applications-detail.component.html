@@ -3,32 +3,43 @@
 
     <pk-dynamic-form-disabled *ngIf="application.attributes?.length > 0" [form]="application.attributes"></pk-dynamic-form-disabled>
 
-    <pk-list>
+    <pk-list *ngIf="application.comments">
         <pk-list-header>
-            <pk-list-attribute name="state-icon"></pk-list-attribute>
+            <!--<pk-list-attribute name="state-icon"></pk-list-attribute>-->
+            <pk-list-attribute name="state">Status</pk-list-attribute>
             <pk-list-attribute name="name">Message</pk-list-attribute>
             <pk-list-attribute name="date">Created</pk-list-attribute>
             <pk-list-attribute name="state">Author</pk-list-attribute>
-            <pk-list-attribute name="state">Private</pk-list-attribute>
         </pk-list-header>
         <pk-list-content>
             <pk-list-element *ngFor="let comment of application.comments" [name]="comment.isPrivate ? 'denied' : 'accepted'">
-                <pk-list-attribute name="state-icon"></pk-list-attribute>
+                <!--<pk-list-attribute name="state-icon"></pk-list-attribute>-->
+                <pk-list-attribute name="state">{{ comment.isPrivate ? 'private' : 'public' }}</pk-list-attribute>
                 <pk-list-attribute name="name">{{ comment.message }}</pk-list-attribute>
                 <pk-list-attribute name="date">{{ comment.created | date }}</pk-list-attribute>
                 <pk-list-attribute name="state">{{ comment.author.salutation }} {{ comment.author.name }}</pk-list-attribute>
-                <pk-list-attribute name="state">{{ comment.isPrivate }}</pk-list-attribute>
             </pk-list-element>
         </pk-list-content>
     </pk-list>
 
     <pk-floating top-right fixed>
-        <pk-button rounded pkAlert="Back" icon="keyboard_backspace" element--error></pk-button>
-        <a routerLink="/applications/{{ application.id }}/edit">
-            <pk-button rounded pkAlert="Edit Application" icon="create" element--secondary></pk-button>
+        <a routerLink="/applications">
+            <pk-button rounded pkAlert="Cancel" icon="clear" class="element--spacing-bottom-tiny" element--error></pk-button>
         </a>
-        <pk-button rounded pkAlert="Submit Application" icon="send" element--success></pk-button>
-        <pk-button rounded pkAlert="Recind Application" icon="undo" element--error></pk-button>
-        <pk-button rounded pkAlert="Deactivate Application" icon="delete" element--error></pk-button>
+        <pk-button rounded *ngIf="application.status?.name === 'created'" pkAlert="Submit Application"
+            (onClick)="submitApplication(application)"
+            class="element--spacing-bottom-tiny" icon="send" element--success></pk-button>
+        <a  *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
+            routerLink="/applications/{{ application.id }}/edit">
+            <pk-button class="element--spacing-bottom-tiny" rounded pkAlert="Edit Application" icon="create" element--secondary></pk-button>
+        </a>
+        <pk-button rounded *ngIf="['submitted'].indexOf(application.status?.name) !== -1" pkAlert="Recind Application"
+            (onClick)="rescindApplication(application)"
+            class="element--spacing-bottom-tiny"
+            icon="undo" element--error></pk-button>
+        <pk-button rounded *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1" pkAlert="Deactivate Application"
+            (onClick)="deactivateApplication(application)"
+            class="element--spacing-bottom-tiny"
+            icon="delete" element--error></pk-button>
     </pk-floating>
 </div>

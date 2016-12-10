@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Validators, FormControl, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormControl, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 
 import { InputValidationService, AlertService } from './../../../../core';
 
@@ -55,9 +55,13 @@ export class DynamicFormService {
      * @param {FormElement} element
      * @return {boolean}
      */
-    public showElementValidation(element: Field): void {
-        if (!element['formControl']) { return; }
-        this.showValidation(element['formControl']);
+    public showElementValidation(element: Field, formControl?: AbstractControl): void {
+        if (!element['formControl'] && !formControl) { return; }
+        if (element['formControl']) {
+            this.showValidation(element['formControl']);
+        } else if (formControl) {
+            this.showValidation(formControl);
+        }
     }
 
     public hideValidation() {
@@ -69,7 +73,7 @@ export class DynamicFormService {
      * @param {FormGroup|FormControl} form the form object to validate
      * @return {void}
      */
-    public showValidation(form: FormGroup | FormControl) {
+    public showValidation(form: FormGroup | FormControl | AbstractControl) {
         let message = this.inputValidation.getErrorMessage(form);
         if (message) {
             this.alert.setErrorHint('validation', message);
