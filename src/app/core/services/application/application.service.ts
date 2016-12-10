@@ -45,11 +45,8 @@ export class ApplicationService {
      * @return {Observable}
      */
     public createNewApplication(application: Application): Observable<Application> {
-        this.alert.setLoading('createNewApplication', 'Create Application...');
-        console.log(application);
-        return this.applicationApi.createApplication(17, application).map(application => {
-            this.alert.removeHint('createNewApplication');
-            return this.application = application;
+        return this.applicationApi.createApplication(17, application).map(result => {
+            return this.application = result;
         })
     }
 
@@ -58,11 +55,10 @@ export class ApplicationService {
             this.alert.setAlert('Not Allowed', 'This operation is not allowed.');
             return new Observable(observer => { observer.error('Error'); });
         }
-        this.alert.setLoading(`submitApplication${application.id}`, 'Submit Application...');
+        /** TODO: move to server */
         application.status = { name: 'submitted' };
-        return this.applicationApi.updateApplicationById(application.id, 17, application).map(application => {
-            this.alert.removeHint(`submitApplication${application.id}`);
-            return this.application = application;
+        return this.applicationApi.updateApplicationById(application.id, 17, application).map(result => {
+            return this.application = result;
         });
     }
 
@@ -71,11 +67,10 @@ export class ApplicationService {
             this.alert.setAlert('Not Allowed', 'This operation is not allowed.');
             return new Observable(observer => { observer.error('Error'); });
         }
-        this.alert.setLoading(`rescindApplication${application.id}`, 'Rescind Application...');
+        /** TODO: move to server */
         application.status = { name: 'rescinded' };
-        return this.applicationApi.updateApplicationById(application.id, 17, application).map(application => {
-            this.alert.removeHint(`rescindApplication${application.id}`);
-            return this.application = application;
+        return this.applicationApi.updateApplicationById(application.id, 17, application).map(result => {
+            return this.application = result;
         });
     }
 
@@ -84,11 +79,10 @@ export class ApplicationService {
             this.alert.setAlert('Not Allowed', 'This operation is not allowed.');
             return new Observable(observer => { observer.error('Error'); });
         }
-        this.alert.setLoading(`deactivateApplication${application.id}`, 'Deactivate Application...');
+        /** TODO: move to server */
         application.status = { name: 'deactivated' };
-        return this.applicationApi.updateApplicationById(application.id, 17, application).map(application => {
-            this.alert.removeHint(`deactivateApplication${application.id}`);
-            return this.application = application;
+        return this.applicationApi.updateApplicationById(application.id, 17, application).map(result => {
+            return this.application = result;
         });
     }
 
@@ -103,9 +97,7 @@ export class ApplicationService {
                 element.value = form[element.name];
             };
         }
-        this.alert.setLoading('saveApplication', 'Save Application...');
         return this.applicationApi.updateApplicationById(this.application.id, 17, this.application).map(application => {
-            this.alert.removeHint('saveApplication');
             /** hack */
             application.status = { name: 'created' };
             this.applicationApi.updateApplicationById(application.id, 17, application);
