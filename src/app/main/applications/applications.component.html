@@ -4,20 +4,20 @@
 
         <pk-list>
             <pk-list-header>
-                <pk-list-attribute (click)="sortBy('status')" [name]="'state-icon'"></pk-list-attribute>
+                <!--<pk-list-attribute (click)="sortBy('status')" [name]="'state-icon'"></pk-list-attribute>-->
+                <pk-list-attribute (click)="sortBy('status')" [name]="'state'">Status</pk-list-attribute>
                 <pk-list-attribute [name]="'name'">Title</pk-list-attribute>
                 <pk-list-attribute (click)="sortBy('created')" [name]="'date'">Created</pk-list-attribute>
-                <pk-list-attribute (click)="sortBy('status')" [name]="'state'">Status</pk-list-attribute>
                 <pk-list-attribute (click)="sortBy('modified')" [name]="'modified'">Modified</pk-list-attribute>
             </pk-list-header>
             <pk-list-content>
                 <pk-list-element *ngFor="let application of applications" [name]="application.status?.name">
-                    <pk-list-attribute [name]="'state-icon'" [attr.tooltip]="application.status"></pk-list-attribute>
+                    <!--<pk-list-attribute [name]="'state-icon'" [attr.tooltip]="application.status"></pk-list-attribute>-->
+                    <pk-list-attribute [name]="'state'">{{ application.status?.name }}</pk-list-attribute>
                     <pk-list-attribute [name]="'name'">
                         <a routerLink="/applications/{{ application.id }}">{{ application.form.title }}</a>
                     </pk-list-attribute>
                     <pk-list-attribute [name]="'date'">{{ application.created | date }}</pk-list-attribute>
-                    <pk-list-attribute [name]="'state'">{{ application.status?.name }}</pk-list-attribute>
                     <pk-list-attribute [name]="'modified'">{{ application.modified | date }}</pk-list-attribute>
 
                     <pk-floating horizontal top-right>

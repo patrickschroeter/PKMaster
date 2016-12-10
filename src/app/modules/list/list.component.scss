@@ -135,10 +135,12 @@
     &.list-element--restricted {
         $current-color: $error;
         .list-element__attribute--state-icon { border-color: $current-color; background: transparent }
+        .list-element__attribute--state { color: $current-color }
     }
     &.list-element--no-restricted {
         $current-color: $success;
         .list-element__attribute--state-icon { border-color: $current-color; background: transparent }
+        .list-element__attribute--state { color: $current-color }
     }
 }
 
