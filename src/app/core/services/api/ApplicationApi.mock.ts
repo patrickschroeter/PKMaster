@@ -126,6 +126,7 @@ export class ApplicationApiMock {
     ];
 
     private _applications(): Application[] {
+        // this._list = [];
         return JSON.parse(JSON.stringify(this._list));
     }
 

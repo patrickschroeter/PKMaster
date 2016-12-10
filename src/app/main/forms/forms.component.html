@@ -1,8 +1,13 @@
 <div id="edit-profile">
     <div class="rel">
-        <h1 class="element element--spacing-bottom-small">Forms</h1>
+        <div *ngIf="!forms?.length" class="empty-wrapper">
+            <div class="label">No Forms here.</div>
+            <pk-button icon="add" element--secondary (onClick)="toggleCreateNew()" value="Create New Form" class="element--spacing-top-large"></pk-button>
+        </div>
 
-        <pk-list>
+        <h1 *ngIf="forms?.length" class="element element--spacing-bottom-small">Forms</h1>
+
+        <pk-list *ngIf="forms?.length">
             <pk-list-header>
                 <!--<pk-list-attribute (click)="sortBy('restrictedAccess')" name="state-icon"></pk-list-attribute>-->
                 <pk-list-attribute name="state">Status</pk-list-attribute>

@@ -1,4 +1,5 @@
-@import './../../../theme';
+@import './../../../config';
+@import './../../../theme/typescale';
 
 :host {
   @include clearfix();

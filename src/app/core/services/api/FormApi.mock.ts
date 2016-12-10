@@ -109,11 +109,17 @@ export class FormApiMock {
     ];
 
     private _forms(): Form[] {
+        // this._list = [];
         return JSON.parse(JSON.stringify(this._list));
     }
 
     private _formAdd(form: Form): Form {
-        let id = this._list[this._list.length - 1].id + 'Q';
+        let id;
+        if (!this._list.length) {
+            id = 'Q';
+        } else {
+            id = this._list[this._list.length - 1].id + 'Q';
+        }
         form.id = id;
         form.created = Date.now();
         this._list.push(form);
