@@ -1,6 +1,5 @@
 @import './../../../config';
 @import './../../../theme/typescale';
-@import './../../../theme/components/element';
 
 .pk-form-after {
     .rel {
@@ -21,7 +20,10 @@
 
 #form-edit {
     .form {
-        @extend .element-wrapper;
+        padding: $element-grid-base;
+        border: 1px solid $guidance-color;
+        border-radius: $border-radius;
+
         /deep/ {
             .form__element {
                 &:hover {
