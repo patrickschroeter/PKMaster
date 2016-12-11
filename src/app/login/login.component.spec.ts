@@ -15,12 +15,9 @@ import {
 
 import { AlertService, AlertMock } from './../modules/alert';
 
-import {
-    SharedModule
-} from './../shared/shared.module';
-import {
-    DynamicFormModule
-} from './../modules/dynamic-form/dynamic-form.module';
+import { SharedModule } from './../shared/shared.module';
+import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module';
+import { ButtonModule } from './../modules/button/button.module';
 
 describe('LoginComponent', () => {
     let component: LoginComponent;
@@ -36,7 +33,8 @@ describe('LoginComponent', () => {
                 RouterTestingModule.withRoutes([
                     { path: '', component: class { } },
                 ]),
-                DynamicFormModule
+                DynamicFormModule,
+                ButtonModule
             ],
             providers: [
                 { provide: AuthenticationService, useClass: AuthenticationMock },

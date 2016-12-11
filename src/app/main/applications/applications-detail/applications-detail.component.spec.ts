@@ -19,6 +19,7 @@ import { SharedModule } from './../../../shared/shared.module';
 import { DynamicFormModule } from './../../../modules/dynamic-form/dynamic-form.module';
 import { ListModule } from './../../../modules/list/list.module';
 import { FloatingModule } from './../../../modules/floating/floating.module';
+import { ButtonModule } from './../../../modules/button/button.module';
 
 describe('ApplicationsDetailComponent', () => {
     let component: ApplicationsDetailComponent;
@@ -36,7 +37,8 @@ describe('ApplicationsDetailComponent', () => {
                 ]),
                 DynamicFormModule,
                 ListModule,
-                FloatingModule
+                FloatingModule,
+                ButtonModule
             ],
             providers: [
                 { provide: ApplicationService, useClass: ApplicationMock },

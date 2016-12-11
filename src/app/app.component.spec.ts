@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { AlertService, AlertMock, AlertComponent } from './modules/alert';
 
 import { SharedModule } from './shared/shared.module';
+import { OverlayModule } from './modules/overlay/overlay.module';
 
 describe('App: Pk', () => {
     let fixture: ComponentFixture<any>;
@@ -27,7 +28,8 @@ describe('App: Pk', () => {
                 SharedModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: class { } },
-                ])
+                ]),
+                OverlayModule
             ]
         });
 

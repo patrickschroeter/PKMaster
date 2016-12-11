@@ -3,7 +3,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AlertDirective } from './alert.directive';
 
-import { AlertMock, AlertService } from './../../../core';
+import { AlertMock, AlertService } from './../../';
 
 describe('AlertDirective', () => {
   it('should create an instance', () => {

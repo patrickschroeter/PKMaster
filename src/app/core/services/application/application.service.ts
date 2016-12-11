@@ -25,7 +25,7 @@ export class ApplicationService {
      * @param {number} id
      * @return {Observable}
      */
-    public getApplicationById(id: number): Observable<Application> {
+    public getApplicationById(id: string): Observable<Application> {
         return this.applicationApi.getApplicationById(id).map(application => {
             return this.application = application;
         })
@@ -92,7 +92,7 @@ export class ApplicationService {
      * @return {void}
      */
     public saveApplication(form): Observable<Application> {
-        if (this.application.attributes) {
+        if (this.application && this.application.attributes) {
             for (let i = 0, length = this.application.attributes.length; i < length; i++) {
                 let element: Field = this.application.attributes[i];
                 element.value = form[element.name];

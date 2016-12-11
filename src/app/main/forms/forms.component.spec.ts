@@ -18,7 +18,9 @@ import { AlertService, AlertMock } from './../../modules/alert';
 import { SharedModule } from './../../shared/shared.module';
 import { ListModule } from './../../modules/list/list.module';
 import { FloatingModule } from './../../modules/floating/floating.module';
+import { ButtonModule } from './../../modules/button/button.module';
 import { DynamicFormModule } from './../../modules/dynamic-form/dynamic-form.module';
+import { OverlayModule } from './../../modules/overlay/overlay.module';
 
 describe('FormsComponent', () => {
     let component: FormsComponent;
@@ -36,7 +38,9 @@ describe('FormsComponent', () => {
                 ]),
                 ListModule,
                 FloatingModule,
-                DynamicFormModule
+                DynamicFormModule,
+                ButtonModule,
+                OverlayModule
             ],
             providers: [
                 { provide: FormService, useClass: FormMock },

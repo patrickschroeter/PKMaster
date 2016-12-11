@@ -17,6 +17,8 @@ import { SharedModule } from './../../shared/shared.module';
 import { ListModule } from './../../modules/list/list.module';
 import { FloatingModule } from './../../modules/floating/floating.module';
 import { DynamicFormModule } from './../../modules/dynamic-form/dynamic-form.module';
+import { ButtonModule } from './../../modules/button/button.module';
+import { OverlayModule } from './../../modules/overlay/overlay.module';
 
 describe('RolesComponent', () => {
     let component: RolesComponent;
@@ -34,7 +36,9 @@ describe('RolesComponent', () => {
                 SharedModule,
                 ListModule,
                 FloatingModule,
-                DynamicFormModule
+                DynamicFormModule,
+                ButtonModule,
+                OverlayModule
             ],
             providers: [
                 { provide: InputValidationService, useClass: InputValidationMock },

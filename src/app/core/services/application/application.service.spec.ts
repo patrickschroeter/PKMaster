@@ -32,14 +32,29 @@ describe('Service: Application', () => {
         expect(service).toBeTruthy();
     }));
 
-    it('should return the application with the given id', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+    it('should create a new application with the given information', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
         let element;
-        service.getApplicationById(123546).subscribe(result => {
+        service.createNewApplication({ form: { id: '1' }}).subscribe(result => {
             element = result;
         });
         expect(element).toBeUndefined();
 
         tick(1000);
+
+        expect(element).toBeDefined();
+        expect(element.id).toBeDefined();
+    })));
+
+    it('should return the application with the given id', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+        let element;
+        service.createNewApplication({ form: { id: '1' }}).subscribe(application => {
+            service.getApplicationById(application.id).subscribe(result => {
+                element = result;
+            });
+        })
+        expect(element).toBeUndefined();
+
+        tick(1200);
 
         expect(element).toBeDefined();
     })));
@@ -56,47 +71,41 @@ describe('Service: Application', () => {
         expect(elements).toBeDefined();
     })));
 
-    it('should create a new application with the given information', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
-        let element, id = 123456;
-        service.createNewApplication({}).subscribe(result => {
-            element = result;
-        });
-        expect(element).toBeUndefined();
-
-        tick(1000);
-
-        expect(element).toBeDefined();
-        expect(element.id).toBeDefined();
-    })));
-
     it('should save all form elements of the form', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
         let element;
-        service.saveApplication(ApplicationMock.APPLICATION).subscribe(result => {
-            element = result;
+        let id;
+        service.createNewApplication({ form: { id: '1' }}).subscribe(application => {
+            id = application.id;
+            service.saveApplication({}).subscribe(result => {
+                element = result;
+            });
         });
 
         expect(element).toBeUndefined();
 
-        tick(1000);
+        tick(1200);
 
         expect(element).toBeDefined();
-        expect(element.id).toBeDefined(ApplicationMock.APPLICATION.id);
+        expect(element.id).toBeDefined(id);
     })));
 
     describe('Function: rescindApplication', () => {
-        it('should change the status so rescinded if allowed', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+        it('should change the status to rescinded if allowed', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
             let element;
-            service.rescindApplication({ status: 'submitted' }).subscribe(result => {
-                element = result;
+            service.createNewApplication({ form: { id: '1' }}).subscribe(application => {
+                application.status = { name: 'submitted' };
+                service.rescindApplication(application).subscribe(result => {
+                    element = result;
+                });
             });
             expect(element).toBeUndefined();
             tick(1000);
-            expect(element.status).toEqual('rescinded');
+            expect(element.status.name).toEqual('rescinded');
         })));
         it('should throw and alert an error if status change is not allowed', fakeAsync(inject([ApplicationService, AlertService], (service: ApplicationService, alert: AlertService) => {
             let response;
             spyOn(alert, 'setAlert');
-            service.rescindApplication({ status: 'deactivated' }).subscribe(result => {
+            service.rescindApplication({ status: { name: 'deactivated' } }).subscribe(result => {
                 response = 'success';
             }, error => {
                 response = 'error';
@@ -110,17 +119,20 @@ describe('Service: Application', () => {
     describe('Function: deactivateApplication', () => {
         it('should change the appliation status to deactivated if allowed', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
             let element;
-            service.deactivateApplication({ status: 'created' }).subscribe(result => {
-                element = result;
+            service.createNewApplication({ form: { id: '1' }}).subscribe(application => {
+                application.status = { name: 'created' };
+                service.deactivateApplication(application).subscribe(result => {
+                    element = result;
+                });
             });
             expect(element).toBeUndefined();
             tick(1000);
-            expect(element.status).toEqual('deactivated');
+            expect(element.status.name).toEqual('deactivated');
         })));
         it('should throw and alert an error if status change is not allowed', fakeAsync(inject([ApplicationService, AlertService], (service: ApplicationService, alert: AlertService) => {
             let response;
             spyOn(alert, 'setAlert');
-            service.deactivateApplication({ status: 'deactivated' }).subscribe(result => {
+            service.deactivateApplication({ status: { name: 'deactivated' } }).subscribe(result => {
                 response = 'success';
             }, error => {
                 response = 'error';
@@ -134,17 +146,20 @@ describe('Service: Application', () => {
     describe('Function: submitApplication', () => {
         it('should change the application status to submitted if allowed', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
             let element;
-            service.submitApplication({ status: 'created' }).subscribe(result => {
-                element = result;
+            service.createNewApplication({ form: { id: '1' }}).subscribe(application => {
+                application.status = { name: 'created' };
+                service.submitApplication(application).subscribe(result => {
+                    element = result;
+                });
             });
             expect(element).toBeUndefined();
             tick(1000);
-            expect(element.status).toEqual('submitted');
+            expect(element.status.name).toEqual('submitted');
         })));
         it('should throw and alert an error if status change is not allowed', fakeAsync(inject([ApplicationService, AlertService], (service: ApplicationService, alert: AlertService) => {
             let response;
             spyOn(alert, 'setAlert');
-            service.submitApplication({ status: 'deactivated' }).subscribe(result => {
+            service.submitApplication({ status: { name: 'deactivated' } }).subscribe(result => {
                 response = 'success';
             }, error => {
                 response = 'error';

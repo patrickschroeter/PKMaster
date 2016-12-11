@@ -6,14 +6,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { SelectComponent } from './select.component';
 
-import {
-    OverlayComponent,
-    ButtonComponent
-} from './../../../../shared';
-
 import { FloatingModule } from './../../../../modules/floating/floating.module';
-import {
-    DynamicFormComponent, DynamicFormComponentMock } from './../../';
+import { ButtonModule } from './../../../../modules/button/button.module';
+import { OverlayModule } from './../../../../modules/overlay/overlay.module';
+import { DynamicFormComponent, DynamicFormComponentMock } from './../../';
 
 describe('SelectComponent', () => {
     let component: SelectComponent;
@@ -22,14 +18,14 @@ describe('SelectComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                OverlayComponent,
-                ButtonComponent,
                 SelectComponent
             ],
             imports: [
                 ReactiveFormsModule,
                 FloatingModule,
-                FormsModule
+                FormsModule,
+                ButtonModule,
+                OverlayModule
             ],
             providers: [
                 { provide: DynamicFormComponent, useClass: DynamicFormComponentMock }

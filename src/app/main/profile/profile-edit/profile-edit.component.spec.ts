@@ -16,6 +16,7 @@ import {
     SharedModule
 } from './../../../shared/shared.module';
 import { DynamicFormModule } from './../../../modules/dynamic-form/dynamic-form.module';
+import { ButtonModule } from './../../../modules/button/button.module';
 
 describe('ProfileEditComponent', () => {
     let component: ProfileEditComponent;
@@ -31,7 +32,8 @@ describe('ProfileEditComponent', () => {
                 RouterTestingModule.withRoutes([
                     { path: '', component: class { } },
                 ]),
-                DynamicFormModule
+                DynamicFormModule,
+                ButtonModule
             ],
             providers: [
                 { provide: InputValidationService, useClass: InputValidationMock },

@@ -20,6 +20,7 @@ import {
 } from './../../../shared/shared.module';
 import { DynamicFormModule } from './../../../modules/dynamic-form/dynamic-form.module';
 import { FloatingModule } from './../../../modules/floating/floating.module';
+import { ButtonModule } from './../../../modules/button/button.module';
 
 describe('ElementEditComponent', () => {
     let component: ElementEditComponent;
@@ -36,7 +37,8 @@ describe('ElementEditComponent', () => {
                     { path: '', component: class { } },
                 ]),
                 DynamicFormModule,
-                FloatingModule
+                FloatingModule,
+                ButtonModule
             ],
             providers: [
                 { provide: FormElementService, useClass: FormElementMock },

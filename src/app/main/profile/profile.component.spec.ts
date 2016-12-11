@@ -20,6 +20,8 @@ import {
 } from './../../shared/shared.module';
 import { DynamicFormModule } from './../../modules/dynamic-form/dynamic-form.module';
 import { FloatingModule } from './../../modules/floating/floating.module';
+import { ButtonModule } from './../../modules/button/button.module';
+import { OverlayModule } from './../../modules/overlay/overlay.module';
 
 describe('ProfileComponent', () => {
     let component: ProfileComponent;
@@ -37,7 +39,9 @@ describe('ProfileComponent', () => {
                 ]),
                 SharedModule,
                 DynamicFormModule,
-                FloatingModule
+                FloatingModule,
+                ButtonModule,
+                OverlayModule
             ],
             providers: [
                 { provide: AuthenticationService, useClass: AuthenticationMock },
