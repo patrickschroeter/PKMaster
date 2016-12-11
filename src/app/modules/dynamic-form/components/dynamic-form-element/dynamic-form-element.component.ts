@@ -27,7 +27,7 @@ export class DynamicFormElementComponent implements OnInit {
      * @return {void}
      */
     showElementValidation(element: Field): void {
-        this.dynamicForm.showElementValidation(element, this.parent['form'].controls[element.name]);
+        this.dynamicForm.showElementValidation(element, this.parent.form.controls[element.name]);
     }
 
     hideElementValidation(): void {

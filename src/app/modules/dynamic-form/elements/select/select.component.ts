@@ -26,14 +26,18 @@ export class SelectComponent implements OnInit {
     constructor(private parent: DynamicFormComponent) { }
 
     ngOnInit() {
-        if (this.parent &&
-            this.parent['form'] &&
-            this.parent['form'].controls &&
-            this.parent['form'].controls[this.config.name]) {
-            this.formControl = this.parent['form'].controls[this.config.name];
-        } else {
-            this.formControl = new FormControl(this.config.value)
+        if (!this.config) {
+            this.config = {};
         }
+        if (this.parent &&
+            this.parent.form &&
+            this.parent.form.controls &&
+            this.parent.form.controls[this.config.name]) {
+            this.formControl = this.parent.form.controls[this.config.name];
+        } else {
+            this.formControl = new FormControl(this.config.value);
+        }
+
         this.isOpen = false;
     }
 
@@ -67,6 +71,7 @@ export class SelectComponent implements OnInit {
     }
 
     filterOptions(event) {
+        if (!this.config.options) { return; }
         if (event === '') {
             this.filteredOptions = undefined;
             return;

@@ -27,13 +27,16 @@ export class DatalistComponent implements OnInit {
     constructor(private parent: DynamicFormComponent, private alert: AlertService) { }
 
     ngOnInit() {
+        if (!this.config) {
+            this.config = {};
+        }
         if (this.parent &&
-            this.parent['form'] &&
-            this.parent['form'].controls &&
-            this.parent['form'].controls[this.config.name]) {
-            this.formControl = this.parent['form'].controls[this.config.name];
+            this.parent.form &&
+            this.parent.form.controls &&
+            this.parent.form.controls[this.config.name]) {
+            this.formControl = this.parent.form.controls[this.config.name];
         } else {
-            this.formControl = new FormControl(this.config.value)
+            this.formControl = new FormControl(this.config.value);
         }
 
         this.initAddOptionsForm();

@@ -11,8 +11,9 @@ import {
     ButtonComponent
 } from './../../../../shared';
 
-import { DynamicFormComponent } from './../../';
 import { FloatingModule } from './../../../../modules/floating/floating.module';
+import {
+    DynamicFormComponent, DynamicFormComponentMock } from './../../';
 
 describe('SelectComponent', () => {
     let component: SelectComponent;
@@ -29,6 +30,9 @@ describe('SelectComponent', () => {
                 ReactiveFormsModule,
                 FloatingModule,
                 FormsModule
+            ],
+            providers: [
+                { provide: DynamicFormComponent, useClass: DynamicFormComponentMock }
             ]
         })
             .compileComponents();

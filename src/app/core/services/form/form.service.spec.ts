@@ -6,14 +6,22 @@ import {
     AlertService,
     AlertMock
 } from './../alert';
-import { FormMock, FormElementMock } from './../';
 
-fdescribe('Service: Form', () => {
+import {
+    FormMock,
+    FormElementMock,
+    FormApiMock
+} from './../';
+
+import { FormApi } from './../../../swagger';
+
+describe('Service: Form', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
                 FormService,
-                { provide: AlertService, useClass: AlertMock }
+                { provide: AlertService, useClass: AlertMock },
+                { provide: FormApi, useClass: FormApiMock }
             ]
         });
     });
@@ -35,16 +43,20 @@ fdescribe('Service: Form', () => {
         expect(element).toBeFalsy();
     }));
 
-    /** onEditElement + next */
-    it('should provide access to the editElement Variable', inject([FormService], (service: FormService) => {
-        let element;
-        service.onEditElement().subscribe(result => {
-            element = result;
-        });
-        expect(element).toBeUndefined();
-        service.editElement(FormElementMock.FORMELEMENT);
-        expect(element).toEqual(FormElementMock.FORMELEMENT);
-    }));
+    describe('Function: onEditElement', () => {
+        /** onEditElement + next */
+        it('should return null if the element is not in the form', inject([FormService], (service: FormService) => {
+            let element;
+            service.onEditElement().subscribe(result => {
+                element = result;
+            });
+            expect(element).toBeUndefined();
+            service.editElement(FormElementMock.FORMELEMENT);
+            expect(element).toEqual(null);
+        }));
+
+        it('should provide the element if it is part of the form');
+    });
 
     /** getFormById */
     it('should retrieve the database to get the requested form by id', inject([FormService], (service: FormService) => {

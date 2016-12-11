@@ -38,7 +38,9 @@ export class FormService {
      * @return {void}
      */
     public setAddingElement(addingElement: boolean) {
-        this.addingElement$.next(addingElement);
+        if (this.addingElement$) {
+            this.addingElement$.next(addingElement);
+        }
     }
 
     /**
@@ -117,9 +119,10 @@ export class FormService {
      * @return {void}
      */
     public editElement(element?: Field): void {
+        if (!this.form || !this.form.elements) { return this.editElement$.next(null); }
 
         this.editingElementIndex = -1;
-        if (element) {
+        if (element && this.form) {
             for (let i = 0, length = this.form.elements.length; i < length; i++) {
                 let formElement = this.form.elements[i];
                 if (formElement && formElement.name === element.name) {
@@ -181,7 +184,7 @@ export class FormService {
     public addElementToForm(element: Field, mode?: 'clone' | 'add'): boolean {
         /** Forms don't have Presets yet */
         // delete element.value;
-
+        if (!this.form || !this.form.elements) { return false; }
         /** Check if the element.name is Unique in the current Form */
         let index = -1;
         for (let i = 0, length = this.form.elements.length; i < length; i++) {

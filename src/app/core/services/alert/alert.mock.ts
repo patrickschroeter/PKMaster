@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Rx';
 
-import { Message } from './';
-
 @Injectable()
 export class AlertMock {
 
@@ -14,6 +12,8 @@ export class AlertMock {
     public removeHint(id: string): void { }
 
     public setAlert(title: string, message: string): void { }
+
+    public setErrorHint(id: string, message: string, time?: number): void { }
 
     public getAlert(): Observable<any> {
         return new Observable(observer => { observer.next('alert'); });

@@ -22,7 +22,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
     @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
 
-    private form: FormGroup;
+    public form: FormGroup;
     private isFormValidationVisible: boolean = false;
 
     constructor(

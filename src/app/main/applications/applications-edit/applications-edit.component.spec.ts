@@ -10,7 +10,9 @@ import {
     ApplicationService,
     ApplicationMock,
     AlertService,
-    AlertMock
+    AlertMock,
+    InputValidationService,
+    InputValidationMock
 } from './../../../core';
 
 import { SharedModule } from './../../../shared/shared.module';
@@ -36,7 +38,8 @@ describe('ApplicationsEditComponent', () => {
             ],
             providers: [
                 { provide: ApplicationService, useClass: ApplicationMock },
-                { provide: AlertService, useClass: AlertMock }
+                { provide: AlertService, useClass: AlertMock },
+                { provide: InputValidationService, useClass: InputValidationMock }
             ]
         })
             .compileComponents();

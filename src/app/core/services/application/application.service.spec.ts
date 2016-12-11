@@ -11,7 +11,8 @@ import {
 import { AlertService, AlertMock } from './../alert';
 
 import { ApplicationMock } from './';
-import { Status } from './../../../swagger';
+import { Status, ApplicationApi, FormApi } from './../../../swagger';
+import { ApplicationApiMock, FormApiMock } from './..';
 
 describe('Service: Application', () => {
     beforeEach(() => {
@@ -21,6 +22,8 @@ describe('Service: Application', () => {
 
                 { provide: FormService, useClass: FormMock },
                 { provide: AlertService, useClass: AlertMock },
+                { provide: ApplicationApi, useClass: ApplicationApiMock },
+                { provide: FormApi, useClass: FormApiMock },
             ]
         });
     });

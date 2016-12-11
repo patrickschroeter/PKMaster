@@ -12,7 +12,9 @@ import {
     AlertService,
     AlertMock,
     ApplicationService,
-    ApplicationMock
+    ApplicationMock,
+    FormService,
+    FormMock
 } from './../../core';
 
 import {
@@ -42,6 +44,7 @@ describe('ApplicationsComponent', () => {
                 { provide: InputValidationService, useClass: InputValidationMock },
                 { provide: AlertService, useClass: AlertMock },
                 { provide: ApplicationService, useClass: ApplicationMock },
+                { provide: FormService, useClass: FormMock },
             ]
         })
             .compileComponents();

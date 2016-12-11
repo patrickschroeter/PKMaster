@@ -16,15 +16,21 @@ import {
 
 import {
     DynamicFormComponent,
+    DynamicFormComponentMock,
     DynamicFormContentComponent,
     DynamicFormElementComponent,
     DynamicFormSubmitComponent,
     DynamicFormCancelComponent,
+
+    DynamicFormService,
+    DynamicFormMock
 } from './../../';
 
 import {
     AlertService,
-    AlertMock
+    AlertMock,
+    InputValidationService,
+    InputValidationMock,
 } from './../../../../core';
 
 import {
@@ -65,6 +71,9 @@ describe('DatalistComponent', () => {
             ],
             providers: [
                 { provide: AlertService, useClass: AlertMock },
+                { provide: InputValidationService, useClass: InputValidationMock },
+                { provide: DynamicFormComponent, useClass: DynamicFormComponentMock },
+                { provide: DynamicFormService, useClass: DynamicFormMock }
             ]
         })
             .compileComponents();
