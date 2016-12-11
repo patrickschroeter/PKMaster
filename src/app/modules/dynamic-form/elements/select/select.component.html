@@ -12,7 +12,7 @@
     </label>
 
     <!-- All selected Elements when multiselect -->
-    <div class="element__select element__options" *ngIf="config.multipleSelect && formControl.value?.length !== 0"
+    <div class="element__select element__options" *ngIf="config.multipleSelect && formControl.value && formControl.value.length !== 0"
         [class.element--disabled]="isDisabled()">
 
         <div *ngIf="!isDisabled()" class="element__option option--default" (click)="toggleSelectOverlay()">
@@ -21,12 +21,14 @@
         </div>
 
         <div *ngFor="let option of config.options">
-            <div *ngIf="!isDisabled() && formControl.value.indexOf(option.value) !== -1" class="element__option" (click)="removeOption(option)">
-                <div class="element__value">{{ option.label }}</div>
-                <i class="element__icon material-icons md-20" aria-hidden="true">close</i>
-            </div>
-            <div *ngIf="isDisabled() && formControl.value.indexOf(option.value) !== -1" class="element__option">
-                <div class="element__value">{{ option.label }}</div>
+            <div *ngIf="config.multipleSelect && formControl.value.indexOf(option.value) !== -1">
+                <div *ngIf="!isDisabled()" class="element__option" (click)="removeOption(option)">
+                    <div class="element__value">{{ option.label }}</div>
+                    <i class="element__icon material-icons md-20" aria-hidden="true">close</i>
+                </div>
+                <div *ngIf="isDisabled()" class="element__option">
+                    <div class="element__value">{{ option.label }}</div>
+                </div>
             </div>
         </div>
 
@@ -53,12 +55,14 @@
         [class.element--disabled]="isDisabled()">
 
         <div *ngFor="let option of config.options" class="clearfix">
-            <div *ngIf="!isDisabled() && formControl.value.indexOf(option.value) !== -1" class="element__option" (click)="toggleSelectOverlay()">
-                <div class="element__value">{{ option.label }}</div>
-                <i class="element__icon material-icons md-24" aria-hidden="true">expand_more</i>
-            </div>
-            <div *ngIf="isDisabled() && formControl.value.indexOf(option.value) !== -1" class="element__option">
-                <div class="element__value">{{ option.label }}</div>
+            <div *ngIf="formControl.value === option.value">
+                <div *ngIf="!isDisabled()" class="element__option" (click)="toggleSelectOverlay()">
+                    <div class="element__value">{{ option.label }}</div>
+                    <i class="element__icon material-icons md-24" aria-hidden="true">expand_more</i>
+                </div>
+                <div *ngIf="isDisabled()" class="element__option">
+                    <div class="element__value">{{ option.label }}</div>
+                </div>
             </div>
         </div>
 
@@ -70,7 +74,7 @@
 
     <pk-overlay [isOpen]="isOpen" (toggleOverlay)="toggleSelectOverlay()" *ngIf="!isDisabled()">
         <div class="pk-overlay__header">{{ config.label }}</div>
-        <div class="pk-overlay__content">
+        <div class="pk-overlay__content" *ngIf="isOpen">
             <div *ngIf="config.options?.length > 5" class="overlay__option element">
                 <input
                     class="element__input"
@@ -80,7 +84,7 @@
                     (ngModelChange)="filterOptions($event)"
                     >
             </div>
-            <div class="overlay__option selectable" *ngFor="let option of (filteredOptions ? filteredOptions : config.options)" (click)="select(option)" [class.selectable--active]="formControl.value && formControl.value.indexOf(option.value) !== -1">
+            <div class="overlay__option selectable" *ngFor="let option of (filteredOptions ? filteredOptions : config.options)" (click)="select(option)" [class.selectable--active]="formControl.value && ((config.multipleSelect && formControl.value.indexOf(option.value) !== -1) || (!config.multipleSelect && formControl.value === option.value))">
                     {{ option.label }}
             </div>
         </div>

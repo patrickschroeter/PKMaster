@@ -66,7 +66,7 @@ export class DatalistComponent implements OnInit {
     }
 
     isDisabled() {
-        return this.disabled || this.config.disabled;
+        return this.disabled || (this.config && this.config.disabled);
     }
 
     toggleAddOptionOverlay() {
@@ -78,7 +78,7 @@ export class DatalistComponent implements OnInit {
 
     addOption(element) {
         // add value to values
-        let values = this.config['formControl'].value;
+        let values = this.formControl.value;
         if (!values) { values = []; }
 
         let index = this.indexOf(element, values);
@@ -88,7 +88,7 @@ export class DatalistComponent implements OnInit {
             values[index].label = element.label;
         }
 
-        this.config['formControl'].setValue(values);
+        this.formControl.setValue(values);
 
         // add element to options
 
@@ -110,10 +110,10 @@ export class DatalistComponent implements OnInit {
 
     removeOption(element) {
         // remove value from values
-        let values = this.config['formControl'].value;
+        let values = this.formControl.value;
         let index = this.indexOf(element, values);
         if (index !== -1) { values.splice(index, 1); }
-        this.config['formControl'].setValue(values);
+        this.formControl.setValue(values);
 
         // remove element from options
         if (this.indexOf(element, this.config.options) !== -1) {

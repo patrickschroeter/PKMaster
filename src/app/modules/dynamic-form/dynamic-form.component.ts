@@ -70,8 +70,8 @@ export class DynamicFormComponent implements OnInit, OnChanges {
         this.form = this.dynamicForm.generateFormFromInput(input);
 
         /** Emit Form changes via @Output() */
-        this.form.valueChanges.subscribe((event) => {
-            this.onChange.emit(event);
+        this.form.valueChanges.subscribe(() => {
+            this.onChange.emit(this.form);
         });
     }
 

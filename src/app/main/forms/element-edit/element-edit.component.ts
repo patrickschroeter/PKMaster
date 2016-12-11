@@ -1,4 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 import { FormElementService } from './../../../core';
 import { Field } from './../../../swagger';
@@ -47,7 +48,7 @@ export class ElementEditComponent implements OnInit {
      * @param {FormElement} form
      * @return {void}
      */
-    updateElement(form: Field): void {
+    updateElement(form: FormGroup): void {
         this.elementService.updateElement(form);
     }
 

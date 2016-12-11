@@ -36,7 +36,7 @@ export class TextareaComponent implements OnInit {
     }
 
     isDisabled() {
-        return this.disabled || this.config.disabled;
+        return this.disabled || (this.config && this.config.disabled);
     }
 
 }

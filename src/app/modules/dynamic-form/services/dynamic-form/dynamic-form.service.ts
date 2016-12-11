@@ -56,13 +56,9 @@ export class DynamicFormService {
      * @param {FormElement} element
      * @return {boolean}
      */
-    public showElementValidation(element: Field, formControl?: AbstractControl): void {
-        if (!element['formControl'] && !formControl) { return; }
-        if (element['formControl']) {
-            this.showValidation(element['formControl']);
-        } else if (formControl) {
-            this.showValidation(formControl);
-        }
+    public showElementValidation(formControl?: AbstractControl): void {
+        if (!formControl) { return; }
+        this.showValidation(formControl);
     }
 
     public hideValidation() {
