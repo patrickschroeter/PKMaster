@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs/Rx';
 
 import { FormService } from './../form';
-import { AlertService } from './../alert';
+import { AlertService } from './../../../modules/alert';
 import { Field } from './../../../swagger';
 
 @Injectable()

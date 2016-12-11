@@ -7,11 +7,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { RolesComponent } from './roles.component';
 
 import {
-    AlertService,
-    AlertMock,
     InputValidationService,
     InputValidationMock
 } from './../../core';
+
+import { AlertService, AlertMock } from './../../modules/alert';
 
 import { SharedModule } from './../../shared/shared.module';
 import { ListModule } from './../../modules/list/list.module';

@@ -8,10 +8,10 @@ import { ConferencesComponent } from './conferences.component';
 
 import {
     InputValidationService,
-    InputValidationMock,
-    AlertService,
-    AlertMock
+    InputValidationMock
 } from './../../core';
+
+import { AlertService, AlertMock } from './../../modules/alert';
 
 import {
     SharedModule

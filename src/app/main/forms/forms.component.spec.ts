@@ -11,9 +11,9 @@ import {
     FormMock,
     InputValidationService,
     InputValidationMock,
-    AlertService,
-    AlertMock
 } from './../../core';
+
+import { AlertService, AlertMock } from './../../modules/alert';
 
 import { SharedModule } from './../../shared/shared.module';
 import { ListModule } from './../../modules/list/list.module';

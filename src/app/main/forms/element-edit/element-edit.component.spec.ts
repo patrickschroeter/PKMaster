@@ -11,9 +11,9 @@ import {
     FormElementMock,
     InputValidationService,
     InputValidationMock,
-    AlertService,
-    AlertMock
 } from './../../../core';
+
+import { AlertService, AlertMock } from './../../../modules/alert';
 
 import {
     SharedModule

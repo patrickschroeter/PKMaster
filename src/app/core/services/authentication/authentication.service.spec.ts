@@ -5,10 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { AuthenticationService } from './authentication.service';
 
-import {
-    AlertService,
-    AlertMock
-} from './../';
+import { AlertService, AlertMock } from './../../../modules/alert';
 
 describe('Service: Authentication', () => {
     beforeEach(() => {

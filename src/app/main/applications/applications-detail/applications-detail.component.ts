@@ -1,7 +1,9 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { ApplicationService, AlertService } from './../../../core';
+import { ApplicationService } from './../../../core';
+import { AlertService } from './../../../modules/alert';
+
 import { Application } from './../../../swagger';
 
 @Component({

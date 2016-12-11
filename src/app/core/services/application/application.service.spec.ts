@@ -8,7 +8,7 @@ import {
     FormMock,
 } from './../form';
 
-import { AlertService, AlertMock } from './../alert';
+import { AlertService, AlertMock } from './../../../modules/alert';
 
 import { ApplicationMock } from './';
 import { Status, ApplicationApi, FormApi } from './../../../swagger';

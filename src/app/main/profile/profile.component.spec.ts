@@ -10,11 +10,10 @@ import { ProfileComponent } from './profile.component';
 import {
     AuthenticationService,
     AuthenticationMock,
-    AlertService,
-    AlertMock,
     InputValidationService,
     InputValidationMock
 } from './../../core';
+import { AlertService, AlertMock } from './../../modules/alert';
 
 import {
     SharedModule

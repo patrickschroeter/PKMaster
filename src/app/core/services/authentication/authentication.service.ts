@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Rx';
 
-import { AlertService } from './../alert';
+import { AlertService } from './../../../modules/alert';
 
 @Injectable()
 export class AuthenticationService {

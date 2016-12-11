@@ -3,7 +3,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { FormElementService } from './form-element.service';
 
-import { AlertService, AlertMock } from './../alert';
+import { AlertService, AlertMock } from './../../../modules/alert';
 import { FormService, FormMock } from './../form';
 
 import { Field } from './../../../swagger';

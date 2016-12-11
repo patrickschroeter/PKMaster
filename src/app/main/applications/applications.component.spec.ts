@@ -9,13 +9,13 @@ import { ApplicationsComponent } from './applications.component';
 import {
     InputValidationService,
     InputValidationMock,
-    AlertService,
-    AlertMock,
     ApplicationService,
     ApplicationMock,
     FormService,
     FormMock
 } from './../../core';
+
+import { AlertService, AlertMock } from './../../modules/alert';
 
 import {
     SharedModule

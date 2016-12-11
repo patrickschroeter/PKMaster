@@ -1,7 +1,8 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { AuthenticationService, AlertService, InputValidationService } from './../../core';
+import { AuthenticationService, InputValidationService } from './../../core';
+import { AlertService } from './../../modules/alert';
 
 import { DynamicFormService } from './../../modules/dynamic-form';
 

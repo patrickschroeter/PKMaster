@@ -3,7 +3,7 @@ import { FormControl, AbstractControl } from '@angular/forms';
 
 import { DynamicFormComponent } from './../../dynamic-form.component';
 
-import { AlertService } from './../../../../core';
+import { AlertService } from './../../../../modules/alert';
 
 import { Field } from './../../../../swagger';
 

@@ -9,9 +9,8 @@ import { ProfileEditComponent } from './profile-edit.component';
 import {
     InputValidationService,
     InputValidationMock,
-    AlertService,
-    AlertMock
 } from './../../../core';
+import { AlertService, AlertMock } from './../../../modules/alert';
 
 import {
     SharedModule

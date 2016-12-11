@@ -9,11 +9,11 @@ import { ApplicationsDetailComponent } from './applications-detail.component';
 import {
     ApplicationService,
     ApplicationMock,
-    AlertService,
-    AlertMock,
     InputValidationService,
     InputValidationMock
 } from './../../../core';
+
+import { AlertService, AlertMock } from './../../../modules/alert';
 
 import { SharedModule } from './../../../shared/shared.module';
 import { DynamicFormModule } from './../../../modules/dynamic-form/dynamic-form.module';

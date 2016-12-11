@@ -2,10 +2,7 @@
 
 import { TestBed, async, inject } from '@angular/core/testing';
 import { FormService } from './form.service';
-import {
-    AlertService,
-    AlertMock
-} from './../alert';
+import { AlertService, AlertMock } from './../../../modules/alert';
 
 import {
     FormMock,

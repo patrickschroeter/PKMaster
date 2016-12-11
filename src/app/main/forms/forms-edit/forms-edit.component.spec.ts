@@ -11,11 +11,11 @@ import { ElementEditComponent } from './..';
 import {
     FormService,
     FormMock,
-    AlertService,
-    AlertMock,
     InputValidationService,
     InputValidationMock
 } from './../../../core';
+
+import { AlertService, AlertMock } from './../../../modules/alert';
 
 import {
     SharedModule

@@ -6,11 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
 
-import {
-    AlertComponent,
-    AlertService,
-    AlertMock
-} from './core';
+import { AlertService, AlertMock, AlertComponent } from './modules/alert';
 
 import { SharedModule } from './shared/shared.module';
 
