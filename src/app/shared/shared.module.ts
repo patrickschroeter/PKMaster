@@ -19,8 +19,9 @@ import { FloatingModule } from './../modules/floating/floating.module';
         elements.OverlayComponent,
         elements.ButtonComponent,
         elements.DeviderComponent,
+        elements.LoadingComponent,
 
-        directives.AlertDirective
+        directives.AlertDirective,
     ],
     imports: [
         CommonModule,
@@ -41,6 +42,7 @@ import { FloatingModule } from './../modules/floating/floating.module';
         elements.OverlayComponent,
         elements.ButtonComponent,
         elements.DeviderComponent,
+        elements.LoadingComponent,
 
         directives.AlertDirective
     ]

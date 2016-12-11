@@ -1,6 +1,8 @@
 <div id="edit-profile">
     <div class="rel">
-        <div *ngIf="!forms?.length" class="empty-wrapper">
+        <pk-loading *ngIf="!forms"></pk-loading>
+
+        <div *ngIf="forms && !forms.length" class="empty-wrapper">
             <div class="label">No Forms here.</div>
             <pk-button icon="add" element--secondary (onClick)="toggleCreateNew()" value="Create New Form" class="element--spacing-top-large"></pk-button>
         </div>

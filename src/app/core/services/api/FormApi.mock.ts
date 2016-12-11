@@ -21,7 +21,7 @@ export class FormApiMock {
                     observer.error('Error creating Form');
                 }
                 observer.complete();
-            }, 500);
+            }, 5000);
         });
     }
 
@@ -37,7 +37,7 @@ export class FormApiMock {
                     observer.error('No Forms found');
                 }
                 observer.complete();
-            }, 500);
+            }, 5000);
         });
     }
 
@@ -53,7 +53,7 @@ export class FormApiMock {
                     observer.error(`No Form with ID ${formId} found`);
                 }
                 observer.complete();
-            }, 500);
+            }, 5000);
         });
     }
 
@@ -69,7 +69,7 @@ export class FormApiMock {
                     observer.error(`No Form with ID ${formId} found`);
                 }
                 observer.complete();
-            }, 500);
+            }, 5000);
         });
     }
 

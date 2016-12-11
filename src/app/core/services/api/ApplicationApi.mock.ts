@@ -22,7 +22,7 @@ export class ApplicationApiMock {
                     observer.error(`No Application with ID ${applicationId} found`);
                 }
                 observer.complete();
-            }, 500);
+            }, 5000);
         });
     }
 
@@ -38,7 +38,7 @@ export class ApplicationApiMock {
                     observer.error('No Applications found');
                 }
                 observer.complete();
-            }, 500);
+            }, 5000);
         });
     }
 
@@ -54,7 +54,7 @@ export class ApplicationApiMock {
                     observer.error('No Applications created');
                 }
                 observer.complete();
-            }, 500);
+            }, 5000);
         });
     }
 
@@ -70,7 +70,7 @@ export class ApplicationApiMock {
                     observer.error(`No Application with ID ${applicationId} found`);
                 }
                 observer.complete();
-            }, 500);
+            }, 5000);
         });
     }
 
