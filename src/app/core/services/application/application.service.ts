@@ -6,7 +6,7 @@ import { FormService } from './../form';
 
 import { ApplicationApi } from './../../../swagger/api/ApplicationApi';
 
-import { Application, Field, Status } from './../../../swagger';
+import { Application, Field } from './../../../swagger';
 
 @Injectable()
 export class ApplicationService {
@@ -31,6 +31,9 @@ export class ApplicationService {
         })
     }
 
+    /**
+     * @description return the observable to get a list of all applications the user has (sorted)
+     */
     public getApplications(sort?: string): Observable<any> {
         return this.applicationApi.getApplications().map(applications => {
             if (sort) {
@@ -51,11 +54,17 @@ export class ApplicationService {
         })
     }
 
-    public submitApplication(application: Application): Observable<Application> {
-        if (['created'].indexOf(application.status.name) === -1) {
+    private blockedStatusUpdate(name: string, permittedStati: string[]): Observable<any> {
+        if (permittedStati.indexOf(name) === -1) {
             this.alert.setAlert('Not Allowed', 'This operation is not allowed.');
             return new Observable(observer => { observer.error('Error'); });
         }
+        return null;
+    }
+
+    public submitApplication(application: Application): Observable<Application> {
+        let blocked = this.blockedStatusUpdate(application.status.name, ['created']);
+        if (blocked) { return blocked; }
         /** TODO: move to server */
         application.status = { name: 'submitted' };
         return this.applicationApi.updateApplicationById(application.id, 17, application).map(result => {
@@ -64,10 +73,8 @@ export class ApplicationService {
     }
 
     public rescindApplication(application: Application): Observable<Application> {
-        if (['submitted'].indexOf(application.status.name) === -1) {
-            this.alert.setAlert('Not Allowed', 'This operation is not allowed.');
-            return new Observable(observer => { observer.error('Error'); });
-        }
+        let blocked = this.blockedStatusUpdate(application.status.name, ['submitted']);
+        if (blocked) { return blocked; }
         /** TODO: move to server */
         application.status = { name: 'rescinded' };
         return this.applicationApi.updateApplicationById(application.id, 17, application).map(result => {
@@ -76,10 +83,8 @@ export class ApplicationService {
     }
 
     public deactivateApplication(application: Application): Observable<Application> {
-        if (['created', 'rescinded'].indexOf(application.status.name) === -1) {
-            this.alert.setAlert('Not Allowed', 'This operation is not allowed.');
-            return new Observable(observer => { observer.error('Error'); });
-        }
+        let blocked = this.blockedStatusUpdate(application.status.name, ['created', 'rescinded']);
+        if (blocked) { return blocked; }
         /** TODO: move to server */
         application.status = { name: 'deactivated' };
         return this.applicationApi.updateApplicationById(application.id, 17, application).map(result => {

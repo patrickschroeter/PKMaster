@@ -7,6 +7,8 @@ import { Form } from './../../../swagger';
 @Injectable()
 export class FormApiMock {
 
+    static FORM: Form = { title: 'Titel der Form', id: 13, elements: [ { fieldType: 'h3', name: 'header01', value: 'Hochschule für Angewandte Wissenschaften Augsburg', styles: ['small'] }, { fieldType: 'input', name: 'date', type: 'date', label: 'Augsburg, den', styles: ['small'] }]};
+
     constructor() { }
 
     public addForm(token?: number, form?: Form, extraHttpRequestParams?: any): Observable<Form> {
@@ -109,7 +111,7 @@ export class FormApiMock {
     ];
 
     private _forms(): Form[] {
-        // this._list = [];
+        this._list = [];
         return JSON.parse(JSON.stringify(this._list));
     }
 

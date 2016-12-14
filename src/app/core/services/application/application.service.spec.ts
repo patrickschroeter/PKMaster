@@ -11,7 +11,7 @@ import {
 import { AlertService, AlertMock } from './../../../modules/alert';
 
 import { ApplicationMock } from './';
-import { Status, ApplicationApi, FormApi } from './../../../swagger';
+import { Status, ApplicationApi, FormApi, Application } from './../../../swagger';
 import { ApplicationApiMock, FormApiMock } from './..';
 
 describe('Service: Application', () => {
@@ -32,141 +32,191 @@ describe('Service: Application', () => {
         expect(service).toBeTruthy();
     }));
 
-    it('should create a new application with the given information', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
-        let element;
-        service.createNewApplication({ form: { id: '1' }}).subscribe(result => {
-            element = result;
-        });
-        expect(element).toBeUndefined();
+    describe('createNewApplication', () => {
+        it('should provide the new created application',
+            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+                let element;
+                service.createNewApplication({ form: { id: '1' }}).subscribe(result => { element = result; });
+                expect(element).toBeUndefined();
+                tick(1000);
+                expect(element).toBeDefined();
+                expect(element.id).toBeDefined();
+            }))
+        );
+        xit('should throw an error if the user has not the right to create that kind of application',
+            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
 
-        tick(1000);
+            }))
+        );
+        xit('should throw an error if the application could not be created',
+            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
 
-        expect(element).toBeDefined();
-        expect(element.id).toBeDefined();
-    })));
-
-    it('should return the application with the given id', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
-        let element;
-        service.createNewApplication({ form: { id: '1' }}).subscribe(application => {
-            service.getApplicationById(application.id).subscribe(result => {
-                element = result;
-            });
-        })
-        expect(element).toBeUndefined();
-
-        tick(1200);
-
-        expect(element).toBeDefined();
-    })));
-
-    it('should return all available applications', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
-        let elements;
-        service.getApplications('id').subscribe(result => {
-            elements = result;
-        });
-        expect(elements).toBeUndefined();
-
-        tick(1000);
-
-        expect(elements).toBeDefined();
-    })));
-
-    it('should save all form elements of the form', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
-        let element;
-        let id;
-        service.createNewApplication({ form: { id: '1' }}).subscribe(application => {
-            id = application.id;
-            service.saveApplication({}).subscribe(result => {
-                element = result;
-            });
-        });
-
-        expect(element).toBeUndefined();
-
-        tick(1200);
-
-        expect(element).toBeDefined();
-        expect(element.id).toBeDefined(id);
-    })));
-
-    describe('Function: rescindApplication', () => {
-        it('should change the status to rescinded if allowed', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
-            let element;
-            service.createNewApplication({ form: { id: '1' }}).subscribe(application => {
-                application.status = { name: 'submitted' };
-                service.rescindApplication(application).subscribe(result => {
-                    element = result;
-                });
-            });
-            expect(element).toBeUndefined();
-            tick(1000);
-            expect(element.status.name).toEqual('rescinded');
-        })));
-        it('should throw and alert an error if status change is not allowed', fakeAsync(inject([ApplicationService, AlertService], (service: ApplicationService, alert: AlertService) => {
-            let response;
-            spyOn(alert, 'setAlert');
-            service.rescindApplication({ status: { name: 'deactivated' } }).subscribe(result => {
-                response = 'success';
-            }, error => {
-                response = 'error';
-            });
-            tick(1000);
-            expect(alert.setAlert).toHaveBeenCalled();
-            expect(response).toEqual('error');
-        })));
+            }))
+        );
     });
 
-    describe('Function: deactivateApplication', () => {
-        it('should change the appliation status to deactivated if allowed', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
-            let element;
-            service.createNewApplication({ form: { id: '1' }}).subscribe(application => {
-                application.status = { name: 'created' };
-                service.deactivateApplication(application).subscribe(result => {
-                    element = result;
+    describe('getApplicationById', () => {
+        let element, service: ApplicationService;
+
+        beforeEach(fakeAsync(inject([ApplicationService], (applicationService: ApplicationService) => {
+            service = applicationService;
+            service.createNewApplication({ form: { id: '1' }}).subscribe(result => { element = result; });
+            tick(1000);
+        })));
+
+        it('should provide the application with the given id',
+            fakeAsync(() => {
+                let application;
+                service.getApplicationById(element.id).subscribe(result => { application = result; });
+                expect(application).toBeUndefined();
+                tick(1000);
+                expect(application).toBeDefined()
+                expect(application.id).toBe(element.id);
+                expect(application.created).toBe(element.created);
+            })
+        );
+        it('should throw an error if no application with id exists',
+            fakeAsync(() => {
+                let response;
+                service.getApplicationById('someId').subscribe(() => {
+                    response = 'success';
+                }, () => {
+                    response = 'error';
                 });
-            });
-            expect(element).toBeUndefined();
-            tick(1000);
-            expect(element.status.name).toEqual('deactivated');
-        })));
-        it('should throw and alert an error if status change is not allowed', fakeAsync(inject([ApplicationService, AlertService], (service: ApplicationService, alert: AlertService) => {
-            let response;
-            spyOn(alert, 'setAlert');
-            service.deactivateApplication({ status: { name: 'deactivated' } }).subscribe(result => {
-                response = 'success';
-            }, error => {
-                response = 'error';
-            });
-            tick(1000);
-            expect(alert.setAlert).toHaveBeenCalled();
-            expect(response).toEqual('error');
-        })));
+                expect(response).toBeUndefined();
+                tick(1000);
+                expect(response).toBeDefined();
+                expect(response).toBe('error');
+            })
+        );
+        xit('should throw an error if the user has not the rights to read the application',
+            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+
+            }))
+        );
     });
 
-    describe('Function: submitApplication', () => {
-        it('should change the application status to submitted if allowed', fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
-            let element;
-            service.createNewApplication({ form: { id: '1' }}).subscribe(application => {
-                application.status = { name: 'created' };
-                service.submitApplication(application).subscribe(result => {
-                    element = result;
-                });
-            });
-            expect(element).toBeUndefined();
-            tick(1000);
-            expect(element.status.name).toEqual('submitted');
+    describe('getApplications', () => {
+        let element, service: ApplicationService;
+
+        beforeEach(fakeAsync(inject([ApplicationService], (applicationService: ApplicationService) => {
+            service = applicationService;
         })));
-        it('should throw and alert an error if status change is not allowed', fakeAsync(inject([ApplicationService, AlertService], (service: ApplicationService, alert: AlertService) => {
-            let response;
-            spyOn(alert, 'setAlert');
-            service.submitApplication({ status: { name: 'deactivated' } }).subscribe(result => {
-                response = 'success';
-            }, error => {
-                response = 'error';
-            });
-            tick(1000);
-            expect(alert.setAlert).toHaveBeenCalled();
-            expect(response).toEqual('error');
-        })));
+
+        it('should provide an empty array if there are no applications',
+            fakeAsync(() => {
+                let elements;
+                service.getApplications().subscribe(result => { elements = result; });
+                expect(elements).toBeUndefined();
+                tick(1000);
+                expect(elements).toBeDefined();
+                expect(elements.length).toEqual(0);
+            })
+        );
+
+        describe('(with data)', () => {
+            beforeEach(fakeAsync(() => {
+                service.createNewApplication({ form: { id: '1' }, version: 2}).subscribe(result => { });
+                tick(200);
+                service.createNewApplication({ form: { id: '2' }, version: 3}).subscribe(result => { });
+                tick(200);
+                service.createNewApplication({ form: { id: '3' }, version: 1}).subscribe(result => { element = result; });
+                tick(1000);
+            }));
+
+            it('should provide a list of all applications the user has rights to read',
+                fakeAsync(() => {
+                    let elements;
+                    service.getApplications().subscribe(result => { elements = result; });
+                    expect(elements).toBeUndefined();
+                    tick(1000);
+                    expect(elements).toBeDefined();
+                    expect(elements.length).toEqual(3);
+                    expect(elements[0].id).not.toEqual(element.id);
+                    expect(elements[2].id).toEqual(element.id);
+                })
+            );
+            it('should provide a sorted list by attribute of all applications the user has rights to read',
+                fakeAsync(() => {
+                    let elements;
+                    service.getApplications('version').subscribe(result => { elements = result; });
+                    tick(1000);
+                    expect(elements[0].id).toEqual(element.id);
+                })
+            );
+
+        });
+    });
+
+    describe('submitApplication', () => {
+        it('should update the status to <submit> if the operation is allowed',
+            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+
+            }))
+        );
+        it('should throw an error if the operation is not allowed',
+            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+
+            }))
+        );
+        it('should alert an error if the operation is not allowed',
+            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+
+            }))
+        );
+    });
+
+    describe('rescindApplication', () => {
+        it('should update the status to <rescinded> if the operation is allowed',
+            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+
+            }))
+        );
+        it('should throw an error if the operation is not allowed',
+            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+
+            }))
+        );
+        it('should alert an error if the operation is not allowed',
+            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+
+            }))
+        );
+    });
+
+    describe('deactivateApplication', () => {
+        it('should update the status to <deactivated> if the operation is allowed',
+            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+
+            }))
+        );
+        it('should throw an error if the operation is not allowed',
+            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+
+            }))
+        );
+        it('should alert an error if the operation is not allowed',
+            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+
+            }))
+        );
+    });
+
+    describe('saveApplication', () => {
+        it('should update the application with the given form-values',
+            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+
+            }))
+        );
+        it('should throw an error if the user has no rights to change the application',
+            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+
+            }))
+        );
+        it('should throw an error if the application does not exist',
+            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+
+            }))
+        );
     });
 });
