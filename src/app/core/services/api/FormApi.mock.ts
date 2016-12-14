@@ -12,6 +12,7 @@ export class FormApiMock {
     constructor() { }
 
     public addForm(token?: number, form?: Form, extraHttpRequestParams?: any): Observable<Form> {
+        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + '%c addForm', 'color: #F44336', 'color: #fefefe');
         let newform = this._formAdd(form);
         return new Observable(observer => {
@@ -31,6 +32,7 @@ export class FormApiMock {
     }
 
     public getForms(token?: number, extraHttpRequestParams?: any): Observable<any> {
+        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + '%c getForms', 'color: #F44336', 'color: #fefefe');
         let forms = this._forms();
         return new Observable(observer => {
@@ -50,6 +52,7 @@ export class FormApiMock {
     }
 
     public getFormById(formId: string, token?: number, extraHttpRequestParams?: any): Observable<any> {
+        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c getFormById ${formId}`, 'color: #F44336', 'color: #fefefe');
         let form = this._form(formId);
         return new Observable(observer => {
@@ -69,6 +72,7 @@ export class FormApiMock {
     }
 
     public updateFormById(formId: number, token?: number, form?: Form, extraHttpRequestParams?: any): Observable<any> {
+        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c updateFormById ${formId}`, 'color: #F44336', 'color: #fefefe');
         let updatedForm = this._formUpdate(formId.toString(), form);
         return new Observable(observer => {

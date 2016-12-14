@@ -13,6 +13,7 @@ export class ApplicationApiMock {
     constructor(private formApi: FormApi) { }
 
     public getApplicationById (applicationId: string, token?: number, extraHttpRequestParams?: any ) : Observable<any> {
+        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c getApplicationById ${applicationId}`, 'color: #F44336', 'color: #fefefe');
         let application = this._application(applicationId);
         return new Observable(observer => {
@@ -32,6 +33,7 @@ export class ApplicationApiMock {
     }
 
     public getApplications (token?: number, filter?: string, sort?: string, extraHttpRequestParams?: any ) : Observable<any> {
+        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + '%c getApplications', 'color: #F44336', 'color: #fefefe');
         let applications = this._applications();
         return new Observable(observer => {
@@ -51,6 +53,7 @@ export class ApplicationApiMock {
     }
 
     public createApplication (token?: number, application?: Application, extraHttpRequestParams?: any ) : Observable<any> {
+        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + '%c createApplication', 'color: #F44336', 'color: #fefefe');
         let newapplication = this._applicationAdd(application);
         return new Observable(observer => {
@@ -70,6 +73,7 @@ export class ApplicationApiMock {
     }
 
     public updateApplicationById (applicationId: string, token?: number, application?: Application, extraHttpRequestParams?: any ) : Observable<any> {
+        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c updateApplicationById ${applicationId}`, 'color: #F44336', 'color: #fefefe');
         let updatedApplication = this._applicationUpdate(applicationId, application);
         return new Observable(observer => {

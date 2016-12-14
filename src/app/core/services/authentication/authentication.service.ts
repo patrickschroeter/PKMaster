@@ -24,7 +24,7 @@ export class AuthenticationService {
             this.login().subscribe(() => {
                 console.log('Login using Token');
             }, error => {
-                this.logout(true);
+                this.logout();
             });
         }
     }

@@ -64,7 +64,6 @@ export class PermissionService implements CanActivate, CanDeactivate<any>, CanAc
     private guardFormsRoute(): Observable<any> {
         let user = this.authentication.getUser();
         return user.map((e) => {
-            console.log(e);
             return e.isPK;
         });
     }

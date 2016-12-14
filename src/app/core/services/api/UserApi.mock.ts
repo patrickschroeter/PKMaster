@@ -10,6 +10,7 @@ export class UserApiMock {
     constructor() { }
 
     public addUser (token?: number, user?: AppUser, extraHttpRequestParams?: any ) : Observable<any> {
+        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c getUserById ${user.email}`, 'color: #F44336', 'color: #fefefe');
         let newUser = this._user(user.id);
         return new Observable(observer => {
@@ -29,6 +30,7 @@ export class UserApiMock {
     }
 
     public getUserById (userId: string, token?: number, extraHttpRequestParams?: any ) : Observable<any> {
+        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c getUserById ${userId}`, 'color: #F44336', 'color: #fefefe');
         let user = this._user(userId);
         return new Observable(observer => {
@@ -48,6 +50,7 @@ export class UserApiMock {
     }
 
     public getUsers (token?: number, extraHttpRequestParams?: any ) : Observable<any> {
+        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c getUsers`, 'color: #F44336', 'color: #fefefe');
         let users = this._users();
         return new Observable(observer => {
