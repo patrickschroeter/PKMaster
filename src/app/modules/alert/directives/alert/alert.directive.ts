@@ -1,6 +1,6 @@
 import { Directive, Input, HostListener } from '@angular/core';
 
-import { AlertService } from './../../../core';
+import { AlertService } from './../../services';
 
 @Directive({
     selector: '[pkAlert]'

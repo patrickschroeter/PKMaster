@@ -37,7 +37,7 @@ export class CheckboxComponent implements OnInit {
     }
 
     isDisabled() {
-        return this.disabled || this.config.disabled;
+        return this.disabled || (this.config && this.config.disabled);
     }
 
 }

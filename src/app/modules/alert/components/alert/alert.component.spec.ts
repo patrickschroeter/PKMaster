@@ -6,11 +6,9 @@ import { DebugElement } from '@angular/core';
 import { AlertComponent } from './alert.component';
 import { AlertService, AlertMock } from './../../';
 
-import {
-    OverlayComponent,
-    ButtonComponent
-} from './../../../shared';
-import { FloatingModule } from './../../../modules/floating/floating.module';
+import { FloatingModule } from './../../../../modules/floating/floating.module';
+import { ButtonModule } from './../../../../modules/button/button.module';
+import { OverlayModule } from './../../../../modules/overlay/overlay.module';
 
 describe('AlertComponent', () => {
     let component: AlertComponent;
@@ -19,13 +17,12 @@ describe('AlertComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                AlertComponent,
-
-                OverlayComponent,
-                ButtonComponent
+                AlertComponent
             ],
             imports: [
-                FloatingModule
+                FloatingModule,
+                ButtonModule,
+                OverlayModule,
             ],
             providers: [
                 { provide: AlertService, useClass: AlertMock }

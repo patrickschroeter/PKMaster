@@ -1,7 +1,9 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ApplicationService, AlertService, FormService } from './../../core';
+import { ApplicationService, FormService } from './../../core';
+
+import { AlertService } from './../../modules/alert';
 
 import { Application, Form } from './../../swagger';
 

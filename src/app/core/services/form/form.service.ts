@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs/Rx';
 
-import { AlertService } from './../alert';
+import { AlertService } from './../../../modules/alert';
 import { Field, Form } from './../../../swagger';
 
 import { FormApi } from './../../../swagger/api/FormApi';

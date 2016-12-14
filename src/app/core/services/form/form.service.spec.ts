@@ -2,10 +2,7 @@
 
 import { TestBed, async, inject } from '@angular/core/testing';
 import { FormService } from './form.service';
-import {
-    AlertService,
-    AlertMock
-} from './../alert';
+import { AlertService, AlertMock } from './../../../modules/alert';
 
 import {
     FormMock,
@@ -55,7 +52,7 @@ describe('Service: Form', () => {
             expect(element).toEqual(null);
         }));
 
-        it('should provide the element if it is part of the form');
+        it('should provide the element if it is part of the form', () => {});
     });
 
     /** getFormById */

@@ -20,6 +20,6 @@
 
   <pk-devider></pk-devider>
 
-  <a class="navbar__link selectable right" routerLink="/login" routerLinkActive="selectable--active">Logout</a>
+  <a class="navbar__link selectable right" (click)="logout()">Logout</a>
 </div>
 <div class="navbar__fallback" [class.navbar__fallback--open]="isOpen" (click)="toggleNavbar()"></div>

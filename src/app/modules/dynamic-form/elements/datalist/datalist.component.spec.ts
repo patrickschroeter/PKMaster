@@ -27,17 +27,14 @@ import {
 } from './../../';
 
 import {
-    AlertService,
-    AlertMock,
     InputValidationService,
     InputValidationMock,
 } from './../../../../core';
+import { AlertService, AlertMock } from './../../../../modules/alert';
+import { ButtonComponent } from './../../../../modules/button';
+import { OverlayComponent } from './../../../../modules/overlay';
+import { DeviderComponent } from './../../../../modules/devider';
 
-import {
-    OverlayComponent,
-    ButtonComponent,
-    DeviderComponent
-} from './../../../../shared';
 import { FloatingModule } from './../../../../modules/floating/floating.module';
 
 describe('DatalistComponent', () => {

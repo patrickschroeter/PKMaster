@@ -6,6 +6,7 @@ import { LoginRouting } from './login.routing';
 
 import { SharedModule } from './../shared/shared.module';
 import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module';
+import { ButtonModule } from './../modules/button/button.module';
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
         CommonModule,
 
         SharedModule,
-        DynamicFormModule
+        DynamicFormModule,
+        ButtonModule
     ],
     providers: [],
     exports: []

@@ -8,16 +8,17 @@ import { ConferencesComponent } from './conferences.component';
 
 import {
     InputValidationService,
-    InputValidationMock,
-    AlertService,
-    AlertMock
+    InputValidationMock
 } from './../../core';
+
+import { AlertService, AlertMock } from './../../modules/alert';
 
 import {
     SharedModule
 } from './../../shared/shared.module';
 import { DynamicFormModule } from './../../modules/dynamic-form/dynamic-form.module';
 import { FloatingModule } from './../../modules/floating/floating.module';
+import { ButtonModule } from './../../modules/button/button.module';
 
 describe('ConferencesComponent', () => {
     let component: ConferencesComponent;
@@ -34,7 +35,8 @@ describe('ConferencesComponent', () => {
                     { path: '', component: class { } },
                 ]),
                 DynamicFormModule,
-                FloatingModule
+                FloatingModule,
+                ButtonModule
             ],
             providers: [
                 { provide: InputValidationService, useClass: InputValidationMock },

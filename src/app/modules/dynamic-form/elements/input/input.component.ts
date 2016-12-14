@@ -33,9 +33,10 @@ export class InputComponent implements OnInit {
         } else {
             this.formControl = new FormControl(this.config.value);
         }
+    }
 
     isDisabled() {
-        return this.disabled || this.config.disabled;
+        return this.disabled || (this.config && this.config.disabled);
     }
 
 }

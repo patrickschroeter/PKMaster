@@ -30,6 +30,9 @@ import {
 
 import { SharedModule } from './../../../../shared/shared.module';
 import { FloatingModule } from './../../../../modules/floating/floating.module';
+import { ButtonModule } from './../../../../modules/button/button.module';
+import { DeviderModule } from './../../../../modules/devider/devider.module';
+import { OverlayModule } from './../../../../modules/overlay/overlay.module';
 
 describe('DynamicFormEditComponent', () => {
     let component: DynamicFormEditComponent;
@@ -53,10 +56,13 @@ describe('DynamicFormEditComponent', () => {
                 SelectComponent
             ],
             imports: [
+                ReactiveFormsModule,
+                FormsModule,
                 SharedModule,
                 FloatingModule,
-                ReactiveFormsModule,
-                FormsModule
+                ButtonModule,
+                DeviderModule,
+                OverlayModule
             ],
             providers: [
                 { provide: InputValidationService, useClass: InputValidationMock },

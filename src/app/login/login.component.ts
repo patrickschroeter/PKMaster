@@ -51,15 +51,11 @@ export class LoginComponent implements OnInit {
     ];
   }
 
-  login(evt) {
-    console.log(evt);
-    this.authentication.login().subscribe(() => {
+  login(credentials) {
+    this.authentication.login(credentials.email, credentials.password).subscribe(() => {
       this.router.navigate(['/']);
+    }, error => {
+        /** TODO: catch */
     });
   }
-
-  log(evt) {
-    console.log(evt);
-  }
-
 }

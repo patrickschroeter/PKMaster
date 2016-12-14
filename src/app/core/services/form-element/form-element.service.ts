@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs/Rx';
 
 import { FormService } from './../form';
-import { AlertService } from './../alert';
+import { AlertService } from './../../../modules/alert';
 import { Field } from './../../../swagger';
 
 @Injectable()
 export class FormElementService {
 
     /** The current Element as FormElement[] */
+    private elementForm: FormGroup;
     private element: Field[];
     /** The default view for adding new Element */
     private elementBase: Field[] = [];
@@ -45,7 +47,6 @@ export class FormElementService {
      */
     private resetElement(): void {
         delete this.selectTypeFormElement.value;
-        delete this.selectTypeFormElement['formControl'];
         this.selectedType = null;
         this.selectedOptionTable = null;
 
@@ -177,8 +178,9 @@ export class FormElementService {
      * @description DynamicForm Change Event
      * @param {object} event The updated Form-Values
      */
-    public updateElement(form): void {
-
+    public updateElement(formGroup: FormGroup): void {
+        this.elementForm = formGroup;
+        let form = formGroup.value;
         /** Load Type Options on change */
         let type = form.fieldType;
         if (type && type !== this.selectedType) {
@@ -213,13 +215,7 @@ export class FormElementService {
         let options = form.options;
         if (options && options.length !== this.selectedOptionsLength) {
             this.selectedOptionsLength = options.length;
-            for (let i = 0, length = this.element.length; i < length; i++) {
-                let element = this.element[i];
-                if (element.name === 'optionTable') {
-                    element['formControl'].setValue('');
-                    break;
-                }
-            }
+            this.elementForm.controls['optionTable'].setValue('');
         }
 
         /** Create or remove Preview Element if name exists */
@@ -236,19 +232,8 @@ export class FormElementService {
      */
     private updateOptionsOfTable() {
         this.getOptionsOfTable(this.selectedOptionTable).subscribe(options => {
-            let optionElement;
-            for (let i = 0, length = this.element.length; i < length; i++) {
-                let element = this.element[i];
-                if (element.name === 'options') {
-                    optionElement = element;
-                    break;
-                }
-            }
-            if (optionElement) {
-                optionElement.options = options;
-                this.selectedOptionsLength = optionElement.options.length;
-                optionElement['formControl'].setValue(optionElement.options);
-            }
+            this.selectedOptionsLength = options.length;
+            this.elementForm.controls['options'].setValue(options);
         });
     }
 
@@ -789,6 +774,14 @@ function opts() {
                 fieldType: 'input',
                 name: 'placeholder',
                 label: 'Placeholder',
+                styles: [
+                    'small'
+                ]
+            },
+            {
+                fieldType: 'checkbox',
+                name: 'multipleSelect',
+                label: 'Multiselect',
                 styles: [
                     'small'
                 ]

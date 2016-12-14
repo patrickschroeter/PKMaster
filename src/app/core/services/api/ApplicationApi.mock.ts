@@ -8,6 +8,8 @@ import { FormApi } from './../../../swagger/api/FormApi';
 @Injectable()
 export class ApplicationApiMock {
 
+    static APPLICATION: Application = { id: '1', status: 'created', created: new Date(1991, 5, 17), form: { title: 'Titel der Form', id: 13, elements: [ { fieldType: 'h3', name: 'header01', value: 'Hochschule für Angewandte Wissenschaften Augsburg', styles: ['small'] }, { fieldType: 'input', name: 'date', contentType: 'date', label: 'Augsburg, den', styles: ['small'] }]}};
+
     constructor(private formApi: FormApi) { }
 
     public getApplicationById (applicationId: string, token?: number, extraHttpRequestParams?: any ) : Observable<any> {
@@ -126,7 +128,7 @@ export class ApplicationApiMock {
     ];
 
     private _applications(): Application[] {
-        // this._list = [];
+        this._list = [];
         return JSON.parse(JSON.stringify(this._list));
     }
 
@@ -134,10 +136,8 @@ export class ApplicationApiMock {
         let id = this._list.length === 0 ? 'Q' : this._list[this._list.length - 1].id + 'Q';
         application.id = id;
         application.created = new Date();
-        this.formApi.getFormById(application.form.id).subscribe(form => {
-            application.form = form;
-            application.attributes = form.elements;
-        })
+        application.form = this.formApi._form(application.form.id);
+        application.attributes = application.form.elements;
         this._list.push(application);
         return JSON.parse(JSON.stringify(this._list[this._list.length - 1]));
     }

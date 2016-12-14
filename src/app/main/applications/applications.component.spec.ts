@@ -9,19 +9,21 @@ import { ApplicationsComponent } from './applications.component';
 import {
     InputValidationService,
     InputValidationMock,
-    AlertService,
-    AlertMock,
     ApplicationService,
     ApplicationMock,
     FormService,
     FormMock
 } from './../../core';
 
+import { AlertService, AlertMock } from './../../modules/alert';
+
 import {
     SharedModule
 } from './../../shared/shared.module';
 import { ListModule } from './../../modules/list/list.module';
 import { FloatingModule } from './../../modules/floating/floating.module';
+import { ButtonModule } from './../../modules/button/button.module';
+import { OverlayModule } from './../../modules/overlay/overlay.module';
 
 describe('ApplicationsComponent', () => {
     let component: ApplicationsComponent;
@@ -38,7 +40,9 @@ describe('ApplicationsComponent', () => {
                     { path: '', component: class { } },
                 ]),
                 ListModule,
-                FloatingModule
+                FloatingModule,
+                ButtonModule,
+                OverlayModule
             ],
             providers: [
                 { provide: InputValidationService, useClass: InputValidationMock },

@@ -31,6 +31,9 @@ import {
 
 import { SharedModule } from './../../../../shared/shared.module';
 import { FloatingModule } from './../../../../modules/floating/floating.module';
+import { DeviderModule } from './../../../../modules/devider/devider.module';
+import { ButtonModule } from './../../../../modules/button/button.module';
+import { OverlayModule } from './../../../../modules/overlay/overlay.module';
 
 describe('DynamicFormElementComponent', () => {
     let component: DynamicFormElementComponent;
@@ -54,10 +57,13 @@ describe('DynamicFormElementComponent', () => {
                 SelectComponent
             ],
             imports: [
+                ReactiveFormsModule,
+                FormsModule,
                 SharedModule,
                 FloatingModule,
-                ReactiveFormsModule,
-                FormsModule
+                DeviderModule,
+                OverlayModule,
+                ButtonModule
             ],
             providers: [
                 { provide: InputValidationService, useClass: InputValidationMock },

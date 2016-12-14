@@ -14,7 +14,7 @@ export class DynamicFormMock {
      * @return {FormGroup}
      */
     generateFormFromInput(input?: Field[], config = {}): FormGroup {
-        return null;
+        return new FormGroup({});
     }
 
 

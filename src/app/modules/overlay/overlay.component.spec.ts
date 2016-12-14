@@ -4,8 +4,9 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { OverlayComponent } from './overlay.component';
-import { ButtonComponent } from './../../';
-import { FloatingModule } from './../../../modules/floating/floating.module';
+
+import { FloatingModule } from './../../modules/floating/floating.module';
+import { ButtonModule } from './../../modules/button/button.module';
 
 describe('OverlayComponent', () => {
     let component: OverlayComponent;
@@ -14,11 +15,11 @@ describe('OverlayComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                OverlayComponent,
-                ButtonComponent
+                OverlayComponent
             ],
             imports: [
-                FloatingModule
+                FloatingModule,
+                ButtonModule
             ]
         })
         .compileComponents();
