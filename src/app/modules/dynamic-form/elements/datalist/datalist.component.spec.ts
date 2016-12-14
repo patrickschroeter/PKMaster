@@ -16,22 +16,25 @@ import {
 
 import {
     DynamicFormComponent,
+    DynamicFormComponentMock,
     DynamicFormContentComponent,
     DynamicFormElementComponent,
     DynamicFormSubmitComponent,
     DynamicFormCancelComponent,
+
+    DynamicFormService,
+    DynamicFormMock
 } from './../../';
 
 import {
-    AlertService,
-    AlertMock
+    InputValidationService,
+    InputValidationMock,
 } from './../../../../core';
+import { AlertService, AlertMock } from './../../../../modules/alert';
+import { ButtonComponent } from './../../../../modules/button';
+import { OverlayComponent } from './../../../../modules/overlay';
+import { DeviderComponent } from './../../../../modules/devider';
 
-import {
-    OverlayComponent,
-    ButtonComponent,
-    DeviderComponent
-} from './../../../../shared';
 import { FloatingModule } from './../../../../modules/floating/floating.module';
 
 describe('DatalistComponent', () => {
@@ -65,6 +68,9 @@ describe('DatalistComponent', () => {
             ],
             providers: [
                 { provide: AlertService, useClass: AlertMock },
+                { provide: InputValidationService, useClass: InputValidationMock },
+                { provide: DynamicFormComponent, useClass: DynamicFormComponentMock },
+                { provide: DynamicFormService, useClass: DynamicFormMock }
             ]
         })
             .compileComponents();

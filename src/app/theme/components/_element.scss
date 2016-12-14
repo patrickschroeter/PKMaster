@@ -2,6 +2,11 @@
 *   The Element (almost all)
 */
 
+.element-wrapper {
+    padding: $element-grid-base;
+    border: 1px solid $guidance-color;
+    border-radius: $border-radius;
+}
 .element {
     display: block;
     margin: 0;

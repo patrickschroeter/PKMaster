@@ -1,37 +1,44 @@
 <div id="edit-profile">
     <div class="rel">
-        <h1 class="element element--spacing-bottom-small">Forms</h1>
+        <pk-loading *ngIf="!forms"></pk-loading>
 
-        <pk-list>
+        <div *ngIf="forms && !forms.length" class="empty-wrapper">
+            <div class="label">No Forms here.</div>
+            <pk-button icon="add" element--secondary (onClick)="toggleCreateNew()" value="Create New Form" class="element--spacing-top-large"></pk-button>
+        </div>
+
+        <h1 *ngIf="forms?.length" class="element element--spacing-bottom-small">Forms</h1>
+
+        <pk-list *ngIf="forms?.length">
             <pk-list-header>
-                <pk-list-attribute (click)="sortBy('restricted')" [name]="'state-icon'"></pk-list-attribute>
-                <pk-list-attribute (click)="sortBy('title')" [name]="'name'">Title</pk-list-attribute>
-                <pk-list-attribute (click)="sortBy('created')" [name]="'date'">Created</pk-list-attribute>
-                <pk-list-attribute [name]="'version'">Version</pk-list-attribute>
-                <pk-list-attribute [name]="'state'">Status</pk-list-attribute>
+                <!--<pk-list-attribute (click)="sortBy('restrictedAccess')" name="state-icon"></pk-list-attribute>-->
+                <pk-list-attribute name="state">Status</pk-list-attribute>
+                <pk-list-attribute name="name" (click)="sortBy('title')">Title</pk-list-attribute>
+                <pk-list-attribute name="date" (click)="sortBy('created')">Created</pk-list-attribute>
+                <pk-list-attribute name="version">Version</pk-list-attribute>
             </pk-list-header>
             <pk-list-content>
-                <pk-list-element *ngFor="let form of forms" [name]="form.restricted ? 'restricted' : 'no-restricted'">
-                    <pk-list-attribute [name]="'state-icon'"></pk-list-attribute>
-                    <pk-list-attribute [name]="'name'">
+                <pk-list-element *ngFor="let form of forms" [name]="form.restrictedAccess ? 'restricted' : 'no-restricted'">
+                    <!--<pk-list-attribute name="state-icon"></pk-list-attribute>-->
+                    <pk-list-attribute name="state">{{ form.restrictedAccess ? 'restricted' : 'public' }}</pk-list-attribute>
+                    <pk-list-attribute name="name">
                         <a routerLink="/forms/{{ form.id }}/edit">{{ form.title }}</a>
                     </pk-list-attribute>
-                    <pk-list-attribute [name]="'date'">{{ form.created | date }}</pk-list-attribute>
-                    <pk-list-attribute [name]="'version'">{{ form.version }}</pk-list-attribute>
-                    <pk-list-attribute [name]="'state'">{{ form.status }}</pk-list-attribute>
+                    <pk-list-attribute name="date">{{ form.created | date }}</pk-list-attribute>
+                    <pk-list-attribute name="version">{{ form.version }}</pk-list-attribute>
 
                     <pk-floating top-right horizontal>
                         <a routerLink="/forms/{{ form.id }}/edit">
-                            <pk-button rounded [pkAlert]="'Edit Form'" [icon]="'create'" element--secondary></pk-button>
+                            <pk-button rounded pkAlert="Edit Form" icon="create" element--secondary></pk-button>
                         </a>
-                        <pk-button rounded [pkAlert]="'Duplicate Form'" [icon]="'content_copy'" (onClick)="createNewForm(form)" element--secondary></pk-button>
+                        <pk-button rounded pkAlert="Duplicate Form" icon="content_copy" (onClick)="createNewForm(form)" element--secondary></pk-button>
                     </pk-floating>
                 </pk-list-element>
             </pk-list-content>
         </pk-list>
     </div>
     <pk-floating fixed top-right>
-        <pk-button rounded [pkAlert]="'Create New Form'" class="element--spacing-bottom-tiny" [icon]="'add'" element--secondary (onClick)="toggleCreateNew()"></pk-button>
+        <pk-button rounded pkAlert="Create New Form" class="element--spacing-bottom-tiny" icon="add" element--secondary (onClick)="toggleCreateNew()"></pk-button>
     </pk-floating>
     <pk-overlay [isOpen]="isOpenNewForm" (toggleOverlay)="toggleCreateNew()" class="overlay--fluid">
         <div class="pk-overlay__header">Create New Form</div>
@@ -48,7 +55,7 @@
                     <pk-button
                         *ngIf="dynamicForm?.form"
                         [value]="'Create'"
-                        [icon]="'note_add'"
+                        icon="note_add"
                         [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
                         [type]="'submit'"
                         (onClick)="createNewForm(dynamicForm.form.value)"></pk-button>

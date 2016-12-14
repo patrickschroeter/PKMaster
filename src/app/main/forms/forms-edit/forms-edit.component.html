@@ -1,3 +1,5 @@
+<pk-loading *ngIf="!form"></pk-loading>
+
 <div id="form-edit" class="rel" *ngIf="form && !addingElement">
     <h2 class="element element--spacing-bottom-small">Edit Form: {{ form.title }}</h2>
 
@@ -7,13 +9,13 @@
         No Elements in this form.
     </div>
 
-    <pk-dynamic-form *ngIf="form && form.elements && form.elements.length > 0" [formElements]="form.elements" #dynamicForm>
+    <pk-dynamic-form *ngIf="form && form.elements && form.elements.length > 0" [formElements]="form.elements">
         <pk-dynamic-form-content>
 
             <pk-dynamic-form-element *ngFor="let element of form.elements, let i = index" [element]="element">
                 <pk-floating bottom-right-corner horizontal>
-                    <pk-button rounded [pkAlert]="'Edit Form Element'" class="button button--edit element" [icon]="'create'" (onClick)="editElement(element)" element--secondary></pk-button>
-                    <pk-button rounded [pkAlert]="'Remove Form Element'" class="button button--edit element" [icon]="'clear'" (onClick)="removeElement(element, i)" element--error></pk-button>
+                    <pk-button rounded pkAlert="Edit Form Element" class="button button--edit element element--spacing-left-tiny" icon="create" (onClick)="editElement(element)" element--secondary></pk-button>
+                    <pk-button rounded pkAlert="Remove Form Element" class="button button--edit element element--spacing-left-tiny" icon="clear" (onClick)="removeElement(element, i)" element--error></pk-button>
                 </pk-floating>
             </pk-dynamic-form-element>
 
@@ -22,10 +24,13 @@
     </pk-dynamic-form>
 
     <pk-floating top-right fixed>
-        <pk-button rounded [pkAlert]="'Edit Form Attributes'" class="element--spacing-bottom-small" [icon]="'edit'" rounded element--secondary (onClick)="editFormAttributes()"></pk-button>
-        <pk-button rounded [pkAlert]="'Add Form Element'" class="element--spacing-bottom-small" [icon]="'add'" element--secondary (onClick)="addElement()"></pk-button>
-        <pk-button rounded [pkAlert]="'Add Element Preset'" class="element--spacing-bottom-small" [icon]="'library_add'" element--secondary (onClick)="addPreset()"></pk-button>
-        <pk-button rounded [pkAlert]="'Save Form'" class="element--spacing-bottom-small" [icon]="'save'" (onClick)="saveForm()" element--success></pk-button>
+        <a routerLink="/forms">
+            <pk-button rounded pkAlert="Cancel" class="element--spacing-bottom-tiny" icon="clear" element--error></pk-button>
+        </a>
+        <pk-button rounded pkAlert="Edit Form Attributes" class="element--spacing-bottom-tiny" icon="edit" rounded element--secondary (onClick)="editFormAttributes()"></pk-button>
+        <pk-button rounded pkAlert="Add Form Element" class="element--spacing-bottom-tiny" icon="add" element--secondary (onClick)="addElement()"></pk-button>
+        <pk-button rounded pkAlert="Add Element Preset" class="element--spacing-bottom-tiny" icon="library_add" element--secondary (onClick)="addPreset()"></pk-button>
+        <pk-button rounded pkAlert="Save Form" class="element--spacing-bottom-tiny" icon="save" (onClick)="saveForm()" element--success></pk-button>
     </pk-floating>
 </div>
 
@@ -52,7 +57,7 @@
             <pk-dynamic-form-submit>
                 <pk-button
                     [value]="'Save'"
-                    [icon]="'save'"
+                    icon="save"
                     [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
                     [type]="'submit'"
                     (onClick)="saveFormAttributes(dynamicForm.form.value)"></pk-button>

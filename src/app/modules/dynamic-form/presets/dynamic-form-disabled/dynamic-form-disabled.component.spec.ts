@@ -30,6 +30,9 @@ import {
 
 import { SharedModule } from './../../../../shared/shared.module';
 import { FloatingModule } from './../../../../modules/floating/floating.module';
+import { DeviderModule } from './../../../../modules/devider/devider.module';
+import { OverlayModule } from './../../../../modules/overlay/overlay.module';
+import { ButtonModule } from './../../../../modules/button/button.module';
 
 describe('DynamicFormDisabledComponent', () => {
     let component: DynamicFormDisabledComponent;
@@ -53,10 +56,13 @@ describe('DynamicFormDisabledComponent', () => {
                 SelectComponent
             ],
             imports: [
+                ReactiveFormsModule,
+                FormsModule,
                 SharedModule,
                 FloatingModule,
-                ReactiveFormsModule,
-                FormsModule
+                DeviderModule,
+                OverlayModule,
+                ButtonModule
             ],
             providers: [
                 { provide: InputValidationService, useClass: InputValidationMock },

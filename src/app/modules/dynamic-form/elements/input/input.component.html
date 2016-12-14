@@ -1,7 +1,7 @@
 <div
     *ngIf="config"
     class="element__wrapper"
-    [class.element__invalid]="config.formControl.errors"
+    [class.element__invalid]="formControl.errors"
     >
 
     <label
@@ -15,9 +15,9 @@
         *ngIf="!isDisabled()"
         class="element__input"
         [attr.id]="config.name"
-        [attr.type]="config.type"
+        [attr.type]="config.contentType"
         [attr.placeholder]="config.placeholder"
-        [formControl]="config.formControl"
+        [formControl]="formControl"
         >
     <div
         *ngIf="isDisabled()"

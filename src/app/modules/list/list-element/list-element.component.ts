@@ -1,10 +1,10 @@
-import { Component, OnInit, HostBinding, ElementRef, Renderer, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, HostBinding, ElementRef, Renderer, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
     selector: 'pk-list-element',
     template: '<ng-content></ng-content>'
 })
-export class ListElementComponent implements OnInit, AfterViewInit {
+export class ListElementComponent implements OnInit, AfterViewInit, OnChanges {
 
     @HostBinding('class.list-element') element = true;
 
@@ -16,8 +16,15 @@ export class ListElementComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        if (this.name) {
-            this.renderer.setElementClass(this.elementRef.nativeElement, `list-element--${this.name}`, true);
+        // if (this.name) {
+        //     this.renderer.setElementClass(this.elementRef.nativeElement, `list-element--${this.name}`, true);
+        // }
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes['name']) {
+            this.renderer.setElementClass(this.elementRef.nativeElement, `list-element--${changes['name'].previousValue}`, false);
+            this.renderer.setElementClass(this.elementRef.nativeElement, `list-element--${changes['name'].currentValue}`, true);
         }
     }
 }

@@ -7,20 +7,17 @@ import { CommonModule } from '@angular/common';
 
 import * as components from './components';
 import * as elements from './elements';
-import * as directives from './directives';
 
 import { FloatingModule } from './../modules/floating/floating.module';
+import { ButtonModule } from './../modules/button/button.module';
+import { DeviderModule } from './../modules/devider/devider.module';
 
 @NgModule({
     declarations: [
         components.NavbarComponent,
         components.NavbarAdminComponent,
 
-        elements.OverlayComponent,
-        elements.ButtonComponent,
-        elements.DeviderComponent,
-
-        directives.AlertDirective
+        elements.LoadingComponent
     ],
     imports: [
         CommonModule,
@@ -29,7 +26,9 @@ import { FloatingModule } from './../modules/floating/floating.module';
         HttpModule,
         ReactiveFormsModule,
 
-        FloatingModule
+        FloatingModule,
+        ButtonModule,
+        DeviderModule
     ],
     providers: [
 
@@ -38,11 +37,7 @@ import { FloatingModule } from './../modules/floating/floating.module';
         components.NavbarComponent,
         components.NavbarAdminComponent,
 
-        elements.OverlayComponent,
-        elements.ButtonComponent,
-        elements.DeviderComponent,
-
-        directives.AlertDirective
+        elements.LoadingComponent
     ]
 })
 export class SharedModule { }

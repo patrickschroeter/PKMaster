@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, AbstractControl } from '@angular/forms';
 
-import { FormElement } from './../../../../swagger';
+import { DynamicFormComponent } from './../../dynamic-form.component';
+
+import { Field } from './../../../../swagger';
 
 @Component({
     selector: 'pk-textarea',
@@ -12,17 +14,29 @@ export class TextareaComponent implements OnInit {
 
     @HostBinding('class.element') element = true;
 
-    @Input() config: FormElement;
+    @Input() config: Field;
     @Input() disabled: boolean;
 
-    constructor() { }
+    private formControl: AbstractControl;
+
+    constructor(private parent: DynamicFormComponent) { }
 
     ngOnInit() {
-        if (this.config && !this.config.formControl) { this.config.formControl = new FormControl(this.config.value); }
+        if (!this.config) {
+            this.config = {};
+        }
+        if (this.parent &&
+            this.parent.form &&
+            this.parent.form.controls &&
+            this.parent.form.controls[this.config.name]) {
+            this.formControl = this.parent.form.controls[this.config.name];
+        } else {
+            this.formControl = new FormControl(this.config.value);
+        }
     }
 
     isDisabled() {
-        return this.disabled || this.config.disabled;
+        return this.disabled || (this.config && this.config.disabled);
     }
 
 }

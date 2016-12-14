@@ -5,7 +5,7 @@ import { InputValidationService } from './../../core';
 
 import { DynamicFormService } from './services';
 
-import { FormElement } from './../../swagger';
+import { Field } from './../../swagger';
 
 @Component({
     selector: 'pk-dynamic-form',
@@ -17,11 +17,12 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
     @HostBinding('class.form') formClass = true;
 
-    @Input() formElements: FormElement[];
+    @Input() formElements: Field[];
+    @Input() formGroup: FormGroup;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
 
-    private form: FormGroup;
+    public form: FormGroup;
     private isFormValidationVisible: boolean = false;
 
     constructor(
@@ -36,7 +37,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
      * @return {void}
      */
     ngOnInit(): void {
-        this.generateFormFromInput();
+        // this.generateFormFromInput();
     }
 
 
@@ -46,7 +47,11 @@ export class DynamicFormComponent implements OnInit, OnChanges {
      * @return {void}
      */
     ngOnChanges(changes: SimpleChanges): void {
-        this.generateFormFromInput();
+        if (this.formGroup) {
+            this.form = this.formGroup;
+        } else {
+            this.generateFormFromInput();
+        }
     }
 
 
@@ -65,8 +70,8 @@ export class DynamicFormComponent implements OnInit, OnChanges {
         this.form = this.dynamicForm.generateFormFromInput(input);
 
         /** Emit Form changes via @Output() */
-        this.form.valueChanges.subscribe((event) => {
-            this.onChange.emit(event);
+        this.form.valueChanges.subscribe(() => {
+            this.onChange.emit(this.form);
         });
     }
 

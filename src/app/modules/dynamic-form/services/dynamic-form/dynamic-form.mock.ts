@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-import { FormElement } from './../../../../swagger';
+import { Field } from './../../../../swagger';
 
 @Injectable()
 export class DynamicFormMock {
@@ -13,8 +13,8 @@ export class DynamicFormMock {
      * @param {FormElement[]} input the input configuration
      * @return {FormGroup}
      */
-    generateFormFromInput(input?: FormElement[], config = {}): FormGroup {
-        return null;
+    generateFormFromInput(input?: Field[], config = {}): FormGroup {
+        return new FormGroup({});
     }
 
 
@@ -23,7 +23,7 @@ export class DynamicFormMock {
      * @param {FormElement} element
      * @return {boolean}
      */
-    showElementValidation(element: FormElement): void {
+    showElementValidation(element: Field): void {
     }
 
     /**

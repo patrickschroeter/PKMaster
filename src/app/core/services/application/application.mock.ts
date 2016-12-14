@@ -6,8 +6,6 @@ import { Application } from './../../../swagger';
 @Injectable()
 export class ApplicationMock {
 
-    static APPLICATION = { id: 1, state: 'created', created: 20160631, form: { title: 'Titel der Form', id: 13, elements: [ { elementType: 'h3', name: 'header01', value: 'Hochschule für Angewandte Wissenschaften Augsburg', styles: ['small'] }, { elementType: 'input', name: 'date', type: 'date', label: 'Augsburg, den', styles: ['small'] }]}};
-
     constructor() { }
 
     /**

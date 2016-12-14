@@ -4,21 +4,21 @@
 
         <pk-list>
             <pk-list-header>
-                <pk-list-attribute (click)="sortBy('restricted')" [name]="'state-icon'"></pk-list-attribute>
-                <pk-list-attribute (click)="sortBy('title')" [name]="'name'">Title</pk-list-attribute>
-                <pk-list-attribute (click)="sortBy('created')" [name]="'date'">Created</pk-list-attribute>
-                <pk-list-attribute [name]="'version'">Version</pk-list-attribute>
-                <pk-list-attribute [name]="'state'">Status</pk-list-attribute>
+                <pk-list-attribute name="state-icon" (click)="sortBy('restricted')"></pk-list-attribute>
+                <pk-list-attribute name="name" (click)="sortBy('title')">Title</pk-list-attribute>
+                <pk-list-attribute name="date" (click)="sortBy('created')">Created</pk-list-attribute>
+                <pk-list-attribute name="version">Version</pk-list-attribute>
+                <pk-list-attribute name="state">Status</pk-list-attribute>
             </pk-list-header>
             <pk-list-content>
                 <pk-list-element *ngFor="let role of roles">
-                    <pk-list-attribute [name]="'state-icon'"></pk-list-attribute>
-                    <pk-list-attribute [name]="'name'">
+                    <pk-list-attribute name="state-icon"></pk-list-attribute>
+                    <pk-list-attribute name="name">
                         <a routerLink="/role/{{ role.id }}/edit">{{ role.title }}</a>
                     </pk-list-attribute>
-                    <pk-list-attribute [name]="'date'">{{ role.created | date }}</pk-list-attribute>
-                    <pk-list-attribute [name]="'version'">{{ role.version }}</pk-list-attribute>
-                    <pk-list-attribute [name]="'state'">{{ role.status }}</pk-list-attribute>
+                    <pk-list-attribute name="date">{{ role.created | date }}</pk-list-attribute>
+                    <pk-list-attribute name="version">{{ role.version }}</pk-list-attribute>
+                    <pk-list-attribute name="state">{{ role.status }}</pk-list-attribute>
 
                     <pk-floating top-right horizontal>
                     </pk-floating>
@@ -28,7 +28,7 @@
 
     </div>
     <pk-floating fixed top-right>
-        <pk-button rounded [pkAlert]="'Create Role'" [icon]="'add'" element--secondary (onClick)="toggleCreateNew()"></pk-button>
+        <pk-button rounded pkAlert="Create Role" icon="add" element--secondary (onClick)="toggleCreateNew()"></pk-button>
     </pk-floating>
     <pk-overlay [isOpen]="isOpenNewRole" (toggleOverlay)="toggleCreateNew()" class="overlay--fluid">
         <div class="pk-overlay__header">Create New Role</div>
@@ -45,7 +45,7 @@
                     <pk-button
                         *ngIf="dynamicForm?.form"
                         [value]="'Create'"
-                        [icon]="'note_add'"
+                        icon="note_add"
                         [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
                         [type]="'submit'"
                         (onClick)="createNewRole(dynamicForm.form.value)"></pk-button>

@@ -15,7 +15,7 @@ export class ConferencesComponent implements OnInit {
     ngOnInit() {
         this.form = [
             {
-                elementType: 'h3',
+                fieldType: 'h3',
                 name: 'header01',
                 value: 'Hochschule für Angewandte Wissenschaften Augsburg',
                 styles: [
@@ -23,16 +23,16 @@ export class ConferencesComponent implements OnInit {
                 ]
             },
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'date',
-                type: 'date',
+                contentType: 'date',
                 label: 'Augsburg, den',
                 styles: [
                     'small'
                 ]
             },
             {
-                elementType: 'h4',
+                fieldType: 'h4',
                 name: 'header02',
                 value: 'Zulassungsantrag - Abschlussarbeit',
                 styles: [
@@ -40,9 +40,9 @@ export class ConferencesComponent implements OnInit {
                 ]
             },
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'matnr',
-                type: 'number',
+                contentType: 'number',
                 label: 'Matrikelnummer',
                 validations: [
                     'minLength',
@@ -53,7 +53,7 @@ export class ConferencesComponent implements OnInit {
                 ]
             },
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'fakultaet',
                 label: 'Fakultaet',
                 styles: [
@@ -61,16 +61,16 @@ export class ConferencesComponent implements OnInit {
                 ]
             },
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'Studiengang',
-                type: 'input',
+                contentType: 'input',
                 label: 'Studiengang und Richtung',
                 styles: [
                     'small'
                 ]
             },
             {
-                elementType: 'textarea',
+                fieldType: 'textarea',
                 name: 'address',
                 label: 'Namen und Adresse',
                 styles: [
@@ -78,7 +78,7 @@ export class ConferencesComponent implements OnInit {
                 ]
             },
             {
-                elementType: 'info',
+                fieldType: 'info',
                 name: 'info',
                 value: 'Hinweise für den Antragsteller: Jemand musste Josef K. verleumdet haben, denn ohne dass er etwas Böses getan hätte, wurde er eines Morgens verhaftet. »Wie ein Hund!« sagte er, es war, als sollte die Scham ihn überleben. Als Gregor Samsa eines Morgens aus unruhigen Träumen erwachte, fand er sich in seinem Bett zu einem ungeheueren Ungeziefer verwandelt.',
                 styles: [
@@ -86,30 +86,30 @@ export class ConferencesComponent implements OnInit {
                 ]
             },
             {
-                elementType: 'info',
+                fieldType: 'info',
                 name: 'info2',
                 value: 'Und es war ihnen wie eine Bestätigung ihrer neuen Träume und guten Absichten, als am Ziele ihrer Fahrt die Tochter als erste sich erhob und ihren jungen Körper dehnte.'
             },
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'erstpruefer',
-                type: 'input',
+                contentType: 'input',
                 label: 'Aufgabensteller/Erstprüfer',
                 styles: [
                     'small'
                 ]
             },
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'zweitpruefer',
-                type: 'input',
+                contentType: 'input',
                 label: 'Zweitprüfer',
                 styles: [
                     'small'
                 ]
             },
             {
-                elementType: 'radio',
+                fieldType: 'radio',
                 name: 'inHouse',
                 label: 'Die Arbeit soll bearbeitet werden:',
                 options: [
@@ -124,7 +124,7 @@ export class ConferencesComponent implements OnInit {
                 ]
             },
             {
-                elementType: 'textarea',
+                fieldType: 'textarea',
                 name: 'thema',
                 label: 'Theme (Zeugnissfassung):',
                 styles: [
@@ -132,7 +132,7 @@ export class ConferencesComponent implements OnInit {
                 ]
             },
             {
-                elementType: 'textarea',
+                fieldType: 'textarea',
                 name: 'company',
                 label: 'Name der Firma:',
                 styles: [
@@ -140,7 +140,7 @@ export class ConferencesComponent implements OnInit {
                 ]
             },
             {
-                elementType: 'checkbox',
+                fieldType: 'checkbox',
                 name: 'sign',
                 label: 'Hiermit bestätige ich die Angaben.',
                 validations: [

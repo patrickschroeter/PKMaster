@@ -5,6 +5,8 @@ import { DebugElement } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { TextareaComponent } from './textarea.component';
+import {
+    DynamicFormComponent, DynamicFormComponentMock } from './../../';
 
 describe('TextareaComponent', () => {
     let component: TextareaComponent;
@@ -17,6 +19,9 @@ describe('TextareaComponent', () => {
             ],
             imports: [
                 ReactiveFormsModule
+            ],
+            providers: [
+                { provide: DynamicFormComponent, useClass: DynamicFormComponentMock }
             ]
         })
         .compileComponents();

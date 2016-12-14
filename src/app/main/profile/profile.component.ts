@@ -1,11 +1,12 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { AuthenticationService, AlertService, InputValidationService } from './../../core';
+import { AuthenticationService, InputValidationService } from './../../core';
+import { AlertService } from './../../modules/alert';
 
 import { DynamicFormService } from './../../modules/dynamic-form';
 
-import { FormElement, Form } from './../../swagger';
+import { Field, Form } from './../../swagger';
 
 @Component({
     selector: 'pk-profile',
@@ -19,7 +20,7 @@ export class ProfileComponent implements OnInit {
     private isFormValidationVisible: boolean = false;
 
     private changePasswordForm: FormGroup;
-    private changePasswordElements: FormElement[];
+    private changePasswordElements: Field[];
 
     private form: Form;
 
@@ -36,7 +37,7 @@ export class ProfileComponent implements OnInit {
 
         this.form = [
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'firstname',
                 required: false,
                 label: 'Firstname',
@@ -46,7 +47,7 @@ export class ProfileComponent implements OnInit {
                 ]
             },
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'lastname',
                 required: false,
                 label: 'Lastname',
@@ -55,12 +56,12 @@ export class ProfileComponent implements OnInit {
                 ]
             },
             {
-                elementType: 'devider'
+                fieldType: 'devider'
             },
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'email',
-                type: 'email',
+                contentType: 'email',
                 required: true,
                 label: 'E-Mail',
 
@@ -73,7 +74,7 @@ export class ProfileComponent implements OnInit {
                 ]
             },
             {
-                elementType: 'input',
+                fieldType: 'input',
                 label: 'Matrikelnummer',
                 value: '949225',
                 disabled: true,
@@ -85,15 +86,15 @@ export class ProfileComponent implements OnInit {
 
         this.changePasswordElements = [
             {
-                elementType: 'input',
-                type: 'password',
+                fieldType: 'input',
+                contentType: 'password',
                 name: 'password',
                 required: true,
                 label: 'Current Password'
             },
             {
-                elementType: 'input',
-                type: 'password',
+                fieldType: 'input',
+                contentType: 'password',
                 name: 'newpassword',
                 required: true,
                 label: 'New Password',
@@ -105,8 +106,8 @@ export class ProfileComponent implements OnInit {
                 ]
             },
             {
-                elementType: 'input',
-                type: 'password',
+                fieldType: 'input',
+                contentType: 'password',
                 name: 'newpasswordconfirm',
                 required: true,
                 label: 'New Password (confirm)',
@@ -144,33 +145,6 @@ export class ProfileComponent implements OnInit {
                 this.alert.setAlert('Error', 'There was an error changing your password. Please try again later.');
             }
         );
-    }
-
-    /**
-     * @description shows the validation of the element
-     * @param {FormElement} element the element to validate
-     * @return {void}
-     */
-    showElementValidation(element: FormElement): void {
-        this.dynamicForm.showElementValidation(element);
-    }
-
-    /**
-     * @description shows the validation of the formgroup
-     * @param {FormGroup} element the formgroup to validate
-     * @return {void}
-     */
-    showFormValidation(form: FormGroup) {
-        this.isFormValidationVisible = true;
-        this.dynamicForm.showValidation(form);
-    }
-
-    /**
-     * @description hides the validation of form
-     * @return {void}
-     */
-    hideFormValidation() {
-        this.isFormValidationVisible = false;
     }
 
 }

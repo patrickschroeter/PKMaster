@@ -1,4 +1,4 @@
-@import './../../../theme';
+@import './../../../config';
 
 .pk-form-after {
     .rel {
@@ -25,12 +25,7 @@
 
         /deep/ {
             .form__element {
-                /*padding: 8px;*/
-                /*border: 1px dotted transparent;*/
                 &:hover {
-                    /*padding: $element-grid-base/4;
-                    border: 1px dotted $accent-color;
-                    margin: -$element-grid-base/4 $element-grid-base/4 $element-grid-base/4;*/
                     background-color: rgba($guidance-color, 0.2);
 
                     .button.button--edit {

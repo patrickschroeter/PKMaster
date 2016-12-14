@@ -5,7 +5,8 @@ import { DebugElement } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { CheckboxComponent } from './checkbox.component';
-// import { } from './../../';
+import {
+    DynamicFormComponent, DynamicFormComponentMock } from './../../';
 
 describe('CheckboxComponent', () => {
     let component: CheckboxComponent;
@@ -18,6 +19,9 @@ describe('CheckboxComponent', () => {
             ],
             imports: [
                 ReactiveFormsModule
+            ],
+            providers: [
+                { provide: DynamicFormComponent, useClass: DynamicFormComponentMock }
             ]
         })
         .compileComponents();
