@@ -12,11 +12,15 @@ export class FormApiMock {
     constructor() { }
 
     public addForm(token?: number, form?: Form, extraHttpRequestParams?: any): Observable<Form> {
+        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + '%c addForm', 'color: #F44336', 'color: #fefefe');
         let newform = this._formAdd(form);
         return new Observable(observer => {
             setTimeout(() => {
-                if (form) {
+                if (!token) {
+                    console.error(`No Token!`);
+                    observer.error(`No Token!`);
+                } else if (form) {
                     observer.next(newform);
                 } else {
                     console.error('Error creating Form');
@@ -28,11 +32,15 @@ export class FormApiMock {
     }
 
     public getForms(token?: number, extraHttpRequestParams?: any): Observable<any> {
+        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + '%c getForms', 'color: #F44336', 'color: #fefefe');
         let forms = this._forms();
         return new Observable(observer => {
             setTimeout(() => {
-                if (forms) {
+                if (!token) {
+                    console.error(`No Token!`);
+                    observer.error(`No Token!`);
+                } else if (forms) {
                     observer.next(forms);
                 } else {
                     console.error('No Forms found');
@@ -44,11 +52,15 @@ export class FormApiMock {
     }
 
     public getFormById(formId: string, token?: number, extraHttpRequestParams?: any): Observable<any> {
+        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c getFormById ${formId}`, 'color: #F44336', 'color: #fefefe');
         let form = this._form(formId);
         return new Observable(observer => {
             setTimeout(() => {
-                if (form) {
+                if (!token) {
+                    console.error(`No Token!`);
+                    observer.error(`No Token!`);
+                } else if (form) {
                     observer.next(form);
                 } else {
                     console.error(`No Form with ID ${formId} found`);
@@ -60,11 +72,15 @@ export class FormApiMock {
     }
 
     public updateFormById(formId: number, token?: number, form?: Form, extraHttpRequestParams?: any): Observable<any> {
+        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c updateFormById ${formId}`, 'color: #F44336', 'color: #fefefe');
-        let updatedForm = this._formUpdate(formId, form);
+        let updatedForm = this._formUpdate(formId.toString(), form);
         return new Observable(observer => {
             setTimeout(() => {
-                if (form) {
+                if (!token) {
+                    console.error(`No Token!`);
+                    observer.error(`No Token!`);
+                } else if (form) {
                     observer.next(updatedForm);
                 } else {
                     console.error(`No Form with ID ${formId} found`);
