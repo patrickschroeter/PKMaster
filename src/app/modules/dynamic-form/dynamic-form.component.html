@@ -1,4 +1,4 @@
-<div class="form__wrapper" *ngIf="formElements">
+<div class="form__wrapper" *ngIf="formElements || form">
 
     <form [formGroup]="form" [class.element--show-validation]="isFormValidationVisible">
 

@@ -16,7 +16,7 @@ export class ProfileEditComponent implements OnInit {
     ngOnInit() {
         this.form = [
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'firstname',
                 required: false,
                 label: 'Firstname',
@@ -26,7 +26,7 @@ export class ProfileEditComponent implements OnInit {
                 ]
             },
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'lastname',
                 required: false,
                 label: 'Lastname',
@@ -35,12 +35,12 @@ export class ProfileEditComponent implements OnInit {
                 ]
             },
             {
-                elementType: 'devider'
+                fieldType: 'devider'
             },
             {
-                elementType: 'input',
+                fieldType: 'input',
                 name: 'email',
-                type: 'email',
+                contentType: 'email',
                 required: true,
                 label: 'E-Mail',
 

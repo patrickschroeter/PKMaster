@@ -1,8 +1,10 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { FormService, AlertService, FormElementService } from './../../../core';
-import { FormElement } from './../../../swagger';
+import { FormService, FormElementService } from './../../../core';
+import { AlertService } from './../../../modules/alert';
+
+import { Field } from './../../../swagger';
 
 @Component({
     selector: 'pk-forms-edit',
@@ -25,23 +27,29 @@ export class FormsEditComponent implements OnInit {
     private isEditingForm: boolean = false;
 
     private isPresetOverlay: boolean = false;
-    private presets: { value: string, label: string}[];
+    private presets: { value: string, label: string }[];
 
     constructor(
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private formService: FormService,
         private alert: AlertService,
-        private elementService: FormElementService ) { }
+        private elementService: FormElementService) { }
 
 
     ngOnInit() {
 
         /** Read Route Param and GET Form with param ID */
         this.activatedRoute.params.forEach((params: Params) => {
-            this.formService.getFormById(+params['id']).subscribe((form) => {
+            this.alert.setLoading('getFormById', 'Loading Form...');
+            this.formService.getFormById(params['id']).subscribe((form) => {
+                this.alert.removeHint('getFormById');
                 if (!form) { this.router.navigate(['/forms']); }
                 this.form = form;
+            }, error => {
+                /** TODO: catch */
+                this.router.navigate(['/forms']);
+                this.alert.removeHint('getFormById');
             });
         });
 
@@ -56,7 +64,7 @@ export class FormsEditComponent implements OnInit {
      * @param {FormElement} element
      * @return {void}
      */
-    editElement(element: FormElement): void {
+    editElement(element: Field): void {
         this.formService.editElement(element);
     }
 
@@ -67,7 +75,7 @@ export class FormsEditComponent implements OnInit {
     addElement(): void {
         this.formService.editElement();
     }
-    
+
     addPreset(option?) {
         if (!option) {
             this.isPresetOverlay = true;
@@ -104,7 +112,7 @@ export class FormsEditComponent implements OnInit {
      * @param {FormElement} element
      * @return {void}
      */
-    removeElement(element: FormElement, index: number): void {
+    removeElement(element: Field, index: number): void {
         this.formService.removeElement(element, index);
     }
 
@@ -145,7 +153,9 @@ export class FormsEditComponent implements OnInit {
      * @return {void}
      */
     saveForm(): void {
-        this.formService.saveForm();
+        this.formService.saveForm().subscribe(form => {
+            this.alert.setSuccessHint('saveForm', 'Form Saved!');
+        });
     }
 
     /**

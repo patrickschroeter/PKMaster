@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
+import { AlertModule } from './modules/alert/alert.module';
 
 @NgModule({
     declarations: [
@@ -23,6 +24,7 @@ import { CoreModule } from './core/core.module';
 
         CoreModule,
         SharedModule,
+        AlertModule
     ],
     providers: [],
     bootstrap: [AppComponent]

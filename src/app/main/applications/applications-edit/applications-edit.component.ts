@@ -1,8 +1,10 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { ApplicationService, AlertService } from './../../../core';
-import { Application, State } from './../../../swagger';
+import { ApplicationService } from './../../../core';
+import { AlertService } from './../../../modules/alert';
+
+import { Application, Status } from './../../../swagger';
 
 @Component({
     selector: 'pk-applications-edit',
@@ -24,25 +26,45 @@ export class ApplicationsEditComponent implements OnInit {
 
         /** Read Route Param and GET Application with param ID */
         this.activatedRoute.params.forEach((params: Params) => {
-            this.applicationService.getApplicationById(+params['id']).subscribe((application) => {
+            this.applicationService.getApplicationById(params['id']).subscribe((application) => {
                 // TODO catch in service
                 if (!application) {
-                    this.router.navigate(['/applications']);
-                    this.alert.setErrorHint('no-application-found', `The is no application with the requested Id: ${params['id']}`, 2000);
-                    return;
-                } else if ( application.state && [State.NameEnum.rescinded, State.NameEnum.created].indexOf(application.state) === -1) {
+                    return this.onError(params['id']);
+                } else if ( application.status && ['rescinded', 'created'].indexOf(application.status.name) === -1) {
                     this.router.navigate(['/applications']);
                     this.alert.setErrorHint('no-application-edit', `It's not allowed to edit this application`, 2000);
                     return;
                 }
                 this.application = application;
+            }, error => {
+                console.error(error);
+                return this.onError(params['id']);
             });
         });
     }
 
+    private onError(id: string) {
+        this.router.navigate(['/applications']);
+        this.alert.setErrorHint('no-application-found', `The is no application with the requested Id: ${id}`, 2000);
+    }
+
     saveApplication(form) {
         this.applicationService.saveApplication(form).subscribe(result => {
-            this.router.navigate(['/applications']);
+            this.router.navigate([`/applications/`, form.id]);
+        });
+    }
+
+    submitApplication(application: Application) {
+        this.applicationService.submitApplication(application).subscribe(result => {
+            this.alert.setSuccessHint(`submitApplication${application.id}`, 'Application submitted');
+            this.router.navigate([`/applications/`, result.id]);
+        });
+    }
+
+    deactivateApplication(application: Application) {
+        this.applicationService.deactivateApplication(application).subscribe(result => {
+            this.alert.setSuccessHint(`deactivateApplication${application.id}`, 'Application deactivated');
+            this.router.navigate([`/applications/`, result.id]);
         });
     }
 

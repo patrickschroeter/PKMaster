@@ -17,9 +17,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginForm = [
       {
-        elementType: 'input',
+        fieldType: 'input',
         name: 'email',
-        type: 'email',
+        contentType: 'email',
         required: true,
         placeholder: 'E-Mail',
 
@@ -33,9 +33,9 @@ export class LoginComponent implements OnInit {
         ]
       },
       {
-        elementType: 'input',
+        fieldType: 'input',
         name: 'password',
-        type: 'password',
+        contentType: 'password',
         required: true,
         placeholder: 'Password',
 
@@ -51,15 +51,11 @@ export class LoginComponent implements OnInit {
     ];
   }
 
-  login(evt) {
-    console.log(evt);
-    this.authentication.login().subscribe(() => {
+  login(credentials) {
+    this.authentication.login(credentials.email, credentials.password).subscribe(() => {
       this.router.navigate(['/']);
+    }, error => {
+        /** TODO: catch */
     });
   }
-
-  log(evt) {
-    console.log(evt);
-  }
-
 }

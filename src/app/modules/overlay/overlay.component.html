@@ -1,0 +1,14 @@
+<div class="overlay__container" [class.overlay--open]="isOpen" *ngIf="isOpen">
+    <div class="overlay__fallback" (click)="toggle()"></div>
+    <div class="overlay__wrapper inner-scrolling">
+        <pk-floating top-right>
+            <pk-button icon="clear" (onClick)="toggle()"></pk-button>
+        </pk-floating>
+        <div class="overlay__label">
+            <ng-content select=".pk-overlay__header"></ng-content>
+        </div>
+        <div class="inner-scrolling__content overlay__scroll-content">
+            <ng-content select=".pk-overlay__content"></ng-content>
+        </div>
+    </div>
+</div>

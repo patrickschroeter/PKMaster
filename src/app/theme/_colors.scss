@@ -57,18 +57,3 @@ $colors:  (primary, $accent-color),
           (darkwhite, $darkwhite),
           (mediumwhite, $mediumwhite),
           (white, $white);
-
-
-@each $selector, $color in $colors {
-  .color--#{$selector} {
-    color: $color;
-  }
-  .background--#{$selector} {
-    background-color: $color;
-    border-radius: $border-radius;
-  }
-  .border--#{$selector} {
-    border: $border-width solid $color;
-    border-radius: $border-radius;
-  }
-}

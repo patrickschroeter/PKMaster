@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, AbstractControl } from '@angular/forms';
 
-import { FormElement } from './../../../../swagger';
+import { DynamicFormComponent } from './../../dynamic-form.component';
+
+import { Field } from './../../../../swagger';
 
 @Component({
     selector: 'pk-select',
@@ -11,7 +13,7 @@ export class SelectComponent implements OnInit {
 
     @HostBinding('class.element') element = true;
 
-    @Input() config: FormElement;
+    @Input() config: Field;
     @Input() disabled: boolean;
 
     private isOpen: boolean;
@@ -19,16 +21,28 @@ export class SelectComponent implements OnInit {
     private searchstring: string;
     private filteredOptions: Array<{ value?, label? }>;
 
-    constructor() { }
+    private formControl: AbstractControl;
+
+    constructor(private parent: DynamicFormComponent) { }
 
     ngOnInit() {
-        this.isOpen = false;
+        if (!this.config) {
+            this.config = {};
+        }
+        if (this.parent &&
+            this.parent.form &&
+            this.parent.form.controls &&
+            this.parent.form.controls[this.config.name]) {
+            this.formControl = this.parent.form.controls[this.config.name];
+        } else {
+            this.formControl = new FormControl(this.config.value);
+        }
 
-        if (this.config && !this.config.formControl) { this.config.formControl = new FormControl(this.config.value); }
+        this.isOpen = false;
     }
 
     isDisabled() {
-        return this.disabled || this.config.disabled;
+        return this.disabled || (this.config && this.config.disabled);
     }
 
     toggleSelectOverlay() {
@@ -36,13 +50,13 @@ export class SelectComponent implements OnInit {
     }
 
     select(option) {
-        if (!this.config.multiple) {
-            this.config.formControl.setValue(option.value);
+        if (!this.config.multipleSelect) {
+            this.formControl.setValue(option.value);
             this.toggleSelectOverlay();
             return;
         }
 
-        let values = this.config.formControl.value;
+        let values = this.formControl.value;
         if (!values) { values = []; }
 
         let value = option.value;
@@ -53,10 +67,11 @@ export class SelectComponent implements OnInit {
             values.splice(index, 1);
         }
 
-        this.config.formControl.setValue(values);
+        this.formControl.setValue(values);
     }
 
     filterOptions(event) {
+        if (!this.config.options) { return; }
         if (event === '') {
             this.filteredOptions = undefined;
             return;
@@ -71,11 +86,11 @@ export class SelectComponent implements OnInit {
     }
 
     removeOption(option) {
-        let values = this.config.formControl.value;
+        let values = this.formControl.value;
         let value = option.value;
         let index = values.indexOf(value);
         if (index !== -1) { values.splice(index, 1); }
-        this.config.formControl.setValue(values);
+        this.formControl.setValue(values);
     }
 
 }

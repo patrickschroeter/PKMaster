@@ -8,9 +8,8 @@ import { DynamicFormService } from './dynamic-form.service';
 import {
     InputValidationService,
     InputValidationMock,
-    AlertService,
-    AlertMock
 } from './../../../../core';
+import { AlertService, AlertMock } from './../../../../modules/alert';
 
 describe('Service: DynamicForm', () => {
     beforeEach(() => {

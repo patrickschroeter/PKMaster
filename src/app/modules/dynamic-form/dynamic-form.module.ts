@@ -3,7 +3,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
 
-import { SharedModule } from './../../shared/shared.module';
+import { ButtonModule } from './../button/button.module';
+import { OverlayModule } from './../overlay/overlay.module';
+import { DeviderModule } from './../devider/devider.module';
 import { FloatingModule } from './../floating/floating.module';
 
 import {
@@ -51,11 +53,14 @@ import {
         ReactiveFormsModule,
         FormsModule,
 
-        SharedModule,
+        OverlayModule,
+        ButtonModule,
+        DeviderModule,
         FloatingModule
     ],
     providers: [
-        DynamicFormService
+        DynamicFormService,
+        DynamicFormComponent
     ],
     exports: [
         DynamicFormDefaultComponent,
