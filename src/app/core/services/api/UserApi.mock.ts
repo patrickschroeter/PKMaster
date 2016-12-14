@@ -61,10 +61,11 @@ export class UserApiMock {
     public login(username: string, password: string, token?: string): Observable<any> {
         if (token) {
             console.log('%cMock:' + `%c login ${token}`, 'color: #F44336', 'color: #fefefe');
+            let user = this._user(null, token)
             return new Observable(observer => {
                 setTimeout(() => {
-                    if (token === 'TOKEN') {
-                        observer.next('TOKEN');
+                    if (user) {
+                        observer.next(user);
                     } else {
                         observer.next(false)
                     }
@@ -77,7 +78,8 @@ export class UserApiMock {
             return new Observable(observer => {
                 setTimeout(() => {
                     if (user) {
-                        observer.next('TOKEN');
+                        user.token = 'TOKEN';
+                        observer.next(user);
                     } else {
                         console.error(`Wrong Credentials.`);
                         observer.error(`Wrong Credentials.`);
@@ -89,7 +91,7 @@ export class UserApiMock {
     }
 
     public logout(token: string): Observable<any> {
-        console.log('%cMock:' + `%c login ${token}`, 'color: #F44336', 'color: #fefefe');
+        console.log('%cMock:' + `%c logout ${token}`, 'color: #F44336', 'color: #fefefe');
         return new Observable(observer => {
             setTimeout(() => {
                 observer.next(true);
@@ -111,11 +113,11 @@ export class UserApiMock {
         return JSON.parse(JSON.stringify(this._list));
     }
 
-    private _user(id?: string) {
+    private _user(id?: string, token?: string) {
         let result;
         let list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
-            if (list[i].id === id) {
+            if (list[i].id === id || list[i].token === token) {
                 result = list[i];
             }
         }

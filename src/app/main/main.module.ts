@@ -39,7 +39,7 @@ import { OverlayModule } from './../modules/overlay/overlay.module';
 
         DynamicFormModule,
         ListModule,
-        ButtonModule
+        ButtonModule,
         FloatingModule,
         OverlayModule
     ],

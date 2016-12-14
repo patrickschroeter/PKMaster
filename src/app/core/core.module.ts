@@ -7,6 +7,7 @@ import * as services from './services';
 
 import { FormApi } from './../swagger/api/FormApi';
 import { ApplicationApi } from './../swagger/api/ApplicationApi';
+import { UserApi } from './../swagger/api/UserApi';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { ApplicationApi } from './../swagger/api/ApplicationApi';
         services.ApplicationService,
 
         { provide: FormApi, useClass: services.FormApiMock },
-        { provide: ApplicationApi, useClass: services.ApplicationApiMock }
+        { provide: ApplicationApi, useClass: services.ApplicationApiMock },
+        { provide: UserApi, useClass: services.UserApiMock }
     ],
     exports: [
 

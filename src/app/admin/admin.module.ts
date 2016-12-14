@@ -9,6 +9,7 @@ import { ListModule } from './../modules/list/list.module';
 import { FloatingModule } from './../modules/floating/floating.module';
 import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module';
 import { ButtonModule } from './../modules/button/button.module';
+import { OverlayModule } from './../modules/overlay/overlay.module';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { ButtonModule } from './../modules/button/button.module';
         ListModule,
         FloatingModule,
         DynamicFormModule,
-        ButtonModule
+        ButtonModule,
+        OverlayModule
     ],
     providers: [],
     exports: []
