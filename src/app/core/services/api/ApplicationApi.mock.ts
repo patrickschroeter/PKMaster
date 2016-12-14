@@ -17,7 +17,10 @@ export class ApplicationApiMock {
         let application = this._application(applicationId);
         return new Observable(observer => {
             setTimeout(() => {
-                if (application) {
+                if (!token) {
+                    console.error(`No Token!`);
+                    observer.error(`No Token!`);
+                } else if (application) {
                     observer.next(application);
                 } else {
                     console.error(`No Application with ID ${applicationId} found`);
@@ -33,7 +36,10 @@ export class ApplicationApiMock {
         let applications = this._applications();
         return new Observable(observer => {
             setTimeout(() => {
-                if (applications) {
+                if (!token) {
+                    console.error(`No Token!`);
+                    observer.error(`No Token!`);
+                } else if (applications) {
                     observer.next(applications);
                 } else {
                     console.error('No Applications found');
@@ -49,7 +55,10 @@ export class ApplicationApiMock {
         let newapplication = this._applicationAdd(application);
         return new Observable(observer => {
             setTimeout(() => {
-                if (newapplication) {
+                if (!token) {
+                    console.error(`No Token!`);
+                    observer.error(`No Token!`);
+                } else if (newapplication) {
                     observer.next(newapplication);
                 } else {
                     console.error('No Applications created');
@@ -65,7 +74,10 @@ export class ApplicationApiMock {
         let updatedApplication = this._applicationUpdate(applicationId, application);
         return new Observable(observer => {
             setTimeout(() => {
-                if (application) {
+                if (!token) {
+                    console.error(`No Token!`);
+                    observer.error(`No Token!`);
+                } else if (application) {
                     observer.next(updatedApplication);
                 } else {
                     console.error(`No Application with ID ${applicationId} found`);

@@ -11,11 +11,14 @@ export class UserApiMock {
 
     public addUser (token?: number, user?: AppUser, extraHttpRequestParams?: any ) : Observable<any> {
         console.log('%cMock:' + `%c getUserById ${user.email}`, 'color: #F44336', 'color: #fefefe');
-        let user = this._user(userId);
+        let newUser = this._user(user.id);
         return new Observable(observer => {
             setTimeout(() => {
-                if (user) {
-                    observer.next(user);
+                if (!token) {
+                    console.error(`No Token!`);
+                    observer.error(`No Token!`);
+                } else if (newUser) {
+                    observer.next(newUser);
                 } else {
                     console.error(`No User with ID ${user.email} found`);
                     observer.error(`No User with ID ${user.email} found`);
@@ -30,7 +33,10 @@ export class UserApiMock {
         let user = this._user(userId);
         return new Observable(observer => {
             setTimeout(() => {
-                if (user) {
+                if (!token) {
+                    console.error(`No Token!`);
+                    observer.error(`No Token!`);
+                } else if (user) {
                     observer.next(user);
                 } else {
                     console.error(`No User with ID ${userId} found`);
@@ -46,7 +52,10 @@ export class UserApiMock {
         let users = this._users();
         return new Observable(observer => {
             setTimeout(() => {
-                if (users) {
+                if (!token) {
+                    console.error(`No Token!`);
+                    observer.error(`No Token!`);
+                } else if (users) {
                     observer.next(users);
                 } else {
                     console.error(`Error loading Users.`);
@@ -61,13 +70,14 @@ export class UserApiMock {
     public login(username: string, password: string, token?: string): Observable<any> {
         if (token) {
             console.log('%cMock:' + `%c login ${token}`, 'color: #F44336', 'color: #fefefe');
-            let user = this._user(null, token)
+            let user = this._user(null, token);
             return new Observable(observer => {
                 setTimeout(() => {
                     if (user) {
                         observer.next(user);
                     } else {
-                        observer.next(false)
+                        console.error(`No User with Token`);
+                        observer.error(`No User with Token`);
                     }
                     observer.complete();
                 }, 500);
@@ -94,7 +104,12 @@ export class UserApiMock {
         console.log('%cMock:' + `%c logout ${token}`, 'color: #F44336', 'color: #fefefe');
         return new Observable(observer => {
             setTimeout(() => {
-                observer.next(true);
+                if (!token) {
+                    console.error(`No Token!`);
+                    observer.error(`No Token!`);
+                } else {
+                    observer.next(true);
+                }
                 observer.complete();
             }, 500);
         });
@@ -104,6 +119,11 @@ export class UserApiMock {
         {
             id: '17',
             email: 'patrick.schroeter@hotmail.de',
+            password: 'password'
+        },
+        {
+            id: '23',
+            email: 'stephan.reichinger@gmail.de',
             password: 'password'
         }
     ]

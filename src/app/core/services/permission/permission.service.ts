@@ -8,9 +8,9 @@ import { AuthenticationService } from './../authentication/authentication.servic
 export class PermissionService implements CanActivate, CanDeactivate<any>, CanActivateChild {
 
     private guard: Object = {
-        main: this.allAccessWhenLoggedIn,
-        profile: this.allAccessWhenLoggedIn,
-        applications: this.allAccessWhenLoggedIn,
+        main: this.allAccessWhenLoggedIn.bind(this),
+        profile: this.allAccessWhenLoggedIn.bind(this),
+        applications: this.allAccessWhenLoggedIn.bind(this),
         conferences: this.guardConferencesRoute.bind(this),
         forms: this.guardFormsRoute.bind(this),
 
@@ -46,8 +46,12 @@ export class PermissionService implements CanActivate, CanDeactivate<any>, CanAc
     * Guard Definitions for Routes
     */
 
-    private allAccessWhenLoggedIn() {
-        return true;
+    private allAccessWhenLoggedIn(): Observable<any> {
+        let user = this.authentication.getUser();
+        /** TODO: catch error */
+        return user.map((e) => {
+            return !!e;
+        });
     }
 
     private guardConferencesRoute(): Observable<any> {
