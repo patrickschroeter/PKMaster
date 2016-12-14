@@ -69,6 +69,26 @@ export class UserApiMock {
         });
     }
 
+    public updateUserById (userId: number, token?: number, user?: AppUser, extraHttpRequestParams?: any ) : Observable<AppUser> {
+        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
+        console.log('%cMock:' + `%c updateUserById`, 'color: #F44336', 'color: #fefefe');
+        let updatedUser = this._userUpdate(userId, user);
+        return new Observable(observer => {
+            setTimeout(() => {
+                if (!token) {
+                    console.error(`No Token!`);
+                    observer.error(`No Token!`);
+                } else if (updatedUser) {
+                    observer.next(updatedUser);
+                } else {
+                    console.error(`Error loading User with ID ${userId}`);
+                    observer.error(`Error loading User with ID ${userId}`);
+                }
+                observer.complete();
+            }, 500);
+        });
+    }
+
     /** TODO */
     public login(username: string, password: string, token?: string): Observable<any> {
         if (token) {
@@ -122,12 +142,16 @@ export class UserApiMock {
         {
             id: '17',
             email: 'patrick.schroeter@hotmail.de',
-            password: 'password'
+            password: 'password',
+            token: 'TOKEN',
+            firstname: 'Patrick',
+            lastname: 'Schroeter',
+            matNr: 949225
         },
         {
             id: '23',
             email: 'stephan.reichinger@gmail.de',
-            password: 'password'
+            password: '123456789'
         }
     ]
 
@@ -160,7 +184,10 @@ export class UserApiMock {
         let list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id) {
-                list[i] = user;
+                for (let key in user) {
+                    if (!user.hasOwnProperty(key)) { continue; }
+                    list[i][key] = user[key];
+                }
                 return JSON.parse(JSON.stringify(list[i]));
             }
         }

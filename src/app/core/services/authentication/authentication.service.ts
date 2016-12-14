@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 
 import { AlertService } from './../../../modules/alert';
+import { AppUser } from './../../../swagger';
 import { UserApi } from './../../../swagger/api/UserApi';
 
 @Injectable()
@@ -21,9 +22,7 @@ export class AuthenticationService {
         private userApi: UserApi
     ) {
         if (this.token) {
-            this.login().subscribe(() => {
-                console.log('Login using Token');
-            }, error => {
+            this.login().subscribe(() => { }, error => {
                 this.logout();
             });
         }
@@ -67,7 +66,7 @@ export class AuthenticationService {
                 return user;
             }).publishReplay(1).refCount();
         } else {
-            return this.user = this.userApi.login(null, null, this.token);
+            return this.user = this.userApi.login(null, null, this.token).publishReplay(1).refCount();
         }
     }
 
@@ -77,16 +76,15 @@ export class AuthenticationService {
         this.router.navigate(['/login']);
     }
 
-    public changePassword(oldpassword: string, newpassword: string): Observable<any> {
-        this.alert.setLoading('changePassword', `Changing Password...`);
-        return new Observable(observer => {
-            setTimeout(() => {
-                observer.next();
-                // observer.error();
-                this.alert.removeHint('changePassword');
-                observer.complete();
-            }, 200);
-        });
+    public changePassword(user: AppUser, oldpassword: string, newpassword: string): Observable<any> {
+        /** TODO */
+        user.password = newpassword;
+        return this.userApi.updateUserById(user.id, null, user);
+    }
+
+    public updateUser(user: AppUser): Observable<any> {
+        this.user = this.userApi.updateUserById(user.id, null, user).publishReplay(1).refCount();
+        return this.user;
     }
 
 }

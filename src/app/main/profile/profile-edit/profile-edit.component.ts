@@ -1,6 +1,11 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { AuthenticationService } from './../../../core';
+import { AlertService } from './../../../modules/alert';
+import { AppUser } from './../../../swagger';
+import { Fields } from './../../../models';
+
 @Component({
     selector: 'pk-profile-edit',
     templateUrl: './profile-edit.component.html',
@@ -10,53 +15,33 @@ export class ProfileEditComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
     private form: Array<Object>;
+    private user: AppUser;
 
-    constructor(private router: Router) { }
+    constructor(
+        private router: Router,
+        private auth: AuthenticationService,
+        private alert: AlertService
+    ) { }
 
     ngOnInit() {
-        this.form = [
-            {
-                fieldType: 'input',
-                name: 'firstname',
-                required: false,
-                label: 'Firstname',
-                value: 'Patrick',
-                styles: [
-                    'small'
-                ]
-            },
-            {
-                fieldType: 'input',
-                name: 'lastname',
-                required: false,
-                label: 'Lastname',
-                styles: [
-                    'small'
-                ]
-            },
-            {
-                fieldType: 'devider'
-            },
-            {
-                fieldType: 'input',
-                name: 'email',
-                contentType: 'email',
-                required: true,
-                label: 'E-Mail',
 
-                validations: [
-                    'isEmail',
-                    'useExternalEmail'
-                ],
-                styles: [
-                    'small'
-                ]
-            }
-        ];
+        this.auth.getUser().subscribe(user => {
+            this.user = user;
+            this.form = [
+                new Fields.Firstname(user.firstname),
+                new Fields.Lastname(user.lastname),
+                new Fields.Devider(),
+                new Fields.Email(user.email, { required: true })
+            ];
+        });
     }
 
     save(event) {
-        this.router.navigateByUrl('/profile');
+        event.id = this.user.id;
+        this.auth.updateUser(event).subscribe(user => {
+            this.router.navigateByUrl('/profile');
+            this.alert.setSuccessHint('UpdateUser' + user.id, `User updated.`);
+        });
     }
 
     cancel(event) {

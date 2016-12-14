@@ -10,7 +10,6 @@ const routes: Routes = [
         path: '',
         component: main.MainComponent,
         canActivate: [PermissionService],
-        canActivateChild: [PermissionService],
         children: [
             { path: 'profile', component: main.ProfileComponent, pathMatch: 'full' },
             { path: 'profile/edit', component: main.ProfileEditComponent },
@@ -19,7 +18,7 @@ const routes: Routes = [
             { path: 'applications/:id/edit', component: main.ApplicationsEditComponent },
             { path: 'conferences', component: main.ConferencesComponent, canActivate: [PermissionService] },
             { path: 'forms', component: main.FormsComponent, canActivate: [PermissionService], pathMatch: 'full' },
-            { path: 'forms/:id/edit', component: main.FormsEditComponent },
+            { path: 'forms/:id/edit', component: main.FormsEditComponent, canActivate: [PermissionService] },
             { path: '', redirectTo: 'applications', pathMatch: 'full' }
         ]
     }

@@ -22,7 +22,8 @@ export class PermissionService implements CanActivate, CanDeactivate<any>, CanAc
 
     constructor(private authentication: AuthenticationService, private router: Router) { }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+        Observable<boolean> | Promise<boolean> | boolean {
         let name = state.url.slice(1);
         if (!this.authentication.isLoggedIn()) {
             this.router.navigate(['/login']);
@@ -33,11 +34,13 @@ export class PermissionService implements CanActivate, CanDeactivate<any>, CanAc
         return this.guard[name] ? this.guard[name]() : false;
     }
 
-    canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+        Observable<boolean> | Promise<boolean> | boolean {
         return this.canActivate(route, state);
     }
 
-    canDeactivate(component: any, route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    canDeactivate(component: any, route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+        Observable<boolean> | Promise<boolean> | boolean {
         return this.authentication.isLoggedIn();
     }
 
