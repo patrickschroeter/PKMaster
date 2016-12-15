@@ -160,8 +160,7 @@ export class UserEndpoint {
             email: 'stephan.reichinger@gmail.de',
             password: 'password',
             permissions: [
-                'ReadApplications',
-                'CreateApplications'
+                'ReadApplications'
             ]
         }
     ]

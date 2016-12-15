@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit {
         this.isOpen = !this.isOpen;
     }
 
-    private logout() {
+    public logout() {
         this.authenticationService.logout();
     }
 }

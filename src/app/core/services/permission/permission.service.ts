@@ -60,42 +60,42 @@ export class PermissionService implements CanActivate, CanDeactivate<any>, CanAc
     private guardConferencesRoute(): Observable<any> {
         let user = this.authentication.getUser();
         return user.map((e) => {
-            return e.isPK;
+            return e.permissions.indexOf('CreateForms') !== -1;
         });
     }
 
     private guardFormsRoute(): Observable<any> {
         let user = this.authentication.getUser();
         return user.map((e) => {
-            return e.isPK;
+            return e.permissions.indexOf('ReadForms') !== -1;
         });
     }
 
     private guardAdminRoute(): Observable<any> {
         let user = this.authentication.getUser();
         return user.map((e) => {
-            return e.isAdmin;
+            return e.permissions.indexOf('ReadPermissions') !== -1;
         });
     }
 
     private guardUsersRoute(): Observable<any> {
         let user = this.authentication.getUser();
         return user.map((e) => {
-            return e.isAdmin;
+            return e.permissions.indexOf('ReadPermissions') !== -1;
         });
     }
 
     private guardRolesRoute(): Observable<any> {
         let user = this.authentication.getUser();
         return user.map((e) => {
-            return e.isAdmin;
+            return e.permissions.indexOf('ReadPermissions') !== -1;
         });
     }
 
     private guardPermissionsRoute(): Observable<any> {
         let user = this.authentication.getUser();
         return user.map((e) => {
-            return e.isAdmin;
+            return e.permissions.indexOf('ReadPermissions') !== -1;
         });
     }
 
