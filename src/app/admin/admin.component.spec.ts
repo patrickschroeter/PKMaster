@@ -32,6 +32,9 @@ describe('AdminComponent', () => {
                     { path: '', component: class { } },
                 ])
             ],
+            providers: [
+                { provide: AuthenticationService, useClass: AuthenticationMock }
+            ]
         })
             .compileComponents();
     }));
