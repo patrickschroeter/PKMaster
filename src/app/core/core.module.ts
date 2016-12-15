@@ -25,9 +25,9 @@ import { UserApi } from './../swagger/api/UserApi';
         services.FormService,
         services.ApplicationService,
 
-        { provide: FormApi, useClass: services.FormApiMock },
-        { provide: ApplicationApi, useClass: services.ApplicationApiMock },
-        { provide: UserApi, useClass: services.UserApiMock },
+        { provide: FormApi, useClass: services.FormEndpoint },
+        { provide: ApplicationApi, useClass: services.ApplicationEndpoint },
+        { provide: UserApi, useClass: services.UserEndpoint },
         {
             provide: Http,
             useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, authentication: services.AuthenticationService) =>

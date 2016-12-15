@@ -1,6 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AuthenticationService } from './authentication.service';
@@ -16,12 +17,13 @@ describe('Service: Authentication', () => {
             providers: [
                 AuthenticationService,
 
+                { provide: Router, useClass: class { navigate() { }; } },
                 { provide: UserApi, useClass: UserApiMock },
                 { provide: AlertService, useClass: AlertMock }
             ],
             imports: [
                 RouterTestingModule.withRoutes([
-                    { path: '', component: class { } },
+                    { path: '', component: class { } }
                 ])
             ]
         });

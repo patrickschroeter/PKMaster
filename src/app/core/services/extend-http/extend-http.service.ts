@@ -17,7 +17,7 @@ export class ExtendHttpService extends Http {
     }
 
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
-        if (!options) { options = { headers: new Headers() }};
+        if (!options) { options = { headers: new Headers() }; };
         options.headers.set('authentication', this.authentication.token);
         return super.request(url, options);
     }

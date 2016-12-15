@@ -16,6 +16,7 @@ import { ApplicationApiMock, FormApiMock } from './..';
 
 describe('Service: Application', () => {
     beforeEach(() => {
+        localStorage.setItem('authtoken', 'spectoken');
         TestBed.configureTestingModule({
             providers: [
                 ApplicationService,
