@@ -5,6 +5,7 @@ import { Observable, BehaviorSubject } from 'rxjs/Rx';
 import { FormService } from './../form';
 import { AlertService } from './../../../modules/alert';
 import { Field } from './../../../swagger';
+import { Fields } from './../../../models';
 
 @Injectable()
 export class FormElementService {
@@ -347,7 +348,7 @@ export class FormElementService {
      * @return {Observable}
      */
     private getElementTypeOptions(): Observable<any> {
-        let result = types();
+        let result = new Fields.FieldType();
         this.alert.setLoading('getInputTypeOptions', 'Loading Type Options...');
         return new Observable(observer => {
             setTimeout(() => {
@@ -376,17 +377,16 @@ export class FormElementService {
      * @return {Observable}
      */
     private getOptionsOfElementType(fieldType: string): Observable<any> {
-        let name = nm();
+        let name = new Fields.FieldName();
         let options = opts();
         this.alert.setLoading('getOptionsOfInputType', `${fieldType.toUpperCase()}: Loading Options...`);
         return new Observable(observer => {
             setTimeout(() => {
                 this.alert.removeHint('getOptionsOfInputType');
-                let devider = { fieldType: 'devider' };
                 let result = [].concat(name);
                 let element = options[fieldType];
                 if (element) { result = result.concat(element); }
-                result.push(devider);
+                result.push(new Fields.Devider());
                 observer.next(result);
                 observer.complete();
             }, 500);
@@ -440,7 +440,7 @@ export class FormElementService {
     public getElement(): Observable<Field[]> {
         return this.elementRx.asObservable();
     }
-    private setElement(element: Field[]): void {
+    public setElement(element: Field[]): void {
         this.element = element;
         this.elementRx.next(this.element);
     }
@@ -453,7 +453,7 @@ export class FormElementService {
     public getElementPreview(): Observable<Field[]> {
         return this.elementPreviewRx.asObservable();
     }
-    private setElementPreview(element: Field[]): void {
+    public setElementPreview(element: Field[]): void {
         this.elementPreviewRx.next(element);
     }
 
@@ -465,7 +465,7 @@ export class FormElementService {
     public getElementHasSubmit(): Observable<boolean> {
         return this.elementHasSubmitRx.asObservable();
     }
-    private setElementHasSubmit(hasSubmit: boolean): void {
+    public setElementHasSubmit(hasSubmit: boolean): void {
         this.elementHasSubmitRx.next(hasSubmit);
     }
 
@@ -477,7 +477,7 @@ export class FormElementService {
     public getElementHasPreview(): Observable<boolean> {
         return this.elementHasPreviewRx.asObservable();
     }
-    private setElementHasPreview(hasPreview: boolean): void {
+    public setElementHasPreview(hasPreview: boolean): void {
         this.elementHasPreviewRx.next(hasPreview);
     }
 
@@ -489,7 +489,7 @@ export class FormElementService {
     public getElementHasValidations(): Observable<boolean> {
         return this.elementHasValidationsRx.asObservable();
     }
-    private setElementHasValidations(hasValidations: boolean): void {
+    public setElementHasValidations(hasValidations: boolean): void {
         this.elementHasValidationsRx.next(hasValidations);
     }
 
@@ -501,7 +501,7 @@ export class FormElementService {
     public getElementHasStyles(): Observable<boolean> {
         return this.elementHasStylesRx.asObservable();
     }
-    private setElementHasStyles(hasStyles: boolean): void {
+    public setElementHasStyles(hasStyles: boolean): void {
         this.elementHasStylesRx.next(hasStyles);
     }
 }
@@ -509,361 +509,70 @@ export class FormElementService {
 
 
 
-
-
-
-
-
-
-
-
-function types() {
-
-    let types = {
-        fieldType: 'select',
-        name: 'fieldType',
-        label: 'Element Typ',
-        required: true,
-        multipleSelect: false,
-        options: [
-            {
-                value: 'input',
-                label: 'Input',
-            },
-            {
-                value: 'textarea',
-                label: 'Textarea',
-            },
-            {
-                value: 'checkbox',
-                label: 'Checkbox',
-            },
-            {
-                value: 'radio',
-                label: 'Radiobutton',
-            },
-            {
-                value: 'select',
-                label: 'Selectbox',
-            },
-            {
-                value: 'info',
-                label: 'Infotext',
-            },
-            {
-                value: 'h1',
-                label: 'Headline (h1)',
-            },
-            {
-                value: 'h2',
-                label: 'Headline (h2)',
-            },
-            {
-                value: 'h3',
-                label: 'Headline (h3)',
-            },
-            {
-                value: 'h4',
-                label: 'Headline (h4)',
-            },
-            {
-                value: 'devider',
-                label: 'Devider',
-            },
-            {
-                value: 'hiddenDevider',
-                label: 'hidden Devider',
-            }
-        ]
-    };
-    return types;
-}
-
-function nm() {
-
-    let nm = [{
-        fieldType: 'input',
-        name: 'name',
-        label: 'Unique Name (ID)',
-        required: true,
-        styles: [
-            'small'
-        ]
-    }];
-    return nm;
-}
-
 function opts() {
 
     let opts = {
         input: [
-            {
-                fieldType: 'checkbox',
-                name: 'required',
-                label: 'Required Field',
-                styles: [
-                    'small', 'aligned'
-                ]
-            },
-            {
-                fieldType: 'input',
-                name: 'label',
-                label: 'Label of the Input',
-                styles: [
-                    'small'
-                ]
-            },
-            {
-                fieldType: 'select',
-                name: 'type',
-                label: 'Type of Content',
-                required: true,
-                multipleSelect: false,
-                value: 'text',
-                options: [
-                    {
-                        value: 'text',
-                        label: 'Text'
-                    },
-                    {
-                        value: 'password',
-                        label: 'Password'
-                    },
-                    {
-                        value: 'date',
-                        label: 'Date'
-                    },
-                    {
-                        value: 'email',
-                        label: 'E-Mail'
-                    },
-                    {
-                        value: 'number',
-                        label: 'Number'
-                    }
-                ],
-                styles: [
-                    'small'
-                ]
-            },
-            {
-                fieldType: 'input',
-                name: 'placeholder',
-                label: 'Placeholder',
-                styles: [
-                    'small'
-                ]
-            }
+            new Fields.FieldRequired(null, { styles: ['small', 'aligned']}),
+            new Fields.FieldLabel(),
+            new Fields.FieldContentType('text'),
+            new Fields.FieldPlaceholder()
         ],
         textarea: [
-            {
-                fieldType: 'checkbox',
-                name: 'required',
-                label: 'Required Field',
-                styles: [
-                    'small', 'aligned'
-                ]
-            },
-            {
-                fieldType: 'input',
-                name: 'label',
-                label: 'Label of the Input',
-                styles: [
-                    'small'
-                ]
-            },
-            {
-                fieldType: 'input',
-                name: 'placeholder',
-                label: 'Placeholder',
-                styles: [
-                    'small'
-                ]
-            }
+            new Fields.FieldRequired(null, { styles: ['small', 'aligned']}),
+            new Fields.FieldLabel(),
+            new Fields.FieldPlaceholder()
         ],
         checkbox: [
-            {
-                fieldType: 'checkbox',
-                name: 'required',
-                label: 'Required Field',
-                styles: [
-                    'small', 'aligned'
-                ]
-            },
-            {
-                fieldType: 'input',
-                name: 'label',
-                label: 'Label',
-                required: true
-            }
+            new Fields.FieldRequired(null, { styles: ['small', 'aligned']}),
+            new Fields.FieldLabel(),
         ],
         radio: [
-            {
-                fieldType: 'checkbox',
-                name: 'required',
-                label: 'Required Field',
-                styles: [
-                    'small', 'aligned'
-                ]
-            },
-            {
-                fieldType: 'input',
-                name: 'label',
-                label: 'Label',
-                required: true,
-                styles: [
-                    'small'
-                ]
-            },
-            {
-                fieldType: 'devider'
-            },
-            {
-                fieldType: 'h4',
-                value: 'Create a custom List or use an existing one.'
-            }, {
-                fieldType: 'select',
-                name: 'optionTable',
-                label: 'Table of Options',
+            new Fields.FieldRequired(null, { styles: ['small', 'aligned']}),
+            new Fields.FieldLabel(null, { required: true }),
+            new Fields.Devider(),
+            new Fields.H4('Create a custom List or use an existing one.', { styles: [] }),
+            new Fields.FieldOptionTable(null, {
+                /** TODO: load real data */
                 options: [
-                    {
-                        value: 'fakultaet',
-                        label: 'Fakultaeten'
-                    },
-                    {
-                        value: 'user',
-                        label: 'Users'
-                    },
-                    {
-                        value: 'language',
-                        label: 'Languages'
-                    }
-                ],
-                styles: [
-                    'small'
+                    { value: 'fakultaet', label: 'Fakultaeten' },
+                    { value: 'user', label: 'Users' },
+                    { value: 'language', label: 'Languages' }
                 ]
-            },
-            {
-                fieldType: 'datalist',
-                name: 'options',
-                label: 'Options',
-                required: true,
-                styles: [
-                    'small'
-                ]
-            }
+            }),
+            new Fields.FieldOptions()
         ],
         select: [
-            {
-                fieldType: 'checkbox',
-                name: 'required',
-                label: 'Required Field',
-                styles: [
-                    'small', 'aligned'
-                ]
-            },
-            {
-                fieldType: 'input',
-                name: 'label',
-                label: 'Label',
-                styles: [
-                    'small'
-                ]
-            },
-            {
-                fieldType: 'input',
-                name: 'placeholder',
-                label: 'Placeholder',
-                styles: [
-                    'small'
-                ]
-            },
-            {
-                fieldType: 'checkbox',
-                name: 'multipleSelect',
-                label: 'Multiselect',
-                styles: [
-                    'small'
-                ]
-            },
-            {
-                fieldType: 'devider'
-            },
-            {
-                fieldType: 'h4',
-                value: 'Create a custom List or use an existing one.'
-            },
-            {
-                fieldType: 'select',
-                name: 'optionTable',
-                label: 'Table of Options',
+            new Fields.FieldRequired(null, { styles: ['small', 'aligned']}),
+            new Fields.FieldLabel(),
+            new Fields.FieldPlaceholder(),
+            new Fields.FieldMultipleSelect(),
+            new Fields.Devider(),
+            new Fields.H4('Create a custom List or use an existing one.', { styles: [] }),
+            new Fields.FieldOptionTable(null, {
+                /** TODO: load real data */
                 options: [
-                    {
-                        value: 'fakultaet',
-                        label: 'Fakultaeten'
-                    },
-                    {
-                        value: 'user',
-                        label: 'Users'
-                    },
-                    {
-                        value: 'language',
-                        label: 'Languages'
-                    }
-                ],
-                styles: [
-                    'small'
+                    { value: 'fakultaet', label: 'Fakultaeten' },
+                    { value: 'user', label: 'Users' },
+                    { value: 'language', label: 'Languages' }
                 ]
-            },
-            {
-                fieldType: 'datalist',
-                name: 'options',
-                label: 'Options',
-                required: true,
-                styles: [
-                    'small'
-                ]
-            }
+            }),
+            new Fields.FieldOptions()
         ],
         info: [
-            {
-                fieldType: 'textarea',
-                name: 'value',
-                label: 'Content',
-                required: true
-            }
+            new Fields.FieldValue(null, { fieldType: 'textarea' })
         ],
         h1: [
-            {
-                fieldType: 'input',
-                name: 'value',
-                label: 'Content',
-                required: true
-            }
+            new Fields.FieldValue()
         ],
         h2: [
-            {
-                fieldType: 'input',
-                name: 'value',
-                label: 'Content',
-                required: true
-            }
+            new Fields.FieldValue()
         ],
         h3: [
-            {
-                fieldType: 'input',
-                name: 'value',
-                label: 'Content',
-                required: true
-            }
+            new Fields.FieldValue()
         ],
         h4: [
-            {
-                fieldType: 'input',
-                name: 'value',
-                label: 'Content',
-                required: true
-            }
+            new Fields.FieldValue()
         ],
         devider: [
 
@@ -878,65 +587,28 @@ function opts() {
 function validations() {
     let validations = {
         input: [
-            {
-                fieldType: 'select',
-                name: 'validations',
-                label: 'Validation Options',
-                multipleSelect: true,
+            new Fields.FieldValidation(null, {
+                /** TODO: load real data */
                 options: [
-                    {
-                        value: 'isEmail',
-                        label: 'Email Validation'
-                    },
-                    {
-                        value: 'useExternalEmail',
-                        label: 'External Email Validation'
-                    },
-                    {
-                        value: 'minLength',
-                        label: 'min Length of 8'
-                    },
-                    {
-                        value: 'maxLength',
-                        label: 'max Length of 15'
-                    },
-                    {
-                        value: 'toBeTrue',
-                        label: 'Required'
-                    }
-                ],
-                styles: [
-                    'small'
+                    { value: 'isEmail', label: 'Email Validation' },
+                    { value: 'useExternalEmail', label: 'External Email Validation' },
+                    { value: 'minLength', label: 'min Length of 8' },
+                    { value: 'maxLength', label: 'max Length of 15' },
+                    { value: 'toBeTrue', label: 'Required' }
                 ]
-            }
-        ],
-        textarea: [
-
+            })
         ]
     };
     return validations;
 }
 
 function styles() {
-    let styles = {
-        fieldType: 'select',
-        name: 'styles',
-        label: 'Style Options',
-        multipleSelect: true,
+    let styles = new Fields.FieldStyles(null, {
         options: [
-            {
-                value: 'small',
-                label: 'Small'
-            },
-            {
-                value: 'aligned',
-                label: 'Aligned ( + 1 rem at top)'
-            }
-        ],
-        styles: [
-            'small'
+            { value: 'small', label: 'Small' },
+            { value: 'aligned', label: 'Aligned ( + 1 rem at top)' }
         ]
-    };
+    });
     return styles;
 }
 
@@ -944,58 +616,22 @@ function styles() {
 function options() {
     return {
         fakultaet: [
-            {
-                value: 'gestaltung',
-                label: 'Gestaltung'
-            },
-            {
-                value: 'informatik',
-                label: 'informatik'
-            }
+            { value: 'gestaltung', label: 'Gestaltung' },
+            { value: 'informatik', label: 'informatik' }
         ],
         user: [
-            {
-                value: 'sf',
-                label: 'Stephan Reichinger'
-            },
-            {
-                value: 'ps',
-                label: 'Patrick Schröter'
-            }
+            { value: 'sf', label: 'Stephan Reichinger' },
+            { value: 'ps', label: 'Patrick Schröter' }
         ],
         language: [
-            {
-                value: 'de',
-                label: 'Deutschland'
-            },
-            {
-                value: 'fr',
-                label: 'Frankreich'
-            },
-            {
-                value: 'es',
-                label: 'Spanien'
-            },
-            {
-                value: 'it',
-                label: 'Italien'
-            },
-            {
-                value: 'ir',
-                label: 'Irland'
-            },
-            {
-                value: 'bel',
-                label: 'Belgien'
-            },
-            {
-                value: 'cr',
-                label: 'Croatien'
-            },
-            {
-                value: 'en',
-                label: 'USA'
-            }
+            { value: 'de', label: 'Deutschland' },
+            { value: 'fr', label: 'Frankreich' },
+            { value: 'es', label: 'Spanien' },
+            { value: 'it', label: 'Italien' },
+            { value: 'ir', label: 'Irland' },
+            { value: 'bel', label: 'Belgien' },
+            { value: 'cr', label: 'Croatien' },
+            { value: 'en', label: 'USA' }
         ]
     };
 }

@@ -2,8 +2,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { NavbarComponent } from './navbar.component';
+
+import { AuthenticationService, AuthenticationMock } from './../../../core';
 
 import { ButtonModule } from './../../../modules/button/button.module';
 import { DeviderModule } from './../../../modules/devider/devider.module';
@@ -18,8 +21,14 @@ describe('NavbarComponent', () => {
                 NavbarComponent
             ],
             imports: [
+                RouterTestingModule.withRoutes([
+                    { path: '', component: class { } },
+                ]),
                 ButtonModule,
                 DeviderModule
+            ],
+            providers: [
+                { provide: AuthenticationService, useClass: AuthenticationMock }
             ]
         })
             .compileComponents();

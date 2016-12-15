@@ -9,6 +9,8 @@ import { ProfileEditComponent } from './profile-edit.component';
 import {
     InputValidationService,
     InputValidationMock,
+    AuthenticationService,
+    AuthenticationMock
 } from './../../../core';
 import { AlertService, AlertMock } from './../../../modules/alert';
 
@@ -37,6 +39,7 @@ describe('ProfileEditComponent', () => {
             ],
             providers: [
                 { provide: InputValidationService, useClass: InputValidationMock },
+                { provide: AuthenticationService, useClass: AuthenticationMock },
                 { provide: AlertService, useClass: AlertMock }
             ]
         })

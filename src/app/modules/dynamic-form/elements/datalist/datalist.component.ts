@@ -30,16 +30,22 @@ export class DatalistComponent implements OnInit {
         if (!this.config) {
             this.config = {};
         }
-        if (this.parent &&
-            this.parent.form &&
-            this.parent.form.controls &&
-            this.parent.form.controls[this.config.name]) {
-            this.formControl = this.parent.form.controls[this.config.name];
-        } else {
+        this.formControl = this.getFormControl();
+        if (!this.formControl) {
             this.formControl = new FormControl(this.config.value);
         }
-
         this.initAddOptionsForm();
+    }
+
+    /**
+     * @description extract the Elements FormControl from the Parent, return null if no Parent set
+     */
+    private getFormControl(): AbstractControl {
+        if (this.parent &&
+            this.parent.form) {
+            return this.parent.form.get(this.config.name);
+        }
+        return null;
     }
 
     initAddOptionsForm() {

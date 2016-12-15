@@ -1,5 +1,7 @@
 <div id="profile">
-    <div class="rel">
+    <pk-loading *ngIf="!user"></pk-loading>
+
+    <div class="rel"  *ngIf="user">
         <h1 class="element element--spacing-bottom-small">Profile</h1>
 
         <pk-dynamic-form [formElements]="form" #dynamicForm>
@@ -30,7 +32,7 @@
             </pk-dynamic-form-content>
             <pk-dynamic-form-submit>
                 <pk-button
-                    (onClick)="submit(changePasswordForm)"
+                    (onClick)="changePassword(changePasswordForm.value)"
                     [value]="'Save'"
                     icon="security"
                     [class]="changePasswordForm.valid ? 'element--success' : 'element--disabled'"

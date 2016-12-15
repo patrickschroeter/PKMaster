@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { CommonModule } from '@angular/common';
@@ -23,7 +22,6 @@ import { DeviderModule } from './../modules/devider/devider.module';
         CommonModule,
         RouterModule,
         FormsModule,
-        HttpModule,
         ReactiveFormsModule,
 
         FloatingModule,

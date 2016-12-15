@@ -6,3 +6,4 @@ export * from './form-element';
 export * from './application';
 
 export * from './api';
+export * from './extend-http';

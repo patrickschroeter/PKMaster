@@ -44,7 +44,7 @@ export class AlertService {
     }
 
     public setSuccessHint(id: string, message: string): void {
-        this.add(id, 'success', message, 1000);
+        this.add(id, 'success', message, 1500);
     }
 
     public setLoading(id: string, message: string): void {

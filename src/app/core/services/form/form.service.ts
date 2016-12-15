@@ -18,7 +18,7 @@ export class FormService {
     private addingElement$: Observer<boolean>;
     private addingElementRx: Observable<any>;
 
-    private editElementRx: Observable<Field>;
+    private editElementRx: Observable<any>;
     private editElement$: Observer<Field>;
 
     constructor(private alert: AlertService, private formApi: FormApi) { }
@@ -89,7 +89,6 @@ export class FormService {
      * @return {Observable}
      */
     public createNewForm(submit: Form): Observable<any> {
-        console.log(submit);
         let newform: Form = {
             title: submit.id ? 'Copy of ' + submit.title : submit.title,
             elements: submit.id ? submit.elements : [],
@@ -220,10 +219,10 @@ export class FormService {
      * @param {string} name the key/id/name of the preset
      * @return {void}
      */
-    public addPresetToForm(name: string): void {
+    public addPresetToForm(name: string): boolean {
         this.editingElementIndex = -1;
         // TODO: load real data
-        return this.addElementToForm({"fieldType":"input","name":"matnr","required":true,"label":"Matrikelnummer","type":"number","placeholder":"","styles":["small"],"value":""}, 'clone');
+        return this.addElementToForm({"fieldType":"input","name":"matnr","required":true,"label":"Matrikelnummer","contentType":"number","placeholder":"","styles":["small"],"value":""}, 'clone');
     }
 
     /**

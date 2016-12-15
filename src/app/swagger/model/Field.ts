@@ -46,7 +46,7 @@ export interface Field {
 
     placeholder?: string;
 
-    options?: string;
+    options?: { label: string, value: string }[];
 
     enumOptionsTableId?: string;
 
@@ -59,4 +59,10 @@ export interface Field {
     enumOptionsTable?: models.EnumOptionsTable;
 
     fieldTypeNavigation?: models.FieldType;
+
+    /** Cutsom */
+    disabled?: boolean;
+    validations?: string[];
+    styles?: string[];
+
 }

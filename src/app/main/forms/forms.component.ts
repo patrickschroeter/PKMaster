@@ -34,7 +34,6 @@ export class FormsComponent implements OnInit {
 
     createNewForm(form) {
         this.formService.createNewForm(form).subscribe(created => {
-            console.log(created)
             if (created['id']) {
                 this.router.navigate([`/forms/`, created['id'], 'edit']);
             }

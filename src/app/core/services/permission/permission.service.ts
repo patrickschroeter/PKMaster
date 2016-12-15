@@ -8,9 +8,9 @@ import { AuthenticationService } from './../authentication/authentication.servic
 export class PermissionService implements CanActivate, CanDeactivate<any>, CanActivateChild {
 
     private guard: Object = {
-        main: this.allAccessWhenLoggedIn,
-        profile: this.allAccessWhenLoggedIn,
-        applications: this.allAccessWhenLoggedIn,
+        main: this.allAccessWhenLoggedIn.bind(this),
+        profile: this.allAccessWhenLoggedIn.bind(this),
+        applications: this.allAccessWhenLoggedIn.bind(this),
         conferences: this.guardConferencesRoute.bind(this),
         forms: this.guardFormsRoute.bind(this),
 
@@ -22,7 +22,8 @@ export class PermissionService implements CanActivate, CanDeactivate<any>, CanAc
 
     constructor(private authentication: AuthenticationService, private router: Router) { }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+        Observable<boolean> | Promise<boolean> | boolean {
         let name = state.url.slice(1);
         if (!this.authentication.isLoggedIn()) {
             this.router.navigate(['/login']);
@@ -33,11 +34,13 @@ export class PermissionService implements CanActivate, CanDeactivate<any>, CanAc
         return this.guard[name] ? this.guard[name]() : false;
     }
 
-    canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+        Observable<boolean> | Promise<boolean> | boolean {
         return this.canActivate(route, state);
     }
 
-    canDeactivate(component: any, route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    canDeactivate(component: any, route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+        Observable<boolean> | Promise<boolean> | boolean {
         return this.authentication.isLoggedIn();
     }
 
@@ -46,8 +49,12 @@ export class PermissionService implements CanActivate, CanDeactivate<any>, CanAc
     * Guard Definitions for Routes
     */
 
-    private allAccessWhenLoggedIn() {
-        return true;
+    private allAccessWhenLoggedIn(): Observable<any> {
+        let user = this.authentication.getUser();
+        /** TODO: catch error */
+        return user.map((e) => {
+            return !!e;
+        });
     }
 
     private guardConferencesRoute(): Observable<any> {
@@ -60,7 +67,6 @@ export class PermissionService implements CanActivate, CanDeactivate<any>, CanAc
     private guardFormsRoute(): Observable<any> {
         let user = this.authentication.getUser();
         return user.map((e) => {
-            console.log(e);
             return e.isPK;
         });
     }

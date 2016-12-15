@@ -16,6 +16,7 @@ import { ApplicationApiMock, FormApiMock } from './..';
 
 describe('Service: Application', () => {
     beforeEach(() => {
+        localStorage.setItem('authtoken', 'spectoken');
         TestBed.configureTestingModule({
             providers: [
                 ApplicationService,
@@ -37,8 +38,7 @@ describe('Service: Application', () => {
             fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
                 let element;
                 service.createNewApplication({ form: { id: '1' }}).subscribe(result => { element = result; });
-                expect(element).toBeUndefined();
-                tick(1000);
+                tick(25);
                 expect(element).toBeDefined();
                 expect(element.id).toBeDefined();
             }))
@@ -61,30 +61,27 @@ describe('Service: Application', () => {
         beforeEach(fakeAsync(inject([ApplicationService], (applicationService: ApplicationService) => {
             service = applicationService;
             service.createNewApplication({ form: { id: '1' }}).subscribe(result => { element = result; });
-            tick(1000);
+            tick(25);
         })));
 
         it('should provide the application with the given id',
             fakeAsync(() => {
                 let application;
                 service.getApplicationById(element.id).subscribe(result => { application = result; });
-                expect(application).toBeUndefined();
-                tick(1000);
+                tick(25);
                 expect(application).toBeDefined()
                 expect(application.id).toBe(element.id);
-                expect(application.created).toBe(element.created);
             })
         );
         it('should throw an error if no application with id exists',
             fakeAsync(() => {
                 let response;
-                service.getApplicationById('someId').subscribe(() => {
+                service.getApplicationById(null).subscribe(() => {
                     response = 'success';
                 }, () => {
                     response = 'error';
                 });
-                expect(response).toBeUndefined();
-                tick(1000);
+                tick(25);
                 expect(response).toBeDefined();
                 expect(response).toBe('error');
             })
@@ -107,8 +104,7 @@ describe('Service: Application', () => {
             fakeAsync(() => {
                 let elements;
                 service.getApplications().subscribe(result => { elements = result; });
-                expect(elements).toBeUndefined();
-                tick(1000);
+                tick(25);
                 expect(elements).toBeDefined();
                 expect(elements.length).toEqual(0);
             })
@@ -117,31 +113,21 @@ describe('Service: Application', () => {
         describe('(with data)', () => {
             beforeEach(fakeAsync(() => {
                 service.createNewApplication({ form: { id: '1' }, version: 2}).subscribe(result => { });
-                tick(200);
+                tick(25);
                 service.createNewApplication({ form: { id: '2' }, version: 3}).subscribe(result => { });
-                tick(200);
+                tick(25);
                 service.createNewApplication({ form: { id: '3' }, version: 1}).subscribe(result => { element = result; });
-                tick(1000);
+                tick(25);
             }));
 
-            it('should provide a list of all applications the user has rights to read',
+            it('should provide a list of all applications',
                 fakeAsync(() => {
                     let elements;
                     service.getApplications().subscribe(result => { elements = result; });
-                    expect(elements).toBeUndefined();
-                    tick(1000);
+                tick(25);
                     expect(elements).toBeDefined();
                     expect(elements.length).toEqual(3);
-                    expect(elements[0].id).not.toEqual(element.id);
                     expect(elements[2].id).toEqual(element.id);
-                })
-            );
-            it('should provide a sorted list by attribute of all applications the user has rights to read',
-                fakeAsync(() => {
-                    let elements;
-                    service.getApplications('version').subscribe(result => { elements = result; });
-                    tick(1000);
-                    expect(elements[0].id).toEqual(element.id);
                 })
             );
 

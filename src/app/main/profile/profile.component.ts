@@ -6,7 +6,8 @@ import { AlertService } from './../../modules/alert';
 
 import { DynamicFormService } from './../../modules/dynamic-form';
 
-import { Field, Form } from './../../swagger';
+import { Field, Form, AppUser } from './../../swagger';
+import { Fields } from './../../models';
 
 @Component({
     selector: 'pk-profile',
@@ -17,12 +18,12 @@ export class ProfileComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
     private isChangingPassword: boolean;
-    private isFormValidationVisible: boolean = false;
 
     private changePasswordForm: FormGroup;
     private changePasswordElements: Field[];
 
     private form: Form;
+    private user: AppUser;
 
     constructor(
         private auth: AuthenticationService,
@@ -35,86 +36,25 @@ export class ProfileComponent implements OnInit {
     ngOnInit() {
         this.isChangingPassword = false;
 
-        this.form = [
-            {
-                fieldType: 'input',
-                name: 'firstname',
-                required: false,
-                label: 'Firstname',
-                value: 'Patrick',
-                styles: [
-                    'small'
-                ]
-            },
-            {
-                fieldType: 'input',
-                name: 'lastname',
-                required: false,
-                label: 'Lastname',
-                styles: [
-                    'small'
-                ]
-            },
-            {
-                fieldType: 'devider'
-            },
-            {
-                fieldType: 'input',
-                name: 'email',
-                contentType: 'email',
-                required: true,
-                label: 'E-Mail',
+        this.auth.getUser().subscribe(user => {
+            this.user = user;
+            this.form = [
+                new Fields.Firstname(user.firstname),
+                new Fields.Lastname(user.lastname),
+                new Fields.Devider(),
+                new Fields.Email(user.email),
+                new Fields.Matrikelnummer(user.matNr)
+            ];
+        });
 
-                validations: [
-                    'isEmail',
-                    'useExternalEmail'
-                ],
-                styles: [
-                    'small'
-                ]
-            },
-            {
-                fieldType: 'input',
-                label: 'Matrikelnummer',
-                value: '949225',
-                disabled: true,
-                styles: [
-                    'small'
-                ]
-            }
-        ];
+        this.initChangePasswordField();
+    }
 
+    private initChangePasswordField() {
         this.changePasswordElements = [
-            {
-                fieldType: 'input',
-                contentType: 'password',
-                name: 'password',
-                required: true,
-                label: 'Current Password'
-            },
-            {
-                fieldType: 'input',
-                contentType: 'password',
-                name: 'newpassword',
-                required: true,
-                label: 'New Password',
-                styles: [
-                    'small'
-                ],
-                validations: [
-                    'minLength'
-                ]
-            },
-            {
-                fieldType: 'input',
-                contentType: 'password',
-                name: 'newpasswordconfirm',
-                required: true,
-                label: 'New Password (confirm)',
-                styles: [
-                    'small'
-                ]
-            }
+            new Fields.Password(null, { name: 'password', label: 'Current Password', styles: []}),
+            new Fields.Password(null, { name: 'newpassword', label: 'New Password'}),
+            new Fields.Password(null, { name: 'newpasswordconfirm', label: 'New Password (confirm)'})
         ];
 
         this.changePasswordForm = this.dynamicForm.generateFormFromInput(
@@ -136,13 +76,17 @@ export class ProfileComponent implements OnInit {
      * @return {void}
      */
     changePassword(event): void {
-        this.togglePasswordOverlay();
-        this.auth.changePassword(event.password, event.newpassword).subscribe(
+        this.alert.setLoading('changePassword', 'Encrypting Data...');
+        this.auth.changePassword(this.user, event.password, event.newpassword).subscribe(
             () => {
                 this.alert.setSuccessHint('password_changed', 'Password changed.');
             },
             () => {
                 this.alert.setAlert('Error', 'There was an error changing your password. Please try again later.');
+            }, () => {
+                this.alert.removeHint('changePassword');
+                this.togglePasswordOverlay();
+                this.initChangePasswordField();
             }
         );
     }
