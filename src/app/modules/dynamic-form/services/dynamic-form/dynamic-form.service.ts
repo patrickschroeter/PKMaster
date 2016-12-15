@@ -24,7 +24,7 @@ export class DynamicFormService {
         for (let i = 0, length = input.length; i < length; i++) {
             let element = input[i];
 
-            let formControl = this.extendElement(element);
+            let formControl = this.createFormControl(element);
             if (!formControl) { continue; }
 
             /** Add new FormControl to FormBuilder-Options[] */
@@ -34,11 +34,28 @@ export class DynamicFormService {
     }
 
     /**
+     * @description add missing FormControl to the form depending on input
+     * @param {FormGroup} form the form to extend
+     * @param {Field[]} input the input configuration
+     */
+    public updateFormFromInput(form: FormGroup, input?: Field[]): void {
+        for (let i = 0, length = input.length; i < length; i++) {
+            let element = input[i];
+            if (!form.get(element.name)) {
+                let formControl = this.createFormControl(element);
+                if (formControl) {
+                    form.addControl(element.name, formControl);
+                }
+            }
+        }
+    }
+
+    /**
      * @description adds information to the form element such as validations and formControl
      * @param {FormElement} element
      * @return {boolean}
      */
-    private extendElement(element: Field): FormControl {
+    private createFormControl(element: Field): FormControl {
         if (!element || !element.name || element.disabled) { return null; }
 
         /** Create Array of ValidationFn */

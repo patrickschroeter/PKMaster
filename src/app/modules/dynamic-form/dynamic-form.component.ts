@@ -67,12 +67,16 @@ export class DynamicFormComponent implements OnInit, OnChanges {
         if (!input) { throw Error('this.formElements is not defined.'); }
 
         /** Create new FormGroup from FormElements[] */
-        this.form = this.dynamicForm.generateFormFromInput(input);
+        if (this.form) {
+            this.dynamicForm.updateFormFromInput(this.form, input);
+        } else {
+            this.form = this.dynamicForm.generateFormFromInput(input);
 
-        /** Emit Form changes via @Output() */
-        this.form.valueChanges.subscribe(() => {
-            this.onChange.emit(this.form);
-        });
+            /** Emit Form changes via @Output() */
+            this.form.valueChanges.subscribe(() => {
+                this.onChange.emit(this.form);
+            });
+        }
     }
 
 
