@@ -7,16 +7,22 @@ import { Form } from './../../../swagger';
 @Injectable()
 export class FormApiMock {
 
-    static FORM: Form = { title: 'Titel der Form', id: '1', elements: [ { fieldType: 'h3', name: 'header01', value: 'Hochschule für Angewandte Wissenschaften Augsburg', styles: ['small'] }, { fieldType: 'input', name: 'date', type: 'date', label: 'Augsburg, den', styles: ['small'] }]};
+    static FORM: Form = { title: 'Titel der Form', id: '1', elements: [{ fieldType: 'h3', name: 'header01', value: 'Hochschule für Angewandte Wissenschaften Augsburg', styles: ['small'] }, { fieldType: 'input', name: 'date', type: 'date', label: 'Augsburg, den', styles: ['small'] }] };
+
+    private list = [];
 
     constructor() { }
 
     public addForm(token?: number, form?: Form, extraHttpRequestParams?: any): Observable<Form> {
+        if (form) {
+            form.id = '1';
+            this.list.push(form);
+        };
         return new Observable(observer => { form ? observer.next(form) : observer.error('error'); observer.complete(); });
     }
 
     public getForms(token?: number, extraHttpRequestParams?: any): Observable<any> {
-        return new Observable(observer => { observer.next([FormApiMock.FORM]); observer.complete(); });
+        return new Observable(observer => { observer.next(this.list); observer.complete(); });
     }
 
     public getFormById(formId: string, token?: number, extraHttpRequestParams?: any): Observable<any> {

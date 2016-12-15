@@ -9,9 +9,15 @@ export class UserApiMock {
 
     static USER: AppUser = { id: '1', email: 'patrick.schroeter@hotmail.de', password: 'password', firstname: 'Patrick', lastname: 'Schroeter', matNr: 949225 }
 
+    private list = [];
+
     constructor() { }
 
     public addUser(token?: number, user?: AppUser, extraHttpRequestParams?: any): Observable<any> {
+        if (user) {
+            user.id = '1';
+            this.list.push(user);
+        };
         return new Observable(observer => { user ? observer.next(user) : observer.error('error'); observer.complete(); });
     }
 
@@ -21,7 +27,7 @@ export class UserApiMock {
     }
 
     public getUsers(token?: number, extraHttpRequestParams?: any): Observable<any> {
-        return new Observable(observer => { observer.next([UserApiMock.USER]); observer.complete(); });
+        return new Observable(observer => { observer.next(this.list); observer.complete(); });
     }
 
     public updateUserById(userId: string, token?: number, user?: AppUser, extraHttpRequestParams?: any): Observable<AppUser> {
