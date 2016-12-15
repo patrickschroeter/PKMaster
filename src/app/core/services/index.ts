@@ -1,5 +1,5 @@
 export * from './authentication';
-export * from './permission';
+export * from './access';
 export * from './input-validation';
 export * from './form';
 export * from './form-element';

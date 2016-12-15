@@ -20,7 +20,7 @@ import { UserApi } from './../swagger/api/UserApi';
     ],
     providers: [
         services.AuthenticationService,
-        services.PermissionService,
+        services.AccessService,
         services.InputValidationService,
         services.FormService,
         services.ApplicationService,

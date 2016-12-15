@@ -3,22 +3,22 @@ import { Routes, RouterModule } from '@angular/router';
 
 import * as main from './';
 
-import { PermissionService } from './../core';
+import { AccessService } from './../core';
 
 const routes: Routes = [
     {
         path: '',
         component: main.MainComponent,
-        canActivate: [PermissionService],
+        canActivate: [AccessService],
         children: [
             { path: 'profile', component: main.ProfileComponent, pathMatch: 'full' },
             { path: 'profile/edit', component: main.ProfileEditComponent },
             { path: 'applications', component: main.ApplicationsComponent },
             { path: 'applications/:id', component: main.ApplicationsDetailComponent },
             { path: 'applications/:id/edit', component: main.ApplicationsEditComponent },
-            { path: 'conferences', component: main.ConferencesComponent, canActivate: [PermissionService] },
-            { path: 'forms', component: main.FormsComponent, canActivate: [PermissionService], pathMatch: 'full' },
-            { path: 'forms/:id/edit', component: main.FormsEditComponent, canActivate: [PermissionService] },
+            { path: 'conferences', component: main.ConferencesComponent, canActivate: [AccessService] },
+            { path: 'forms', component: main.FormsComponent, canActivate: [AccessService], pathMatch: 'full' },
+            { path: 'forms/:id/edit', component: main.FormsEditComponent, canActivate: [AccessService] },
             { path: '', redirectTo: 'applications', pathMatch: 'full' }
         ]
     }
