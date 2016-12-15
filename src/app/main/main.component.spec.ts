@@ -5,6 +5,7 @@ import { DebugElement } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { MainComponent } from './main.component';
+import { AuthenticationService, AuthenticationMock } from './../core/services';
 
 import {
     SharedModule
@@ -24,6 +25,9 @@ describe('MainComponent', () => {
                 RouterTestingModule.withRoutes([
                     { path: '', component: class { } },
                 ])
+            ],
+            providers: [
+                { provide: AuthenticationService, useClass: AuthenticationMock }
             ]
         })
             .compileComponents();

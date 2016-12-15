@@ -5,7 +5,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { AuthenticationService } from './authentication.service';
 
+import { UserApiMock } from './../../../core';
+import { UserApi } from './../../../swagger';
 import { AlertService, AlertMock } from './../../../modules/alert';
+
 
 describe('Service: Authentication', () => {
     beforeEach(() => {
@@ -13,6 +16,7 @@ describe('Service: Authentication', () => {
             providers: [
                 AuthenticationService,
 
+                { provide: UserApi, useClass: UserApiMock },
                 { provide: AlertService, useClass: AlertMock }
             ],
             imports: [
