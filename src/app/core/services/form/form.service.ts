@@ -89,7 +89,6 @@ export class FormService {
      * @return {Observable}
      */
     public createNewForm(submit: Form): Observable<any> {
-        console.log(submit);
         let newform: Form = {
             title: submit.id ? 'Copy of ' + submit.title : submit.title,
             elements: submit.id ? submit.elements : [],
