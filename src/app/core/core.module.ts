@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Http, XHRBackend, RequestOptions } from '@angular/http';
 
 import { SharedModule } from './../shared/shared.module';
 
@@ -26,7 +27,13 @@ import { UserApi } from './../swagger/api/UserApi';
 
         { provide: FormApi, useClass: services.FormApiMock },
         { provide: ApplicationApi, useClass: services.ApplicationApiMock },
-        { provide: UserApi, useClass: services.UserApiMock }
+        { provide: UserApi, useClass: services.UserApiMock },
+        {
+            provide: Http,
+            useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, authentication: services.AuthenticationService) =>
+               new services.ExtendHttpService(xhrBackend, requestOptions, authentication),
+            deps: [XHRBackend, RequestOptions, services.AuthenticationService]
+        }
     ],
     exports: [
 
