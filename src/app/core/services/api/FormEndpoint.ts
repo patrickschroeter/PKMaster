@@ -9,7 +9,7 @@ export class FormEndpoint {
 
     constructor() { }
 
-    public addForm(token?: number, form?: Form, extraHttpRequestParams?: any): Observable<Form> {
+    public addForm(token?: string, form?: Form, extraHttpRequestParams?: any): Observable<Form> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + '%c addForm', 'color: #F44336', 'color: #fefefe');
         let newform = this._formAdd(form);
@@ -29,7 +29,7 @@ export class FormEndpoint {
         });
     }
 
-    public getForms(token?: number, extraHttpRequestParams?: any): Observable<any> {
+    public getForms(token?: string, extraHttpRequestParams?: any): Observable<any> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + '%c getForms', 'color: #F44336', 'color: #fefefe');
         let forms = this._forms();
@@ -49,7 +49,7 @@ export class FormEndpoint {
         });
     }
 
-    public getFormById(formId: string, token?: number, extraHttpRequestParams?: any): Observable<any> {
+    public getFormById(formId: string, token?: string, extraHttpRequestParams?: any): Observable<any> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c getFormById ${formId}`, 'color: #F44336', 'color: #fefefe');
         let form = this._form(formId);
@@ -69,7 +69,7 @@ export class FormEndpoint {
         });
     }
 
-    public updateFormById(formId: number, token?: number, form?: Form, extraHttpRequestParams?: any): Observable<any> {
+    public updateFormById(formId: number, token?: string, form?: Form, extraHttpRequestParams?: any): Observable<any> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c updateFormById ${formId}`, 'color: #F44336', 'color: #fefefe');
         let updatedForm = this._formUpdate(formId.toString(), form);

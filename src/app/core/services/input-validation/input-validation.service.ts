@@ -72,7 +72,7 @@ export class InputValidationService {
      * @param {number} length the min Length to be valid
      * @return {ValidatorFn} return a Validation Function
      */
-    private validateMinLength(length: number): ValidatorFn {
+    public validateMinLength(length: number): ValidatorFn {
         return Validators.minLength(length);
     }
 
@@ -81,7 +81,7 @@ export class InputValidationService {
      * @param {number} length the max Length to be valid
      * @return {ValidatorFn} return a Validation Function
      */
-    private validateMaxLength(length: number): ValidatorFn {
+    public validateMaxLength(length: number): ValidatorFn {
         return Validators.maxLength(length);
     }
 
@@ -90,7 +90,7 @@ export class InputValidationService {
      * @param {FormControl} control the FormControl to be tested
      * @return {Object} return a Object with Information if validation fails
      */
-    private validateExternalEmail(control: FormControl): Object {
+    public validateExternalEmail(control: FormControl): Object {
         if (control.value.match(/hs-augsburg/)) {
             return { internalEmail: true };
         }
@@ -101,7 +101,7 @@ export class InputValidationService {
      * @param {FormControl} control the FormControl to be tested
      * @return {Object} return a Object with Information if validation fails
      */
-    private validateEmail(control: FormControl): Object {
+    public validateEmail(control: FormControl): Object {
         if (!control.value.match(/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i)) {
             return { invalidEmail: true };
         }
@@ -112,7 +112,7 @@ export class InputValidationService {
      * @param {FormControl} control the FormControl to be tested
      * @return {Object} return a Object with Information if validation fails
      */
-    private validateToBeTrue(control: FormControl): Object {
+    public validateToBeTrue(control: FormControl): Object {
         if (control.value !== true) {
             return { notTrue: true };
         }

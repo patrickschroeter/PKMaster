@@ -440,7 +440,7 @@ export class FormElementService {
     public getElement(): Observable<Field[]> {
         return this.elementRx.asObservable();
     }
-    private setElement(element: Field[]): void {
+    public setElement(element: Field[]): void {
         this.element = element;
         this.elementRx.next(this.element);
     }
@@ -453,7 +453,7 @@ export class FormElementService {
     public getElementPreview(): Observable<Field[]> {
         return this.elementPreviewRx.asObservable();
     }
-    private setElementPreview(element: Field[]): void {
+    public setElementPreview(element: Field[]): void {
         this.elementPreviewRx.next(element);
     }
 
@@ -465,7 +465,7 @@ export class FormElementService {
     public getElementHasSubmit(): Observable<boolean> {
         return this.elementHasSubmitRx.asObservable();
     }
-    private setElementHasSubmit(hasSubmit: boolean): void {
+    public setElementHasSubmit(hasSubmit: boolean): void {
         this.elementHasSubmitRx.next(hasSubmit);
     }
 
@@ -477,7 +477,7 @@ export class FormElementService {
     public getElementHasPreview(): Observable<boolean> {
         return this.elementHasPreviewRx.asObservable();
     }
-    private setElementHasPreview(hasPreview: boolean): void {
+    public setElementHasPreview(hasPreview: boolean): void {
         this.elementHasPreviewRx.next(hasPreview);
     }
 
@@ -489,7 +489,7 @@ export class FormElementService {
     public getElementHasValidations(): Observable<boolean> {
         return this.elementHasValidationsRx.asObservable();
     }
-    private setElementHasValidations(hasValidations: boolean): void {
+    public setElementHasValidations(hasValidations: boolean): void {
         this.elementHasValidationsRx.next(hasValidations);
     }
 
@@ -501,7 +501,7 @@ export class FormElementService {
     public getElementHasStyles(): Observable<boolean> {
         return this.elementHasStylesRx.asObservable();
     }
-    private setElementHasStyles(hasStyles: boolean): void {
+    public setElementHasStyles(hasStyles: boolean): void {
         this.elementHasStylesRx.next(hasStyles);
     }
 }

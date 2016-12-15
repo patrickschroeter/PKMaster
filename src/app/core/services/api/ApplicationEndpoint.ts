@@ -10,7 +10,7 @@ export class ApplicationEndpoint {
 
     constructor(private formApi: FormApi) { }
 
-    public getApplicationById(applicationId: string, token?: number, extraHttpRequestParams?: any): Observable<any> {
+    public getApplicationById(applicationId: string, token?: string, extraHttpRequestParams?: any): Observable<any> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c getApplicationById ${applicationId}`, 'color: #F44336', 'color: #fefefe');
         let application = this._application(applicationId);
@@ -30,7 +30,7 @@ export class ApplicationEndpoint {
         });
     }
 
-    public getApplications(token?: number, filter?: string, sort?: string, extraHttpRequestParams?: any): Observable<any> {
+    public getApplications(token?: string, filter?: string, sort?: string, extraHttpRequestParams?: any): Observable<any> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + '%c getApplications', 'color: #F44336', 'color: #fefefe');
         let applications = this._applications();
@@ -50,7 +50,7 @@ export class ApplicationEndpoint {
         });
     }
 
-    public createApplication(token?: number, application?: Application, extraHttpRequestParams?: any): Observable<any> {
+    public createApplication(token?: string, application?: Application, extraHttpRequestParams?: any): Observable<any> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + '%c createApplication', 'color: #F44336', 'color: #fefefe');
         let newapplication = this._applicationAdd(application);
@@ -70,7 +70,7 @@ export class ApplicationEndpoint {
         });
     }
 
-    public updateApplicationById(applicationId: string, token?: number, application?: Application, extraHttpRequestParams?: any): Observable<any> {
+    public updateApplicationById(applicationId: string, token?: string, application?: Application, extraHttpRequestParams?: any): Observable<any> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c updateApplicationById ${applicationId}`, 'color: #F44336', 'color: #fefefe');
         let updatedApplication = this._applicationUpdate(applicationId, application);
@@ -105,7 +105,7 @@ export class ApplicationEndpoint {
         application.id = id;
         application.created = new Date();
         if (application.form) {
-            application.form = this.formApi._form(application.form.id);
+            application.form = this.formApi['_form'](application.form.id);
             if (application.form) {
                 application.attributes = application.form.elements;
             }

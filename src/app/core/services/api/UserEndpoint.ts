@@ -9,7 +9,7 @@ export class UserEndpoint {
 
     constructor() { }
 
-    public addUser(token?: number, user?: AppUser, extraHttpRequestParams?: any): Observable<any> {
+    public addUser(token?: string, user?: AppUser, extraHttpRequestParams?: any): Observable<any> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c getUserById ${user.email}`, 'color: #F44336', 'color: #fefefe');
         let newUser = this._user(user.id);
@@ -29,7 +29,7 @@ export class UserEndpoint {
         });
     }
 
-    public getUserById(userId: string, token?: number, extraHttpRequestParams?: any): Observable<any> {
+    public getUserById(userId: string, token?: string, extraHttpRequestParams?: any): Observable<any> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c getUserById ${userId}`, 'color: #F44336', 'color: #fefefe');
         let user = this._user(userId);
@@ -49,7 +49,7 @@ export class UserEndpoint {
         });
     }
 
-    public getUsers(token?: number, extraHttpRequestParams?: any): Observable<any> {
+    public getUsers(token?: string, extraHttpRequestParams?: any): Observable<any> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c getUsers`, 'color: #F44336', 'color: #fefefe');
         let users = this._users();
@@ -69,7 +69,7 @@ export class UserEndpoint {
         });
     }
 
-    public updateUserById(userId: number, token?: number, user?: AppUser, extraHttpRequestParams?: any): Observable<AppUser> {
+    public updateUserById(userId: string, token?: string, user?: AppUser, extraHttpRequestParams?: any): Observable<AppUser> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c updateUserById`, 'color: #F44336', 'color: #fefefe');
         let updatedUser = this._userUpdate(userId, user);

@@ -10,7 +10,7 @@ class FieldModel implements Field {
     value: string | string[] = undefined;
     contentType: string = undefined;
     placeholder: string = undefined;
-    options: string = undefined;
+    options: { value: string, label: string}[] = undefined;
     styles: string[] = ['small'];
     disabled: boolean = false;
 
