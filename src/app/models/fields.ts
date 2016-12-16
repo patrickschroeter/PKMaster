@@ -1,6 +1,6 @@
 import { Field } from './../swagger';
 
-class FieldModel implements Field {
+export class FieldModel implements Field {
 
     name: string = undefined;
     label: string = undefined;
@@ -30,38 +30,38 @@ class FieldModel implements Field {
 }
 
 /** Default */
-class Input extends FieldModel { }
-class Textarea extends FieldModel {
+export class Input extends FieldModel { }
+export class Textarea extends FieldModel {
     fieldType = 'textare';
 }
-class Checkbox extends FieldModel {
+export class Checkbox extends FieldModel {
     fieldType = 'checkbox';
 }
-class Select extends FieldModel {
+export class Select extends FieldModel {
     fieldType = 'select';
 }
-class Radio extends FieldModel {
+export class Radio extends FieldModel {
     fieldType = 'radio';
 }
-class Datalist extends FieldModel {
+export class Datalist extends FieldModel {
     fieldType = 'datalist';
 }
-class H1 extends FieldModel {
+export class H1 extends FieldModel {
     fieldType = 'h1';
 }
-class H2 extends FieldModel {
+export class H2 extends FieldModel {
     fieldType = 'h2';
 }
-class H3 extends FieldModel {
+export class H3 extends FieldModel {
     fieldType = 'h3';
 }
-class H4 extends FieldModel {
+export class H4 extends FieldModel {
     fieldType = 'h4';
 }
-class Info extends FieldModel {
+export class Info extends FieldModel {
     fieldType = 'info';
 }
-class Password extends FieldModel {
+export class Password extends FieldModel {
     contentType = 'password';
     required = true;
 }
@@ -69,7 +69,7 @@ class Password extends FieldModel {
 /**
  * Form Element Components
  */
-class FieldType extends Select {
+export class FieldType extends Select {
     name = 'fieldType';
     label = 'Field Type';
     required = true;
@@ -91,23 +91,23 @@ class FieldType extends Select {
     styles = [];
 }
 
-class FieldName extends FieldModel {
+export class FieldName extends FieldModel {
     name = 'name';
     label = 'Unique Name (ID)';
     required = true;
 }
 
-class FieldRequired extends Checkbox {
+export class FieldRequired extends Checkbox {
     name = 'required';
     label = 'Required Field';
 }
 
-class FieldLabel extends FieldModel {
+export class FieldLabel extends FieldModel {
     name = 'label';
     label = 'Label of the Input';
 }
 
-class FieldContentType extends Select {
+export class FieldContentType extends Select {
     name = 'contentType';
     label = 'Type of Content';
     required = true;
@@ -120,28 +120,28 @@ class FieldContentType extends Select {
     ];
 }
 
-class FieldPlaceholder extends FieldModel {
+export class FieldPlaceholder extends FieldModel {
     name = 'placeholder';
     label = 'Placeholder';
 }
 
-class FieldOptionTable extends Select {
+export class FieldOptionTable extends Select {
     name = 'optionTable';
     label = 'Table of Options';
 }
 
-class FieldOptions extends Datalist {
+export class FieldOptions extends Datalist {
     name = 'options';
     label = 'Options';
     required = true;
 }
 
-class FieldMultipleSelect extends Checkbox {
+export class FieldMultipleSelect extends Checkbox {
     name = 'multipleSelect';
     label = 'Multiselect';
 }
 
-class FieldValue extends FieldModel {
+export class FieldValue extends FieldModel {
     name = 'value';
     label = 'Value';
     require = true;
@@ -149,13 +149,13 @@ class FieldValue extends FieldModel {
 
 /** Form Additions */
 
-class FieldValidation extends Select {
+export class FieldValidation extends Select {
     name = 'validations';
     label = 'Validation Options';
     multipleSelect = true;
 }
 
-class FieldStyles extends Select {
+export class FieldStyles extends Select {
     name = 'styles';
     label = 'Style Options';
     multipleSelect = true;
@@ -165,17 +165,17 @@ class FieldStyles extends Select {
  * User
  */
 
-class Firstname extends FieldModel {
+export class Firstname extends FieldModel {
     name = 'firstname';
     label = 'Firstname';
 };
 
-class Lastname extends FieldModel {
+export class Lastname extends FieldModel {
     name = 'lastname';
     label = 'Lastname';
 }
 
-class Email extends FieldModel {
+export class Email extends FieldModel {
     name = 'email';
     label = 'E-Mail';
     contentType = 'email';
@@ -185,7 +185,7 @@ class Email extends FieldModel {
     ];
 }
 
-class Matrikelnummer extends FieldModel {
+export class Matrikelnummer extends FieldModel {
     name = 'matNr';
     label = 'Matrikelnummer';
     contentType = 'number';
@@ -196,12 +196,14 @@ class Matrikelnummer extends FieldModel {
  * Styling
  */
 
-class Devider extends FieldModel {
+export class Devider extends FieldModel {
     fieldType = 'devider';
     styles = undefined;
 }
 
 const Fields = {
+    FieldModel,
+
     Input,
     Textarea,
     Checkbox,

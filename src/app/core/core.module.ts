@@ -5,6 +5,7 @@ import { Http, XHRBackend, RequestOptions } from '@angular/http';
 import { SharedModule } from './../shared/shared.module';
 
 import * as services from './services';
+import { ExtendHttpService } from './services/extend-http/extend-http.service';
 
 import { FormApi } from './../swagger/api/FormApi';
 import { ApplicationApi } from './../swagger/api/ApplicationApi';
@@ -30,8 +31,7 @@ import { UserApi } from './../swagger/api/UserApi';
         { provide: UserApi, useClass: services.UserEndpoint },
         {
             provide: Http,
-            useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, authentication: services.AuthenticationService) =>
-               new services.ExtendHttpService(xhrBackend, requestOptions, authentication),
+            useFactory: extendHttp,
             deps: [XHRBackend, RequestOptions, services.AuthenticationService]
         }
     ],
@@ -40,3 +40,10 @@ import { UserApi } from './../swagger/api/UserApi';
     ]
 })
 export class CoreModule { }
+
+/**
+ * Factory Functions
+ */
+export function extendHttp(xhrBackend: XHRBackend, requestOptions: RequestOptions, authentication: services.AuthenticationService) {
+  return  new ExtendHttpService(xhrBackend, requestOptions, authentication);
+}
