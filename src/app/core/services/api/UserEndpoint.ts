@@ -146,17 +146,26 @@ export class UserEndpoint {
             token: 'TOKEN',
             firstname: 'Patrick',
             lastname: 'Schroeter',
-            matNr: 949225
+            matNr: 949225,
+            permissions: [
+                'ReadApplications',
+                'CreateApplications',
+                'ReadForms',
+                'CreateForms',
+                'ReadPermissions'
+            ]
         },
         {
             id: '23',
             email: 'stephan.reichinger@gmail.de',
-            password: '123456789'
+            password: 'password',
+            permissions: [
+                'ReadApplications'
+            ]
         }
     ]
 
     private _users() {
-        // this._list = [];
         return JSON.parse(JSON.stringify(this._list));
     }
 

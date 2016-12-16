@@ -5,19 +5,20 @@ import { Observable } from 'rxjs/Rx';
 import { AuthenticationService } from './../authentication/authentication.service';
 
 @Injectable()
-export class PermissionService implements CanActivate, CanDeactivate<any>, CanActivateChild {
+export class AccessService implements CanActivate, CanDeactivate<any>, CanActivateChild {
 
     private guard: Object = {
-        main: this.allAccessWhenLoggedIn.bind(this),
-        profile: this.allAccessWhenLoggedIn.bind(this),
-        applications: this.allAccessWhenLoggedIn.bind(this),
-        conferences: this.guardConferencesRoute.bind(this),
-        forms: this.guardFormsRoute.bind(this),
+        'main': this.allAccessWhenLoggedIn.bind(this),
+        'profile': this.allAccessWhenLoggedIn.bind(this),
+        'applications': this.allAccessWhenLoggedIn.bind(this),
+        'conferences': this.guardConferencesRoute.bind(this),
+        'forms': this.guardFormsRoute.bind(this),
 
-        admin: this.guardAdminRoute.bind(this),
-        roles: this.guardRolesRoute.bind(this),
-        permissions: this.guardPermissionsRoute.bind(this),
-        users: this.guardUsersRoute.bind(this)
+        'admin': this.guardAdminRoute.bind(this),
+        'admin/roles': this.guardRolesRoute.bind(this),
+        'admin/permissions': this.guardPermissionsRoute.bind(this),
+        'admin/users': this.guardUsersRoute.bind(this),
+        'admin/profile': this.guardUsersRoute.bind(this)
     };
 
     constructor(private authentication: AuthenticationService, private router: Router) { }
@@ -29,8 +30,9 @@ export class PermissionService implements CanActivate, CanDeactivate<any>, CanAc
             this.router.navigate(['/login']);
             return false;
         }
-
         if (name === '') { return this.guard['main'](); }
+        /** TODO production only */
+        if (!this.guard[name]) { console.error(`Missing Guard for: ${name}`); }
         return this.guard[name] ? this.guard[name]() : false;
     }
 
@@ -60,42 +62,43 @@ export class PermissionService implements CanActivate, CanDeactivate<any>, CanAc
     private guardConferencesRoute(): Observable<any> {
         let user = this.authentication.getUser();
         return user.map((e) => {
-            return e.isPK;
+            return e.permissions.indexOf('CreateForms') !== -1;
         });
     }
 
     private guardFormsRoute(): Observable<any> {
         let user = this.authentication.getUser();
         return user.map((e) => {
-            return e.isPK;
+            return e.permissions.indexOf('ReadForms') !== -1;
         });
     }
 
     private guardAdminRoute(): Observable<any> {
         let user = this.authentication.getUser();
         return user.map((e) => {
-            return e.isAdmin;
+            console.log(e.permissions.indexOf('ReadPermissions'));
+            return e.permissions.indexOf('ReadPermissions') !== -1;
         });
     }
 
     private guardUsersRoute(): Observable<any> {
         let user = this.authentication.getUser();
         return user.map((e) => {
-            return e.isAdmin;
+            return e.permissions.indexOf('ReadPermissions') !== -1;
         });
     }
 
     private guardRolesRoute(): Observable<any> {
         let user = this.authentication.getUser();
         return user.map((e) => {
-            return e.isAdmin;
+            return e.permissions.indexOf('ReadPermissions') !== -1;
         });
     }
 
     private guardPermissionsRoute(): Observable<any> {
         let user = this.authentication.getUser();
         return user.map((e) => {
-            return e.isAdmin;
+            return e.permissions.indexOf('ReadPermissions') !== -1;
         });
     }
 

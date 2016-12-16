@@ -3,15 +3,15 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { PermissionService } from './permission.service';
+import { AccessService } from './access.service';
 
 import { AuthenticationService, AuthenticationMock } from './../';
 
-describe('Service: Permission', () => {
+describe('Service: Access', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                PermissionService,
+                AccessService,
 
                 { provide: AuthenticationService, useClass: AuthenticationMock }
             ],
@@ -23,7 +23,7 @@ describe('Service: Permission', () => {
         });
     });
 
-    it('should ...', inject([PermissionService], (service: PermissionService) => {
+    it('should ...', inject([AccessService], (service: AccessService) => {
         expect(service).toBeTruthy();
     }));
 });
