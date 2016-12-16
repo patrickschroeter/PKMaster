@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Rx';
 
+import { PermissionService } from './../permission/permission.service';
+
 import { AlertService } from './../../../modules/alert';
 import { AppUser } from './../../../swagger';
 import { UserApi } from './../../../swagger/api/UserApi';
@@ -19,7 +21,8 @@ export class AuthenticationService {
     constructor(
         private router: Router,
         private alert: AlertService,
-        private userApi: UserApi
+        private userApi: UserApi,
+        private permission: PermissionService,
     ) {
         if (this.token) {
             this.login().subscribe(() => { }, error => {
@@ -32,7 +35,7 @@ export class AuthenticationService {
         let time = +localStorage.getItem(this.tokenTimeKey);
         let token = localStorage.getItem(this.tokenKey);
         if (time >= Date.now() && token) {
-            localStorage.setItem(this.tokenTimeKey, (Date.now() + this.tokenTime).toString() );
+            localStorage.setItem(this.tokenTimeKey, (Date.now() + this.tokenTime).toString());
             return token;
         } else {
             this.logout();
@@ -40,13 +43,14 @@ export class AuthenticationService {
             return null;
         }
     }
+
     set token(token: string) {
         if (!token) {
             localStorage.removeItem(this.tokenKey);
             localStorage.removeItem(this.tokenTimeKey);
             return;
         }
-        localStorage.setItem(this.tokenTimeKey, (Date.now() + this.tokenTime).toString() );
+        localStorage.setItem(this.tokenTimeKey, (Date.now() + this.tokenTime).toString());
         localStorage.setItem(this.tokenKey, token);
     }
 
@@ -64,16 +68,19 @@ export class AuthenticationService {
         if (username && password) {
             return this.user = this.userApi.login(username, password, this.token).map(user => {
                 this.token = user.token;
-                return user;
+                return this.permission.updateUserPermissions(user);
             }).publishReplay(1).refCount();
         } else {
-            return this.user = this.userApi.login(null, null, this.token).publishReplay(1).refCount();
+            return this.user = this.userApi.login(null, null, this.token).map(user => {
+                return this.permission.updateUserPermissions(user);
+            }).publishReplay(1).refCount();
         }
     }
 
     public logout(): void {
         this.token = null;
         this.user = null;
+        this.permission.updateUserPermissions(this.user);
         this.router.navigate(['/login']);
     }
 
@@ -84,7 +91,9 @@ export class AuthenticationService {
     }
 
     public updateUser(user: AppUser): Observable<any> {
-        this.user = this.userApi.updateUserById(user.id, null, user).publishReplay(1).refCount();
+        this.user = this.userApi.updateUserById(user.id, null, user).map(result => {
+            return this.permission.updateUserPermissions(result);
+        }).publishReplay(1).refCount();
         return this.user;
     }
 

@@ -1,33 +1,41 @@
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 
-import { AuthenticationService } from './../authentication';
-
 import { AppUser } from './../../../swagger';
 
 @Injectable()
 export class PermissionService {
 
-    private permissions: string[];
+    private _permissions: string[];
 
-    constructor(private authentication: AuthenticationService) { }
+    set permissions(permissions: string[]) { this._permissions = permissions; }
+    get permissions(): string[] { return this._permissions; }
 
-    private updatePermissions() {
-        this.authentication.getUser().subscribe((user: AppUser) => {
-            this.permissions = user.permissions;
-        }, error => {
-            this.permissions = undefined;
-        });
+    constructor() { }
+
+    /**
+     * @description update the permission object in the class with the input user
+     * @version v1.0.0
+     */
+    public updateUserPermissions(user?: AppUser): AppUser {
+        this.permissions = (user && user.permissions) ? user.permissions : [];
+        return user;
     }
 
+    /**
+     * @description check if the user has the given permission (string)
+     * @version v1.0.0
+     */
     public hasPermission(permission: string): boolean {
-        this.updatePermissions();
-        return (this.permissions && this.permissions.indexOf(permission) !== -1);
+        return (!!this.permissions && !!permission && this.permissions.indexOf(permission) !== -1);
     }
 
+    /**
+     * @description check if the user has the given permissions (string[])
+     * @version v1.0.0
+     */
     public hasAllPermissions(permissions: string[]): boolean {
-        this.updatePermissions();
-        return (this.permissions && !_.difference(permissions, this.permissions).length);
+        return (!!this.permissions && !!permissions && !_.difference(permissions, this.permissions).length);
     }
 
 }

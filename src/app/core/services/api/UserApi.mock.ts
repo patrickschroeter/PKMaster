@@ -7,7 +7,33 @@ import { AppUser } from './../../../swagger';
 @Injectable()
 export class UserApiMock {
 
-    static USER: AppUser = { id: '1', email: 'patrick.schroeter@hotmail.de', password: 'password', firstname: 'Patrick', lastname: 'Schroeter', matNr: 949225 }
+    static PERMISSION = {
+        READAPPLICATIONS: 'ReadApplications',
+        CREATEAPPLICATIONS: 'CreateApplications',
+        READFORMS: 'ReadForms',
+        CREATEFORMS: 'CreateForms',
+        READPERMISSIONS: 'ReadPermissions',
+        EDITPERMISSIONS: 'EditPermissions'
+    }
+
+    static PERMISSIONS = {
+        ALL: [
+            UserApiMock.PERMISSION.READAPPLICATIONS,
+            UserApiMock.PERMISSION.CREATEAPPLICATIONS,
+            UserApiMock.PERMISSION.READFORMS,
+            UserApiMock.PERMISSION.CREATEFORMS,
+            UserApiMock.PERMISSION.READPERMISSIONS,
+            UserApiMock.PERMISSION.EDITPERMISSIONS
+        ],
+        PARTIAL: [
+            UserApiMock.PERMISSION.READAPPLICATIONS, UserApiMock.PERMISSION.READPERMISSIONS
+        ]
+    };
+
+    static USERS: AppUser[] = [{ id: '1', email: 'patrick.schroeter@hotmail.de', password: 'password', token: 'TOKEN', firstname: 'Patrick', lastname: 'Schroeter', matNr: 949225, permissions: UserApiMock.PERMISSIONS.ALL }, { id: '2', email: 'stephan.reichinger@gmail.de', password: 'password', permissions: UserApiMock.PERMISSIONS.PARTIAL }];
+
+    static USER: AppUser = UserApiMock.USERS[1];
+
 
     private list = [];
 

@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { AuthenticationService } from './authentication.service';
 
-import { UserApiMock } from './../../../core';
+import { UserApiMock, PermissionService, PermissionMock } from './../../../core';
 import { UserApi } from './../../../swagger';
 import { AlertService, AlertMock } from './../../../modules/alert';
 
@@ -19,7 +19,8 @@ describe('Service: Authentication', () => {
 
                 { provide: Router, useClass: class { navigate() { }; } },
                 { provide: UserApi, useClass: UserApiMock },
-                { provide: AlertService, useClass: AlertMock }
+                { provide: AlertService, useClass: AlertMock },
+                { provide: PermissionService, useClass: PermissionMock }
             ],
             imports: [
                 RouterTestingModule.withRoutes([

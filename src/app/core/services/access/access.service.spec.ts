@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { AccessService } from './access.service';
 
-import { AuthenticationService, AuthenticationMock } from './../';
+import { AuthenticationService, AuthenticationMock, PermissionService, PermissionMock } from './../';
 
 describe('Service: Access', () => {
     beforeEach(() => {
@@ -13,7 +13,8 @@ describe('Service: Access', () => {
             providers: [
                 AccessService,
 
-                { provide: AuthenticationService, useClass: AuthenticationMock }
+                { provide: AuthenticationService, useClass: AuthenticationMock },
+                { provide: PermissionService, useClass: PermissionMock }
             ],
             imports: [
                 RouterTestingModule.withRoutes([
