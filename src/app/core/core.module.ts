@@ -25,6 +25,7 @@ import { UserApi } from './../swagger/api/UserApi';
         services.InputValidationService,
         services.FormService,
         services.ApplicationService,
+        services.PermissionService,
 
         { provide: FormApi, useClass: services.FormEndpoint },
         { provide: ApplicationApi, useClass: services.ApplicationEndpoint },

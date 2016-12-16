@@ -132,13 +132,19 @@ app/
         /elements               : elements (base)      without dependencies/components
         /components             : elements (advanced)  with dependencies/components
 
-        /services
+        /services               : not singleton Services
 
         /pipes
 
         /directives
+        
+        /decorators
+    
+    /models
 
-    /decorators
+    /swagger
+
+    /modules
 ```
 
 ## Tools & Patterns
@@ -148,6 +154,7 @@ app/
 - Atomic Design
 - Angular-Cli / Webpack, Karma, Jasmine
 - Grid in REM
+- Decorators
 
 
 ## TODO

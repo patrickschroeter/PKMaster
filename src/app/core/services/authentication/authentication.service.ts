@@ -53,6 +53,7 @@ export class AuthenticationService {
     public getUser(): Observable<any> {
         if (this.user) { return this.user; }
         this.logout();
+        return Observable.throw('No User');
     }
 
     public isLoggedIn() {
