@@ -152,7 +152,8 @@ export class UserEndpoint {
                 'CreateApplications',
                 'ReadForms',
                 'CreateForms',
-                'ReadPermissions'
+                'ReadPermissions',
+                'EditPermissions'
             ]
         },
         {
@@ -160,7 +161,8 @@ export class UserEndpoint {
             email: 'stephan.reichinger@gmail.de',
             password: 'password',
             permissions: [
-                'ReadApplications'
+                'ReadApplications',
+                'ReadPermissions'
             ]
         }
     ]

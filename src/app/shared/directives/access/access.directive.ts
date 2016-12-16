@@ -3,7 +3,7 @@
 
 import { Directive, ViewContainerRef, Input, TemplateRef } from '@angular/core';
 
-import { AuthenticationService } from './../../../core';
+import { PermissionService } from './../../../core';
 
 @Directive({
     selector: `[accessReadApplications], [accessCreateApplications], [accessReadForms], [accessCreateForms], [accessReadPermissions]`
@@ -13,7 +13,7 @@ export class AccessDirective {
     constructor(
         private templateRef: TemplateRef<any>,
         private viewContainer: ViewContainerRef,
-        private authentication: AuthenticationService
+        private permission: PermissionService
     ) { }
 
     @Input() set accessReadApplications(i) { this.restrictVisibility('ReadApplications'); }
@@ -25,12 +25,10 @@ export class AccessDirective {
     @Input() set accessReadPermissions(i) { this.restrictVisibility('ReadPermissions'); }
 
     private restrictVisibility(permission: string) {
-        this.authentication.getUser().subscribe(user => {
-            if (user && user.permissions && user.permissions.indexOf(permission) !== -1) {
-                this.viewContainer.createEmbeddedView(this.templateRef);
-            } else {
-                this.viewContainer.clear();
-            }
-        });
+        if (this.permission.hasPermission(permission)) {
+            this.viewContainer.createEmbeddedView(this.templateRef);
+        } else {
+            this.viewContainer.clear();
+        }
     }
 }

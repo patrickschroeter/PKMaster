@@ -10,7 +10,9 @@ export class PermissionService {
 
     private permissions: string[];
 
-    constructor(private authentication: AuthenticationService) {
+    constructor(private authentication: AuthenticationService) { }
+
+    private updatePermissions() {
         this.authentication.getUser().subscribe((user: AppUser) => {
             this.permissions = user.permissions;
         }, error => {
@@ -19,11 +21,13 @@ export class PermissionService {
     }
 
     public hasPermission(permission: string): boolean {
+        this.updatePermissions();
         return (this.permissions && this.permissions.indexOf(permission) !== -1);
     }
 
     public hasAllPermissions(permissions: string[]): boolean {
-        return (this.permissions && !_.difference(permissions, this.permissions));
+        this.updatePermissions();
+        return (this.permissions && !_.difference(permissions, this.permissions).length);
     }
 
 }

@@ -3,6 +3,7 @@ import { Router, CanActivate, CanDeactivate, CanActivateChild, ActivatedRouteSna
 import { Observable } from 'rxjs/Rx';
 
 import { AuthenticationService } from './../authentication/authentication.service';
+import { PermissionService } from './../permission/permission.service';
 
 @Injectable()
 export class AccessService implements CanActivate, CanDeactivate<any>, CanActivateChild {
@@ -21,7 +22,11 @@ export class AccessService implements CanActivate, CanDeactivate<any>, CanActiva
         'admin/profile': this.guardUsersRoute.bind(this)
     };
 
-    constructor(private authentication: AuthenticationService, private router: Router) { }
+    constructor(
+        private authentication: AuthenticationService,
+        private router: Router,
+        private permission: PermissionService
+    ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
         Observable<boolean> | Promise<boolean> | boolean {
@@ -62,43 +67,42 @@ export class AccessService implements CanActivate, CanDeactivate<any>, CanActiva
     private guardConferencesRoute(): Observable<any> {
         let user = this.authentication.getUser();
         return user.map((e) => {
-            return e.permissions.indexOf('CreateForms') !== -1;
+            return this.permission.hasPermission('CreateForms');
         });
     }
 
     private guardFormsRoute(): Observable<any> {
         let user = this.authentication.getUser();
         return user.map((e) => {
-            return e.permissions.indexOf('ReadForms') !== -1;
+            return this.permission.hasPermission('ReadForms');
         });
     }
 
     private guardAdminRoute(): Observable<any> {
         let user = this.authentication.getUser();
         return user.map((e) => {
-            console.log(e.permissions.indexOf('ReadPermissions'));
-            return e.permissions.indexOf('ReadPermissions') !== -1;
+            return this.permission.hasPermission('ReadPermissions');
         });
     }
 
     private guardUsersRoute(): Observable<any> {
         let user = this.authentication.getUser();
         return user.map((e) => {
-            return e.permissions.indexOf('ReadPermissions') !== -1;
+            return this.permission.hasPermission('ReadPermissions');
         });
     }
 
     private guardRolesRoute(): Observable<any> {
         let user = this.authentication.getUser();
         return user.map((e) => {
-            return e.permissions.indexOf('ReadPermissions') !== -1;
+            return this.permission.hasPermission('ReadPermissions');
         });
     }
 
     private guardPermissionsRoute(): Observable<any> {
         let user = this.authentication.getUser();
         return user.map((e) => {
-            return e.permissions.indexOf('ReadPermissions') !== -1;
+            return this.permission.hasAllPermissions(['ReadPermissions', 'EditPermissions']);
         });
     }
 

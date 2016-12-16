@@ -1,11 +1,11 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ApplicationService, FormService, AuthenticationService } from './../../core';
+import { ApplicationService, FormService, PermissionService } from './../../core';
 
 import { AlertService } from './../../modules/alert';
 
-import { Application, Form } from './../../swagger';
+import { Application } from './../../swagger';
 
 import { Access } from './../../shared/decorators';
 
@@ -27,7 +27,7 @@ export class ApplicationsComponent implements OnInit {
         private applicationService: ApplicationService,
         private alert: AlertService,
         private formService: FormService,
-        private authenticationService: AuthenticationService
+        private permission: PermissionService
     ) { }
 
     ngOnInit() {
