@@ -12,9 +12,13 @@ export class FormsComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
     private forms: Array<Object>;
-    private newForm: Array<any>;
+    private _newForm: Array<any>;
+    get newForm() { return this._newForm; }
+    set newForm(form) { this._newForm = form; }
 
-    private isOpenNewForm: boolean = false;
+    private _isOpenNewForm: boolean = false;
+    get isOpenNewForm() { return this._isOpenNewForm; }
+    set isOpenNewForm(isOpen: boolean) { this._isOpenNewForm = isOpen; }
 
     constructor(private formService: FormService, private router: Router) { }
 

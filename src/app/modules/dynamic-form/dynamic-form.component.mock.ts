@@ -1,3 +1,6 @@
+// tslint:disable:component-class-suffix
+// tslint:disable:no-unused-variable
+
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
@@ -9,8 +12,17 @@ import { FormGroup } from '@angular/forms';
 })
 export class DynamicFormComponentMock {
 
-    public form: FormGroup;
+    private _form: FormGroup;
+    get form() { return this._form; }
+    set form(formGroup: FormGroup) { this._form = formGroup; }
+    private _isFormValidationVisible: boolean = false;
+    get isFormValidationVisible() { return this._isFormValidationVisible; }
+    set isFormValidationVisible(isOpen: boolean) { this._isFormValidationVisible = isOpen; }
+
 
     constructor() { }
 
+    showFormValidation(form) { }
+
+    hideFormValidation() { }
 }

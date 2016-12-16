@@ -69,7 +69,7 @@ describe('Service: Application', () => {
                 let application;
                 service.getApplicationById(element.id).subscribe(result => { application = result; });
                 tick(25);
-                expect(application).toBeDefined()
+                expect(application).toBeDefined();
                 expect(application.id).toBe(element.id);
             })
         );
@@ -87,9 +87,9 @@ describe('Service: Application', () => {
             })
         );
         xit('should throw an error if the user has not the rights to read the application',
-            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+            fakeAsync(() => {
 
-            }))
+            })
         );
     });
 

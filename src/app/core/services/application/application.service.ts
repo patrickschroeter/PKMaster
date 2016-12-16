@@ -28,7 +28,7 @@ export class ApplicationService {
     public getApplicationById(id: string): Observable<Application> {
         return this.applicationApi.getApplicationById(id).map(application => {
             return this.application = application;
-        })
+        });
     }
 
     /**
@@ -51,7 +51,7 @@ export class ApplicationService {
     public createNewApplication(application: Application): Observable<Application> {
         return this.applicationApi.createApplication(17, application).map(result => {
             return this.application = result;
-        })
+        });
     }
 
     private blockedStatusUpdate(name: string, permittedStati: string[]): Observable<any> {

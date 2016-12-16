@@ -26,7 +26,7 @@ export class FloatingComponent implements OnInit, AfterViewInit {
 
             'bottom-right-corner',
             'bottom-left-corner'
-        ]
+        ];
     }
 
     ngAfterViewInit() {

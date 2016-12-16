@@ -6,6 +6,7 @@ import { Directive, ViewContainerRef, Input, TemplateRef } from '@angular/core';
 import { PermissionService } from './../../../core';
 
 @Directive({
+    // tslint:disable-next-line:directive-selector
     selector: `[accessReadApplications], [accessCreateApplications], [accessReadForms], [accessCreateForms], [accessReadPermissions]`
 })
 export class AccessDirective {

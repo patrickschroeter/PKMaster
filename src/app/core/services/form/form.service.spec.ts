@@ -105,7 +105,8 @@ describe('Service: Form', () => {
     it('should show an error if the selected name for the new element is not unique', inject([FormService], (service: FormService) => {
         expect(service).toBeTruthy();
     }));
-    it('should show an error if the selected name for the existing element does math a different index', inject([FormService], (service: FormService) => {
+    it('should show an error if the selected name for the existing element does math a different index',
+        inject([FormService], (service: FormService) => {
         expect(service).toBeTruthy();
     }));
 

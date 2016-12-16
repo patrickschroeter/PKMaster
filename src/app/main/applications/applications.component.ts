@@ -18,9 +18,12 @@ export class ApplicationsComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
     private applications: Application[];
-    private isOpenNewApplication: boolean = false;
+    private _isOpenNewApplication: boolean = false;
 
-    private applicationTypes: Array<{value, label}>;
+    get isOpenNewApplication() { return this._isOpenNewApplication; }
+    set isOpenNewApplication(isOpen: boolean) { this._isOpenNewApplication = isOpen; }
+
+    private applicationTypes: Array<{ value, label }>;
 
     constructor(
         private router: Router,
@@ -37,7 +40,7 @@ export class ApplicationsComponent implements OnInit {
 
         this.formService.getForms().subscribe(forms => {
             this.applicationTypes = [];
-            for (let i = 0, length = forms.length; i < length; i ++) {
+            for (let i = 0, length = forms.length; i < length; i++) {
                 let element = forms[i];
                 this.applicationTypes.push({
                     value: element.id,
@@ -79,7 +82,7 @@ export class ApplicationsComponent implements OnInit {
             form: {
                 id: form.value
             }
-        }
+        };
         this.applicationService.createNewApplication(application).subscribe((created) => {
             if (created['id']) {
                 this.router.navigate([`/applications/`, created['id'], 'edit']);

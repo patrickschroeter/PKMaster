@@ -1,3 +1,5 @@
+// tslint:disable:max-line-length
+
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Rx';
@@ -14,7 +16,7 @@ export class UserApiMock {
         CREATEFORMS: 'CreateForms',
         READPERMISSIONS: 'ReadPermissions',
         EDITPERMISSIONS: 'EditPermissions'
-    }
+    };
 
     static PERMISSIONS = {
         ALL: [

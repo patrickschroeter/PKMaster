@@ -138,6 +138,7 @@ export class UserEndpoint {
         });
     }
 
+    // tslint:disable-next-line:member-ordering
     private _list: AppUser[] = [
         {
             id: '17',
@@ -165,7 +166,7 @@ export class UserEndpoint {
                 'ReadPermissions'
             ]
         }
-    ]
+    ];
 
     private _users() {
         return JSON.parse(JSON.stringify(this._list));
@@ -183,6 +184,7 @@ export class UserEndpoint {
         return JSON.parse(JSON.stringify(result));
     }
 
+    // tslint:disable-next-line:no-unused-variable
     private _userAdd(user: AppUser): AppUser {
         let id = this._list.length === 0 ? 'W' : this._list[this._list.length - 1].id + 'W';
         user.id = id;

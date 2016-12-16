@@ -22,8 +22,12 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
     @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
 
-    public form: FormGroup;
-    private isFormValidationVisible: boolean = false;
+    private _form: FormGroup;
+    get form() { return this._form; }
+    set form(formGroup: FormGroup) { this._form = formGroup; }
+    private _isFormValidationVisible: boolean = false;
+    get isFormValidationVisible() { return this._isFormValidationVisible; }
+    set isFormValidationVisible(isOpen: boolean) { this._isFormValidationVisible = isOpen; }
 
     constructor(
         private build: FormBuilder,

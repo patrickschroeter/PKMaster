@@ -1,3 +1,5 @@
+// tslint:disable:no-use-before-declare
+
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs/Rx';
@@ -23,6 +25,14 @@ export class FormElementService {
 
     private selectedOptionTable: string;
     private selectedOptionsLength: Array<Object>;
+
+    /** BehaviorSubjects */
+    private elementRx: BehaviorSubject<Field[]> = new BehaviorSubject(this.element);
+    private elementPreviewRx: BehaviorSubject<Field[]> = new BehaviorSubject(null);
+    private elementHasSubmitRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    private elementHasPreviewRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    private elementHasValidationsRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    private elementHasStylesRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     constructor(private formService: FormService, private alert: AlertService) {
         this.formService.onEditElement().subscribe((element?: Field) => {
@@ -436,7 +446,6 @@ export class FormElementService {
     /**
      * @description BehaviorSubject for the element
      */
-    private elementRx: BehaviorSubject<Field[]> = new BehaviorSubject(this.element);
     public getElement(): Observable<Field[]> {
         return this.elementRx.asObservable();
     }
@@ -449,7 +458,6 @@ export class FormElementService {
     /**
      * @description BehaviorSubject for the preview element
      */
-    private elementPreviewRx: BehaviorSubject<Field[]> = new BehaviorSubject(null);
     public getElementPreview(): Observable<Field[]> {
         return this.elementPreviewRx.asObservable();
     }
@@ -461,7 +469,6 @@ export class FormElementService {
     /**
      * @description BehaviorSubject for has Submit
      */
-    private elementHasSubmitRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public getElementHasSubmit(): Observable<boolean> {
         return this.elementHasSubmitRx.asObservable();
     }
@@ -473,7 +480,6 @@ export class FormElementService {
     /**
      * @description BehaviorSubject for has preview
      */
-    private elementHasPreviewRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public getElementHasPreview(): Observable<boolean> {
         return this.elementHasPreviewRx.asObservable();
     }
@@ -485,7 +491,6 @@ export class FormElementService {
     /**
      * @description BehaviorSubject for has validations
      */
-    private elementHasValidationsRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public getElementHasValidations(): Observable<boolean> {
         return this.elementHasValidationsRx.asObservable();
     }
@@ -497,7 +502,6 @@ export class FormElementService {
     /**
      * @description BehaviorSubject for has styles
      */
-    private elementHasStylesRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public getElementHasStyles(): Observable<boolean> {
         return this.elementHasStylesRx.asObservable();
     }

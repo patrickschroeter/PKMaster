@@ -12,7 +12,7 @@ export function Access(name: string) {
             let result;
             if (this.permission instanceof PermissionService) {
                 if ((this.permission as PermissionService).hasPermission(name)) {
-                        result = originalMethod.apply(this, args);
+                    result = originalMethod.apply(this, args);
                 } else {
                     console.error('Permission Denied');
                     if (this.alert instanceof AlertService) {
@@ -23,8 +23,8 @@ export function Access(name: string) {
                 console.error('Required Permissions couldn\'t be determined. PermissionService missing');
             }
             return result;
-        }
+        };
 
         return descriptor;
-    }
+    };
 }

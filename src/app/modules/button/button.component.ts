@@ -23,7 +23,7 @@ export class ButtonComponent implements OnInit, AfterViewInit {
             'rounded',
             'light',
             'disabled'
-        ]
+        ];
     }
 
     ngAfterViewInit() {

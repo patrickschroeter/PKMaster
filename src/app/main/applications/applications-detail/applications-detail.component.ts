@@ -14,7 +14,10 @@ import { Application } from './../../../swagger';
 export class ApplicationsDetailComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    private application: Application;
+    private _application: Application;
+
+    get application() { return this._application; }
+    set application(application: Application) { this._application = application; }
 
     constructor(
         private router: Router,

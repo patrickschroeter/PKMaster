@@ -14,7 +14,9 @@ import { Fields } from './../../../models';
 export class ProfileEditComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    private form: Array<Object>;
+    private _form: Array<Object>;
+    get form() { return this._form; }
+    set form(form) { this._form = form; }
     private user: AppUser;
 
     constructor(

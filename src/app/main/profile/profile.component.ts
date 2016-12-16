@@ -17,12 +17,18 @@ import { Fields } from './../../models';
 export class ProfileComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    private isChangingPassword: boolean;
+    private _isChangingPassword: boolean;
+    get isChangingPassword() { return this._isChangingPassword; }
+    set isChangingPassword(isOpen: boolean) { this._isChangingPassword = isOpen; }
 
-    private changePasswordForm: FormGroup;
+    private _changePasswordForm: FormGroup;
+    get changePasswordForm() { return this._changePasswordForm; }
+    set changePasswordForm(form) { this._changePasswordForm = form; }
     private changePasswordElements: Field[];
 
-    private form: Form;
+    private _form: Form;
+    get form() { return this._form; }
+    set form(form) { this._form = form; }
     private user: AppUser;
 
     constructor(

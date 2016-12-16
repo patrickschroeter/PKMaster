@@ -93,6 +93,7 @@ export class FormEndpoint {
      * Mock Server
      */
 
+    // tslint:disable-next-line:member-ordering
     private _list: Form[] = [];
 
     private _forms(): Form[] {
@@ -139,9 +140,12 @@ export class FormEndpoint {
 
 
 
-var notennachmeldung = [{ "fieldType": "h3", "name": "header", "value": "Antrag auf Notennachmeldung/Notenänderung* an die Prüfungskommision" }, { "fieldType": "select", "name": "studiengang", "required": true, "label": "", "placeholder": "Sudiengang wählen", "optionTable": "", "options": [{ "value": "architektur", "label": "Studiengang Architektur" }, { "value": "bauingenieurwesen", "label": "Studiengang Bauingenieurwesen" }, { "value": "e2d", "label": "Studiengang E2D" }], "value": "" }, { "fieldType": "input", "name": "name", "required": true, "label": "Name, Vorname", "contentType": "text", "placeholder": "", "styles": ["small"], "value": "" }, { "fieldType": "input", "name": "matnr", "required": true, "label": "Matrikelnummer", "contentType": "number", "placeholder": "", "styles": ["small"], "value": "" }, { "fieldType": "input", "name": "street", "required": true, "label": "Straße", "contentType": "text", "placeholder": "", "styles": ["small"], "value": "" }, { "fieldType": "input", "name": "housenr", "required": false, "label": "Hausnummer", "contentType": "number", "placeholder": "", "styles": ["small"], "value": "" }, { "fieldType": "input", "name": "plz", "required": "", "label": "Postleitzahl", "contentType": "number", "placeholder": "", "styles": ["small"], "value": "" }, { "fieldType": "input", "name": "city", "required": true, "label": "Wohnort", "contentType": "text", "placeholder": "", "styles": ["small"], "value": "" }, { "fieldType": "input", "name": "email", "required": "", "label": "Email", "contentType": "text", "placeholder": "", "styles": ["small"], "value": "" }, { "fieldType": "input", "name": "phone", "required": "", "label": "Telefon", "contentType": "number", "placeholder": "", "styles": ["small"], "value": "" }, { "fieldType": "devider", "name": "dev1", "value": "" }, { "fieldType": "input", "name": "fach", "required": true, "label": "Prüfungsfach", "contentType": "text", "placeholder": "", "value": "" }];
+// tslint:disable-next-line:max-line-length
+// tslint:disable-next-line:no-unused-variable
+let notennachmeldung = [{ 'fieldType': 'h3', 'name': 'header', 'value': 'Antrag auf Notennachmeldung/Notenänderung* an die Prüfungskommision' }, { 'fieldType': 'select', 'name': 'studiengang', 'required': true, 'label': '', 'placeholder': 'Sudiengang wählen', 'optionTable': '', 'options': [{ 'value': 'architektur', 'label': 'Studiengang Architektur' }, { 'value': 'bauingenieurwesen', 'label': 'Studiengang Bauingenieurwesen' }, { 'value': 'e2d', 'label': 'Studiengang E2D' }], 'value': '' }, { 'fieldType': 'input', 'name': 'name', 'required': true, 'label': 'Name, Vorname', 'contentType': 'text', 'placeholder': '', 'styles': ['small'], 'value': '' }, { 'fieldType': 'input', 'name': 'matnr', 'required': true, 'label': 'Matrikelnummer', 'contentType': 'number', 'placeholder': '', 'styles': ['small'], 'value': '' }, { 'fieldType': 'input', 'name': 'street', 'required': true, 'label': 'Straße', 'contentType': 'text', 'placeholder': '', 'styles': ['small'], 'value': '' }, { 'fieldType': 'input', 'name': 'housenr', 'required': false, 'label': 'Hausnummer', 'contentType': 'number', 'placeholder': '', 'styles': ['small'], 'value': '' }, { 'fieldType': 'input', 'name': 'plz', 'required': '', 'label': 'Postleitzahl', 'contentType': 'number', 'placeholder': '', 'styles': ['small'], 'value': '' }, { 'fieldType': 'input', 'name': 'city', 'required': true, 'label': 'Wohnort', 'contentType': 'text', 'placeholder': '', 'styles': ['small'], 'value': '' }, { 'fieldType': 'input', 'name': 'email', 'required': '', 'label': 'Email', 'contentType': 'text', 'placeholder': '', 'styles': ['small'], 'value': '' }, { 'fieldType': 'input', 'name': 'phone', 'required': '', 'label': 'Telefon', 'contentType': 'number', 'placeholder': '', 'styles': ['small'], 'value': '' }, { 'fieldType': 'devider', 'name': 'dev1', 'value': '' }, { 'fieldType': 'input', 'name': 'fach', 'required': true, 'label': 'Prüfungsfach', 'contentType': 'text', 'placeholder': '', 'value': '' }];
 
-var secondform = [
+// tslint:disable-next-line:no-unused-variable
+let secondform = [
     {
         fieldType: 'datalist',
         name: 'datalist',

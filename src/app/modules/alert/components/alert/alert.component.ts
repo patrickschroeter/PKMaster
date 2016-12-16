@@ -9,11 +9,19 @@ import { AlertService, Message } from './../../services';
 })
 export class AlertComponent implements OnInit {
 
-    private isOverlayOpen: boolean;
-    private overlayTitle: string;
-    private overlayMessage: string;
+    private _isOverlayOpen: boolean;
+    get isOverlayOpen() { return this._isOverlayOpen; }
+    set isOverlayOpen(isOpen: boolean) { this._isOverlayOpen = isOpen; }
+    private _overlayTitle: string;
+    get overlayTitle() { return this._overlayTitle; }
+    set overlayTitle(title: string) { this._overlayTitle = title; }
+    private _overlayMessage: string;
+    get overlayMessage() { return this._overlayMessage; }
+    set overlayMessage(message: string) { this._overlayMessage = message; }
 
-    private hintElements: Array<Message>;
+    private _hintElements: Array<Message>;
+    get hintElements() { return this._hintElements; }
+    set hintElements(elements: Array<Message>) { this._hintElements = elements; }
 
     private loadingElements: Array<{ id, message }>;
 

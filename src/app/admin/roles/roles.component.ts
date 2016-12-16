@@ -9,8 +9,14 @@ export class RolesComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
     private roles;
-    private newRole: Array<any>;
-    private isOpenNewRole: boolean = false;
+    private _newRole: Array<any>;
+    private _isOpenNewRole: boolean = false;
+
+    set newRole(value) { this._newRole = value; }
+    get newRole() { return this._newRole; }
+
+    set isOpenNewRole(value) { this._isOpenNewRole = value; }
+    get isOpenNewRole() { return this._isOpenNewRole; }
 
     constructor() { }
 
@@ -58,7 +64,11 @@ export class RolesComponent implements OnInit {
                 created: 1477555500,
                 restricted: false
             }
-        ]
+        ];
+    }
+
+    sortBy(sortValue: string) {
+        // TODO
     }
 
     createNewRole(form) {

@@ -2,10 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Rx';
 
-import { UserApiMock } from './../';
-
-import { AppUser } from './../../../swagger';
-
 @Injectable()
 export class AuthenticationMock {
 

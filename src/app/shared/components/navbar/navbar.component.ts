@@ -10,7 +10,9 @@ import { AuthenticationService } from './../../../core';
 })
 export class NavbarComponent implements OnInit {
 
-    private isOpen: boolean;
+    protected _isOpen: boolean;
+    get isOpen() { return this._isOpen; }
+    set isOpen(isOpen: boolean) { this._isOpen = isOpen; }
 
     constructor(
         protected authenticationService: AuthenticationService,
@@ -38,6 +40,10 @@ export class NavbarComponent implements OnInit {
 })
 export class NavbarAdminComponent extends NavbarComponent {
 
+    protected _isOpen: boolean;
+    get isOpen() { return this._isOpen; }
+    set isOpen(isOpen: boolean) { this._isOpen = isOpen; }
+
     constructor(
         protected authenticationService: AuthenticationService,
         protected router: Router
@@ -45,4 +51,6 @@ export class NavbarAdminComponent extends NavbarComponent {
         super(authenticationService, router);
     }
 
+    toggleNavbar() { super.toggleNavbar(); }
+    logout() { super.logout(); }
 }

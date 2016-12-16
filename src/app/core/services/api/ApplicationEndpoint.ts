@@ -70,7 +70,8 @@ export class ApplicationEndpoint {
         });
     }
 
-    public updateApplicationById(applicationId: string, token?: string, application?: Application, extraHttpRequestParams?: any): Observable<any> {
+    public updateApplicationById(applicationId: string, token?: string,
+        application?: Application, extraHttpRequestParams?: any): Observable<any> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c updateApplicationById ${applicationId}`, 'color: #F44336', 'color: #fefefe');
         let updatedApplication = this._applicationUpdate(applicationId, application);
@@ -94,6 +95,7 @@ export class ApplicationEndpoint {
      * Mock Server
      */
 
+    // tslint:disable-next-line:member-ordering
     private _list: Application[] = [];
 
     private _applications(): Application[] {

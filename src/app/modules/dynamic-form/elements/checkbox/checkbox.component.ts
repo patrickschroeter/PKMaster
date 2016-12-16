@@ -18,7 +18,9 @@ export class CheckboxComponent implements OnInit {
     @Input() config: Field;
     @Input() disabled: boolean;
 
-    private formControl: AbstractControl;
+    private _formControl: AbstractControl;
+    get formControl() { return this._formControl; }
+    set formControl(control: AbstractControl) { this._formControl = control; }
 
     constructor(private parent: DynamicFormComponent) { }
 
