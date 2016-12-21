@@ -21,15 +21,34 @@ import { UserApi } from './../swagger/api/UserApi';
     ],
     providers: [
         services.AuthenticationService,
-        services.AccessService,
         services.InputValidationService,
         services.FormService,
         services.ApplicationService,
         services.PermissionService,
 
+        // AuthGuards
+
+        services.AccessService,
+        services.AccessReadApplications,
+        services.AccessEditApplications,
+        services.AccessReadForms,
+        services.AccessEditForms,
+        services.AccessEditConferences,
+        services.AccessReadConferences,
+        services.AccessAdmin,
+        services.AccessEditRoles,
+        services.AccessReadRoles,
+        services.AccessEditPermissions,
+        services.AccessReadPermissions,
+        services.AccessEditUsers,
+        services.AccessReadUsers,
+
+        // Mock API
         { provide: FormApi, useClass: services.FormEndpoint },
         { provide: ApplicationApi, useClass: services.ApplicationEndpoint },
         { provide: UserApi, useClass: services.UserEndpoint },
+
+        // Extend HTTP
         {
             provide: Http,
             useFactory: extendHttp,

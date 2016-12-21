@@ -3,18 +3,26 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AdminComponent, AdminProfileComponent, RolesComponent, PermissionsComponent, UsersComponent } from './';
 
-import { AccessService } from './../core';
+import {
+    AccessAdmin,
+    AccessEditRoles,
+    AccessReadRoles,
+    AccessEditPermissions,
+    AccessReadPermissions,
+    AccessEditUsers,
+    AccessReadUsers
+} from './../core';
 
 const routes: Routes = [
     {
         path: '',
         component: AdminComponent,
-        canActivate: [AccessService],
+        canActivate: [AccessAdmin],
         children: [
-            { path: 'profile', component: AdminProfileComponent, canActivate: [AccessService] },
-            { path: 'roles', component: RolesComponent, canActivate: [AccessService] },
-            { path: 'permissions', component: PermissionsComponent, canActivate: [AccessService] },
-            { path: 'users', component: UsersComponent, canActivate: [AccessService] },
+            { path: 'profile', component: AdminProfileComponent },
+            { path: 'roles', component: RolesComponent, canActivate: [AccessReadRoles] },
+            { path: 'permissions', component: PermissionsComponent, canActivate: [AccessReadPermissions] },
+            { path: 'users', component: UsersComponent, canActivate: [AccessReadUsers] },
             { path: '', redirectTo: 'roles', pathMatch: 'full' }
         ]
     }

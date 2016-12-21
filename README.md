@@ -73,7 +73,7 @@ ng --help
 
 Tests with Coverage
 ```
-ng test --cc=true
+ng test --cc=true --watch=false
 ```
 
 ## App Architecture: Routes

@@ -150,11 +150,12 @@ export class UserEndpoint {
             matNr: 949225,
             permissions: [
                 'ReadApplications',
-                'CreateApplications',
+                'EditApplications',
                 'ReadForms',
-                'CreateForms',
+                'EditForms',
                 'ReadPermissions',
-                'EditPermissions'
+                'EditPermissions',
+                // 'ReadRoles'
             ]
         },
         {

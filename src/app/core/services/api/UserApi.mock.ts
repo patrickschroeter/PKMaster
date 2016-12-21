@@ -11,9 +11,9 @@ export class UserApiMock {
 
     static PERMISSION = {
         READAPPLICATIONS: 'ReadApplications',
-        CREATEAPPLICATIONS: 'CreateApplications',
+        EDITAPPLICATIONS: 'EditApplications',
         READFORMS: 'ReadForms',
-        CREATEFORMS: 'CreateForms',
+        EDITFORMS: 'EditForms',
         READPERMISSIONS: 'ReadPermissions',
         EDITPERMISSIONS: 'EditPermissions'
     };
@@ -21,9 +21,9 @@ export class UserApiMock {
     static PERMISSIONS = {
         ALL: [
             UserApiMock.PERMISSION.READAPPLICATIONS,
-            UserApiMock.PERMISSION.CREATEAPPLICATIONS,
+            UserApiMock.PERMISSION.EDITAPPLICATIONS,
             UserApiMock.PERMISSION.READFORMS,
-            UserApiMock.PERMISSION.CREATEFORMS,
+            UserApiMock.PERMISSION.EDITFORMS,
             UserApiMock.PERMISSION.READPERMISSIONS,
             UserApiMock.PERMISSION.EDITPERMISSIONS
         ],

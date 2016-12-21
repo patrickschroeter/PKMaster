@@ -1,49 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, CanDeactivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import {
+    Router,
+    CanActivate,
+    CanDeactivate,
+    ActivatedRouteSnapshot,
+    RouterStateSnapshot,
+    CanLoad,
+    Route
+} from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 
 import { AuthenticationService } from './../authentication/authentication.service';
 import { PermissionService } from './../permission/permission.service';
 
 @Injectable()
-export class AccessService implements CanActivate, CanDeactivate<any>, CanActivateChild {
-
-    private guard: Object = {
-        'main': this.allAccessWhenLoggedIn.bind(this),
-        'profile': this.allAccessWhenLoggedIn.bind(this),
-        'applications': this.allAccessWhenLoggedIn.bind(this),
-        'conferences': this.guardConferencesRoute.bind(this),
-        'forms': this.guardFormsRoute.bind(this),
-
-        'admin': this.guardAdminRoute.bind(this),
-        'admin/roles': this.guardRolesRoute.bind(this),
-        'admin/permissions': this.guardPermissionsRoute.bind(this),
-        'admin/users': this.guardUsersRoute.bind(this),
-        'admin/profile': this.guardUsersRoute.bind(this)
-    };
+export class AccessService implements CanActivate, CanDeactivate<any>, CanLoad {
 
     constructor(
-        private authentication: AuthenticationService,
-        private router: Router,
-        private permission: PermissionService
+        protected authentication: AuthenticationService,
+        protected permission: PermissionService
     ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
         Observable<boolean> | Promise<boolean> | boolean {
-        let name = state.url.slice(1);
-        if (!this.authentication.isLoggedIn()) {
-            this.router.navigate(['/login']);
-            return false;
-        }
-        if (name === '') { return this.guard['main'](); }
-        /** TODO production only */
-        if (!this.guard[name]) { console.error(`Missing Guard for: ${name}`); }
-        return this.guard[name] ? this.guard[name]() : false;
-    }
-
-    canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
-        Observable<boolean> | Promise<boolean> | boolean {
-        return this.canActivate(route, state);
+        return this.hasAccess(['ReadApplications', 'ReadForms', 'ReadConferences'], true);
     }
 
     canDeactivate(component: any, route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
@@ -51,59 +31,111 @@ export class AccessService implements CanActivate, CanDeactivate<any>, CanActiva
         return this.authentication.isLoggedIn();
     }
 
-
-    /**
-    * Guard Definitions for Routes
-    */
-
-    private allAccessWhenLoggedIn(): Observable<any> {
+    canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
         let user = this.authentication.getUser();
         /** TODO: catch error */
         return user.map((e) => {
-            return !!e;
+            /** Requires user in this.permission */
+            return this.permission.hasPermission(['ReadApplications', 'ReadForms', 'ReadConferences'], true);
         });
     }
 
-    private guardConferencesRoute(): Observable<any> {
+    /**
+     * @description waiting for the user object to check the permission
+     */
+    protected hasAccess(permission: string | string[], or = false): Observable<boolean> {
         let user = this.authentication.getUser();
+        /** TODO: catch error */
         return user.map((e) => {
-            return this.permission.hasPermission('CreateForms');
+            /** Requires user in this.permission */
+            return this.permission.hasPermission(permission, or);
         });
     }
+}
 
-    private guardFormsRoute(): Observable<any> {
-        let user = this.authentication.getUser();
-        return user.map((e) => {
-            return this.permission.hasPermission('ReadForms');
+@Injectable()
+export class AccessReadApplications extends AccessService {
+    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    canActivate(route, state) { return this.hasAccess('ReadApplications'); }
+}
+
+@Injectable()
+export class AccessEditApplications extends AccessService {
+    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    canActivate(route, state) { return this.hasAccess('EditApplications'); }
+}
+
+@Injectable()
+export class AccessReadConferences extends AccessService {
+    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    canActivate(route, state) { return this.hasAccess('ReadConferences'); }
+}
+
+@Injectable()
+export class AccessEditConferences extends AccessService {
+    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    canActivate(route, state) { return this.hasAccess('EditConferences'); }
+}
+
+@Injectable()
+export class AccessReadForms extends AccessService {
+    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    canActivate(route, state) { return this.hasAccess('ReadForms'); }
+}
+
+@Injectable()
+export class AccessEditForms extends AccessService {
+    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    canActivate(route, state) { return this.hasAccess('EditForms'); }
+}
+
+@Injectable()
+export class AccessAdmin extends AccessService {
+    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    canActivate(route, state) { return this.hasAccess(['ReadRoles', 'ReadPermissions', 'ReadUsers'], true); }
+    canLoad(route) { return this.hasAccess(['ReadRoles', 'ReadPermissions', 'ReadUsers'], true); }
+}
+
+@Injectable()
+export class AccessReadRoles extends AccessService {
+    constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
+    canActivate(route, state) {
+        return this.hasAccess('ReadRoles').map(access => {
+          if (!access) {
+            this.router.navigate(['', 'admin', 'profile']);
+            return false;
+          }
+          return true;
         });
     }
+}
 
-    private guardAdminRoute(): Observable<any> {
-        let user = this.authentication.getUser();
-        return user.map((e) => {
-            return this.permission.hasPermission('ReadPermissions');
-        });
-    }
+@Injectable()
+export class AccessEditRoles extends AccessService {
+    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    canActivate(route, state) { return this.hasAccess('EditRoles'); }
+}
 
-    private guardUsersRoute(): Observable<any> {
-        let user = this.authentication.getUser();
-        return user.map((e) => {
-            return this.permission.hasPermission('ReadPermissions');
-        });
-    }
+@Injectable()
+export class AccessReadPermissions extends AccessService {
+    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    canActivate(route, state) { return this.hasAccess('ReadPermissions'); }
+}
 
-    private guardRolesRoute(): Observable<any> {
-        let user = this.authentication.getUser();
-        return user.map((e) => {
-            return this.permission.hasPermission('ReadPermissions');
-        });
-    }
+@Injectable()
+export class AccessEditPermissions extends AccessService {
+    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    canActivate(route, state) { return this.hasAccess('EditPermissions'); }
+}
 
-    private guardPermissionsRoute(): Observable<any> {
-        let user = this.authentication.getUser();
-        return user.map((e) => {
-            return this.permission.hasAllPermissions(['ReadPermissions', 'EditPermissions']);
-        });
-    }
+@Injectable()
+export class AccessReadUsers extends AccessService {
+    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    canActivate(route, state) { return this.hasAccess('ReadUsers'); }
+}
 
+@Injectable()
+export class AccessEditUsers extends AccessService {
+    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    canActivate(route, state) { return this.hasAccess('EditUsers'); }
 }

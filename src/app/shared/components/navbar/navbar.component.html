@@ -13,10 +13,10 @@
   </div>
 
   <a *accessReadApplications class="navbar__link selectable left" routerLink="/applications" routerLinkActive="selectable--active">Applications</a>
-  <a *accessCreateForms class="navbar__link selectable left" routerLink="/conferences" routerLinkActive="selectable--active">Conferences</a>
+  <a *accessReadConferences class="navbar__link selectable left" routerLink="/conferences" routerLinkActive="selectable--active">Conferences</a>
   <a *accessReadForms class="navbar__link selectable left" routerLink="/forms" routerLinkActive="selectable--active">Forms</a>
-  <a *accessCreateApplications class="navbar__link selectable left" routerLink="/profile" routerLinkActive="selectable--active">Profile</a>
-  <a *accessReadPermissions class="navbar__link selectable left" routerLink="/admin" routerLinkActive="selectable--active">Admin</a>
+  <a class="navbar__link selectable left" routerLink="/profile" routerLinkActive="selectable--active">Profile</a>
+  <a *accessAdmin class="navbar__link selectable left" routerLink="/admin" routerLinkActive="selectable--active">Admin</a>
 
   <pk-devider></pk-devider>
 

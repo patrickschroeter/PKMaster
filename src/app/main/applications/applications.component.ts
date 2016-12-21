@@ -72,7 +72,7 @@ export class ApplicationsComponent implements OnInit {
         });
     }
 
-    @Access('CreateApplications')
+    @Access('EditApplications')
     toggleCreateNew() {
         this.isOpenNewApplication = !this.isOpenNewApplication;
     }

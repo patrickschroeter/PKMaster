@@ -23,19 +23,45 @@ export class PermissionService {
     }
 
     /**
-     * @description check if the user has the given permission (string)
+     * @description check if the user has the given permission (string), permissions (array, and), permissions (array, or)
      * @version v1.0.0
      */
-    public hasPermission(permission: string): boolean {
-        return (!!this.permissions && !!permission && this.permissions.indexOf(permission) !== -1);
+    public hasPermission(permission: string | string[], or = false): boolean {
+        if (Array.isArray(permission)) {
+            if (or) {
+                return this.hasOneOfPermissions((permission as string[]));
+            } else {
+                return this.hasAllPermissions((permission as string[]));
+            }
+        } else if (typeof permission === 'string') {
+            return (!permission || (!!this.permissions && !!permission && this.permissions.indexOf(permission) !== -1));
+        }
+        return false;
     }
 
     /**
-     * @description check if the user has the given permissions (string[])
+     * @description check if the user has this one permission
+     */
+    private hasOnePermission(permission: string): boolean {
+        return (!permission || (!!this.permissions && !!permission && this.permissions.indexOf(permission) !== -1));
+    }
+
+    /**
+     * @description check if the user has the given permissions (array, and)
      * @version v1.0.0
      */
     public hasAllPermissions(permissions: string[]): boolean {
-        return (!!this.permissions && !!permissions && !_.difference(permissions, this.permissions).length);
+        return (!permissions || (!!this.permissions && !!permissions && !_.difference(permissions, this.permissions).length));
+    }
+
+    /**
+     * @description check if the user has one of the given permissios (array, or)
+     */
+    public hasOneOfPermissions(permissions: string[]): boolean {
+        for (let i = 0, length = permissions.length; i < length; i++) {
+            if (this.hasOnePermission(permissions[i])) { return true; }
+        }
+        return false;
     }
 
 }

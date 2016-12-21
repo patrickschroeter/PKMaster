@@ -76,11 +76,11 @@ describe('PermissionService', () => {
             expect(service.hasPermission(API.PERMISSION.READFORMS)).toBe(false);
         });
 
-        it('should return false if no permission is given', () => {
+        it('should return true if no permission is given', () => {
             service.permissions = API.PERMISSIONS.PARTIAL;
-            expect(service.hasPermission(null)).toBe(false);
-            expect(service.hasPermission(undefined)).toBe(false);
-            expect(service.hasPermission('')).toBe(false);
+            expect(service.hasPermission(null)).toBe(true);
+            expect(service.hasPermission(undefined)).toBe(true);
+            expect(service.hasPermission('')).toBe(true);
         });
 
         it('should return false if no permissions are set', () => {
@@ -110,8 +110,8 @@ describe('PermissionService', () => {
 
             it('(all elements in the same order)', () => {
                 expect(service.hasAllPermissions([
-                    API.PERMISSION.CREATEAPPLICATIONS,
-                    API.PERMISSION.CREATEFORMS,
+                    API.PERMISSION.EDITAPPLICATIONS,
+                    API.PERMISSION.EDITFORMS,
                     API.PERMISSION.EDITPERMISSIONS,
                     API.PERMISSION.READAPPLICATIONS,
                     API.PERMISSION.READFORMS,
@@ -122,10 +122,10 @@ describe('PermissionService', () => {
             it('(all elements in different order)', () => {
                 expect(service.hasAllPermissions([
                     API.PERMISSION.READAPPLICATIONS,
-                    API.PERMISSION.CREATEFORMS,
+                    API.PERMISSION.EDITFORMS,
                     API.PERMISSION.READFORMS,
                     API.PERMISSION.EDITPERMISSIONS,
-                    API.PERMISSION.CREATEAPPLICATIONS,
+                    API.PERMISSION.EDITAPPLICATIONS,
                     API.PERMISSION.READPERMISSIONS
                 ])).toBe(true);
             });
@@ -139,7 +139,7 @@ describe('PermissionService', () => {
 
             it('(doubled elements)', () => {
                 expect(service.hasAllPermissions([
-                    API.PERMISSION.CREATEAPPLICATIONS, API.PERMISSION.CREATEAPPLICATIONS
+                    API.PERMISSION.EDITAPPLICATIONS, API.PERMISSION.EDITAPPLICATIONS
                 ])).toBe(true);
             });
         });
@@ -153,10 +153,10 @@ describe('PermissionService', () => {
             it('(all elements plus extra)', () => {
                 expect(service.hasAllPermissions([
                     API.PERMISSION.READAPPLICATIONS,
-                    API.PERMISSION.CREATEFORMS,
+                    API.PERMISSION.EDITFORMS,
                     API.PERMISSION.READFORMS,
                     API.PERMISSION.EDITPERMISSIONS,
-                    API.PERMISSION.CREATEAPPLICATIONS,
+                    API.PERMISSION.EDITAPPLICATIONS,
                     API.PERMISSION.READPERMISSIONS,
                     'extra'
                 ])).toBe(false);
@@ -178,16 +178,16 @@ describe('PermissionService', () => {
 
             it('(doubled elements)', () => {
                 expect(service.hasAllPermissions([
-                    API.PERMISSION.CREATEAPPLICATIONS, API.PERMISSION.CREATEAPPLICATIONS,
+                    API.PERMISSION.EDITAPPLICATIONS, API.PERMISSION.EDITAPPLICATIONS,
                     'extra',
                     'extra'
                 ])).toBe(false);
             });
         });
-        it('should return false if no permissions are given', () => {
-            expect(service.hasAllPermissions(null)).toBe(false);
-            expect(service.hasAllPermissions(undefined)).toBe(false);
-            expect(service.hasAllPermissions([])).toBe(false);
+        it('should return true if no permissions are given', () => {
+            expect(service.hasAllPermissions(null)).toBe(true);
+            expect(service.hasAllPermissions(undefined)).toBe(true);
+            expect(service.hasAllPermissions([])).toBe(true);
         });
         it('should return false if no permissions are set', () => {
             service.permissions = undefined;
