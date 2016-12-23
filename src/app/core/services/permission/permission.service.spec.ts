@@ -5,7 +5,7 @@ import { PermissionService } from './permission.service';
 
 import { UserApiMock as API } from './../api/UserApi.mock';
 
-describe('PermissionService', () => {
+fdescribe('PermissionService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -22,7 +22,7 @@ describe('PermissionService', () => {
     describe('updateUserPermissions', () => {
         let service: PermissionService;
 
-        beforeEach(inject( [PermissionService], (permissionService: PermissionService) => {
+        beforeEach(inject([PermissionService], (permissionService: PermissionService) => {
             service = permissionService;
         }));
 
@@ -61,9 +61,58 @@ describe('PermissionService', () => {
     describe('hasPermission', () => {
         let service: PermissionService;
 
-        beforeEach(inject( [PermissionService], (permissionService: PermissionService) => {
+        beforeEach(inject([PermissionService], (permissionService: PermissionService) => {
             service = permissionService;
         }));
+
+        /**
+         * No Permissions
+         */
+
+        describe('(no permission input)', () => {
+            beforeEach(() => { service.permissions = API.PERMISSIONS.PARTIAL; });
+            it('should return true if input is null', () => {
+                expect(service.hasPermission(null)).toBe(true);
+            });
+            it('should return true if input is undefined', () => {
+                expect(service.hasPermission(undefined)).toBe(true);
+            });
+            it('should return true if input is empty string', () => {
+                expect(service.hasPermission('')).toBe(true);
+            });
+            it('should return true if input is empty array (and)', () => {
+                expect(service.hasPermission([])).toBe(true);
+            });
+            it('should return true if input is empty array (or)', () => {
+                expect(service.hasPermission([], true)).toBe(true);
+            });
+        });
+
+        describe('(no user permission)', () => {
+            it('should return false if permissions is null', () => {
+                service.permissions = undefined;
+                expect(service.hasPermission(API.PERMISSION.READAPPLICATIONS)).toBe(false);
+                expect(service.hasPermission([API.PERMISSION.EDITPERMISSIONS, API.PERMISSION.READFORMS])).toBe(false);
+                expect(service.hasPermission([API.PERMISSION.EDITPERMISSIONS, API.PERMISSION.READFORMS], true)).toBe(false);
+            });
+            it('should return false if permissions is undefined', () => {
+                service.permissions = null;
+                expect(service.hasPermission(API.PERMISSION.READPERMISSIONS)).toBe(false);
+                expect(service.hasPermission([API.PERMISSION.EDITPERMISSIONS, API.PERMISSION.READFORMS])).toBe(false);
+                expect(service.hasPermission([API.PERMISSION.EDITPERMISSIONS, API.PERMISSION.READFORMS], true)).toBe(false);
+
+            });
+            it('should return false if permissions is empty array', () => {
+                service.permissions = [];
+                expect(service.hasPermission(API.PERMISSION.READPERMISSIONS)).toBe(false);
+                expect(service.hasPermission([API.PERMISSION.EDITPERMISSIONS, API.PERMISSION.READFORMS])).toBe(false);
+                expect(service.hasPermission([API.PERMISSION.EDITPERMISSIONS, API.PERMISSION.READFORMS], true)).toBe(false);
+            });
+        })
+
+        /**
+         * One Permission
+         */
 
         it('should return true if the permission is in permissions', () => {
             service.permissions = API.PERMISSIONS.PARTIAL;
@@ -76,31 +125,9 @@ describe('PermissionService', () => {
             expect(service.hasPermission(API.PERMISSION.READFORMS)).toBe(false);
         });
 
-        it('should return true if no permission is given', () => {
-            service.permissions = API.PERMISSIONS.PARTIAL;
-            expect(service.hasPermission(null)).toBe(true);
-            expect(service.hasPermission(undefined)).toBe(true);
-            expect(service.hasPermission('')).toBe(true);
-        });
-
-        it('should return false if no permissions are set', () => {
-            service.permissions = undefined;
-            expect(service.hasPermission(API.PERMISSION.READAPPLICATIONS)).toBe(false);
-
-            service.permissions = null;
-            expect(service.hasPermission(API.PERMISSION.READPERMISSIONS)).toBe(false);
-
-            service.permissions = [];
-            expect(service.hasPermission(API.PERMISSION.READPERMISSIONS)).toBe(false);
-        });
-    });
-
-    describe('hasAllPermissions', () => {
-        let service: PermissionService;
-
-        beforeEach(inject([PermissionService], (permissionService: PermissionService) => {
-            service = permissionService;
-        }));
+        /**
+         * Many Permissions (and)
+         */
 
         describe('should return true if the permissions are in permissions', () => {
 
@@ -109,7 +136,7 @@ describe('PermissionService', () => {
             });
 
             it('(all elements in the same order)', () => {
-                expect(service.hasAllPermissions([
+                expect(service.hasPermission([
                     API.PERMISSION.EDITAPPLICATIONS,
                     API.PERMISSION.EDITFORMS,
                     API.PERMISSION.EDITPERMISSIONS,
@@ -120,7 +147,7 @@ describe('PermissionService', () => {
             });
 
             it('(all elements in different order)', () => {
-                expect(service.hasAllPermissions([
+                expect(service.hasPermission([
                     API.PERMISSION.READAPPLICATIONS,
                     API.PERMISSION.EDITFORMS,
                     API.PERMISSION.READFORMS,
@@ -131,14 +158,14 @@ describe('PermissionService', () => {
             });
 
             it('(some elements)', () => {
-                expect(service.hasAllPermissions([
+                expect(service.hasPermission([
                     API.PERMISSION.EDITPERMISSIONS,
                     API.PERMISSION.READFORMS
                 ])).toBe(true);
             });
 
             it('(doubled elements)', () => {
-                expect(service.hasAllPermissions([
+                expect(service.hasPermission([
                     API.PERMISSION.EDITAPPLICATIONS, API.PERMISSION.EDITAPPLICATIONS
                 ])).toBe(true);
             });
@@ -151,7 +178,7 @@ describe('PermissionService', () => {
             });
 
             it('(all elements plus extra)', () => {
-                expect(service.hasAllPermissions([
+                expect(service.hasPermission([
                     API.PERMISSION.READAPPLICATIONS,
                     API.PERMISSION.EDITFORMS,
                     API.PERMISSION.READFORMS,
@@ -163,7 +190,7 @@ describe('PermissionService', () => {
             });
 
             it('(some elements plus extra)', () => {
-                expect(service.hasAllPermissions([
+                expect(service.hasPermission([
                     API.PERMISSION.EDITPERMISSIONS,
                     API.PERMISSION.READFORMS,
                     'extra'
@@ -171,42 +198,46 @@ describe('PermissionService', () => {
             });
 
             it('(only one extra)', () => {
-                expect(service.hasAllPermissions([
+                expect(service.hasPermission([
                     'extra'
                 ])).toBe(false);
             });
 
             it('(doubled elements)', () => {
-                expect(service.hasAllPermissions([
+                expect(service.hasPermission([
                     API.PERMISSION.EDITAPPLICATIONS, API.PERMISSION.EDITAPPLICATIONS,
                     'extra',
                     'extra'
                 ])).toBe(false);
             });
         });
-        it('should return true if no permissions are given', () => {
-            expect(service.hasAllPermissions(null)).toBe(true);
-            expect(service.hasAllPermissions(undefined)).toBe(true);
-            expect(service.hasAllPermissions([])).toBe(true);
-        });
-        it('should return false if no permissions are set', () => {
-            service.permissions = undefined;
-            expect(service.hasAllPermissions([
-                API.PERMISSION.EDITPERMISSIONS,
-                API.PERMISSION.READFORMS
-            ])).toBe(false);
 
-            service.permissions = null;
-            expect(service.hasAllPermissions([
-                API.PERMISSION.EDITPERMISSIONS,
-                API.PERMISSION.READFORMS
-            ])).toBe(false);
+        /**
+         * Many Permissions (or)
+         */
 
-            service.permissions = [];
-            expect(service.hasAllPermissions([
-                API.PERMISSION.EDITPERMISSIONS,
-                API.PERMISSION.READFORMS
-            ])).toBe(false);
-        });
+        describe('(or)', () => {
+
+            beforeEach(() => {
+                service.permissions = API.PERMISSIONS.PARTIAL;
+            });
+
+            it('should return true if the input string is in the permissions', () => {
+                expect(service.hasPermission(API.PERMISSION.READAPPLICATIONS, true)).toBe(true);
+            });
+
+            it('should return true if one of the input strings is in the permissions', () => {
+                expect(service.hasPermission([API.PERMISSION.READPERMISSIONS], true)).toBe(true);
+                expect(service.hasPermission([API.PERMISSION.EDITAPPLICATIONS, API.PERMISSION.READPERMISSIONS], true)).toBe(true);
+            });
+
+            it('should return false if the input string is not in the permissions', () => {
+                expect(service.hasPermission(API.PERMISSION.EDITAPPLICATIONS, true)).toBe(false);
+            });
+
+            it('should return false if none of the input strings is in the permissios', () => {
+                expect(service.hasPermission([API.PERMISSION.EDITAPPLICATIONS, API.PERMISSION.EDITFORMS], true)).toBe(false);
+            })
+        })
     });
 });

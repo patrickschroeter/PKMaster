@@ -36,7 +36,7 @@ export class PermissionService {
         } else if (typeof permission === 'string') {
             return (!permission || (!!this.permissions && !!permission && this.permissions.indexOf(permission) !== -1));
         }
-        return false;
+        return true;
     }
 
     /**
@@ -50,14 +50,15 @@ export class PermissionService {
      * @description check if the user has the given permissions (array, and)
      * @version v1.0.0
      */
-    public hasAllPermissions(permissions: string[]): boolean {
-        return (!permissions || (!!this.permissions && !!permissions && !_.difference(permissions, this.permissions).length));
+    private hasAllPermissions(permissions: string[]): boolean {
+        return (!permissions || !permissions.length || (!!this.permissions && !!permissions && !_.difference(permissions, this.permissions).length));
     }
 
     /**
      * @description check if the user has one of the given permissios (array, or)
      */
-    public hasOneOfPermissions(permissions: string[]): boolean {
+    private hasOneOfPermissions(permissions: string[]): boolean {
+        if (!permissions.length) { return true; }
         for (let i = 0, length = permissions.length; i < length; i++) {
             if (this.hasOnePermission(permissions[i])) { return true; }
         }
