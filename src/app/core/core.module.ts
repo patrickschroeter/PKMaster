@@ -10,6 +10,7 @@ import { ExtendHttpService } from './services/extend-http/extend-http.service';
 import { FormApi } from './../swagger/api/FormApi';
 import { ApplicationApi } from './../swagger/api/ApplicationApi';
 import { UserApi } from './../swagger/api/UserApi';
+import { ConferenceApi } from './../swagger/api/ConferenceApi';
 
 const BASEPATH = 'http://pk.multimedia.hs-augsburg.de:8000';
 
@@ -61,6 +62,7 @@ const BASEPATH = 'http://pk.multimedia.hs-augsburg.de:8000';
         // },
         { provide: ApplicationApi, useClass: services.ApplicationEndpoint },
         { provide: UserApi, useClass: services.UserEndpoint },
+        { provide: ConferenceApi, useClass: services.ConferenceEndpoint},
 
         // Extend HTTP
         {
