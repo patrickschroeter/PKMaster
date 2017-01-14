@@ -10,7 +10,10 @@ import {
     ApplicationService,
     ApplicationMock,
     InputValidationService,
-    InputValidationMock
+    InputValidationMock,
+
+    AuthenticationService,
+    AuthenticationMock
 } from './../../../core';
 
 import { AlertService, AlertMock } from './../../../modules/alert';
@@ -44,6 +47,7 @@ describe('ApplicationsDetailComponent', () => {
                 { provide: ApplicationService, useClass: ApplicationMock },
                 { provide: AlertService, useClass: AlertMock },
                 { provide: InputValidationService, useClass: InputValidationMock },
+                { provide: AuthenticationService, useClass: AuthenticationMock }
             ]
         })
             .compileComponents();
