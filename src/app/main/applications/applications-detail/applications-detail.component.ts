@@ -1,7 +1,12 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { ApplicationService, AuthenticationService, PermissionService } from './../../../core';
+import {
+    ApplicationService,
+    AuthenticationService,
+    PermissionService,
+    ConferenceService
+} from './../../../core';
 import { AlertService } from './../../../modules/alert';
 
 import { Application, Comment } from './../../../swagger';
@@ -33,7 +38,8 @@ export class ApplicationsDetailComponent implements OnInit {
         private applicationService: ApplicationService,
         private alert: AlertService,
         private auth: AuthenticationService,
-        private permission: PermissionService
+        private permission: PermissionService,
+        private conferenceService: ConferenceService
     ) { }
 
     ngOnInit() {
@@ -51,16 +57,16 @@ export class ApplicationsDetailComponent implements OnInit {
 
         this.initAddCommentForm();
 
-        this.conferences = [
-            {
-                label: 'Conferenz 2016',
-                value: 'c2016'
-            },
-            {
-                label: 'Conferenz 2017',
-                value: 'c2017'
+        this.conferenceService.getConferences().subscribe(conferences => {
+            this.conferences = [];
+            for (let i = 0, length = conferences.length; i < length; i++) {
+                let conference = conferences[i];
+                this.conferences.push({
+                    label: conference.description,
+                    value: conference.id
+                });
             }
-        ]
+        });
     }
 
     /**
@@ -127,8 +133,9 @@ export class ApplicationsDetailComponent implements OnInit {
     public addApplicationToConference(conference) {
         this.application.conference = conference;
         this.application.status = { name: 'pending' };
-        // TODO save and update;
-        this.toggleApplicationConference();
+        this.applicationService.updateApplication(this.application).subscribe(application => {
+            this.toggleApplicationConference();
+        });
     }
 
     submitApplication(application: Application) {

@@ -1,12 +1,31 @@
 <div id="conferences">
     <div class="rel">
-        <h1 class="element element--spacing-bottom-small">Conferences</h1>
+        <pk-loading *ngIf="!conferences"></pk-loading>
 
-        <pk-dynamic-form-default [form]="form"></pk-dynamic-form-default>
+        <div *ngIf="conferences && !conferences.length" class="empty-wrapper">
+            <div class="label">No Conferences here.</div>
+            <pk-button *accessEditConferences icon="add" element--secondary value="Create New Conference" class="element--spacing-top-large"></pk-button>
+        </div>
+
+        <h1 *ngIf="conferences?.length" class="element element--spacing-bottom-small">Conferences</h1>
+        <pk-list *ngIf="conferences?.length">
+            <pk-list-header>
+                <pk-list-attribute name="name">Description</pk-list-attribute>
+                <pk-list-attribute name="date">Date</pk-list-attribute>
+            </pk-list-header>
+            <pk-list-content>
+                <pk-list-element *ngFor="let conference of conferences">
+                    <pk-list-attribute name="name">
+                        <a routerLink="/conferences/{{ conference.id }}">{{ conference.description }}</a>
+                    </pk-list-attribute>
+                    <pk-list-attribute name="date">{{ conference.dateOfEvent | date }}</pk-list-attribute>
+
+                    <pk-floating horizontal top-right>
+
+                    </pk-floating>
+                </pk-list-element>
+            </pk-list-content>
+        </pk-list>
 
     </div>
-    <pk-floating fixed top-right>
-        <pk-button rounded class="element--spacing-bottom-tiny" icon="create" element--secondary></pk-button>
-        <pk-button rounded icon="add" element--success></pk-button>
-    </pk-floating>
 </div>
