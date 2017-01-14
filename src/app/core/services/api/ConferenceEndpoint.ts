@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Rx';
 
-import { FormApiMock } from './';
+import { ConferenceApiMock } from './';
 
 import { Conference, Application } from './../../../swagger';
 
@@ -37,7 +37,18 @@ export class ConferenceEndpoint {
     }
 
     public getConferences (token?: number, filter?: string, sort?: string, extraHttpRequestParams?: any ) : Observable<Array<Conference>> {
-        return null;
+        let conferences = this._conferences();
+        return new Observable(observer => {
+            setTimeout(() => {
+                if (conferences) {
+                    observer.next(conferences);
+                } else {
+                    console.error(`No Conferences found`);
+                    observer.error(`No Conferences found`);
+                }
+                observer.complete();
+            }, 500);
+        });
     }
 
     public updateConferenceById (conferenceId: number, token?: number, conference?: Conference, extraHttpRequestParams?: any ) : Observable<Conference> {
@@ -65,7 +76,6 @@ export class ConferenceEndpoint {
             id = this._list[this._list.length - 1].id + 'Q';
         }
         conference.id = id;
-        conference.created = Date.now();
         this._list.push(conference);
         return JSON.parse(JSON.stringify(this._list[this._list.length - 1]));
     }

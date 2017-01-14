@@ -5,3 +5,4 @@ export * from './ApplicationEndpoint';
 export * from './UserApi.mock';
 export * from './UserEndpoint';
 export * from './ConferenceEndpoint';
+export * from './ConferenceApi.mock';

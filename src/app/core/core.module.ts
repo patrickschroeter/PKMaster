@@ -28,6 +28,7 @@ const BASEPATH = 'http://pk.multimedia.hs-augsburg.de:8000';
         services.FormService,
         services.ApplicationService,
         services.PermissionService,
+        services.ConferenceService,
 
         // AuthGuards
 
