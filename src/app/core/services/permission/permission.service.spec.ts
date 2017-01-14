@@ -5,7 +5,7 @@ import { PermissionService } from './permission.service';
 
 import { UserApiMock as API } from './../api/UserApi.mock';
 
-fdescribe('PermissionService', () => {
+describe('PermissionService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({

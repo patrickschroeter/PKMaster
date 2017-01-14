@@ -3,14 +3,26 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { ConferenceService } from './conference.service';
 
-describe('ConferenceService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [ConferenceService]
-    });
-  });
+import { ConferenceApiMock } from './../../../core';
+import { ConferenceApi } from './../../../swagger';
 
-  it('should ...', inject([ConferenceService], (service: ConferenceService) => {
-    expect(service).toBeTruthy();
-  }));
+import { AlertModule } from './../../../modules/alert/alert.module';
+
+describe('ConferenceService', () => {
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [
+                ConferenceService,
+
+                { provide: ConferenceApi, useClass: ConferenceApiMock }
+            ],
+            imports: [
+                AlertModule
+            ]
+        });
+    });
+
+    it('should ...', inject([ConferenceService], (service: ConferenceService) => {
+        expect(service).toBeTruthy();
+    }));
 });
