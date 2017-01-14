@@ -92,10 +92,13 @@ export class ApplicationsDetailComponent implements OnInit {
             comment.author = user;
             // TODO: send to server
             this.savingComment = true;
+            if (!this.application.comments) {
+                this.application.comments = [];
+            }
             this.application.comments.push(comment);
             this.initAddCommentForm();
-            this.savingComment = false;
             setTimeout(() => {
+                this.savingComment = false;
             }, 500);
         });
     }
