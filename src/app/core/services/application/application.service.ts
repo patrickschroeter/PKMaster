@@ -6,7 +6,7 @@ import { FormService } from './../form';
 
 import { ApplicationApi } from './../../../swagger/api/ApplicationApi';
 
-import { Application, Field } from './../../../swagger';
+import { Application, Field, ApplicationCreateDto } from './../../../swagger';
 
 @Injectable()
 export class ApplicationService {
@@ -49,7 +49,7 @@ export class ApplicationService {
      * @return {Observable}
      */
     public createNewApplication(application: Application): Observable<Application> {
-        return this.applicationApi.createApplication(17, application).map(result => {
+        return this.applicationApi.createApplication(17, (application as ApplicationCreateDto)).map(result => {
             return this.application = result;
         });
     }

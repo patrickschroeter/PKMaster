@@ -2,6 +2,7 @@ $comment-break: 950px;
 
 .comment-block {
     margin-top: 35px;
+    border-top: 1px solid $darkwhite;
     .comment-flex {
         @media (min-width: $comment-break + 1px) {
             display: flex;
@@ -15,6 +16,7 @@ $comment-break: 950px;
 
 .comment-add {
     min-height: 150px;
+    margin-top: 18px;
     @media (min-width: $comment-break + 1px) {
         margin-left: 25px;
         flex: 1;
