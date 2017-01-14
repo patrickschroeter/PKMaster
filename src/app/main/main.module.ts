@@ -23,6 +23,7 @@ import { OverlayModule } from './../modules/overlay/overlay.module';
         main.ApplicationsEditComponent,
 
         main.ConferencesComponent,
+        main.ConferencesDetailComponent,
 
         main.ProfileEditComponent,
 

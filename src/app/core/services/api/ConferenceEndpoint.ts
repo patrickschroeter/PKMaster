@@ -33,7 +33,18 @@ export class ConferenceEndpoint {
     }
 
     public getConferenceById (conferenceId: string, token?: number, extraHttpRequestParams?: any ) : Observable<Conference> {
-        return null;
+        let conference = this._conference(conferenceId);
+        return new Observable(observer => {
+            setTimeout(() => {
+                if (conference) {
+                    observer.next(conference);
+                } else {
+                    console.error(`No Conferences with Id ${conferenceId} found`);
+                    observer.error(`No Conferences with Id ${conferenceId} found`);
+                }
+                observer.complete();
+            }, 500);
+        });
     }
 
     public getConferences (token?: number, filter?: string, sort?: string, extraHttpRequestParams?: any ) : Observable<Array<Conference>> {
