@@ -89,7 +89,7 @@ export class ApplicationsDetailComponent implements OnInit {
         let comment: Comment = values;
         comment.created = new Date();
         this.auth.getUser().subscribe(user => {
-            comment.author = user;
+            comment.user = user;
             // TODO: send to server
             this.savingComment = true;
             if (!this.application.comments) {
