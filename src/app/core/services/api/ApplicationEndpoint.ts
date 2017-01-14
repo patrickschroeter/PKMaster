@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Rx';
 
+import { ApplicationApiMock } from './';
+
 import { Application } from './../../../swagger';
 import { FormApi } from './../../../swagger/api/FormApi';
 
@@ -96,7 +98,9 @@ export class ApplicationEndpoint {
      */
 
     // tslint:disable-next-line:member-ordering
-    private _list: Application[] = [];
+    private _list: Application[] = [
+        ApplicationApiMock.APPLICATION
+    ];
 
     private _applications(): Application[] {
         return JSON.parse(JSON.stringify(this._list));

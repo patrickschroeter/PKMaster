@@ -13,6 +13,7 @@
                 <!--<pk-list-attribute name="state-icon" (click)="sortBy('status')"></pk-list-attribute>-->
                 <pk-list-attribute name="state" (click)="sortBy('status')">Status</pk-list-attribute>
                 <pk-list-attribute name="name">Title</pk-list-attribute>
+                <pk-list-attribute name="author">Author</pk-list-attribute>
                 <pk-list-attribute name="date" (click)="sortBy('created')">Created</pk-list-attribute>
                 <pk-list-attribute name="modified" (click)="sortBy('modified')">Modified</pk-list-attribute>
             </pk-list-header>
@@ -23,6 +24,7 @@
                     <pk-list-attribute name="name">
                         <a routerLink="/applications/{{ application.id }}">{{ application.form.title }}</a>
                     </pk-list-attribute>
+                    <pk-list-attribute name="author">{{ application.author }}</pk-list-attribute>
                     <pk-list-attribute name="date">{{ application.created | date }}</pk-list-attribute>
                     <pk-list-attribute name="modified">{{ application.modified | date }}</pk-list-attribute>
 

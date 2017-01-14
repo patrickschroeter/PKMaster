@@ -1,0 +1,47 @@
+.comment {
+    margin: 15px 0 25px;
+
+    .comment__header {
+        @extend .font_smaller;
+        display: flex;
+        padding: 0 10px;
+
+        .comment__author {
+            flex: 4;
+        }
+        .comment__date {
+
+        }
+        .comment__state {
+            flex: 1;
+        }
+    }
+
+    .comment__author {
+        font-weight: 500;
+    }
+    .comment__date {
+
+    }
+    .comment__state {
+        margin-left: 10px;
+        text-align: right;
+        color: $success;
+    }
+
+    .comment__content {
+        @extend .font_small;
+        color: $input-color;
+        border-radius: $border-radius;
+        // border: $border-width solid $element-border;
+        background-color: $element-background;
+        padding: 8px;
+        margin-top: 8px;
+    }
+
+    &.comment--private {
+        .comment__state {
+            color: $error;
+        }
+    }
+}

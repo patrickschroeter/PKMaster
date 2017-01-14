@@ -46,6 +46,10 @@ error: remove/cancel and leave state
 
 ## Swagger
 
+### Codegen
+
+rm -rf ./src/app/swagger | java -jar ./../../swagger-codegen/swagger-codegen-cli.jar generate -i http://pk.multimedia.hs-augsburg.de:8000/swagger/v1/swagger.json -l typescript-angular2 -o ./src/app/swagger
+
 ### Json
 
 ```
@@ -155,6 +159,7 @@ app/
 - Angular-Cli / Webpack, Karma, Jasmine
 - Grid in REM
 - Decorators
+- Permissions (decorator, auth-guard, directive)
 
 
 ## TODO

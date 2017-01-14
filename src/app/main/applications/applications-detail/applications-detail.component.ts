@@ -1,10 +1,10 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { ApplicationService } from './../../../core';
+import { ApplicationService, AuthenticationService } from './../../../core';
 import { AlertService } from './../../../modules/alert';
 
-import { Application } from './../../../swagger';
+import { Application, Comment } from './../../../swagger';
 
 @Component({
     selector: 'pk-applications-detail',
@@ -19,11 +19,16 @@ export class ApplicationsDetailComponent implements OnInit {
     get application() { return this._application; }
     set application(application: Application) { this._application = application; }
 
+    public addComment: Array<any>;
+    public savingComment: Boolean;
+
     constructor(
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private applicationService: ApplicationService,
-        private alert: AlertService) { }
+        private alert: AlertService,
+        private auth: AuthenticationService
+    ) { }
 
     ngOnInit() {
 
@@ -36,6 +41,62 @@ export class ApplicationsDetailComponent implements OnInit {
                 console.error(error);
                 this.router.navigate(['/applications']);
             });
+        });
+
+        this.initAddCommentForm();
+    }
+
+    /**
+     * @description initializes or resets the add comment form
+     */
+    private initAddCommentForm() {
+        this.addComment = [
+            {
+                fieldType: 'textarea',
+                name: 'message',
+                label: 'Add Comment:',
+                value: '',
+                required: true,
+            },
+            {
+                fieldType: 'checkbox',
+                name: 'isPrivate',
+                label: 'Privat',
+                value: false,
+                required: false,
+                styles: [
+                    'small'
+                ]
+            },
+            {
+                fieldType: 'checkbox',
+                name: 'requiresChanges',
+                label: 'Requires Changes',
+                value: false,
+                required: false,
+                styles: [
+                    'small'
+                ]
+            }
+        ];
+        console.log(this.addComment);
+    }
+
+    /**
+     * @description adds the comment to the current application
+     */
+    public createNewComment(values) {
+        let comment: Comment = values;
+        comment.created = new Date();
+        this.auth.getUser().subscribe(user => {
+            comment.author = user;
+            // TODO: send to server
+            this.savingComment = true;
+            this.application.comments.push(comment);
+            this.initAddCommentForm();
+            this.savingComment = false;
+            setTimeout(() => {
+            }, 500);
         });
     }
 

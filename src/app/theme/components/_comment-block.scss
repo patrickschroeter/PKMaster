@@ -1,0 +1,31 @@
+$comment-break: 950px;
+
+.comment-block {
+    margin-top: 35px;
+    .comment-flex {
+        @media (min-width: $comment-break + 1px) {
+            display: flex;
+        }
+        @media (max-width: $comment-break) {
+            max-width: 400px;
+        }
+    }
+}
+
+
+.comment-add {
+    min-height: 150px;
+    @media (min-width: $comment-break + 1px) {
+        margin-left: 25px;
+        flex: 1;
+        order: 2;
+    }
+    @media (max-width: $comment-break) {
+    }
+}
+
+.comment-wrapper {
+    max-width: 400px;
+    float: left;
+    order: 1;
+}

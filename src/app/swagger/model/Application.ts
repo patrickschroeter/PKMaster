@@ -69,4 +69,6 @@ export interface Application {
     /** Custom */
 
     attributes?: any[];
+
+    comments?: models.Comment[];
 }

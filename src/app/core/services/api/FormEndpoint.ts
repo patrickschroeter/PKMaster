@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Rx';
 
+import { FormApiMock } from './';
+
 import { Form } from './../../../swagger';
 
 @Injectable()
@@ -94,7 +96,9 @@ export class FormEndpoint {
      */
 
     // tslint:disable-next-line:member-ordering
-    private _list: Form[] = [];
+    private _list: Form[] = [
+        FormApiMock.FORM
+    ];
 
     private _forms(): Form[] {
         return JSON.parse(JSON.stringify(this._list));
