@@ -151,6 +151,8 @@ export class UserEndpoint {
             permissions: [
                 'ReadApplications',
                 'EditApplications',
+                'ReadConferences',
+                'EditConferences',
                 'ReadForms',
                 'EditForms',
                 'ReadPermissions',

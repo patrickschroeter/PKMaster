@@ -58,8 +58,7 @@
         <div class="pk-overlay__content">
             <div *ngIf="!applicationTypes?.length" class="empty-wrapper">
                 <div class="label">No Forms available.</div>
-                <!--TODO: Restrict-->
-                <a routerLink="/forms">
+                <a *accessEditForms routerLink="/forms">
                     <pk-button icon="add" element--secondary value="Create New Form" class="element--spacing-top-large"></pk-button>
                 </a>
             </div>

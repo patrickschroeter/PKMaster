@@ -97,7 +97,8 @@ export class FormEndpoint {
 
     // tslint:disable-next-line:member-ordering
     private _list: Form[] = [
-        FormApiMock.FORM
+        FormApiMock.FORM,
+        FormApiMock.FORM_COMPLEX
     ];
 
     private _forms(): Form[] {

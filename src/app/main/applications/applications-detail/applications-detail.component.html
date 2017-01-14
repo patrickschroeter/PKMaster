@@ -88,5 +88,26 @@
             (onClick)="deactivateApplication(application)"
             class="element--spacing-bottom-tiny"
             icon="delete" element--error></pk-button>
+
+        <pk-button rounded *accessEditConferences pkAlert="Add application to conference"
+            (onClick)="toggleApplicationConference()"
+            class="element--spacing-bottom-tiny"
+            icon="forum"
+            element--success
+            ></pk-button>
     </pk-floating>
+
+
+    <pk-overlay [isOpen]="isOpenApplicationConference" (toggleOverlay)="toggleApplicationConference()" class="overlay--fluid">
+        <div class="pk-overlay__header">Add application to conference</div>
+        <div class="pk-overlay__content">
+            <div *ngIf="!conferences?.length" class="empty-wrapper">
+                <div class="label">No Conferences available.</div>
+            </div>
+
+            <div class="overlay__option selectable" *ngFor="let option of conferences" (click)="addApplicationToConference(option)" [class.selectable--active]="application.conference && application.conference.value === option.value">
+                    {{ option.label }}
+            </div>
+        </div>
+    </pk-overlay>
 </div>

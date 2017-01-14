@@ -1,10 +1,12 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { ApplicationService, AuthenticationService } from './../../../core';
+import { ApplicationService, AuthenticationService, PermissionService } from './../../../core';
 import { AlertService } from './../../../modules/alert';
 
 import { Application, Comment } from './../../../swagger';
+
+import { Access } from './../../../shared/decorators';
 
 @Component({
     selector: 'pk-applications-detail',
@@ -22,12 +24,16 @@ export class ApplicationsDetailComponent implements OnInit {
     public addComment: Array<any>;
     public savingComment: Boolean;
 
+    public isOpenApplicationConference: boolean;
+    public conferences: any[];
+
     constructor(
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private applicationService: ApplicationService,
         private alert: AlertService,
-        private auth: AuthenticationService
+        private auth: AuthenticationService,
+        private permission: PermissionService
     ) { }
 
     ngOnInit() {
@@ -44,6 +50,17 @@ export class ApplicationsDetailComponent implements OnInit {
         });
 
         this.initAddCommentForm();
+
+        this.conferences = [
+            {
+                label: 'Conferenz 2016',
+                value: 'c2016'
+            },
+            {
+                label: 'Conferenz 2017',
+                value: 'c2017'
+            }
+        ]
     }
 
     /**
@@ -79,7 +96,6 @@ export class ApplicationsDetailComponent implements OnInit {
                 ]
             }
         ];
-        console.log(this.addComment);
     }
 
     /**
@@ -95,12 +111,24 @@ export class ApplicationsDetailComponent implements OnInit {
             if (!this.application.comments) {
                 this.application.comments = [];
             }
-            this.application.comments.push(comment);
             this.initAddCommentForm();
             setTimeout(() => {
+                this.application.comments.push(comment);
                 this.savingComment = false;
             }, 500);
         });
+    }
+
+    @Access('EditConferences')
+    public toggleApplicationConference() {
+        this.isOpenApplicationConference = !this.isOpenApplicationConference;
+    }
+
+    public addApplicationToConference(conference) {
+        this.application.conference = conference;
+        this.application.status = { name: 'pending' };
+        // TODO save and update;
+        this.toggleApplicationConference();
     }
 
     submitApplication(application: Application) {
