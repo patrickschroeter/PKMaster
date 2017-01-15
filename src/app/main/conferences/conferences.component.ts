@@ -22,6 +22,6 @@ export class ConferencesComponent implements OnInit {
     ngOnInit() {
         this.conferenceService.getConferences().subscribe(conferences => {
             this.conferences = conferences;
-        })
+        });
     }
 }

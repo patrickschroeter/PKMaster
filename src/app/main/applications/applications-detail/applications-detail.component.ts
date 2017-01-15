@@ -11,8 +11,6 @@ import { AlertService } from './../../../modules/alert';
 
 import { Application, Comment } from './../../../swagger';
 
-import { Access } from './../../../shared/decorators';
-
 import { OverlayComponent } from './../../../modules/overlay';
 
 @Component({

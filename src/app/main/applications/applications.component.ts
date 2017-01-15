@@ -7,8 +7,6 @@ import { AlertService } from './../../modules/alert';
 
 import { Application } from './../../swagger';
 
-import { Access } from './../../shared/decorators';
-
 @Component({
     selector: 'pk-applications',
     templateUrl: './applications.component.html',
