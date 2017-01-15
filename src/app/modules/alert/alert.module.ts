@@ -8,7 +8,6 @@ import { OverlayModule } from './../overlay/overlay.module';
 @NgModule({
     declarations: [
         AlertComponent,
-        AlertDirective
     ],
     imports: [
         CommonModule,
@@ -19,7 +18,16 @@ import { OverlayModule } from './../overlay/overlay.module';
     ],
     exports: [
         AlertComponent,
-        AlertDirective
     ]
 })
 export class AlertModule { }
+
+@NgModule({
+    declarations: [
+        AlertDirective
+    ],
+    exports: [
+        AlertDirective
+    ]
+})
+export class AlertDirectiveModule { }

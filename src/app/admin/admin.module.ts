@@ -10,6 +10,7 @@ import { FloatingModule } from './../modules/floating/floating.module';
 import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module';
 import { ButtonModule } from './../modules/button/button.module';
 import { OverlayModule } from './../modules/overlay/overlay.module';
+import { AlertDirectiveModule } from './../modules/alert/alert.module';
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import { OverlayModule } from './../modules/overlay/overlay.module';
         FloatingModule,
         DynamicFormModule,
         ButtonModule,
-        OverlayModule
+        OverlayModule,
+        AlertDirectiveModule
     ],
     providers: [],
     exports: []

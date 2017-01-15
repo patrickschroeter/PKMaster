@@ -31,8 +31,8 @@ import {
     InputValidationMock,
 } from './../../../../core';
 import { AlertService, AlertMock } from './../../../../modules/alert';
-import { ButtonComponent } from './../../../../modules/button';
-import { OverlayComponent } from './../../../../modules/overlay';
+import { ButtonModule } from './../../../../modules/button/button.module';
+import { OverlayModule } from './../../../../modules/overlay/overlay.module';
 import { DeviderComponent } from './../../../../modules/devider';
 
 import { FloatingModule } from './../../../../modules/floating/floating.module';
@@ -52,8 +52,6 @@ describe('DatalistComponent', () => {
                 DynamicFormSubmitComponent,
                 DynamicFormCancelComponent,
 
-                OverlayComponent,
-                ButtonComponent,
                 InputComponent,
                 DeviderComponent,
                 CheckboxComponent,
@@ -64,7 +62,9 @@ describe('DatalistComponent', () => {
             imports: [
                 ReactiveFormsModule,
                 FloatingModule,
-                FormsModule
+                FormsModule,
+                OverlayModule,
+                ButtonModule
             ],
             providers: [
                 { provide: AlertService, useClass: AlertMock },

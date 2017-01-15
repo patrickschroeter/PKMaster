@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, HostBinding, ViewChild } from '@angular/core';
 import { FormControl, AbstractControl } from '@angular/forms';
 
 import { DynamicFormComponent } from './../../dynamic-form.component';
@@ -6,6 +6,8 @@ import { DynamicFormComponent } from './../../dynamic-form.component';
 import { AlertService } from './../../../../modules/alert';
 
 import { Field } from './../../../../swagger';
+
+import { OverlayComponent } from './../../../../modules/overlay';
 
 @Component({
     selector: 'pk-datalist',
@@ -15,12 +17,10 @@ export class DatalistComponent implements OnInit {
 
     @HostBinding('class.element') element = true;
 
+    @ViewChild('overlay') overlay: OverlayComponent;
+
     @Input() config: Field;
     @Input() disabled: boolean;
-
-    private _isOpen: boolean;
-    get isOpen() { return this._isOpen; }
-    set isOpen(isOpen: boolean) { this._isOpen = isOpen; }
 
     private _addOptionForm;
     get addOptionForm() { return this._addOptionForm; }
@@ -54,7 +54,7 @@ export class DatalistComponent implements OnInit {
         return null;
     }
 
-    initAddOptionsForm() {
+    private initAddOptionsForm() {
         this.addOptionForm = [
             {
                 fieldType: 'input',
@@ -81,8 +81,7 @@ export class DatalistComponent implements OnInit {
         return this.disabled || (this.config && this.config.disabled);
     }
 
-    toggleAddOptionOverlay() {
-        this.isOpen = !this.isOpen;
+    public resetAddOptionForm() {
         for (let i = 0, length = this.addOptionForm.length; i < length; i++) {
             this.addOptionForm[i].value = '';
         }
@@ -116,8 +115,7 @@ export class DatalistComponent implements OnInit {
                 this.config.options[override].label = element.label;
             }
         }
-        this.toggleAddOptionOverlay();
-        this.initAddOptionsForm();
+        this.overlay.toggle(false);
     }
 
     removeOption(element) {

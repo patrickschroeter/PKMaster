@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, HostBinding, ViewChild } from '@angular/core';
 import { FormControl, AbstractControl } from '@angular/forms';
 
 import { DynamicFormComponent } from './../../dynamic-form.component';
 
 import { Field } from './../../../../swagger';
+
+import { OverlayComponent } from './../../../../modules/overlay';
 
 @Component({
     selector: 'pk-select',
@@ -11,14 +13,12 @@ import { Field } from './../../../../swagger';
 })
 export class SelectComponent implements OnInit {
 
+    @ViewChild('overlay') overlay: OverlayComponent;
+
     @HostBinding('class.element') element = true;
 
     @Input() config: Field;
     @Input() disabled: boolean;
-
-    private _isOpen: boolean;
-    get isOpen() { return this._isOpen; }
-    set isOpen(isOpen: boolean) { this._isOpen = isOpen; }
 
     private filteredOptions: Array<{ value?, label? }>;
 
@@ -33,8 +33,6 @@ export class SelectComponent implements OnInit {
     constructor(private parent: DynamicFormComponent) { }
 
     ngOnInit() {
-        this.isOpen = false;
-
         if (!this.config) {
             this.config = {};
         }
@@ -59,14 +57,10 @@ export class SelectComponent implements OnInit {
         return this.disabled || (this.config && this.config.disabled);
     }
 
-    toggleSelectOverlay() {
-        this.isOpen = !this.isOpen;
-    }
-
     select(option) {
         if (!this.config.multipleSelect) {
             this.formControl.setValue(option.value);
-            this.toggleSelectOverlay();
+            this.overlay.toggle();
             return;
         }
 

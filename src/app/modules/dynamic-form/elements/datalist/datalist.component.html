@@ -16,7 +16,7 @@
         *ngIf="formControl.value?.length !== 0"
         [class.element--disabled]="isDisabled()">
 
-        <div *ngIf="!isDisabled()" class="element__option option--default" (click)="toggleAddOptionOverlay()">
+        <div *ngIf="!isDisabled()" class="element__option option--default" (click)="overlay.toggle()">
             <div class="element__value">{{ config.placeholder ? config.placeholder : 'Add Option' }}</div>
             <i class="element__icon material-icons md-20" aria-hidden="true">add</i>
         </div>
@@ -40,7 +40,7 @@
     <div class="element__select element__options"
         *ngIf="!formControl.value || formControl.value?.length === 0"
         [class.element--disabled]="isDisabled()">
-        <div *ngIf="!isDisabled()" class="element__option option--default" (click)="toggleAddOptionOverlay()">
+        <div *ngIf="!isDisabled()" class="element__option option--default" (click)="overlay.toggle()">
             <div class="element__value">{{ config.placeholder ? config.placeholder : 'Add Option' }}</div>
             <i class="element__icon material-icons md-20" aria-hidden="true">add</i>
         </div>
@@ -49,9 +49,11 @@
         </div>
     </div>
 
-    <pk-overlay [isOpen]="isOpen" (toggleOverlay)="toggleAddOptionOverlay()" class="overlay--fluid" *ngIf="!isDisabled()">
-        <div class="pk-overlay__header">{{ config.placeholder ? config.placeholder : 'Add Option' }}</div>
-        <div class="pk-overlay__content">
+    <pk-overlay #overlay class="overlay--fluid" *ngIf="!isDisabled()" (close)="resetAddOptionForm()">
+        <pk-overlay-header>
+            {{ config.placeholder ? config.placeholder : 'Add Option' }}
+        </pk-overlay-header>
+        <pk-overlay-content>
 
             <pk-dynamic-form [formElements]="addOptionForm" #dynamicForm>
                 <pk-dynamic-form-content>
@@ -72,7 +74,7 @@
 
             </pk-dynamic-form>
 
-        </div>
+        </pk-overlay-content>
     </pk-overlay>
 
 </div>

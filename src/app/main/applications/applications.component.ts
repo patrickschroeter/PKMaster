@@ -18,10 +18,6 @@ export class ApplicationsComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
     private applications: Application[];
-    private _isOpenNewApplication: boolean = false;
-
-    get isOpenNewApplication() { return this._isOpenNewApplication; }
-    set isOpenNewApplication(isOpen: boolean) { this._isOpenNewApplication = isOpen; }
 
     private applicationTypes: Array<{ value, label }>;
 
@@ -70,11 +66,6 @@ export class ApplicationsComponent implements OnInit {
         this.applicationService.deactivateApplication(application).subscribe(result => {
             this.alert.setSuccessHint(`deactivateApplication${application.id}`, 'Application deactivated');
         });
-    }
-
-    @Access('EditApplications')
-    toggleCreateNew() {
-        this.isOpenNewApplication = !this.isOpenNewApplication;
     }
 
     createNewApplication(form) {

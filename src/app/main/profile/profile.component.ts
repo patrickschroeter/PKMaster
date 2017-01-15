@@ -1,8 +1,9 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { AuthenticationService, InputValidationService } from './../../core';
 import { AlertService } from './../../modules/alert';
+import { OverlayComponent } from './../../modules/overlay';
 
 import { DynamicFormService } from './../../modules/dynamic-form';
 
@@ -17,9 +18,7 @@ import { Fields } from './../../models';
 export class ProfileComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    private _isChangingPassword: boolean;
-    get isChangingPassword() { return this._isChangingPassword; }
-    set isChangingPassword(isOpen: boolean) { this._isChangingPassword = isOpen; }
+    @ViewChild('overlay') overlay: OverlayComponent;
 
     private _changePasswordForm: FormGroup;
     get changePasswordForm() { return this._changePasswordForm; }
@@ -40,7 +39,6 @@ export class ProfileComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.isChangingPassword = false;
 
         this.auth.getUser().subscribe(user => {
             this.user = user;
@@ -69,14 +67,6 @@ export class ProfileComponent implements OnInit {
     }
 
     /**
-     * @description toggle the password change overlay
-     * @return {void}
-     */
-    togglePasswordOverlay(): void {
-        this.isChangingPassword = !this.isChangingPassword;
-    }
-
-    /**
      * @description changes the password
      * @param {Object} event the form object
      * @return {void}
@@ -91,7 +81,7 @@ export class ProfileComponent implements OnInit {
                 this.alert.setAlert('Error', 'There was an error changing your password. Please try again later.');
             }, () => {
                 this.alert.removeHint('changePassword');
-                this.togglePasswordOverlay();
+                this.overlay.toggle(false);
                 this.initChangePasswordField();
             }
         );

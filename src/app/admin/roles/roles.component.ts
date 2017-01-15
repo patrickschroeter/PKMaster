@@ -10,13 +10,9 @@ export class RolesComponent implements OnInit {
 
     private roles;
     private _newRole: Array<any>;
-    private _isOpenNewRole: boolean = false;
 
     set newRole(value) { this._newRole = value; }
     get newRole() { return this._newRole; }
-
-    set isOpenNewRole(value) { this._isOpenNewRole = value; }
-    get isOpenNewRole() { return this._isOpenNewRole; }
 
     constructor() { }
 
@@ -73,10 +69,6 @@ export class RolesComponent implements OnInit {
 
     createNewRole(form) {
         // TODO: create new role
-    }
-
-    toggleCreateNew() {
-        this.isOpenNewRole = !this.isOpenNewRole;
     }
 
 }
