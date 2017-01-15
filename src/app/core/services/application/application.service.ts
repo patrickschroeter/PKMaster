@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Rx';
 
 import { AlertService } from './../../../modules/alert';
 import { FormService } from './../form';
+import { AuthenticationService } from './../authentication';
 
 import { ApplicationApi } from './../../../swagger/api/ApplicationApi';
 
@@ -17,8 +18,9 @@ export class ApplicationService {
     constructor(
         private formService: FormService,
         private alert: AlertService,
-        private applicationApi: ApplicationApi) {
-     }
+        private applicationApi: ApplicationApi,
+        private auth: AuthenticationService
+    ) { }
 
     /**
      * @description returns the observable to get a applicationn by the given id
@@ -37,7 +39,7 @@ export class ApplicationService {
     public getApplications(sort?: string): Observable<any> {
         return this.applicationApi.getApplications().map(applications => {
             if (sort) {
-                applications.sort(function(a, b) {return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
+                applications.sort(function (a, b) { return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
             }
             return this.applications = applications;
         });
@@ -49,6 +51,11 @@ export class ApplicationService {
      * @return {Observable}
      */
     public createNewApplication(application: Application): Observable<Application> {
+        /* TODO */
+        this.auth.getUser().subscribe(user => {
+            application.userId = user.id;
+        });
+
         return this.applicationApi.createApplication(17, (application as ApplicationCreateDto)).map(result => {
             return this.application = result;
         });

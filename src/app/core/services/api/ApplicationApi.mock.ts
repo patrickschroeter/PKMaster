@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 import { FormApiMock } from './FormApi.mock';
+import { ConferenceApiMock } from './ConferenceApi.mock';
+import { UserApiMock } from './UserApi.mock';
 
 import { Application, Comment } from './../../../swagger';
 import { FormApi } from './../../../swagger/api/FormApi';
@@ -12,11 +14,11 @@ import { FormApi } from './../../../swagger/api/FormApi';
 @Injectable()
 export class ApplicationApiMock {
 
-    static COMMENT_PRIVATE: Comment = { isPrivate: false, message: 'Testkommentar', created: new Date(2016, 5, 17), user: { lastname: 'Truthy'} };
+    static COMMENT_PRIVATE: Comment = { isPrivate: false, message: 'Testkommentar', created: new Date(), user: { lastname: 'Truthy'} };
 
-    static COMMENT_PUBLIC: Comment = { isPrivate: true, message: 'privater Testkommentar, der leider etwas länger wurde als anfangs geplant, aber auch nicht gekürzt werden kann, da sonst informationen fehlen', created: new Date(2016, 5, 16), user: { lastname: 'Falsey'} };
+    static COMMENT_PUBLIC: Comment = { isPrivate: true, message: 'privater Testkommentar, der leider etwas länger wurde als anfangs geplant, aber auch nicht gekürzt werden kann, da sonst informationen fehlen', created: new Date(), user: { lastname: 'Falsey'} };
 
-    static APPLICATION: Application = { id: '1', status: { name: 'created'}, created: new Date(1991, 5, 17), form: FormApiMock.FORM, attributes: FormApiMock.FORM.elements, comments: [ ApplicationApiMock.COMMENT_PUBLIC, ApplicationApiMock.COMMENT_PRIVATE ] };
+    static APPLICATION: Application = { id: '1', status: { name: 'created'}, created: new Date(), form: FormApiMock.FORM, attributes: FormApiMock.FORM.elements, comments: [ ApplicationApiMock.COMMENT_PUBLIC, ApplicationApiMock.COMMENT_PRIVATE ], conference: ConferenceApiMock.CONFERENCE, user: UserApiMock.USER };
 
     private list = [];
 

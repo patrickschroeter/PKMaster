@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as _ from 'lodash';
 
 import { Observable } from 'rxjs/Rx';
 
@@ -6,11 +7,13 @@ import { ApplicationApiMock } from './';
 
 import { Application } from './../../../swagger';
 import { FormApi } from './../../../swagger/api/FormApi';
+import { ConferenceApi } from './../../../swagger/api/ConferenceApi';
+import { UserApi } from './../../../swagger/api/UserApi';
 
 @Injectable()
 export class ApplicationEndpoint {
 
-    constructor(private formApi: FormApi) { }
+    constructor(private formApi: FormApi, private conferenceApi: ConferenceApi, private userApi: UserApi) { }
 
     public getApplicationById(applicationId: string, token?: string, extraHttpRequestParams?: any): Observable<any> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
@@ -55,6 +58,11 @@ export class ApplicationEndpoint {
     public createApplication(token?: string, application?: Application, extraHttpRequestParams?: any): Observable<any> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + '%c createApplication', 'color: #F44336', 'color: #fefefe');
+
+        if (application.userId) {
+            application.user = this.userApi['_user'](application.userId);
+        }
+
         let newapplication = this._applicationAdd(application);
         return new Observable(observer => {
             setTimeout(() => {
@@ -76,7 +84,13 @@ export class ApplicationEndpoint {
         application?: Application, extraHttpRequestParams?: any): Observable<any> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c updateApplicationById ${applicationId}`, 'color: #F44336', 'color: #fefefe');
+
+        if (application.conferenceId && !application.conference) {
+            application.conference = this.conferenceApi['_conference'](application.conferenceId);
+        }
+
         let updatedApplication = this._applicationUpdate(applicationId, application);
+
         return new Observable(observer => {
             setTimeout(() => {
                 if (!token) {

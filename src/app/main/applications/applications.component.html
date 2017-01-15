@@ -25,9 +25,9 @@
                     <pk-list-attribute name="name">
                         <a routerLink="/applications/{{ application.id }}">{{ application.form ? application.form.title: 'No Form to get Title from.' }}</a>
                     </pk-list-attribute>
-                    <pk-list-attribute name="author">{{ application.author }}</pk-list-attribute>
+                    <pk-list-attribute name="author">{{ application.user ? application.user.lastname : '' }}</pk-list-attribute>
                     <pk-list-attribute name="conference">
-                        <span *accessReadConferences="1">{{ application.conference ? application.conference.dateOfEvent : '' | date}}</span>
+                        <span *accessReadConferences="1">{{ application.conference ? (application.conference.dateOfEvent | date) : ''}}</span>
                         <span *accessReadConferences>
                             <a *ngIf="application.conference" routerLink="/conferences/{{ application.conference.id }}">{{ application.conference.dateOfEvent | date  }}</a>
                         </span>
@@ -62,10 +62,10 @@
     </pk-floating>
 
     <pk-overlay #overlay class="overlay--fluid">
-        <pk-overlay-content>
-            Create New Application
-        </pk-overlay-content>
         <pk-overlay-header>
+            Create New Application
+        </pk-overlay-header>
+        <pk-overlay-content>
 
             <div *ngIf="!applicationTypes?.length" class="empty-wrapper">
                 <div class="label">No Forms available.</div>
@@ -78,6 +78,6 @@
                     {{ option.label }}
             </div>
 
-        </pk-overlay-header>
+        </pk-overlay-content>
     </pk-overlay>
 </div>

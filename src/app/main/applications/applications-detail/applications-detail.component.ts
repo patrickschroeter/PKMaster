@@ -131,10 +131,13 @@ export class ApplicationsDetailComponent implements OnInit {
     //     this.isOpenApplicationConference = !this.isOpenApplicationConference;
     // }
 
-    public addApplicationToConference(conference) {
-        this.application.conference = conference;
-        this.application.status = { name: 'pending' };
+    public addApplicationToConference(data) {
+        this.application.conferenceId = data.value;
+
+        /* TODO */ this.application.status = { name: 'pending' };
+
         this.applicationService.updateApplication(this.application).subscribe(application => {
+            this.application = application;
             this.overlay.toggle();
         });
     }

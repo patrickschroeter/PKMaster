@@ -10,7 +10,7 @@ import { Conference } from './../../../swagger';
 @Injectable()
 export class ConferenceApiMock {
 
-    static CONFERENCE: Conference = { id: '1', description: 'First Conference!', dateOfEvent: new Date(1991, 5, 17), applications: []};
+    static CONFERENCE: Conference = { id: '1', description: 'First Conference!', dateOfEvent: new Date(), applications: []};
 
     private list = [];
 

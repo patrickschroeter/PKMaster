@@ -12,7 +12,7 @@ import { AlertService, AlertMock } from './../../../modules/alert';
 
 import { ApplicationMock } from './';
 import { Status, ApplicationApi, FormApi, Application } from './../../../swagger';
-import { ApplicationApiMock, FormApiMock } from './..';
+import { ApplicationApiMock, FormApiMock, AuthenticationService, AuthenticationMock } from './..';
 
 describe('Service: Application', () => {
     beforeEach(() => {
@@ -25,6 +25,7 @@ describe('Service: Application', () => {
                 { provide: AlertService, useClass: AlertMock },
                 { provide: ApplicationApi, useClass: ApplicationApiMock },
                 { provide: FormApi, useClass: FormApiMock },
+                { provide: AuthenticationService, useClass: AuthenticationMock },
             ]
         });
     });
