@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import {
@@ -13,6 +13,8 @@ import { Application, Comment } from './../../../swagger';
 
 import { Access } from './../../../shared/decorators';
 
+import { OverlayComponent } from './../../../modules/overlay';
+
 @Component({
     selector: 'pk-applications-detail',
     templateUrl: './applications-detail.component.html',
@@ -20,6 +22,8 @@ import { Access } from './../../../shared/decorators';
 })
 export class ApplicationsDetailComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
+
+    @ViewChild('overlay') overlay: OverlayComponent;
 
     private _application: Application;
 
@@ -29,7 +33,6 @@ export class ApplicationsDetailComponent implements OnInit {
     public addComment: Array<any>;
     public savingComment: Boolean;
 
-    public isOpenApplicationConference: boolean;
     public conferences: any[];
 
     constructor(
@@ -125,16 +128,16 @@ export class ApplicationsDetailComponent implements OnInit {
         });
     }
 
-    @Access('EditConferences')
-    public toggleApplicationConference() {
-        this.isOpenApplicationConference = !this.isOpenApplicationConference;
-    }
+    // @Access('EditConferences')
+    // public toggleApplicationConference() {
+    //     this.isOpenApplicationConference = !this.isOpenApplicationConference;
+    // }
 
     public addApplicationToConference(conference) {
         this.application.conference = conference;
         this.application.status = { name: 'pending' };
         this.applicationService.updateApplication(this.application).subscribe(application => {
-            this.toggleApplicationConference();
+            this.overlay.toggle();
         });
     }
 

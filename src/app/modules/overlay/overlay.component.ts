@@ -1,24 +1,39 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, Input } from '@angular/core';
 
 @Component({
     selector: 'pk-overlay',
     templateUrl: './overlay.component.html',
-    styleUrls: ['./overlay.component.scss']
+    styleUrls: ['./overlay.component.scss'],
+    exportAs: 'overlay'
 })
 export class OverlayComponent implements OnInit {
 
     @HostBinding('class.overlay') overlay = true;
 
-    @Input() isOpen: boolean;
-
-    @Output() toggleOverlay: EventEmitter<any> = new EventEmitter<any>();
+    private isOpen: boolean = false;
 
     constructor() { }
 
     ngOnInit() {
     }
 
-    toggle() {
-        this.toggleOverlay.emit();
+    public toggle() {
+        this.isOpen = !this.isOpen;
     }
 }
+
+/**
+ * Structural transclude components
+ */
+
+@Component({
+  selector: 'pk-overlay-header',
+  template: '<ng-content></ng-content>'
+})
+export class OverlayHeaderComponent { }
+
+@Component({
+  selector: 'pk-overlay-content',
+  template: '<ng-content></ng-content>'
+})
+export class OverlayContentComponent { }
