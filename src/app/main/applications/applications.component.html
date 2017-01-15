@@ -13,7 +13,7 @@
                 <!--<pk-list-attribute name="state-icon" (click)="sortBy('status')"></pk-list-attribute>-->
                 <pk-list-attribute name="state" (click)="sortBy('status')">Status</pk-list-attribute>
                 <pk-list-attribute name="name">Title</pk-list-attribute>
-                <pk-list-attribute name="author">Author</pk-list-attribute>
+                <pk-list-attribute name="author" *accessEditApplications>Author</pk-list-attribute>
                 <pk-list-attribute name="conference">Conference</pk-list-attribute>
                 <pk-list-attribute name="date" (click)="sortBy('created')">Created</pk-list-attribute>
                 <pk-list-attribute name="modified" (click)="sortBy('modified')">Modified</pk-list-attribute>
@@ -25,7 +25,7 @@
                     <pk-list-attribute name="name">
                         <a routerLink="/applications/{{ application.id }}">{{ application.form ? application.form.title: 'No Form to get Title from.' }}</a>
                     </pk-list-attribute>
-                    <pk-list-attribute name="author">{{ application.user ? application.user.lastname : '' }}</pk-list-attribute>
+                    <pk-list-attribute name="author" *accessEditApplications>{{ application.user ? application.user.lastname : '' }}</pk-list-attribute>
                     <pk-list-attribute name="conference">
                         <span *accessReadConferences="1">{{ application.conference ? (application.conference.dateOfEvent | date) : ''}}</span>
                         <span *accessReadConferences>
