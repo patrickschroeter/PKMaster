@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { AlertService, Message } from './../../services';
+import { OverlayComponent } from './../../../../modules/overlay';
 
 @Component({
     selector: 'pk-alert',
@@ -9,9 +10,8 @@ import { AlertService, Message } from './../../services';
 })
 export class AlertComponent implements OnInit {
 
-    private _isOverlayOpen: boolean;
-    get isOverlayOpen() { return this._isOverlayOpen; }
-    set isOverlayOpen(isOpen: boolean) { this._isOverlayOpen = isOpen; }
+    @ViewChild('overlay') overlay: OverlayComponent;
+
     private _overlayTitle: string;
     get overlayTitle() { return this._overlayTitle; }
     set overlayTitle(title: string) { this._overlayTitle = title; }
@@ -31,7 +31,7 @@ export class AlertComponent implements OnInit {
         this.alert.getAlert().subscribe(alert => {
             this.overlayTitle = alert.title;
             this.overlayMessage = alert.message;
-            this.isOverlayOpen = alert.isOpen;
+            this.overlay.toggle(alert.isOpen);
         });
         this.alert.getHintMessages().subscribe(hints => {
             this.hintElements = hints;
@@ -39,10 +39,6 @@ export class AlertComponent implements OnInit {
         this.alert.getLoading().subscribe(loading => {
             this.loadingElements = loading;
         });
-    }
-
-    toggleOverlay() {
-        this.isOverlayOpen = !this.isOverlayOpen;
     }
 
 }

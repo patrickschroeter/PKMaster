@@ -16,10 +16,6 @@ export class FormsComponent implements OnInit {
     get newForm() { return this._newForm; }
     set newForm(form) { this._newForm = form; }
 
-    private _isOpenNewForm: boolean = false;
-    get isOpenNewForm() { return this._isOpenNewForm; }
-    set isOpenNewForm(isOpen: boolean) { this._isOpenNewForm = isOpen; }
-
     constructor(private formService: FormService, private router: Router) { }
 
     ngOnInit() {
@@ -42,9 +38,5 @@ export class FormsComponent implements OnInit {
                 this.router.navigate([`/forms/`, created['id'], 'edit']);
             }
         });
-    }
-
-    toggleCreateNew() {
-        this.isOpenNewForm = !this.isOpenNewForm;
     }
 }

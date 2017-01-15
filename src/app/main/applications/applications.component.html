@@ -4,7 +4,7 @@
 
         <div *ngIf="applications && !applications.length" class="empty-wrapper">
             <div class="label">No Applications here.</div>
-            <pk-button icon="add" element--secondary (onClick)="toggleCreateNew()" value="Create New Application" class="element--spacing-top-large"></pk-button>
+            <pk-button icon="add" element--secondary (onClick)="overlay.toggle()" value="Create New Application" class="element--spacing-top-large"></pk-button>
         </div>
 
         <h1 *ngIf="applications?.length" class="element element--spacing-bottom-small">Applications</h1>
@@ -51,11 +51,15 @@
 
     </div>
     <pk-floating fixed top-right *ngIf="applications?.length">
-        <pk-button rounded pkAlert="Create Application" icon="add" element--secondary (onClick)="toggleCreateNew()"></pk-button>
+        <pk-button rounded pkAlert="Create Application" icon="add" element--secondary (onClick)="overlay.toggle()"></pk-button>
     </pk-floating>
-    <pk-overlay [isOpen]="isOpenNewApplication" (toggleOverlay)="toggleCreateNew()" class="overlay--fluid">
-        <div class="pk-overlay__header">Create New Application</div>
-        <div class="pk-overlay__content">
+
+    <pk-overlay #overlay class="overlay--fluid">
+        <pk-overlay-content>
+            Create New Application
+        </pk-overlay-content>
+        <pk-overlay-header>
+
             <div *ngIf="!applicationTypes?.length" class="empty-wrapper">
                 <div class="label">No Forms available.</div>
                 <a *accessEditForms routerLink="/forms">
@@ -66,6 +70,7 @@
             <div class="overlay__option selectable" *ngFor="let option of applicationTypes" (click)="createNewApplication(option)">
                     {{ option.label }}
             </div>
-        </div>
+
+        </pk-overlay-header>
     </pk-overlay>
 </div>

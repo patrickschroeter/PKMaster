@@ -4,7 +4,7 @@
 
         <div *ngIf="forms && !forms.length" class="empty-wrapper">
             <div class="label">No Forms here.</div>
-            <pk-button icon="add" element--secondary (onClick)="toggleCreateNew()" value="Create New Form" class="element--spacing-top-large"></pk-button>
+            <pk-button icon="add" element--secondary (onClick)="overlay.toggle()" value="Create New Form" class="element--spacing-top-large"></pk-button>
         </div>
 
         <h1 *ngIf="forms?.length" class="element element--spacing-bottom-small">Forms</h1>
@@ -38,11 +38,14 @@
         </pk-list>
     </div>
     <pk-floating fixed top-right>
-        <pk-button rounded pkAlert="Create New Form" class="element--spacing-bottom-tiny" icon="add" element--secondary (onClick)="toggleCreateNew()"></pk-button>
+        <pk-button rounded pkAlert="Create New Form" class="element--spacing-bottom-tiny" icon="add" element--secondary (onClick)="overlay.toggle()"></pk-button>
     </pk-floating>
-    <pk-overlay [isOpen]="isOpenNewForm" (toggleOverlay)="toggleCreateNew()" class="overlay--fluid">
-        <div class="pk-overlay__header">Create New Form</div>
-        <div class="pk-overlay__content">
+
+    <pk-overlay #overlay class="overlay--fluid">
+        <pk-overlay-header>
+            Create New Form
+        </pk-overlay-header>
+        <pk-overlay-content>
 
             <pk-dynamic-form [formElements]="newForm" #dynamicForm>
                 <pk-dynamic-form-content>
@@ -63,6 +66,6 @@
 
             </pk-dynamic-form>
 
-        </div>
+        </pk-overlay-content>
     </pk-overlay>
 </div>

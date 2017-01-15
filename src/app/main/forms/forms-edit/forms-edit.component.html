@@ -34,18 +34,24 @@
     </pk-floating>
 </div>
 
-<pk-overlay [isOpen]="isPresetOverlay" (toggleOverlay)="togglePresetOverlay()">
-    <div class="pk-overlay__header">Add Element Preset</div>
-    <div class="pk-overlay__content">
+<pk-overlay #overlayPreset="overlay">
+    <pk-overlay-header>
+        Add Element Preset
+    </pk-overlay-header>
+    <pk-overlay-content>
+
         <div class="overlay__option selectable" *ngFor="let option of presets" (click)="addPreset(option)">
                     {{ option.label }}
         </div>
-    </div>
+
+    </pk-overlay-content>
 </pk-overlay>
 
-<pk-overlay [isOpen]="isEditingForm" (toggleOverlay)="toggleFormEditing()" class="overlay--fluid">
-    <div class="pk-overlay__header">Edit Form Attributes</div>
-    <div class="pk-overlay__content">
+<pk-overlay #overlayAttributes="overlay" class="overlay--fluid">
+    <pk-overlay-header>
+        Edit Form Attributes
+    </pk-overlay-header>
+    <pk-overlay-content>
 
         <pk-dynamic-form *ngIf="editForm" [formElements]="editForm" #dynamicForm>
             <pk-dynamic-form-content>
@@ -65,7 +71,7 @@
 
         </pk-dynamic-form>
 
-    </div>
+    </pk-overlay-content>
 </pk-overlay>
 
 

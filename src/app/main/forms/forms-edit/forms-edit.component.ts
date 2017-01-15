@@ -1,8 +1,9 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { FormService, FormElementService } from './../../../core';
 import { AlertService } from './../../../modules/alert';
+import { OverlayComponent } from './../../../modules/overlay';
 
 import { Field } from './../../../swagger';
 
@@ -17,6 +18,9 @@ import { Field } from './../../../swagger';
 export class FormsEditComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
+    @ViewChild('overlayPreset') overlayPreset: OverlayComponent;
+    @ViewChild('overlayAttributes') overlayAttributes: OverlayComponent;
+
     /** The form to edit */
     private _form;
     get form() { return this._form; }
@@ -27,14 +31,7 @@ export class FormsEditComponent implements OnInit {
     set editForm(form) { this._editForm = form; }
     /** Flag if Add Element View is open */
     private addingElement: boolean = false;
-    /** Flag if edit Form attributes overlay is open */
-    private _isEditingForm: boolean = false;
-    get isEditingForm() { return this._isEditingForm; }
-    set isEditingForm(isOpen: boolean) { this._isEditingForm = isOpen; }
 
-    private _isPresetOverlay: boolean = false;
-    get isPresetOverlay() { return this._isPresetOverlay; }
-    set isPresetOverlay(isOpen: boolean) { this._isPresetOverlay = isOpen; }
     private presets: { value: string, label: string }[];
 
     constructor(
@@ -86,7 +83,7 @@ export class FormsEditComponent implements OnInit {
 
     addPreset(option?) {
         if (!option) {
-            this.isPresetOverlay = true;
+            this.overlayPreset.toggle(true);
             this.presets = [
                 {
                     value: 'devider',
@@ -107,12 +104,8 @@ export class FormsEditComponent implements OnInit {
             } else {
                 this.alert.setAlert('Error', 'The given name (ID) is already in use. Please choose a new unique one.');
             }
-            this.isPresetOverlay = false;
+            this.overlayPreset.toggle(false);
         }
-    }
-
-    togglePresetOverlay() {
-        this.isPresetOverlay = !this.isPresetOverlay;
     }
 
     /**
@@ -125,20 +118,13 @@ export class FormsEditComponent implements OnInit {
     }
 
     /**
-     * @description toggle the edit form attribute overlay
-     * @return {void}
-     */
-    toggleFormEditing(): void {
-        this.isEditingForm = !this.isEditingForm;
-    }
-    /**
      * @description edit the form attributes
      * @return {void}
      */
     editFormAttributes(): void {
         this.formService.getEditFormTemplate(this.form.id).subscribe(form => {
             this.editForm = form;
-            this.isEditingForm = true;
+            this.overlayAttributes.toggle(true);
         });
     }
 
@@ -150,7 +136,7 @@ export class FormsEditComponent implements OnInit {
     saveFormAttributes(form): void {
         this.formService.saveFormAttributes(form).subscribe(success => {
             if (success) {
-                this.isEditingForm = false;
+                this.overlayAttributes.toggle(false);
                 this.alert.setSuccessHint('form_attribute_saved', 'Form attributes saved.');
             }
         });
