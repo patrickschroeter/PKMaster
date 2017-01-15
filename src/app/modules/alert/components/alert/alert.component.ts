@@ -31,7 +31,9 @@ export class AlertComponent implements OnInit {
         this.alert.getAlert().subscribe(alert => {
             this.overlayTitle = alert.title;
             this.overlayMessage = alert.message;
-            this.overlay.toggle(alert.isOpen);
+            if (this.overlay) {
+                this.overlay.toggle(alert.isOpen);
+            }
         });
         this.alert.getHintMessages().subscribe(hints => {
             this.hintElements = hints;
