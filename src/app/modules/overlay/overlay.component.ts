@@ -27,7 +27,7 @@ export class OverlayComponent implements OnInit {
     }
 
     public toggle(state?: boolean) {
-        if (typeof state === undefined) {
+        if (typeof state === 'undefined') {
             this.isOpen = !this.isOpen;
         } else {
             this.isOpen = state;
