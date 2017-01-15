@@ -25,6 +25,7 @@ import { AlertDirectiveModule } from './../modules/alert/alert.module';
 
         main.ConferencesComponent,
         main.ConferencesDetailComponent,
+        main.ConferencesEditComponent,
 
         main.ProfileEditComponent,
 
