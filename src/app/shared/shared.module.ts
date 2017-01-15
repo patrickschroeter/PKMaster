@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 
 import * as components from './components';
 import * as elements from './elements';
+import * as directives from './directives';
 
 import { FloatingModule } from './../modules/floating/floating.module';
 import { ButtonModule } from './../modules/button/button.module';
@@ -16,7 +17,9 @@ import { DeviderModule } from './../modules/devider/devider.module';
         components.NavbarComponent,
         components.NavbarAdminComponent,
 
-        elements.LoadingComponent
+        elements.LoadingComponent,
+
+        directives.AccessDirective
     ],
     imports: [
         CommonModule,
@@ -35,7 +38,9 @@ import { DeviderModule } from './../modules/devider/devider.module';
         components.NavbarComponent,
         components.NavbarAdminComponent,
 
-        elements.LoadingComponent
+        elements.LoadingComponent,
+
+        directives.AccessDirective
     ]
 })
 export class SharedModule { }

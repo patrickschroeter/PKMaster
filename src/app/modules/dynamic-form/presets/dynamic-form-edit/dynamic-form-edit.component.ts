@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'pk-dynamic-form-edit',
@@ -7,10 +7,15 @@ import { Component, OnInit, Input } from '@angular/core';
 export class DynamicFormEditComponent implements OnInit {
 
     @Input() form;
+    @Output() onEdit: EventEmitter<any> = new EventEmitter();
 
     constructor() { }
 
     ngOnInit() {
+    }
+
+    edit(element) {
+        this.onEdit.emit(element);
     }
 
 }

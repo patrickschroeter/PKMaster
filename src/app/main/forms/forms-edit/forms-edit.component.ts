@@ -18,15 +18,23 @@ export class FormsEditComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
     /** The form to edit */
-    private form;
+    private _form;
+    get form() { return this._form; }
+    set form(form) { this._form = form; }
     /** The form to edit the Form attributes */
-    private editForm;
+    private _editForm;
+    get editForm() { return this._editForm; }
+    set editForm(form) { this._editForm = form; }
     /** Flag if Add Element View is open */
     private addingElement: boolean = false;
     /** Flag if edit Form attributes overlay is open */
-    private isEditingForm: boolean = false;
+    private _isEditingForm: boolean = false;
+    get isEditingForm() { return this._isEditingForm; }
+    set isEditingForm(isOpen: boolean) { this._isEditingForm = isOpen; }
 
-    private isPresetOverlay: boolean = false;
+    private _isPresetOverlay: boolean = false;
+    get isPresetOverlay() { return this._isPresetOverlay; }
+    set isPresetOverlay(isOpen: boolean) { this._isPresetOverlay = isOpen; }
     private presets: { value: string, label: string }[];
 
     constructor(
@@ -92,7 +100,7 @@ export class FormsEditComponent implements OnInit {
                     value: 'matnr',
                     label: 'Matrikelnummer',
                 }
-            ]
+            ];
         } else {
             if (this.formService.addPresetToForm(option.value)) {
                 this.alert.setSuccessHint('add-preset', `Preset ${option.label} added.`);

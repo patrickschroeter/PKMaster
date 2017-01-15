@@ -74,7 +74,7 @@ export class FormService {
         // TODO: sort on Server
         if (sort) {
             return observable.map(element => {
-                return element.sort(function(a, b) {return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
+                return element.sort(function (a, b) { return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
             });
         }
         // TODO: load real data
@@ -222,7 +222,8 @@ export class FormService {
     public addPresetToForm(name: string): boolean {
         this.editingElementIndex = -1;
         // TODO: load real data
-        return this.addElementToForm({"fieldType":"input","name":"matnr","required":true,"label":"Matrikelnummer","contentType":"number","placeholder":"","styles":["small"],"value":""}, 'clone');
+        // tslint:disable-next-line:max-line-length
+        return this.addElementToForm({ 'fieldType': 'input', 'name': 'matnr', 'required': true, 'label': 'Matrikelnummer', 'contentType': 'number', 'placeholder': '', 'styles': ['small'], 'value': '' }, 'clone');
     }
 
     /**

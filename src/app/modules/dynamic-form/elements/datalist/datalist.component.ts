@@ -18,11 +18,17 @@ export class DatalistComponent implements OnInit {
     @Input() config: Field;
     @Input() disabled: boolean;
 
-    private isOpen: boolean;
+    private _isOpen: boolean;
+    get isOpen() { return this._isOpen; }
+    set isOpen(isOpen: boolean) { this._isOpen = isOpen; }
 
-    private addOptionForm;
+    private _addOptionForm;
+    get addOptionForm() { return this._addOptionForm; }
+    set addOptionForm(form) { this._addOptionForm = form; }
 
-    private formControl: AbstractControl;
+    private _formControl: AbstractControl;
+    get formControl() { return this._formControl; }
+    set formControl(control: AbstractControl) { this._formControl = control; }
 
     constructor(private parent: DynamicFormComponent, private alert: AlertService) { }
 

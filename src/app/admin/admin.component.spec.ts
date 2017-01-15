@@ -10,7 +10,9 @@ import {
     AuthenticationService,
     AuthenticationMock,
     InputValidationService,
-    InputValidationMock
+    InputValidationMock,
+    PermissionService,
+    PermissionMock
 } from './../core';
 
 import {
@@ -32,6 +34,10 @@ describe('AdminComponent', () => {
                     { path: '', component: class { } },
                 ])
             ],
+            providers: [
+                { provide: AuthenticationService, useClass: AuthenticationMock },
+                { provide: PermissionService, useClass: PermissionMock }
+            ]
         })
             .compileComponents();
     }));

@@ -1,102 +1,68 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, CanDeactivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
+import * as _ from 'lodash';
 
-import { AuthenticationService } from './../authentication/authentication.service';
+import { AppUser } from './../../../swagger';
 
 @Injectable()
-export class PermissionService implements CanActivate, CanDeactivate<any>, CanActivateChild {
+export class PermissionService {
 
-    private guard: Object = {
-        main: this.allAccessWhenLoggedIn.bind(this),
-        profile: this.allAccessWhenLoggedIn.bind(this),
-        applications: this.allAccessWhenLoggedIn.bind(this),
-        conferences: this.guardConferencesRoute.bind(this),
-        forms: this.guardFormsRoute.bind(this),
+    private _permissions: string[];
 
-        admin: this.guardAdminRoute.bind(this),
-        roles: this.guardRolesRoute.bind(this),
-        permissions: this.guardPermissionsRoute.bind(this),
-        users: this.guardUsersRoute.bind(this)
-    };
+    set permissions(permissions: string[]) { this._permissions = permissions; }
+    get permissions(): string[] { return this._permissions; }
 
-    constructor(private authentication: AuthenticationService, private router: Router) { }
-
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
-        Observable<boolean> | Promise<boolean> | boolean {
-        let name = state.url.slice(1);
-        if (!this.authentication.isLoggedIn()) {
-            this.router.navigate(['/login']);
-            return false;
-        }
-
-        if (name === '') { return this.guard['main'](); }
-        return this.guard[name] ? this.guard[name]() : false;
-    }
-
-    canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
-        Observable<boolean> | Promise<boolean> | boolean {
-        return this.canActivate(route, state);
-    }
-
-    canDeactivate(component: any, route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
-        Observable<boolean> | Promise<boolean> | boolean {
-        return this.authentication.isLoggedIn();
-    }
-
+    constructor() { }
 
     /**
-    * Guard Definitions for Routes
-    */
-
-    private allAccessWhenLoggedIn(): Observable<any> {
-        let user = this.authentication.getUser();
-        /** TODO: catch error */
-        return user.map((e) => {
-            return !!e;
-        });
+     * @description update the permission object in the class with the input user
+     * @version v1.0.0
+     */
+    public updateUserPermissions(user?: AppUser): AppUser {
+        this.permissions = (user && user.permissions) ? user.permissions : [];
+        return user;
     }
 
-    private guardConferencesRoute(): Observable<any> {
-        let user = this.authentication.getUser();
-        return user.map((e) => {
-            return e.isPK;
-        });
+    /**
+     * @description check if the user has the given permission (string), permissions (array, and), permissions (array, or)
+     * @version v1.0.0
+     */
+    public hasPermission(permission: string | string[], or = false): boolean {
+        if (Array.isArray(permission)) {
+            if (or) {
+                return this.hasOneOfPermissions((permission as string[]));
+            } else {
+                return this.hasAllPermissions((permission as string[]));
+            }
+        } else if (typeof permission === 'string') {
+            return (!permission || (!!this.permissions && !!permission && this.permissions.indexOf(permission) !== -1));
+        }
+        return true;
     }
 
-    private guardFormsRoute(): Observable<any> {
-        let user = this.authentication.getUser();
-        return user.map((e) => {
-            return e.isPK;
-        });
+    /**
+     * @description check if the user has this one permission
+     */
+    private hasOnePermission(permission: string): boolean {
+        return (!permission || (!!this.permissions && !!permission && this.permissions.indexOf(permission) !== -1));
     }
 
-    private guardAdminRoute(): Observable<any> {
-        let user = this.authentication.getUser();
-        return user.map((e) => {
-            return e.isAdmin;
-        });
+    /**
+     * @description check if the user has the given permissions (array, and)
+     * @version v1.0.0
+     */
+    private hasAllPermissions(permissions: string[]): boolean {
+        return (!permissions || !permissions.length || (!!this.permissions && !!permissions && !_.difference(permissions, this.permissions).length));
     }
 
-    private guardUsersRoute(): Observable<any> {
-        let user = this.authentication.getUser();
-        return user.map((e) => {
-            return e.isAdmin;
-        });
-    }
-
-    private guardRolesRoute(): Observable<any> {
-        let user = this.authentication.getUser();
-        return user.map((e) => {
-            return e.isAdmin;
-        });
-    }
-
-    private guardPermissionsRoute(): Observable<any> {
-        let user = this.authentication.getUser();
-        return user.map((e) => {
-            return e.isAdmin;
-        });
+    /**
+     * @description check if the user has one of the given permissios (array, or)
+     */
+    private hasOneOfPermissions(permissions: string[]): boolean {
+        if (!permissions.length) { return true; }
+        for (let i = 0, length = permissions.length; i < length; i++) {
+            if (this.hasOnePermission(permissions[i])) { return true; }
+        }
+        return false;
     }
 
 }

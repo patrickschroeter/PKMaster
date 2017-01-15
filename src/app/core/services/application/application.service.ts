@@ -6,7 +6,7 @@ import { FormService } from './../form';
 
 import { ApplicationApi } from './../../../swagger/api/ApplicationApi';
 
-import { Application, Field } from './../../../swagger';
+import { Application, Field, ApplicationCreateDto } from './../../../swagger';
 
 @Injectable()
 export class ApplicationService {
@@ -28,7 +28,7 @@ export class ApplicationService {
     public getApplicationById(id: string): Observable<Application> {
         return this.applicationApi.getApplicationById(id).map(application => {
             return this.application = application;
-        })
+        });
     }
 
     /**
@@ -49,9 +49,9 @@ export class ApplicationService {
      * @return {Observable}
      */
     public createNewApplication(application: Application): Observable<Application> {
-        return this.applicationApi.createApplication(17, application).map(result => {
+        return this.applicationApi.createApplication(17, (application as ApplicationCreateDto)).map(result => {
             return this.application = result;
-        })
+        });
     }
 
     private blockedStatusUpdate(name: string, permittedStati: string[]): Observable<any> {
@@ -109,6 +109,12 @@ export class ApplicationService {
             this.applicationApi.updateApplicationById(application.id, 17, application);
             /** hack end */
             return this.application = application;
+        });
+    }
+
+    public updateApplication(application: Application): Observable<Application> {
+        return this.applicationApi.updateApplicationById(application.id, 17, application).map(result => {
+            return this.application = result;
         });
     }
 

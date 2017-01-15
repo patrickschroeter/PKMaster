@@ -5,24 +5,69 @@
 
     <pk-dynamic-form-disabled *ngIf="application.attributes?.length > 0" [form]="application.attributes"></pk-dynamic-form-disabled>
 
-    <pk-list *ngIf="application.comments">
-        <pk-list-header>
-            <!--<pk-list-attribute name="state-icon"></pk-list-attribute>-->
-            <pk-list-attribute name="state">Status</pk-list-attribute>
-            <pk-list-attribute name="name">Message</pk-list-attribute>
-            <pk-list-attribute name="date">Created</pk-list-attribute>
-            <pk-list-attribute name="state">Author</pk-list-attribute>
-        </pk-list-header>
-        <pk-list-content>
-            <pk-list-element *ngFor="let comment of application.comments" [name]="comment.isPrivate ? 'denied' : 'accepted'">
-                <!--<pk-list-attribute name="state-icon"></pk-list-attribute>-->
-                <pk-list-attribute name="state">{{ comment.isPrivate ? 'private' : 'public' }}</pk-list-attribute>
-                <pk-list-attribute name="name">{{ comment.message }}</pk-list-attribute>
-                <pk-list-attribute name="date">{{ comment.created | date }}</pk-list-attribute>
-                <pk-list-attribute name="state">{{ comment.author.salutation }} {{ comment.author.name }}</pk-list-attribute>
-            </pk-list-element>
-        </pk-list-content>
-    </pk-list>
+    <div class="comment-block">
+        <h4>Comments</h4>
+        <div class="comment-flex">
+            <div class="comment-add">
+                <pk-loading *ngIf="savingComment"></pk-loading>
+                <pk-dynamic-form *ngIf="!savingComment" [formElements]="addComment" #dynamicForm>
+                    <pk-dynamic-form-content>
+
+                        <pk-dynamic-form-element *ngFor="let element of addComment" [element]="element"></pk-dynamic-form-element>
+
+                    </pk-dynamic-form-content>
+
+                    <pk-dynamic-form-submit>
+                        <pk-button
+                            *ngIf="dynamicForm?.form"
+                            [value]="'Add'"
+                            icon="note_add"
+                            [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
+                            (onClick)="createNewComment(dynamicForm.form.value)"></pk-button>
+                    </pk-dynamic-form-submit>
+
+                </pk-dynamic-form>
+            </div>
+            <div class="comment-wrapper">
+                <div class="comment" *ngFor="let comment of application.comments" [ngClass]="{ 'comment--private': comment.isPrivate }">
+                    <div *ngIf="comment.requiresChanges">
+                        <div class="comment__header">
+                            <div class="comment__author">
+                                {{ comment.user ? comment.user.lastname : 'No Author' }}
+                            </div>
+                            <div class="comment__date">
+                                {{ comment.created | date }}
+                            </div>
+                            <div class="comment__state">
+                                {{ comment.isPrivate ? 'private' : 'public' }}
+                            </div>
+                        </div>
+                        <div class="comment__content">
+                            {{ comment.message }}
+                        </div>
+                    </div>
+                </div>
+                <div class="comment" *ngFor="let comment of application.comments" [ngClass]="{ 'comment--private': comment.isPrivate }">
+                    <div *ngIf="!comment.requiresChanges">
+                        <div class="comment__header">
+                            <div class="comment__author">
+                                {{ comment.user ? comment.user.lastname : 'No Author' }}
+                            </div>
+                            <div class="comment__date">
+                                {{ comment.created | date }}
+                            </div>
+                            <div class="comment__state">
+                                {{ comment.isPrivate ? 'private' : 'public' }}
+                            </div>
+                        </div>
+                        <div class="comment__content">
+                            {{ comment.message }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <pk-floating top-right fixed>
         <a routerLink="/applications">
@@ -43,5 +88,26 @@
             (onClick)="deactivateApplication(application)"
             class="element--spacing-bottom-tiny"
             icon="delete" element--error></pk-button>
+
+        <pk-button rounded *accessEditConferences pkAlert="Add application to conference"
+            (onClick)="toggleApplicationConference()"
+            class="element--spacing-bottom-tiny"
+            icon="forum"
+            element--success
+            ></pk-button>
     </pk-floating>
+
+
+    <pk-overlay [isOpen]="isOpenApplicationConference" (toggleOverlay)="toggleApplicationConference()" class="overlay--fluid">
+        <div class="pk-overlay__header">Add application to conference</div>
+        <div class="pk-overlay__content">
+            <div *ngIf="!conferences?.length" class="empty-wrapper">
+                <div class="label">No Conferences available.</div>
+            </div>
+
+            <div class="overlay__option selectable" *ngFor="let option of conferences" (click)="addApplicationToConference(option)" [class.selectable--active]="application.conference && application.conference.value === option.value">
+                    {{ option.label }}
+            </div>
+        </div>
+    </pk-overlay>
 </div>

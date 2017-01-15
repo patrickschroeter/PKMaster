@@ -12,10 +12,10 @@
     </div>
   </div>
 
-  <a class="navbar__link selectable left" routerLink="/applications" routerLinkActive="selectable--active">Main</a>
-  <a class="navbar__link selectable left" routerLink="/admin/roles" routerLinkActive="selectable--active">Roles</a>
-  <a class="navbar__link selectable left" routerLink="/admin/permissions" routerLinkActive="selectable--active">Permissions</a>
-  <a class="navbar__link selectable left" routerLink="/admin/users" routerLinkActive="selectable--active">Users</a>
+  <a *access class="navbar__link selectable left" routerLink="/applications" routerLinkActive="selectable--active">Main</a>
+  <a *accessReadRoles class="navbar__link selectable left" routerLink="/admin/roles" routerLinkActive="selectable--active">Roles</a>
+  <a *accessReadPermissions class="navbar__link selectable left" routerLink="/admin/permissions" routerLinkActive="selectable--active">Permissions</a>
+  <a *accessReadUsers class="navbar__link selectable left" routerLink="/admin/users" routerLinkActive="selectable--active">Users</a>
   <a class="navbar__link selectable left" routerLink="/admin/profile" routerLinkActive="selectable--active">Profile</a>
 
   <pk-devider></pk-devider>

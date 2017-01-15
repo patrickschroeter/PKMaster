@@ -12,9 +12,13 @@ import { Field } from './../../../swagger';
 export class ElementEditComponent implements OnInit {
 
     /** The current Element as FormElement[] */
-    private element: Array<Field>;
+    private _element: Array<Field>;
+    get element() { return this._element; }
+    set element(element: Array<Field>) { this._element = element; }
     /** The new Element interpreted as new FormElement */
-    private elementPreview: Array<Field> = [];
+    private _elementPreview: Array<Field> = [];
+    get elementPreview() { return this._elementPreview; }
+    set elementPreview(element: Array<Field>) { this._elementPreview = element; }
     /** Flag if View has Submit Enabled */
     private elementHasSubmit: boolean = false;
     /** Flag if View has Preview Enabled */

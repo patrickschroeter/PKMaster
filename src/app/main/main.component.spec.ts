@@ -5,7 +5,7 @@ import { DebugElement } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { MainComponent } from './main.component';
-import { AuthenticationService, AuthenticationMock } from './../core/services';
+import { PermissionService, PermissionMock, AuthenticationService, AuthenticationMock } from './../core/services';
 
 import {
     SharedModule
@@ -27,7 +27,8 @@ describe('MainComponent', () => {
                 ])
             ],
             providers: [
-                { provide: AuthenticationService, useClass: AuthenticationMock }
+                { provide: AuthenticationService, useClass: AuthenticationMock },
+                { provide: PermissionService, useClass: PermissionMock }
             ]
         })
             .compileComponents();

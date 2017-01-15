@@ -10,7 +10,16 @@ import {
     ApplicationService,
     ApplicationMock,
     InputValidationService,
-    InputValidationMock
+    InputValidationMock,
+
+    AuthenticationService,
+    AuthenticationMock,
+
+    PermissionService,
+    PermissionMock,
+
+    ConferenceService,
+    ConferenceMock
 } from './../../../core';
 
 import { AlertService, AlertMock } from './../../../modules/alert';
@@ -20,6 +29,7 @@ import { DynamicFormModule } from './../../../modules/dynamic-form/dynamic-form.
 import { ListModule } from './../../../modules/list/list.module';
 import { FloatingModule } from './../../../modules/floating/floating.module';
 import { ButtonModule } from './../../../modules/button/button.module';
+import { OverlayModule } from './../../../modules/overlay/overlay.module';
 
 describe('ApplicationsDetailComponent', () => {
     let component: ApplicationsDetailComponent;
@@ -38,12 +48,16 @@ describe('ApplicationsDetailComponent', () => {
                 DynamicFormModule,
                 ListModule,
                 FloatingModule,
-                ButtonModule
+                ButtonModule,
+                OverlayModule
             ],
             providers: [
                 { provide: ApplicationService, useClass: ApplicationMock },
                 { provide: AlertService, useClass: AlertMock },
                 { provide: InputValidationService, useClass: InputValidationMock },
+                { provide: AuthenticationService, useClass: AuthenticationMock },
+                { provide: PermissionService, useClass: PermissionMock },
+                { provide: ConferenceService, useClass: ConferenceMock },
             ]
         })
             .compileComponents();

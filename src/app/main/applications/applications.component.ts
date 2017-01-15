@@ -1,11 +1,13 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ApplicationService, FormService } from './../../core';
+import { ApplicationService, FormService, PermissionService } from './../../core';
 
 import { AlertService } from './../../modules/alert';
 
-import { Application, Form } from './../../swagger';
+import { Application } from './../../swagger';
+
+import { Access } from './../../shared/decorators';
 
 @Component({
     selector: 'pk-applications',
@@ -16,15 +18,20 @@ export class ApplicationsComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
     private applications: Application[];
-    private isOpenNewApplication: boolean = false;
+    private _isOpenNewApplication: boolean = false;
 
-    private applicationTypes: Array<{value, label}>;
+    get isOpenNewApplication() { return this._isOpenNewApplication; }
+    set isOpenNewApplication(isOpen: boolean) { this._isOpenNewApplication = isOpen; }
+
+    private applicationTypes: Array<{ value, label }>;
 
     constructor(
         private router: Router,
         private applicationService: ApplicationService,
         private alert: AlertService,
-        private formService: FormService) { }
+        private formService: FormService,
+        private permission: PermissionService
+    ) { }
 
     ngOnInit() {
         this.applicationService.getApplications().subscribe(result => {
@@ -33,7 +40,7 @@ export class ApplicationsComponent implements OnInit {
 
         this.formService.getForms().subscribe(forms => {
             this.applicationTypes = [];
-            for (let i = 0, length = forms.length; i < length; i ++) {
+            for (let i = 0, length = forms.length; i < length; i++) {
                 let element = forms[i];
                 this.applicationTypes.push({
                     value: element.id,
@@ -65,6 +72,7 @@ export class ApplicationsComponent implements OnInit {
         });
     }
 
+    @Access('EditApplications')
     toggleCreateNew() {
         this.isOpenNewApplication = !this.isOpenNewApplication;
     }
@@ -74,7 +82,7 @@ export class ApplicationsComponent implements OnInit {
             form: {
                 id: form.value
             }
-        }
+        };
         this.applicationService.createNewApplication(application).subscribe((created) => {
             if (created['id']) {
                 this.router.navigate([`/applications/`, created['id'], 'edit']);

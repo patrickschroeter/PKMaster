@@ -4,7 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ApplicationService } from './../../../core';
 import { AlertService } from './../../../modules/alert';
 
-import { Application, Status } from './../../../swagger';
+import { Application } from './../../../swagger';
 
 @Component({
     selector: 'pk-applications-edit',
@@ -14,7 +14,10 @@ import { Application, Status } from './../../../swagger';
 export class ApplicationsEditComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    private application: Application;
+    private _application: Application;
+
+    get application() { return this._application; }
+    set application(application: Application) { this._application = application; }
 
     constructor(
         private router: Router,
@@ -50,7 +53,7 @@ export class ApplicationsEditComponent implements OnInit {
 
     saveApplication(form) {
         this.applicationService.saveApplication(form).subscribe(result => {
-            this.router.navigate([`/applications/`, form.id]);
+            this.router.navigate([`/applications/`, result.id]);
         });
     }
 

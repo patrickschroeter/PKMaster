@@ -16,12 +16,19 @@ export class SelectComponent implements OnInit {
     @Input() config: Field;
     @Input() disabled: boolean;
 
-    private isOpen: boolean;
+    private _isOpen: boolean;
+    get isOpen() { return this._isOpen; }
+    set isOpen(isOpen: boolean) { this._isOpen = isOpen; }
 
-    private searchstring: string;
     private filteredOptions: Array<{ value?, label? }>;
 
-    private formControl: AbstractControl;
+    private _searchstring: string;
+    get searchstring() { return this._searchstring; }
+    set searchstring(string: string) { this._searchstring = string; }
+
+    private _formControl: AbstractControl;
+    get formControl() { return this._formControl; }
+    set formControl(control: AbstractControl) { this._formControl = control; }
 
     constructor(private parent: DynamicFormComponent) { }
 

@@ -5,28 +5,24 @@ import { Observable } from 'rxjs/Rx';
 @Injectable()
 export class AuthenticationMock {
 
-  constructor() { }
+    public user = {};
 
-  getUser(): Observable<any> {
-    return new Observable(observer => {
-        observer.next({
-          isAdmin: false,
-          isPK: true
+    constructor() {}
+
+    getUser(): Observable<any> {
+        return new Observable(observer => {
+            observer.next(this.user);
         });
-    });
-  }
+    }
 
-  isLoggedIn() {
-    return true;
-  }
+    isLoggedIn() {
+        return true;
+    }
 
-  login(): Observable<any> {
-    return new Observable(observer => {
-        observer.next({
-          isAdmin: false,
-          isPK: true
+    login(): Observable<any> {
+        return new Observable(observer => {
+            observer.next(this.user);
         });
-    });
-  }
+    }
 
 }

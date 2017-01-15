@@ -138,6 +138,7 @@ export class UserEndpoint {
         });
     }
 
+    // tslint:disable-next-line:member-ordering
     private _list: AppUser[] = [
         {
             id: '17',
@@ -146,17 +147,31 @@ export class UserEndpoint {
             token: 'TOKEN',
             firstname: 'Patrick',
             lastname: 'Schroeter',
-            matNr: 949225
+            matNr: 949225,
+            permissions: [
+                'ReadApplications',
+                'EditApplications',
+                'ReadConferences',
+                'EditConferences',
+                'ReadForms',
+                'EditForms',
+                'ReadPermissions',
+                'EditPermissions',
+                // 'ReadRoles'
+            ]
         },
         {
             id: '23',
             email: 'stephan.reichinger@gmail.de',
-            password: '123456789'
+            password: 'password',
+            permissions: [
+                'ReadApplications',
+                'ReadPermissions'
+            ]
         }
-    ]
+    ];
 
     private _users() {
-        // this._list = [];
         return JSON.parse(JSON.stringify(this._list));
     }
 
@@ -172,6 +187,7 @@ export class UserEndpoint {
         return JSON.parse(JSON.stringify(result));
     }
 
+    // tslint:disable-next-line:no-unused-variable
     private _userAdd(user: AppUser): AppUser {
         let id = this._list.length === 0 ? 'W' : this._list[this._list.length - 1].id + 'W';
         user.id = id;

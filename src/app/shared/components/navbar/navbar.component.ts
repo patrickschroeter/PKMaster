@@ -10,11 +10,13 @@ import { AuthenticationService } from './../../../core';
 })
 export class NavbarComponent implements OnInit {
 
-    private isOpen: boolean;
+    protected _isOpen: boolean;
+    get isOpen() { return this._isOpen; }
+    set isOpen(isOpen: boolean) { this._isOpen = isOpen; }
 
     constructor(
-        private authenticationService: AuthenticationService,
-        private router: Router
+        protected authenticationService: AuthenticationService,
+        protected router: Router
     ) { }
 
     ngOnInit() {
@@ -25,7 +27,7 @@ export class NavbarComponent implements OnInit {
         this.isOpen = !this.isOpen;
     }
 
-    private logout() {
+    public logout() {
         this.authenticationService.logout();
     }
 }
@@ -36,4 +38,19 @@ export class NavbarComponent implements OnInit {
     templateUrl: './navbar-admin.component.html',
     styleUrls: ['./navbar.component.scss']
 })
-export class NavbarAdminComponent extends NavbarComponent { }
+export class NavbarAdminComponent extends NavbarComponent {
+
+    protected _isOpen: boolean;
+    get isOpen() { return this._isOpen; }
+    set isOpen(isOpen: boolean) { this._isOpen = isOpen; }
+
+    constructor(
+        protected authenticationService: AuthenticationService,
+        protected router: Router
+    ) {
+        super(authenticationService, router);
+    }
+
+    toggleNavbar() { super.toggleNavbar(); }
+    logout() { super.logout(); }
+}
