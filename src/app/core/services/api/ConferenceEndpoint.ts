@@ -17,7 +17,18 @@ export class ConferenceEndpoint {
     }
 
     public addConference(token?: number, conference?: Conference, extraHttpRequestParams?: any): Observable<Conference> {
-        return null;
+        let value = this._conferenceAdd(conference);
+        return new Observable(observer => {
+            setTimeout(() => {
+                if (conference) {
+                    observer.next(value);
+                } else {
+                    console.error(`Error creating the conference`);
+                    observer.error(`Error creating the conference`);
+                }
+                observer.complete();
+            }, 500);
+        });
     }
 
     public deleteApplicationOfConference(conferenceId: number, token?: number, application?: number, extraHttpRequestParams?: any): Observable<Conference> {

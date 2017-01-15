@@ -28,4 +28,22 @@
         </pk-list>
 
     </div>
+
+    <pk-floating fixed top-right *ngIf="conferences?.length">
+        <pk-button rounded pkAlert="Create Conference" icon="add" element--secondary (onClick)="overlay.toggle()"></pk-button>
+    </pk-floating>
+
+    <pk-overlay #overlay class="overlay--fluid">
+        <pk-overlay-header>
+            Create New Conference
+        </pk-overlay-header>
+        <pk-overlay-content>
+
+            <pk-dynamic-form-overlay
+                [form]="newConference"
+                (save)="createConference($event)"
+                ></pk-dynamic-form-overlay>
+
+        </pk-overlay-content>
+    </pk-overlay>
 </div>
