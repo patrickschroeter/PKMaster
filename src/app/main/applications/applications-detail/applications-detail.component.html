@@ -89,12 +89,22 @@
             class="element--spacing-bottom-tiny"
             icon="delete" element--error></pk-button>
 
-        <pk-button rounded *accessEditConferences pkAlert="Add application to conference"
-            (onClick)="overlay.toggle()"
-            class="element--spacing-bottom-tiny"
-            icon="forum"
-            element--success
-            ></pk-button>
+        <div *accessEditConferences>
+            <pk-button rounded *ngIf="application.status?.name === 'pending' || application.status?.name === 'submitted'" pkAlert="Add application to conference"
+                (onClick)="overlay.toggle()"
+                class="element--spacing-bottom-tiny"
+                icon="forum"
+                element--success
+                ></pk-button>
+        </div>
+        <div *accessEditApplications>
+            <pk-button rounded *ngIf="application.status?.name === 'pending'" pkAlert="Accept/Decline Application"
+                (onClick)="acceptOverlay.toggle()"
+                class="element--spacing-bottom-tiny"
+                icon="thumbs_up_down"
+                element--success
+                ></pk-button>
+        </div>
     </pk-floating>
 
 
@@ -114,6 +124,42 @@
             <div class="overlay__option selectable" *ngFor="let option of conferences" (click)="addApplicationToConference(option)" [class.selectable--active]="application.conference && application.conference.id === option.value">
                     {{ option.label }}
             </div>
+
+        </pk-overlay-content>
+    </pk-overlay>
+
+    <pk-overlay #acceptOverlay="overlay" class="overlay--fluid">
+        <pk-overlay-header>
+            Accept/Decline Application
+        </pk-overlay-header>
+        <pk-overlay-content>
+
+                <pk-dynamic-form [formElements]="acceptForm" #dynamicForm>
+                    <pk-dynamic-form-content>
+
+                        <pk-dynamic-form-element *ngFor="let element of acceptForm" [element]="element"></pk-dynamic-form-element>
+
+                    </pk-dynamic-form-content>
+
+                    <pk-dynamic-form-submit>
+                        <pk-button
+                            *ngIf="dynamicForm?.form"
+                            [value]="'Accept'"
+                            icon="done"
+                            class="element--success"
+                            (onClick)="acceptApplication(dynamicForm.form.value)"></pk-button>
+                    </pk-dynamic-form-submit>
+
+                    <pk-dynamic-form-cancel>
+                        <pk-button
+                            *ngIf="dynamicForm?.form"
+                            [value]="'Decline'"
+                            icon="clear"
+                            [class]="dynamicForm.form.valid ? 'element--error' : 'element--disabled'"
+                            (onClick)="declineApplication(dynamicForm.form.value)"></pk-button>
+                    </pk-dynamic-form-cancel>
+
+                </pk-dynamic-form>
 
         </pk-overlay-content>
     </pk-overlay>
