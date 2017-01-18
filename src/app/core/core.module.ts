@@ -63,6 +63,11 @@ const BASEPATH = 'http://pk.multimedia.hs-augsburg.de:8000';
         // },
         { provide: ApplicationApi, useClass: services.ApplicationEndpoint },
         { provide: UserApi, useClass: services.UserEndpoint },
+        // {
+        //     provide: ConferenceApi,
+        //     useFactory: extendConferenceApi,
+        //     deps: [Http]
+        // },
         { provide: ConferenceApi, useClass: services.ConferenceEndpoint},
 
         // Extend HTTP
@@ -85,10 +90,17 @@ export function extendHttp(xhrBackend: XHRBackend, requestOptions: RequestOption
     return new ExtendHttpService(xhrBackend, requestOptions, authentication);
 }
 
+/**
+ *  Add Http Basepath
+ */
 export function extendFormApi(http) {
     return new FormApi(http, BASEPATH);
 }
 
 export function extendApplicationApi(http) {
     return new ApplicationApi(http, BASEPATH);
+}
+
+export function extendConferenceApi(http) {
+    return new ConferenceApi(http, BASEPATH);
 }
