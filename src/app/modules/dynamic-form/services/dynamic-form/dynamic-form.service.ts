@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Validators, FormControl, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 
-import { InputValidationService, } from './../../../../core';
 import { AlertService } from './../../../../modules/alert';
+
+import { InputValidationService } from './../input-validation/input-validation.service';
 
 import { Field } from './../../../../swagger';
 

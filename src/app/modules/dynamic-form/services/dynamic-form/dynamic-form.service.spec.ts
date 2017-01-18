@@ -5,6 +5,8 @@ import { FormBuilder } from '@angular/forms';
 
 import { DynamicFormService } from './dynamic-form.service';
 
+import { InputValidationService, InputValidationMock } from './../input-validation';
+
 import { CoreProviderMock } from './../../../../core/core.module';
 import { AlertProviderMock } from './../../../../modules/alert/alert.module';
 
@@ -15,6 +17,7 @@ describe('Service: DynamicForm', () => {
                 FormBuilder,
                 DynamicFormService,
 
+                { provide: InputValidationService, useClass: InputValidationMock },
                 ...CoreProviderMock,
                 ...AlertProviderMock
             ]

@@ -26,7 +26,6 @@ const API = false;
     ],
     providers: [
         services.AuthenticationService,
-        services.InputValidationService,
         services.FormService,
         services.ApplicationService,
         services.PermissionService,
@@ -87,7 +86,6 @@ export class CoreModule { }
 /** Export all Providers with mock */
 export const CoreProviderMock = [
     { provide: services.AuthenticationService, useClass: services.AuthenticationMock },
-    { provide: services.InputValidationService, useClass: services.InputValidationMock },
     { provide: services.FormService, useClass: services.FormMock },
     { provide: services.ApplicationService, useClass: services.ApplicationMock },
     { provide: services.PermissionService, useClass: services.PermissionMock },

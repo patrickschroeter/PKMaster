@@ -1,11 +1,11 @@
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { AuthenticationService, InputValidationService } from './../../core';
+import { AuthenticationService } from './../../core';
 import { AlertService } from './../../modules/alert';
 import { OverlayComponent } from './../../modules/overlay';
 
-import { DynamicFormService } from './../../modules/dynamic-form';
+import { DynamicFormService, InputValidationService } from './../../modules/dynamic-form';
 
 import { Field, Form, AppUser } from './../../swagger';
 import { Fields } from './../../models';

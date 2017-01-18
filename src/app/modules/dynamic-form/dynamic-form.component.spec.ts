@@ -19,10 +19,9 @@ import {
     CheckboxComponent,
     SelectComponent,
 
-    DynamicFormService,
-    DynamicFormMock
 } from './';
 
+import { DynamicFormProviderMock } from './dynamic-form.module';
 import { CoreProviderMock } from './../../core/core.module';
 
 import { SharedModule } from './../../shared/shared.module';
@@ -61,7 +60,7 @@ describe('DynamicFormComponent', () => {
                 OverlayModule
             ],
             providers: [
-                { provide: DynamicFormService, useClass: DynamicFormMock },
+                ...DynamicFormProviderMock,
                 ...CoreProviderMock
             ]
         })

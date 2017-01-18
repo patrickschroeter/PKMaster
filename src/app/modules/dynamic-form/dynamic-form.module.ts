@@ -16,6 +16,9 @@ import {
     DynamicFormContentComponent,
 
     DynamicFormService,
+    DynamicFormMock,
+    InputValidationService,
+    InputValidationMock,
 
     DynamicFormDefaultComponent,
     DynamicFormEditComponent,
@@ -62,7 +65,8 @@ import {
     ],
     providers: [
         DynamicFormService,
-        DynamicFormComponent
+        DynamicFormComponent,
+        InputValidationService
     ],
     exports: [
         DynamicFormDefaultComponent,
@@ -80,3 +84,8 @@ import {
     ]
 })
 export class DynamicFormModule { }
+
+export const DynamicFormProviderMock = [
+    { provide: DynamicFormService, useClass: DynamicFormMock },
+    { provide: InputValidationService, useClass: InputValidationService }
+]

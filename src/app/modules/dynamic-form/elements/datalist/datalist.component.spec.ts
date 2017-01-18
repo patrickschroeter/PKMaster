@@ -21,10 +21,9 @@ import {
     DynamicFormElementComponent,
     DynamicFormSubmitComponent,
     DynamicFormCancelComponent,
-
-    DynamicFormService,
-    DynamicFormMock
 } from './../../';
+
+import { DynamicFormProviderMock } from './../../dynamic-form.module';
 
 import { CoreProviderMock } from './../../../../core/core.module';
 import { AlertProviderMock } from './../../../../modules/alert/alert.module';
@@ -66,7 +65,7 @@ describe('DatalistComponent', () => {
             ],
             providers: [
                 { provide: DynamicFormComponent, useClass: DynamicFormComponentMock },
-                { provide: DynamicFormService, useClass: DynamicFormMock },
+                ...DynamicFormProviderMock,
                 ...CoreProviderMock,
                 ...AlertProviderMock
             ]

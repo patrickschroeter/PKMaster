@@ -1,9 +1,7 @@
 import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, OnChanges, HostBinding } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { InputValidationService } from './../../core';
-
-import { DynamicFormService } from './services';
+import { DynamicFormService, InputValidationService } from './services';
 
 import { Field } from './../../swagger';
 
