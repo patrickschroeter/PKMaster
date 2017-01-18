@@ -127,9 +127,10 @@ export class ApplicationsDetailComponent implements OnInit {
     public createNewComment(values: Comment) {
         let comment: Comment = values;
         comment.created = new Date();
-        /** TODO */comment.text = comment.message;
         this.auth.getUser().subscribe(user => {
-            comment.user = user;
+            comment.userId = user.id;
+            comment.isPrivate = !!comment.isPrivate;
+            comment.requiresChanges = !!comment.requiresChanges;
             // TODO: send to server
             this.savingComment = true;
 

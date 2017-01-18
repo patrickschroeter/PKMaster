@@ -72,7 +72,6 @@ export class ApplicationsComponent implements OnInit {
             form: {
                 id: form.value
             },
-            conferenceId: '5ab80bf9-7dcc-4b53-9cac-53361c3c81ea' /** TODO */
         };
         this.applicationService.createNewApplication(application).subscribe((created) => {
             if (created['id']) {

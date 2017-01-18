@@ -50,27 +50,26 @@ const API = false;
         services.AccessReadUsers,
 
         // Mock API
-        // FormApi,
+
         {
             provide: FormApi,
             useFactory: extendFormApi,
             deps: [Http]
         },
-        // { provide: FormApi, useClass: services.FormEndpoint },
-        // ApplicationApi,
+
         {
             provide: ApplicationApi,
             useFactory: extendApplicationApi,
             deps: [Http, FormApi, ConferenceApi, UserApi]
         },
-        // { provide: ApplicationApi, useClass: services.ApplicationEndpoint },
+
         { provide: UserApi, useClass: services.UserEndpoint },
+
         {
             provide: ConferenceApi,
             useFactory: extendConferenceApi,
             deps: [Http]
         },
-        // { provide: ConferenceApi, useClass: services.ConferenceEndpoint},
 
         // Extend HTTP
         {
