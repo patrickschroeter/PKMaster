@@ -108,7 +108,7 @@ describe('PermissionService', () => {
                 expect(service.hasPermission([API.PERMISSION.EDITPERMISSIONS, API.PERMISSION.READFORMS])).toBe(false);
                 expect(service.hasPermission([API.PERMISSION.EDITPERMISSIONS, API.PERMISSION.READFORMS], true)).toBe(false);
             });
-        })
+        });
 
         /**
          * One Permission
@@ -237,7 +237,7 @@ describe('PermissionService', () => {
 
             it('should return false if none of the input strings is in the permissios', () => {
                 expect(service.hasPermission([API.PERMISSION.EDITAPPLICATIONS, API.PERMISSION.EDITFORMS], true)).toBe(false);
-            })
-        })
+            });
+        });
     });
 });

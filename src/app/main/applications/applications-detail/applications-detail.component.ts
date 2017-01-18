@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import {
@@ -11,7 +11,9 @@ import { AlertService } from './../../../modules/alert';
 
 import { Application, Comment } from './../../../swagger';
 
-import { Access } from './../../../shared/decorators';
+import { OverlayComponent } from './../../../modules/overlay';
+
+import { Access } from './../../../shared';
 
 @Component({
     selector: 'pk-applications-detail',
@@ -21,6 +23,9 @@ import { Access } from './../../../shared/decorators';
 export class ApplicationsDetailComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
+    @ViewChild('overlay') overlay: OverlayComponent;
+    @ViewChild('acceptOverlay') acceptOverlay: OverlayComponent;
+
     private _application: Application;
 
     get application() { return this._application; }
@@ -29,7 +34,8 @@ export class ApplicationsDetailComponent implements OnInit {
     public addComment: Array<any>;
     public savingComment: Boolean;
 
-    public isOpenApplicationConference: boolean;
+    public acceptForm: Array<any>;
+
     public conferences: any[];
 
     constructor(
@@ -56,6 +62,22 @@ export class ApplicationsDetailComponent implements OnInit {
         });
 
         this.initAddCommentForm();
+        this.acceptForm = [
+            {
+                fieldType: 'textarea',
+                name: 'accept_message',
+                label: 'Add Comment:',
+                required: true
+            },
+            {
+                fieldType: 'checkbox',
+                name: 'accept_requiresChanges',
+                label: 'Requires Changes',
+                styles: [
+                    'small'
+                ]
+            }
+        ]
 
         this.conferenceService.getConferences().subscribe(conferences => {
             this.conferences = [];
@@ -78,15 +100,12 @@ export class ApplicationsDetailComponent implements OnInit {
                 fieldType: 'textarea',
                 name: 'message',
                 label: 'Add Comment:',
-                value: '',
                 required: true,
             },
             {
                 fieldType: 'checkbox',
                 name: 'isPrivate',
                 label: 'Privat',
-                value: false,
-                required: false,
                 styles: [
                     'small'
                 ]
@@ -95,8 +114,6 @@ export class ApplicationsDetailComponent implements OnInit {
                 fieldType: 'checkbox',
                 name: 'requiresChanges',
                 label: 'Requires Changes',
-                value: false,
-                required: false,
                 styles: [
                     'small'
                 ]
@@ -107,7 +124,7 @@ export class ApplicationsDetailComponent implements OnInit {
     /**
      * @description adds the comment to the current application
      */
-    public createNewComment(values) {
+    public createNewComment(values: Comment) {
         let comment: Comment = values;
         comment.created = new Date();
         this.auth.getUser().subscribe(user => {
@@ -125,16 +142,40 @@ export class ApplicationsDetailComponent implements OnInit {
         });
     }
 
-    @Access('EditConferences')
-    public toggleApplicationConference() {
-        this.isOpenApplicationConference = !this.isOpenApplicationConference;
+    /**
+     * @description accepts the application (with condition)
+     */
+    @Access('EditApplications')
+    public acceptApplication(form) {
+        /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiredChanges, isPrivate: false });
+        /** TODO */ this.application.status = { name: 'accepted' };
+        this.applicationService.updateApplication(this.application).subscribe(application => {
+            this.application = application;
+            this.acceptOverlay.toggle();
+        });
     }
 
-    public addApplicationToConference(conference) {
-        this.application.conference = conference;
-        this.application.status = { name: 'pending' };
+    /**
+     * @description declines the application with reasons
+     */
+    @Access('EditApplications')
+    public declineApplication(form) {
+        /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiredChanges, isPrivate: false });
+        /** TODO */ this.application.status = { name: 'denied' };
         this.applicationService.updateApplication(this.application).subscribe(application => {
-            this.toggleApplicationConference();
+            this.application = application;
+            this.acceptOverlay.toggle();
+        });
+    }
+
+    public addApplicationToConference(data) {
+        this.application.conferenceId = data.value;
+
+        /* TODO */ this.application.status = { name: 'pending' };
+
+        this.applicationService.updateApplication(this.application).subscribe(application => {
+            this.application = application;
+            this.overlay.toggle();
         });
     }
 

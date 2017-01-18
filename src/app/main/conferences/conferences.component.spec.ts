@@ -12,7 +12,10 @@ import { DynamicFormModule } from './../../modules/dynamic-form/dynamic-form.mod
 
 import {
     ConferenceService,
-    ConferenceMock
+    ConferenceMock,
+
+    InputValidationService,
+    InputValidationMock
 } from './../../core';
 
 import {
@@ -22,6 +25,7 @@ import {
 import { FloatingModule } from './../../modules/floating/floating.module';
 import { ListModule } from './../../modules/list/list.module';
 import { ButtonModule } from './../../modules/button/button.module';
+import { OverlayModule } from './../../modules/overlay/overlay.module';
 
 describe('ConferencesComponent', () => {
     let component: ConferencesComponent;
@@ -40,9 +44,13 @@ describe('ConferencesComponent', () => {
                 RouterTestingModule.withRoutes([
                     { path: '', component: class { } },
                 ]),
+                OverlayModule,
+                DynamicFormModule,
             ],
             providers: [
-                { provide: ConferenceService, useClass: ConferenceMock }
+                { provide: ConferenceService, useClass: ConferenceMock },
+                { provide: InputValidationService, useClass: InputValidationMock },
+                { provide: AlertService, useClass: AlertMock },
             ]
         })
             .compileComponents();

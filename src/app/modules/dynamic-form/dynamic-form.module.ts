@@ -20,6 +20,7 @@ import {
     DynamicFormDefaultComponent,
     DynamicFormEditComponent,
     DynamicFormDisabledComponent,
+    DynamicFormOverlayComponent,
 
     CheckboxComponent,
     DatalistComponent,
@@ -46,7 +47,8 @@ import {
 
         DynamicFormDefaultComponent,
         DynamicFormEditComponent,
-        DynamicFormDisabledComponent
+        DynamicFormDisabledComponent,
+        DynamicFormOverlayComponent
     ],
     imports: [
         CommonModule,
@@ -66,6 +68,7 @@ import {
         DynamicFormDefaultComponent,
         DynamicFormEditComponent,
         DynamicFormDisabledComponent,
+        DynamicFormOverlayComponent,
 
         DynamicFormComponent,
         DynamicFormCancelComponent,

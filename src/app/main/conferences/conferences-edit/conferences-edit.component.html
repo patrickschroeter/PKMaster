@@ -1,0 +1,5 @@
+<pk-loading *ngIf="!conference"></pk-loading>
+
+<div id="conference-edit" class="rel" *ngIf="conference">
+    <h2 class="element element--spacing-bottom-small">Edit Conference: {{ conference.description }}</h2>
+</div>

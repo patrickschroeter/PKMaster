@@ -28,11 +28,14 @@
 
     </div>
     <pk-floating fixed top-right>
-        <pk-button rounded pkAlert="Create Role" icon="add" element--secondary (onClick)="toggleCreateNew()"></pk-button>
+        <pk-button rounded pkAlert="Create Role" icon="add" element--secondary (onClick)="overlay.toggle()"></pk-button>
     </pk-floating>
-    <pk-overlay [isOpen]="isOpenNewRole" (toggleOverlay)="toggleCreateNew()" class="overlay--fluid">
-        <div class="pk-overlay__header">Create New Role</div>
-        <div class="pk-overlay__content">
+
+    <pk-overlay #overlay class="overlay--fluid">
+        <pk-overlay-header>
+            Create New Role
+        </pk-overlay-header>
+        <pk-overlay-content>
 
             <pk-dynamic-form [formElements]="newRole" #dynamicForm>
                 <pk-dynamic-form-content>
@@ -52,6 +55,7 @@
                 </pk-dynamic-form-submit>
 
             </pk-dynamic-form>
-        </div>
+
+        </pk-overlay-content>
     </pk-overlay>
 </div>

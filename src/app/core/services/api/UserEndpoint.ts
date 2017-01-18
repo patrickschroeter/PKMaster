@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Rx';
 
+import { UserApiMock } from './';
+
 import { AppUser } from './../../../swagger';
 
 @Injectable()
@@ -139,52 +141,20 @@ export class UserEndpoint {
     }
 
     // tslint:disable-next-line:member-ordering
-    private _list: AppUser[] = [
-        {
-            id: '17',
-            email: 'patrick.schroeter@hotmail.de',
-            password: 'password',
-            token: 'TOKEN',
-            firstname: 'Patrick',
-            lastname: 'Schroeter',
-            matNr: 949225,
-            permissions: [
-                'ReadApplications',
-                'EditApplications',
-                'ReadConferences',
-                'EditConferences',
-                'ReadForms',
-                'EditForms',
-                'ReadPermissions',
-                'EditPermissions',
-                // 'ReadRoles'
-            ]
-        },
-        {
-            id: '23',
-            email: 'stephan.reichinger@gmail.de',
-            password: 'password',
-            permissions: [
-                'ReadApplications',
-                'ReadPermissions'
-            ]
-        }
-    ];
+    private _list: AppUser[] = UserApiMock.USERS;
 
     private _users() {
         return JSON.parse(JSON.stringify(this._list));
     }
 
     private _user(id?: string, token?: string) {
-        let result;
         let list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id || list[i].token === token) {
-                result = list[i];
+                return JSON.parse(JSON.stringify(list[i]));
             }
         }
-        if (!result) { return null; }
-        return JSON.parse(JSON.stringify(result));
+        return null;
     }
 
     // tslint:disable-next-line:no-unused-variable

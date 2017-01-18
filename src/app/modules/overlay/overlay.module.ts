@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { OverlayComponent } from './';
+import { OverlayComponent, OverlayHeaderComponent, OverlayContentComponent } from './';
 
 import { FloatingModule } from './../floating/floating.module';
 import { ButtonModule } from './../button/button.module';
 
 @NgModule({
     declarations: [
-        OverlayComponent
+        OverlayComponent,
+        OverlayHeaderComponent,
+        OverlayContentComponent
     ],
     imports: [
         CommonModule,
@@ -19,7 +21,9 @@ import { ButtonModule } from './../button/button.module';
 
     ],
     exports: [
-        OverlayComponent
+        OverlayComponent,
+        OverlayHeaderComponent,
+        OverlayContentComponent
     ]
 })
 export class OverlayModule { }

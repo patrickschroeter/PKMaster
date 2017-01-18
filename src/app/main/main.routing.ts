@@ -49,6 +49,11 @@ const routes: Routes = [
                 canActivate: [AccessReadConferences]
             },
             {
+                path: 'conferences/:id/edit',
+                component: main.ConferencesEditComponent,
+                canActivate: [AccessEditConferences]
+            },
+            {
                 path: 'forms',
                 component: main.FormsComponent,
                 canActivate: [AccessReadForms],

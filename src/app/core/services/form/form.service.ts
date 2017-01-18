@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs/Rx';
+import * as _ from 'lodash';
 
 import { AlertService } from './../../../modules/alert';
 import { Field, Form } from './../../../swagger';
@@ -273,13 +274,16 @@ export class FormService {
      */
     public saveFormAttributes(submit: Form): Observable<any> {
         // TODO: save real data
-        this.form.title = submit.title;
-        this.form.restrictedAccess = submit.restrictedAccess;
+        let form = _.cloneDeep(this.form);
+
+        form.title = submit.title;
+        form.restrictedAccess = submit.restrictedAccess;
+
         this.alert.setLoading('saveFormAttributes', 'Save Form...');
-        return this.formApi.updateFormById(submit.id, 80082, submit).map(form => {
+        return this.formApi.updateFormById(form.id, 80082, form).map(result => {
             this.alert.removeHint('saveFormAttributes');
             this.alert.setSuccessHint('saveFormAttributes', 'Form Saved!');
-            return this.form = form;
+            return this.form = result;
         });
     }
 

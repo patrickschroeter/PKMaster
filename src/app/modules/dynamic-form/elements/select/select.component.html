@@ -15,7 +15,7 @@
     <div class="element__select element__options" *ngIf="config.multipleSelect && formControl.value && formControl.value.length !== 0"
         [class.element--disabled]="isDisabled()">
 
-        <div *ngIf="!isDisabled()" class="element__option option--default" (click)="toggleSelectOverlay()">
+        <div *ngIf="!isDisabled()" class="element__option option--default" (click)="overlay.toggle()">
             <div class="element__value">{{ config.placeholder ? config.placeholder : 'Bitte wählen' }}</div>
             <i class="element__icon material-icons md-24" aria-hidden="true">expand_more</i>
         </div>
@@ -41,7 +41,7 @@
     <!-- Default Element if nothing is selected -->
     <div class="element__select element__options" *ngIf="!formControl.value || formControl.value?.length === 0"
         [class.element--disabled]="isDisabled()">
-        <div *ngIf="!isDisabled()" class="element__option option--default" (click)="toggleSelectOverlay()">
+        <div *ngIf="!isDisabled()" class="element__option option--default" (click)="overlay.toggle()">
             <div class="element__value">{{ config.placeholder ? config.placeholder : 'Bitte wählen' }}</div>
             <i class="element__icon material-icons md-24" aria-hidden="true">expand_more</i>
         </div>
@@ -56,7 +56,7 @@
 
         <div *ngFor="let option of config.options" class="clearfix">
             <div *ngIf="formControl.value === option.value">
-                <div *ngIf="!isDisabled()" class="element__option" (click)="toggleSelectOverlay()">
+                <div *ngIf="!isDisabled()" class="element__option" (click)="overlay.toggle()">
                     <div class="element__value">{{ option.label }}</div>
                     <i class="element__icon material-icons md-24" aria-hidden="true">expand_more</i>
                 </div>
@@ -72,9 +72,12 @@
         </select>
     </div>
 
-    <pk-overlay [isOpen]="isOpen" (toggleOverlay)="toggleSelectOverlay()" *ngIf="!isDisabled()">
-        <div class="pk-overlay__header">{{ config.label }}</div>
-        <div class="pk-overlay__content" *ngIf="isOpen">
+    <pk-overlay #overlay *ngIf="!isDisabled()">
+        <pk-overlay-header>
+            {{ config.label }}
+        </pk-overlay-header>
+        <pk-overlay-content *ngIf="overlay.isOpen">
+
             <div *ngIf="config.options?.length > 5" class="overlay__option element">
                 <input
                     class="element__input"
@@ -87,7 +90,8 @@
             <div class="overlay__option selectable" *ngFor="let option of (filteredOptions ? filteredOptions : config.options)" (click)="select(option)" [class.selectable--active]="formControl.value && ((config.multipleSelect && formControl.value.indexOf(option.value) !== -1) || (!config.multipleSelect && formControl.value === option.value))">
                     {{ option.label }}
             </div>
-        </div>
+
+        </pk-overlay-content>
     </pk-overlay>
 
 </div>

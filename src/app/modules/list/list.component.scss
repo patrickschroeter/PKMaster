@@ -39,6 +39,10 @@
         text-overflow: ellipsis;
         white-space: nowrap;
 
+        a:hover {
+            color: $guidance-color;
+        }
+
         &.list-element__attribute--state-icon {
             min-width: 16px;
             height: 16px;
@@ -53,19 +57,18 @@
         &.list-element__attribute--name {
             flex: 1;
             transition: color .3s ease-in-out;
-
-            a:hover {
-                color: $guidance-color;
-            }
         }
 
         &.list-element__attribute--state,
+        &.list-element__attribute--author,
+        &.list-element__attribute--conference,
         &.list-element__attribute--date,
         &.list-element__attribute--modified,
         &.list-element__attribute--version {
             @extend .font_smaller;
             line-height: 23px;
         }
+        &.list-element__attribute--conference,
         &.list-element__attribute--date,
         &.list-element__attribute--modified,
         &.list-element__attribute--version {
@@ -74,10 +77,20 @@
         }
 
         &.list-element__attribute--state {
-            width: 15%;
+            width: 10%;
             min-width: 100px;
             text-transform: uppercase;
             @media (max-width: 700px) {
+                display: none;
+            }
+        }
+
+        &.list-element__attribute--author {
+            min-width: 50px;
+        }
+
+        &.list-element__attribute--conference {
+            @media (max-width: 600px) {
                 display: none;
             }
         }

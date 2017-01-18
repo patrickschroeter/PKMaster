@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { FormElementService } from './../../../core';
@@ -37,14 +37,6 @@ export class ElementEditComponent implements OnInit {
         this.subscribeHasStyles();
         this.subscribeHasSubmit();
         this.subscribeHasValidations();
-    }
-
-    @HostListener('window:keydown', ['$event'])
-    keyboardInput(event: any): void {
-        let code = event.code;
-        if (code === 'Escape') {
-            this.elementService.cancelElement();
-        }
     }
 
     /**

@@ -11,6 +11,7 @@ import { FloatingModule } from './../modules/floating/floating.module';
 import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module';
 import { ButtonModule } from './../modules/button/button.module';
 import { OverlayModule } from './../modules/overlay/overlay.module';
+import { AlertDirectiveModule } from './../modules/alert/alert.module';
 
 @NgModule({
     declarations: [
@@ -24,6 +25,7 @@ import { OverlayModule } from './../modules/overlay/overlay.module';
 
         main.ConferencesComponent,
         main.ConferencesDetailComponent,
+        main.ConferencesEditComponent,
 
         main.ProfileEditComponent,
 
@@ -42,7 +44,8 @@ import { OverlayModule } from './../modules/overlay/overlay.module';
         ListModule,
         ButtonModule,
         FloatingModule,
-        OverlayModule
+        OverlayModule,
+        AlertDirectiveModule
     ],
     providers: [],
     exports: []

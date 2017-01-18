@@ -7,8 +7,6 @@ import { AlertService } from './../../modules/alert';
 
 import { Application } from './../../swagger';
 
-import { Access } from './../../shared/decorators';
-
 @Component({
     selector: 'pk-applications',
     templateUrl: './applications.component.html',
@@ -18,10 +16,6 @@ export class ApplicationsComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
     private applications: Application[];
-    private _isOpenNewApplication: boolean = false;
-
-    get isOpenNewApplication() { return this._isOpenNewApplication; }
-    set isOpenNewApplication(isOpen: boolean) { this._isOpenNewApplication = isOpen; }
 
     private applicationTypes: Array<{ value, label }>;
 
@@ -70,11 +64,6 @@ export class ApplicationsComponent implements OnInit {
         this.applicationService.deactivateApplication(application).subscribe(result => {
             this.alert.setSuccessHint(`deactivateApplication${application.id}`, 'Application deactivated');
         });
-    }
-
-    @Access('EditApplications')
-    toggleCreateNew() {
-        this.isOpenNewApplication = !this.isOpenNewApplication;
     }
 
     createNewApplication(form) {
