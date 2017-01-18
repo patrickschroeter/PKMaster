@@ -79,7 +79,8 @@ export class ConferencesDetailComponent implements OnInit {
      */
     private getAgendaOfConference(conference: Conference) {
         this.agenda = [];
-        /** TODO */if (conference.application) { conference.applications = conference.application; }
+        if (!conference.applications) { return; }
+        /** TODO */ if (conference.application) { conference.applications = conference.application; }
         for (let i = 0, length = conference.applications.length; i < length; i++) {
             let application = conference.applications[i];
             let item = this.getItemOfAgenda(application.formId);
@@ -92,7 +93,6 @@ export class ConferencesDetailComponent implements OnInit {
             }
             item.applications.push(application);
         }
-        console.log(this.agenda);
     }
 
     /**

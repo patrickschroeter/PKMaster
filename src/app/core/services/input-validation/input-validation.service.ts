@@ -10,7 +10,8 @@ export class InputValidationService {
         maxLength: this.validateMaxLength(15),
         useExternalEmail: this.validateExternalEmail,
         isEmail: this.validateEmail,
-        toBeTrue: this.validateToBeTrue
+        toBeTrue: this.validateToBeTrue,
+        time: this.validateTime
     };
 
     constructor() { }
@@ -40,6 +41,9 @@ export class InputValidationService {
                 return control.errors['areEqual'].message;
             }
             return 'The given values dont match';
+
+        } else if (control.hasError('invalidTime')) {
+            return 'Form/Field is not a valid Time (hh.mm).';
 
         } else if (control.hasError('required')) {
             return 'Field is required.';
@@ -119,7 +123,19 @@ export class InputValidationService {
         }
     }
 
+    /**
+     * @description validate time input to (h)h:mm
+     */
+    public validateTime(control: FormControl): Object {
+        let rx = new RegExp('([01]?[0-9]|2[0-3])(:|.)[0-5][0-9]');
+        if (!control.value.match(rx)) {
+            return { invalidTime: true };
+        }
+    }
 
+    /**
+     * @description checks if the elements with the names are equal
+     */
     public areEqual(names: string[], message?) {
 
         return function(group: FormGroup) {

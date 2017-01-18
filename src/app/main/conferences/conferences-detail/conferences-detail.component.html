@@ -2,7 +2,7 @@
 
 <div id="conference-detail" class="rel" *ngIf="conference">
     <h2 class="element element--spacing-bottom-small">Conference: {{ conference.description }}</h2>
-    <h3 class="element element--spacing-bottom-large">{{ conference.dateOfEvent | date }}</h3>
+    <h3 class="element element--spacing-bottom-large">{{ conference.dateOfEvent | date }} ({{ conference.startOfEvent }} - {{ conference.endOfEvent }}), {{ conference.roomOfEvent }}</h3>
 
     <div>
         Anwesende PK-Mitglieder (TODO)
