@@ -187,7 +187,7 @@ export class FormApi {
         if (formId === null || formId === undefined) {
             throw new Error('Required parameter formId was null or undefined when calling updateFormById.');
         }
-            headerParams.set('token', String(token));
+        headerParams.set('token', String(token));
 
         let requestOptions: RequestOptionsArgs = {
             method: 'PUT',

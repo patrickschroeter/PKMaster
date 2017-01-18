@@ -293,14 +293,15 @@ export class FormService {
      * @return {void}
      */
     public saveForm(): Observable<any> {
-        // stringify
-        console.log(this.form);
-        console.log(JSON.stringify(this.form));
         // TODO: save real data
         this.alert.setLoading('saveForm', 'Save Form...');
         return this.formApi.updateFormById(this.form.id, 80082, this.form).map(form => {
             this.alert.removeHint('saveForm');
-            return this.form = form;
+            if (form) {
+                return this.form = form;
+            } else {
+                return this.form;
+            }
         });
     }
 }
