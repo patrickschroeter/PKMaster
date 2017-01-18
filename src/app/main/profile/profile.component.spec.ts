@@ -7,13 +7,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { ProfileComponent } from './profile.component';
 
-import {
-    AuthenticationService,
-    AuthenticationMock,
-    InputValidationService,
-    InputValidationMock
-} from './../../core';
-import { AlertService, AlertMock } from './../../modules/alert';
+import { CoreProviderMock } from './../../core/core.module';
+import { AlertProviderMock } from './../../modules/alert/alert.module';
 
 import {
     SharedModule
@@ -44,9 +39,8 @@ describe('ProfileComponent', () => {
                 OverlayModule
             ],
             providers: [
-                { provide: AuthenticationService, useClass: AuthenticationMock },
-                { provide: AlertService, useClass: AlertMock },
-                { provide: InputValidationService, useClass: InputValidationMock },
+                ...CoreProviderMock,
+                ...AlertProviderMock
             ]
         })
             .compileComponents();

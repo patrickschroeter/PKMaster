@@ -5,14 +5,14 @@
 
 
 
-    <div class="form" *ngIf="!form.elements || form.elements.length < 1">
+    <div class="form" *ngIf="!form.formHasField || form.formHasField.length < 1">
         No Elements in this form.
     </div>
 
-    <pk-dynamic-form *ngIf="form && form.elements && form.elements.length > 0" [formElements]="form.elements">
+    <pk-dynamic-form *ngIf="form && form.formHasField && form.formHasField.length > 0" [formElements]="form.formHasField">
         <pk-dynamic-form-content>
 
-            <pk-dynamic-form-element *ngFor="let element of form.elements, let i = index" [element]="element">
+            <pk-dynamic-form-element *ngFor="let element of form.formHasField, let i = index" [element]="element">
                 <pk-floating bottom-right-corner horizontal>
                     <pk-button rounded pkAlert="Edit Form Element" class="button button--edit element element--spacing-left-tiny" icon="create" (onClick)="editElement(element)" element--secondary></pk-button>
                     <pk-button rounded pkAlert="Remove Form Element" class="button button--edit element element--spacing-left-tiny" icon="clear" (onClick)="removeElement(element, i)" element--error></pk-button>

@@ -38,7 +38,6 @@ export class ApplicationApi {
     public defaultHeaders : Headers = new Headers();
 
     constructor(protected http: Http, @Optional() basePath: string) {
-        console.log(basePath)
         if (basePath) {
             this.basePath = basePath;
         }
@@ -98,6 +97,9 @@ export class ApplicationApi {
             headers: headerParams,
             search: queryParameters
         };
+        /** TODO: Hack */
+        application.statusId = "ba72b0fb-9969-4942-801e-685b86059421";
+
         requestOptions.body = JSON.stringify(application);
 
         return this.http.request(path, requestOptions)
@@ -150,7 +152,7 @@ export class ApplicationApi {
      * @param applicationId ID of the Application
      * @param token Accesstoken to authenticate with the API
      */
-    public getApplicationById (applicationId: string, token?: number, extraHttpRequestParams?: any ) : Observable<models.Application> {
+    public getApplicationById (applicationId: string, token?: number, extraHttpRequestParams?: any ) : Observable<models.ApplicationDto> {
         const path = this.basePath + '/applications/{applicationId}'
             .replace('{' + 'applicationId' + '}', String(applicationId));
 
@@ -173,6 +175,11 @@ export class ApplicationApi {
                 if (response.status === 204) {
                     return undefined;
                 } else {
+                    let result = response.json();
+                    if (result.filledForm) {
+                        result.attributes = JSON.parse(result.filledForm);
+                    }
+                    console.log(result);
                     return response.json();
                 }
             });
@@ -217,13 +224,47 @@ export class ApplicationApi {
     }
 
     /**
+     * GET history of Application
+     * The Applications Endpoint returns the History of a application
+     * @param applicationId
+     * @param token Accesstoken to authenticate with the API
+     */
+    public getHistoryOfApplication (applicationId: string, token?: number, extraHttpRequestParams?: any ) : Observable<Array<models.ApplicationDto>> {
+        const path = this.basePath + '/applications/{applicationId}/history'
+            .replace('{' + 'applicationId' + '}', String(applicationId));
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+        // verify required parameter 'applicationId' is not null or undefined
+        if (applicationId === null || applicationId === undefined) {
+            throw new Error('Required parameter applicationId was null or undefined when calling getHistoryOfApplication.');
+        }
+            headerParams.set('token', String(token));
+
+        let requestOptions: RequestOptionsArgs = {
+            method: 'GET',
+            headers: headerParams,
+            search: queryParameters
+        };
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json();
+                }
+            });
+    }
+
+    /**
      * Update Application with Id
      *
      * @param applicationId ID of the Application
      * @param token Accesstoken to authenticate with the API
      * @param application Application to Update
      */
-    public updateApplicationById (applicationId: string, token?: number, application?: models.Application, extraHttpRequestParams?: any ) : Observable<models.Application> {
+    public updateApplicationById (applicationId: string, token?: number, application?: models.ApplicationCreateDto, extraHttpRequestParams?: any ) : Observable<models.ApplicationDto> {
         const path = this.basePath + '/applications/{applicationId}'
             .replace('{' + 'applicationId' + '}', String(applicationId));
 
@@ -257,15 +298,13 @@ export class ApplicationApi {
      *
      * @param applicationId ID of the Application
      * @param commentId ID of the Comment
-     * @param commentId2
      * @param token Accesstoken to authenticate with the API
      * @param comment Updated Comment
      */
-    public updateApplicationCommentById (applicationId: number, commentId: number, commentId2: string, token?: number, comment?: models.Comment, extraHttpRequestParams?: any ) : Observable<models.Comment> {
-        const path = this.basePath + '/applications/{applicationId}/comments/{comment_id}'
+    public updateApplicationCommentById (applicationId: string, commentId: string, token?: number, comment?: models.CommentCreateDto, extraHttpRequestParams?: any ) : Observable<models.CommentDto> {
+        const path = this.basePath + '/applications/{applicationId}/comments/{commentId}'
             .replace('{' + 'applicationId' + '}', String(applicationId))
-            .replace('{' + 'commentId' + '}', String(commentId))
-            .replace('{' + 'comment_id' + '}', String(commentId2));
+            .replace('{' + 'commentId' + '}', String(commentId));
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
@@ -276,10 +315,6 @@ export class ApplicationApi {
         // verify required parameter 'commentId' is not null or undefined
         if (commentId === null || commentId === undefined) {
             throw new Error('Required parameter commentId was null or undefined when calling updateApplicationCommentById.');
-        }
-        // verify required parameter 'commentId2' is not null or undefined
-        if (commentId2 === null || commentId2 === undefined) {
-            throw new Error('Required parameter commentId2 was null or undefined when calling updateApplicationCommentById.');
         }
             headerParams.set('token', String(token));
 

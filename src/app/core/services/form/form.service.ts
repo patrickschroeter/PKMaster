@@ -3,7 +3,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 import * as _ from 'lodash';
 
 import { AlertService } from './../../../modules/alert';
-import { Field, Form } from './../../../swagger';
+import { Field, Form, SingleFormDto } from './../../../swagger';
 
 import { FormApi } from './../../../swagger/api/FormApi';
 
@@ -92,13 +92,13 @@ export class FormService {
     public createNewForm(submit: Form): Observable<any> {
         let newform: Form = {
             title: submit.id ? 'Copy of ' + submit.title : submit.title,
-            elements: submit.id ? submit.elements : [],
+            formHasField: submit.id ? submit.formHasField : [],
             restrictedAccess: submit.restrictedAccess,
             isPublic: true
         };
 
         // TODO: save real data
-        return this.formApi.addForm(111, newform).map(form => {
+        return this.formApi.addForm(111, (newform as SingleFormDto)).map(form => {
             return this.form = form;
         });
     }
@@ -119,12 +119,12 @@ export class FormService {
      * @return {void}
      */
     public editElement(element?: Field): void {
-        if (!this.form || !this.form.elements) { return this.editElement$.next(null); }
+        if (!this.form || !this.form.formHasField) { return this.editElement$.next(null); }
 
         this.editingElementIndex = -1;
         if (element && this.form) {
-            for (let i = 0, length = this.form.elements.length; i < length; i++) {
-                let formElement = this.form.elements[i];
+            for (let i = 0, length = this.form.formHasField.length; i < length; i++) {
+                let formElement = this.form.formHasField[i];
                 if (formElement && formElement.name === element.name) {
                     this.editingElementIndex = i;
                 };
@@ -147,23 +147,23 @@ export class FormService {
      */
     public removeElement(element?: Field, index?: number): boolean {
         if (typeof index !== 'undefined') {
-            if (this.form.elements[index].name === element.name) {
-                this.form.elements.splice(index, 1);
+            if (this.form.formHasField[index].name === element.name) {
+                this.form.formHasField.splice(index, 1);
                 this.alert.setSuccessHint('element_removed', `Element ${element.name} removed.`);
                 this.setAddingElement(false);
                 return true;
             }
         }
         index = -1;
-        for (let i = 0, length = this.form.elements.length; i < length; i++) {
-            let input = this.form.elements[i];
+        for (let i = 0, length = this.form.formHasField.length; i < length; i++) {
+            let input = this.form.formHasField[i];
             if (input.name === element.value) {
                 index = i;
             }
         }
         if (index !== -1) {
             if (index === this.editingElementIndex) {
-                this.form.elements.splice(index, 1);
+                this.form.formHasField.splice(index, 1);
                 this.alert.setSuccessHint('element_removed', `Element ${element.name} removed.`);
                 this.setAddingElement(false);
                 return true;
@@ -184,11 +184,11 @@ export class FormService {
     public addElementToForm(element: Field, mode?: 'clone' | 'add'): boolean {
         /** Forms don't have Presets yet */
         // delete element.value;
-        if (!this.form || !this.form.elements) { return false; }
+        if (!this.form || !this.form.formHasField) { return false; }
         /** Check if the element.name is Unique in the current Form */
         let index = -1;
-        for (let i = 0, length = this.form.elements.length; i < length; i++) {
-            let input = this.form.elements[i];
+        for (let i = 0, length = this.form.formHasField.length; i < length; i++) {
+            let input = this.form.formHasField[i];
             if (input.name === element.name) {
                 index = i;
             }
@@ -197,12 +197,12 @@ export class FormService {
         /** Add or Update Element to/in Form, otherwise display Error */
         if (index === -1) {
             if (this.editingElementIndex !== -1) {
-                this.form.elements[this.editingElementIndex] = element;
+                this.form.formHasField[this.editingElementIndex] = element;
             } else {
-                this.form.elements.push(element);
+                this.form.formHasField.push(element);
             }
         } else if (index === this.editingElementIndex) {
-            this.form.elements[this.editingElementIndex] = element;
+            this.form.formHasField[this.editingElementIndex] = element;
         } else {
             return false;
         }
@@ -293,14 +293,15 @@ export class FormService {
      * @return {void}
      */
     public saveForm(): Observable<any> {
-        // stringify
-        console.log(this.form);
-        console.log(JSON.stringify(this.form));
         // TODO: save real data
         this.alert.setLoading('saveForm', 'Save Form...');
         return this.formApi.updateFormById(this.form.id, 80082, this.form).map(form => {
             this.alert.removeHint('saveForm');
-            return this.form = form;
+            if (form) {
+                return this.form = form;
+            } else {
+                return this.form;
+            }
         });
     }
 }

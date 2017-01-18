@@ -6,14 +6,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { ApplicationsEditComponent } from './applications-edit.component';
 
-import {
-    ApplicationService,
-    ApplicationMock,
-    InputValidationService,
-    InputValidationMock
-} from './../../../core';
-
-import { AlertService, AlertMock } from './../../../modules/alert';
+import { CoreProviderMock } from './../../../core/core.module';
+import { AlertProviderMock } from './../../../modules/alert/alert.module';
 
 import { SharedModule } from './../../../shared/shared.module';
 import { DynamicFormModule } from './../../../modules/dynamic-form/dynamic-form.module';
@@ -39,9 +33,8 @@ describe('ApplicationsEditComponent', () => {
                 ButtonModule
             ],
             providers: [
-                { provide: ApplicationService, useClass: ApplicationMock },
-                { provide: AlertService, useClass: AlertMock },
-                { provide: InputValidationService, useClass: InputValidationMock }
+                ...CoreProviderMock,
+                ...AlertProviderMock
             ]
         })
             .compileComponents();

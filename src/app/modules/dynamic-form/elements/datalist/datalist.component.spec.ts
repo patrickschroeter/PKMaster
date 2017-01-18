@@ -26,11 +26,9 @@ import {
     DynamicFormMock
 } from './../../';
 
-import {
-    InputValidationService,
-    InputValidationMock,
-} from './../../../../core';
-import { AlertService, AlertMock } from './../../../../modules/alert';
+import { CoreProviderMock } from './../../../../core/core.module';
+import { AlertProviderMock } from './../../../../modules/alert/alert.module';
+
 import { ButtonModule } from './../../../../modules/button/button.module';
 import { OverlayModule } from './../../../../modules/overlay/overlay.module';
 import { DeviderComponent } from './../../../../modules/devider';
@@ -67,10 +65,10 @@ describe('DatalistComponent', () => {
                 ButtonModule
             ],
             providers: [
-                { provide: AlertService, useClass: AlertMock },
-                { provide: InputValidationService, useClass: InputValidationMock },
                 { provide: DynamicFormComponent, useClass: DynamicFormComponentMock },
-                { provide: DynamicFormService, useClass: DynamicFormMock }
+                { provide: DynamicFormService, useClass: DynamicFormMock },
+                ...CoreProviderMock,
+                ...AlertProviderMock
             ]
         })
             .compileComponents();

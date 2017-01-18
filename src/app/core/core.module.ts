@@ -11,8 +11,10 @@ import { FormApi } from './../swagger/api/FormApi';
 import { ApplicationApi } from './../swagger/api/ApplicationApi';
 import { UserApi } from './../swagger/api/UserApi';
 import { ConferenceApi } from './../swagger/api/ConferenceApi';
+import { FormEndpoint, ApplicationEndpoint, UserEndpoint, ConferenceEndpoint } from './services/api';
 
 const BASEPATH = 'http://pk.multimedia.hs-augsburg.de:8000';
+const API = false;
 
 @NgModule({
     declarations: [
@@ -49,26 +51,26 @@ const BASEPATH = 'http://pk.multimedia.hs-augsburg.de:8000';
 
         // Mock API
         // FormApi,
-        // {
-        //     provide: FormApi,
-        //     useFactory: extendFormApi,
-        //     deps: [Http]
-        // },
-        { provide: FormApi, useClass: services.FormEndpoint },
+        {
+            provide: FormApi,
+            useFactory: extendFormApi,
+            deps: [Http]
+        },
+        // { provide: FormApi, useClass: services.FormEndpoint },
         // ApplicationApi,
-        // {
-        //     provide: ApplicationApi,
-        //     useFactory: extendApplicationApi,
-        //     deps: [Http]
-        // },
-        { provide: ApplicationApi, useClass: services.ApplicationEndpoint },
+        {
+            provide: ApplicationApi,
+            useFactory: extendApplicationApi,
+            deps: [Http, FormApi, ConferenceApi, UserApi]
+        },
+        // { provide: ApplicationApi, useClass: services.ApplicationEndpoint },
         { provide: UserApi, useClass: services.UserEndpoint },
-        // {
-        //     provide: ConferenceApi,
-        //     useFactory: extendConferenceApi,
-        //     deps: [Http]
-        // },
-        { provide: ConferenceApi, useClass: services.ConferenceEndpoint},
+        {
+            provide: ConferenceApi,
+            useFactory: extendConferenceApi,
+            deps: [Http]
+        },
+        // { provide: ConferenceApi, useClass: services.ConferenceEndpoint},
 
         // Extend HTTP
         {
@@ -83,6 +85,22 @@ const BASEPATH = 'http://pk.multimedia.hs-augsburg.de:8000';
 })
 export class CoreModule { }
 
+/** Export all Providers with mock */
+export const CoreProviderMock = [
+    { provide: services.AuthenticationService, useClass: services.AuthenticationMock },
+    { provide: services.InputValidationService, useClass: services.InputValidationMock },
+    { provide: services.FormService, useClass: services.FormMock },
+    { provide: services.ApplicationService, useClass: services.ApplicationMock },
+    { provide: services.PermissionService, useClass: services.PermissionMock },
+    { provide: services.ConferenceService, useClass: services.ConferenceMock },
+    { provide: services.FormElementService, useClass: services.FormElementMock },
+
+    { provide: FormApi, useClass: services.FormEndpoint },
+    { provide: ApplicationApi, useClass: services.ApplicationEndpoint },
+    { provide: UserApi, useClass: services.UserEndpoint },
+    { provide: ConferenceApi, useClass: services.ConferenceEndpoint},
+]
+
 /**
  * Factory Functions
  */
@@ -94,13 +112,13 @@ export function extendHttp(xhrBackend: XHRBackend, requestOptions: RequestOption
  *  Add Http Basepath
  */
 export function extendFormApi(http) {
-    return new FormApi(http, BASEPATH);
+    return API ? new FormApi(http, BASEPATH) : new FormEndpoint();
 }
 
-export function extendApplicationApi(http) {
-    return new ApplicationApi(http, BASEPATH);
+export function extendApplicationApi(http, formApi, conferenceApi, userApi) {
+    return API ? new ApplicationApi(http, BASEPATH) : new ApplicationEndpoint(formApi, conferenceApi, userApi);
 }
 
 export function extendConferenceApi(http) {
-    return new ConferenceApi(http, BASEPATH);
+    return API ? new ConferenceApi(http, BASEPATH) : new ConferenceEndpoint();
 }

@@ -127,18 +127,17 @@ export class ApplicationsDetailComponent implements OnInit {
     public createNewComment(values: Comment) {
         let comment: Comment = values;
         comment.created = new Date();
+        /** TODO */comment.text = comment.message;
         this.auth.getUser().subscribe(user => {
             comment.user = user;
             // TODO: send to server
             this.savingComment = true;
-            if (!this.application.comments) {
-                this.application.comments = [];
-            }
-            this.initAddCommentForm();
-            setTimeout(() => {
-                this.application.comments.push(comment);
+
+            this.applicationService.addCommentToApplication(comment).subscribe(result => {
+                this.application.comments.push(result);
                 this.savingComment = false;
-            }, 500);
+                this.initAddCommentForm();
+            });
         });
     }
 

@@ -107,6 +107,23 @@ export class ApplicationEndpoint {
         });
     }
 
+
+    public addCommentToApplication (applicationId: string, token?: number, comment?: Comment, extraHttpRequestParams?: any ) : Observable<Comment> {
+        let application = this._application(applicationId);
+        application.comments ? application.comments.push(comment) : application.comments = [comment];
+        return new Observable(observer => {
+            setTimeout(() => {
+                if (application) {
+                    observer.next(comment);
+                } else {
+                    console.error(`No Application with ID ${applicationId} found`);
+                    observer.error(`No Application with ID ${applicationId} found`);
+                }
+                observer.complete();
+            }, 500);
+        })
+    }
+
     /**
      * Mock Server
      */
@@ -127,7 +144,7 @@ export class ApplicationEndpoint {
         if (application.form) {
             application.form = this.formApi['_form'](application.form.id);
             if (application.form) {
-                application.attributes = application.form.elements;
+                application.attributes = application.form.formHasField;
             }
         }
         this._list.push(application);

@@ -35,6 +35,4 @@ export interface CommentCreateDto {
     requiresChanges?: boolean;
 
     userId?: string;
-
-    applicationId?: string;
 }

@@ -7,7 +7,7 @@ import { AuthenticationService } from './../authentication';
 
 import { ApplicationApi } from './../../../swagger/api/ApplicationApi';
 
-import { Application, Field, ApplicationCreateDto } from './../../../swagger';
+import { Application, Field, ApplicationCreateDto, Comment } from './../../../swagger';
 
 @Injectable()
 export class ApplicationService {
@@ -51,16 +51,27 @@ export class ApplicationService {
      * @return {Observable}
      */
     public createNewApplication(application: Application): Observable<Application> {
-        /* TODO */
+        /* TODO: wait for token */
         this.auth.getUser().subscribe(user => {
             application.userId = user.id;
         });
+
+        application.formId = application.form.id;
 
         return this.applicationApi.createApplication(17, (application as ApplicationCreateDto)).map(result => {
             return this.application = result;
         });
     }
 
+    public addCommentToApplication(comment: Comment) {
+        return this.applicationApi.addCommentToApplication(this.application.id, 0, comment).map(result => {
+            return this.application = result;
+        });
+    }
+
+    /**
+     * @description check if the requested Status change is allowed
+     */
     private blockedStatusUpdate(name: string, permittedStati: string[]): Observable<any> {
         if (permittedStati.indexOf(name) === -1) {
             this.alert.setAlert('Not Allowed', 'This operation is not allowed.');

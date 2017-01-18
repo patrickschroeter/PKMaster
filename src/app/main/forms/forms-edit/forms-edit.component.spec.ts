@@ -8,14 +8,8 @@ import { FormsEditComponent } from './forms-edit.component';
 
 import { ElementEditComponent } from './..';
 
-import {
-    FormService,
-    FormMock,
-    InputValidationService,
-    InputValidationMock
-} from './../../../core';
-
-import { AlertService, AlertMock } from './../../../modules/alert';
+import { CoreProviderMock } from './../../../core/core.module';
+import { AlertProviderMock } from './../../../modules/alert/alert.module';
 
 import {
     SharedModule
@@ -47,9 +41,8 @@ describe('FormsEditComponent', () => {
                 OverlayModule
             ],
             providers: [
-                { provide: InputValidationService, useClass: InputValidationMock },
-                { provide: FormService, useClass: FormMock },
-                { provide: AlertService, useClass: AlertMock }
+                ...CoreProviderMock,
+                ...AlertProviderMock
             ]
         })
             .compileComponents();

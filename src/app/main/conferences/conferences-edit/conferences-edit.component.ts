@@ -46,4 +46,8 @@ export class ConferencesEditComponent implements OnInit {
         this.alert.setErrorHint('no-conference-found', `The is no conference with the requested Id: ${id}`, 2000);
     }
 
+    public deleteConference() {
+        console.error('TODO');
+    }
+
 }
