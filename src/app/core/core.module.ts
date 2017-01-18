@@ -85,6 +85,22 @@ const API = false;
 })
 export class CoreModule { }
 
+/** Export all Providers with mock */
+export const CoreProviderMock = [
+    { provide: services.AuthenticationService, useClass: services.AuthenticationMock },
+    { provide: services.InputValidationService, useClass: services.InputValidationMock },
+    { provide: services.FormService, useClass: services.FormMock },
+    { provide: services.ApplicationService, useClass: services.ApplicationMock },
+    { provide: services.PermissionService, useClass: services.PermissionMock },
+    { provide: services.ConferenceService, useClass: services.ConferenceMock },
+    { provide: services.FormElementService, useClass: services.FormElementMock },
+
+    { provide: FormApi, useClass: services.FormEndpoint },
+    { provide: ApplicationApi, useClass: services.ApplicationEndpoint },
+    { provide: UserApi, useClass: services.UserEndpoint },
+    { provide: ConferenceApi, useClass: services.ConferenceEndpoint},
+]
+
 /**
  * Factory Functions
  */

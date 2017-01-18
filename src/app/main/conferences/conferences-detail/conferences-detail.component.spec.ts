@@ -6,14 +6,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { ConferencesDetailComponent } from './conferences-detail.component';
 
-import {
-    ConferenceService,
-    ConferenceMock
-} from './../../../core';
+import { CoreProviderMock } from './../../../core/core.module';
+import { AlertProviderMock } from './../../../modules/alert/alert.module';
 
 import { SharedModule } from './../../../shared/shared.module';
 import { OverlayModule } from './../../../modules/overlay/overlay.module';
 import { ListModule } from './../../../modules/list/list.module';
+import { ButtonModule } from './../../../modules/button/button.module';
+import { FloatingModule } from './../../../modules/floating/floating.module';
+import { DynamicFormModule } from './../../../modules/dynamic-form/dynamic-form.module';
 
 describe('ConferencesDetailComponent', () => {
     let component: ConferencesDetailComponent;
@@ -29,9 +30,13 @@ describe('ConferencesDetailComponent', () => {
                 RouterTestingModule.withRoutes([
                     { path: '', component: class { } },
                 ]),
+                ButtonModule,
+                FloatingModule,
+                DynamicFormModule,
             ],
             providers: [
-                { provide: ConferenceService, useClass: ConferenceMock }
+                ...CoreProviderMock,
+                ...AlertProviderMock
             ]
         })
             .compileComponents();

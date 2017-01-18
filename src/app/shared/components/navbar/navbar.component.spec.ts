@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { NavbarComponent } from './navbar.component';
 
-import { AuthenticationService, AuthenticationMock } from './../../../core';
+import { CoreProviderMock } from './../../../core/core.module';
 
 import { ButtonModule } from './../../../modules/button/button.module';
 import { DeviderModule } from './../../../modules/devider/devider.module';
@@ -28,7 +28,7 @@ describe('NavbarComponent', () => {
                 DeviderModule
             ],
             providers: [
-                { provide: AuthenticationService, useClass: AuthenticationMock }
+                ...CoreProviderMock
             ]
         })
             .compileComponents();

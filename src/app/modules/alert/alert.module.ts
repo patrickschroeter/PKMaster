@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { AlertService, AlertComponent, AlertDirective } from './';
+import { AlertService, AlertMock, AlertComponent, AlertDirective } from './';
 
 import { OverlayModule } from './../overlay/overlay.module';
 
@@ -31,3 +31,7 @@ export class AlertModule { }
     ]
 })
 export class AlertDirectiveModule { }
+
+export const AlertProviderMock = [
+    { provide: AlertService, useClass: AlertMock }
+]

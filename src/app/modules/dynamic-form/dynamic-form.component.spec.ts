@@ -23,10 +23,7 @@ import {
     DynamicFormMock
 } from './';
 
-import {
-    InputValidationService,
-    InputValidationMock
-} from './../../core';
+import { CoreProviderMock } from './../../core/core.module';
 
 import { SharedModule } from './../../shared/shared.module';
 import { FloatingModule } from './../../modules/floating/floating.module';
@@ -64,8 +61,8 @@ describe('DynamicFormComponent', () => {
                 OverlayModule
             ],
             providers: [
-                { provide: InputValidationService, useClass: InputValidationMock },
-                { provide: DynamicFormService, useClass: DynamicFormMock }
+                { provide: DynamicFormService, useClass: DynamicFormMock },
+                ...CoreProviderMock
             ]
         })
             .compileComponents();

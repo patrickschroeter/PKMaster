@@ -6,17 +6,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { ConferencesComponent } from './conferences.component';
 
-import { AlertService, AlertMock } from './../../modules/alert';
 import { DynamicFormModule } from './../../modules/dynamic-form/dynamic-form.module';
 
-
-import {
-    ConferenceService,
-    ConferenceMock,
-
-    InputValidationService,
-    InputValidationMock
-} from './../../core';
+import { CoreProviderMock } from './../../core/core.module';
+import { AlertProviderMock } from './../../modules/alert/alert.module';
 
 import {
     SharedModule
@@ -48,9 +41,8 @@ describe('ConferencesComponent', () => {
                 DynamicFormModule,
             ],
             providers: [
-                { provide: ConferenceService, useClass: ConferenceMock },
-                { provide: InputValidationService, useClass: InputValidationMock },
-                { provide: AlertService, useClass: AlertMock },
+                ...CoreProviderMock,
+                ...AlertProviderMock
             ]
         })
             .compileComponents();
