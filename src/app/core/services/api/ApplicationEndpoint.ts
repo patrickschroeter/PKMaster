@@ -127,7 +127,7 @@ export class ApplicationEndpoint {
         if (application.form) {
             application.form = this.formApi['_form'](application.form.id);
             if (application.form) {
-                application.attributes = application.form.elements;
+                application.attributes = application.form.formHasField;
             }
         }
         this._list.push(application);

@@ -136,6 +136,7 @@ export class FormApi {
                 if (response.status === 204) {
                     return undefined;
                 } else {
+                    console.log(response.json());
                     return response.json();
                 }
             });

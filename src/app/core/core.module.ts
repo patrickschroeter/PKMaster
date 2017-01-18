@@ -49,26 +49,26 @@ const BASEPATH = 'http://pk.multimedia.hs-augsburg.de:8000';
 
         // Mock API
         // FormApi,
-        // {
-        //     provide: FormApi,
-        //     useFactory: extendFormApi,
-        //     deps: [Http]
-        // },
-        { provide: FormApi, useClass: services.FormEndpoint },
+        {
+            provide: FormApi,
+            useFactory: extendFormApi,
+            deps: [Http]
+        },
+        // { provide: FormApi, useClass: services.FormEndpoint },
         // ApplicationApi,
-        // {
-        //     provide: ApplicationApi,
-        //     useFactory: extendApplicationApi,
-        //     deps: [Http]
-        // },
-        { provide: ApplicationApi, useClass: services.ApplicationEndpoint },
+        {
+            provide: ApplicationApi,
+            useFactory: extendApplicationApi,
+            deps: [Http]
+        },
+        // { provide: ApplicationApi, useClass: services.ApplicationEndpoint },
         { provide: UserApi, useClass: services.UserEndpoint },
-        // {
-        //     provide: ConferenceApi,
-        //     useFactory: extendConferenceApi,
-        //     deps: [Http]
-        // },
-        { provide: ConferenceApi, useClass: services.ConferenceEndpoint},
+        {
+            provide: ConferenceApi,
+            useFactory: extendConferenceApi,
+            deps: [Http]
+        },
+        // { provide: ConferenceApi, useClass: services.ConferenceEndpoint},
 
         // Extend HTTP
         {

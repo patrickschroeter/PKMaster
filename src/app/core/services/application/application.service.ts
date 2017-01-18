@@ -51,10 +51,12 @@ export class ApplicationService {
      * @return {Observable}
      */
     public createNewApplication(application: Application): Observable<Application> {
-        /* TODO */
+        /* TODO: wait for token */
         this.auth.getUser().subscribe(user => {
             application.userId = user.id;
         });
+
+        application.formId = application.form.id;
 
         return this.applicationApi.createApplication(17, (application as ApplicationCreateDto)).map(result => {
             return this.application = result;
