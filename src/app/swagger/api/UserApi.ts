@@ -178,7 +178,7 @@ export class UserApi {
      * @param token Accesstoken to authenticate with the API
      * @param user Updated AppUser
      */
-    public updateUserById (userId: string, token?: number, user?: models.AppUser, extraHttpRequestParams?: any ) : Observable<models.AppUser> {
+    public updateUserById (userId: number, token?: number, user?: models.AppUser, extraHttpRequestParams?: any ) : Observable<models.AppUser> {
         const path = this.basePath + '/users/{userId}'
             .replace('{' + 'userId' + '}', String(userId));
 

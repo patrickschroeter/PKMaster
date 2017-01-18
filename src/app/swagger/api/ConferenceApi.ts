@@ -47,12 +47,13 @@ export class ConferenceApi {
      * Add a Application to the Conference
      * 
      * @param conferenceId ID of the Conference
+     * @param applicationId The Application ID
      * @param token Accesstoken to authenticate with the API
-     * @param application The Application ID
      */
-    public addApplicationToConference (conferenceId: number, token?: number, application?: number, extraHttpRequestParams?: any ) : Observable<models.Conference> {
-        const path = this.basePath + '/conferences/{conferenceId}/applications'
-            .replace('{' + 'conferenceId' + '}', String(conferenceId));
+    public addApplicationToConference (conferenceId: string, applicationId: string, token?: number, extraHttpRequestParams?: any ) : Observable<{}> {
+        const path = this.basePath + '/conferences/{conferenceId}/applications/{applicationId}'
+            .replace('{' + 'conferenceId' + '}', String(conferenceId))
+            .replace('{' + 'applicationId' + '}', String(applicationId));
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
@@ -60,14 +61,17 @@ export class ConferenceApi {
         if (conferenceId === null || conferenceId === undefined) {
             throw new Error('Required parameter conferenceId was null or undefined when calling addApplicationToConference.');
         }
+        // verify required parameter 'applicationId' is not null or undefined
+        if (applicationId === null || applicationId === undefined) {
+            throw new Error('Required parameter applicationId was null or undefined when calling addApplicationToConference.');
+        }
             headerParams.set('token', String(token));
 
         let requestOptions: RequestOptionsArgs = {
-            method: 'POST',
+            method: 'PUT',
             headers: headerParams,
             search: queryParameters
         };
-        requestOptions.body = JSON.stringify(application);
 
         return this.http.request(path, requestOptions)
             .map((response: Response) => {
@@ -85,7 +89,7 @@ export class ConferenceApi {
      * @param token Accesstoken to authenticate with the API
      * @param conference new Conference Object
      */
-    public addConference (token?: number, conference?: models.Conference, extraHttpRequestParams?: any ) : Observable<models.Conference> {
+    public addConference (token?: number, conference?: models.ConferenceCreateDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceCreateDto> {
         const path = this.basePath + '/conferences';
 
         let queryParameters = new URLSearchParams();
@@ -113,18 +117,23 @@ export class ConferenceApi {
      * Delete Application of Conference
      * 
      * @param conferenceId ID of the Conference
+     * @param applicationId The Application ID
      * @param token Accesstoken to authenticate with the API
-     * @param application The Application ID
      */
-    public deleteApplicationOfConference (conferenceId: number, token?: number, application?: number, extraHttpRequestParams?: any ) : Observable<models.Conference> {
-        const path = this.basePath + '/conferences/{conferenceId}/applications'
-            .replace('{' + 'conferenceId' + '}', String(conferenceId));
+    public deleteApplicationOfConference (conferenceId: string, applicationId: string, token?: number, extraHttpRequestParams?: any ) : Observable<{}> {
+        const path = this.basePath + '/conferences/{conferenceId}/applications/{applicationId}'
+            .replace('{' + 'conferenceId' + '}', String(conferenceId))
+            .replace('{' + 'applicationId' + '}', String(applicationId));
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
         // verify required parameter 'conferenceId' is not null or undefined
         if (conferenceId === null || conferenceId === undefined) {
             throw new Error('Required parameter conferenceId was null or undefined when calling deleteApplicationOfConference.');
+        }
+        // verify required parameter 'applicationId' is not null or undefined
+        if (applicationId === null || applicationId === undefined) {
+            throw new Error('Required parameter applicationId was null or undefined when calling deleteApplicationOfConference.');
         }
             headerParams.set('token', String(token));
 
@@ -133,7 +142,6 @@ export class ConferenceApi {
             headers: headerParams,
             search: queryParameters
         };
-        requestOptions.body = JSON.stringify(application);
 
         return this.http.request(path, requestOptions)
             .map((response: Response) => {
@@ -151,7 +159,7 @@ export class ConferenceApi {
      * @param conferenceId ID of the Conference
      * @param token Accesstoken to authenticate with the API
      */
-    public deleteConferenceById (conferenceId: number, token?: number, extraHttpRequestParams?: any ) : Observable<{}> {
+    public deleteConferenceById (conferenceId: string, token?: number, extraHttpRequestParams?: any ) : Observable<{}> {
         const path = this.basePath + '/conferences/{conferenceId}'
             .replace('{' + 'conferenceId' + '}', String(conferenceId));
 
@@ -185,7 +193,7 @@ export class ConferenceApi {
      * @param conferenceId ID of the Conference
      * @param token Accesstoken to authenticate with the API
      */
-    public getApplicationsByConference (conferenceId: number, token?: number, extraHttpRequestParams?: any ) : Observable<Array<models.Application>> {
+    public getApplicationsByConference (conferenceId: string, token?: number, extraHttpRequestParams?: any ) : Observable<Array<models.ApplicationDto>> {
         const path = this.basePath + '/conferences/{conferenceId}/applications'
             .replace('{' + 'conferenceId' + '}', String(conferenceId));
 
@@ -219,7 +227,7 @@ export class ConferenceApi {
      * @param conferenceId ID of the Conference
      * @param token Accesstoken to authenticate with the API
      */
-    public getConferenceById (conferenceId: string, token?: number, extraHttpRequestParams?: any ) : Observable<models.ConferenceDto> {
+    public getConferenceById (conferenceId: string, token?: number, extraHttpRequestParams?: any ) : Observable<models.ConferenceDtoApplicationDto> {
         const path = this.basePath + '/conferences/{conferenceId}'
             .replace('{' + 'conferenceId' + '}', String(conferenceId));
 
@@ -254,7 +262,7 @@ export class ConferenceApi {
      * @param filter Filter the Result
      * @param sort Sort the Result
      */
-    public getConferences (token?: number, filter?: string, sort?: string, extraHttpRequestParams?: any ) : Observable<Array<models.ConferenceDto>> {
+    public getConferences (token?: number, filter?: string, sort?: string, extraHttpRequestParams?: any ) : Observable<Array<models.ConferenceDtoGuid>> {
         const path = this.basePath + '/conferences';
 
         let queryParameters = new URLSearchParams();
@@ -292,7 +300,7 @@ export class ConferenceApi {
      * @param token Accesstoken to authenticate with the API
      * @param conference Conference to Update
      */
-    public updateConferenceById (conferenceId: number, token?: number, conference?: models.Conference, extraHttpRequestParams?: any ) : Observable<models.Conference> {
+    public updateConferenceById (conferenceId: string, token?: number, conference?: models.ConferenceCreateDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceDtoApplicationDto> {
         const path = this.basePath + '/conferences/{conferenceId}'
             .replace('{' + 'conferenceId' + '}', String(conferenceId));
 

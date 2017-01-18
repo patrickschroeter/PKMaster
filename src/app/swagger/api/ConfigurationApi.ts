@@ -33,7 +33,7 @@ import 'rxjs/Rx';
 'use strict';
 
 @Injectable()
-export class FormApi {
+export class ConfigurationApi {
     protected basePath = 'https://pk.multimedia.hs-augsburg.de:8000/';
     public defaultHeaders : Headers = new Headers();
 
@@ -44,110 +44,12 @@ export class FormApi {
     }
 
     /**
-     * Create new Form
-     * 
-     * @param token Accesstoken to authenticate with the API
-     * @param form new Form
-     */
-    public addForm (token?: number, form?: models.FormCreateDto, extraHttpRequestParams?: any ) : Observable<models.FormsDto> {
-        const path = this.basePath + '/forms';
-
-        let queryParameters = new URLSearchParams();
-        let headerParams = this.defaultHeaders;
-            headerParams.set('token', String(token));
-
-        let requestOptions: RequestOptionsArgs = {
-            method: 'POST',
-            headers: headerParams,
-            search: queryParameters
-        };
-        requestOptions.body = JSON.stringify(form);
-
-        return this.http.request(path, requestOptions)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return response.json();
-                }
-            });
-    }
-
-    /**
-     * Delete Form with Id
-     * 
-     * @param formId ID of the Form
+     * GET all Field Definitions
+     * The config Endpoint returns all form relevant configs
      * @param token Accesstoken to authenticate with the API
      */
-    public deleteFormById (formId: string, token?: number, extraHttpRequestParams?: any ) : Observable<{}> {
-        const path = this.basePath + '/forms/{formId}'
-            .replace('{' + 'formId' + '}', String(formId));
-
-        let queryParameters = new URLSearchParams();
-        let headerParams = this.defaultHeaders;
-        // verify required parameter 'formId' is not null or undefined
-        if (formId === null || formId === undefined) {
-            throw new Error('Required parameter formId was null or undefined when calling deleteFormById.');
-        }
-            headerParams.set('token', String(token));
-
-        let requestOptions: RequestOptionsArgs = {
-            method: 'DELETE',
-            headers: headerParams,
-            search: queryParameters
-        };
-
-        return this.http.request(path, requestOptions)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return response.json();
-                }
-            });
-    }
-
-    /**
-     * GET one Form by Id
-     * 
-     * @param formId ID of the Form
-     * @param token Accesstoken to authenticate with the API
-     */
-    public getFormById (formId: string, token?: number, extraHttpRequestParams?: any ) : Observable<models.SingleFormDto> {
-        const path = this.basePath + '/forms/{formId}'
-            .replace('{' + 'formId' + '}', String(formId));
-
-        let queryParameters = new URLSearchParams();
-        let headerParams = this.defaultHeaders;
-        // verify required parameter 'formId' is not null or undefined
-        if (formId === null || formId === undefined) {
-            throw new Error('Required parameter formId was null or undefined when calling getFormById.');
-        }
-            headerParams.set('token', String(token));
-
-        let requestOptions: RequestOptionsArgs = {
-            method: 'GET',
-            headers: headerParams,
-            search: queryParameters
-        };
-
-        return this.http.request(path, requestOptions)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return response.json();
-                }
-            });
-    }
-
-    /**
-     * GET all Forms
-     * The Forms Endpoint returns all Forms
-     * @param token Accesstoken to authenticate with the API
-     */
-    public getForms (token?: number, extraHttpRequestParams?: any ) : Observable<Array<models.FormsDto>> {
-        const path = this.basePath + '/forms';
+    public getFieldDefinitions (token?: number, extraHttpRequestParams?: any ) : Observable<Array<models.T>> {
+        const path = this.basePath + '/config/fieldDefinitions';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
@@ -170,30 +72,78 @@ export class FormApi {
     }
 
     /**
-     * Update Form with Id
+     * GET all possible Styles
      * 
-     * @param formId ID of the Form
      * @param token Accesstoken to authenticate with the API
-     * @param form Updated Form
      */
-    public updateFormById (formId: number, token?: number, form?: models.Form, extraHttpRequestParams?: any ) : Observable<models.Form> {
-        const path = this.basePath + '/forms/{formId}'
-            .replace('{' + 'formId' + '}', String(formId));
+    public getFieldStyles (token?: number, extraHttpRequestParams?: any ) : Observable<any> {
+        const path = this.basePath + '/config/styles';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-        // verify required parameter 'formId' is not null or undefined
-        if (formId === null || formId === undefined) {
-            throw new Error('Required parameter formId was null or undefined when calling updateFormById.');
-        }
             headerParams.set('token', String(token));
 
         let requestOptions: RequestOptionsArgs = {
-            method: 'PUT',
+            method: 'GET',
             headers: headerParams,
             search: queryParameters
         };
-        requestOptions.body = JSON.stringify(form);
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json();
+                }
+            });
+    }
+
+    /**
+     * GET all possible Validations
+     * 
+     * @param token Accesstoken to authenticate with the API
+     */
+    public getFieldValidations (token?: number, extraHttpRequestParams?: any ) : Observable<any> {
+        const path = this.basePath + '/config/validations';
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+            headerParams.set('token', String(token));
+
+        let requestOptions: RequestOptionsArgs = {
+            method: 'GET',
+            headers: headerParams,
+            search: queryParameters
+        };
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json();
+                }
+            });
+    }
+
+    /**
+     * GET all possible Status
+     * 
+     * @param token Accesstoken to authenticate with the API
+     */
+    public getStatusValues (token?: number, extraHttpRequestParams?: any ) : Observable<any> {
+        const path = this.basePath + '/config/status';
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+            headerParams.set('token', String(token));
+
+        let requestOptions: RequestOptionsArgs = {
+            method: 'GET',
+            headers: headerParams,
+            search: queryParameters
+        };
 
         return this.http.request(path, requestOptions)
             .map((response: Response) => {

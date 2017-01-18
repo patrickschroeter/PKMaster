@@ -25,20 +25,10 @@
 'use strict';
 import * as models from './models';
 
-export interface CommentDto {
+export interface ConferenceCreateDto {
     
 
-    id?: string;
+    description?: string;
 
-    text?: string;
-
-    created?: Date;
-
-    isPrivate?: boolean;
-
-    requiresChanges?: boolean;
-
-    userId?: string;
-
-    applicationId?: string;
+    dateOfEvent?: Date;
 }
