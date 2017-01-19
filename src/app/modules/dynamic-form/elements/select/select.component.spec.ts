@@ -9,7 +9,7 @@ import { SelectComponent } from './select.component';
 import { FloatingModule } from './../../../../modules/floating/floating.module';
 import { ButtonModule } from './../../../../modules/button/button.module';
 import { OverlayModule } from './../../../../modules/overlay/overlay.module';
-import { DynamicFormComponent, DynamicFormComponentMock } from './../../';
+import { DynamicFormComponent } from './../../';
 
 describe('SelectComponent', () => {
     let component: SelectComponent;
@@ -28,7 +28,6 @@ describe('SelectComponent', () => {
                 OverlayModule
             ],
             providers: [
-                { provide: DynamicFormComponent, useClass: DynamicFormComponentMock }
             ]
         })
             .compileComponents();

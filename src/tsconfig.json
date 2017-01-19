@@ -15,6 +15,10 @@
       "../node_modules/@types"
     ]
   },
-  "exclude": [ "test.ts" ],
-  "angularCompilerOptions": { "genDir": "i18n" }
+  "exclude": [
+    "test.ts"
+  ],
+  "angularCompilerOptions": {
+    "genDir": "i18n"
+  }
 }

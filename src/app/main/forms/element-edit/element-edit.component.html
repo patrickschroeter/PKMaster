@@ -6,7 +6,7 @@
         <pk-dynamic-form [formElements]="element" #dynamicForm (onChange)="updateElement($event)">
             <pk-dynamic-form-content>
 
-                <pk-dynamic-form-element *ngFor="let attribute of element" [element]="attribute"></pk-dynamic-form-element>
+                <pk-dynamic-form-element *ngFor="let attribute of element" [element]="attribute" [form]="dynamicForm.form"></pk-dynamic-form-element>
 
             </pk-dynamic-form-content>
 
@@ -32,7 +32,7 @@
                 <pk-dynamic-form [formElements]="elementPreview" #dynamicForm>
                     <pk-dynamic-form-content>
 
-                        <pk-dynamic-form-element *ngFor="let element of elementPreview" [element]="element"></pk-dynamic-form-element>
+                        <pk-dynamic-form-element *ngFor="let element of elementPreview" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
 
                     </pk-dynamic-form-content>
 

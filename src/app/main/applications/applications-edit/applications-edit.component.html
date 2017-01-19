@@ -6,7 +6,7 @@
     <pk-dynamic-form [formElements]="application.attributes" #dynamicForm *ngIf="application.attributes?.length > 0">
         <pk-dynamic-form-content>
 
-            <pk-dynamic-form-element *ngFor="let element of application.attributes" [element]="element"></pk-dynamic-form-element>
+            <pk-dynamic-form-element *ngFor="let element of application.attributes" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
 
         </pk-dynamic-form-content>
 

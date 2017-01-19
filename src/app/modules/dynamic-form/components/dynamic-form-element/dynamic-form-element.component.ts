@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 import { DynamicFormService } from './../../services';
 
@@ -14,8 +15,9 @@ export class DynamicFormElementComponent implements OnInit {
 
     @Input() element;
     @Input() disabled: boolean;
+    @Input() form: FormGroup;
 
-    constructor(private dynamicForm: DynamicFormService, private parent: DynamicFormComponent) { }
+    constructor(private dynamicForm: DynamicFormService) { }
 
     ngOnInit() {
     }
@@ -27,7 +29,7 @@ export class DynamicFormElementComponent implements OnInit {
      * @return {void}
      */
     showElementValidation(element: Field): void {
-        this.dynamicForm.showElementValidation(this.parent.form.controls[element.name]);
+        this.dynamicForm.showElementValidation(this.form.controls[element.name]);
     }
 
     hideElementValidation(): void {

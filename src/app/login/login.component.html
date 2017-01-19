@@ -4,7 +4,7 @@
     <pk-dynamic-form [formElements]="loginForm" #dynamicForm>
         <pk-dynamic-form-content>
 
-            <pk-dynamic-form-element *ngFor="let element of loginForm" [element]="element"></pk-dynamic-form-element>
+            <pk-dynamic-form-element *ngFor="let element of loginForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
 
         </pk-dynamic-form-content>
 

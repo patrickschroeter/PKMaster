@@ -6,7 +6,7 @@ import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { InputComponent } from './input.component';
 import {
-    DynamicFormComponent, DynamicFormComponentMock
+    DynamicFormComponent
 } from './../../';
 
 // import {  } from './../../';
@@ -25,7 +25,6 @@ describe('Component: Input', () => {
                 ReactiveFormsModule
             ],
             providers: [
-                { provide: DynamicFormComponent, useClass: DynamicFormComponentMock }
             ]
         });
 
