@@ -12,14 +12,14 @@
     </div>
   </div>
 
-  <a *accessReadApplications class="navbar__link selectable left" routerLink="/applications" routerLinkActive="selectable--active">Applications</a>
-  <a *accessReadConferences class="navbar__link selectable left" routerLink="/conferences" routerLinkActive="selectable--active">Conferences</a>
-  <a *accessReadForms class="navbar__link selectable left" routerLink="/forms" routerLinkActive="selectable--active">Forms</a>
-  <a class="navbar__link selectable left" routerLink="/profile" routerLinkActive="selectable--active">Profile</a>
-  <a *accessAdmin class="navbar__link selectable left" routerLink="/admin" routerLinkActive="selectable--active">Admin</a>
+  <a *accessReadApplications class="navbar__link selectable left" routerLink="/applications" routerLinkActive="selectable--active" i18n>Applications</a>
+  <a *accessReadConferences class="navbar__link selectable left" routerLink="/conferences" routerLinkActive="selectable--active" i18n>Conferences</a>
+  <a *accessReadForms class="navbar__link selectable left" routerLink="/forms" routerLinkActive="selectable--active" i18n>Forms</a>
+  <a class="navbar__link selectable left" routerLink="/profile" routerLinkActive="selectable--active" i18n>Profile</a>
+  <a *accessAdmin class="navbar__link selectable left" routerLink="/admin" routerLinkActive="selectable--active" i18n>Admin</a>
 
   <pk-devider></pk-devider>
 
-  <a class="navbar__link selectable right" (click)="logout()">Logout</a>
+  <a class="navbar__link selectable right" (click)="logout()" i18n>Logout</a>
 </div>
 <div class="navbar__fallback" [class.navbar__fallback--open]="isOpen" (click)="toggleNavbar()"></div>

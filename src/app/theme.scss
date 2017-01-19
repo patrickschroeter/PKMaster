@@ -1,20 +1,20 @@
-@import './theme/variables';
-@import './theme/colors';
-@import './theme/mixins';
-@import './theme/typescale';
-@import './theme/animations';
+@import './theme/variables.scss';
+@import './theme/colors.scss';
+@import './theme/mixins.scss';
+@import './theme/typescale.scss';
+@import './theme/animations.scss';
 
 /** Elements */
-@import './theme/elements/devider';
-@import './theme/elements/element-label';
-@import './theme/elements/tooltip';
-@import './theme/elements/empty-wrapper';
-@import './theme/elements/comment';
+@import './theme/elements/devider.scss';
+@import './theme/elements/element-label.scss';
+@import './theme/elements/tooltip.scss';
+@import './theme/elements/empty-wrapper.scss';
+@import './theme/elements/comment.scss';
 
 /** Components */
-@import './theme/components/selectable';
-@import './theme/components/form';
-@import './theme/components/element';
-@import './theme/components/hint';
-@import './theme/components/overlay';
-@import './theme/components/comment-block';
+@import './theme/components/selectable.scss';
+@import './theme/components/form.scss';
+@import './theme/components/element.scss';
+@import './theme/components/hint.scss';
+@import './theme/components/overlay.scss';
+@import './theme/components/comment-block.scss';
