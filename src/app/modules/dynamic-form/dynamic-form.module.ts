@@ -87,5 +87,5 @@ export class DynamicFormModule { }
 
 export const DynamicFormProviderMock = [
     { provide: DynamicFormService, useClass: DynamicFormMock },
-    { provide: InputValidationService, useClass: InputValidationService }
+    { provide: InputValidationService, useClass: InputValidationMock }
 ]
