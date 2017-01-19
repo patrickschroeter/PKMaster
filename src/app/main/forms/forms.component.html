@@ -50,7 +50,7 @@
             <pk-dynamic-form [formElements]="newForm" #dynamicForm>
                 <pk-dynamic-form-content>
 
-                    <pk-dynamic-form-element *ngFor="let element of newForm" [element]="element"></pk-dynamic-form-element>
+                    <pk-dynamic-form-element *ngFor="let element of newForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
 
                 </pk-dynamic-form-content>
 

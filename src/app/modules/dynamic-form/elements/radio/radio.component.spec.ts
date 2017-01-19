@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { RadioComponent } from './radio.component';
 import {
-    DynamicFormComponent, DynamicFormComponentMock } from './../../';
+    DynamicFormComponent } from './../../';
 
 describe('RadioComponent', () => {
     let component: RadioComponent;
@@ -21,7 +21,6 @@ describe('RadioComponent', () => {
                 ReactiveFormsModule
             ],
             providers: [
-                { provide: DynamicFormComponent, useClass: DynamicFormComponentMock }
             ]
         })
         .compileComponents();

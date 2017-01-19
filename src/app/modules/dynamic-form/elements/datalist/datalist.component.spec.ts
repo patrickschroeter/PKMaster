@@ -16,7 +16,6 @@ import {
 
 import {
     DynamicFormComponent,
-    DynamicFormComponentMock,
     DynamicFormContentComponent,
     DynamicFormElementComponent,
     DynamicFormSubmitComponent,
@@ -64,7 +63,6 @@ describe('DatalistComponent', () => {
                 ButtonModule
             ],
             providers: [
-                { provide: DynamicFormComponent, useClass: DynamicFormComponentMock },
                 ...DynamicFormProviderMock,
                 ...CoreProviderMock,
                 ...AlertProviderMock

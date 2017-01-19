@@ -8,7 +8,6 @@ import { DynamicFormElementComponent } from './dynamic-form-element.component';
 
 import {
     DynamicFormComponent,
-    DynamicFormComponentMock,
     DynamicFormContentComponent,
     DynamicFormSubmitComponent,
     DynamicFormCancelComponent,
@@ -65,7 +64,6 @@ describe('DynamicFormElementComponent', () => {
             ],
             providers: [
                 { provide: DynamicFormService, useClass: DynamicFormMock },
-                { provide: DynamicFormComponent, useClass: DynamicFormComponentMock },
                 ...CoreProviderMock
             ]
         })

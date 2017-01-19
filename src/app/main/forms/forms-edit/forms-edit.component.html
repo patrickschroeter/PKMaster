@@ -12,7 +12,7 @@
     <pk-dynamic-form *ngIf="form && form.formHasField && form.formHasField.length > 0" [formElements]="form.formHasField">
         <pk-dynamic-form-content>
 
-            <pk-dynamic-form-element *ngFor="let element of form.formHasField, let i = index" [element]="element">
+            <pk-dynamic-form-element *ngFor="let element of form.formHasField, let i = index" [element]="element" [form]="dynamicForm.form">
                 <pk-floating bottom-right-corner horizontal>
                     <pk-button rounded pkAlert="Edit Form Element" class="button button--edit element element--spacing-left-tiny" icon="create" (onClick)="editElement(element)" element--secondary></pk-button>
                     <pk-button rounded pkAlert="Remove Form Element" class="button button--edit element element--spacing-left-tiny" icon="clear" (onClick)="removeElement(element, i)" element--error></pk-button>
@@ -56,7 +56,7 @@
         <pk-dynamic-form *ngIf="editForm" [formElements]="editForm" #dynamicForm>
             <pk-dynamic-form-content>
 
-                <pk-dynamic-form-element *ngFor="let element of editForm" [element]="element"></pk-dynamic-form-element>
+                <pk-dynamic-form-element *ngFor="let element of editForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
 
             </pk-dynamic-form-content>
 
