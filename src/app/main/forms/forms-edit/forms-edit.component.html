@@ -9,7 +9,7 @@
         No Elements in this form.
     </div>
 
-    <pk-dynamic-form *ngIf="form && form.formHasField && form.formHasField.length > 0" [formElements]="form.formHasField">
+    <pk-dynamic-form *ngIf="form && form.formHasField && form.formHasField.length > 0" [formElements]="form.formHasField" #dynamicForm>
         <pk-dynamic-form-content>
 
             <pk-dynamic-form-element *ngFor="let element of form.formHasField, let i = index" [element]="element" [form]="dynamicForm.form">
