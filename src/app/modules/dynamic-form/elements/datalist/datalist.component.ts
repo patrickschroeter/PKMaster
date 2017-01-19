@@ -31,7 +31,7 @@ export class DatalistComponent implements OnInit {
     get formControl() { return this._formControl; }
     set formControl(control: AbstractControl) { this._formControl = control; }
 
-    constructor( , private alert: AlertService) { }
+    constructor(private alert: AlertService) { }
 
     ngOnInit() {
         if (!this.config) {
