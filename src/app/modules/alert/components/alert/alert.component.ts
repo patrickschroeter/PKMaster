@@ -23,7 +23,7 @@ export class AlertComponent implements OnInit {
     get hintElements() { return this._hintElements; }
     set hintElements(elements: Array<Message>) { this._hintElements = elements; }
 
-    private loadingElements: Array<{ id, message }>;
+    private loadingElements: Array<{ id: string, message: string }>;
 
     constructor(private alert: AlertService) { }
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="f1abafaeb40ce52355ddcc24686e3cd17b64e08a" datatype="html">
+        <source>Applications</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="957fdc81717cb1d8e640151bc1f703a5e7eab183" datatype="html">
+        <source>Conferences</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="531d90a5c8fa11adf3f5e9a4103c25812a1b0929" datatype="html">
+        <source>Forms</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="994363f08f9fbfa3b3994ff7b35c6904fdff18d8" datatype="html">
+        <source>Profile</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="408cb6073e60c5d966296a3207fc596adca75e01" datatype="html">
+        <source>Admin</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="bb694b49d408265c91c62799c2b3a7e3151c824d" datatype="html">
+        <source>Logout</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

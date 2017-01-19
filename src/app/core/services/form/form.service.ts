@@ -29,7 +29,7 @@ export class FormService {
      * @return {Observable}
      */
     public getAddingElement(): Observable<boolean> {
-        if (!this.addingElementRx) { this.addingElementRx = new Observable(observer => { this.addingElement$ = observer; }); };
+        if (!this.addingElementRx) { this.addingElementRx = new Observable((observer: Observer<any>) => { this.addingElement$ = observer; }); };
         return this.addingElementRx;
     }
 
@@ -49,7 +49,7 @@ export class FormService {
      * @return {Observable}
      */
     public onEditElement(): Observable<Field> {
-        if (!this.editElementRx) { this.editElementRx = new Observable(observer => { this.editElement$ = observer; }); };
+        if (!this.editElementRx) { this.editElementRx = new Observable((observer: Observer<any>) => { this.editElement$ = observer; }); };
         return this.editElementRx;
     }
 
@@ -259,7 +259,7 @@ export class FormService {
             }
         ];
         // TODO: load real data
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 observer.next(formEdit);
                 observer.complete();

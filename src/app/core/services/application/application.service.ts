@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 
 import { AlertService } from './../../../modules/alert';
 import { FormService } from './../form';
@@ -75,7 +75,7 @@ export class ApplicationService {
     private blockedStatusUpdate(name: string, permittedStati: string[]): Observable<any> {
         if (permittedStati.indexOf(name) === -1) {
             this.alert.setAlert('Not Allowed', 'This operation is not allowed.');
-            return new Observable(observer => { observer.error('Error'); });
+            return new Observable((observer: Observer<any>) => { observer.error('Error'); });
         }
         return null;
     }
@@ -114,7 +114,7 @@ export class ApplicationService {
      * @description Saves the changed application
      * @return {void}
      */
-    public saveApplication(form): Observable<Application> {
+    public saveApplication(form: Object): Observable<Application> {
         if (this.application && this.application.attributes) {
             for (let i = 0, length = this.application.attributes.length; i < length; i++) {
                 let element: Field = this.application.attributes[i];

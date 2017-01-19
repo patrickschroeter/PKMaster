@@ -88,7 +88,7 @@ export class FieldType extends Select {
         { value: 'devider',         label: 'Devider' },
         { value: 'hiddenDevider',   label: 'hidden Devider' }
     ];
-    styles = [];
+    styles: string[] = [];
 }
 
 export class FieldName extends FieldModel {
@@ -198,7 +198,7 @@ export class Matrikelnummer extends FieldModel {
 
 export class Devider extends FieldModel {
     fieldType = 'devider';
-    styles = undefined;
+    styles: string[] = undefined;
 }
 
 const Fields = {

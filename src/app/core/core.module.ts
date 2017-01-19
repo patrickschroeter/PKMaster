@@ -95,7 +95,7 @@ export const CoreProviderMock = [
     { provide: FormApi, useClass: services.FormEndpoint },
     { provide: ApplicationApi, useClass: services.ApplicationEndpoint },
     { provide: UserApi, useClass: services.UserEndpoint },
-    { provide: ConferenceApi, useClass: services.ConferenceEndpoint},
+    { provide: ConferenceApi, useClass: services.ConferenceEndpoint },
 ]
 
 /**
@@ -108,14 +108,14 @@ export function extendHttp(xhrBackend: XHRBackend, requestOptions: RequestOption
 /**
  *  Add Http Basepath
  */
-export function extendFormApi(http) {
+export function extendFormApi(http: Http) {
     return API ? new FormApi(http, BASEPATH) : new FormEndpoint();
 }
 
-export function extendApplicationApi(http, formApi, conferenceApi, userApi) {
+export function extendApplicationApi(http: Http, formApi: FormApi, conferenceApi: ConferenceApi, userApi: UserApi) {
     return API ? new ApplicationApi(http, BASEPATH) : new ApplicationEndpoint(formApi, conferenceApi, userApi);
 }
 
-export function extendConferenceApi(http) {
+export function extendConferenceApi(http: Http) {
     return API ? new ConferenceApi(http, BASEPATH) : new ConferenceEndpoint();
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 
 import { UserApiMock } from './';
 
@@ -15,7 +15,7 @@ export class UserEndpoint {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c getUserById ${user.email}`, 'color: #F44336', 'color: #fefefe');
         let newUser = this._user(user.id);
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (!token) {
                     console.error(`No Token!`);
@@ -35,7 +35,7 @@ export class UserEndpoint {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c getUserById ${userId}`, 'color: #F44336', 'color: #fefefe');
         let user = this._user(userId);
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (!token) {
                     console.error(`No Token!`);
@@ -55,7 +55,7 @@ export class UserEndpoint {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c getUsers`, 'color: #F44336', 'color: #fefefe');
         let users = this._users();
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (!token) {
                     console.error(`No Token!`);
@@ -75,7 +75,7 @@ export class UserEndpoint {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c updateUserById`, 'color: #F44336', 'color: #fefefe');
         let updatedUser = this._userUpdate(userId, user);
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (!token) {
                     console.error(`No Token!`);
@@ -96,7 +96,7 @@ export class UserEndpoint {
         if (token) {
             console.log('%cMock:' + `%c login ${token}`, 'color: #F44336', 'color: #fefefe');
             let user = this._user(null, token);
-            return new Observable(observer => {
+            return new Observable((observer: Observer<any>) => {
                 setTimeout(() => {
                     if (user) {
                         observer.next(user);
@@ -110,7 +110,7 @@ export class UserEndpoint {
         } else {
             console.log('%cMock:' + `%c login ${username}`, 'color: #F44336', 'color: #fefefe');
             let user = this._login(username, password);
-            return new Observable(observer => {
+            return new Observable((observer: Observer<any>) => {
                 setTimeout(() => {
                     if (user) {
                         user.token = 'TOKEN';
@@ -127,7 +127,7 @@ export class UserEndpoint {
 
     public logout(token: string): Observable<any> {
         console.log('%cMock:' + `%c logout ${token}`, 'color: #F44336', 'color: #fefefe');
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (!token) {
                     console.error(`No Token!`);

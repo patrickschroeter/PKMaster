@@ -38,29 +38,29 @@ export class AccessDirective {
         private permission: PermissionService
     ) { }
 
-    @Input() set access(i) { this.restrictVisibility(['ReadApplications', 'ReadForms', 'ReadConferences'], i, true); }
+    @Input() set access(i: number) { this.restrictVisibility(['ReadApplications', 'ReadForms', 'ReadConferences'], i, true); }
 
-    @Input() set accessReadApplications(i) { this.restrictVisibility('ReadApplications', i); }
-    @Input() set accessEditApplications(i) { this.restrictVisibility('EditApplications', i); }
+    @Input() set accessReadApplications(i: number) { this.restrictVisibility('ReadApplications', i); }
+    @Input() set accessEditApplications(i: number) { this.restrictVisibility('EditApplications', i); }
 
-    @Input() set accessReadConferences(i) { this.restrictVisibility('ReadConferences', i); }
-    @Input() set accessEditConferences(i) { this.restrictVisibility('EditConferences', i); }
+    @Input() set accessReadConferences(i: number) { this.restrictVisibility('ReadConferences', i); }
+    @Input() set accessEditConferences(i: number) { this.restrictVisibility('EditConferences', i); }
 
-    @Input() set accessReadForms(i) { this.restrictVisibility('ReadForms', i); }
-    @Input() set accessEditForms(i) { this.restrictVisibility('EditForms', i); }
+    @Input() set accessReadForms(i: number) { this.restrictVisibility('ReadForms', i); }
+    @Input() set accessEditForms(i: number) { this.restrictVisibility('EditForms', i); }
 
-    @Input() set accessAdmin(i) { this.restrictVisibility(['ReadRoles', 'ReadPermissions', 'ReadUsers'], i, true); }
+    @Input() set accessAdmin(i: number) { this.restrictVisibility(['ReadRoles', 'ReadPermissions', 'ReadUsers'], i, true); }
 
-    @Input() set accessReadRoles(i) { this.restrictVisibility('ReadRoles', i); }
-    @Input() set accessEditRoles(i) { this.restrictVisibility('EditRoles', i); }
+    @Input() set accessReadRoles(i: number) { this.restrictVisibility('ReadRoles', i); }
+    @Input() set accessEditRoles(i: number) { this.restrictVisibility('EditRoles', i); }
 
-    @Input() set accessReadUsers(i) { this.restrictVisibility('ReadUsers', i); }
-    @Input() set accessEditUsers(i) { this.restrictVisibility('EditUsers', i); }
+    @Input() set accessReadUsers(i: number) { this.restrictVisibility('ReadUsers', i); }
+    @Input() set accessEditUsers(i: number) { this.restrictVisibility('EditUsers', i); }
 
-    @Input() set accessReadPermissions(i) { this.restrictVisibility('ReadPermissions', i); }
-    @Input() set accessEditPermissions(i) { this.restrictVisibility('EditPermissions', i); }
+    @Input() set accessReadPermissions(i: number) { this.restrictVisibility('ReadPermissions', i); }
+    @Input() set accessEditPermissions(i: number) { this.restrictVisibility('EditPermissions', i); }
 
-    private restrictVisibility(permission: string | string[], param, or = false) {
+    private restrictVisibility(permission: string | string[], param: number, or = false) {
         let access = this.permission.hasPermission(permission, or);
         if ( (access && !param) || (!access && !!param) ) {
             this.viewContainer.createEmbeddedView(this.templateRef);

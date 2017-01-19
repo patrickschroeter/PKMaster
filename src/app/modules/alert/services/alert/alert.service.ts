@@ -52,7 +52,7 @@ export class AlertService {
     }
 
     private add(id: string, type: string, message: string, time?: number): void {
-        let hint = this.addMessage(id, type, message);
+        let hint: Message = this.addMessage(id, type, message);
         if (hint.timeout) {
             clearTimeout(hint.timeout);
         }
@@ -69,7 +69,7 @@ export class AlertService {
                 index = i;
             }
         }
-        let hint;
+        let hint: Message;
         if (index === -1) {
             hint = new Message(id, type, message);
             this.hints.push(hint);
@@ -99,7 +99,7 @@ export class AlertService {
 
     public getAlert(): Observable<any> {
         if (!this.alertObservable) {
-            this.alertObservable = new Observable(observer => {
+            this.alertObservable = new Observable((observer: Observer<any>) => {
                 this.alertObserver = observer;
             });
         }
@@ -112,7 +112,7 @@ export class AlertService {
      */
     public getHintMessages(): Observable<Array<Message>> {
         if (!this.hintObservable) {
-            this.hintObservable = new Observable(observer => {
+            this.hintObservable = new Observable((observer: Observer<any>) => {
                 this.hintObserver = observer;
             });
         }
@@ -125,7 +125,7 @@ export class AlertService {
      */
     public getLoading(): Observable<any> {
         if (!this.loadingObserver) {
-            this.loadingObservable = new Observable(observer => {
+            this.loadingObservable = new Observable((observer: Observer<any>) => {
                 this.loadingObserver = observer;
             });
         }

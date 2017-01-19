@@ -2,7 +2,7 @@
 
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable, BehaviorSubject } from 'rxjs/Rx';
+import { Observable, BehaviorSubject, Observer } from 'rxjs/Rx';
 
 import { FormService } from './../form';
 import { AlertService } from './../../../modules/alert';
@@ -105,7 +105,7 @@ export class FormElementService {
 
         /** Request all Options of the selected Type */
         let returnedNumberOfRequests = 0;
-        let optionsOfElementType, validationsOfElementType, stylesOfElementType;
+        let optionsOfElementType: any[], validationsOfElementType: any[], stylesOfElementType: any[];
 
         let numberOfRequests = 1; // always get options
         this.getOptionsOfElementType(type).subscribe((opt) => {
@@ -151,9 +151,9 @@ export class FormElementService {
                 }
 
                 /** Add Options to Form (radio, select) */
-                let useCustomOptions = true;
-                let optionFormElement;
-                let formElementOptions;
+                let useCustomOptions: boolean = true;
+                let optionFormElement: any;
+                let formElementOptions: any;
                 for (let i = 0, length = generatedFormOfElement.length; i < length; i++) {
                     let input = generatedFormOfElement[i];
                     if (element[input.name] && input.name !== 'fieldType') {
@@ -307,7 +307,7 @@ export class FormElementService {
      * @return {void}
      */
     public removeElement(): void {
-        let name;
+        let name: Field;
         for (let i = 0, length = this.element.length; i < length; i++) {
             let formElement = this.element[i];
             if (formElement.name === 'name') {
@@ -358,9 +358,9 @@ export class FormElementService {
      * @return {Observable}
      */
     private getElementTypeOptions(): Observable<any> {
-        let result = new Fields.FieldType();
+        let result: Field = new Fields.FieldType();
         this.alert.setLoading('getInputTypeOptions', 'Loading Type Options...');
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 this.alert.removeHint('getInputTypeOptions');
                 observer.next(result);
@@ -370,9 +370,9 @@ export class FormElementService {
     }
 
     private getOptionsOfTable(name: string): Observable<any> {
-        let result = options();
+        let result: Field = options();
         this.alert.setLoading('getOptionsOfTable', `${name.toUpperCase()}: Loading Options...`);
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 this.alert.removeHint('getOptionsOfTable');
                 observer.next(result[name]);
@@ -387,10 +387,10 @@ export class FormElementService {
      * @return {Observable}
      */
     private getOptionsOfElementType(fieldType: string): Observable<any> {
-        let name = new Fields.FieldName();
-        let options = opts();
+        let name: Field = new Fields.FieldName();
+        let options: Field = opts();
         this.alert.setLoading('getOptionsOfInputType', `${fieldType.toUpperCase()}: Loading Options...`);
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 this.alert.removeHint('getOptionsOfInputType');
                 let result = [].concat(name);
@@ -409,9 +409,9 @@ export class FormElementService {
      * @return {Observable}
      */
     private getValidationsOfInputType(fieldType: string): Observable<any> {
-        let options = validations();
+        let options: Field = validations();
         this.alert.setLoading('getValidationsOfInputType', `${fieldType.toUpperCase()}: Loading Validations...`);
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 this.alert.removeHint('getValidationsOfInputType');
                 observer.next(options[fieldType]);
@@ -426,9 +426,9 @@ export class FormElementService {
      * @return {Observable}
      */
     private getStylesOfInputType(fieldType: string): Observable<any> {
-        let options = styles();
+        let options: Field = styles();
         this.alert.setLoading('getStyles', `${fieldType.toUpperCase()}: Loading Styles...`);
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 this.alert.removeHint('getStyles');
                 observer.next(options);
@@ -578,12 +578,12 @@ function opts() {
         h4: [
             new Fields.FieldValue()
         ],
-        devider: [
+        // devider: [
 
-        ],
-        hiddenDevider: [
+        // ],
+        // hiddenDevider: [
 
-        ]
+        // ]
     };
     return opts;
 }
