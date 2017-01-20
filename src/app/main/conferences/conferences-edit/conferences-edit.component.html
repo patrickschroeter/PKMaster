@@ -5,8 +5,8 @@
 
     <pk-floating top-right fixed>
         <a routerLink="/conferences/{{ conference.id }}">
-            <pk-button rounded pkAlert="Cancel" class="element--spacing-bottom-tiny" icon="clear" element--error></pk-button>
+            <pk-button rounded i18n-pkAlert pkAlert="Cancel" class="element--spacing-bottom-tiny" icon="clear" element--error></pk-button>
         </a>
-        <pk-button rounded pkAlert="Delete Conference" icon="delete" element--error (onClick)="deleteConference(conference)"></pk-button>
+        <pk-button rounded i18n-pkAlert pkAlert="Delete Conference" icon="delete" element--error (onClick)="deleteConference(conference)"></pk-button>
     </pk-floating>
 </div>

@@ -1,21 +1,19 @@
 <pk-loading *ngIf="!form"></pk-loading>
 
 <div id="form-edit" class="rel" *ngIf="form && !addingElement">
-    <h2 class="element element--spacing-bottom-small">Edit Form: {{ form.title }}</h2>
+    <h2 class="element element--spacing-bottom-small" i18n>Edit Form: {{ form.title }}</h2>
 
 
 
-    <div class="form" *ngIf="!form.formHasField || form.formHasField.length < 1">
-        No Elements in this form.
-    </div>
+    <div class="form" *ngIf="!form.formHasField || form.formHasField.length < 1" i18n>No Elements in this form.</div>
 
     <pk-dynamic-form *ngIf="form && form.formHasField && form.formHasField.length > 0" [formElements]="form.formHasField" #dynamicForm>
         <pk-dynamic-form-content>
 
             <pk-dynamic-form-element *ngFor="let element of form.formHasField, let i = index" [element]="element" [form]="dynamicForm.form">
                 <pk-floating bottom-right-corner horizontal>
-                    <pk-button rounded pkAlert="Edit Form Element" class="button button--edit element element--spacing-left-tiny" icon="create" (onClick)="editElement(element)" element--secondary></pk-button>
-                    <pk-button rounded pkAlert="Remove Form Element" class="button button--edit element element--spacing-left-tiny" icon="clear" (onClick)="removeElement(element, i)" element--error></pk-button>
+                    <pk-button rounded i18n-pkAlert pkAlert="Edit Form Element" class="button button--edit element element--spacing-left-tiny" icon="create" (onClick)="editElement(element)" element--secondary></pk-button>
+                    <pk-button rounded i18n-pkAlert pkAlert="Remove Form Element" class="button button--edit element element--spacing-left-tiny" icon="clear" (onClick)="removeElement(element, i)" element--error></pk-button>
                 </pk-floating>
             </pk-dynamic-form-element>
 
@@ -25,19 +23,17 @@
 
     <pk-floating top-right fixed>
         <a routerLink="/forms">
-            <pk-button rounded pkAlert="Cancel" class="element--spacing-bottom-tiny" icon="clear" element--error></pk-button>
+            <pk-button rounded i18n-pkAlert pkAlert="Cancel" class="element--spacing-bottom-tiny" icon="clear" element--error></pk-button>
         </a>
-        <pk-button rounded pkAlert="Edit Form Attributes" class="element--spacing-bottom-tiny" icon="edit" rounded element--secondary (onClick)="editFormAttributes()"></pk-button>
-        <pk-button rounded pkAlert="Add Form Element" class="element--spacing-bottom-tiny" icon="add" element--secondary (onClick)="addElement()"></pk-button>
-        <pk-button rounded pkAlert="Add Element Preset" class="element--spacing-bottom-tiny" icon="library_add" element--secondary (onClick)="addPreset()"></pk-button>
-        <pk-button rounded pkAlert="Save Form" class="element--spacing-bottom-tiny" icon="save" (onClick)="saveForm()" element--success></pk-button>
+        <pk-button rounded i18n-pkAlert pkAlert="Edit Form Attributes" class="element--spacing-bottom-tiny" icon="edit" rounded element--secondary (onClick)="editFormAttributes()"></pk-button>
+        <pk-button rounded i18n-pkAlert pkAlert="Add Form Element" class="element--spacing-bottom-tiny" icon="add" element--secondary (onClick)="addElement()"></pk-button>
+        <pk-button rounded i18n-pkAlert pkAlert="Add Element Preset" class="element--spacing-bottom-tiny" icon="library_add" element--secondary (onClick)="addPreset()"></pk-button>
+        <pk-button rounded i18n-pkAlert pkAlert="Save Form" class="element--spacing-bottom-tiny" icon="save" (onClick)="saveForm()" element--success></pk-button>
     </pk-floating>
 </div>
 
 <pk-overlay #overlayPreset="overlay">
-    <pk-overlay-header>
-        Add Element Preset
-    </pk-overlay-header>
+    <pk-overlay-header i18n>Add Element Preset</pk-overlay-header>
     <pk-overlay-content>
 
         <div class="overlay__option selectable" *ngFor="let option of presets" (click)="addPreset(option)">
@@ -48,9 +44,7 @@
 </pk-overlay>
 
 <pk-overlay #overlayAttributes="overlay" class="overlay--fluid">
-    <pk-overlay-header>
-        Edit Form Attributes
-    </pk-overlay-header>
+    <pk-overlay-header i18n>Edit Form Attributes</pk-overlay-header>
     <pk-overlay-content>
 
         <pk-dynamic-form *ngIf="editForm" [formElements]="editForm" #dynamicForm>
@@ -62,7 +56,7 @@
 
             <pk-dynamic-form-submit>
                 <pk-button
-                    [value]="'Save'"
+                    i18n-value value="Save"
                     icon="save"
                     [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
                     [type]="'submit'"

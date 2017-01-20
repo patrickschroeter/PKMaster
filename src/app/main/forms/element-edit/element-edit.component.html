@@ -1,7 +1,7 @@
 
 <div id="form-add-attribute">
     <div class="rel">
-        <h2 class="element element--spacing-bottom-small">Create new Element</h2>
+        <h2 class="element element--spacing-bottom-small" i18n>Create new Element</h2>
 
         <pk-dynamic-form [formElements]="element" #dynamicForm (onChange)="updateElement($event)">
             <pk-dynamic-form-content>
@@ -27,7 +27,7 @@
     <div *ngIf="elementPreview.length > 0 && elementHasPreview">
         <pk-floating fixed bottom-left>
             <div class="preview">
-                <h2 class="devider element element--spacing-bottom-small">Element Preview</h2>
+                <h2 class="devider element element--spacing-bottom-small" i18n>Element Preview</h2>
 
                 <pk-dynamic-form [formElements]="elementPreview" #dynamicForm>
                     <pk-dynamic-form-content>
@@ -45,38 +45,38 @@
     <div>
         <pk-floating fixed top-right>
             <pk-button rounded
-                pkAlert="Cancel Element"
+                i18n-pkAlert pkAlert="Cancel Element"
                 class="element--spacing-bottom-tiny" icon="clear" (onClick)="cancelElement()" element--error></pk-button>
 
             <div *ngIf="elementPreview.length > 0 && dynamicForm.form.valid">
                 <pk-button
-                    pkAlert="Toggle Preview"
+                    i18n-pkAlert pkAlert="Toggle Preview"
                     rounded class="element--spacing-bottom-tiny" icon="visibility" (onClick)="toggleElementPreview()" element--secondary></pk-button>
 
                 <pk-button *ngIf="!elementHasValidations"
-                    pkAlert="Add Validations"
+                    i18n-pkAlert pkAlert="Add Validations"
                     class="element--spacing-bottom-tiny"
                     rounded icon="security" (onClick)="addValidations()" element--secondary></pk-button>
                 <pk-button *ngIf="!elementHasStyles"
-                    pkAlert="Add Styling"
+                    i18n-pkAlert pkAlert="Add Styling"
                     class="element--spacing-bottom-tiny"
                     rounded icon="color_lens" (onClick)="addStyles()" element--secondary></pk-button>
 
                 <pk-button
-                    pkAlert="Save & Copy Element"
+                    i18n-pkAlert pkAlert="Save & Copy Element"
                     class="element--spacing-bottom-tiny"
                     rounded icon="content_copy" (onClick)="copyElement(dynamicForm.form.value, 'clone')" element--success></pk-button>
                 <pk-button
-                    pkAlert="Save & Add Element"
+                    i18n-pkAlert pkAlert="Save & Add Element"
                     class="element--spacing-bottom-tiny"
                     rounded icon="add" (onClick)="copyElement(dynamicForm.form.value, 'add')" element--success></pk-button>
                 <pk-button
-                    pkAlert="Save Element"
+                    i18n-pkAlert pkAlert="Save Element"
                     class="element--spacing-bottom-tiny"
                     rounded icon="save" (onClick)="saveElement(dynamicForm.form.value)" element--success></pk-button>
 
                 <pk-button rounded
-                    pkAlert="Delete Element (if possible)"
+                    i18n-pkAlert pkAlert="Delete Element (if possible)"
                     icon="delete" (onClick)="removeElement()" element--error></pk-button>
             </div>
         </pk-floating>

@@ -3,15 +3,15 @@
         <pk-loading *ngIf="!conferences"></pk-loading>
 
         <div *ngIf="conferences && !conferences.length" class="empty-wrapper">
-            <div class="label">No Conferences here.</div>
+            <div class="label" i18n>No Conferences here.</div>
             <pk-button *accessEditConferences icon="add" element--secondary value="Create New Conference" class="element--spacing-top-large"></pk-button>
         </div>
 
-        <h1 *ngIf="conferences?.length" class="element element--spacing-bottom-small">Conferences</h1>
+        <h1 *ngIf="conferences?.length" class="element element--spacing-bottom-small" i18n>Conferences</h1>
         <pk-list *ngIf="conferences?.length">
             <pk-list-header>
-                <pk-list-attribute name="name">Description</pk-list-attribute>
-                <pk-list-attribute name="date">Date</pk-list-attribute>
+                <pk-list-attribute name="name" i18n>Description</pk-list-attribute>
+                <pk-list-attribute name="date" i18n>Date</pk-list-attribute>
             </pk-list-header>
             <pk-list-content>
                 <pk-list-element *ngFor="let conference of conferences">
@@ -30,13 +30,11 @@
     </div>
 
     <pk-floating fixed top-right *ngIf="conferences?.length">
-        <pk-button rounded pkAlert="Create Conference" icon="add" element--secondary (onClick)="overlay.toggle()"></pk-button>
+        <pk-button rounded i18n-pkAlert pkAlert="Create Conference" icon="add" element--secondary (onClick)="overlay.toggle()"></pk-button>
     </pk-floating>
 
     <pk-overlay #overlay class="overlay--fluid">
-        <pk-overlay-header>
-            Create New Conference
-        </pk-overlay-header>
+        <pk-overlay-header i18n>Create New Conference</pk-overlay-header>
         <pk-overlay-content>
 
             <pk-dynamic-form-overlay
