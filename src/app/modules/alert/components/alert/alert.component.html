@@ -1,4 +1,4 @@
-<div *ngIf="isOverlayOpen || (hintElements && hintElements.length != 0) || (loadingElements && loadingElements.length != 0)">
+<div *ngIf="overlay.isOpen || (hintElements && hintElements.length != 0) || (loadingElements && loadingElements.length != 0)">
     <pk-overlay #overlay class="overlay--fluid overlay--error">
         <pk-overlay-header>
             {{ overlayTitle }}

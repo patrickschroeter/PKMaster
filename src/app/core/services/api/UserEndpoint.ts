@@ -8,6 +8,7 @@ import { AppUser } from './../../../swagger';
 
 @Injectable()
 export class UserEndpoint {
+    private basePath: string;
 
     constructor() { }
 
