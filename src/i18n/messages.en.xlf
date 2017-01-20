@@ -4,27 +4,31 @@
     <body>
       <trans-unit id="f1abafaeb40ce52355ddcc24686e3cd17b64e08a" datatype="html">
         <source>Applications</source>
-        <target/>
+        <target>Applications</target>
       </trans-unit>
       <trans-unit id="957fdc81717cb1d8e640151bc1f703a5e7eab183" datatype="html">
         <source>Conferences</source>
-        <target/>
+        <target>Conferences</target>
       </trans-unit>
       <trans-unit id="531d90a5c8fa11adf3f5e9a4103c25812a1b0929" datatype="html">
         <source>Forms</source>
-        <target/>
+        <target>Forms</target>
       </trans-unit>
       <trans-unit id="994363f08f9fbfa3b3994ff7b35c6904fdff18d8" datatype="html">
         <source>Profile</source>
-        <target/>
+        <target>Profile</target>
       </trans-unit>
       <trans-unit id="408cb6073e60c5d966296a3207fc596adca75e01" datatype="html">
         <source>Admin</source>
-        <target/>
+        <target>Admin</target>
       </trans-unit>
       <trans-unit id="bb694b49d408265c91c62799c2b3a7e3151c824d" datatype="html">
         <source>Logout</source>
-        <target/>
+        <target>Logout</target>
+      </trans-unit>
+      <trans-unit id="fa0d6b330917208a29c51f09ed33815922b9fcbc" datatype="html">
+        <source>Submit Application</source>
+        <target>Submit Application</target>
       </trans-unit>
     </body>
   </file>

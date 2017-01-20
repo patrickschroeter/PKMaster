@@ -26,6 +26,10 @@
         <source>Logout</source>
         <target/>
       </trans-unit>
+      <trans-unit id="fa0d6b330917208a29c51f09ed33815922b9fcbc" datatype="html">
+        <source>Submit Application</source>
+        <target/>
+      </trans-unit>
     </body>
   </file>
 </xliff>

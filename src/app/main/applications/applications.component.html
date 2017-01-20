@@ -36,7 +36,7 @@
                     <pk-list-attribute name="modified">{{ application.modified | date }}</pk-list-attribute>
 
                     <pk-floating horizontal top-right>
-                        <pk-button rounded *ngIf="application.status?.name === 'created'" pkAlert="Submit Application"
+                        <pk-button rounded *ngIf="application.status?.name === 'created'" i18n-pkAlert pkAlert="Submit Application"
                             (onClick)="submitApplication(application)"
                             class="element--spacing-left-tiny" icon="send" element--success></pk-button>
                         <a  *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
