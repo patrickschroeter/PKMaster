@@ -5,6 +5,7 @@ import { StyleguideComponent } from './';
 import { StyleguideRouting } from './styleguide.routing';
 
 import { SharedModule } from './../shared/shared.module';
+import { ButtonModule } from './../modules/button/button.module';
 
 @NgModule({
     declarations: [
@@ -14,6 +15,7 @@ import { SharedModule } from './../shared/shared.module';
         CommonModule,
         StyleguideRouting,
         SharedModule,
+        ButtonModule
     ],
     providers: [],
     exports: []
