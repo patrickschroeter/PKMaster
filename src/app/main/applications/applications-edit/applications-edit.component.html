@@ -13,7 +13,7 @@
         <pk-dynamic-form-submit>
             <pk-button
                 *ngIf="dynamicForm?.form"
-                [value]="'Save'"
+                i18n-value value="Save"
                 icon="save"
                 [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
                 [type]="'submit'"
@@ -24,8 +24,8 @@
 
     <pk-floating top-right fixed>
         <a routerLink="/applications/{{ application.id }}">
-            <pk-button rounded pkAlert="Cancel" class="element--spacing-bottom-tiny" icon="clear" element--error></pk-button>
+            <pk-button rounded i18n-pkAlert pkAlert="Cancel" class="element--spacing-bottom-tiny" icon="clear" element--error></pk-button>
         </a>
-        <pk-button *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1" rounded pkAlert="Deactivate Application" icon="delete" element--error (onClick)="deactivateApplication(application)"></pk-button>
+        <pk-button *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1" rounded i18n-pkAlert pkAlert="Deactivate Application" icon="delete" element--error (onClick)="deactivateApplication(application)"></pk-button>
     </pk-floating>
 </div>

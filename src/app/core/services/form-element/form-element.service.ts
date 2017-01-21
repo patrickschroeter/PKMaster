@@ -2,10 +2,11 @@
 
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable, BehaviorSubject } from 'rxjs/Rx';
+import { Observable, BehaviorSubject, Observer } from 'rxjs/Rx';
 
 import { FormService } from './../form';
 import { AlertService } from './../../../modules/alert';
+import { TranslationService } from './../../../modules/translation';
 import { Field } from './../../../swagger';
 import { Fields } from './../../../models';
 
@@ -34,7 +35,11 @@ export class FormElementService {
     private elementHasValidationsRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
     private elementHasStylesRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-    constructor(private formService: FormService, private alert: AlertService) {
+    constructor(
+        private formService: FormService,
+        private alert: AlertService,
+        private translationService: TranslationService
+    ) {
         this.formService.onEditElement().subscribe((element?: Field) => {
             if (element) {
                 if (!this.editExistingElement(element)) {
@@ -105,7 +110,7 @@ export class FormElementService {
 
         /** Request all Options of the selected Type */
         let returnedNumberOfRequests = 0;
-        let optionsOfElementType, validationsOfElementType, stylesOfElementType;
+        let optionsOfElementType: any[], validationsOfElementType: any[], stylesOfElementType: any[];
 
         let numberOfRequests = 1; // always get options
         this.getOptionsOfElementType(type).subscribe((opt) => {
@@ -152,8 +157,8 @@ export class FormElementService {
 
                 /** Add Options to Form (radio, select) */
                 let useCustomOptions = true;
-                let optionFormElement;
-                let formElementOptions;
+                let optionFormElement: any;
+                let formElementOptions: any;
                 for (let i = 0, length = generatedFormOfElement.length; i < length; i++) {
                     let input = generatedFormOfElement[i];
                     if (element[input.name] && input.name !== 'fieldType') {
@@ -307,7 +312,7 @@ export class FormElementService {
      * @return {void}
      */
     public removeElement(): void {
-        let name;
+        let name: Field;
         for (let i = 0, length = this.element.length; i < length; i++) {
             let formElement = this.element[i];
             if (formElement.name === 'name') {
@@ -331,9 +336,9 @@ export class FormElementService {
             if (!mode || mode === 'add') {
                 this.resetElement();
             }
-            this.alert.setSuccessHint('save-element-no-reset', 'Element added successful');
+            this.alert.setSuccessHint('save-element-no-reset', this.translationService.translate('addedElement'));
         } else {
-            this.alert.setAlert('Error', 'The given name (ID) is already in use. Please choose a new unique one.');
+            this.alert.setAlert(this.translationService.translate('headerError'), this.translationService.translate('usedId'));
         }
     }
 
@@ -358,9 +363,12 @@ export class FormElementService {
      * @return {Observable}
      */
     private getElementTypeOptions(): Observable<any> {
-        let result = new Fields.FieldType();
-        this.alert.setLoading('getInputTypeOptions', 'Loading Type Options...');
-        return new Observable(observer => {
+        let result: Field = new Fields.FieldType();
+        this.alert.setLoading(
+            'getInputTypeOptions',
+            this.translationService.translate('loadingTypeOptions')
+        );
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 this.alert.removeHint('getInputTypeOptions');
                 observer.next(result);
@@ -370,9 +378,12 @@ export class FormElementService {
     }
 
     private getOptionsOfTable(name: string): Observable<any> {
-        let result = options();
-        this.alert.setLoading('getOptionsOfTable', `${name.toUpperCase()}: Loading Options...`);
-        return new Observable(observer => {
+        let result: Field = options();
+        this.alert.setLoading(
+            'getOptionsOfTable',
+            this.translationService.translate('loadingOptionsOf', [name.toUpperCase()])
+        );
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 this.alert.removeHint('getOptionsOfTable');
                 observer.next(result[name]);
@@ -387,10 +398,13 @@ export class FormElementService {
      * @return {Observable}
      */
     private getOptionsOfElementType(fieldType: string): Observable<any> {
-        let name = new Fields.FieldName();
-        let options = opts();
-        this.alert.setLoading('getOptionsOfInputType', `${fieldType.toUpperCase()}: Loading Options...`);
-        return new Observable(observer => {
+        let name: Field = new Fields.FieldName();
+        let options: Field = opts();
+        this.alert.setLoading(
+            'getOptionsOfInputType',
+            this.translationService.translate('loadingOptionsOf', [fieldType.toUpperCase()])
+        );
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 this.alert.removeHint('getOptionsOfInputType');
                 let result = [].concat(name);
@@ -409,9 +423,12 @@ export class FormElementService {
      * @return {Observable}
      */
     private getValidationsOfInputType(fieldType: string): Observable<any> {
-        let options = validations();
-        this.alert.setLoading('getValidationsOfInputType', `${fieldType.toUpperCase()}: Loading Validations...`);
-        return new Observable(observer => {
+        let options: Field = validations();
+        this.alert.setLoading(
+            'getValidationsOfInputType',
+            this.translationService.translate('loadingValidationsOf', [fieldType.toUpperCase()])
+        );
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 this.alert.removeHint('getValidationsOfInputType');
                 observer.next(options[fieldType]);
@@ -426,9 +443,12 @@ export class FormElementService {
      * @return {Observable}
      */
     private getStylesOfInputType(fieldType: string): Observable<any> {
-        let options = styles();
-        this.alert.setLoading('getStyles', `${fieldType.toUpperCase()}: Loading Styles...`);
-        return new Observable(observer => {
+        let options: Field = styles();
+        this.alert.setLoading(
+            'getStyles',
+            this.translationService.translate('loadingStylesOf', [fieldType.toUpperCase()])
+        );
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 this.alert.removeHint('getStyles');
                 observer.next(options);
@@ -517,22 +537,22 @@ function opts() {
 
     let opts = {
         input: [
-            new Fields.FieldRequired(null, { styles: ['small', 'aligned']}),
+            new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
             new Fields.FieldLabel(),
             new Fields.FieldContentType('text'),
             new Fields.FieldPlaceholder()
         ],
         textarea: [
-            new Fields.FieldRequired(null, { styles: ['small', 'aligned']}),
+            new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
             new Fields.FieldLabel(),
             new Fields.FieldPlaceholder()
         ],
         checkbox: [
-            new Fields.FieldRequired(null, { styles: ['small', 'aligned']}),
+            new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
             new Fields.FieldLabel(),
         ],
         radio: [
-            new Fields.FieldRequired(null, { styles: ['small', 'aligned']}),
+            new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
             new Fields.FieldLabel(null, { required: true }),
             new Fields.Devider(),
             new Fields.H4('Create a custom List or use an existing one.', { styles: [] }),
@@ -547,7 +567,7 @@ function opts() {
             new Fields.FieldOptions()
         ],
         select: [
-            new Fields.FieldRequired(null, { styles: ['small', 'aligned']}),
+            new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
             new Fields.FieldLabel(),
             new Fields.FieldPlaceholder(),
             new Fields.FieldMultipleSelect(),
@@ -578,12 +598,12 @@ function opts() {
         h4: [
             new Fields.FieldValue()
         ],
-        devider: [
+        // devider: [
 
-        ],
-        hiddenDevider: [
+        // ],
+        // hiddenDevider: [
 
-        ]
+        // ]
     };
     return opts;
 }

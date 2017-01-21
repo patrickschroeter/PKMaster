@@ -32,6 +32,7 @@ import { OverlayModule } from './../../../../modules/overlay/overlay.module';
 import { DeviderComponent } from './../../../../modules/devider';
 
 import { FloatingModule } from './../../../../modules/floating/floating.module';
+import { TranslationProviderMock } from './../../../../modules/translation/translation.module';
 
 describe('DatalistComponent', () => {
     let component: DatalistComponent;
@@ -65,7 +66,8 @@ describe('DatalistComponent', () => {
             providers: [
                 ...DynamicFormProviderMock,
                 ...CoreProviderMock,
-                ...AlertProviderMock
+                ...AlertProviderMock,
+                ...TranslationProviderMock
             ]
         })
             .compileComponents();

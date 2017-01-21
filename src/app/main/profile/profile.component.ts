@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthenticationService } from './../../core';
 import { AlertService } from './../../modules/alert';
 import { OverlayComponent } from './../../modules/overlay';
+import { TranslationService } from './../../modules/translation';
 
 import { DynamicFormService, InputValidationService } from './../../modules/dynamic-form';
 
@@ -35,7 +36,8 @@ export class ProfileComponent implements OnInit {
         private alert: AlertService,
         private builder: FormBuilder,
         private dynamicForm: DynamicFormService,
-        private inputValidation: InputValidationService
+        private inputValidation: InputValidationService,
+        private translationService: TranslationService
     ) { }
 
     ngOnInit() {
@@ -63,7 +65,7 @@ export class ProfileComponent implements OnInit {
 
         this.changePasswordForm = this.dynamicForm.generateFormFromInput(
             this.changePasswordElements,
-            { validator: this.inputValidation.areEqual(['newpassword', 'newpasswordconfirm'], 'Password doesn\'t match the confirmation')});
+            { validator: this.inputValidation.areEqual(['newpassword', 'newpasswordconfirm'], 'errorPasswordMatch')});
     }
 
     /**
@@ -75,10 +77,10 @@ export class ProfileComponent implements OnInit {
         this.alert.setLoading('changePassword', 'Encrypting Data...');
         this.auth.changePassword(this.user, event.password, event.newpassword).subscribe(
             () => {
-                this.alert.setSuccessHint('password_changed', 'Password changed.');
+                this.alert.setSuccessHint('password_changed', this.translationService.translate('changedPassword'));
             },
             () => {
-                this.alert.setAlert('Error', 'There was an error changing your password. Please try again later.');
+                this.alert.setAlert(this.translationService.translate('headerError'), this.translationService.translate('errorChangedPassword'));
             }, () => {
                 this.alert.removeHint('changePassword');
                 this.overlay.toggle(false);

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 
 import { ConferenceApiMock } from './';
 
@@ -18,7 +18,7 @@ export class ConferenceEndpoint {
 
     public addConference(token?: number, conference?: Conference, extraHttpRequestParams?: any): Observable<Conference> {
         let value = this._conferenceAdd(conference);
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (conference) {
                     observer.next(value);
@@ -45,7 +45,7 @@ export class ConferenceEndpoint {
 
     public getConferenceById(conferenceId: string, token?: number, extraHttpRequestParams?: any): Observable<Conference> {
         let conference = this._conference(conferenceId);
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (conference) {
                     observer.next(conference);
@@ -60,7 +60,7 @@ export class ConferenceEndpoint {
 
     public getConferences(token?: number, filter?: string, sort?: string, extraHttpRequestParams?: any): Observable<Array<Conference>> {
         let conferences = this._conferences();
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (conferences) {
                     observer.next(conferences);
@@ -91,7 +91,7 @@ export class ConferenceEndpoint {
     }
 
     private _conferenceAdd(conference: Conference): Conference {
-        let id;
+        let id: string;
         if (!this._list.length) {
             id = 'Q';
         } else {
@@ -103,7 +103,7 @@ export class ConferenceEndpoint {
     }
 
     private _conference(id?: string): Conference {
-        let result;
+        let result: Conference;
         let list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id) {

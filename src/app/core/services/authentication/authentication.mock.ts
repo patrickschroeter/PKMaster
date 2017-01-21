@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 
 @Injectable()
 export class AuthenticationMock {
@@ -10,7 +10,7 @@ export class AuthenticationMock {
     constructor() {}
 
     getUser(): Observable<any> {
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             observer.next(this.user);
         });
     }
@@ -20,7 +20,7 @@ export class AuthenticationMock {
     }
 
     login(): Observable<any> {
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             observer.next(this.user);
         });
     }

@@ -16,7 +16,8 @@
         [class.element--disabled]="isDisabled()">
 
         <div *ngIf="!isDisabled()" class="element__option option--default" (click)="overlay.toggle()">
-            <div class="element__value">{{ config.placeholder ? config.placeholder : 'Bitte wählen' }}</div>
+            <div class="element__value" *ngIf="config.placeholder">{{ config.placeholder }}</div>
+            <div class="element__value" *ngIf="!config.placeholder" i18n>Choose</div>
             <i class="element__icon material-icons md-24" aria-hidden="true">expand_more</i>
         </div>
 
@@ -42,7 +43,8 @@
     <div class="element__select element__options" *ngIf="!formControl.value || formControl.value?.length === 0"
         [class.element--disabled]="isDisabled()">
         <div *ngIf="!isDisabled()" class="element__option option--default" (click)="overlay.toggle()">
-            <div class="element__value">{{ config.placeholder ? config.placeholder : 'Bitte wählen' }}</div>
+            <div class="element__value" *ngIf="config.placeholder">{{ config.placeholder }}</div>
+            <div class="element__value" *ngIf="!config.placeholder" i18n>Choose</div>
             <i class="element__icon material-icons md-24" aria-hidden="true">expand_more</i>
         </div>
         <div *ngIf="isDisabled()" class="element__option">

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 
 import { ApplicationApiMock } from './';
 
@@ -19,7 +19,7 @@ export class ApplicationEndpoint {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c getApplicationById ${applicationId}`, 'color: #F44336', 'color: #fefefe');
         let application = this._application(applicationId);
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (!token) {
                     console.error(`No Token!`);
@@ -39,7 +39,7 @@ export class ApplicationEndpoint {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + '%c getApplications', 'color: #F44336', 'color: #fefefe');
         let applications = this._applications();
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (!token) {
                     console.error(`No Token!`);
@@ -64,7 +64,7 @@ export class ApplicationEndpoint {
         }
 
         let newapplication = this._applicationAdd(application);
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (!token) {
                     console.error(`No Token!`);
@@ -91,7 +91,7 @@ export class ApplicationEndpoint {
 
         let updatedApplication = this._applicationUpdate(applicationId, application);
 
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (!token) {
                     console.error(`No Token!`);
@@ -111,7 +111,7 @@ export class ApplicationEndpoint {
     public addCommentToApplication (applicationId: string, token?: number, comment?: Comment, extraHttpRequestParams?: any ) : Observable<Comment> {
         let application = this._application(applicationId);
         application.comments ? application.comments.push(comment) : application.comments = [comment];
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (application) {
                     observer.next(comment);
@@ -152,7 +152,7 @@ export class ApplicationEndpoint {
     }
 
     private _application(id?: string): Application {
-        let result;
+        let result: Application;
         let list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id) {

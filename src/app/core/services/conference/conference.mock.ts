@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 
 import { Conference } from './../../../swagger';
 
@@ -10,18 +10,18 @@ export class ConferenceMock {
     constructor() {}
 
     public getConferenceById(id: string): Observable<Conference> {
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
-                observer.next();
+                observer.next('');
                 observer.complete();
             }, 200);
         });
     }
 
     public getConferences(): Observable<Conference[]> {
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
-                observer.next();
+                observer.next('');
                 observer.complete();
             }, 200);
         });

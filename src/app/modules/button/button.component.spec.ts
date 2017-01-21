@@ -3,7 +3,7 @@
 import { DebugElement, EventEmitter } from '@angular/core';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 
 import { ButtonComponent } from './button.component';
 

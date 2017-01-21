@@ -13,6 +13,7 @@ import { SharedModule } from './../../../shared/shared.module';
 import { DynamicFormModule } from './../../../modules/dynamic-form/dynamic-form.module';
 import { FloatingModule } from './../../../modules/floating/floating.module';
 import { ButtonModule } from './../../../modules/button/button.module';
+import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
 describe('ApplicationsEditComponent', () => {
     let component: ApplicationsEditComponent;
@@ -34,7 +35,8 @@ describe('ApplicationsEditComponent', () => {
             ],
             providers: [
                 ...CoreProviderMock,
-                ...AlertProviderMock
+                ...AlertProviderMock,
+                ...TranslationProviderMock
             ]
         })
             .compileComponents();

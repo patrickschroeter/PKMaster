@@ -5,10 +5,15 @@ import { InputValidationService } from './input-validation.service';
 
 import { Validators, FormControl } from '@angular/forms';
 
+import { TranslationProviderMock } from './../../../translation/translation.module';
+
 describe('Service: InputValidation', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [InputValidationService]
+            providers: [
+                InputValidationService,
+                ...TranslationProviderMock
+            ]
         });
     });
 
@@ -25,15 +30,15 @@ describe('Service: InputValidation', () => {
 
         it('should return an empty array if the given keys are invalid',
             inject([InputValidationService], (service: InputValidationService) => {
-            let keys = ['some', 'invalid', 'keys', 'in', 'array'];
-            expect(service.generateValidationsFromKeys(keys)).toEqual([]);
-        }));
+                let keys = ['some', 'invalid', 'keys', 'in', 'array'];
+                expect(service.generateValidationsFromKeys(keys)).toEqual([]);
+            }));
 
         it('should return an array with functions if the keys are valid',
             inject([InputValidationService], (service: InputValidationService) => {
-            let keys = ['isEmail', 'minLength'];
-            expect(service.generateValidationsFromKeys(keys).length).toEqual(2);
-        }));
+                let keys = ['isEmail', 'minLength'];
+                expect(service.generateValidationsFromKeys(keys).length).toEqual(2);
+            }));
     });
 
     describe('validateMinLength', () => {
@@ -54,15 +59,15 @@ describe('Service: InputValidation', () => {
 
         it('should return undefined if the input is an external email',
             inject([InputValidationService], (service: InputValidationService) => {
-            let control = new FormControl('email@gmail.de');
-            expect(service.validateExternalEmail(control)).toBeUndefined();
-        }));
+                let control = new FormControl('email@gmail.de');
+                expect(service.validateExternalEmail(control)).toBeUndefined();
+            }));
 
         it('should return the error object if the input is an internal email',
             inject([InputValidationService], (service: InputValidationService) => {
-            let control = new FormControl('email@hs-augsburg.de');
-            expect(service.validateExternalEmail(control)).toEqual(jasmine.any(Object));
-        }));
+                let control = new FormControl('email@hs-augsburg.de');
+                expect(service.validateExternalEmail(control)).toEqual(jasmine.any(Object));
+            }));
 
         it('should return undefined if the input is no email', inject([InputValidationService], (service: InputValidationService) => {
             let control = new FormControl('email');
@@ -74,9 +79,9 @@ describe('Service: InputValidation', () => {
 
         it('should return the error object if the input is not an email',
             inject([InputValidationService], (service: InputValidationService) => {
-            let control = new FormControl('email');
-            expect(service.validateEmail(control)).toEqual(jasmine.any(Object));
-        }));
+                let control = new FormControl('email');
+                expect(service.validateEmail(control)).toEqual(jasmine.any(Object));
+            }));
 
         it('should return undefined if the input is an email', inject([InputValidationService], (service: InputValidationService) => {
             let control = new FormControl('email@gmail.de');
@@ -88,9 +93,9 @@ describe('Service: InputValidation', () => {
 
         it('should return the error object if the input is not true',
             inject([InputValidationService], (service: InputValidationService) => {
-            let control = new FormControl(false);
-            expect(service.validateToBeTrue(control)).toEqual(jasmine.any(Object));
-        }));
+                let control = new FormControl(false);
+                expect(service.validateToBeTrue(control)).toEqual(jasmine.any(Object));
+            }));
 
         it('should return undefined if the input is true', inject([InputValidationService], (service: InputValidationService) => {
             let control = new FormControl(true);

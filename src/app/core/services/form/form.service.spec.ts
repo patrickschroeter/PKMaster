@@ -12,13 +12,16 @@ import {
 
 import { FormApi } from './../../../swagger';
 
+import { TranslationProviderMock } from './../../../modules/translation/translation.module';
+
 describe('Service: Form', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
                 FormService,
                 { provide: AlertService, useClass: AlertMock },
-                { provide: FormApi, useClass: FormApiMock }
+                { provide: FormApi, useClass: FormApiMock },
+                ...TranslationProviderMock
             ]
         });
     });

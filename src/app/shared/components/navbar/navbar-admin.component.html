@@ -6,20 +6,20 @@
 </div>
 <div class="navbar navbar--desktop" [class.navbar--open]="isOpen">
   <div class="navbar__header">
-    <h2 class="left devider devider--mobile">PK 4.0</h2>
+    <h2 class="left devider devider--mobile" i18n>PK 4.0</h2>
     <div class="navbar__button">
       <pk-button icon="clear" class="right element--primary element--light" (onClick)="toggleNavbar()"></pk-button>
     </div>
   </div>
 
-  <a *access class="navbar__link selectable left" routerLink="/applications" routerLinkActive="selectable--active">Main</a>
-  <a *accessReadRoles class="navbar__link selectable left" routerLink="/admin/roles" routerLinkActive="selectable--active">Roles</a>
-  <a *accessReadPermissions class="navbar__link selectable left" routerLink="/admin/permissions" routerLinkActive="selectable--active">Permissions</a>
-  <a *accessReadUsers class="navbar__link selectable left" routerLink="/admin/users" routerLinkActive="selectable--active">Users</a>
-  <a class="navbar__link selectable left" routerLink="/admin/profile" routerLinkActive="selectable--active">Profile</a>
+  <a *access class="navbar__link selectable left" routerLink="/applications" routerLinkActive="selectable--active" i18n>Main</a>
+  <a *accessReadRoles class="navbar__link selectable left" routerLink="/admin/roles" routerLinkActive="selectable--active" i18n>Roles</a>
+  <a *accessReadPermissions class="navbar__link selectable left" routerLink="/admin/permissions" routerLinkActive="selectable--active" i18n>Permissions</a>
+  <a *accessReadUsers class="navbar__link selectable left" routerLink="/admin/users" routerLinkActive="selectable--active" i18n>Users</a>
+  <a class="navbar__link selectable left" routerLink="/admin/profile" routerLinkActive="selectable--active" i18n>Profile</a>
 
   <pk-devider></pk-devider>
 
-  <a class="navbar__link selectable right" (click)="logout()">Logout</a>
+  <a class="navbar__link selectable right" (click)="logout()" i18n>Logout</a>
 </div>
 <div class="navbar__fallback" [class.navbar__fallback--open]="isOpen" (click)="toggleNavbar()"></div>

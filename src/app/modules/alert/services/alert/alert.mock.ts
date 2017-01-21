@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 
 @Injectable()
 export class AlertMock {
@@ -16,14 +16,14 @@ export class AlertMock {
     public setErrorHint(id: string, message: string, time?: number): void { }
 
     public getAlert(): Observable<any> {
-        return new Observable(observer => { observer.next('alert'); });
+        return new Observable((observer: Observer<any>) => { observer.next('alert'); });
     }
 
     public getHintMessages(): Observable<any> {
-        return new Observable(observer => { observer.next([]); });
+        return new Observable((observer: Observer<any>) => { observer.next([]); });
     }
 
     public getLoading(): Observable<any> {
-        return new Observable(observer => { observer.next(['loading']); });
+        return new Observable((observer: Observer<any>) => { observer.next(['loading']); });
     }
 }

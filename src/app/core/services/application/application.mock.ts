@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 
 import { Application } from './../../../swagger';
 
@@ -14,9 +14,9 @@ export class ApplicationMock {
      * @return {Observable}
      */
     getApplicationById(id: number): Observable<Application> {
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
-                observer.next();
+                observer.next('');
                 observer.complete();
             }, 200);
         });
@@ -29,9 +29,9 @@ export class ApplicationMock {
      */
     createNewApplication(application: Application): Observable<Application> {
 
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
-                observer.next();
+                observer.next('');
                 observer.complete();
             }, 200);
         });
@@ -43,18 +43,19 @@ export class ApplicationMock {
      * @return {void}
      */
     saveApplication(): Observable<Application> {
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
-                observer.next();
+                observer.next('');
                 observer.complete();
             }, 200);
         });
     }
 
     getApplications(sort?: string): Observable<any> {
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 observer.next('applications');
+                observer.complete();
             }, 200);
         });
     }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 
 @Injectable()
 export class FormMock {
@@ -8,15 +8,15 @@ export class FormMock {
     constructor() { }
 
     getAddingElement(): Observable<any> {
-        return new Observable(observer => { observer.next('adding'); });
+        return new Observable((observer: Observer<any>) => { observer.next('adding'); });
     }
 
     onEditElement(): Observable<any> {
-        return new Observable(observer => { observer.next('edit'); });
+        return new Observable((observer: Observer<any>) => { observer.next('edit'); });
     }
 
     getFormById(id: number): Observable<any> {
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             /** http getFormById(id) => this.currentForm = result */
             setTimeout(() => {
                 observer.next({});
@@ -26,11 +26,11 @@ export class FormMock {
     }
 
     getForms(sort?: string): Observable<any> {
-        return new Observable(observer => { observer.next([]); });
+        return new Observable((observer: Observer<any>) => { observer.next([]); });
     }
 
     getEditFormTemplate(id?: number): Observable<any> {
-        return new Observable(observer => { observer.next([]); });
+        return new Observable((observer: Observer<any>) => { observer.next([]); });
     }
 
     editElementError(type: string): void {

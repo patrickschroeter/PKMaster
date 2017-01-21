@@ -10,6 +10,8 @@ import { Field } from './../../../../swagger';
 @Injectable()
 export class DynamicFormService {
 
+    private validationTime: number = 2000;
+
     constructor(
         private build: FormBuilder,
         private inputValidation: InputValidationService,
@@ -91,7 +93,7 @@ export class DynamicFormService {
     public showValidation(form: FormGroup | FormControl | AbstractControl) {
         let message = this.inputValidation.getErrorMessage(form);
         if (message) {
-            this.alert.setErrorHint('validation', message);
+            this.alert.setErrorHint('validation', message, this.validationTime);
         }
     }
 }

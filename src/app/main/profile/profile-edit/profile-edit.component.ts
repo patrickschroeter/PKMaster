@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 
 import { AuthenticationService } from './../../../core';
 import { AlertService } from './../../../modules/alert';
+import { TranslationService } from './../../../modules/translation';
+
 import { AppUser } from './../../../swagger';
 import { Fields } from './../../../models';
 
@@ -22,7 +24,8 @@ export class ProfileEditComponent implements OnInit {
     constructor(
         private router: Router,
         private auth: AuthenticationService,
-        private alert: AlertService
+        private alert: AlertService,
+        private translationService: TranslationService
     ) { }
 
     ngOnInit() {
@@ -42,7 +45,7 @@ export class ProfileEditComponent implements OnInit {
         event.id = this.user.id;
         this.auth.updateUser(event).subscribe(user => {
             this.router.navigateByUrl('/profile');
-            this.alert.setSuccessHint('UpdateUser' + user.id, `User updated.`);
+            this.alert.setSuccessHint('UpdateUser' + user.id, this.translationService.translate('updatedUser'));
         });
     }
 

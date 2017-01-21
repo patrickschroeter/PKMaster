@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 
 @Injectable()
 export class FormElementMock {
@@ -9,26 +9,26 @@ export class FormElementMock {
     constructor() {}
 
     getElement(): Observable<any> {
-        return new Observable(observer => {});
+        return new Observable((observer: Observer<any>) => {});
     }
 
     getElementPreview(): Observable<any> {
-        return new Observable(observer => {});
+        return new Observable((observer: Observer<any>) => {});
     }
 
     getElementHasSubmit(): Observable<any> {
-        return new Observable(observer => {});
+        return new Observable((observer: Observer<any>) => {});
     }
 
     getElementHasPreview(): Observable<any> {
-        return new Observable(observer => {});
+        return new Observable((observer: Observer<any>) => {});
     }
 
     getElementHasValidations(): Observable<any> {
-        return new Observable(observer => {});
+        return new Observable((observer: Observer<any>) => {});
     }
 
     getElementHasStyles(): Observable<any> {
-        return new Observable(observer => {});
+        return new Observable((observer: Observer<any>) => {});
     }
 }

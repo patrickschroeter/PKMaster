@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { ConferenceService } from './../../../core';
 import { AlertService } from './../../../modules/alert';
+import { TranslationService } from './../../../modules/translation';
 
 import { Conference } from './../../../swagger';
 
@@ -20,7 +21,8 @@ export class ConferencesEditComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private conferenceService: ConferenceService,
         private router: Router,
-        private alert: AlertService
+        private alert: AlertService,
+        private translationService: TranslationService
     ) { }
 
     ngOnInit() {
@@ -43,7 +45,7 @@ export class ConferencesEditComponent implements OnInit {
 
     private onError(id: string) {
         this.router.navigate(['/conferences']);
-        this.alert.setErrorHint('no-conference-found', `The is no conference with the requested Id: ${id}`, 2000);
+        this.alert.setErrorHint('no-conference-found', this.translationService.translate('errorNoConferenceWithId', [id]), 2000);
     }
 
     public deleteConference() {
