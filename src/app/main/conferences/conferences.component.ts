@@ -47,6 +47,42 @@ export class ConferencesComponent implements OnInit {
                 styles: [
                     'small'
                 ]
+            },
+            {
+                fieldType: 'input',
+                name: 'startOfEvent',
+                contentType: 'string',
+                label: 'Beginn',
+                required: true,
+                styles: [
+                    'small'
+                ],
+                validations: [
+                    'time'
+                ]
+            },
+            {
+                fieldType: 'input',
+                name: 'endOfEvent',
+                contentType: 'string',
+                label: 'Ende',
+                required: true,
+                styles: [
+                    'small'
+                ],
+                validations: [
+                    'time'
+                ]
+            },
+            {
+                fieldType: 'input',
+                name: 'roomOfEvent',
+                contentType: 'string',
+                label: 'Raum',
+                required: true,
+                styles: [
+                    'small'
+                ]
             }
         ];
     }

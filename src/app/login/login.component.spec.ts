@@ -6,14 +6,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { LoginComponent } from './login.component';
 
-import {
-    AuthenticationService,
-    AuthenticationMock,
-    InputValidationService,
-    InputValidationMock
-} from './../core';
-
-import { AlertService, AlertMock } from './../modules/alert';
+import { CoreProviderMock } from './../core/core.module';
+import { AlertProviderMock } from './../modules/alert/alert.module';
 
 import { SharedModule } from './../shared/shared.module';
 import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module';
@@ -37,9 +31,8 @@ describe('LoginComponent', () => {
                 ButtonModule
             ],
             providers: [
-                { provide: AuthenticationService, useClass: AuthenticationMock },
-                { provide: InputValidationService, useClass: InputValidationMock },
-                { provide: AlertService, useClass: AlertMock }
+                ...CoreProviderMock,
+                ...AlertProviderMock
             ]
         })
             .compileComponents();

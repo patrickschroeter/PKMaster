@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, Request, RequestOptionsArgs, ConnectionBackend, RequestOptions, Headers, Response } from '@angular/http';
+import { Http, Request, RequestOptionsArgs, ConnectionBackend, RequestOptions, Headers, Response, ResponseContentType } from '@angular/http';
 
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 import { AuthenticationService } from './..';
 
 /**
@@ -19,6 +19,8 @@ export class ExtendHttpService extends Http {
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
         if (!options) { options = { headers: new Headers() }; };
         options.headers.set('authentication', this.authentication.token);
+        options.headers.set('Accept', 'application/json');
+        options.headers.set('Content-Type', 'application/json');
         return super.request(url, options);
     }
 

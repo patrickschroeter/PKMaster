@@ -28,6 +28,8 @@ import * as models from './models';
 export interface CommentDto {
     
 
+    id?: string;
+
     text?: string;
 
     created?: Date;

@@ -1,26 +1,26 @@
 <pk-loading *ngIf="!application"></pk-loading>
 
 <div id="application-detail" class="rel" *ngIf="application">
-    <h2 class="element element--spacing-bottom-small">Application: {{ application.title }}</h2>
+    <h2 class="element element--spacing-bottom-small" i18n>Application: {{ application.title }}</h2>
 
     <pk-dynamic-form-disabled *ngIf="application.attributes?.length > 0" [form]="application.attributes"></pk-dynamic-form-disabled>
 
     <div class="comment-block">
-        <h4>Comments</h4>
+        <h4 i18n>Comments</h4>
         <div class="comment-flex">
             <div class="comment-add">
                 <pk-loading *ngIf="savingComment"></pk-loading>
                 <pk-dynamic-form *ngIf="!savingComment" [formElements]="addComment" #dynamicForm>
                     <pk-dynamic-form-content>
 
-                        <pk-dynamic-form-element *ngFor="let element of addComment" [element]="element"></pk-dynamic-form-element>
+                        <pk-dynamic-form-element *ngFor="let element of addComment" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
 
                     </pk-dynamic-form-content>
 
                     <pk-dynamic-form-submit>
                         <pk-button
                             *ngIf="dynamicForm?.form"
-                            [value]="'Add'"
+                            i18n-value value="Add"
                             icon="note_add"
                             [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
                             (onClick)="createNewComment(dynamicForm.form.value)"></pk-button>
@@ -32,15 +32,15 @@
                 <div class="comment" *ngFor="let comment of application.comments" [ngClass]="{ 'comment--private': comment.isPrivate }">
                     <div *ngIf="comment.requiresChanges">
                         <div class="comment__header">
-                            <div class="comment__author">
-                                {{ comment.user ? comment.user.lastname : 'No Author' }}
-                            </div>
+                            <div *ngIf="!comment.user" class="comment__author" i18n>No Author</div>
+                            <div *ngIf="comment.user" class="comment__author">{{ comment.user.lastname }}</div>
+
                             <div class="comment__date">
                                 {{ comment.created | date }}
                             </div>
-                            <div class="comment__state">
-                                {{ comment.isPrivate ? 'private' : 'public' }}
-                            </div>
+
+                            <div *ngIf="comment.isPrivate" class="comment__state" i18n>private</div>
+                            <div *ngIf="!comment.isPrivate" class="comment__state" i18n>public</div>
                         </div>
                         <div class="comment__content">
                             {{ comment.message }}
@@ -50,15 +50,15 @@
                 <div class="comment" *ngFor="let comment of application.comments" [ngClass]="{ 'comment--private': comment.isPrivate }">
                     <div *ngIf="!comment.requiresChanges">
                         <div class="comment__header">
-                            <div class="comment__author">
-                                {{ comment.user ? comment.user.lastname : 'No Author' }}
-                            </div>
+                            <div *ngIf="!comment.user" class="comment__author" i18n>No Author</div>
+                            <div *ngIf="comment.user" class="comment__author">{{ comment.user.lastname }}</div>
+
                             <div class="comment__date">
                                 {{ comment.created | date }}
                             </div>
-                            <div class="comment__state">
-                                {{ comment.isPrivate ? 'private' : 'public' }}
-                            </div>
+
+                            <div *ngIf="comment.isPrivate" class="comment__state" i18n>private</div>
+                            <div *ngIf="!comment.isPrivate" class="comment__state" i18n>public</div>
                         </div>
                         <div class="comment__content">
                             {{ comment.message }}
@@ -71,26 +71,26 @@
 
     <pk-floating top-right fixed>
         <a routerLink="/applications">
-            <pk-button rounded pkAlert="Cancel" icon="clear" class="element--spacing-bottom-tiny" element--error></pk-button>
+            <pk-button rounded i18n-pkAlert pkAlert="Cancel" icon="clear" class="element--spacing-bottom-tiny" element--error></pk-button>
         </a>
-        <pk-button rounded *ngIf="application.status?.name === 'created'" pkAlert="Submit Application"
+        <pk-button rounded *ngIf="application.status?.name === 'created'" i18n-pkAlert pkAlert="Submit Application"
             (onClick)="submitApplication(application)"
             class="element--spacing-bottom-tiny" icon="send" element--success></pk-button>
         <a  *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
             routerLink="/applications/{{ application.id }}/edit">
-            <pk-button class="element--spacing-bottom-tiny" rounded pkAlert="Edit Application" icon="create" element--secondary></pk-button>
+            <pk-button class="element--spacing-bottom-tiny" rounded i18n-pkAlert pkAlert="Edit Application" icon="create" element--secondary></pk-button>
         </a>
-        <pk-button rounded *ngIf="['submitted'].indexOf(application.status?.name) !== -1" pkAlert="Recind Application"
+        <pk-button rounded *ngIf="['submitted'].indexOf(application.status?.name) !== -1" i18n-pkAlert pkAlert="Recind Application"
             (onClick)="rescindApplication(application)"
             class="element--spacing-bottom-tiny"
             icon="undo" element--error></pk-button>
-        <pk-button rounded *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1" pkAlert="Deactivate Application"
+        <pk-button rounded *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1" i18n-pkAlert pkAlert="Deactivate Application"
             (onClick)="deactivateApplication(application)"
             class="element--spacing-bottom-tiny"
             icon="delete" element--error></pk-button>
 
         <div *accessEditConferences>
-            <pk-button rounded *ngIf="application.status?.name === 'pending' || application.status?.name === 'submitted'" pkAlert="Add application to conference"
+            <pk-button rounded *ngIf="application.status?.name === 'pending' || application.status?.name === 'submitted'" i18n-pkAlert pkAlert="Add application to conference"
                 (onClick)="overlay.toggle()"
                 class="element--spacing-bottom-tiny"
                 icon="forum"
@@ -98,7 +98,7 @@
                 ></pk-button>
         </div>
         <div *accessEditApplications>
-            <pk-button rounded *ngIf="application.status?.name === 'pending'" pkAlert="Accept/Decline Application"
+            <pk-button rounded *ngIf="application.status?.name === 'pending'" i18n-pkAlert pkAlert="Accept/Decline Application"
                 (onClick)="acceptOverlay.toggle()"
                 class="element--spacing-bottom-tiny"
                 icon="thumbs_up_down"
@@ -109,13 +109,11 @@
 
 
     <pk-overlay #overlay class="overlay--fluid">
-        <pk-overlay-header>
-            Add application to conference
-        </pk-overlay-header>
+        <pk-overlay-header i18n>Add application to conference</pk-overlay-header>
         <pk-overlay-content>
 
             <div *ngIf="!conferences?.length" class="empty-wrapper">
-                <div class="label">No Conferences available.</div>
+                <div class="label" i18n>No Conferences available.</div>
                 <a *accessEditConferences routerLink="/conferences">
                     <pk-button icon="add" element--secondary value="Create New Conference" class="element--spacing-top-large"></pk-button>
                 </a>
@@ -129,22 +127,20 @@
     </pk-overlay>
 
     <pk-overlay #acceptOverlay="overlay" class="overlay--fluid">
-        <pk-overlay-header>
-            Accept/Decline Application
-        </pk-overlay-header>
+        <pk-overlay-header i18n>Accept/Decline Application</pk-overlay-header>
         <pk-overlay-content>
 
                 <pk-dynamic-form [formElements]="acceptForm" #dynamicForm>
                     <pk-dynamic-form-content>
 
-                        <pk-dynamic-form-element *ngFor="let element of acceptForm" [element]="element"></pk-dynamic-form-element>
+                        <pk-dynamic-form-element *ngFor="let element of acceptForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
 
                     </pk-dynamic-form-content>
 
                     <pk-dynamic-form-submit>
                         <pk-button
                             *ngIf="dynamicForm?.form"
-                            [value]="'Accept'"
+                            i18n-value value="Accept"
                             icon="done"
                             class="element--success"
                             (onClick)="acceptApplication(dynamicForm.form.value)"></pk-button>
@@ -153,7 +149,7 @@
                     <pk-dynamic-form-cancel>
                         <pk-button
                             *ngIf="dynamicForm?.form"
-                            [value]="'Decline'"
+                            i18n-value value="Decline"
                             icon="clear"
                             [class]="dynamicForm.form.valid ? 'element--error' : 'element--disabled'"
                             (onClick)="declineApplication(dynamicForm.form.value)"></pk-button>

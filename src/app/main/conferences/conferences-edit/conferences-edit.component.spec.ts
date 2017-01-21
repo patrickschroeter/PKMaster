@@ -6,13 +6,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { ConferencesEditComponent } from './conferences-edit.component';
 
-import {
-    ConferenceService,
-    ConferenceMock
-} from './../../../core';
+import { CoreProviderMock } from './../../../core/core.module';
+import { AlertProviderMock } from './../../../modules/alert/alert.module';
 
 import { SharedModule } from './../../../shared/shared.module';
-import { AlertModule } from './../../../modules/alert/alert.module';
+import { ButtonModule } from './../../../modules/button/button.module';
+import { FloatingModule } from './../../../modules/floating/floating.module';
+import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
 describe('ConferencesEditComponent', () => {
     let component: ConferencesEditComponent;
@@ -26,10 +26,13 @@ describe('ConferencesEditComponent', () => {
             imports: [
                 RouterTestingModule.withRoutes([{ path: '', component: class { } }]),
                 SharedModule,
-                AlertModule
+                ButtonModule,
+                FloatingModule
             ],
             providers: [
-                { provide: ConferenceService, useClass: ConferenceMock }
+                ...CoreProviderMock,
+                ...AlertProviderMock,
+                ...TranslationProviderMock
             ]
         })
             .compileComponents();

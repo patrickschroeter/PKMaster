@@ -8,14 +8,8 @@ import { FormsEditComponent } from './forms-edit.component';
 
 import { ElementEditComponent } from './..';
 
-import {
-    FormService,
-    FormMock,
-    InputValidationService,
-    InputValidationMock
-} from './../../../core';
-
-import { AlertService, AlertMock } from './../../../modules/alert';
+import { CoreProviderMock } from './../../../core/core.module';
+import { AlertProviderMock } from './../../../modules/alert/alert.module';
 
 import {
     SharedModule
@@ -24,6 +18,7 @@ import { DynamicFormModule } from './../../../modules/dynamic-form/dynamic-form.
 import { FloatingModule } from './../../../modules/floating/floating.module';
 import { ButtonModule } from './../../../modules/button/button.module';
 import { OverlayModule } from './../../../modules/overlay/overlay.module';
+import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
 describe('FormsEditComponent', () => {
     let component: FormsEditComponent;
@@ -47,9 +42,9 @@ describe('FormsEditComponent', () => {
                 OverlayModule
             ],
             providers: [
-                { provide: InputValidationService, useClass: InputValidationMock },
-                { provide: FormService, useClass: FormMock },
-                { provide: AlertService, useClass: AlertMock }
+                ...CoreProviderMock,
+                ...AlertProviderMock,
+                ...TranslationProviderMock
             ]
         })
             .compileComponents();

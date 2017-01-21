@@ -6,18 +6,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { ApplicationsComponent } from './applications.component';
 
-import {
-    InputValidationService,
-    InputValidationMock,
-    ApplicationService,
-    ApplicationMock,
-    FormService,
-    FormMock,
-    PermissionService,
-    PermissionMock
-} from './../../core';
+import { CoreProviderMock } from './../../core/core.module';
+import { AlertProviderMock } from './../../modules/alert/alert.module';
 
-import { AlertService, AlertMock } from './../../modules/alert';
 
 import {
     SharedModule
@@ -26,6 +17,7 @@ import { ListModule } from './../../modules/list/list.module';
 import { FloatingModule } from './../../modules/floating/floating.module';
 import { ButtonModule } from './../../modules/button/button.module';
 import { OverlayModule } from './../../modules/overlay/overlay.module';
+import { TranslationProviderMock } from './../../modules/translation/translation.module';
 
 describe('ApplicationsComponent', () => {
     let component: ApplicationsComponent;
@@ -47,11 +39,9 @@ describe('ApplicationsComponent', () => {
                 OverlayModule
             ],
             providers: [
-                { provide: InputValidationService, useClass: InputValidationMock },
-                { provide: AlertService, useClass: AlertMock },
-                { provide: ApplicationService, useClass: ApplicationMock },
-                { provide: FormService, useClass: FormMock },
-                { provide: PermissionService, useClass: PermissionMock }
+                ...AlertProviderMock,
+                ...CoreProviderMock,
+                ...TranslationProviderMock
             ]
         })
             .compileComponents();

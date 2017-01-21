@@ -6,14 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { AdminComponent } from './admin.component';
 
-import {
-    AuthenticationService,
-    AuthenticationMock,
-    InputValidationService,
-    InputValidationMock,
-    PermissionService,
-    PermissionMock
-} from './../core';
+import { CoreProviderMock } from './../core/core.module';
 
 import {
     SharedModule
@@ -35,8 +28,7 @@ describe('AdminComponent', () => {
                 ])
             ],
             providers: [
-                { provide: AuthenticationService, useClass: AuthenticationMock },
-                { provide: PermissionService, useClass: PermissionMock }
+                ...CoreProviderMock
             ]
         })
             .compileComponents();

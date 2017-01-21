@@ -6,14 +6,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { FormsComponent } from './forms.component';
 
-import {
-    FormService,
-    FormMock,
-    InputValidationService,
-    InputValidationMock,
-} from './../../core';
-
-import { AlertService, AlertMock } from './../../modules/alert';
+import { CoreProviderMock } from './../../core/core.module';
+import { AlertProviderMock } from './../../modules/alert/alert.module';
 
 import { SharedModule } from './../../shared/shared.module';
 import { ListModule } from './../../modules/list/list.module';
@@ -43,9 +37,8 @@ describe('FormsComponent', () => {
                 OverlayModule
             ],
             providers: [
-                { provide: FormService, useClass: FormMock },
-                { provide: InputValidationService, useClass: InputValidationMock },
-                { provide: AlertService, useClass: AlertMock }
+                ...CoreProviderMock,
+                ...AlertProviderMock
             ]
         })
             .compileComponents();

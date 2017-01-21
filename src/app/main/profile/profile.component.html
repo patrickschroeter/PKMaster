@@ -2,12 +2,12 @@
     <pk-loading *ngIf="!user"></pk-loading>
 
     <div class="rel"  *ngIf="user">
-        <h1 class="element element--spacing-bottom-small">Profile</h1>
+        <h1 class="element element--spacing-bottom-small" i18n>Profile</h1>
 
         <pk-dynamic-form [formElements]="form" #dynamicForm>
             <pk-dynamic-form-content>
 
-                <pk-dynamic-form-element *ngFor="let element of form" [element]="element" [disabled]="true"></pk-dynamic-form-element>
+                <pk-dynamic-form-element *ngFor="let element of form" [element]="element" [disabled]="true" [form]="dynamicForm.form"></pk-dynamic-form-element>
 
             </pk-dynamic-form-content>
 
@@ -17,26 +17,24 @@
 
     <pk-floating fixed top-right>
         <a  routerLink="/profile/edit">
-            <pk-button rounded pkAlert="Edit Profile" class="element--spacing-bottom-tiny" icon="create" element--secondary></pk-button>
+            <pk-button rounded i18n-pkAlert pkAlert="Edit Profile" class="element--spacing-bottom-tiny" icon="create" element--secondary></pk-button>
         </a>
-        <pk-button rounded pkAlert="Change Password" icon="security" element--secondary (onClick)="overlay.toggle()"></pk-button>
+        <pk-button rounded i18n-pkAlert pkAlert="Change Password" icon="security" element--secondary (onClick)="overlay.toggle()"></pk-button>
     </pk-floating>
 </div>
 
 <pk-overlay #overlay class="overlay--fluid">
-    <pk-overlay-header>
-        Change Password
-    </pk-overlay-header>
+    <pk-overlay-header i18n>Change Password</pk-overlay-header>
     <pk-overlay-content>
 
-        <pk-dynamic-form [formGroup]="changePasswordForm">
+        <pk-dynamic-form [formGroup]="changePasswordForm" #dynamicForm>
             <pk-dynamic-form-content>
-                <pk-dynamic-form-element *ngFor="let element of changePasswordElements" [element]="element"></pk-dynamic-form-element>
+                <pk-dynamic-form-element *ngFor="let element of changePasswordElements" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
             </pk-dynamic-form-content>
             <pk-dynamic-form-submit>
                 <pk-button
                     (onClick)="changePassword(changePasswordForm.value)"
-                    [value]="'Save'"
+                    i18n-value value="Save"
                     icon="security"
                     [class]="changePasswordForm.valid ? 'element--success' : 'element--disabled'"
                     [type]="'submit'"></pk-button>

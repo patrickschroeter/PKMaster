@@ -7,13 +7,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { ProfileComponent } from './profile.component';
 
-import {
-    AuthenticationService,
-    AuthenticationMock,
-    InputValidationService,
-    InputValidationMock
-} from './../../core';
-import { AlertService, AlertMock } from './../../modules/alert';
+import { CoreProviderMock } from './../../core/core.module';
+import { AlertProviderMock } from './../../modules/alert/alert.module';
 
 import {
     SharedModule
@@ -22,6 +17,7 @@ import { DynamicFormModule } from './../../modules/dynamic-form/dynamic-form.mod
 import { FloatingModule } from './../../modules/floating/floating.module';
 import { ButtonModule } from './../../modules/button/button.module';
 import { OverlayModule } from './../../modules/overlay/overlay.module';
+import { TranslationProviderMock } from './../../modules/translation/translation.module';
 
 describe('ProfileComponent', () => {
     let component: ProfileComponent;
@@ -44,9 +40,9 @@ describe('ProfileComponent', () => {
                 OverlayModule
             ],
             providers: [
-                { provide: AuthenticationService, useClass: AuthenticationMock },
-                { provide: AlertService, useClass: AlertMock },
-                { provide: InputValidationService, useClass: InputValidationMock },
+                ...CoreProviderMock,
+                ...AlertProviderMock,
+                ...TranslationProviderMock
             ]
         })
             .compileComponents();

@@ -1,18 +1,18 @@
 <div id="edit-profile">
     <div class="rel">
-        <h1 class="element element--spacing-bottom-small">Edit Profile</h1>
+        <h1 class="element element--spacing-bottom-small" i18n>Edit Profile</h1>
 
         <pk-dynamic-form [formElements]="form" #dynamicForm>
             <pk-dynamic-form-content>
 
-                <pk-dynamic-form-element *ngFor="let element of form" [element]="element"></pk-dynamic-form-element>
+                <pk-dynamic-form-element *ngFor="let element of form" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
 
             </pk-dynamic-form-content>
 
             <pk-dynamic-form-submit>
                 <pk-button
                     *ngIf="dynamicForm?.form"
-                    [value]="'Save'"
+                    i18n-value value="Save"
                     icon="security"
                     [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
                     [type]="'submit'"
@@ -21,7 +21,7 @@
 
             <pk-dynamic-form-cancel>
                 <pk-button
-                    [value]="'Cancel'"
+                    i18n-value value="Cancel"
                     icon="clear"
                     [class]="'element--error'"
                     (onClick)="cancel()"></pk-button>

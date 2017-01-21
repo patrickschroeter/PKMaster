@@ -12,6 +12,7 @@ import { AlertService } from './../../../modules/alert';
 import { Application, Comment } from './../../../swagger';
 
 import { OverlayComponent } from './../../../modules/overlay';
+import { TranslationService } from './../../../modules/translation';
 
 import { Access } from './../../../shared';
 
@@ -45,7 +46,8 @@ export class ApplicationsDetailComponent implements OnInit {
         private alert: AlertService,
         private auth: AuthenticationService,
         private permission: PermissionService,
-        private conferenceService: ConferenceService
+        private conferenceService: ConferenceService,
+        private translationService: TranslationService
     ) { }
 
     ngOnInit() {
@@ -127,18 +129,19 @@ export class ApplicationsDetailComponent implements OnInit {
     public createNewComment(values: Comment) {
         let comment: Comment = values;
         comment.created = new Date();
+        /** TODO */ comment.text = comment.message;
         this.auth.getUser().subscribe(user => {
-            comment.user = user;
+            comment.userId = user.id;
+            comment.isPrivate = !! comment.isPrivate;
+            comment.requiresChanges = !!comment.requiresChanges;
             // TODO: send to server
             this.savingComment = true;
-            if (!this.application.comments) {
-                this.application.comments = [];
-            }
-            this.initAddCommentForm();
-            setTimeout(() => {
-                this.application.comments.push(comment);
+
+            this.applicationService.addCommentToApplication(comment).subscribe(result => {
+                this.application.comments.push(result);
                 this.savingComment = false;
-            }, 500);
+                this.initAddCommentForm();
+            });
         });
     }
 
@@ -181,19 +184,19 @@ export class ApplicationsDetailComponent implements OnInit {
 
     submitApplication(application: Application) {
         this.applicationService.submitApplication(application).subscribe(result => {
-            this.alert.setSuccessHint(`submitApplication${application.id}`, 'Application submitted');
+            this.alert.setSuccessHint(`submitApplication${application.id}`, this.translationService.translate('applicationSubmitted'));
         });
     }
 
     rescindApplication(application: Application) {
         this.applicationService.rescindApplication(application).subscribe(result => {
-            this.alert.setSuccessHint(`rescindApplication${application.id}`, 'Application rescinded');
+            this.alert.setSuccessHint(`rescindApplication${application.id}`, this.translationService.translate('applicationRescinded'));
         });
     }
 
     deactivateApplication(application: Application) {
         this.applicationService.deactivateApplication(application).subscribe(result => {
-            this.alert.setSuccessHint(`deactivateApplication${application.id}`, 'Application deactivated');
+            this.alert.setSuccessHint(`deactivateApplication${application.id}`, this.translationService.translate('applicationDeactivated'));
         });
     }
 }

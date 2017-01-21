@@ -48,7 +48,7 @@ error: remove/cancel and leave state
 
 ### Codegen
 
-rm -rf ./src/app/swagger | java -jar ./../../swagger-codegen/swagger-codegen-cli.jar generate -i http://pk.multimedia.hs-augsburg.de:8000/swagger/v1/swagger.json -l typescript-angular2 -o ./src/app/swagger
+rm -rf ./src/app/swagger | java -jar ./.swagger/swagger-codegen-cli.jar generate -i http://pk.multimedia.hs-augsburg.de:8000/swagger/v1/swagger.json -l typescript-angular2 -o ./src/app/swagger
 
 ### Json
 
@@ -95,18 +95,14 @@ app/
             profile-edit/                       #/profile/edit
 
         applications/                           #/applications ( default )
-            applications-new/                   #/applications/new
             applications-detail/                #/applications/{application_id}
             applications-edit/                  #/applications/{application_id}/edit
 
         conferences/                            #/conferences
-            conferences-new/                    #/conferences/new
             conferences-detail/                 #/conferences/{conference_id}
             conferences-edit/                   #/conferences/{conference_id}/edit
         
         forms/                                  #/forms
-            forms-new/                        - #/forms/new (removed, creation with Title in #/forms as overlay)
-            forms-detail/                     - #/forms/{form_id} (removed -> /edit)
             forms-edit/                         #/forms/{form_id}/edit
 
     admin/                                      #/admin ( wrapper template e.g. admin-navbar )

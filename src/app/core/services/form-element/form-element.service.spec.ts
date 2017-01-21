@@ -7,6 +7,7 @@ import { AlertService, AlertMock } from './../../../modules/alert';
 import { FormService, FormMock } from './../form';
 
 import { Field } from './../../../swagger';
+import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
 describe('Service: FormElement', () => {
     beforeEach(() => {
@@ -14,7 +15,8 @@ describe('Service: FormElement', () => {
             providers: [
                 FormElementService,
                 { provide: AlertService, useClass: AlertMock },
-                { provide: FormService, useClass: FormMock }
+                { provide: FormService, useClass: FormMock },
+                ...TranslationProviderMock
             ]
         });
     });

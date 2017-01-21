@@ -2,4 +2,11 @@
 
 <div id="conference-edit" class="rel" *ngIf="conference">
     <h2 class="element element--spacing-bottom-small">Edit Conference: {{ conference.description }}</h2>
+
+    <pk-floating top-right fixed>
+        <a routerLink="/conferences/{{ conference.id }}">
+            <pk-button rounded i18n-pkAlert pkAlert="Cancel" class="element--spacing-bottom-tiny" icon="clear" element--error></pk-button>
+        </a>
+        <pk-button rounded i18n-pkAlert pkAlert="Delete Conference" icon="delete" element--error (onClick)="deleteConference(conference)"></pk-button>
+    </pk-floating>
 </div>

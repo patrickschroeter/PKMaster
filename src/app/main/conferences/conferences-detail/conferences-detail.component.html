@@ -1,6 +1,87 @@
 <pk-loading *ngIf="!conference"></pk-loading>
 
 <div id="conference-detail" class="rel" *ngIf="conference">
-    <h2 class="element element--spacing-bottom-small">Conference: {{ conference.description }}</h2>
+    <h2 class="element element--spacing-bottom-small" i18n>Conference: {{ conference.description }}</h2>
+    <h3 class="element element--spacing-bottom-large">{{ conference.dateOfEvent | date }} ({{ conference.startOfEvent }} - {{ conference.endOfEvent }}), {{ conference.roomOfEvent }}</h3>
 
+    <div i18n>Attendant PK-Members (TODO)</div>
+
+    <div>
+        <h4 i18n>Agenda</h4>
+        <div *ngFor="let item of agenda; let i = index">
+            {{ i + 1 }}. {{ item.formId }}
+        </div>
+    </div>
+
+    <div>
+        <div *ngFor="let item of agenda; let i = index">
+            <h5>{{ i + 1 }}. {{ item.formId }}</h5>
+
+            <pk-list *ngIf="item.applications?.length">
+                <pk-list-header>
+                    <pk-list-attribute name="author" *accessEditApplications i18n>Author</pk-list-attribute>
+                    <pk-list-attribute name="date" (click)="sortBy('created')" i18n>Created</pk-list-attribute>
+                    <pk-list-attribute name="modified" (click)="sortBy('modified')" i18n>Modified</pk-list-attribute>
+                </pk-list-header>
+                <pk-list-content>
+                    <pk-list-element *ngFor="let application of item.applications" [name]="application.status?.name">
+                        <pk-list-attribute name="author" *accessEditApplications>{{ application.user ? application.user.lastname : '' }}</pk-list-attribute>
+                        <pk-list-attribute name="date">{{ application.created | date }}</pk-list-attribute>
+                        <pk-list-attribute name="modified">{{ application.modified | date }}</pk-list-attribute>
+
+                        <pk-floating horizontal top-right>
+                            <div *accessEditApplications>
+                                <pk-button rounded i18n-pkAlert pkAlert="Accept/Decline Application"
+                                    (onClick)="acceptOverlay.toggle(); selectApplication(application);"
+                                    class="element--spacing-bottom-tiny"
+                                    icon="thumbs_up_down"
+                                    element--success
+                                    ></pk-button>
+                            </div>
+                        </pk-floating>
+                    </pk-list-element>
+                </pk-list-content>
+            </pk-list>
+        </div>
+    </div>
+
+    <pk-floating fixed top-right>
+        <a routerLink="/conferences/{{ conference.id }}/edit">
+            <pk-button class="element--spacing-bottom-tiny" rounded i18n-pkAlert pkAlert="Edit Conference" icon="create" element--secondary></pk-button>
+        </a>
+    </pk-floating>
+
+    <pk-overlay #acceptOverlay="overlay" class="overlay--fluid">
+        <pk-overlay-header i18n>Accept/Decline Application</pk-overlay-header>
+        <pk-overlay-content>
+
+                <pk-dynamic-form [formElements]="acceptForm" #dynamicForm>
+                    <pk-dynamic-form-content>
+
+                        <pk-dynamic-form-element *ngFor="let element of acceptForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
+
+                    </pk-dynamic-form-content>
+
+                    <pk-dynamic-form-submit>
+                        <pk-button
+                            *ngIf="dynamicForm?.form"
+                            i18n-value value="Accept"
+                            icon="done"
+                            class="element--success"
+                            (onClick)="acceptApplication(dynamicForm.form.value)"></pk-button>
+                    </pk-dynamic-form-submit>
+
+                    <pk-dynamic-form-cancel>
+                        <pk-button
+                            *ngIf="dynamicForm?.form"
+                            i18n-value value="Decline"
+                            icon="clear"
+                            [class]="dynamicForm.form.valid ? 'element--error' : 'element--disabled'"
+                            (onClick)="declineApplication(dynamicForm.form.value)"></pk-button>
+                    </pk-dynamic-form-cancel>
+
+                </pk-dynamic-form>
+
+        </pk-overlay-content>
+    </pk-overlay>
 </div>

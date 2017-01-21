@@ -3,8 +3,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { ConferenceService } from './conference.service';
 
-import { ConferenceApiMock } from './../../../core';
-import { ConferenceApi } from './../../../swagger';
+import { CoreProviderMock } from './../../../core/core.module';
 
 import { AlertModule } from './../../../modules/alert/alert.module';
 
@@ -14,7 +13,7 @@ describe('ConferenceService', () => {
             providers: [
                 ConferenceService,
 
-                { provide: ConferenceApi, useClass: ConferenceApiMock }
+                ...CoreProviderMock
             ],
             imports: [
                 AlertModule

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 
 import { FormApiMock } from './';
 
@@ -15,7 +15,7 @@ export class FormEndpoint {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + '%c addForm', 'color: #F44336', 'color: #fefefe');
         let newform = this._formAdd(form);
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (!token) {
                     console.error(`No Token!`);
@@ -35,7 +35,7 @@ export class FormEndpoint {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + '%c getForms', 'color: #F44336', 'color: #fefefe');
         let forms = this._forms();
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (!token) {
                     console.error(`No Token!`);
@@ -55,7 +55,7 @@ export class FormEndpoint {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c getFormById ${formId}`, 'color: #F44336', 'color: #fefefe');
         let form = this._form(formId);
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (!token) {
                     console.error(`No Token!`);
@@ -75,7 +75,7 @@ export class FormEndpoint {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c updateFormById ${formId}`, 'color: #F44336', 'color: #fefefe');
         let updatedForm = this._formUpdate(formId.toString(), form);
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (!token) {
                     console.error(`No Token!`);
@@ -106,7 +106,7 @@ export class FormEndpoint {
     }
 
     private _formAdd(form: Form): Form {
-        let id;
+        let id: string;
         if (!this._list.length) {
             id = 'Q';
         } else {
@@ -119,7 +119,7 @@ export class FormEndpoint {
     }
 
     private _form(id?: string): Form {
-        let result;
+        let result: Form;
         let list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id) {

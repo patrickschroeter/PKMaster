@@ -7,6 +7,7 @@ import { ButtonModule } from './../button/button.module';
 import { OverlayModule } from './../overlay/overlay.module';
 import { DeviderModule } from './../devider/devider.module';
 import { FloatingModule } from './../floating/floating.module';
+import { TranslationModule } from './../translation/translation.module';
 
 import {
     DynamicFormComponent,
@@ -16,6 +17,9 @@ import {
     DynamicFormContentComponent,
 
     DynamicFormService,
+    DynamicFormMock,
+    InputValidationService,
+    InputValidationMock,
 
     DynamicFormDefaultComponent,
     DynamicFormEditComponent,
@@ -58,11 +62,13 @@ import {
         OverlayModule,
         ButtonModule,
         DeviderModule,
-        FloatingModule
+        FloatingModule,
+        TranslationModule
     ],
     providers: [
         DynamicFormService,
-        DynamicFormComponent
+        DynamicFormComponent,
+        InputValidationService
     ],
     exports: [
         DynamicFormDefaultComponent,
@@ -80,3 +86,8 @@ import {
     ]
 })
 export class DynamicFormModule { }
+
+export const DynamicFormProviderMock = [
+    { provide: DynamicFormService, useClass: DynamicFormMock },
+    { provide: InputValidationService, useClass: InputValidationMock }
+]

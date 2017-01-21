@@ -7,6 +7,10 @@ import { Message } from './';
 @Injectable()
 export class AlertService {
 
+    private defaultMessageTime: number = 1000;
+    private defaultLoadingTime: number = 10000;
+    private defaultSuccessTime: number = 1500;
+
     private alertObservable: Observable<any>;
     private alertObserver: Observer<any>;
 
@@ -44,21 +48,21 @@ export class AlertService {
     }
 
     public setSuccessHint(id: string, message: string): void {
-        this.add(id, 'success', message, 1500);
+        this.add(id, 'success', message, this.defaultSuccessTime);
     }
 
     public setLoading(id: string, message: string): void {
-        this.addMessage(id, 'loading', message);
+        this.add(id, 'loading', message, this.defaultLoadingTime);
     }
 
     private add(id: string, type: string, message: string, time?: number): void {
-        let hint = this.addMessage(id, type, message);
+        let hint: Message = this.addMessage(id, type, message);
         if (hint.timeout) {
             clearTimeout(hint.timeout);
         }
         hint.timeout = setTimeout(() => {
             this.removeHint(id);
-        }, time ? time : 1000);
+        }, time ? time : this.defaultMessageTime);
     }
 
     private addMessage(id: string, type: string, message: string): Message {
@@ -69,7 +73,7 @@ export class AlertService {
                 index = i;
             }
         }
-        let hint;
+        let hint: Message;
         if (index === -1) {
             hint = new Message(id, type, message);
             this.hints.push(hint);
@@ -99,7 +103,7 @@ export class AlertService {
 
     public getAlert(): Observable<any> {
         if (!this.alertObservable) {
-            this.alertObservable = new Observable(observer => {
+            this.alertObservable = new Observable((observer: Observer<any>) => {
                 this.alertObserver = observer;
             });
         }
@@ -112,7 +116,7 @@ export class AlertService {
      */
     public getHintMessages(): Observable<Array<Message>> {
         if (!this.hintObservable) {
-            this.hintObservable = new Observable(observer => {
+            this.hintObservable = new Observable((observer: Observer<any>) => {
                 this.hintObserver = observer;
             });
         }
@@ -125,7 +129,7 @@ export class AlertService {
      */
     public getLoading(): Observable<any> {
         if (!this.loadingObserver) {
-            this.loadingObservable = new Observable(observer => {
+            this.loadingObservable = new Observable((observer: Observer<any>) => {
                 this.loadingObserver = observer;
             });
         }

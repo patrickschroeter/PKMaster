@@ -49,7 +49,7 @@ export class FormApi {
      * @param token Accesstoken to authenticate with the API
      * @param form new Form
      */
-    public addForm (token?: number, form?: models.FormCreateDto, extraHttpRequestParams?: any ) : Observable<models.Form> {
+    public addForm (token?: number, form?: models.FormCreateDto, extraHttpRequestParams?: any ) : Observable<models.FormsDto> {
         const path = this.basePath + '/forms';
 
         let queryParameters = new URLSearchParams();
@@ -113,7 +113,7 @@ export class FormApi {
      * @param formId ID of the Form
      * @param token Accesstoken to authenticate with the API
      */
-    public getFormById (formId: string, token?: number, extraHttpRequestParams?: any ) : Observable<models.Form> {
+    public getFormById (formId: string, token?: number, extraHttpRequestParams?: any ) : Observable<models.SingleFormDto> {
         const path = this.basePath + '/forms/{formId}'
             .replace('{' + 'formId' + '}', String(formId));
 
@@ -136,118 +136,7 @@ export class FormApi {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return response.json();
-                }
-            });
-    }
-
-    /**
-     * GET the config for input types
-     *
-     * @param token Accesstoken to authenticate with the API
-     */
-    public getFormConfig (token?: number, extraHttpRequestParams?: any ) : Observable<models.Field> {
-        const path = this.basePath + '/forms/config/types';
-
-        let queryParameters = new URLSearchParams();
-        let headerParams = this.defaultHeaders;
-            headerParams.set('token', String(token));
-
-        let requestOptions: RequestOptionsArgs = {
-            method: 'GET',
-            headers: headerParams,
-            search: queryParameters
-        };
-
-        return this.http.request(path, requestOptions)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return response.json();
-                }
-            });
-    }
-
-    /**
-     * GET the config for input options
-     *
-     * @param token Accesstoken to authenticate with the API
-     */
-    public getFormOptions (token?: number, extraHttpRequestParams?: any ) : Observable<any> {
-        const path = this.basePath + '/forms/config/options';
-
-        let queryParameters = new URLSearchParams();
-        let headerParams = this.defaultHeaders;
-            headerParams.set('token', String(token));
-
-        let requestOptions: RequestOptionsArgs = {
-            method: 'GET',
-            headers: headerParams,
-            search: queryParameters
-        };
-
-        return this.http.request(path, requestOptions)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return response.json();
-                }
-            });
-    }
-
-    /**
-     * GET the config for input Styles
-     *
-     * @param token Accesstoken to authenticate with the API
-     */
-    public getFormStyles (token?: number, extraHttpRequestParams?: any ) : Observable<any> {
-        const path = this.basePath + '/forms/config/styles';
-
-        let queryParameters = new URLSearchParams();
-        let headerParams = this.defaultHeaders;
-            headerParams.set('token', String(token));
-
-        let requestOptions: RequestOptionsArgs = {
-            method: 'GET',
-            headers: headerParams,
-            search: queryParameters
-        };
-
-        return this.http.request(path, requestOptions)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return response.json();
-                }
-            });
-    }
-
-    /**
-     * GET the config for input Validations
-     *
-     * @param token Accesstoken to authenticate with the API
-     */
-    public getFormValidations (token?: number, extraHttpRequestParams?: any ) : Observable<any> {
-        const path = this.basePath + '/forms/config/validations';
-
-        let queryParameters = new URLSearchParams();
-        let headerParams = this.defaultHeaders;
-            headerParams.set('token', String(token));
-
-        let requestOptions: RequestOptionsArgs = {
-            method: 'GET',
-            headers: headerParams,
-            search: queryParameters
-        };
-
-        return this.http.request(path, requestOptions)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
+                    console.log(response.json());
                     return response.json();
                 }
             });
@@ -258,7 +147,7 @@ export class FormApi {
      * The Forms Endpoint returns all Forms
      * @param token Accesstoken to authenticate with the API
      */
-    public getForms (token?: number, extraHttpRequestParams?: any ) : Observable<Array<models.Form>> {
+    public getForms (token?: number, extraHttpRequestParams?: any ) : Observable<Array<models.FormsDto>> {
         const path = this.basePath + '/forms';
 
         let queryParameters = new URLSearchParams();
@@ -298,7 +187,7 @@ export class FormApi {
         if (formId === null || formId === undefined) {
             throw new Error('Required parameter formId was null or undefined when calling updateFormById.');
         }
-            headerParams.set('token', String(token));
+        headerParams.set('token', String(token));
 
         let requestOptions: RequestOptionsArgs = {
             method: 'PUT',

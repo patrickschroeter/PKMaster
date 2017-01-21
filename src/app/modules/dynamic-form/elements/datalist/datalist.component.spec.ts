@@ -16,26 +16,23 @@ import {
 
 import {
     DynamicFormComponent,
-    DynamicFormComponentMock,
     DynamicFormContentComponent,
     DynamicFormElementComponent,
     DynamicFormSubmitComponent,
     DynamicFormCancelComponent,
-
-    DynamicFormService,
-    DynamicFormMock
 } from './../../';
 
-import {
-    InputValidationService,
-    InputValidationMock,
-} from './../../../../core';
-import { AlertService, AlertMock } from './../../../../modules/alert';
+import { DynamicFormProviderMock } from './../../dynamic-form.module';
+
+import { CoreProviderMock } from './../../../../core/core.module';
+import { AlertProviderMock } from './../../../../modules/alert/alert.module';
+
 import { ButtonModule } from './../../../../modules/button/button.module';
 import { OverlayModule } from './../../../../modules/overlay/overlay.module';
 import { DeviderComponent } from './../../../../modules/devider';
 
 import { FloatingModule } from './../../../../modules/floating/floating.module';
+import { TranslationProviderMock } from './../../../../modules/translation/translation.module';
 
 describe('DatalistComponent', () => {
     let component: DatalistComponent;
@@ -67,10 +64,10 @@ describe('DatalistComponent', () => {
                 ButtonModule
             ],
             providers: [
-                { provide: AlertService, useClass: AlertMock },
-                { provide: InputValidationService, useClass: InputValidationMock },
-                { provide: DynamicFormComponent, useClass: DynamicFormComponentMock },
-                { provide: DynamicFormService, useClass: DynamicFormMock }
+                ...DynamicFormProviderMock,
+                ...CoreProviderMock,
+                ...AlertProviderMock,
+                ...TranslationProviderMock
             ]
         })
             .compileComponents();

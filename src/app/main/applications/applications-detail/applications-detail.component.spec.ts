@@ -6,23 +6,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { ApplicationsDetailComponent } from './applications-detail.component';
 
-import {
-    ApplicationService,
-    ApplicationMock,
-    InputValidationService,
-    InputValidationMock,
-
-    AuthenticationService,
-    AuthenticationMock,
-
-    PermissionService,
-    PermissionMock,
-
-    ConferenceService,
-    ConferenceMock
-} from './../../../core';
-
-import { AlertService, AlertMock } from './../../../modules/alert';
+import { CoreProviderMock } from './../../../core/core.module';
+import { AlertProviderMock } from './../../../modules/alert/alert.module';
 
 import { SharedModule } from './../../../shared/shared.module';
 import { DynamicFormModule } from './../../../modules/dynamic-form/dynamic-form.module';
@@ -30,6 +15,7 @@ import { ListModule } from './../../../modules/list/list.module';
 import { FloatingModule } from './../../../modules/floating/floating.module';
 import { ButtonModule } from './../../../modules/button/button.module';
 import { OverlayModule } from './../../../modules/overlay/overlay.module';
+import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
 describe('ApplicationsDetailComponent', () => {
     let component: ApplicationsDetailComponent;
@@ -52,12 +38,9 @@ describe('ApplicationsDetailComponent', () => {
                 OverlayModule
             ],
             providers: [
-                { provide: ApplicationService, useClass: ApplicationMock },
-                { provide: AlertService, useClass: AlertMock },
-                { provide: InputValidationService, useClass: InputValidationMock },
-                { provide: AuthenticationService, useClass: AuthenticationMock },
-                { provide: PermissionService, useClass: PermissionMock },
-                { provide: ConferenceService, useClass: ConferenceMock },
+                ...CoreProviderMock,
+                ...AlertProviderMock,
+                ...TranslationProviderMock
             ]
         })
             .compileComponents();

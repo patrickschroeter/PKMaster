@@ -8,7 +8,7 @@ import {
     CanLoad,
     Route
 } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 
 import { AuthenticationService } from './../authentication/authentication.service';
 import { PermissionService } from './../permission/permission.service';
@@ -56,50 +56,50 @@ export class AccessService implements CanActivate, CanDeactivate<any>, CanLoad {
 @Injectable()
 export class AccessReadApplications extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
-    canActivate(route, state) { return this.hasAccess('ReadApplications'); }
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) { return this.hasAccess('ReadApplications'); }
 }
 
 @Injectable()
 export class AccessEditApplications extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
-    canActivate(route, state) { return this.hasAccess('EditApplications'); }
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) { return this.hasAccess('EditApplications'); }
 }
 
 @Injectable()
 export class AccessReadConferences extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
-    canActivate(route, state) { return this.hasAccess('ReadConferences'); }
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) { return this.hasAccess('ReadConferences'); }
 }
 
 @Injectable()
 export class AccessEditConferences extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
-    canActivate(route, state) { return this.hasAccess('EditConferences'); }
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) { return this.hasAccess('EditConferences'); }
 }
 
 @Injectable()
 export class AccessReadForms extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
-    canActivate(route, state) { return this.hasAccess('ReadForms'); }
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) { return this.hasAccess('ReadForms'); }
 }
 
 @Injectable()
 export class AccessEditForms extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
-    canActivate(route, state) { return this.hasAccess('EditForms'); }
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) { return this.hasAccess('EditForms'); }
 }
 
 @Injectable()
 export class AccessAdmin extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
-    canActivate(route, state) { return this.hasAccess(['ReadRoles', 'ReadPermissions', 'ReadUsers'], true); }
-    canLoad(route) { return this.hasAccess(['ReadRoles', 'ReadPermissions', 'ReadUsers'], true); }
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) { return this.hasAccess(['ReadRoles', 'ReadPermissions', 'ReadUsers'], true); }
+    canLoad(route: Route) { return this.hasAccess(['ReadRoles', 'ReadPermissions', 'ReadUsers'], true); }
 }
 
 @Injectable()
 export class AccessReadRoles extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
-    canActivate(route, state) {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         return this.hasAccess('ReadRoles').map(access => {
           if (!access) {
             this.router.navigate(['', 'admin', 'profile']);
@@ -113,29 +113,29 @@ export class AccessReadRoles extends AccessService {
 @Injectable()
 export class AccessEditRoles extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
-    canActivate(route, state) { return this.hasAccess('EditRoles'); }
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) { return this.hasAccess('EditRoles'); }
 }
 
 @Injectable()
 export class AccessReadPermissions extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
-    canActivate(route, state) { return this.hasAccess('ReadPermissions'); }
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) { return this.hasAccess('ReadPermissions'); }
 }
 
 @Injectable()
 export class AccessEditPermissions extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
-    canActivate(route, state) { return this.hasAccess('EditPermissions'); }
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) { return this.hasAccess('EditPermissions'); }
 }
 
 @Injectable()
 export class AccessReadUsers extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
-    canActivate(route, state) { return this.hasAccess('ReadUsers'); }
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) { return this.hasAccess('ReadUsers'); }
 }
 
 @Injectable()
 export class AccessEditUsers extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
-    canActivate(route, state) { return this.hasAccess('EditUsers'); }
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) { return this.hasAccess('EditUsers'); }
 }

@@ -4,12 +4,12 @@
     <pk-dynamic-form [formElements]="loginForm" #dynamicForm>
         <pk-dynamic-form-content>
 
-            <pk-dynamic-form-element *ngFor="let element of loginForm" [element]="element"></pk-dynamic-form-element>
+            <pk-dynamic-form-element *ngFor="let element of loginForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
 
         </pk-dynamic-form-content>
 
         <pk-dynamic-form-submit>
-            <pk-button (onClick)="login(dynamicForm.form.value)" [value]="'Login'" icon="security" [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
+            <pk-button (onClick)="login(dynamicForm.form.value)" i18n-value value="Login" icon="security" [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
                 [type]="'submit'"></pk-button>
         </pk-dynamic-form-submit>
 

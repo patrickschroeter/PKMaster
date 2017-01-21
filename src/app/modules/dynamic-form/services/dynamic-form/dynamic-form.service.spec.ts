@@ -5,11 +5,10 @@ import { FormBuilder } from '@angular/forms';
 
 import { DynamicFormService } from './dynamic-form.service';
 
-import {
-    InputValidationService,
-    InputValidationMock,
-} from './../../../../core';
-import { AlertService, AlertMock } from './../../../../modules/alert';
+import { InputValidationService, InputValidationMock } from './../input-validation';
+
+import { CoreProviderMock } from './../../../../core/core.module';
+import { AlertProviderMock } from './../../../../modules/alert/alert.module';
 
 describe('Service: DynamicForm', () => {
     beforeEach(() => {
@@ -19,7 +18,8 @@ describe('Service: DynamicForm', () => {
                 DynamicFormService,
 
                 { provide: InputValidationService, useClass: InputValidationMock },
-                { provide: AlertService, useClass: AlertMock }
+                ...CoreProviderMock,
+                ...AlertProviderMock
             ]
         });
     });

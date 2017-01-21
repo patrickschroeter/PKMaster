@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 
 import { Validators, ValidatorFn, FormControl, FormGroup, AbstractControl } from '@angular/forms';
+
+import { TranslationService } from './../../../translation';
 
 @Injectable()
 export class InputValidationService {
@@ -10,42 +12,52 @@ export class InputValidationService {
         maxLength: this.validateMaxLength(15),
         useExternalEmail: this.validateExternalEmail,
         isEmail: this.validateEmail,
-        toBeTrue: this.validateToBeTrue
+        toBeTrue: this.validateToBeTrue,
+        time: this.validateTime
     };
 
-    constructor() { }
+    constructor(private translationService: TranslationService) { }
+
+    private translate( key: string, interpolations?: (string | number)[]): string {
+        return this.translationService.translate(key, interpolations);
+    }
 
     public getErrorMessage(control: FormControl | FormGroup | AbstractControl): string {
         if (control.hasError('notTrue')) {
-            return 'Field is required.';
+            return this.translate('errorRequired');
 
         } else if (control.hasError('invalidEmail')) {
-            return 'Field is an invalid E-Mail address.';
+            return this.translate('errorInvalidEmail');
 
         } else if (control.hasError('internalEmail')) {
-            return 'Field is not an external E-Mail address.';
+            return this.translate('errorInternalEmail');
 
         } else if (control.hasError('maxlength')) {
-            return `Field requires a max length of
-            ${ control.errors['maxlength'].requiredLength}. Actual
-            ${ control.errors['maxlength'].actualLength }.`;
+            return this.translate('errorMaxLength', [
+                control.errors ['maxlength'].requiredLength,
+                control.errors['maxlength'].actualLength
+            ]);
 
         } else if (control.hasError('minlength')) {
-            return `Field requires a length of
-            ${ control.errors['minlength'].requiredLength }. Actual
-            ${ control.errors['minlength'].actualLength }.`;
+            return this.translate('errorMinLength', [
+                control.errors['minlength'].requiredLength,
+                control.errors['minlength'].actualLength
+            ]);
 
         } else if (control.hasError('areEqual')) {
             if (control.errors['areEqual'].message) {
-                return control.errors['areEqual'].message;
+                return this.translate(control.errors['areEqual'].message);
             }
-            return 'The given values dont match';
+            return this.translate('errorAreEqual');
+
+        } else if (control.hasError('invalidTime')) {
+            return this.translate('errorInvalidTime');
 
         } else if (control.hasError('required')) {
-            return 'Field is required.';
+            return this.translate('errorRequired');
 
         } else if (control.invalid) {
-            return 'Form/Field is invalid.';
+            return this.translate('errorInvalid');
 
         }
         return;
@@ -119,7 +131,19 @@ export class InputValidationService {
         }
     }
 
+    /**
+     * @description validate time input to (h)h:mm
+     */
+    public validateTime(control: FormControl): Object {
+        let rx = new RegExp('([01]?[0-9]|2[0-3])(:|.)[0-5][0-9]');
+        if (!control.value.match(rx)) {
+            return { invalidTime: true };
+        }
+    }
 
+    /**
+     * @description checks if the elements with the names are equal
+     */
     public areEqual(names: string[], message?) {
 
         return function(group: FormGroup) {

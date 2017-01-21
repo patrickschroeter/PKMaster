@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormService, FormElementService } from './../../../core';
 import { AlertService } from './../../../modules/alert';
 import { OverlayComponent } from './../../../modules/overlay';
+import { TranslationService } from './../../../modules/translation';
 
 import { Field } from './../../../swagger';
 
@@ -39,14 +40,16 @@ export class FormsEditComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private formService: FormService,
         private alert: AlertService,
-        private elementService: FormElementService) { }
+        private elementService: FormElementService,
+        private translationService: TranslationService
+    ) { }
 
 
     ngOnInit() {
 
         /** Read Route Param and GET Form with param ID */
         this.activatedRoute.params.forEach((params: Params) => {
-            this.alert.setLoading('getFormById', 'Loading Form...');
+            this.alert.setLoading('getFormById', this.translationService.translate('loadingForm'));
             this.formService.getFormById(params['id']).subscribe((form) => {
                 this.alert.removeHint('getFormById');
                 if (!form) { this.router.navigate(['/forms']); }
@@ -55,6 +58,7 @@ export class FormsEditComponent implements OnInit {
                 /** TODO: catch */
                 this.router.navigate(['/forms']);
                 this.alert.removeHint('getFormById');
+                this.alert.setErrorHint('no-form-found', this.translationService.translate('errorNoFormWithId', [params['id']]), 2000);
             });
         });
 
@@ -100,9 +104,12 @@ export class FormsEditComponent implements OnInit {
             ];
         } else {
             if (this.formService.addPresetToForm(option.value)) {
-                this.alert.setSuccessHint('add-preset', `Preset ${option.label} added.`);
+                this.alert.setSuccessHint('add-preset', this.translationService.translate('addedPreset', [option.label]));
             } else {
-                this.alert.setAlert('Error', 'The given name (ID) is already in use. Please choose a new unique one.');
+                this.alert.setAlert(
+                    this.translationService.translate('headerError'),
+                    this.translationService.translate('usedId')
+                );
             }
             this.overlayPreset.toggle(false);
         }
@@ -137,7 +144,7 @@ export class FormsEditComponent implements OnInit {
         this.formService.saveFormAttributes(form).subscribe(success => {
             if (success) {
                 this.overlayAttributes.toggle(false);
-                this.alert.setSuccessHint('form_attribute_saved', 'Form attributes saved.');
+                this.alert.setSuccessHint('form_attribute_saved', this.translationService.translate('savedFormAttributes'));
             }
         });
     }
@@ -148,14 +155,9 @@ export class FormsEditComponent implements OnInit {
      */
     saveForm(): void {
         this.formService.saveForm().subscribe(form => {
-            this.alert.setSuccessHint('saveForm', 'Form Saved!');
+            this.alert.setSuccessHint('saveForm', this.translationService.translate('savedForm'));
+            this.router.navigate(['forms']);
         });
     }
-
-    /**
-     * @description Cancels the Editation of the Form
-     * @return {void}
-     */
-    cancelForm(): void { }
 
 }

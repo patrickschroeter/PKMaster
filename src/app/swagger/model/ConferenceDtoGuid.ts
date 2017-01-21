@@ -25,7 +25,7 @@
 'use strict';
 import * as models from './models';
 
-export interface ConferenceDto {
+export interface ConferenceDtoGuid {
     
 
     id?: string;

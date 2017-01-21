@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ApplicationService, FormService, PermissionService } from './../../core';
 
 import { AlertService } from './../../modules/alert';
+import { TranslationService } from './../../modules/translation';
 
 import { Application } from './../../swagger';
 
@@ -24,7 +25,8 @@ export class ApplicationsComponent implements OnInit {
         private applicationService: ApplicationService,
         private alert: AlertService,
         private formService: FormService,
-        private permission: PermissionService
+        private permission: PermissionService,
+        private translationService: TranslationService
     ) { }
 
     ngOnInit() {
@@ -50,27 +52,28 @@ export class ApplicationsComponent implements OnInit {
 
     submitApplication(application: Application) {
         this.applicationService.submitApplication(application).subscribe(result => {
-            this.alert.setSuccessHint(`submitApplication${application.id}`, 'Application submitted');
+            this.alert.setSuccessHint(`submitApplication${application.id}`, this.translationService.translate('applicationSubmitted'));
         });
     }
 
     rescindApplication(application: Application) {
         this.applicationService.rescindApplication(application).subscribe(result => {
-            this.alert.setSuccessHint(`rescindApplication${application.id}`, 'Application rescinded');
+            this.alert.setSuccessHint(`rescindApplication${application.id}`, this.translationService.translate('applicationRescinded'));
         });
     }
 
     deactivateApplication(application: Application) {
         this.applicationService.deactivateApplication(application).subscribe(result => {
-            this.alert.setSuccessHint(`deactivateApplication${application.id}`, 'Application deactivated');
+            this.alert.setSuccessHint(`deactivateApplication${application.id}`, this.translationService.translate('applicationDeactivated'));
         });
     }
 
     createNewApplication(form) {
         let application: Application = {
+            formId: form.value,
             form: {
                 id: form.value
-            }
+            },
         };
         this.applicationService.createNewApplication(application).subscribe((created) => {
             if (created['id']) {

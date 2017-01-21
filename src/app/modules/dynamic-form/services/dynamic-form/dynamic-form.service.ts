@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Validators, FormControl, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 
-import { InputValidationService, } from './../../../../core';
 import { AlertService } from './../../../../modules/alert';
+
+import { InputValidationService } from './../input-validation/input-validation.service';
 
 import { Field } from './../../../../swagger';
 
 @Injectable()
 export class DynamicFormService {
+
+    private validationTime: number = 2000;
 
     constructor(
         private build: FormBuilder,
@@ -90,7 +93,7 @@ export class DynamicFormService {
     public showValidation(form: FormGroup | FormControl | AbstractControl) {
         let message = this.inputValidation.getErrorMessage(form);
         if (message) {
-            this.alert.setErrorHint('validation', message);
+            this.alert.setErrorHint('validation', message, this.validationTime);
         }
     }
 }

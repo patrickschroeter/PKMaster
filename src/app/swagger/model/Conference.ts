@@ -38,4 +38,9 @@ export interface Conference {
 
     // custom
     applications?: Array<models.Application>;
+
+    startOfEvent?: number;
+    endOfEvent?: number;
+    roomOfEvent?: string;
+    numberOfConference?: number;
 }
