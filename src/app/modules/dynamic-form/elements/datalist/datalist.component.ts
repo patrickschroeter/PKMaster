@@ -8,6 +8,7 @@ import { AlertService } from './../../../../modules/alert';
 import { Field } from './../../../../swagger';
 
 import { OverlayComponent } from './../../../../modules/overlay';
+import { TranslationService } from './../../../../modules/translation';
 
 @Component({
     selector: 'pk-datalist',
@@ -31,7 +32,10 @@ export class DatalistComponent implements OnInit {
     get formControl() { return this._formControl; }
     set formControl(control: AbstractControl) { this._formControl = control; }
 
-    constructor(private alert: AlertService) { }
+    constructor(
+        private alert: AlertService,
+        private translationService: TranslationService
+    ) { }
 
     ngOnInit() {
         if (!this.config) {
@@ -111,7 +115,7 @@ export class DatalistComponent implements OnInit {
             if (override === -1) {
                 this.config.options.push(element);
             } else {
-                this.alert.setSuccessHint('option_updated', 'Option updated');
+                this.alert.setSuccessHint('option_updated', this.translationService.translate('updatedOption'));
                 this.config.options[override].label = element.label;
             }
         }
