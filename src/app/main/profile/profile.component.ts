@@ -63,7 +63,7 @@ export class ProfileComponent implements OnInit {
 
         this.changePasswordForm = this.dynamicForm.generateFormFromInput(
             this.changePasswordElements,
-            { validator: this.inputValidation.areEqual(['newpassword', 'newpasswordconfirm'], 'Password doesn\'t match the confirmation')});
+            { validator: this.inputValidation.areEqual(['newpassword', 'newpasswordconfirm'], 'errorPasswordMatch')});
     }
 
     /**
