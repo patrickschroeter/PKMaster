@@ -27,7 +27,7 @@
     <pk-overlay-header i18n>Change Password</pk-overlay-header>
     <pk-overlay-content>
 
-        <pk-dynamic-form [formGroup]="changePasswordForm">
+        <pk-dynamic-form [formGroup]="changePasswordForm" #dynamicForm>
             <pk-dynamic-form-content>
                 <pk-dynamic-form-element *ngFor="let element of changePasswordElements" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
             </pk-dynamic-form-content>
