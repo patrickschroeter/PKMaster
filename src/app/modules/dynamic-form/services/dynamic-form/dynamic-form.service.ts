@@ -15,7 +15,8 @@ export class DynamicFormService {
     constructor(
         private build: FormBuilder,
         private inputValidation: InputValidationService,
-        private alert: AlertService) { }
+        private alert: AlertService
+    ) { }
 
     /**
      * @description generates a from group from FormElements
@@ -42,15 +43,42 @@ export class DynamicFormService {
      * @param {Field[]} input the input configuration
      */
     public updateFormFromInput(form: FormGroup, input?: Field[]): void {
+
+        /** get all existing form.controls */
+        let existingElementNames: string[] = [];
+        for (let key in form.controls) {
+            if (!form.controls.hasOwnProperty(key)) { continue; }
+            existingElementNames.push(key);
+        }
+
+        /** add/update the form.controly by input fields */
         for (let i = 0, length = input.length; i < length; i++) {
             let element = input[i];
+            this.removeKeyFromList(existingElementNames, element.name);
             if (!form.get(element.name)) {
                 let formControl = this.createFormControl(element);
                 if (formControl) {
                     form.addControl(element.name, formControl);
                 }
+            } else {
+                form.get(element.name).setValue(element.value);
             }
         }
+
+        /** Remove all controls which are not in input field */
+        for (let i = 0, length = existingElementNames.length; i < length; i++) {
+            let name = existingElementNames[i];
+            form.removeControl(name);
+        }
+    }
+
+    /**
+     * @description removes the key from the array
+     */
+    private removeKeyFromList(list: string[], key: string) {
+        let index: number = list.indexOf(key);
+        if (index === -1) { return; }
+        list.splice(index, 1);
     }
 
     /**

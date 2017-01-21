@@ -3,6 +3,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable, BehaviorSubject, Observer } from 'rxjs/Rx';
+import * as _ from 'lodash';
 
 import { FormService } from './../form';
 import { AlertService } from './../../../modules/alert';
@@ -408,7 +409,7 @@ export class FormElementService {
             setTimeout(() => {
                 this.alert.removeHint('getOptionsOfInputType');
                 let result = [].concat(name);
-                let element = options[fieldType];
+                let element = _.cloneDeep(options[fieldType]);
                 if (element) { result = result.concat(element); }
                 result.push(new Fields.Devider());
                 observer.next(result);
