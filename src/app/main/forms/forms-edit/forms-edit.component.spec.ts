@@ -18,6 +18,7 @@ import { DynamicFormModule } from './../../../modules/dynamic-form/dynamic-form.
 import { FloatingModule } from './../../../modules/floating/floating.module';
 import { ButtonModule } from './../../../modules/button/button.module';
 import { OverlayModule } from './../../../modules/overlay/overlay.module';
+import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
 describe('FormsEditComponent', () => {
     let component: FormsEditComponent;
@@ -42,7 +43,8 @@ describe('FormsEditComponent', () => {
             ],
             providers: [
                 ...CoreProviderMock,
-                ...AlertProviderMock
+                ...AlertProviderMock,
+                ...TranslationProviderMock
             ]
         })
             .compileComponents();
