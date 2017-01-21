@@ -27,7 +27,7 @@ export class InputValidationService {
             return this.translate('errorRequired');
 
         } else if (control.hasError('invalidEmail')) {
-            return this.translate('errorInvalidEmail', ['eins', 2]);
+            return this.translate('errorInvalidEmail');
 
         } else if (control.hasError('internalEmail')) {
             return this.translate('errorInternalEmail');

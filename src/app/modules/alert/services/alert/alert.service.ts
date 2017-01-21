@@ -7,6 +7,8 @@ import { Message } from './';
 @Injectable()
 export class AlertService {
 
+    private defaultMessageTime: number = 1000;
+
     private alertObservable: Observable<any>;
     private alertObserver: Observer<any>;
 
@@ -58,7 +60,7 @@ export class AlertService {
         }
         hint.timeout = setTimeout(() => {
             this.removeHint(id);
-        }, time ? time : 1000);
+        }, time ? time : this.defaultMessageTime);
     }
 
     private addMessage(id: string, type: string, message: string): Message {

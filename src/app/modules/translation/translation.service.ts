@@ -5,7 +5,7 @@ import { TRANSLATE } from './dictionary';
 @Injectable()
 export class TranslationService {
 
-    private defaultLocaleId: string = 'en';
+    private defaultLocaleId: string = 'de';
 
     constructor( @Inject(LOCALE_ID) protected localeId, @Inject(TRANSLATE) private i18n: any ) {
         if (!i18n[localeId]) {
@@ -18,7 +18,10 @@ export class TranslationService {
      */
     public translate(key: string, interpolations?: (string | number)[]): string {
         let result = this.i18n[this.localeId][key];
-        if (!result) { console.error(`Missing translation for '${key}'`); return `Missing translation for '${key}'`; }
+        if (!result) {
+            console.error(`Missing translation for '${key}' in language '{ this.localeId }`);
+            return `Missing translation for '${key}' in language '{ this.localeId }`;
+        }
 
         if (!interpolations) { return result; }
 
