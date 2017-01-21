@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { AlertModule } from './modules/alert/alert.module';
-import { TranslationModule } from './modules/translation/translation.module';
 
 @NgModule({
     declarations: [
@@ -25,8 +24,7 @@ import { TranslationModule } from './modules/translation/translation.module';
 
         CoreModule,
         SharedModule,
-        AlertModule,
-        TranslationModule
+        AlertModule
     ],
     providers: [],
     bootstrap: [AppComponent]

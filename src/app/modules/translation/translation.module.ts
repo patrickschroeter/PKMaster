@@ -15,3 +15,10 @@ import { TRANSLATE, dictionary } from './dictionary';
     exports: [ ]
 })
 export class TranslationModule { }
+
+
+export const TranslationProviderMock = [
+    { provide: TranslationService, userClass: class {
+        public translate() { return 'translation'};
+    }}
+]

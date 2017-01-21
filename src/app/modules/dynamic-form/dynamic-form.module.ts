@@ -7,6 +7,7 @@ import { ButtonModule } from './../button/button.module';
 import { OverlayModule } from './../overlay/overlay.module';
 import { DeviderModule } from './../devider/devider.module';
 import { FloatingModule } from './../floating/floating.module';
+import { TranslationModule } from './../translation/translation.module';
 
 import {
     DynamicFormComponent,
@@ -61,7 +62,8 @@ import {
         OverlayModule,
         ButtonModule,
         DeviderModule,
-        FloatingModule
+        FloatingModule,
+        TranslationModule
     ],
     providers: [
         DynamicFormService,

@@ -3,14 +3,19 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { TranslationService } from './translation.service';
 
-describe('TranslationService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [TranslationService]
-    });
-  });
+import { TRANSLATE, dictionary } from './dictionary';
 
-  it('should ...', inject([TranslationService], (service: TranslationService) => {
-    expect(service).toBeTruthy();
-  }));
+describe('TranslationService', () => {
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [
+                TranslationService,
+                { provide: TRANSLATE, useValue: dictionary }
+            ]
+        });
+    });
+
+    it('should ...', inject([TranslationService], (service: TranslationService) => {
+        expect(service).toBeTruthy();
+    }));
 });
