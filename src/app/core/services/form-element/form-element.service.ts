@@ -6,6 +6,7 @@ import { Observable, BehaviorSubject, Observer } from 'rxjs/Rx';
 
 import { FormService } from './../form';
 import { AlertService } from './../../../modules/alert';
+import { TranslationService } from './../../../modules/translation';
 import { Field } from './../../../swagger';
 import { Fields } from './../../../models';
 
@@ -34,7 +35,11 @@ export class FormElementService {
     private elementHasValidationsRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
     private elementHasStylesRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-    constructor(private formService: FormService, private alert: AlertService) {
+    constructor(
+        private formService: FormService,
+        private alert: AlertService,
+        private translationService: TranslationService
+    ) {
         this.formService.onEditElement().subscribe((element?: Field) => {
             if (element) {
                 if (!this.editExistingElement(element)) {
@@ -151,7 +156,7 @@ export class FormElementService {
                 }
 
                 /** Add Options to Form (radio, select) */
-                let useCustomOptions: boolean = true;
+                let useCustomOptions = true;
                 let optionFormElement: any;
                 let formElementOptions: any;
                 for (let i = 0, length = generatedFormOfElement.length; i < length; i++) {
@@ -331,9 +336,9 @@ export class FormElementService {
             if (!mode || mode === 'add') {
                 this.resetElement();
             }
-            this.alert.setSuccessHint('save-element-no-reset', 'Element added successful');
+            this.alert.setSuccessHint('save-element-no-reset', this.translationService.translate('hintAddedElement'));
         } else {
-            this.alert.setAlert('Error', 'The given name (ID) is already in use. Please choose a new unique one.');
+            this.alert.setAlert(this.translationService.translate('headerError'), this.translationService.translate('hintIdInUse'));
         }
     }
 
@@ -359,7 +364,10 @@ export class FormElementService {
      */
     private getElementTypeOptions(): Observable<any> {
         let result: Field = new Fields.FieldType();
-        this.alert.setLoading('getInputTypeOptions', 'Loading Type Options...');
+        this.alert.setLoading(
+            'getInputTypeOptions',
+            this.translationService.translate('loadingTypeOptions')
+        );
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 this.alert.removeHint('getInputTypeOptions');
@@ -371,7 +379,10 @@ export class FormElementService {
 
     private getOptionsOfTable(name: string): Observable<any> {
         let result: Field = options();
-        this.alert.setLoading('getOptionsOfTable', `${name.toUpperCase()}: Loading Options...`);
+        this.alert.setLoading(
+            'getOptionsOfTable',
+            this.translationService.translate('loadingOptionsOf', [name.toUpperCase()])
+        );
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 this.alert.removeHint('getOptionsOfTable');
@@ -389,7 +400,10 @@ export class FormElementService {
     private getOptionsOfElementType(fieldType: string): Observable<any> {
         let name: Field = new Fields.FieldName();
         let options: Field = opts();
-        this.alert.setLoading('getOptionsOfInputType', `${fieldType.toUpperCase()}: Loading Options...`);
+        this.alert.setLoading(
+            'getOptionsOfInputType',
+            this.translationService.translate('loadingOptionsOf', [fieldType.toUpperCase()])
+        );
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 this.alert.removeHint('getOptionsOfInputType');
@@ -410,7 +424,10 @@ export class FormElementService {
      */
     private getValidationsOfInputType(fieldType: string): Observable<any> {
         let options: Field = validations();
-        this.alert.setLoading('getValidationsOfInputType', `${fieldType.toUpperCase()}: Loading Validations...`);
+        this.alert.setLoading(
+            'getValidationsOfInputType',
+            this.translationService.translate('loadingValidationsOf', [fieldType.toUpperCase()])
+        );
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 this.alert.removeHint('getValidationsOfInputType');
@@ -427,7 +444,10 @@ export class FormElementService {
      */
     private getStylesOfInputType(fieldType: string): Observable<any> {
         let options: Field = styles();
-        this.alert.setLoading('getStyles', `${fieldType.toUpperCase()}: Loading Styles...`);
+        this.alert.setLoading(
+            'getStyles',
+            this.translationService.translate('loadingStylesOf', [fieldType.toUpperCase()])
+        );
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 this.alert.removeHint('getStyles');
@@ -517,22 +537,22 @@ function opts() {
 
     let opts = {
         input: [
-            new Fields.FieldRequired(null, { styles: ['small', 'aligned']}),
+            new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
             new Fields.FieldLabel(),
             new Fields.FieldContentType('text'),
             new Fields.FieldPlaceholder()
         ],
         textarea: [
-            new Fields.FieldRequired(null, { styles: ['small', 'aligned']}),
+            new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
             new Fields.FieldLabel(),
             new Fields.FieldPlaceholder()
         ],
         checkbox: [
-            new Fields.FieldRequired(null, { styles: ['small', 'aligned']}),
+            new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
             new Fields.FieldLabel(),
         ],
         radio: [
-            new Fields.FieldRequired(null, { styles: ['small', 'aligned']}),
+            new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
             new Fields.FieldLabel(null, { required: true }),
             new Fields.Devider(),
             new Fields.H4('Create a custom List or use an existing one.', { styles: [] }),
@@ -547,7 +567,7 @@ function opts() {
             new Fields.FieldOptions()
         ],
         select: [
-            new Fields.FieldRequired(null, { styles: ['small', 'aligned']}),
+            new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
             new Fields.FieldLabel(),
             new Fields.FieldPlaceholder(),
             new Fields.FieldMultipleSelect(),

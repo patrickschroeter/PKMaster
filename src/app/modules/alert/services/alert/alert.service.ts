@@ -8,6 +8,8 @@ import { Message } from './';
 export class AlertService {
 
     private defaultMessageTime: number = 1000;
+    private defaultLoadingTime: number = 10000;
+    private defaultSuccessTime: number = 1500;
 
     private alertObservable: Observable<any>;
     private alertObserver: Observer<any>;
@@ -46,11 +48,11 @@ export class AlertService {
     }
 
     public setSuccessHint(id: string, message: string): void {
-        this.add(id, 'success', message, 1500);
+        this.add(id, 'success', message, this.defaultSuccessTime);
     }
 
     public setLoading(id: string, message: string): void {
-        this.addMessage(id, 'loading', message);
+        this.add(id, 'loading', message, this.defaultLoadingTime);
     }
 
     private add(id: string, type: string, message: string, time?: number): void {

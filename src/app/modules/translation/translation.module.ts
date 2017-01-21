@@ -18,7 +18,10 @@ export class TranslationModule { }
 
 
 export const TranslationProviderMock = [
-    { provide: TranslationService, userClass: class {
-        public translate() { return 'translation'};
-    }}
+    {
+        provide: TranslationService,
+        useClass: class {
+            public translate() { return 'translation'; }
+        }
+    }
 ]
