@@ -8,11 +8,12 @@ import {
     FormMock,
 } from './../form';
 
-import { AlertService, AlertMock } from './../../../modules/alert';
-
 import { ApplicationMock } from './';
 import { Status, ApplicationApi, FormApi, Application } from './../../../swagger';
 import { ApplicationApiMock, FormApiMock, AuthenticationService, AuthenticationMock } from './..';
+
+import { AlertProviderMock } from './../../../modules/alert/alert.module';
+import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
 describe('Service: Application', () => {
     beforeEach(() => {
@@ -22,10 +23,11 @@ describe('Service: Application', () => {
                 ApplicationService,
 
                 { provide: FormService, useClass: FormMock },
-                { provide: AlertService, useClass: AlertMock },
                 { provide: ApplicationApi, useClass: ApplicationApiMock },
                 { provide: FormApi, useClass: FormApiMock },
                 { provide: AuthenticationService, useClass: AuthenticationMock },
+                ...TranslationProviderMock,
+                ...AlertProviderMock
             ]
         });
     });
