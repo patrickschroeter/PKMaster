@@ -12,6 +12,7 @@ import { AlertProviderMock } from './../../../modules/alert/alert.module';
 import { SharedModule } from './../../../shared/shared.module';
 import { ButtonModule } from './../../../modules/button/button.module';
 import { FloatingModule } from './../../../modules/floating/floating.module';
+import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
 describe('ConferencesEditComponent', () => {
     let component: ConferencesEditComponent;
@@ -30,7 +31,8 @@ describe('ConferencesEditComponent', () => {
             ],
             providers: [
                 ...CoreProviderMock,
-                ...AlertProviderMock
+                ...AlertProviderMock,
+                ...TranslationProviderMock
             ]
         })
             .compileComponents();
