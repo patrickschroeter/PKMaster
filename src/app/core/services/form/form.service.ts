@@ -245,7 +245,7 @@ export class FormService {
             {
                 fieldType: 'input',
                 name: 'title',
-                label: 'Form Name:',
+                label: this.translationService.translate('formName'),
                 value: id ? this.form.title : '',
                 required: true,
                 validations: [
@@ -258,7 +258,7 @@ export class FormService {
             {
                 fieldType: 'checkbox',
                 name: 'restrictedAccess',
-                label: 'Restricted',
+                label: this.translationService.translate('restricted'),
                 value: id ? this.form.restrictedAccess : false,
                 styles: [
                     'small',
