@@ -34,7 +34,7 @@ export class InputValidationService {
 
         } else if (control.hasError('maxlength')) {
             return this.translate('errorMaxLength', [
-                control.errors ['maxlength'].requiredLength,
+                control.errors['maxlength'].requiredLength,
                 control.errors['maxlength'].actualLength
             ]);
 
