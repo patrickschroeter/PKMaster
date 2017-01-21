@@ -5,7 +5,7 @@ import { TRANSLATE } from './dictionary';
 @Injectable()
 export class TranslationService {
 
-    private defaultLocaleId: string = 'de';
+    private defaultLocaleId: string = 'en';
 
     constructor( @Inject(LOCALE_ID) protected localeId, @Inject(TRANSLATE) private i18n: any ) {
         if (!i18n[localeId]) {

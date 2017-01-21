@@ -58,6 +58,7 @@ export class FormsEditComponent implements OnInit {
                 /** TODO: catch */
                 this.router.navigate(['/forms']);
                 this.alert.removeHint('getFormById');
+                this.alert.setErrorHint('no-form-found', this.translationService.translate('errorNoFormWithId', [params['id']]), 2000);
             });
         });
 
@@ -107,7 +108,7 @@ export class FormsEditComponent implements OnInit {
             } else {
                 this.alert.setAlert(
                     this.translationService.translate('headerError'),
-                    this.translationService.translate('elementIdInUse')
+                    this.translationService.translate('usedId')
                 );
             }
             this.overlayPreset.toggle(false);

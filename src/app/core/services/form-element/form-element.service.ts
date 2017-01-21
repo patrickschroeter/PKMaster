@@ -336,9 +336,9 @@ export class FormElementService {
             if (!mode || mode === 'add') {
                 this.resetElement();
             }
-            this.alert.setSuccessHint('save-element-no-reset', this.translationService.translate('hintAddedElement'));
+            this.alert.setSuccessHint('save-element-no-reset', this.translationService.translate('addedElement'));
         } else {
-            this.alert.setAlert(this.translationService.translate('headerError'), this.translationService.translate('hintIdInUse'));
+            this.alert.setAlert(this.translationService.translate('headerError'), this.translationService.translate('usedId'));
         }
     }
 

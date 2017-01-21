@@ -45,7 +45,7 @@ export class ConferencesEditComponent implements OnInit {
 
     private onError(id: string) {
         this.router.navigate(['/conferences']);
-        this.alert.setErrorHint('no-conference-found', this.translationService.translate('errorConferenceWithId', [id]), 2000);
+        this.alert.setErrorHint('no-conference-found', this.translationService.translate('errorNoConferenceWithId', [id]), 2000);
     }
 
     public deleteConference() {

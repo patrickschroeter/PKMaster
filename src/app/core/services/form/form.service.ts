@@ -157,7 +157,7 @@ export class FormService {
         if (typeof index !== 'undefined') {
             if (this.form.formHasField[index].name === element.name) {
                 this.form.formHasField.splice(index, 1);
-                this.alert.setSuccessHint('element_removed', this.translationService.translate('elementRemoved', [element.name]));
+                this.alert.setSuccessHint('element_removed', this.translationService.translate('removedElement', [element.name]));
                 this.setAddingElement(false);
                 return true;
             }
@@ -172,7 +172,7 @@ export class FormService {
         if (index !== -1) {
             if (index === this.editingElementIndex) {
                 this.form.formHasField.splice(index, 1);
-                this.alert.setSuccessHint('element_removed', this.translationService.translate('elementRemoved', [element.name]));
+                this.alert.setSuccessHint('element_removed', this.translationService.translate('removedElement', [element.name]));
                 this.setAddingElement(false);
                 return true;
             }
@@ -290,7 +290,7 @@ export class FormService {
         this.alert.setLoading('saveFormAttributes', this.translationService.translate('saveForm'));
         return this.formApi.updateFormById(form.id, 80082, form).map(result => {
             this.alert.removeHint('saveFormAttributes');
-            this.alert.setSuccessHint('saveFormAttributes', this.translationService.translate('formSaved'));
+            this.alert.setSuccessHint('saveFormAttributes', this.translationService.translate('savedForm'));
             return this.form = result;
         });
     }
