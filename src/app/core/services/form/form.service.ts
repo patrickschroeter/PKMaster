@@ -3,6 +3,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 import * as _ from 'lodash';
 
 import { AlertService } from './../../../modules/alert';
+import { TranslationService } from './../../../modules/translation';
 import { Field, Form, SingleFormDto } from './../../../swagger';
 
 import { FormApi } from './../../../swagger/api/FormApi';
@@ -22,7 +23,11 @@ export class FormService {
     private editElementRx: Observable<any>;
     private editElement$: Observer<Field>;
 
-    constructor(private alert: AlertService, private formApi: FormApi) { }
+    constructor(
+        private alert: AlertService,
+        private formApi: FormApi,
+        private translationService: TranslationService
+    ) { }
 
     /**
      * @description return the observable for the adding element status
@@ -109,7 +114,10 @@ export class FormService {
      * @return {void}
      */
     public editElementError(type: string): void {
-        this.alert.setAlert('Warning', `The requrested Element Type (${type}) is not valid. Please Contact your administrator.`);
+        this.alert.setAlert(
+            this.translationService.translate('headerWarning'),
+            this.translationService.translate('elementTypeNotValid', [type])
+        );
         this.setAddingElement(false);
     }
 
@@ -149,7 +157,7 @@ export class FormService {
         if (typeof index !== 'undefined') {
             if (this.form.formHasField[index].name === element.name) {
                 this.form.formHasField.splice(index, 1);
-                this.alert.setSuccessHint('element_removed', `Element ${element.name} removed.`);
+                this.alert.setSuccessHint('element_removed', this.translationService.translate('elementRemoved', [element.name]));
                 this.setAddingElement(false);
                 return true;
             }
@@ -164,15 +172,15 @@ export class FormService {
         if (index !== -1) {
             if (index === this.editingElementIndex) {
                 this.form.formHasField.splice(index, 1);
-                this.alert.setSuccessHint('element_removed', `Element ${element.name} removed.`);
+                this.alert.setSuccessHint('element_removed', this.translationService.translate('elementRemoved', [element.name]));
                 this.setAddingElement(false);
                 return true;
             }
         }
         this.alert.setAlert(
-            'Identifying Error',
-            `There has been an error identifying the correct element.
-            Please make sure the Id/Name has not been change.`);
+            this.translationService.translate('headerIdentifyingError'),
+            this.translationService.translate('identifyingError')
+        );
         return false;
     }
 
@@ -279,10 +287,10 @@ export class FormService {
         form.title = submit.title;
         form.restrictedAccess = submit.restrictedAccess;
 
-        this.alert.setLoading('saveFormAttributes', 'Save Form...');
+        this.alert.setLoading('saveFormAttributes', this.translationService.translate('saveForm'));
         return this.formApi.updateFormById(form.id, 80082, form).map(result => {
             this.alert.removeHint('saveFormAttributes');
-            this.alert.setSuccessHint('saveFormAttributes', 'Form Saved!');
+            this.alert.setSuccessHint('saveFormAttributes', this.translationService.translate('formSaved'));
             return this.form = result;
         });
     }
@@ -294,7 +302,7 @@ export class FormService {
      */
     public saveForm(): Observable<any> {
         // TODO: save real data
-        this.alert.setLoading('saveForm', 'Save Form...');
+        this.alert.setLoading('saveForm', this.translationService.translate('saveForm'));
         return this.formApi.updateFormById(this.form.id, 80082, this.form).map(form => {
             this.alert.removeHint('saveForm');
             if (form) {
