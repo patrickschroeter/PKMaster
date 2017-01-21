@@ -7,11 +7,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ProfileEditComponent } from './profile-edit.component';
 
 import { CoreProviderMock } from './../../../core/core.module';
-import { AlertProviderMock } from './../../../modules/alert/alert.module';
+import { SharedModule } from './../../../shared/shared.module';
 
-import {
-    SharedModule
-} from './../../../shared/shared.module';
+import { AlertProviderMock } from './../../../modules/alert/alert.module';
+import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 import { DynamicFormModule } from './../../../modules/dynamic-form/dynamic-form.module';
 import { ButtonModule } from './../../../modules/button/button.module';
 
@@ -34,7 +33,8 @@ describe('ProfileEditComponent', () => {
             ],
             providers: [
                 ...CoreProviderMock,
-                ...AlertProviderMock
+                ...AlertProviderMock,
+                ...TranslationProviderMock
             ]
         })
             .compileComponents();
