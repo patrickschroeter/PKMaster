@@ -17,6 +17,7 @@ import { DynamicFormModule } from './../../modules/dynamic-form/dynamic-form.mod
 import { FloatingModule } from './../../modules/floating/floating.module';
 import { ButtonModule } from './../../modules/button/button.module';
 import { OverlayModule } from './../../modules/overlay/overlay.module';
+import { TranslationProviderMock } from './../../modules/translation/translation.module';
 
 describe('ProfileComponent', () => {
     let component: ProfileComponent;
@@ -40,7 +41,8 @@ describe('ProfileComponent', () => {
             ],
             providers: [
                 ...CoreProviderMock,
-                ...AlertProviderMock
+                ...AlertProviderMock,
+                ...TranslationProviderMock
             ]
         })
             .compileComponents();
