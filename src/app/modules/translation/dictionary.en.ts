@@ -56,4 +56,6 @@ export const DICTIONARY_EN = {
     errorNoApplicationWithId: `There is no application with ID '{ 0 }'.`,
     errorNoConferenceWithId: `There is no conference with ID '{ 0 }'.`,
     errorNoFormWithId: `There is no form with ID '{ 0 }'.`,
+
+    expiredToken: 'No valid session could be found.'
 };
