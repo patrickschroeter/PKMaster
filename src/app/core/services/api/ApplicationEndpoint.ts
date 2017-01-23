@@ -108,7 +108,7 @@ export class ApplicationEndpoint {
     }
 
 
-    public addCommentToApplication (applicationId: string, token?: number, comment?: Comment, extraHttpRequestParams?: any ) : Observable<Comment> {
+    public addCommentToApplication(applicationId: string, token?: number, comment?: Comment, extraHttpRequestParams?: any): Observable<Comment> {
         let application = this._application(applicationId);
         application.comments ? application.comments.push(comment) : application.comments = [comment];
         return new Observable((observer: Observer<any>) => {
@@ -121,7 +121,7 @@ export class ApplicationEndpoint {
                 }
                 observer.complete();
             }, 500);
-        })
+        });
     }
 
     /**

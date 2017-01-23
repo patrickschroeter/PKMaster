@@ -78,7 +78,7 @@ describe('Service: Authentication', () => {
             localStorage.removeItem(AuthenticationService.TOKEN_TIME_KEY);
             let obj = service.token;
             expect(service.logout).toHaveBeenCalled();
-        })
+        });
 
         it('should logout if token expired', () => {
             spyOn(service, 'logout');

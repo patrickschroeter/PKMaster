@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { Observable, Observer } from 'rxjs/Rx';
 
+import { Field } from './../../../swagger';
+
 @Injectable()
 export class FormMock {
 
@@ -33,6 +35,15 @@ export class FormMock {
         return new Observable((observer: Observer<any>) => { observer.next([]); });
     }
 
-    editElementError(type: string): void {
+    editElementError(type: string): void { }
+
+    public setAddingElement(addingElement: boolean) { }
+
+    public removeElement(element?: Field, index?: number): boolean {
+        return !!element;
+    }
+
+    public addElementToForm(element: Field, mode?: 'clone' | 'add'): boolean {
+        return !!element;
     }
 }

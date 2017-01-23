@@ -79,7 +79,7 @@ export class ApplicationsDetailComponent implements OnInit {
                     'small'
                 ]
             }
-        ]
+        ];
 
         this.conferenceService.getConferences().subscribe(conferences => {
             this.conferences = [];
@@ -196,7 +196,8 @@ export class ApplicationsDetailComponent implements OnInit {
 
     deactivateApplication(application: Application) {
         this.applicationService.deactivateApplication(application).subscribe(result => {
-            this.alert.setSuccessHint(`deactivateApplication${application.id}`, this.translationService.translate('applicationDeactivated'));
+            this.alert.setSuccessHint(`deactivateApplication${application.id}`,
+            this.translationService.translate('applicationDeactivated'));
         });
     }
 }

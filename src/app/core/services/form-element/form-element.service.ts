@@ -59,8 +59,7 @@ export class FormElementService {
     }
 
     /**
-     * @description Reset all Parameters of the Add Element View
-     * @return {void}
+     * Reset all Parameters of the Add Element View
      */
     private resetElement(): void {
         delete this.selectTypeFormElement.value;
@@ -74,8 +73,7 @@ export class FormElementService {
     }
 
     /**
-     * @description creates an empty view
-     * @return {void}
+     * creates an empty view
      */
     private editNewElement(): void {
         this.resetElement();
@@ -83,9 +81,7 @@ export class FormElementService {
 
 
     /**
-     * @description create the Add Attribute View with from a given FormElement
-     * @param {FormElement} element the FormElement to edit
-     * @return {void}
+     * create the Add Attribute View with from a given FormElement
      */
     private editExistingElement(element: Field): boolean {
 
@@ -192,15 +188,14 @@ export class FormElementService {
 
 
     /**
-     * @description DynamicForm Change Event
-     * @param {object} event The updated Form-Values
+     * DynamicForm Change Event
      */
     public updateElement(formGroup: FormGroup): void {
         this.elementForm = formGroup;
         let form = formGroup.value;
         /** Load Type Options on change */
         let type = form.fieldType;
-        if (type && type !== this.selectedType) {
+        if (type && type !== this.selectedType && typeof type === 'string') {
             this.selectedType = type;
             this.getOptionsOfElementType(type).subscribe((options) => {
                 if (this.selectedType) {
@@ -244,8 +239,7 @@ export class FormElementService {
     }
 
     /**
-     * @description Get all Options from the selected TableName and set them as Options
-     * @return {void}
+     * Get all Options from the selected TableName and set them as Options
      */
     private updateOptionsOfTable() {
         this.getOptionsOfTable(this.selectedOptionTable).subscribe(options => {
@@ -255,8 +249,7 @@ export class FormElementService {
     }
 
     /**
-     * @description Toggle the visibility of the Preview Element
-     * @return {void}
+     * Toggle the visibility of the Preview Element
      */
     public toggleElementPreview(): void {
         this.setElementHasPreview(!this.elementHasPreviewRx.getValue());
@@ -264,14 +257,19 @@ export class FormElementService {
 
 
     /**
-     * @description enable Validation in Add Element View
-     * @return {void}
+     * enable Validation in Add Element View
      */
     public addValidations(): void {
 
         /** Check if Validation already exists */
         for (let i = 0, length = this.element.length; i < length; i++) {
-            if (this.element[i].name === 'validations') { return; }
+            if (this.element[i].name === 'validations') {
+                return console.error('form-element.service:addValidations(): validations already exists');
+            }
+        }
+
+        if (!this.selectedType) {
+            return console.error('form-element.service:addValidations(): no selected type');
         }
 
         /** Get Validation Options */
@@ -287,14 +285,19 @@ export class FormElementService {
 
 
     /**
-     * @description enable Styles in Add Element View
-     * @return {void}
+     * enable Styles in Add Element View
      */
     public addStyles(): void {
 
         /** Check if Styles already exists */
         for (let i = 0, length = this.element.length; i < length; i++) {
-            if (this.element[i].name === 'styles') { return; }
+            if (this.element[i].name === 'styles') {
+                return console.error('form-element.service:addStyles(): styles already exists');
+            }
+        }
+
+        if (!this.selectedType) {
+            return console.error('form-element.service:addStyles(): no selected type');
         }
 
         /** Get Styles Options */
@@ -309,8 +312,7 @@ export class FormElementService {
     }
 
     /**
-     * @description remove the current element from the form
-     * @return {void}
+     * remove the current element from the form
      */
     public removeElement(): void {
         let name: Field;
@@ -327,7 +329,7 @@ export class FormElementService {
 
 
     /**
-     * @description Adds the element to the current Form
+     * Adds the element to the current Form
      * @param {FormElement} elmenent the element to add to the form
      * @param {Number} reset 0: add, reset, close; 1:add, reset; 3: add
      * @return {void}
@@ -345,8 +347,7 @@ export class FormElementService {
 
 
     /**
-     * @description Cancel the Editation or Creation of an Element
-     * @return {void}
+     * Cancel the Editation or Creation of an Element
      */
     public cancelElement(): void {
         this.resetElement();
@@ -360,8 +361,7 @@ export class FormElementService {
      */
 
     /**
-     * @description cath all available element types from the server
-     * @return {Observable}
+     * cath all available element types from the server
      */
     private getElementTypeOptions(): Observable<any> {
         let result: Field = new Fields.FieldType();
@@ -394,22 +394,21 @@ export class FormElementService {
     }
 
     /**
-     * @description cath all available options of the element type from the server
-     * @param {string} fieldType
-     * @return {Observable}
+     * cath all available options of the element type from the server
      */
     private getOptionsOfElementType(fieldType: string): Observable<any> {
         let name: Field = new Fields.FieldName();
-        let options: Field = opts();
+        let options: Field = opts()[fieldType];
         this.alert.setLoading(
             'getOptionsOfInputType',
             this.translationService.translate('loadingOptionsOf', [fieldType.toUpperCase()])
         );
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
+                if (!options) { return observer.complete(); }
                 this.alert.removeHint('getOptionsOfInputType');
                 let result = [].concat(name);
-                let element = _.cloneDeep(options[fieldType]);
+                let element = _.cloneDeep(options);
                 if (element) { result = result.concat(element); }
                 result.push(new Fields.Devider());
                 observer.next(result);
@@ -419,9 +418,7 @@ export class FormElementService {
     }
 
     /**
-     * @description cath all available validations of the element type from the server
-     * @param {string} fieldType
-     * @return {Observable}
+     * cath all available validations of the element type from the server
      */
     private getValidationsOfInputType(fieldType: string): Observable<any> {
         let options: Field = validations();
@@ -439,9 +436,7 @@ export class FormElementService {
     }
 
     /**
-     * @description cath all available styles of the element type from the server
-     * @param {string} fieldType
-     * @return {Observable}
+     * cath all available styles of the element type from the server
      */
     private getStylesOfInputType(fieldType: string): Observable<any> {
         let options: Field = styles();
@@ -465,7 +460,7 @@ export class FormElementService {
      */
 
     /**
-     * @description BehaviorSubject for the element
+     * BehaviorSubject for the element
      */
     public getElement(): Observable<Field[]> {
         return this.elementRx.asObservable();
@@ -477,7 +472,7 @@ export class FormElementService {
 
 
     /**
-     * @description BehaviorSubject for the preview element
+     * BehaviorSubject for the preview element
      */
     public getElementPreview(): Observable<Field[]> {
         return this.elementPreviewRx.asObservable();
@@ -488,7 +483,7 @@ export class FormElementService {
 
 
     /**
-     * @description BehaviorSubject for has Submit
+     * BehaviorSubject for has Submit
      */
     public getElementHasSubmit(): Observable<boolean> {
         return this.elementHasSubmitRx.asObservable();
@@ -499,7 +494,7 @@ export class FormElementService {
 
 
     /**
-     * @description BehaviorSubject for has preview
+     * BehaviorSubject for has preview
      */
     public getElementHasPreview(): Observable<boolean> {
         return this.elementHasPreviewRx.asObservable();
@@ -510,7 +505,7 @@ export class FormElementService {
 
 
     /**
-     * @description BehaviorSubject for has validations
+     * BehaviorSubject for has validations
      */
     public getElementHasValidations(): Observable<boolean> {
         return this.elementHasValidationsRx.asObservable();
@@ -521,7 +516,7 @@ export class FormElementService {
 
 
     /**
-     * @description BehaviorSubject for has styles
+     * BehaviorSubject for has styles
      */
     public getElementHasStyles(): Observable<boolean> {
         return this.elementHasStylesRx.asObservable();

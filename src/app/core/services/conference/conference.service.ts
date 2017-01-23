@@ -33,7 +33,7 @@ export class ConferenceService {
     public createNewConference(conference: Conference): Observable<Conference> {
         return this.conferenceApi.addConference(17, conference).map(result => {
             return this.conference = result;
-        })
+        });
     }
 
     public saveConference(conference: Conference) { }

@@ -96,7 +96,7 @@ export const CoreProviderMock = [
     { provide: ApplicationApi, useClass: services.ApplicationEndpoint },
     { provide: UserApi, useClass: services.UserEndpoint },
     { provide: ConferenceApi, useClass: services.ConferenceEndpoint },
-]
+];
 
 /**
  * Factory Functions

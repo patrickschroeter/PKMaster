@@ -77,7 +77,9 @@ export class AlertService {
         if (index === -1) {
             hint = new Message(id, type, message);
             this.hints.push(hint);
-            this.hintObserver.next(this.hints);
+            if (this.hintObserver) {
+                this.hintObserver.next(this.hints);
+            }
         } else {
             hint = this.hints[index];
             hint.message = message;
