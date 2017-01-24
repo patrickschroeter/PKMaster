@@ -26,7 +26,7 @@ export class FormElementService {
     private selectedType: string;
 
     private selectedOptionTable: string;
-    private selectedOptionsLength: Array<Object>;
+    private selectedOptionsLength: number;
 
     /** BehaviorSubjects */
     private elementRx: BehaviorSubject<Field[]> = new BehaviorSubject(this.element);
@@ -194,7 +194,7 @@ export class FormElementService {
         this.elementForm = formGroup;
         let form = formGroup.value;
         /** Load Type Options on change */
-        let type = form.fieldType;
+        let type: string = form.fieldType;
         if (type && type !== this.selectedType && typeof type === 'string') {
             this.selectedType = type;
             this.getOptionsOfElementType(type).subscribe((options) => {
@@ -217,14 +217,14 @@ export class FormElementService {
         }
 
         /** load optionTable */
-        let optionTable = form.optionTable;
+        let optionTable: string = form.optionTable;
         if (optionTable && optionTable !== this.selectedOptionTable) {
             this.selectedOptionTable = optionTable;
             this.updateOptionsOfTable();
         }
 
         /** unset optionTable on option length change TODO: content change? */
-        let options = form.options;
+        let options: any[] = form.options;
         if (options && options.length !== this.selectedOptionsLength) {
             this.selectedOptionsLength = options.length;
             this.elementForm.controls['optionTable'].setValue('');
@@ -242,7 +242,12 @@ export class FormElementService {
      * Get all Options from the selected TableName and set them as Options
      */
     private updateOptionsOfTable() {
-        this.getOptionsOfTable(this.selectedOptionTable).subscribe(options => {
+        this.getOptionsOfTable(this.selectedOptionTable).subscribe((options: Field[]) => {
+            if (!options) {
+                this.selectedOptionsLength = 0;
+                this.elementForm.controls['options'].setValue([]);
+                return;
+            }
             this.selectedOptionsLength = options.length;
             this.elementForm.controls['options'].setValue(options);
         });
@@ -363,7 +368,7 @@ export class FormElementService {
     /**
      * cath all available element types from the server
      */
-    private getElementTypeOptions(): Observable<any> {
+    private getElementTypeOptions(): Observable<Field> {
         let result: Field = new Fields.FieldType();
         this.alert.setLoading(
             'getInputTypeOptions',
@@ -378,8 +383,8 @@ export class FormElementService {
         });
     }
 
-    private getOptionsOfTable(name: string): Observable<any> {
-        let result: Field = options();
+    private getOptionsOfTable(name: string): Observable<any[]> {
+        let result = options();
         this.alert.setLoading(
             'getOptionsOfTable',
             this.translationService.translate('loadingOptionsOf', [name.toUpperCase()])
@@ -396,7 +401,7 @@ export class FormElementService {
     /**
      * cath all available options of the element type from the server
      */
-    private getOptionsOfElementType(fieldType: string): Observable<any> {
+    private getOptionsOfElementType(fieldType: string): Observable<any[]> {
         let name: Field = new Fields.FieldName();
         let options: Field = opts()[fieldType];
         this.alert.setLoading(

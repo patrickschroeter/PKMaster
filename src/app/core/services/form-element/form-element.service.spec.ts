@@ -10,11 +10,12 @@ import { FormService, FormMock } from './../form';
 
 import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 import { AlertProviderMock } from './../../../modules/alert/alert.module';
+import { AlertService } from './../../../modules/alert';
 
 import { Field } from './../../../swagger';
 import { Fields } from './../../../models';
 
-fdescribe('Service: FormElement', () => {
+describe('Service: FormElement', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
@@ -299,77 +300,502 @@ fdescribe('Service: FormElement', () => {
                 expect(previewForm.length).toBe(0);
             }));
         });
-    });
 
-    xdescribe('addStyles', () => {
-        let service: FormElementService;
+        describe('optionTable', () => {
+            it('should update the form.options when a valid optionTable is set', fakeAsync(() => {
+                formGroup = new FormGroup({
+                    optionTable: new FormControl('fakultaet'),
+                    options: new FormControl()
+                });
+                expect(formGroup.get('options').value).toBeNull();
 
-        beforeEach(inject([FormElementService], (formElement: FormElementService) => {
-            service = formElement;
-        }));
+                /** set value */
+                service.updateElement(formGroup); tick(600);
 
-        it('should add styles to the element', () => {
-            service.addStyles();
+                expect(formGroup.get('options').value).toBeDefined();
+                expect(formGroup.get('options').value.length).toEqual(2);
+            }));
+
+            it('should [] the form.options when an invalid optionTable is set', fakeAsync(() => {
+                formGroup = new FormGroup({
+                    optionTable: new FormControl('invalid'),
+                    options: new FormControl()
+                });
+                expect(formGroup.get('options').value).toBeNull();
+
+                /** set value */
+                service.updateElement(formGroup); tick(600);
+
+                expect(formGroup.get('options').value).toBeDefined();
+                expect(formGroup.get('options').value.length).toEqual(0);
+            }));
+
+            it('should update the form.options when a different optionTable is set', fakeAsync(() => {
+                formGroup = new FormGroup({
+                    optionTable: new FormControl('language'),
+                    options: new FormControl()
+                });
+                expect(formGroup.get('options').value).toBeNull();
+
+                /** set value */
+                service.updateElement(formGroup); tick(600);
+
+                let length = formGroup.get('options').value.length;
+
+                formGroup.get('options').setValue('fakultaet');
+
+                /** set value */
+                service.updateElement(formGroup); tick(600);
+
+                expect(length).not.toEqual(formGroup.get('options').value.length);
+            }));
+        });
+
+        describe('options', () => {
+            it('should \'\' form.optionTable when an option is removed', fakeAsync(() => {
+                formGroup = new FormGroup({
+                    optionTable: new FormControl('fakultaet'),
+                    options: new FormControl(),
+                });
+
+                /** set value */
+                service.updateElement(formGroup); tick(600);
+
+                expect(formGroup.get('optionTable').value).toEqual('fakultaet');
+                expect(formGroup.get('options').value.length).toEqual(2);
+
+                formGroup.get('options').setValue(formGroup.get('options').value.slice(0, 1));
+
+                service.updateElement(formGroup); tick(600);
+
+                expect(formGroup.get('optionTable').value).toEqual('');
+                expect(formGroup.get('options').value.length).toEqual(1);
+            }));
+
+            it('should \'\' form.optionTable when an option is added', fakeAsync(() => {
+                formGroup = new FormGroup({
+                    optionTable: new FormControl('fakultaet'),
+                    options: new FormControl(),
+                });
+
+                /** set value */
+                service.updateElement(formGroup); tick(600);
+
+                expect(formGroup.get('optionTable').value).toEqual('fakultaet');
+                expect(formGroup.get('options').value.length).toEqual(2);
+
+                let opts = formGroup.get('options').value;
+                opts.push({});
+                formGroup.get('options').setValue(opts);
+
+                service.updateElement(formGroup); tick(600);
+
+                expect(formGroup.get('optionTable').value).toEqual('');
+                expect(formGroup.get('options').value.length).toEqual(3);
+            }));
+        });
+
+        describe('name', () => {
+            it('should set a preview element if a name is set', fakeAsync(() => {
+                let preview;
+                service.getElementPreview().subscribe(result => {
+                    preview = result;
+                });
+                expect(preview).toBeDefined();
+                expect(preview.length).toEqual(0);
+
+                /** set field type */
+                formGroup.get('name').setValue('name');
+                service.updateElement(formGroup); tick(600);
+
+                expect(preview.length).toBeGreaterThan(0);
+            }));
+
+            it('should unset a preview element if no name is set', fakeAsync(() => {
+                let preview;
+                service.getElementPreview().subscribe(result => {
+                    preview = result;
+                });
+
+                /** set field type */
+                formGroup.get('name').setValue('name');
+                service.updateElement(formGroup); tick(600);
+
+                expect(preview.length).toBeGreaterThan(0);
+
+                /** unset name attribute */
+                formGroup.get('name').setValue(null);
+                service.updateElement(formGroup); tick(600);
+
+                expect(preview.length).toEqual(0);
+            }));
         });
     });
 
-    xdescribe('addValidations', () => {
+    describe('addStyles', () => {
         let service: FormElementService;
 
         beforeEach(inject([FormElementService], (formElement: FormElementService) => {
             service = formElement;
         }));
 
-        it('should add validations to the element', () => {
-            service.addValidations();
-        });
+        it('should fail if no fielType is selected', fakeAsync(() => {
+            spyOn(console, 'error');
+
+            service.addStyles(); tick(600);
+
+            expect(console.error).toHaveBeenCalled();
+        }));
+
+        it('should provide styles of the fieldType', fakeAsync(() => {
+            let styles;
+            service.getElement().subscribe(result => {
+                styles = _.find(result, obj => { return obj['name'] === 'styles'; });
+            });
+            expect(styles).toBeUndefined();
+
+            service.updateElement(new FormGroup({ fieldType: new FormControl('input') })); tick(600);
+
+            service.addStyles(); tick(600);
+
+            expect(styles).toBeDefined();
+        }));
+
+        it('should fail if styles already exist', fakeAsync(() => {
+            let styles;
+            service.getElement().subscribe(result => {
+                styles = _.find(result, obj => { return obj['name'] === 'styles'; });
+            });
+
+            service.updateElement(new FormGroup({ fieldType: new FormControl('input') })); tick(600);
+
+            service.addStyles(); tick(600);
+
+            spyOn(console, 'error');
+
+            service.addStyles(); tick(600);
+
+            expect(console.error).toHaveBeenCalled();
+
+        }));
     });
 
-    xdescribe('cancelElement', () => {
+    describe('addValidations', () => {
         let service: FormElementService;
 
         beforeEach(inject([FormElementService], (formElement: FormElementService) => {
             service = formElement;
         }));
 
-        it('should stop the element creation', () => {
+        it('should fail if no fielType is selected', fakeAsync(() => {
+            spyOn(console, 'error');
+
+            service.addValidations(); tick(600);
+
+            expect(console.error).toHaveBeenCalled();
+        }));
+
+        it('should provide styles of the fieldType', fakeAsync(() => {
+            let validations;
+            service.getElement().subscribe(result => {
+                validations = _.find(result, obj => { return obj['name'] === 'validations'; });
+            });
+            expect(validations).toBeUndefined();
+
+            service.updateElement(new FormGroup({ fieldType: new FormControl('input') })); tick(600);
+
+            service.addValidations(); tick(600);
+
+            expect(validations).toBeDefined();
+        }));
+
+        it('should log an error if validations exist', fakeAsync(() => {
+            let validations;
+            service.getElement().subscribe(result => {
+                validations = _.find(result, obj => { return obj['name'] === 'validations'; });
+            });
+
+            service.updateElement(new FormGroup({ fieldType: new FormControl('input') })); tick(600);
+
+            service.addValidations(); tick(600);
+
+            spyOn(console, 'error');
+
+            service.addValidations(); tick(600);
+
+            expect(console.error).toHaveBeenCalled();
+        }));
+    });
+
+    describe('cancelElement', () => {
+        let service: FormElementService;
+
+        beforeEach(inject([FormElementService], (formElement: FormElementService) => {
+            service = formElement;
+        }));
+
+        it('should not fail', () => {
             service.cancelElement();
         });
+
+        describe('with defined element', () => {
+            let element;
+
+            beforeEach(fakeAsync(() => {
+                service.getElement().subscribe(result => {
+                    element = result;
+                });
+
+                service.updateElement(new FormGroup({ fieldType: new FormControl('input') }));
+                tick(600);
+
+                service.addValidations();
+                service.addStyles();
+
+                tick(600);
+            }));
+
+            it('should reset the element', fakeAsync(() => {
+                expect(element.length).toBeGreaterThan(0);
+
+                service.cancelElement(); tick(25);
+
+                expect(element.length).toEqual(0);
+            }));
+
+            it('should reset the preview element', fakeAsync(() => {
+                let preview;
+                service.getElementPreview().subscribe(result => {
+                    preview = result;
+                });
+                expect(preview.length).toBeGreaterThan(0);
+
+                service.cancelElement(); tick(25);
+
+                expect(preview.length).toEqual(0);
+            }));
+
+            it('should reset hasValidation', fakeAsync(() => {
+                let hasValidation;
+                service.getElementHasValidations().subscribe(result => {
+                    hasValidation = result;
+                });
+                expect(hasValidation).toBe(true);
+
+                service.cancelElement(); tick(25);
+
+                expect(hasValidation).toBe(false);
+            }));
+
+            it('should reset hasStyles', fakeAsync(() => {
+                let hasStyles;
+                service.getElementHasStyles().subscribe(result => {
+                    hasStyles = result;
+                });
+                expect(hasStyles).toBe(true);
+
+                service.cancelElement(); tick(25);
+
+                expect(hasStyles).toBe(false);
+            }));
+        });
     });
 
-    xdescribe('removeElement', () => {
+    describe('removeElement', () => {
         let service: FormElementService;
+        let form: FormService;
 
-        beforeEach(inject([FormElementService], (formElement: FormElementService) => {
+        beforeEach(inject([FormElementService, FormService], (formElement: FormElementService, formService: FormService) => {
             service = formElement;
+            form = formService;
         }));
 
         it('should remove the edited element from the form', () => {
             service.removeElement();
         });
+
+        it('should trigger the remove function in formService', () => {
+            spyOn(form, 'removeElement');
+
+            service.removeElement();
+
+            expect(form.removeElement).toHaveBeenCalled();
+        });
+
+        it('should remove the element from the form by name', fakeAsync(() => {
+            let element;
+            service.getElement().subscribe(result => {
+                element = result;
+            });
+
+            service.updateElement(new FormGroup({ fieldType: new FormControl('input'), name: new FormControl('fakeElement') })); tick(600);
+
+            spyOn(form, 'removeElement');
+
+            service.removeElement(); tick(600);
+
+            expect(form.removeElement).toHaveBeenCalledWith(_.find(element, obj => _.isEqual(obj['name'], 'name')));
+        }));
+
+        it('should reset the element on success', fakeAsync(() => {
+            let element;
+            service.getElement().subscribe(result => {
+                element = result;
+            });
+
+            service.updateElement(new FormGroup({ fieldType: new FormControl('input') })); tick(600);
+
+            expect(element.length).toBeGreaterThan(0);
+
+            spyOn(form, 'removeElement').and.returnValue(true);
+
+            service.removeElement(); tick(600);
+
+            expect(element.length).toEqual(0);
+        }));
     });
 
-    xdescribe('saveElement', () => {
+    describe('saveElement', () => {
         let service: FormElementService;
+        let form: FormService;
+        let alert: AlertService;
 
-        beforeEach(inject([FormElementService], (formElement: FormElementService) => {
+        beforeEach(inject([FormElementService, FormService, AlertService],
+            (formElement: FormElementService, formService: FormService, alertService: AlertService) => {
             service = formElement;
+            form = formService;
+            alert = alertService;
         }));
 
         it('should save the created element into the form', () => {
             service.saveElement(new Fields.FieldName());
         });
+
+        it('should add the element to form', () => {
+            spyOn(form, 'addElementToForm');
+
+            service.saveElement(new Fields.FieldName());
+
+            expect(form.addElementToForm).toHaveBeenCalled();
+        });
+
+        it('should setAlert on failure', () => {
+            spyOn(form, 'addElementToForm').and.returnValue(false);
+            spyOn(alert, 'setAlert');
+
+            service.saveElement(new Fields.FieldName());
+
+            expect(alert.setAlert).toHaveBeenCalled();
+        });
+
+        it('should setSuccessHint on success', () => {
+            spyOn(form, 'addElementToForm').and.returnValue(true);
+            spyOn(alert, 'setSuccessHint');
+
+            service.saveElement(new Fields.FieldName());
+
+            expect(alert.setSuccessHint).toHaveBeenCalled();
+        });
+
+        it('should reset when no mode is given', fakeAsync(() => {
+            let element;
+            service.getElement().subscribe(result => {
+                element = result;
+            });
+
+            service.updateElement(new FormGroup({ fieldType: new FormControl('input') })); tick(600);
+
+            expect(element.length).toBeGreaterThan(0);
+
+            spyOn(form, 'addElementToForm').and.returnValue(true);
+
+            service.saveElement(new Fields.FieldName()); tick(600);
+
+            expect(element.length).toEqual(0);
+        }));
+
+        it('should reset when add-mode is given', fakeAsync(() => {
+            let element;
+            service.getElement().subscribe(result => {
+                element = result;
+            });
+
+            service.updateElement(new FormGroup({ fieldType: new FormControl('input') })); tick(600);
+
+            expect(element.length).toBeGreaterThan(0);
+
+            spyOn(form, 'addElementToForm').and.returnValue(true);
+
+            service.saveElement(new Fields.FieldName(), 'add'); tick(600);
+
+            expect(element.length).toEqual(0);
+        }));
+
+        it('should not reset when clone-mode is given', fakeAsync(() => {
+            let element;
+            service.getElement().subscribe(result => {
+                element = result;
+            });
+
+            service.updateElement(new FormGroup({ fieldType: new FormControl('input') })); tick(600);
+
+            expect(element.length).toBeGreaterThan(0);
+
+            spyOn(form, 'addElementToForm').and.returnValue(true);
+
+            service.saveElement(new Fields.FieldName(), 'clone'); tick(600);
+
+            expect(element.length).toBeGreaterThan(0);
+        }));
     });
 
-    xdescribe('toggleElementPreview', () => {
+    describe('toggleElementPreview', () => {
         let service: FormElementService;
 
         beforeEach(inject([FormElementService], (formElement: FormElementService) => {
             service = formElement;
         }));
 
-        it('should toggle the preview element in the template', () => {
+        it('should not fail', () => {
             service.toggleElementPreview();
         });
+
+        it('should change hasPreview', fakeAsync(() => {
+            let hasPreview;
+            service.getElementHasPreview().subscribe(result => {
+                hasPreview = result;
+            });
+
+            expect(hasPreview).toEqual(false);
+
+            service.toggleElementPreview(); tick(25);
+
+            expect(hasPreview).toEqual(true);
+
+            service.toggleElementPreview(); tick(25);
+
+            expect(hasPreview).toEqual(false);
+        }));
+
+        it('should should not be affected by cancelElement', fakeAsync(() => {
+            let hasPreview;
+            service.getElementHasPreview().subscribe(result => {
+                hasPreview = result;
+            });
+
+            expect(hasPreview).toEqual(false);
+
+            service.toggleElementPreview(); tick(25);
+
+            expect(hasPreview).toEqual(true);
+
+            service.cancelElement(); tick(600);
+
+            expect(hasPreview).toEqual(true);
+
+            service.toggleElementPreview(); tick(25);
+
+            expect(hasPreview).toEqual(false);
+        }));
     });
 });
