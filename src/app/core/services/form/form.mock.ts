@@ -14,7 +14,7 @@ export class FormMock {
     }
 
     onEditElement(): Observable<any> {
-        return new Observable((observer: Observer<any>) => { observer.next('edit'); });
+        return new Observable((observer: Observer<any>) => { observer.next(false); });
     }
 
     getFormById(id: number): Observable<any> {

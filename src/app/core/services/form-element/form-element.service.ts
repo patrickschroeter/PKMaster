@@ -87,6 +87,10 @@ export class FormElementService {
 
         this.resetElement();
 
+        if (!this.selectTypeFormElement.options) {
+            return !!console.error('No FieldTypes Options loaded');
+        }
+
         let type = element['fieldType'];
 
         /** Check if the required Element Type exists in Select Options */
@@ -245,11 +249,11 @@ export class FormElementService {
         this.getOptionsOfTable(this.selectedOptionTable).subscribe((options: Field[]) => {
             if (!options) {
                 this.selectedOptionsLength = 0;
-                this.elementForm.controls['options'].setValue([]);
+                if (this.elementForm) { this.elementForm.controls['options'].setValue([]); }
                 return;
             }
             this.selectedOptionsLength = options.length;
-            this.elementForm.controls['options'].setValue(options);
+            if (this.elementForm) { this.elementForm.controls['options'].setValue(options); }
         });
     }
 
