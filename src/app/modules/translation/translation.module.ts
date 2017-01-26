@@ -24,4 +24,4 @@ export const TranslationProviderMock = [
             public translate() { return 'translation'; }
         }
     }
-]
+];

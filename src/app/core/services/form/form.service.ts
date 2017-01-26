@@ -11,6 +11,8 @@ import { FormApi } from './../../../swagger/api/FormApi';
 @Injectable()
 export class FormService {
 
+    static DEFAULT_TOKEN = 17;
+
     /** The form to edit */
     private form: Form;
     private forms: Form[];
@@ -103,7 +105,7 @@ export class FormService {
         };
 
         // TODO: save real data
-        return this.formApi.addForm(111, (newform as SingleFormDto)).map(form => {
+        return this.formApi.addForm(FormService.DEFAULT_TOKEN, (newform as SingleFormDto)).map(form => {
             return this.form = form;
         });
     }
@@ -126,8 +128,8 @@ export class FormService {
      * @param {FormElement} element the element to edit
      * @return {void}
      */
-    public editElement(element?: Field): void {
-        if (!this.form || !this.form.formHasField) { return this.editElement$.next(null); }
+    public editElementOfForm(element?: Field): void {
+        if (!this.form || !this.form.formHasField) { return this.setEditElement(null); }
 
         this.editingElementIndex = -1;
         if (element && this.form) {
@@ -142,39 +144,53 @@ export class FormService {
         this.setAddingElement(true);
 
         if (this.editingElementIndex !== -1) {
-            this.editElement$.next(element);
+            this.setEditElement(element);
         } else {
-            this.editElement$.next(null);
+            this.setEditElement(null);
         }
     }
 
     /**
-     * @description Removes the selected Element from the form
-     * @param {FormElement} element the element to remove
-     * @return {void}
+     * Emits the given value if someone subscribed for it
+     */
+    private setEditElement(element?: Field): void {
+        if (this.editElement$) {
+            this.editElement$.next(element);
+        }
+    }
+
+    /**
+     * Removes the element from the form
+     * if there is an index the element is checked by name
+     * if there is no index the element is checked by value
+     *
+     * returns true if element was found and removed from form
+     * returns false if element was not found or index didn't match the element
      */
     public removeElement(element?: Field, index?: number): boolean {
+        if (!this.form || !this.form.formHasField) { return false; }
         if (typeof index !== 'undefined') {
-            if (this.form.formHasField[index].name === element.name) {
+            if (this.form.formHasField[index] && this.form.formHasField[index].name === element.name) {
                 this.form.formHasField.splice(index, 1);
                 this.alert.setSuccessHint('element_removed', this.translationService.translate('removedElement', [element.name]));
                 this.setAddingElement(false);
                 return true;
             }
-        }
-        index = -1;
-        for (let i = 0, length = this.form.formHasField.length; i < length; i++) {
-            let input = this.form.formHasField[i];
-            if (input.name === element.value) {
-                index = i;
+        } else {
+            index = -1;
+            for (let i = 0, length = this.form.formHasField.length; i < length; i++) {
+                let input = this.form.formHasField[i];
+                if (input.name === element.value) {
+                    index = i;
+                }
             }
-        }
-        if (index !== -1) {
-            if (index === this.editingElementIndex) {
-                this.form.formHasField.splice(index, 1);
-                this.alert.setSuccessHint('element_removed', this.translationService.translate('removedElement', [element.name]));
-                this.setAddingElement(false);
-                return true;
+            if (index !== -1) {
+                if (index === this.editingElementIndex) {
+                    this.form.formHasField.splice(index, 1);
+                    this.alert.setSuccessHint('element_removed', this.translationService.translate('removedElement', [element.name]));
+                    this.setAddingElement(false);
+                    return true;
+                }
             }
         }
         this.alert.setAlert(
@@ -185,9 +201,7 @@ export class FormService {
     }
 
     /**
-     * @description add the FormElement to the Form
-     * @param {FormElement} element the FormElement as JSON
-     * @return {boolean}
+     * Adds a new Element to the Form or updates an existing one
      */
     public addElementToForm(element: Field, mode?: 'clone' | 'add'): boolean {
         /** Forms don't have Presets yet */
@@ -204,7 +218,7 @@ export class FormService {
 
         /** Add or Update Element to/in Form, otherwise display Error */
         if (index === -1) {
-            if (this.editingElementIndex !== -1) {
+            if (this.editingElementIndex > -1) {
                 this.form.formHasField[this.editingElementIndex] = element;
             } else {
                 this.form.formHasField.push(element);
@@ -240,13 +254,13 @@ export class FormService {
      * @param {number} id
      * @return {Observable}
      */
-    public getEditFormTemplate(id?: number): Observable<any> {
+    public getEditFormTemplate(id?: string): Observable<any> {
         let formEdit = [
             {
                 fieldType: 'input',
                 name: 'title',
-                label: 'Form Name:',
-                value: id ? this.form.title : '',
+                label: this.translationService.translate('formName'),
+                value: (id && this.form) ? this.form.title : '',
                 required: true,
                 validations: [
                     'minLength'
@@ -258,8 +272,8 @@ export class FormService {
             {
                 fieldType: 'checkbox',
                 name: 'restrictedAccess',
-                label: 'Restricted',
-                value: id ? this.form.restrictedAccess : false,
+                label: this.translationService.translate('restricted'),
+                value: (id && this.form) ? this.form.restrictedAccess : false,
                 styles: [
                     'small',
                     'aligned'
@@ -288,7 +302,7 @@ export class FormService {
         form.restrictedAccess = submit.restrictedAccess;
 
         this.alert.setLoading('saveFormAttributes', this.translationService.translate('saveForm'));
-        return this.formApi.updateFormById(form.id, 80082, form).map(result => {
+        return this.formApi.updateFormById(form.id, FormService.DEFAULT_TOKEN, form).map(result => {
             this.alert.removeHint('saveFormAttributes');
             this.alert.setSuccessHint('saveFormAttributes', this.translationService.translate('savedForm'));
             return this.form = result;
@@ -303,7 +317,7 @@ export class FormService {
     public saveForm(): Observable<any> {
         // TODO: save real data
         this.alert.setLoading('saveForm', this.translationService.translate('saveForm'));
-        return this.formApi.updateFormById(this.form.id, 80082, this.form).map(form => {
+        return this.formApi.updateFormById(this.form.id, FormService.DEFAULT_TOKEN, this.form).map(form => {
             this.alert.removeHint('saveForm');
             if (form) {
                 return this.form = form;

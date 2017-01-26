@@ -95,7 +95,7 @@ export class ConferencesComponent implements OnInit {
             if (conference['id']) {
                 this.router.navigate([`/conferences/`, conference['id'], 'edit']);
             }
-        })
+        });
     }
 
 }

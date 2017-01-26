@@ -23,7 +23,7 @@ export const DICTIONARY_EN = {
     loadingValidationsOf: 'Loading validations of { 0 }...',
     loadingStylesOf: 'Loading styles of { 0 }...',
 
-    elementTypeNotValid: 'Element type { 0 } does not exist.',
+    elementTypeNotValid: `Element type '{ 0 }' does not exist.`,
     identifyingError: 'There was an error identifying the element.',
     operationNotAllowed: 'This operation is not allowed.',
 
@@ -33,6 +33,9 @@ export const DICTIONARY_EN = {
     saveForm: 'Save form...',
     savedForm: 'Form saved.',
     loadingForm: 'Loading form...',
+    formName: 'Form Name',
+
+    restricted: 'Restricted',
 
     savedFormAttributes: 'Saved form attributes.',
 
@@ -53,4 +56,6 @@ export const DICTIONARY_EN = {
     errorNoApplicationWithId: `There is no application with ID '{ 0 }'.`,
     errorNoConferenceWithId: `There is no conference with ID '{ 0 }'.`,
     errorNoFormWithId: `There is no form with ID '{ 0 }'.`,
+
+    expiredToken: 'No valid session could be found.'
 };

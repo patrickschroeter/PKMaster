@@ -28,7 +28,7 @@ export class TranslationService {
         // http://stackoverflow.com/questions/1408289/how-can-i-do-string-interpolation-in-javascript#answer-1408373
         return result.replace(/{([^{}]*)}/g, function (interpolation, content) {
             let index = +content;
-            if (!index) { return interpolation; }
+            if (isNaN(index)) { return interpolation; }
             let replacement = interpolations[+content];
             return typeof replacement === 'string' || typeof replacement === 'number' ? replacement : interpolation;
         });

@@ -64,5 +64,6 @@ export interface Field {
     disabled?: boolean;
     validations?: string[];
     styles?: string[];
+    optionTable?: string;
 
 }

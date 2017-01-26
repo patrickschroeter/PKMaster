@@ -34,4 +34,4 @@ export class AlertDirectiveModule { }
 
 export const AlertProviderMock = [
     { provide: AlertService, useClass: AlertMock }
-]
+];

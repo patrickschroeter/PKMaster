@@ -71,7 +71,7 @@ export class ConferencesDetailComponent implements OnInit {
                     'small'
                 ]
             }
-        ]
+        ];
     }
 
     /**
@@ -162,6 +162,6 @@ export class ConferencesDetailComponent implements OnInit {
 
 
 export interface AgendaItem {
-    formId: string,
+    formId: string;
     applications: Application[];
 }

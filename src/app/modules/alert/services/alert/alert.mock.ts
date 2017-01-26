@@ -15,6 +15,8 @@ export class AlertMock {
 
     public setErrorHint(id: string, message: string, time?: number): void { }
 
+    public setSuccessHint(id: string, message: string): void { }
+
     public getAlert(): Observable<any> {
         return new Observable((observer: Observer<any>) => { observer.next('alert'); });
     }

@@ -23,7 +23,7 @@ export const DICTIONARY_DE = {
     loadingValidationsOf: 'Lade Validierungsmöglichkeiten von { 0 }...',
     loadingStylesOf: 'Lade Stylemöglichkeiten von { 0 }...',
 
-    elementTypeNotValid: 'Element Typ { 0 } existiert nicht.',
+    elementTypeNotValid: `Element Typ '{ 0 }' existiert nicht.`,
     identifyingError: 'Es ist ein Fehler bei der Identifizierung des Elementes aufgetreten.',
     operationNotAllowed: 'Diese Operation ist nicht erlaubt.',
 
@@ -33,6 +33,9 @@ export const DICTIONARY_DE = {
     saveForm: 'Speichere Formular...',
     savedForm: 'Formular wurde gespeichert.',
     loadingForm: 'Lade Formular...',
+    formName: 'Name des Formulars',
+
+    restricted: 'Beschränkter Zugriff',
 
     savedFormAttributes: 'Formular wurde aktualisiert.',
 
@@ -53,4 +56,6 @@ export const DICTIONARY_DE = {
     errorNoApplicationWithId: `Es gibt keinen Antrag mit der ID '{ 0 }'.`,
     errorNoConferenceWithId: `Es gibt keine Sitzung mit der ID '{ 0 }'.`,
     errorNoFormWithId: `Es gibt kein Formular mit der ID '{ 0 }'.`,
+
+    expiredToken: 'Es konnte keine gültige Session gefunden werden.'
 };
