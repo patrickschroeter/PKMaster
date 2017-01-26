@@ -2,6 +2,7 @@
 // tslint:disable:no-unused-variable
 
 import { Injectable } from '@angular/core';
+import * as _ from 'lodash';
 
 import { Observable, Observer } from 'rxjs/Rx';
 
@@ -31,7 +32,7 @@ export class FormApiMock {
     }
 
     public getFormById(formId: string, token?: number, extraHttpRequestParams?: any): Observable<any> {
-        let form = FormApiMock.FORM; form.id = formId;
+        let form = _.cloneDeep(FormApiMock.FORM); form.id = formId;
         return new Observable((observer: Observer<any>) => { formId ? observer.next(form) : observer.error('error'); observer.complete(); });
     }
 

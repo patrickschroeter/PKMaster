@@ -1,6 +1,9 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
+import { Observable } from 'rxjs/Rx';
+import * as _ from 'lodash';
+
 import { FormService } from './form.service';
 import { AlertService, AlertMock } from './../../../modules/alert';
 
@@ -10,7 +13,9 @@ import {
     FormApiMock
 } from './../';
 
-import { FormApi } from './../../../swagger';
+import { Fields } from './../../../models';
+
+import { FormApi, Form, Field } from './../../../swagger';
 
 import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
@@ -30,91 +35,548 @@ describe('Service: Form', () => {
         expect(service).toBeTruthy();
     }));
 
-    /** getAddingElement + setAddingElement */
-    it('should provide access to the addingElement Variable', inject([FormService], (service: FormService) => {
-        let element;
-        service.getAddingElement().subscribe(result => {
-            element = result;
-        });
-        expect(element).toBeFalsy();
-        service.setAddingElement(true);
-        expect(element).toBeTruthy();
-        service.setAddingElement(false);
-        expect(element).toBeFalsy();
-    }));
+    describe('getAddingElement', () => {
+        /** getAddingElement + setAddingElement */
+        it('should provide the isAddingElement flag using setAddingElement', inject([FormService], (service: FormService) => {
+            let element;
+            service.getAddingElement().subscribe(result => {
+                element = result;
+            });
+            expect(element).toBeUndefined();
+            service.setAddingElement(true);
+            expect(element).toBe(true);
+            service.setAddingElement(false);
+            expect(element).toBe(false);
+        }));
+    });
 
-    describe('Function: onEditElement', () => {
-        /** onEditElement + next */
-        it('should return null if the element is not in the form', inject([FormService], (service: FormService) => {
+    describe('getFormById', () => {
+        let service: FormService;
+        let api: FormApi;
+
+        beforeEach(inject([FormService, FormApi], (formService: FormService, formApi: FormApi) => {
+            service = formService;
+            api = formApi;
+        }));
+
+        it('should request the form with the given id', () => {
+            spyOn(api, 'getFormById').and.returnValue(new Observable(obs => { obs.next('value'); }));
+            service.getFormById('someId').subscribe(() => {
+                expect(api.getFormById).toHaveBeenCalledWith('someId');
+            });
+        });
+    });
+
+    describe('getForms', () => {
+        let service: FormService;
+        let api: FormApi;
+
+        beforeEach(inject([FormService, FormApi], (formService: FormService, formApi: FormApi) => {
+            service = formService;
+            api = formApi;
+        }));
+
+        it('should request all forms', () => {
+            spyOn(api, 'getForms').and.returnValue(new Observable(obs => { obs.next('value'); }));
+            service.getForms().subscribe(() => {
+                expect(api.getForms).toHaveBeenCalled();
+            });
+        });
+    });
+
+    describe('createNewForm', () => {
+        let service: FormService;
+        let api: FormApi;
+
+        beforeEach(inject([FormService, FormApi], (formService: FormService, formApi: FormApi) => {
+            service = formService;
+            api = formApi;
+        }));
+
+        it('should send the new form', () => {
+            spyOn(api, 'addForm').and.returnValue(new Observable(obs => { obs.next('value'); }));
+            service.createNewForm({}).subscribe(() => {
+                expect(api.addForm).toHaveBeenCalled();
+            });
+        });
+
+        it('should prepare the new form (title restrictedAccess, isPublic, formHasField)', () => {
+            spyOn(api, 'addForm').and.returnValue(new Observable(obs => { obs.next('value'); }));
+            let submit: Form = {
+                title: 'titel des tests',
+                restrictedAccess: true
+            };
+            service.createNewForm(submit).subscribe(() => {
+                expect(api.addForm).toHaveBeenCalledWith(FormService.DEFAULT_TOKEN, {
+                    title: submit.title,
+                    restrictedAccess: submit.restrictedAccess,
+                    isPublic: true,
+                    formHasField: []
+                });
+            });
+        });
+
+        it('should copy the form (title restrictedAccess, isPublic, formHasField)', () => {
+            spyOn(api, 'addForm').and.returnValue(new Observable(obs => { obs.next('value'); }));
+            let submit: Form = {
+                id: 'id',
+                title: 'titel des tests',
+                restrictedAccess: true,
+                formHasField: [new Fields.Email]
+            };
+            service.createNewForm(submit).subscribe(() => {
+                expect(api.addForm).toHaveBeenCalledWith(FormService.DEFAULT_TOKEN, {
+                    title: 'Copy of ' + submit.title,
+                    restrictedAccess: submit.restrictedAccess,
+                    isPublic: true,
+                    formHasField: submit.formHasField
+                });
+            });
+        });
+    });
+
+    describe('editElementError', () => {
+        let service: FormService;
+        let alert: AlertService;
+
+        beforeEach(inject([FormService, AlertService], (formService: FormService, alertService: AlertService) => {
+            service = formService;
+            alert = alertService;
+        }));
+
+        it('should reset isAdding', () => {
+           let isAdding;
+           service.getAddingElement().subscribe(result => {
+               isAdding = result;
+           });
+
+           expect(isAdding).toBeUndefined();
+
+           service.editElementError('some');
+
+           expect(isAdding).toBe(false);
+        });
+
+        it('should trigger an alert', () => {
+            spyOn(alert, 'setAlert');
+
+            service.editElementError('some');
+
+            expect(alert.setAlert).toHaveBeenCalled();
+        });
+    });
+
+    describe('editElementOfForm', () => {
+        let service: FormService;
+
+        beforeEach(inject([FormService], (formService: FormService) => {
+            service = formService;
+        }));
+
+        it('should emit null if no form is cached', () => {
             let element;
             service.onEditElement().subscribe(result => {
                 element = result;
             });
             expect(element).toBeUndefined();
-            service.editElement(FormElementMock.FORMELEMENT);
-            expect(element).toEqual(null);
-        }));
 
-        it('should provide the element if it is part of the form', () => {});
+            service.editElementOfForm(new Fields.Email);
+
+            expect(element).toBeNull();
+        });
+
+        it('should emit the element if it is in the cached form', () => {
+            let element;
+            service.onEditElement().subscribe(result => {
+                element = result;
+            });
+
+            service.getFormById('id').subscribe(result => {
+                let field: Field = {
+                    name: 'header01'
+                };
+                service.editElementOfForm(field);
+                expect(element).toEqual(field);
+            });
+        });
+
+        it('should emit null if the element is not in the cached form', () => {
+            let element;
+            service.onEditElement().subscribe(result => {
+                element = result;
+            });
+
+            service.getFormById('id').subscribe(result => {
+                service.editElementOfForm({
+                    name: 'header02'
+                });
+                expect(element).toBeNull();
+            });
+        });
+
+        it('should set isAdding', () => {
+            let isAdding;
+            service.getAddingElement().subscribe(result => {
+                isAdding = result;
+            });
+
+            expect(isAdding).toBeUndefined();
+
+            service.getFormById('id').subscribe(result => {
+                service.editElementOfForm(null);
+
+                expect(isAdding).toBe(true);
+            });
+        });
+
+        it('should emit null if the cached form has no fields', () => {
+            let element;
+            service.onEditElement().subscribe(result => {
+                element = result;
+            });
+            expect(element).toBeUndefined();
+
+            service.getFormById('id').subscribe(result => {
+                result.formHasField = null;
+                service.editElementOfForm(new Fields.Email);
+                expect(element).toBeNull();
+            });
+        });
     });
 
-    /** getFormById */
-    it('should retrieve the database to get the requested form by id', inject([FormService], (service: FormService) => {
-        expect(service).toBeTruthy();
-    }));
-    it('should return the requested form if it\'s cached', inject([FormService], (service: FormService) => {
-        expect(service).toBeTruthy();
-    }));
+    describe('removeElementOfForm', () => {
 
-    /** createNewForm */
-    it('should create a new form with the given title and return it', inject([FormService], (service: FormService) => {
-        expect(service).toBeTruthy();
-    }));
+        describe('when no element is edited', () => {
+            let service: FormService;
 
-    /** editElementError */
-    it('should display an error via alert service', inject([FormService], (service: FormService) => {
-        expect(service).toBeTruthy();
-    }));
+            beforeEach(inject([FormService], (formService: FormService) => {
+                service = formService;
+            }));
 
-    /** editElement */
-    it('should edit the given element if it\'s part of the form', inject([FormService], (service: FormService) => {
-        expect(service).toBeTruthy();
-    }));
-    it('should create a new element if the given one is not part of the form', inject([FormService], (service: FormService) => {
-        expect(service).toBeTruthy();
-    }));
-    it('should create a new element if no element is given', inject([FormService], (service: FormService) => {
-        expect(service).toBeTruthy();
-    }));
+            it('should return false if the element is in the form but no index is given (by value)', () => {
+                service.getFormById('id').subscribe(result => {
+                    expect(service.removeElement({ value: 'header01' })).toBe(false);
+                });
+            });
 
-    /** removeElement */
-    it('should remove the given element by the saved index', inject([FormService], (service: FormService) => {
-        expect(service).toBeTruthy();
-    }));
-    it('should do nothing if the given element is not in the form', inject([FormService], (service: FormService) => {
-        expect(service).toBeTruthy();
-    }));
-    it('should do nothing if no element is given', inject([FormService], (service: FormService) => {
-        expect(service).toBeTruthy();
-    }));
+            it('should return false if the element is in the form but no index is given (by name)', () => {
+                service.getFormById('id').subscribe(result => {
+                    expect(service.removeElement({ name: 'header01' })).toBe(false);
+                });
+            });
 
-    /** addElementToForm */
-    it('should append the element to the form', inject([FormService], (service: FormService) => {
-        expect(service).toBeTruthy();
-    }));
-    it('should update the element by index', inject([FormService], (service: FormService) => {
-        expect(service).toBeTruthy();
-    }));
-    it('should show an error if the selected name for the new element is not unique', inject([FormService], (service: FormService) => {
-        expect(service).toBeTruthy();
-    }));
-    it('should show an error if the selected name for the existing element does math a different index',
-        inject([FormService], (service: FormService) => {
-        expect(service).toBeTruthy();
-    }));
+            it('should return false if the element is in the form and a wrong index is given', () => {
+                service.getFormById('id').subscribe(result => {
+                    expect(service.removeElement({ name: 'header01' }, 2)).toBe(false);
+                });
+            });
 
-    /** saveForm */
-    it('should push the new form to the server', inject([FormService], (service: FormService) => {
-        expect(service).toBeTruthy();
-    }));
+            it('should return true if the element is in the form and a right index is given', () => {
+                service.getFormById('id').subscribe(result => {
+                    expect(service.removeElement({ name: 'header01' }, 0)).toBe(true);
+                });
+            });
+
+        });
+
+        describe('when an element is beeing edited', () => {
+            let service: FormService;
+
+            beforeEach(inject([FormService], (formService: FormService) => {
+                service = formService;
+            }));
+
+            it('should return true if the element is in the form but no index is given (by value)', () => {
+                service.getFormById('id').subscribe(result => {
+                    service.editElementOfForm({ name: 'header01'});
+                    expect(service.removeElement({ value: 'header01' })).toBe(true);
+                });
+            });
+
+            it('should return false if the element is in the form but no index is given (by name)', () => {
+                service.getFormById('id').subscribe(result => {
+                    service.editElementOfForm({ name: 'header01'});
+                    expect(service.removeElement({ name: 'header01' })).toBe(false);
+                });
+            });
+
+            it('should return false if the element is in the form and a wrong index is given', () => {
+                service.getFormById('id').subscribe(result => {
+                    service.editElementOfForm({ name: 'header01'});
+                    expect(service.removeElement({ name: 'header01' }, 2)).toBe(false);
+                });
+            });
+
+            it('should return true if the element is in the form and a right index is given', () => {
+                service.getFormById('id').subscribe(result => {
+                    service.editElementOfForm({ name: 'header01'});
+                    expect(service.removeElement({ name: 'header01' }, 0)).toBe(true);
+                });
+            });
+
+        });
+    });
+
+    describe('addElementToForm', () => {
+
+        /**
+         * editingIndex: null
+         * name: unique
+         */
+        describe('when name is unique and it\'s a new element', () => {
+            let service: FormService;
+
+            beforeEach(inject([FormService], (formService: FormService) => {
+                service = formService;
+            }));
+
+            it('should return true', () => {
+                service.getFormById('id').subscribe(form => {
+                    expect(service.addElementToForm({
+                        name: 'unique_name'
+                    })).toBe(true);
+                });
+            });
+
+            it('should add the new element at the end of the form', () => {
+                service.getFormById('id').subscribe(form => {
+                    let elements = form.formHasField.length;
+                    service.addElementToForm({
+                        name: 'unique_name'
+                    });
+                    expect(form.formHasField.length).toEqual(elements + 1);
+                });
+            });
+        });
+
+        /**
+         * editingIndex: null
+         * name: not unique
+         */
+        describe('when name is not unique and it\'s a new element', () => {
+            let service: FormService;
+
+            beforeEach(inject([FormService], (formService: FormService) => {
+                service = formService;
+            }));
+
+            it('should return false', () => {
+                service.getFormById('id').subscribe(form => {
+                    expect(service.addElementToForm({
+                        name: 'header01'
+                    })).toBe(false);
+                });
+            });
+        });
+
+        /**
+         * editingIndex: index
+         * name: unique
+         */
+        describe('when name is unique and it\'s an existing element', () => {
+            let service: FormService;
+
+            beforeEach(inject([FormService], (formService: FormService) => {
+                service = formService;
+            }));
+
+            it('should return true', () => {
+                service.getFormById('id').subscribe(form => {
+                    service.editElementOfForm({
+                        name: 'header01'
+                    });
+                    expect(service.addElementToForm({
+                        name: 'unique_name'
+                    })).toBe(true);
+                });
+            });
+
+            it('should update the element at the given index', () => {
+                service.getFormById('id').subscribe(form => {
+                    let index = _.findIndex(form.formHasField, obj => obj.name === 'header01');
+                    service.editElementOfForm({
+                        name: 'header01'
+                    });
+                    expect(form.formHasField[index].name).toEqual('header01');
+                    service.addElementToForm({
+                        name: 'unique_name'
+                    });
+                    expect(form.formHasField[index].name).toEqual('unique_name');
+                });
+            });
+        });
+
+        /**
+         * editingIndex: index
+         * name: element
+         */
+        describe('when it\'s an existing element with same name', () => {
+            let service: FormService;
+
+            beforeEach(inject([FormService], (formService: FormService) => {
+                service = formService;
+            }));
+
+            it('should return true', () => {
+                service.getFormById('id').subscribe(form => {
+                    service.editElementOfForm({
+                        name: 'header01'
+                    });
+                    expect(service.addElementToForm({
+                        name: 'header01'
+                    })).toBe(true);
+                });
+            });
+
+            it('should update the element at the given index', () => {
+                service.getFormById('id').subscribe(form => {
+                    let index = _.findIndex(form.formHasField, obj => obj.name === 'header01');
+                    service.editElementOfForm({
+                        name: 'header01'
+                    });
+                    expect(form.formHasField[index].fieldType).toEqual('h3');
+                    service.addElementToForm({
+                        name: 'header01',
+                        fieldType: 'h4'
+                    });
+                    expect(form.formHasField[index].fieldType).toEqual('h4');
+                });
+            });
+        });
+
+        /**
+         * editingIndex: index
+         * name: not unique
+         */
+        describe('when it\' an existing element with different not unique name', () => {
+            let service: FormService;
+
+            beforeEach(inject([FormService], (formService: FormService) => {
+                service = formService;
+            }));
+
+            it('should return false', () => {
+                service.getFormById('id').subscribe(form => {
+                    service.editElementOfForm({
+                        name: 'header01'
+                    });
+                    expect(service.addElementToForm({
+                        name: 'date'
+                    })).toBe(false);
+                });
+            });
+        });
+
+        /**
+         * mode
+         */
+        describe('when no mode is given', () => {
+            let service: FormService;
+
+            beforeEach(inject([FormService], (formService: FormService) => {
+                service = formService;
+            }));
+
+            it('should reset edit mode', () => {
+                let isAdding;
+                service.getAddingElement().subscribe(result => {
+                    isAdding = result;
+                });
+                service.getFormById('id').subscribe(form => {
+                    service.addElementToForm({
+                        name: 'unique_name'
+                    });
+                    expect(isAdding).toBe(false);
+                });
+            });
+        });
+    });
+
+    describe('addPresetToForm', () => {
+
+        let service: FormService;
+
+        beforeEach(inject([FormService], (formService: FormService) => {
+            service = formService;
+        }));
+
+        it('should not fail', () => {
+            // TODO: when implemented
+            service.getFormById('id').subscribe(form => {
+                expect(service.addPresetToForm('preset')).toBe(true);
+            });
+        });
+    });
+
+    describe('getEditFormTemplate', () => {
+
+        let service: FormService;
+
+        beforeEach(inject([FormService], (formService: FormService) => {
+            service = formService;
+        }));
+
+        it('should return the Field Config for the create Form Overlay if no id is given', () => {
+            service.getEditFormTemplate().subscribe(fields => {
+                expect(fields[0].value).toEqual('');
+            });
+        });
+
+        it('should return the Field Config for the create Form Overlay if no form is available', () => {
+            service.getEditFormTemplate('id').subscribe(fields => {
+                expect(fields[0].value).toEqual('');
+            });
+        });
+
+        it('should return the Field Config for the Edit Form Overlay if an id is given', () => {
+            service.getFormById('id').subscribe(form => {
+                service.getEditFormTemplate('id').subscribe(fields => {
+                    expect(fields[0].value).toEqual('Titel der Form');
+                });
+            });
+        });
+    });
+
+    describe('saveFormAttributes', () => {
+
+        let service: FormService;
+        let api: FormApi
+
+        beforeEach(inject([FormService, FormApi], (formService: FormService, formApi: FormApi) => {
+            service = formService;
+            api = formApi;
+        }));
+
+        it('should save the attributes but keep required old ones', () => {
+            service.getFormById('id').subscribe(form => {
+                let created = form.created;
+                service.saveFormAttributes({
+                    title: 'New Title'
+                }).subscribe(result => {
+                    expect(created).toBe(result.created);
+                    expect(result.title).toEqual('New Title');
+                });
+            });
+        });
+    });
+
+    describe('saveForm', () => {
+
+        let service: FormService;
+        let api: FormApi
+
+        beforeEach(inject([FormService, FormApi], (formService: FormService, formApi: FormApi) => {
+            service = formService;
+            api = formApi;
+        }));
+
+        it('should call api.updateFormById', () => {
+            spyOn(api, 'updateFormById').and.callThrough();
+            service.getFormById('id').subscribe(form => {
+                service.saveForm().subscribe(result => {
+                    expect(api.updateFormById).toHaveBeenCalledWith(form.id, FormService.DEFAULT_TOKEN, form);
+                });
+            });
+        });
+    });
 });

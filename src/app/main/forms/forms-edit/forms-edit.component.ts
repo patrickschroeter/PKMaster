@@ -74,7 +74,7 @@ export class FormsEditComponent implements OnInit {
      * @return {void}
      */
     editElement(element: Field): void {
-        this.formService.editElement(element);
+        this.formService.editElementOfForm(element);
     }
 
     /**
@@ -82,7 +82,7 @@ export class FormsEditComponent implements OnInit {
      * @return {void}
      */
     addElement(): void {
-        this.formService.editElement();
+        this.formService.editElementOfForm();
     }
 
     addPreset(option?) {
