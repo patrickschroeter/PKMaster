@@ -69,11 +69,11 @@ export class InputValidationService {
      * @return {Array} returns an array with all Validatin functions
      */
     public generateValidationsFromKeys(keyArray = []) {
-        let result = [];
+        const result = [];
         if (!keyArray) { return result; }
         for (let i = 0, length = keyArray.length; i < length; i++) {
-            let validationName = keyArray[i];
-            let validation = this.validationMapping[validationName];
+            const validationName = keyArray[i];
+            const validation = this.validationMapping[validationName];
             if (validation) { result.push(validation); }
         }
         return result;

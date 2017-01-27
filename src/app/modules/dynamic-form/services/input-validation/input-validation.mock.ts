@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FormControl, FormGroup, AbstractControl } from '@angular/forms';
 
 @Injectable()
 export class InputValidationMock {
@@ -16,6 +17,11 @@ export class InputValidationMock {
 
     areEqual() {
         return function() {};
+    }
+
+
+    public getErrorMessage(control: FormControl | FormGroup | AbstractControl): string {
+        return 'message';
     }
 
 }

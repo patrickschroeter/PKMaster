@@ -24,11 +24,11 @@ export class DynamicFormService {
      * @return {FormGroup}
      */
     public generateFormFromInput(input?: Field[], config = {}): FormGroup {
-        let options = {};
+        const options = {};
         for (let i = 0, length = input.length; i < length; i++) {
-            let element = input[i];
+            const element = input[i];
 
-            let formControl = this.createFormControl(element);
+            const formControl = this.createFormControl(element);
             if (!formControl) { continue; }
 
             /** Add new FormControl to FormBuilder-Options[] */
@@ -45,18 +45,18 @@ export class DynamicFormService {
     public updateFormFromInput(form: FormGroup, input?: Field[]): void {
 
         /** get all existing form.controls */
-        let existingElementNames: string[] = [];
+        const unusedElementNames: string[] = [];
         for (let key in form.controls) {
             if (!form.controls.hasOwnProperty(key)) { continue; }
-            existingElementNames.push(key);
+            unusedElementNames.push(key);
         }
 
         /** add/update the form.controly by input fields */
         for (let i = 0, length = input.length; i < length; i++) {
-            let element = input[i];
-            this.removeKeyFromList(existingElementNames, element.name);
+            const element = input[i];
+            this.removeKeyFromList(unusedElementNames, element.name);
             if (!form.get(element.name)) {
-                let formControl = this.createFormControl(element);
+                const formControl = this.createFormControl(element);
                 if (formControl) {
                     form.addControl(element.name, formControl);
                 }
@@ -66,8 +66,8 @@ export class DynamicFormService {
         }
 
         /** Remove all controls which are not in input field */
-        for (let i = 0, length = existingElementNames.length; i < length; i++) {
-            let name = existingElementNames[i];
+        for (let i = 0, length = unusedElementNames.length; i < length; i++) {
+            const name = unusedElementNames[i];
             form.removeControl(name);
         }
     }
@@ -76,7 +76,7 @@ export class DynamicFormService {
      * @description removes the key from the array
      */
     private removeKeyFromList(list: string[], key: string) {
-        let index: number = list.indexOf(key);
+        const index: number = list.indexOf(key);
         if (index === -1) { return; }
         list.splice(index, 1);
     }
@@ -90,7 +90,7 @@ export class DynamicFormService {
         if (!element || !element.name || element.disabled) { return null; }
 
         /** Create Array of ValidationFn */
-        let activeValidations = this.inputValidation.generateValidationsFromKeys(element.validations);
+        const activeValidations = this.inputValidation.generateValidationsFromKeys(element.validations);
         if (element.required) { activeValidations.push(Validators.required); }
 
         /** FIX for multiselect */
@@ -119,7 +119,7 @@ export class DynamicFormService {
      * @return {void}
      */
     public showValidation(form: FormGroup | FormControl | AbstractControl) {
-        let message = this.inputValidation.getErrorMessage(form);
+        const message = this.inputValidation.getErrorMessage(form);
         if (message) {
             this.alert.setErrorHint('validation', message, this.validationTime);
         }
