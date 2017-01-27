@@ -48,10 +48,7 @@ export class InputValidationService {
             ]);
 
         } else if (control.hasError('areEqual')) {
-            if (control.errors['areEqual'].message) {
-                return this.translate(control.errors['areEqual'].message);
-            }
-            return this.translate('errorAreEqual');
+            return this.translate(control.errors['areEqual'].message);
 
         } else if (control.hasError('invalidTime')) {
             return this.translate('errorInvalidTime');
