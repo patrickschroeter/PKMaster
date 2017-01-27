@@ -47,8 +47,9 @@ export class DynamicFormService {
         /** get all existing form.controls */
         const unusedElementNames: string[] = [];
         for (let key in form.controls) {
-            if (!form.controls.hasOwnProperty(key)) { continue; }
-            unusedElementNames.push(key);
+            if (form.controls.hasOwnProperty(key)) {
+                unusedElementNames.push(key);
+            }
         }
 
         /** add/update the form.controly by input fields */
