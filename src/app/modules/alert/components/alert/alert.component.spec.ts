@@ -1,14 +1,10 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { AlertComponent } from './alert.component';
 import { AlertService, AlertMock } from './../../';
-
-import { FloatingModule } from './../../../../modules/floating/floating.module';
-import { ButtonModule } from './../../../../modules/button/button.module';
-import { OverlayModule } from './../../../../modules/overlay/overlay.module';
 
 describe('AlertComponent', () => {
     let component: AlertComponent;
@@ -20,13 +16,11 @@ describe('AlertComponent', () => {
                 AlertComponent
             ],
             imports: [
-                FloatingModule,
-                ButtonModule,
-                OverlayModule,
             ],
             providers: [
                 { provide: AlertService, useClass: AlertMock }
-            ]
+            ],
+            schemas: [NO_ERRORS_SCHEMA]
         })
             .compileComponents();
     }));

@@ -1,15 +1,13 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
 
-import { AlertService, AlertMock, AlertComponent } from './modules/alert';
-
-import { SharedModule } from './shared/shared.module';
-import { OverlayModule } from './modules/overlay/overlay.module';
+import { AlertProviderMock } from './modules/alert/alert.module';
 
 describe('App: Pk', () => {
     let fixture: ComponentFixture<any>;
@@ -19,18 +17,16 @@ describe('App: Pk', () => {
         TestBed.configureTestingModule({
             declarations: [
                 AppComponent,
-                AlertComponent
             ],
             providers: [
-                { provide: AlertService, useClass: AlertMock }
+                ...AlertProviderMock
             ],
             imports: [
-                SharedModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: class { } },
-                ]),
-                OverlayModule
-            ]
+                ])
+            ],
+            schemas: [NO_ERRORS_SCHEMA]
         });
 
         TestBed.compileComponents();

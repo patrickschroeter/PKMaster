@@ -1,37 +1,14 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { DatalistComponent } from './datalist.component';
 
-import {
-    SelectComponent,
-    RadioComponent,
-    TextareaComponent,
-    CheckboxComponent,
-    InputComponent
-} from './../';
-
-import {
-    DynamicFormComponent,
-    DynamicFormContentComponent,
-    DynamicFormElementComponent,
-    DynamicFormSubmitComponent,
-    DynamicFormCancelComponent,
-} from './../../';
-
 import { DynamicFormProviderMock } from './../../dynamic-form.module';
-
 import { CoreProviderMock } from './../../../../core/core.module';
 import { AlertProviderMock } from './../../../../modules/alert/alert.module';
-
-import { ButtonModule } from './../../../../modules/button/button.module';
-import { OverlayModule } from './../../../../modules/overlay/overlay.module';
-import { DeviderComponent } from './../../../../modules/devider';
-
-import { FloatingModule } from './../../../../modules/floating/floating.module';
 import { TranslationProviderMock } from './../../../../modules/translation/translation.module';
 
 describe('DatalistComponent', () => {
@@ -41,34 +18,19 @@ describe('DatalistComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                DatalistComponent,
-
-                DynamicFormComponent,
-                DynamicFormContentComponent,
-                DynamicFormElementComponent,
-                DynamicFormSubmitComponent,
-                DynamicFormCancelComponent,
-
-                InputComponent,
-                DeviderComponent,
-                CheckboxComponent,
-                TextareaComponent,
-                RadioComponent,
-                SelectComponent
+                DatalistComponent
             ],
             imports: [
                 ReactiveFormsModule,
-                FloatingModule,
-                FormsModule,
-                OverlayModule,
-                ButtonModule
+                FormsModule
             ],
             providers: [
                 ...DynamicFormProviderMock,
                 ...CoreProviderMock,
                 ...AlertProviderMock,
                 ...TranslationProviderMock
-            ]
+            ],
+            schemas: [NO_ERRORS_SCHEMA]
         })
             .compileComponents();
     }));

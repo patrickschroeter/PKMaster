@@ -1,12 +1,9 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { OverlayComponent } from './overlay.component';
-
-import { FloatingModule } from './../../modules/floating/floating.module';
-import { ButtonModule } from './../../modules/button/button.module';
 
 describe('OverlayComponent', () => {
     let component: OverlayComponent;
@@ -18,9 +15,8 @@ describe('OverlayComponent', () => {
                 OverlayComponent
             ],
             imports: [
-                FloatingModule,
-                ButtonModule
-            ]
+            ],
+            schemas: [NO_ERRORS_SCHEMA]
         })
         .compileComponents();
     }));
