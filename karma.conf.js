@@ -22,7 +22,7 @@ module.exports = function (config) {
         },
         remapIstanbulReporter: {
             remapOptions: {
-                exclude: /swagger|api/
+                exclude: /swagger|api|.mock.ts|models/
             },
             reports: {
                 html: 'coverage',
