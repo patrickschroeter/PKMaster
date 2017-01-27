@@ -28,6 +28,11 @@ describe('Service: InputValidation', () => {
             expect(service.generateValidationsFromKeys(keys)).toEqual([]);
         }));
 
+        it('should return an empty array if no array is given', inject([InputValidationService], (service: InputValidationService) => {
+            const keys = undefined;
+            expect(service.generateValidationsFromKeys(keys)).toEqual([]);
+        }));
+
         it('should return an empty array if the given keys are invalid',
             inject([InputValidationService], (service: InputValidationService) => {
                 const keys = ['some', 'invalid', 'keys', 'in', 'array'];
