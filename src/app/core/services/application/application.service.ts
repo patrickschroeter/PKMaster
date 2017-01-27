@@ -14,6 +14,8 @@ import { TranslationService } from './../../../modules/translation';
 @Injectable()
 export class ApplicationService {
 
+    static DEFAULT_TOKEN = 17;
+
     private application: Application;
     private applications: Application[];
 
@@ -66,8 +68,9 @@ export class ApplicationService {
         });
     }
 
-    public addCommentToApplication(comment: Comment) {
-        return this.applicationApi.addCommentToApplication(this.application.id, 0, comment).map(result => {
+    public addCommentToApplication(comment: Comment): Observable<Application> {
+        if (!this.application) { return Observable.throw('No Application'); }
+        return this.applicationApi.addCommentToApplication(this.application.id, ApplicationService.DEFAULT_TOKEN, comment).map(result => {
             return this.application = result;
         });
     }
@@ -87,17 +90,17 @@ export class ApplicationService {
     }
 
     public submitApplication(application: Application): Observable<Application> {
-        let blocked = this.blockedStatusUpdate(application.status.name, ['created']);
+        const blocked = this.blockedStatusUpdate(application.status.name, ['created']);
         if (blocked) { return blocked; }
         /** TODO: move to server */
         application.status = { name: 'submitted' };
-        return this.applicationApi.updateApplicationById(application.id, 17, application).map(result => {
+        return this.applicationApi.updateApplicationById(application.id, ApplicationService.DEFAULT_TOKEN, application).map(result => {
             return this.application = result;
         });
     }
 
     public rescindApplication(application: Application): Observable<Application> {
-        let blocked = this.blockedStatusUpdate(application.status.name, ['submitted']);
+        const blocked = this.blockedStatusUpdate(application.status.name, ['submitted']);
         if (blocked) { return blocked; }
         /** TODO: move to server */
         application.status = { name: 'rescinded' };
@@ -107,7 +110,7 @@ export class ApplicationService {
     }
 
     public deactivateApplication(application: Application): Observable<Application> {
-        let blocked = this.blockedStatusUpdate(application.status.name, ['created', 'rescinded']);
+        const blocked = this.blockedStatusUpdate(application.status.name, ['created', 'rescinded']);
         if (blocked) { return blocked; }
         /** TODO: move to server */
         application.status = { name: 'deactivated' };
@@ -121,9 +124,10 @@ export class ApplicationService {
      * @return {void}
      */
     public saveApplication(form: Object): Observable<Application> {
-        if (this.application && this.application.attributes) {
+        if (!this.application) { return; }
+        if (this.application.attributes) {
             for (let i = 0, length = this.application.attributes.length; i < length; i++) {
-                let element: Field = this.application.attributes[i];
+                const element: Field = this.application.attributes[i];
                 element.value = form[element.name];
             };
         }
