@@ -69,9 +69,9 @@ describe('Service: InputValidation', () => {
                 expect(service.validateExternalEmail(control)).toEqual(jasmine.any(Object));
             }));
 
-        it('should return undefined if the input is no email', inject([InputValidationService], (service: InputValidationService) => {
+        it('should return the error object if the input is no email', inject([InputValidationService], (service: InputValidationService) => {
             const control = new FormControl('email');
-            expect(service.validateExternalEmail(control)).toBeUndefined();
+            expect(service.validateExternalEmail(control)).toEqual(jasmine.any(Object));
         }));
     });
 
