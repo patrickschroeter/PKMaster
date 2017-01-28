@@ -9,6 +9,8 @@ import { ConferenceApi } from './../../../swagger/api/ConferenceApi';
 @Injectable()
 export class ConferenceService {
 
+    static DEFAULT_TOKEN = 17;
+
     private conference: Conference;
     private conferences: Conference[];
 
@@ -31,7 +33,7 @@ export class ConferenceService {
     }
 
     public createNewConference(conference: Conference): Observable<Conference> {
-        return this.conferenceApi.addConference(17, conference).map(result => {
+        return this.conferenceApi.addConference(ConferenceService.DEFAULT_TOKEN, conference).map(result => {
             return this.conference = result;
         });
     }
