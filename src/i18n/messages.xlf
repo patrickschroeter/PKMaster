@@ -2,6 +2,18 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="dc90df7803f5d1fbdf44864440f1f4b87b32b341" datatype="html">
+        <source>Admin Profile</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="d3781ad331fdd0bc9055c45a41664ac467de63af" datatype="html">
+        <source>Edit Profile</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5edf054f14aa57bc25a28cb7db01956fee53dac8" datatype="html">
+        <source>Change Password</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="4b17f4f6a66c877a264d2a24f74e37310eb593fc" datatype="html">
         <source>PK 4.0</source>
         <target/>
@@ -46,6 +58,38 @@
         <source>Users</source>
         <target/>
       </trans-unit>
+      <trans-unit id="6186a27f1d8d9854f8790c7db85aa63aced506ca" datatype="html">
+        <source>Add Option</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="f6755cff4957d5c3c89bafce5651f1b6fa2b1fd9" datatype="html">
+        <source>Add</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9fabdfadf0453602acf388171bd4f758df47e1a7" datatype="html">
+        <source>Choose</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="d7b35c384aecd25a516200d6921836374613dfe7" datatype="html">
+        <source>Cancel</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="70a67e04629f6d412db0a12d51820b480788d795" datatype="html">
+        <source>Create</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6fc5e65900ae1415d3170d5d2842f0dcae1b6645" datatype="html">
+        <source>Accept</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="ce3bb7411069c96e2065502c115323680e7f1ce0" datatype="html">
+        <source>Decline</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="fdf7cbdc140d0aab0f0b6c06065a0fd448ed6a2e" datatype="html">
         <source>Title</source>
         <target/>
@@ -68,30 +112,6 @@
       </trans-unit>
       <trans-unit id="fd73e1d615dbe5b4f163b867ba5583c0a1094892" datatype="html">
         <source>Create New Role</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="70a67e04629f6d412db0a12d51820b480788d795" datatype="html">
-        <source>Create</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="6186a27f1d8d9854f8790c7db85aa63aced506ca" datatype="html">
-        <source>Add Option</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="f6755cff4957d5c3c89bafce5651f1b6fa2b1fd9" datatype="html">
-        <source>Add</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="9fabdfadf0453602acf388171bd4f758df47e1a7" datatype="html">
-        <source>Choose</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
-        <source>Save</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="d7b35c384aecd25a516200d6921836374613dfe7" datatype="html">
-        <source>Cancel</source>
         <target/>
       </trans-unit>
       <trans-unit id="6765b4c916060f6bc42d9bb69e80377dbcb5e4e9" datatype="html">
@@ -144,14 +164,6 @@
       </trans-unit>
       <trans-unit id="49b5ece1efb59144a28e1fc871996fbf02494573" datatype="html">
         <source>No Conferences available.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="6fc5e65900ae1415d3170d5d2842f0dcae1b6645" datatype="html">
-        <source>Accept</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="ce3bb7411069c96e2065502c115323680e7f1ce0" datatype="html">
-        <source>Decline</source>
         <target/>
       </trans-unit>
       <trans-unit id="08aa41e861400dd6a1924fe17c978b24220b1b46" datatype="html">
@@ -316,14 +328,6 @@
       </trans-unit>
       <trans-unit id="43ea0cc41cfdf3dec9d67979e3f4251580ca0246" datatype="html">
         <source>Create New Form</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="d3781ad331fdd0bc9055c45a41664ac467de63af" datatype="html">
-        <source>Edit Profile</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="5edf054f14aa57bc25a28cb7db01956fee53dac8" datatype="html">
-        <source>Change Password</source>
         <target/>
       </trans-unit>
     </body>

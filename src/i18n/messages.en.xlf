@@ -326,6 +326,10 @@
         <source>Change Password</source>
         <target>Change Password</target>
       </trans-unit>
+      <trans-unit id="dc90df7803f5d1fbdf44864440f1f4b87b32b341" datatype="html">
+        <source>Admin Profile</source>
+        <target>Admin Profile</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
