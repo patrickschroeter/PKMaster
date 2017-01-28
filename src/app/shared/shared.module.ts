@@ -19,7 +19,7 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
         components.NavbarComponent,
         components.NavbarAdminComponent,
 
-        components.ChangePasswordOverlayComponent,
+        components.ModalChangePasswordComponent,
 
         elements.LoadingComponent,
 
@@ -44,7 +44,7 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
         components.NavbarComponent,
         components.NavbarAdminComponent,
 
-        components.ChangePasswordOverlayComponent,
+        components.ModalChangePasswordComponent,
 
         elements.LoadingComponent,
 

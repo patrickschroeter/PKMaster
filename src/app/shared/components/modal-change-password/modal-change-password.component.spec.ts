@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { ChangePasswordOverlayComponent } from './change-password-overlay.component';
+import { ModalChangePasswordComponent } from './modal-change-password.component';
 
 import { CoreProviderMock } from './../../../core/core.module';
 
@@ -11,13 +11,13 @@ import { DynamicFormProviderMock } from './../../../modules/dynamic-form/dynamic
 import { AlertProviderMock } from './../../../modules/alert/alert.module';
 import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
-describe('ChangePasswordOverlayComponent', () => {
-    let component: ChangePasswordOverlayComponent;
-    let fixture: ComponentFixture<ChangePasswordOverlayComponent>;
+describe('ModalChangePasswordComponent', () => {
+    let component: ModalChangePasswordComponent;
+    let fixture: ComponentFixture<ModalChangePasswordComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ChangePasswordOverlayComponent],
+            declarations: [ModalChangePasswordComponent],
             providers: [
                 ...CoreProviderMock,
                 ...DynamicFormProviderMock,
@@ -30,7 +30,7 @@ describe('ChangePasswordOverlayComponent', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ChangePasswordOverlayComponent);
+        fixture = TestBed.createComponent(ModalChangePasswordComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

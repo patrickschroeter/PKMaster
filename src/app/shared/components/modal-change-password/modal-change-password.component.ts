@@ -18,12 +18,12 @@ import { TranslationService } from './../../../modules/translation';
 import { OverlayComponent } from './../../../modules/overlay';
 
 @Component({
-    selector: 'pk-change-password-overlay',
-    templateUrl: './change-password-overlay.component.html',
-    styleUrls: ['./change-password-overlay.component.scss'],
+    selector: 'pk-modal-change-password',
+    templateUrl: './modal-change-password.component.html',
+    styleUrls: ['./modal-change-password.component.scss'],
     exportAs: 'changePassword'
 })
-export class ChangePasswordOverlayComponent implements OnInit {
+export class ModalChangePasswordComponent implements OnInit {
 
     @ViewChild('overlay') overlay: OverlayComponent;
 
