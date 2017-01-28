@@ -2,12 +2,12 @@
 
 <div id="conference-detail" class="rel" *ngIf="conference">
     <h2 class="element element--spacing-bottom-small" i18n>Conference: {{ conference.description }}</h2>
-    <h3 class="element element--spacing-bottom-large">{{ conference.dateOfEvent | date }} ({{ conference.startOfEvent }} - {{ conference.endOfEvent }}), {{ conference.roomOfEvent }}</h3>
+    <h4 class="element element--spacing-bottom-large">{{ conference.dateOfEvent | date }} ({{ conference.startOfEvent }} - {{ conference.endOfEvent }}), {{ conference.roomOfEvent }}</h4>
 
     <div i18n>Attendant PK-Members (TODO)</div>
 
     <div>
-        <h4 i18n>Agenda</h4>
+        <h3 i18n>Agenda</h3>
         <div *ngFor="let item of agenda; let i = index">
             {{ i + 1 }}. {{ item.formId }}
         </div>
@@ -15,7 +15,7 @@
 
     <div>
         <div *ngFor="let item of agenda; let i = index">
-            <h5>{{ i + 1 }}. {{ item.formId }}</h5>
+            <h4>{{ i + 1 }}. {{ item.formId }}</h4>
 
             <pk-list *ngIf="item.applications?.length">
                 <pk-list-header>

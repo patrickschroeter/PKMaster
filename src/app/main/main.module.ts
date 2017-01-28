@@ -12,6 +12,7 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
 import { ButtonModule } from './../modules/button/button.module';
 import { OverlayModule } from './../modules/overlay/overlay.module';
 import { AlertDirectiveModule } from './../modules/alert/alert.module';
+import { DeviderModule } from './../modules/devider/devider.module';
 
 @NgModule({
     declarations: [
@@ -45,7 +46,8 @@ import { AlertDirectiveModule } from './../modules/alert/alert.module';
         ButtonModule,
         FloatingModule,
         OverlayModule,
-        AlertDirectiveModule
+        AlertDirectiveModule,
+        DeviderModule
     ],
     providers: [],
     exports: []
