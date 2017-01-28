@@ -23,6 +23,8 @@ export const DICTIONARY_EN = {
     loadingValidationsOf: 'Loading validations of { 0 }...',
     loadingStylesOf: 'Loading styles of { 0 }...',
 
+    loadingChangePassword: 'Encrypting data...',
+
     elementTypeNotValid: `Element type '{ 0 }' does not exist.`,
     identifyingError: 'There was an error identifying the element.',
     operationNotAllowed: 'This operation is not allowed.',

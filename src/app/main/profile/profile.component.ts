@@ -2,13 +2,8 @@ import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { AuthenticationService } from './../../core';
-import { AlertService } from './../../modules/alert';
-import { OverlayComponent } from './../../modules/overlay';
-import { TranslationService } from './../../modules/translation';
 
-import { DynamicFormService, InputValidationService } from './../../modules/dynamic-form';
-
-import { Field, Form, AppUser } from './../../swagger';
+import { Form, AppUser } from './../../swagger';
 import { Fields } from './../../models';
 
 @Component({
@@ -19,13 +14,6 @@ import { Fields } from './../../models';
 export class ProfileComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    @ViewChild('overlay') overlay: OverlayComponent;
-
-    private _changePasswordForm: FormGroup;
-    get changePasswordForm() { return this._changePasswordForm; }
-    set changePasswordForm(form) { this._changePasswordForm = form; }
-    private changePasswordElements: Field[];
-
     private _form: Form;
     get form() { return this._form; }
     set form(form) { this._form = form; }
@@ -33,11 +21,6 @@ export class ProfileComponent implements OnInit {
 
     constructor(
         private auth: AuthenticationService,
-        private alert: AlertService,
-        private builder: FormBuilder,
-        private dynamicForm: DynamicFormService,
-        private inputValidation: InputValidationService,
-        private translationService: TranslationService
     ) { }
 
     ngOnInit() {
@@ -52,41 +35,5 @@ export class ProfileComponent implements OnInit {
                 new Fields.Matrikelnummer(user.matNr)
             ];
         });
-
-        this.initChangePasswordField();
     }
-
-    private initChangePasswordField() {
-        this.changePasswordElements = [
-            new Fields.Password(null, { name: 'password', label: 'Current Password', styles: []}),
-            new Fields.Password(null, { name: 'newpassword', label: 'New Password'}),
-            new Fields.Password(null, { name: 'newpasswordconfirm', label: 'New Password (confirm)'})
-        ];
-
-        this.changePasswordForm = this.dynamicForm.generateFormFromInput(
-            this.changePasswordElements,
-            { validator: this.inputValidation.areEqual(['newpassword', 'newpasswordconfirm'], 'errorPasswordMatch')});
-    }
-
-    /**
-     * @description changes the password
-     * @param {Object} event the form object
-     * @return {void}
-     */
-    changePassword(event): void {
-        this.alert.setLoading('changePassword', 'Encrypting Data...');
-        this.auth.changePassword(this.user, event.password, event.newpassword).subscribe(
-            () => {
-                this.alert.setSuccessHint('password_changed', this.translationService.translate('changedPassword'));
-            },
-            () => {
-                this.alert.setAlert(this.translationService.translate('headerError'), this.translationService.translate('errorChangedPassword'));
-            }, () => {
-                this.alert.removeHint('changePassword');
-                this.overlay.toggle(false);
-                this.initChangePasswordField();
-            }
-        );
-    }
-
 }

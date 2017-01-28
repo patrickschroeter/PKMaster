@@ -1,3 +1,26 @@
-<p>
-  admin-profile works!
-</p>
+<div id="admin-profile">
+    <pk-loading *ngIf="!user"></pk-loading>
+
+    <div class="rel"  *ngIf="user">
+        <h1 class="element element--spacing-bottom-small" i18n>Admin Profile</h1>
+
+        <pk-dynamic-form [formElements]="form" #dynamicForm>
+            <pk-dynamic-form-content>
+
+                <pk-dynamic-form-element *ngFor="let element of form" [element]="element" [disabled]="true" [form]="dynamicForm.form"></pk-dynamic-form-element>
+
+            </pk-dynamic-form-content>
+
+        </pk-dynamic-form>
+
+    </div>
+
+    <pk-floating fixed top-right>
+        <a  routerLink="/admin/profile/edit">
+            <pk-button rounded i18n-pkAlert pkAlert="Edit Profile" class="element--spacing-bottom-tiny" icon="create" element--secondary></pk-button>
+        </a>
+        <pk-button rounded i18n-pkAlert pkAlert="Change Password" icon="security" element--secondary (onClick)="changePassword.overlay.toggle()"></pk-button>
+    </pk-floating>
+</div>
+
+<pk-change-password-overlay #changePassword></pk-change-password-overlay>
