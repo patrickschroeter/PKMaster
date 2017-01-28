@@ -10,6 +10,7 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { AlertModule } from './modules/alert/alert.module';
 import { TranslationModule } from './modules/translation/translation.module';
+import { OverlayModule } from './modules/overlay/overlay.module';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { TranslationModule } from './modules/translation/translation.module';
         CoreModule,
         SharedModule,
         AlertModule,
-        TranslationModule
+        TranslationModule,
+        OverlayModule
     ],
     providers: [],
     bootstrap: [AppComponent]

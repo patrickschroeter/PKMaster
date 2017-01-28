@@ -1,16 +1,30 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { OverlayComponent, OverlayHeaderComponent, OverlayContentComponent } from './';
+import {
+    OverlayOutletComponent,
+    OverlayComponent,
+
+    OverlayHeaderComponent,
+    OverlayContentComponent,
+
+    OverlayDefaultComponent,
+
+    OverlayService
+} from './';
 
 import { FloatingModule } from './../floating/floating.module';
 import { ButtonModule } from './../button/button.module';
 
 @NgModule({
     declarations: [
+        OverlayOutletComponent,
         OverlayComponent,
+
         OverlayHeaderComponent,
-        OverlayContentComponent
+        OverlayContentComponent,
+
+        OverlayDefaultComponent
     ],
     imports: [
         CommonModule,
@@ -18,12 +32,16 @@ import { ButtonModule } from './../button/button.module';
         ButtonModule
     ],
     providers: [
-
+        OverlayService
     ],
     exports: [
+        OverlayOutletComponent,
         OverlayComponent,
+
         OverlayHeaderComponent,
-        OverlayContentComponent
+        OverlayContentComponent,
+
+        OverlayDefaultComponent
     ]
 })
 export class OverlayModule { }
