@@ -109,6 +109,7 @@ export class ModalAcceptApplicationComponent implements OnInit {
         comment.created = new Date();
         this.auth.getUser().subscribe(user => {
             comment.user = user;
+            comment.userId = user.id;
             // TODO: send to server
             if (!this.application.comments) {
                 this.application.comments = [];

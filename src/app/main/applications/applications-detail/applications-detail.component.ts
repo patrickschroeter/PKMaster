@@ -64,27 +64,11 @@ export class ApplicationsDetailComponent implements OnInit {
         });
 
         this.initAddCommentForm();
-        this.acceptForm = [
-            {
-                fieldType: 'textarea',
-                name: 'accept_message',
-                label: 'Add Comment:',
-                required: true
-            },
-            {
-                fieldType: 'checkbox',
-                name: 'accept_requiresChanges',
-                label: 'Requires Changes',
-                styles: [
-                    'small'
-                ]
-            }
-        ];
 
         this.conferenceService.getConferences().subscribe(conferences => {
             this.conferences = [];
             for (let i = 0, length = conferences.length; i < length; i++) {
-                let conference = conferences[i];
+                const conference = conferences[i];
                 this.conferences.push({
                     label: conference.description,
                     value: conference.id
@@ -127,10 +111,11 @@ export class ApplicationsDetailComponent implements OnInit {
      * @description adds the comment to the current application
      */
     public createNewComment(values: Comment) {
-        let comment: Comment = values;
+        const comment: Comment = values;
         comment.created = new Date();
         /** TODO */ comment.text = comment.message;
         this.auth.getUser().subscribe(user => {
+            comment.user = user;
             comment.userId = user.id;
             comment.isPrivate = !! comment.isPrivate;
             comment.requiresChanges = !!comment.requiresChanges;
@@ -142,32 +127,6 @@ export class ApplicationsDetailComponent implements OnInit {
                 this.savingComment = false;
                 this.initAddCommentForm();
             });
-        });
-    }
-
-    /**
-     * @description accepts the application (with condition)
-     */
-    @Access('EditApplications')
-    public acceptApplication(form) {
-        /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiredChanges, isPrivate: false });
-        /** TODO */ this.application.status = { name: 'accepted' };
-        this.applicationService.updateApplication(this.application).subscribe(application => {
-            this.application = application;
-            this.acceptOverlay.toggle();
-        });
-    }
-
-    /**
-     * @description declines the application with reasons
-     */
-    @Access('EditApplications')
-    public declineApplication(form) {
-        /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiredChanges, isPrivate: false });
-        /** TODO */ this.application.status = { name: 'denied' };
-        this.applicationService.updateApplication(this.application).subscribe(application => {
-            this.application = application;
-            this.acceptOverlay.toggle();
         });
     }
 
