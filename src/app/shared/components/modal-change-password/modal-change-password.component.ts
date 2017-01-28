@@ -21,7 +21,7 @@ import { OverlayComponent } from './../../../modules/overlay';
     selector: 'pk-modal-change-password',
     templateUrl: './modal-change-password.component.html',
     styleUrls: ['./modal-change-password.component.scss'],
-    exportAs: 'changePassword'
+    exportAs: 'passwordModal'
 })
 export class ModalChangePasswordComponent implements OnInit {
 

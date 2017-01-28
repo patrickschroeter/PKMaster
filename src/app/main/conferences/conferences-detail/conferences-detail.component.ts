@@ -4,7 +4,6 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import {
     ConferenceService,
     ApplicationService,
-    AuthenticationService,
     PermissionService
 } from './../../../core';
 import { Conference, Application, Comment } from './../../../swagger';
@@ -20,7 +19,6 @@ import { Access } from './../../../shared';
 })
 export class ConferencesDetailComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
-    @ViewChild('acceptOverlay') acceptOverlay: OverlayComponent;
 
     public conference: Conference;
 
@@ -28,15 +26,11 @@ export class ConferencesDetailComponent implements OnInit {
 
     public application: Application;
 
-    public acceptForm;
-
     constructor(
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private conferenceService: ConferenceService,
-        private applicationService: ApplicationService,
-        private auth: AuthenticationService,
-        private permission: PermissionService
+        private applicationService: ApplicationService
     ) { }
 
     ngOnInit() {
@@ -51,27 +45,6 @@ export class ConferencesDetailComponent implements OnInit {
                 this.router.navigate(['/conferences']);
             });
         });
-
-        this.initAcceptForm();
-    }
-
-    public initAcceptForm() {
-        this.acceptForm = [
-            {
-                fieldType: 'textarea',
-                name: 'accept_message',
-                label: 'Add Comment:',
-                required: true
-            },
-            {
-                fieldType: 'checkbox',
-                name: 'accept_requiresChanges',
-                label: 'Requires Changes',
-                styles: [
-                    'small'
-                ]
-            }
-        ];
     }
 
     /**
@@ -82,7 +55,7 @@ export class ConferencesDetailComponent implements OnInit {
         if (!conference.applications) { return; }
         /** TODO */ if (conference.application) { conference.applications = conference.application; }
         for (let i = 0, length = conference.applications.length; i < length; i++) {
-            let application = conference.applications[i];
+            const application = conference.applications[i];
             let item = this.getItemOfAgenda(application.formId);
             if (!item) {
                 item = {
@@ -100,7 +73,7 @@ export class ConferencesDetailComponent implements OnInit {
      */
     private getItemOfAgenda(formId: string): AgendaItem {
         for (let i = 0, length = this.agenda.length; i < length; i++) {
-            let item = this.agenda[i];
+            const item = this.agenda[i];
             if (item.formId === formId) {
                 return item;
             }
@@ -110,52 +83,6 @@ export class ConferencesDetailComponent implements OnInit {
 
     public selectApplication(application: Application) {
         this.application = application;
-    }
-
-    /**
-     * @description accepts the application (with condition)
-     */
-    @Access('EditApplications')
-    public acceptApplication(form) {
-        /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiredChanges, isPrivate: false });
-        /** TODO */ this.application.status = { name: 'accepted' };
-        this.applicationService.updateApplication(this.application).subscribe(application => {
-            this.application = application;
-            this.acceptOverlay.toggle();
-            this.initAcceptForm();
-        });
-    }
-
-    /**
-     * @description declines the application with reasons
-     */
-    @Access('EditApplications')
-    public declineApplication(form) {
-        /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiredChanges, isPrivate: false });
-        /** TODO */ this.application.status = { name: 'denied' };
-        this.applicationService.updateApplication(this.application).subscribe(application => {
-            this.application = application;
-            this.acceptOverlay.toggle();
-            this.initAcceptForm();
-        });
-    }
-
-    /**
-     * @description adds the comment to the current application
-     */
-    public createNewComment(values: Comment) {
-        let comment: Comment = values;
-        comment.created = new Date();
-        this.auth.getUser().subscribe(user => {
-            comment.user = user;
-            // TODO: send to server
-            if (!this.application.comments) {
-                this.application.comments = [];
-            }
-            setTimeout(() => {
-                this.application.comments.push(comment);
-            }, 500);
-        });
     }
 
 }

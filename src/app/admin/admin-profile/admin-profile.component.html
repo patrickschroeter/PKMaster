@@ -19,8 +19,8 @@
         <a  routerLink="/admin/profile/edit">
             <pk-button rounded i18n-pkAlert pkAlert="Edit Profile" class="element--spacing-bottom-tiny" icon="create" element--secondary></pk-button>
         </a>
-        <pk-button rounded i18n-pkAlert pkAlert="Change Password" icon="security" element--secondary (onClick)="changePassword.overlay.toggle()"></pk-button>
+        <pk-button rounded i18n-pkAlert pkAlert="Change Password" icon="security" element--secondary (onClick)="passwordModal.overlay.toggle()"></pk-button>
     </pk-floating>
 </div>
 
-<pk-modal-change-password #changePassword></pk-modal-change-password>
+<pk-modal-change-password #passwordModal></pk-modal-change-password>

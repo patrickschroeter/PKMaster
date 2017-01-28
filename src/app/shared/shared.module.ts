@@ -20,10 +20,12 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
         components.NavbarAdminComponent,
 
         components.ModalChangePasswordComponent,
+        components.ModalAcceptApplicationComponent,
 
         elements.LoadingComponent,
 
-        directives.AccessDirective
+        directives.AccessDirective,
+
     ],
     imports: [
         CommonModule,
@@ -45,6 +47,7 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
         components.NavbarAdminComponent,
 
         components.ModalChangePasswordComponent,
+        components.ModalAcceptApplicationComponent,
 
         elements.LoadingComponent,
 
