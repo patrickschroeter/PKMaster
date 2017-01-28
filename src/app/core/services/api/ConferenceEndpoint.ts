@@ -12,7 +12,8 @@ export class ConferenceEndpoint {
     constructor() { }
 
 
-    public addApplicationToConference(conferenceId: number, token?: number, application?: number, extraHttpRequestParams?: any): Observable<Conference> {
+    public addApplicationToConference(conferenceId: number, token?: number, application?: number, extraHttpRequestParams?: any):
+        Observable<Conference> {
         return new Observable(observer => { observer.next({ id: conferenceId }); });
     }
 
@@ -31,7 +32,8 @@ export class ConferenceEndpoint {
         });
     }
 
-    public deleteApplicationOfConference(conferenceId: number, token?: number, application?: number, extraHttpRequestParams?: any): Observable<Conference> {
+    public deleteApplicationOfConference(conferenceId: number, token?: number, application?: number, extraHttpRequestParams?: any):
+        Observable<Conference> {
         return new Observable(observer => { observer.next({ id: conferenceId }); });
     }
 
@@ -73,7 +75,8 @@ export class ConferenceEndpoint {
         });
     }
 
-    public updateConferenceById(conferenceId: number, token?: number, conference?: Conference, extraHttpRequestParams?: any): Observable<Conference> {
+    public updateConferenceById(conferenceId: number, token?: number, conference?: Conference, extraHttpRequestParams?: any):
+        Observable<Conference> {
         return new Observable(observer => { observer.next({ id: conferenceId }); });
     }
 
@@ -104,7 +107,7 @@ export class ConferenceEndpoint {
 
     private _conference(id?: string): Conference {
         let result: Conference;
-        let list = this._list;
+        const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id) {
                 result = list[i];
@@ -115,7 +118,7 @@ export class ConferenceEndpoint {
     }
 
     private _conferenceUpdate(id: string, conference: Conference) {
-        let list = this._list;
+        const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id) {
                 list[i] = conference;

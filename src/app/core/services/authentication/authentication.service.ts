@@ -13,8 +13,8 @@ import { UserApi } from './../../../swagger/api/UserApi';
 @Injectable()
 export class AuthenticationService {
 
-    static TOKEN_KEY: string = 'authtoken';
-    static TOKEN_TIME_KEY: string = 'authtokentime';
+    static TOKEN_KEY = 'authtoken';
+    static TOKEN_TIME_KEY = 'authtokentime';
     static TOKEN_TIME: number = 1000 * 60 * 60 * 24;
 
     private user: Observable<any>;
@@ -37,8 +37,8 @@ export class AuthenticationService {
      * @description getter method for token, handling local storage
      */
     get token(): string {
-        let time = +localStorage.getItem(AuthenticationService.TOKEN_TIME_KEY);
-        let token = localStorage.getItem(AuthenticationService.TOKEN_KEY);
+        const time = +localStorage.getItem(AuthenticationService.TOKEN_TIME_KEY);
+        const token = localStorage.getItem(AuthenticationService.TOKEN_KEY);
         if (time >= Date.now() && token) {
             localStorage.setItem(AuthenticationService.TOKEN_TIME_KEY, (Date.now() + AuthenticationService.TOKEN_TIME).toString());
             return token;

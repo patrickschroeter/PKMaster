@@ -121,10 +121,10 @@ describe('Service: FormElement', () => {
         let formGroup: FormGroup;
         let elementForm: Field[];
 
-        let getNameField = (): Field => {
+        const getNameField = (): Field => {
             return _.find(elementForm, obj => { return obj.name === 'name'; });
         };
-        let getPlaceholderField = (): Field => {
+        const getPlaceholderField = (): Field => {
             return _.find(elementForm, obj => { return obj.name === 'placeholder'; });
         };
 
@@ -167,7 +167,7 @@ describe('Service: FormElement', () => {
                 formGroup.get('fieldType').setValue('input');
                 service.updateElement(formGroup); tick(600);
 
-                let first = _.cloneDeep(elementForm);
+                const first = _.cloneDeep(elementForm);
                 expect(elementForm).toEqual(first);
 
                 /** select an other value */
@@ -178,7 +178,7 @@ describe('Service: FormElement', () => {
             }));
 
             it('should NOT update the ElementForm when the same fieldType is selected', fakeAsync(() => {
-                let placeholder = 'somestring';
+                const placeholder = 'somestring';
                 service.getElement().subscribe(obj => {
                     elementForm = obj;
                 });
@@ -207,7 +207,7 @@ describe('Service: FormElement', () => {
             }));
 
             it('should keep defined values in element if they exist in both types', fakeAsync(() => {
-                let name = 'spec';
+                const name = 'spec';
 
                 service.getElement().subscribe(obj => {
                     elementForm = obj;
@@ -228,7 +228,7 @@ describe('Service: FormElement', () => {
             }));
 
             it('should remove fields from element if they are not more required', fakeAsync(() => {
-                let name = 'spec';
+                const name = 'spec';
 
                 service.getElement().subscribe(obj => {
                     elementForm = obj;
@@ -344,7 +344,7 @@ describe('Service: FormElement', () => {
                 /** set value */
                 service.updateElement(formGroup); tick(600);
 
-                let length = formGroup.get('options').value.length;
+                const length = formGroup.get('options').value.length;
 
                 formGroup.get('options').setValue('fakultaet');
 
@@ -388,7 +388,7 @@ describe('Service: FormElement', () => {
                 expect(formGroup.get('optionTable').value).toEqual('fakultaet');
                 expect(formGroup.get('options').value.length).toEqual(2);
 
-                let opts = formGroup.get('options').value;
+                const opts = formGroup.get('options').value;
                 opts.push({});
                 formGroup.get('options').setValue(opts);
 

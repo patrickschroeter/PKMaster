@@ -55,7 +55,7 @@ export class UserApiMock {
     }
 
     public getUserById(userId: string, token?: number, extraHttpRequestParams?: any): Observable<any> {
-        let user = UserApiMock.USER; user.id = userId;
+        const user = UserApiMock.USER; user.id = userId;
         return new Observable((observer: Observer<any>) => { userId ? observer.next(user) : observer.error('error'); observer.complete(); });
     }
 
