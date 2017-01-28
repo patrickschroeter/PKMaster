@@ -1,15 +1,10 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { SelectComponent } from './select.component';
-
-import { FloatingModule } from './../../../../modules/floating/floating.module';
-import { ButtonModule } from './../../../../modules/button/button.module';
-import { OverlayModule } from './../../../../modules/overlay/overlay.module';
-import { DynamicFormComponent } from './../../';
 
 describe('SelectComponent', () => {
     let component: SelectComponent;
@@ -22,13 +17,11 @@ describe('SelectComponent', () => {
             ],
             imports: [
                 ReactiveFormsModule,
-                FloatingModule,
-                FormsModule,
-                ButtonModule,
-                OverlayModule
+                FormsModule
             ],
             providers: [
-            ]
+            ],
+            schemas: [NO_ERRORS_SCHEMA]
         })
             .compileComponents();
     }));

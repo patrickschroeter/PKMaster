@@ -300,13 +300,12 @@ describe('Service: Authentication', () => {
             service.logout();
         }));
 
-        xit('should call the UserApi with the user and the password', () => {
-            let user = { id: 'user' };
-            let password = 'password';
-            let newpassword = 'newpassword';
-            spyOn(api, 'updateUserById');
-            // undefined error ?!?
-            // service.changePassword(user, password, newpassword).subscribe();
+        it('should call the UserApi with the user and the password', () => {
+            const user = { id: 'user' };
+            const password = 'password';
+            const newpassword = 'newpassword';
+            spyOn(api, 'updateUserById').and.callThrough();
+            service.changePassword(user, password, newpassword).subscribe();
             expect(api.updateUserById).toHaveBeenCalled();
         });
 

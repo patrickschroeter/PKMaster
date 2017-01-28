@@ -14,11 +14,11 @@ import { FormApi } from './../../../swagger/api/FormApi';
 @Injectable()
 export class ApplicationApiMock {
 
-    static COMMENT_PRIVATE: Comment = { isPrivate: false, message: 'Testkommentar', created: new Date(), user: { lastname: 'Truthy'} };
+    static COMMENT_PRIVATE: Comment = { isPrivate: false, message: 'Testkommentar', created: new Date(), user: { lastname: 'Truthy' } };
 
-    static COMMENT_PUBLIC: Comment = { isPrivate: true, message: 'privater Testkommentar, der leider etwas länger wurde als anfangs geplant, aber auch nicht gekürzt werden kann, da sonst informationen fehlen', created: new Date(), user: { lastname: 'Falsey'} };
+    static COMMENT_PUBLIC: Comment = { isPrivate: true, message: 'privater Testkommentar, der leider etwas länger wurde als anfangs geplant, aber auch nicht gekürzt werden kann, da sonst informationen fehlen', created: new Date(), user: { lastname: 'Falsey' } };
 
-    static APPLICATION: Application = { id: '1', status: { name: 'created'}, created: new Date(), form: FormApiMock.FORM, attributes: FormApiMock.FORM.formHasField, comments: [ ApplicationApiMock.COMMENT_PUBLIC, ApplicationApiMock.COMMENT_PRIVATE ], user: UserApiMock.USER };
+    static APPLICATION: Application = { id: '1', status: { name: 'created' }, created: new Date(), form: FormApiMock.FORM, attributes: FormApiMock.FORM.formHasField, comments: [ApplicationApiMock.COMMENT_PUBLIC, ApplicationApiMock.COMMENT_PRIVATE], user: UserApiMock.USER };
 
     private list: Application[] = [];
 
@@ -43,5 +43,9 @@ export class ApplicationApiMock {
 
     public updateApplicationById(applicationId: string, token?: number, application?: Application, extraHttpRequestParams?: any): Observable<any> {
         return new Observable((observer: Observer<any>) => { applicationId === application.id ? observer.next(application) : observer.error('error'); observer.complete(); });
+    }
+
+    public addCommentToApplication(applicationId: string, token?: number, comment?: any, extraHttpRequestParams?: any): Observable<any> {
+        return new Observable((observer: Observer<any>) => { observer.next(ApplicationApiMock.APPLICATION); observer.complete(); });
     }
 }

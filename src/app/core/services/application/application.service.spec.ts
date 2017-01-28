@@ -1,6 +1,8 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
+import * as _ from 'lodash';
+
 import { ApplicationService } from './application.service';
 
 import {
@@ -138,74 +140,145 @@ describe('Service: Application', () => {
     });
 
     describe('submitApplication', () => {
-        it('should update the status to <submit> if the operation is allowed',
-            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
-
-            }))
+        it('should update the status to <submit> if the operation is allowed (created)',
+            inject([ApplicationService], (service: ApplicationService) => {
+                const application = ApplicationApiMock.APPLICATION;
+                application.status.name = 'created';
+                service.submitApplication(application).subscribe(result => {
+                    expect(result.id).toEqual(application.id);
+                    expect(result.status.name).toEqual('submitted');
+                });
+            })
         );
         it('should throw an error if the operation is not allowed',
-            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
-
-            }))
-        );
-        it('should alert an error if the operation is not allowed',
-            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
-
-            }))
+            inject([ApplicationService], (service: ApplicationService) => {
+                const application = ApplicationApiMock.APPLICATION;
+                application.status.name = 'accepted';
+                service.submitApplication(application).subscribe(result => {
+                    expect(result).toBeFalsy();
+                }, error => {
+                    expect(error).toBeTruthy();
+                });
+            })
         );
     });
 
     describe('rescindApplication', () => {
-        it('should update the status to <rescinded> if the operation is allowed',
-            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
-
-            }))
+        it('should update the status to <rescinded> if the operation is allowed (submitted)',
+            inject([ApplicationService], (service: ApplicationService) => {
+                const application = ApplicationApiMock.APPLICATION;
+                application.status.name = 'submitted';
+                service.rescindApplication(application).subscribe(result => {
+                    expect(result.id).toEqual(application.id);
+                    expect(result.status.name).toEqual('rescinded');
+                });
+            })
         );
         it('should throw an error if the operation is not allowed',
-            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
-
-            }))
-        );
-        it('should alert an error if the operation is not allowed',
-            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
-
-            }))
+            inject([ApplicationService], (service: ApplicationService) => {
+                const application = ApplicationApiMock.APPLICATION;
+                application.status.name = 'accepted';
+                service.rescindApplication(application).subscribe(result => {
+                    expect(result).toBeFalsy();
+                }, error => {
+                    expect(error).toBeTruthy();
+                });
+            })
         );
     });
 
     describe('deactivateApplication', () => {
-        it('should update the status to <deactivated> if the operation is allowed',
-            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
-
-            }))
+        it('should update the status to <deactivated> if the operation is allowed (rescinded)',
+            inject([ApplicationService], (service: ApplicationService) => {
+                const application = ApplicationApiMock.APPLICATION;
+                application.status.name = 'rescinded';
+                service.deactivateApplication(application).subscribe(result => {
+                    expect(result.id).toEqual(application.id);
+                    expect(result.status.name).toEqual('deactivated');
+                });
+            })
+        );
+        it('should update the status to <deactivated> if the operation is allowed (created)',
+            inject([ApplicationService], (service: ApplicationService) => {
+                const application = ApplicationApiMock.APPLICATION;
+                application.status.name = 'created';
+                service.deactivateApplication(application).subscribe(result => {
+                    expect(result.id).toEqual(application.id);
+                    expect(result.status.name).toEqual('deactivated');
+                });
+            })
         );
         it('should throw an error if the operation is not allowed',
-            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
-
-            }))
-        );
-        it('should alert an error if the operation is not allowed',
-            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
-
-            }))
+            inject([ApplicationService], (service: ApplicationService) => {
+                const application = ApplicationApiMock.APPLICATION;
+                application.status.name = 'accepted';
+                service.deactivateApplication(application).subscribe(result => {
+                    expect(result).toBeFalsy();
+                }, error => {
+                    expect(error).toBeTruthy();
+                });
+            })
         );
     });
 
     describe('saveApplication', () => {
+
+        it('should return null if no application is cached',
+            inject([ApplicationService], (service: ApplicationService) => {
+                expect(service.saveApplication({})).toBeUndefined();
+            })
+        );
+
         it('should update the application with the given form-values',
-            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
-
-            }))
+            inject([ApplicationService], (service: ApplicationService) => {
+                service.getApplicationById('id').subscribe(application => {
+                    service.saveApplication({
+                        date: 'some date'
+                    }).subscribe(result => {
+                        expect(_.find(result.attributes, obj => obj.name === 'date').value).toEqual('some date');
+                    });
+                });
+            })
         );
-        it('should throw an error if the user has no rights to change the application',
-            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
 
-            }))
-        );
-        it('should throw an error if the application does not exist',
-            fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
+        xit('should throw an error if the user has no rights to change the application',
+            inject([ApplicationService], (service: ApplicationService) => {
 
-            }))
+            })
         );
+    });
+
+    describe('addCommentToApplication', () => {
+
+        it('should throw an error if no application is cached',
+            inject([ApplicationService], (service: ApplicationService) => {
+                service.addCommentToApplication({}).subscribe(() => {}, error => {
+                    expect(error).toBeTruthy();
+                });
+            })
+        );
+
+        it('should call the api',
+            inject([ApplicationService, ApplicationApi], (service: ApplicationService, api: ApplicationApi) => {
+                service.getApplicationById('id').subscribe(application => {
+                    spyOn(api, 'addCommentToApplication').and.callThrough();
+                    service.addCommentToApplication({});
+                    expect(api.addCommentToApplication).toHaveBeenCalled();
+                });
+            })
+        );
+
+    });
+
+    describe('updateApplication', () => {
+
+        it('should call the api',
+            inject([ApplicationService, ApplicationApi], (service: ApplicationService, api: ApplicationApi) => {
+                spyOn(api, 'updateApplicationById').and.callThrough();
+                service.updateApplication({});
+                expect(api.updateApplicationById).toHaveBeenCalled();
+            })
+        );
+
     });
 });

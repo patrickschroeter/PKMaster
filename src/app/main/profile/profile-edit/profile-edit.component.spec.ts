@@ -1,18 +1,14 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ProfileEditComponent } from './profile-edit.component';
 
 import { CoreProviderMock } from './../../../core/core.module';
-import { SharedModule } from './../../../shared/shared.module';
-
 import { AlertProviderMock } from './../../../modules/alert/alert.module';
 import { TranslationProviderMock } from './../../../modules/translation/translation.module';
-import { DynamicFormModule } from './../../../modules/dynamic-form/dynamic-form.module';
-import { ButtonModule } from './../../../modules/button/button.module';
 
 describe('ProfileEditComponent', () => {
     let component: ProfileEditComponent;
@@ -24,18 +20,16 @@ describe('ProfileEditComponent', () => {
                 ProfileEditComponent
             ],
             imports: [
-                SharedModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: class { } },
-                ]),
-                DynamicFormModule,
-                ButtonModule
+                ])
             ],
             providers: [
                 ...CoreProviderMock,
                 ...AlertProviderMock,
                 ...TranslationProviderMock
-            ]
+            ],
+            schemas: [NO_ERRORS_SCHEMA]
         })
             .compileComponents();
     }));

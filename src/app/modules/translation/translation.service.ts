@@ -17,19 +17,19 @@ export class TranslationService {
      * @description translate the given string into an other language
      */
     public translate(key: string, interpolations?: (string | number)[]): string {
-        let result = this.i18n[this.localeId][key];
+        const result = this.i18n[this.localeId][key];
         if (!result) {
-            console.error(`Missing translation for '${key}' in language '{ this.localeId }`);
-            return `Missing translation for '${key}' in language '{ this.localeId }`;
+            console.error(`Missing translation for '${key}' in language '${ this.localeId }`);
+            return `Missing translation for '${key}' in language '${ this.localeId }`;
         }
 
         if (!interpolations) { return result; }
 
         // http://stackoverflow.com/questions/1408289/how-can-i-do-string-interpolation-in-javascript#answer-1408373
         return result.replace(/{([^{}]*)}/g, function (interpolation, content) {
-            let index = +content;
+            const index = +content;
             if (isNaN(index)) { return interpolation; }
-            let replacement = interpolations[+content];
+            const replacement = interpolations[+content];
             return typeof replacement === 'string' || typeof replacement === 'number' ? replacement : interpolation;
         });
     }

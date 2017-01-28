@@ -13,11 +13,11 @@ export class ConferenceEndpoint {
 
 
     public addApplicationToConference(conferenceId: number, token?: number, application?: number, extraHttpRequestParams?: any): Observable<Conference> {
-        return null;
+        return new Observable(observer => { observer.next({ id: conferenceId }); });
     }
 
     public addConference(token?: number, conference?: Conference, extraHttpRequestParams?: any): Observable<Conference> {
-        let value = this._conferenceAdd(conference);
+        const value = this._conferenceAdd(conference);
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (conference) {
@@ -32,19 +32,19 @@ export class ConferenceEndpoint {
     }
 
     public deleteApplicationOfConference(conferenceId: number, token?: number, application?: number, extraHttpRequestParams?: any): Observable<Conference> {
-        return null;
+        return new Observable(observer => { observer.next({ id: conferenceId }); });
     }
 
     public deleteConferenceById(conferenceId: number, token?: number, extraHttpRequestParams?: any): Observable<{}> {
-        return null;
+        return new Observable(observer => { observer.next({ id: conferenceId }); });
     }
 
     public getApplicationsByConference(conferenceId: number, token?: number, extraHttpRequestParams?: any): Observable<Array<Application>> {
-        return null;
+        return new Observable(observer => { observer.next({ id: conferenceId }); });
     }
 
     public getConferenceById(conferenceId: string, token?: number, extraHttpRequestParams?: any): Observable<Conference> {
-        let conference = this._conference(conferenceId);
+        const conference = this._conference(conferenceId);
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (conference) {
@@ -59,7 +59,7 @@ export class ConferenceEndpoint {
     }
 
     public getConferences(token?: number, filter?: string, sort?: string, extraHttpRequestParams?: any): Observable<Array<Conference>> {
-        let conferences = this._conferences();
+        const conferences = this._conferences();
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (conferences) {
@@ -74,7 +74,7 @@ export class ConferenceEndpoint {
     }
 
     public updateConferenceById(conferenceId: number, token?: number, conference?: Conference, extraHttpRequestParams?: any): Observable<Conference> {
-        return null;
+        return new Observable(observer => { observer.next({ id: conferenceId }); });
     }
 
     /**

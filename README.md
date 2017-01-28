@@ -176,8 +176,8 @@ formService als !singleton into element-edit.component?
 ## 13.Oktober (Kowa)
 
 - ~~sobald Antrag eingereicht - nicht mehr löschbar~~
-- sitzung in Antrag verlinkt
-- Akzeptierung mit Bedingung (16 statt 20 Wochen) -> textlich in Kommentar
+- ~~sitzung in Antrag verlinkt~~
+- ~~Akzeptierung mit Bedingung (16 statt 20 Wochen) -> textlich in Kommentar~~
 - teilberechtigungen ( zb Sekreteriat )
 - ~~andere Formulare für Dozenten~~
 - nicht Fakultäts - sonder PK-Gebunden (Studiengang)
@@ -195,13 +195,13 @@ formService als !singleton into element-edit.component?
 ## 27.Oktober (Kowa)
 
 - Beziehungstabelle ohne künstliche ID (Performancefrage, Sekundärindex)
-- Application: Conference Optional ( + default ?-> eher nicht: merkmal für lock status)
-- Application: filled direct in App?`
+- ~~Application: Conference Optional ( + default ?-> eher nicht: merkmal für lock status)~~
+- ~~Application: filled direct in App?`~~
 - User deaktivieren ?
 - Antrag für fremde Personen erstellen (Dozent, Pk+Chef) -> für mehrere Studenten, zb Notenänderung
 - ~~Antrag deaktivieren (zurückziehen)~~
 - Dozent bestätigen + Note eintragen (zusatz info angeben) -> kommentare?
-- Antrag mit änderung Annehmen
+- ~~Antrag mit änderung Annehmen~~
 - Feld entfernen: unsichtbar außer wert vorhanden -> nicht neu befüllbar
 - Anträge versionieren + verlinken -> kommentare von allen Versionen anzeigen
 
@@ -217,7 +217,7 @@ formService als !singleton into element-edit.component?
 - ~~Font Smoothing~~
 - ~~Google NotoSans~~
 - User Journeys: die wege des users zu ziel mit deren häufigkeit
-- Blockbildung + übersichtlichkeit
+- ~~Blockbildung + übersichtlichkeit~~
 - Performance + Tastaturbedienbarkeit
 - ~~Farblicher Kontrast (zb Background) edit vs view~~
 - visuelle highlights (generator) + icos?

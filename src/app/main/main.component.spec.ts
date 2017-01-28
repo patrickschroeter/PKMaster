@@ -1,15 +1,11 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { MainComponent } from './main.component';
 import { PermissionService, PermissionMock, AuthenticationService, AuthenticationMock } from './../core/services';
-
-import {
-    SharedModule
-} from './../shared/shared.module';
 
 describe('MainComponent', () => {
     let component: MainComponent;
@@ -21,7 +17,6 @@ describe('MainComponent', () => {
                 MainComponent
             ],
             imports: [
-                SharedModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: class { } },
                 ])
@@ -29,7 +24,8 @@ describe('MainComponent', () => {
             providers: [
                 { provide: AuthenticationService, useClass: AuthenticationMock },
                 { provide: PermissionService, useClass: PermissionMock }
-            ]
+            ],
+            schemas: [NO_ERRORS_SCHEMA]
         })
             .compileComponents();
     }));
