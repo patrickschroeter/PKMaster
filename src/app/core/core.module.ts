@@ -92,10 +92,10 @@ export const CoreProviderMock = [
     { provide: services.ConferenceService, useClass: services.ConferenceMock },
     { provide: services.FormElementService, useClass: services.FormElementMock },
 
-    { provide: FormApi, useClass: services.FormEndpoint },
-    { provide: ApplicationApi, useClass: services.ApplicationEndpoint },
-    { provide: UserApi, useClass: services.UserEndpoint },
-    { provide: ConferenceApi, useClass: services.ConferenceEndpoint },
+    { provide: FormApi, useClass: services.FormApiMock },
+    { provide: ApplicationApi, useClass: services.ApplicationApiMock },
+    { provide: UserApi, useClass: services.UserApiMock },
+    { provide: ConferenceApi, useClass: services.ConferenceApiMock },
 ];
 
 /**

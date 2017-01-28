@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 
 import { ConferenceService } from './conference.service';
 
-import { ConferenceEndpoint } from './../../../core';
+import { ConferenceApiMock } from './../../../core';
 
 import { ConferenceApi } from './../../../swagger';
 
@@ -18,7 +18,7 @@ describe('ConferenceService', () => {
             providers: [
                 ConferenceService,
 
-                { provide: ConferenceApi, useClass: ConferenceEndpoint }
+                { provide: ConferenceApi, useClass: ConferenceApiMock }
             ],
             imports: [
                 AlertModule
