@@ -25,7 +25,7 @@ export class ApplicationApiMock {
     constructor(private formApi: FormApi) { }
 
     public getApplicationById(applicationId: string, token?: number, extraHttpRequestParams?: any): Observable<any> {
-        let application = ApplicationApiMock.APPLICATION; application.id = applicationId;
+        const application = ApplicationApiMock.APPLICATION; application.id = applicationId;
         return new Observable((observer: Observer<any>) => { applicationId ? observer.next(application) : observer.error('error'); observer.complete(); });
     }
 

@@ -32,7 +32,7 @@ export class AccessService implements CanActivate, CanDeactivate<any>, CanLoad {
     }
 
     canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
-        let user = this.authentication.getUser();
+        const user = this.authentication.getUser();
         /** TODO: catch error */
         return user.map((e) => {
             /** Requires user in this.permission */
@@ -41,10 +41,12 @@ export class AccessService implements CanActivate, CanDeactivate<any>, CanLoad {
     }
 
     /**
-     * @description waiting for the user object to check the permission
+     * waiting for the user object to check the permission
+     * @param {(String|Array<String>)} permission - the permission(s) to check the user for
+     * @param {Boolean} or - flag to indicate if the user needs one or all of the permissions
      */
     protected hasAccess(permission: string | string[], or = false): Observable<boolean> {
-        let user = this.authentication.getUser();
+        const user = this.authentication.getUser();
         /** TODO: catch error */
         return user.map((e) => {
             /** Requires user in this.permission */
@@ -92,7 +94,9 @@ export class AccessEditForms extends AccessService {
 @Injectable()
 export class AccessAdmin extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) { return this.hasAccess(['ReadRoles', 'ReadPermissions', 'ReadUsers'], true); }
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.hasAccess(['ReadRoles', 'ReadPermissions', 'ReadUsers'], true);
+    }
     canLoad(route: Route) { return this.hasAccess(['ReadRoles', 'ReadPermissions', 'ReadUsers'], true); }
 }
 
@@ -101,11 +105,11 @@ export class AccessReadRoles extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         return this.hasAccess('ReadRoles').map(access => {
-          if (!access) {
-            this.router.navigate(['', 'admin', 'profile']);
-            return false;
-          }
-          return true;
+            if (!access) {
+                this.router.navigate(['', 'admin', 'profile']);
+                return false;
+            }
+            return true;
         });
     }
 }

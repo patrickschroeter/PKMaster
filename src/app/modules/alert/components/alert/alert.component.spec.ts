@@ -5,6 +5,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { AlertComponent } from './alert.component';
 import { AlertService, AlertMock } from './../../';
+import { ModalProviderMock } from './../../../overlay/overlay.module';
 
 describe('AlertComponent', () => {
     let component: AlertComponent;
@@ -18,7 +19,8 @@ describe('AlertComponent', () => {
             imports: [
             ],
             providers: [
-                { provide: AlertService, useClass: AlertMock }
+                { provide: AlertService, useClass: AlertMock },
+                ...ModalProviderMock
             ],
             schemas: [NO_ERRORS_SCHEMA]
         })

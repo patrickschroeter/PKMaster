@@ -32,7 +32,7 @@ export class FormService {
     ) { }
 
     /**
-     * @description return the observable for the adding element status
+     * return the observable for the adding element status
      * @return {Observable}
      */
     public getAddingElement(): Observable<boolean> {
@@ -41,8 +41,8 @@ export class FormService {
     }
 
     /**
-     * @description emits the adding element observable
-     * @param {boolean} addingElement
+     * emits the adding element observable
+     * @param {Boolean} addingElement
      * @return {void}
      */
     public setAddingElement(addingElement: boolean) {
@@ -52,7 +52,7 @@ export class FormService {
     }
 
     /**
-     * @description return the observable for editing an element
+     * return the observable for editing an element
      * @return {Observable}
      */
     public onEditElement(): Observable<Field> {
@@ -61,8 +61,8 @@ export class FormService {
     }
 
     /**
-     * @description returns the observable to get a form by the given id
-     * @param {number} id
+     * returns the observable to get a form by the given id
+     * @param {String} id
      * @return {Observable}
      */
     public getFormById(id: string): Observable<Form> {
@@ -73,8 +73,8 @@ export class FormService {
     }
 
     /**
-     * @description get the form with the given id with optional sorting
-     * @param {string} sort key to sort the result
+     * get the form with the given id with optional sorting
+     * @param {String} sort - key to sort the result
      * @return {Observable}
      */
     public getForms(sort?: string): Observable<any> {
@@ -92,8 +92,8 @@ export class FormService {
     }
 
     /**
-     * @description returns the observable to get the new created form
-     * @param {Form} submit to copy or new form
+     * returns the observable to get the new created form
+     * @param {Form} submit - to copy or new form
      * @return {Observable}
      */
     public createNewForm(submit: Form): Observable<any> {
@@ -111,21 +111,21 @@ export class FormService {
     }
 
     /**
-     * @description alert invlid type error
-     * @param {string} type the invalid type
+     * alert invlid type error
+     * @param {String} type - the invalid type
      * @return {void}
      */
     public editElementError(type: string): void {
+        this.setAddingElement(false);
         this.alert.setAlert(
             this.translationService.translate('headerWarning'),
             this.translationService.translate('elementTypeNotValid', [type])
         );
-        this.setAddingElement(false);
     }
 
     /**
-     * @description Open the Add Element View with the Element as preset
-     * @param {FormElement} element the element to edit
+     * Open the Add Element View with the Element as preset
+     * @param {FormElement} element - the element to edit
      * @return {void}
      */
     public editElementOfForm(element?: Field): void {
@@ -134,7 +134,7 @@ export class FormService {
         this.editingElementIndex = -1;
         if (element && this.form) {
             for (let i = 0, length = this.form.formHasField.length; i < length; i++) {
-                let formElement = this.form.formHasField[i];
+                const formElement = this.form.formHasField[i];
                 if (formElement && formElement.name === element.name) {
                     this.editingElementIndex = i;
                 };
@@ -152,6 +152,7 @@ export class FormService {
 
     /**
      * Emits the given value if someone subscribed for it
+     * @param {Field} [element]
      */
     private setEditElement(element?: Field): void {
         if (this.editElement$) {
@@ -166,6 +167,9 @@ export class FormService {
      *
      * returns true if element was found and removed from form
      * returns false if element was not found or index didn't match the element
+     *
+     * @param {Field} [element] - the element to remove
+     * @param {Number} [index] - the index of the element in the form
      */
     public removeElement(element?: Field, index?: number): boolean {
         if (!this.form || !this.form.formHasField) { return false; }
@@ -202,6 +206,8 @@ export class FormService {
 
     /**
      * Adds a new Element to the Form or updates an existing one
+     * @param {Field} element
+     * @param {String} [mode] - the mode to add the element. default, clone or add
      */
     public addElementToForm(element: Field, mode?: 'clone' | 'add'): boolean {
         /** Forms don't have Presets yet */
@@ -238,8 +244,8 @@ export class FormService {
     }
 
     /**
-     * @description adds a preset to the current form
-     * @param {string} name the key/id/name of the preset
+     * adds a preset to the current form
+     * @param {String} name - the key/id/name of the preset
      * @return {void}
      */
     public addPresetToForm(name: string): boolean {
@@ -250,8 +256,8 @@ export class FormService {
     }
 
     /**
-     * @description returns the template to edit form attributes
-     * @param {number} id
+     * returns the template to edit form attributes
+     * @param {String} id
      * @return {Observable}
      */
     public getEditFormTemplate(id?: string): Observable<any> {
@@ -290,8 +296,8 @@ export class FormService {
     }
 
     /**
-     * @description save the attributes (title, etc) of the form
-     * @param {Form} form the edit-form with the data to save
+     * save the attributes (title, etc) of the form
+     * @param {Form} form - the edit-form with the data to save
      * @return {Observable}
      */
     public saveFormAttributes(submit: Form): Observable<any> {
@@ -311,7 +317,7 @@ export class FormService {
 
 
     /**
-     * @description Saves the changed Form
+     * Saves the changed Form
      * @return {void}
      */
     public saveForm(): Observable<any> {

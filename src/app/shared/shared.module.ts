@@ -11,15 +11,21 @@ import * as directives from './directives';
 import { FloatingModule } from './../modules/floating/floating.module';
 import { ButtonModule } from './../modules/button/button.module';
 import { DeviderModule } from './../modules/devider/devider.module';
+import { OverlayModule } from './../modules/overlay/overlay.module';
+import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module';
 
 @NgModule({
     declarations: [
         components.NavbarComponent,
         components.NavbarAdminComponent,
 
+        components.ModalChangePasswordComponent,
+        components.ModalAcceptApplicationComponent,
+
         elements.LoadingComponent,
 
-        directives.AccessDirective
+        directives.AccessDirective,
+
     ],
     imports: [
         CommonModule,
@@ -29,7 +35,9 @@ import { DeviderModule } from './../modules/devider/devider.module';
 
         FloatingModule,
         ButtonModule,
-        DeviderModule
+        DeviderModule,
+        OverlayModule,
+        DynamicFormModule
     ],
     providers: [
 
@@ -37,6 +45,9 @@ import { DeviderModule } from './../modules/devider/devider.module';
     exports: [
         components.NavbarComponent,
         components.NavbarAdminComponent,
+
+        components.ModalChangePasswordComponent,
+        components.ModalAcceptApplicationComponent,
 
         elements.LoadingComponent,
 

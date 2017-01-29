@@ -4,11 +4,14 @@ import { By } from '@angular/platform-browser';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
+/** Components */
 import { ApplicationsEditComponent } from './applications-edit.component';
 
+/** Services */
 import { CoreProviderMock } from './../../../core/core.module';
 import { AlertProviderMock } from './../../../modules/alert/alert.module';
 import { TranslationProviderMock } from './../../../modules/translation/translation.module';
+import { ModalProviderMock } from './../../../modules/overlay/overlay.module';
 
 describe('ApplicationsEditComponent', () => {
     let component: ApplicationsEditComponent;
@@ -27,7 +30,8 @@ describe('ApplicationsEditComponent', () => {
             providers: [
                 ...CoreProviderMock,
                 ...AlertProviderMock,
-                ...TranslationProviderMock
+                ...TranslationProviderMock,
+                ...ModalProviderMock
             ],
             schemas: [NO_ERRORS_SCHEMA]
         })

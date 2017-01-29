@@ -18,7 +18,7 @@ export class ApplicationEndpoint {
     public getApplicationById(applicationId: string, token?: string, extraHttpRequestParams?: any): Observable<any> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c getApplicationById ${applicationId}`, 'color: #F44336', 'color: #fefefe');
-        let application = this._application(applicationId);
+        const application = this._application(applicationId);
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (!token) {
@@ -38,7 +38,7 @@ export class ApplicationEndpoint {
     public getApplications(token?: string, filter?: string, sort?: string, extraHttpRequestParams?: any): Observable<any> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + '%c getApplications', 'color: #F44336', 'color: #fefefe');
-        let applications = this._applications();
+        const applications = this._applications();
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (!token) {
@@ -63,7 +63,7 @@ export class ApplicationEndpoint {
             application.user = this.userApi['_user'](application.userId);
         }
 
-        let newapplication = this._applicationAdd(application);
+        const newapplication = this._applicationAdd(application);
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (!token) {
@@ -89,7 +89,7 @@ export class ApplicationEndpoint {
             application.conference = this.conferenceApi['_conference'](application.conferenceId);
         }
 
-        let updatedApplication = this._applicationUpdate(applicationId, application);
+        const updatedApplication = this._applicationUpdate(applicationId, application);
 
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
@@ -108,8 +108,9 @@ export class ApplicationEndpoint {
     }
 
 
-    public addCommentToApplication(applicationId: string, token?: number, comment?: Comment, extraHttpRequestParams?: any): Observable<Comment> {
-        let application = this._application(applicationId);
+    public addCommentToApplication(applicationId: string, token?: number, comment?: Comment, extraHttpRequestParams?: any):
+        Observable<Comment> {
+        const application = this._application(applicationId);
         application.comments ? application.comments.push(comment) : application.comments = [comment];
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
@@ -138,7 +139,7 @@ export class ApplicationEndpoint {
     }
 
     private _applicationAdd(application: Application): Application {
-        let id = this._list.length === 0 ? 'Q' : this._list[this._list.length - 1].id + 'Q';
+        const id = this._list.length === 0 ? 'Q' : this._list[this._list.length - 1].id + 'Q';
         application.id = id;
         application.created = new Date();
         if (application.form) {
@@ -153,7 +154,7 @@ export class ApplicationEndpoint {
 
     private _application(id?: string): Application {
         let result: Application;
-        let list = this._list;
+        const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id) {
                 result = list[i];
@@ -164,7 +165,7 @@ export class ApplicationEndpoint {
     }
 
     private _applicationUpdate(id: string, application: Application) {
-        let list = this._list;
+        const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id) {
                 list[i] = application;

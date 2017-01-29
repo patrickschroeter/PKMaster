@@ -112,7 +112,7 @@
       </trans-unit>
       <trans-unit id="d8025bacbec40904e2f52246c400d035ceb4b757" datatype="html">
         <source>private</source>
-        <target>private</target>
+        <target>privat</target>
       </trans-unit>
       <trans-unit id="5198ffca8af5f1e22156493ce82b88be15840dde" datatype="html">
         <source>public</source>
@@ -325,6 +325,18 @@
       <trans-unit id="5edf054f14aa57bc25a28cb7db01956fee53dac8" datatype="html">
         <source>Change Password</source>
         <target>Passwort ändern</target>
+      </trans-unit>
+      <trans-unit id="dc90df7803f5d1fbdf44864440f1f4b87b32b341" datatype="html">
+        <source>Admin Profile</source>
+        <target>Verwaltung Profil</target>
+      </trans-unit>
+      <trans-unit id="ac10a3d9b59575640797c1a8e6aea642cf5d5e77" datatype="html">
+        <source>Continue</source>
+        <target>Weiter</target>
+      </trans-unit>
+      <trans-unit id="8314878a3dabd1db7060f440bc25d06056288c50" datatype="html">
+        <source>Conference: <x id="INTERPOLATION"/></source>
+        <target>Sitzung: <x id="INTERPOLATION"/></target>
       </trans-unit>
     </body>
   </file>

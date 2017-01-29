@@ -1,12 +1,19 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ApplicationService, FormService, PermissionService } from './../../core';
-
+/** Services */
+import {
+    ApplicationService,
+    FormService,
+    PermissionService
+} from './../../core';
 import { AlertService } from './../../modules/alert';
 import { TranslationService } from './../../modules/translation';
+import { ModalService } from './../../modules/overlay';
 
+/** Models */
 import { Application } from './../../swagger';
+import { Selectable } from './../../models';
 
 @Component({
     selector: 'pk-applications',
@@ -18,7 +25,7 @@ export class ApplicationsComponent implements OnInit {
 
     private applications: Application[];
 
-    private applicationTypes: Array<{ value, label }>;
+    private applicationTypes: Array<Selectable>;
 
     constructor(
         private router: Router,
@@ -26,59 +33,136 @@ export class ApplicationsComponent implements OnInit {
         private alert: AlertService,
         private formService: FormService,
         private permission: PermissionService,
-        private translationService: TranslationService
+        private translationService: TranslationService,
+        private modalService: ModalService
     ) { }
 
     ngOnInit() {
+        /** get all applications */
         this.applicationService.getApplications().subscribe(result => {
             this.applications = result;
         });
 
+        /** get all forms */
         this.formService.getForms().subscribe(forms => {
             this.applicationTypes = [];
             for (let i = 0, length = forms.length; i < length; i++) {
-                let element = forms[i];
-                this.applicationTypes.push({
-                    value: element.id,
-                    label: element.title
-                });
+                const element = forms[i];
+                this.applicationTypes.push(new Selectable(element.id, element.title));
             }
         });
     }
 
-    sortBy(sortValue: string) {
+    /**
+     * Sort all applications by the sortValue string
+     */
+    public sortBy(sortValue: string): void {
         this.applicationService.getApplications(sortValue);
     }
 
-    submitApplication(application: Application) {
+    /**
+     * Creates a confirmation modal to confirm submitting the selected application
+     */
+    public submitApplicationModal(application: Application): void {
+        this.modalService.createConfirmationModal({
+            title: this.translationService.translate('confirmSubmitApplicationHeader'),
+            message: this.translationService.translate('confirmSubmitApplicationContent'),
+            confirm: () => {
+                this.submitApplication(application);
+            }
+        });
+    }
+
+    /**
+     * Submit the selected application
+     */
+    private submitApplication(application: Application): void {
         this.applicationService.submitApplication(application).subscribe(result => {
             this.alert.setSuccessHint(`submitApplication${application.id}`, this.translationService.translate('applicationSubmitted'));
+            this.modalService.destroyModal();
         });
     }
 
-    rescindApplication(application: Application) {
+    /**
+     * Creates a confirmation modal to confirm rescinding the selected application
+     */
+    public rescindApplicationModal(application: Application): void {
+        this.modalService.createConfirmationModal({
+            title: this.translationService.translate('confirmRescindApplicationHeader'),
+            message: this.translationService.translate('confirmRescindApplicationContent'),
+            confirm: () => {
+                this.rescindApplication(application);
+            }
+        });
+    }
+
+    /**
+     * Rescind the selected application
+     */
+    private rescindApplication(application: Application): void {
         this.applicationService.rescindApplication(application).subscribe(result => {
             this.alert.setSuccessHint(`rescindApplication${application.id}`, this.translationService.translate('applicationRescinded'));
+            this.modalService.destroyModal();
         });
     }
 
-    deactivateApplication(application: Application) {
+    /**
+     * Creates a confirmation modal to confirm deactivating the selected application
+     */
+    public deactivateApplicationModal(application: Application): void {
+        this.modalService.createConfirmationModal({
+            title: this.translationService.translate('confirmDeactivateApplicationHeader'),
+            message: this.translationService.translate('confirmDeactivateApplicationContent'),
+            confirm: () => {
+                this.deactivateApplication(application);
+            }
+        });
+    }
+
+    /**
+     * Deactivate the selected application
+     */
+    private deactivateApplication(application: Application): void {
         this.applicationService.deactivateApplication(application).subscribe(result => {
-            this.alert.setSuccessHint(`deactivateApplication${application.id}`, this.translationService.translate('applicationDeactivated'));
+            this.alert.setSuccessHint(`deactivateApplication${application.id}`,
+                this.translationService.translate('applicationDeactivated')
+            );
+            this.modalService.destroyModal();
         });
     }
 
-    createNewApplication(form) {
-        let application: Application = {
-            formId: form.value,
+    /**
+     * Creates a list modal to select the form for the new application
+     */
+    public createApplicationModal(): void {
+        this.modalService.createListModal({
+            title: this.translationService.translate('createNewApplication'),
+            list: this.applicationTypes,
+            click: this.createApplication.bind(this),
+            isFluid: true,
+
+            emptyText: this.translationService.translate('noFormsAvailable'),
+            redirect: this.permission.hasPermission('ReadForms'),
+            redirectText: this.translationService.translate('createNewForm'),
+            redirectParam: ['forms']
+        });
+    }
+
+    /**
+     * Create a new application with the selected form
+     */
+    private createApplication(listelement: Selectable): void {
+        const application: Application = {
+            formId: listelement.value,
             form: {
-                id: form.value
+                id: listelement.value
             },
         };
         this.applicationService.createNewApplication(application).subscribe((created) => {
             if (created['id']) {
                 this.router.navigate([`/applications/`, created['id'], 'edit']);
             }
+            this.modalService.destroyModal();
         });
     }
 }

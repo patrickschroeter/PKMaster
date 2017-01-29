@@ -19,12 +19,19 @@ export class ConferenceService {
         private alert: AlertService
     ) { }
 
+    /**
+     * request the conference by the given id
+     * @param {String} id
+     */
     public getConferenceById(id: string): Observable<Conference> {
         return this.conferenceApi.getConferenceById(id).map(conference => {
             return this.conference = conference;
         });
     }
 
+    /**
+     * request all conferences
+     */
     public getConferences(): Observable<Conference[]> {
         return this.conferenceApi.getConferences().map(conferences => {
             // TODO: sort
@@ -32,12 +39,20 @@ export class ConferenceService {
         });
     }
 
+    /**
+     * create a new conference with the given values
+     * @param {Conference} conference
+     */
     public createNewConference(conference: Conference): Observable<Conference> {
         return this.conferenceApi.addConference(ConferenceService.DEFAULT_TOKEN, conference).map(result => {
             return this.conference = result;
         });
     }
 
+    /**
+     * save the given conference
+     * @param {Conference} conference
+     */
     public saveConference(conference: Conference) { }
 
 }

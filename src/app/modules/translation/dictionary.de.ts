@@ -23,6 +23,8 @@ export const DICTIONARY_DE = {
     loadingValidationsOf: 'Lade Validierungsmöglichkeiten von { 0 }...',
     loadingStylesOf: 'Lade Stylemöglichkeiten von { 0 }...',
 
+    loadingChangePassword: 'Daten werden verschlüsselt...',
+
     elementTypeNotValid: `Element Typ '{ 0 }' existiert nicht.`,
     identifyingError: 'Es ist ein Fehler bei der Identifizierung des Elementes aufgetreten.',
     operationNotAllowed: 'Diese Operation ist nicht erlaubt.',
@@ -57,5 +59,29 @@ export const DICTIONARY_DE = {
     errorNoConferenceWithId: `Es gibt keine Sitzung mit der ID '{ 0 }'.`,
     errorNoFormWithId: `Es gibt kein Formular mit der ID '{ 0 }'.`,
 
-    expiredToken: 'Es konnte keine gültige Session gefunden werden.'
+    expiredToken: 'Es konnte keine gültige Session gefunden werden.',
+
+    addElementPreset: 'Vordefiniertes Element hinzufügen',
+
+    confirmSubmitApplicationHeader: 'Antrag einreichen?',
+    confirmSubmitApplicationContent: 'Möchten Sie den Antrag wirklich einreichen?',
+
+    confirmRescindApplicationHeader: 'Antrag zurückziehen?',
+    confirmRescindApplicationContent: 'Möchten Sie den Antrag wirklich zurückziehen?',
+
+    confirmDeactivateApplicationHeader: 'Antrag deaktivieren?',
+    confirmDeactivateApplicationContent: 'Möchten Sie den Antrag wirklich deaktivieren?',
+
+    confirm: 'Bestätigen',
+    cancel: 'Abbrechen',
+
+    createNewApplication: 'Neuen Antrag erstellen',
+    noFormsAvailable: 'Keine Formulare vorhanden.',
+    createNewForm: 'Neues Formular erstellen.',
+
+    noPresetsAvailable: 'Keine Standardelemente vorhanden.',
+
+    addApplicationToConference: 'Antrag zu Sitzung hinzufügen',
+    noConferencesAvailable: 'Keine Sitzung verfügbar.',
+    createNewConference: 'Neue Sitzung erstellen'
 };

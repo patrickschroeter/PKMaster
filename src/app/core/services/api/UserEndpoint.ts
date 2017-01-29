@@ -15,7 +15,7 @@ export class UserEndpoint {
     public addUser(token?: string, user?: AppUser, extraHttpRequestParams?: any): Observable<any> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c getUserById ${user.email}`, 'color: #F44336', 'color: #fefefe');
-        let newUser = this._user(user.id);
+        const newUser = this._user(user.id);
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (!token) {
@@ -35,7 +35,7 @@ export class UserEndpoint {
     public getUserById(userId: string, token?: string, extraHttpRequestParams?: any): Observable<any> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c getUserById ${userId}`, 'color: #F44336', 'color: #fefefe');
-        let user = this._user(userId);
+        const user = this._user(userId);
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (!token) {
@@ -55,7 +55,7 @@ export class UserEndpoint {
     public getUsers(token?: string, extraHttpRequestParams?: any): Observable<any> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c getUsers`, 'color: #F44336', 'color: #fefefe');
-        let users = this._users();
+        const users = this._users();
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (!token) {
@@ -75,7 +75,7 @@ export class UserEndpoint {
     public updateUserById(userId: string, token?: string, user?: AppUser, extraHttpRequestParams?: any): Observable<AppUser> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
         console.log('%cMock:' + `%c updateUserById`, 'color: #F44336', 'color: #fefefe');
-        let updatedUser = this._userUpdate(userId, user);
+        const updatedUser = this._userUpdate(userId, user);
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 if (!token) {
@@ -96,7 +96,7 @@ export class UserEndpoint {
     public login(username: string, password: string, token?: string): Observable<any> {
         if (token) {
             console.log('%cMock:' + `%c login ${token}`, 'color: #F44336', 'color: #fefefe');
-            let user = this._user(null, token);
+            const user = this._user(null, token);
             return new Observable((observer: Observer<any>) => {
                 setTimeout(() => {
                     if (user) {
@@ -110,7 +110,7 @@ export class UserEndpoint {
             });
         } else {
             console.log('%cMock:' + `%c login ${username}`, 'color: #F44336', 'color: #fefefe');
-            let user = this._login(username, password);
+            const user = this._login(username, password);
             return new Observable((observer: Observer<any>) => {
                 setTimeout(() => {
                     if (user) {
@@ -149,7 +149,7 @@ export class UserEndpoint {
     }
 
     private _user(id?: string, token?: string) {
-        let list = this._list;
+        const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id || list[i].token === token) {
                 return JSON.parse(JSON.stringify(list[i]));
@@ -160,7 +160,7 @@ export class UserEndpoint {
 
     // tslint:disable-next-line:no-unused-variable
     private _userAdd(user: AppUser): AppUser {
-        let id = this._list.length === 0 ? 'W' : this._list[this._list.length - 1].id + 'W';
+        const id = this._list.length === 0 ? 'W' : this._list[this._list.length - 1].id + 'W';
         user.id = id;
         user.created = new Date();
         this._list.push(user);
@@ -168,7 +168,7 @@ export class UserEndpoint {
     }
 
     private _userUpdate(id: string, user: AppUser) {
-        let list = this._list;
+        const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id) {
                 for (let key in user) {
@@ -182,7 +182,7 @@ export class UserEndpoint {
     }
 
     private _login(username: string, password: string) {
-        let list = this._list;
+        const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].email === username && list[i].password === password) {
                 return JSON.parse(JSON.stringify(list[i]));

@@ -13,8 +13,8 @@ import { UserApi } from './../../../swagger/api/UserApi';
 @Injectable()
 export class AuthenticationService {
 
-    static TOKEN_KEY: string = 'authtoken';
-    static TOKEN_TIME_KEY: string = 'authtokentime';
+    static TOKEN_KEY = 'authtoken';
+    static TOKEN_TIME_KEY = 'authtokentime';
     static TOKEN_TIME: number = 1000 * 60 * 60 * 24;
 
     private user: Observable<any>;
@@ -34,11 +34,11 @@ export class AuthenticationService {
     }
 
     /**
-     * @description getter method for token, handling local storage
+     * getter method for token, handling local storage
      */
     get token(): string {
-        let time = +localStorage.getItem(AuthenticationService.TOKEN_TIME_KEY);
-        let token = localStorage.getItem(AuthenticationService.TOKEN_KEY);
+        const time = +localStorage.getItem(AuthenticationService.TOKEN_TIME_KEY);
+        const token = localStorage.getItem(AuthenticationService.TOKEN_KEY);
         if (time >= Date.now() && token) {
             localStorage.setItem(AuthenticationService.TOKEN_TIME_KEY, (Date.now() + AuthenticationService.TOKEN_TIME).toString());
             return token;
@@ -50,7 +50,8 @@ export class AuthenticationService {
     }
 
     /**
-     * @description setter method for token, handling local storage
+     * setter method for token, handling local storage
+     * @param {String} token
      */
     set token(token: string) {
         if (!token) {
@@ -63,7 +64,7 @@ export class AuthenticationService {
     }
 
     /**
-     * @description returns the observable for the user object
+     * returns the observable for the user object
      */
     public getUser(): Observable<any> {
         if (this.user) { return this.user; }
@@ -72,14 +73,16 @@ export class AuthenticationService {
     }
 
     /**
-     * @description checks if the current user is logged in
+     * checks if the current user is logged in
      */
     public isLoggedIn(): boolean {
         return !!this.user;
     }
 
     /**
-     * @description gets the user with username & password, or token. updates the users permission on success
+     * gets the user with username & password, or token. updates the users permission on success
+     * @param {String} [username]
+     * @param {String} [password]
      */
     public login(username?: string, password?: string): Observable<any> {
         if (username && password) {
@@ -95,7 +98,7 @@ export class AuthenticationService {
     }
 
     /**
-     * @description logout the user
+     * logout the user
      */
     public logout(): void {
         this.token = null;
@@ -105,7 +108,10 @@ export class AuthenticationService {
     }
 
     /**
-     * @description change the users password
+     * change the users password
+     * @param {AppUser} user
+     * @param {String} oldpassword
+     * @param {String} newpassword
      */
     public changePassword(user: AppUser, oldpassword: string, newpassword: string): Observable<any> {
         /** TODO */
@@ -114,7 +120,8 @@ export class AuthenticationService {
     }
 
     /**
-     * @description updates the users attributes
+     * updates the users attributes
+     * @param {AppUser} user
      */
     public updateUser(user: AppUser): Observable<any> {
         this.user = this.userApi.updateUserById(user.id, null, user).map(result => {

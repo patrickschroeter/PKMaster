@@ -68,7 +68,7 @@ describe('Service: Authentication', () => {
         it('should logout if no token is found', () => {
             spyOn(service, 'logout');
             localStorage.removeItem(AuthenticationService.TOKEN_KEY);
-            let obj = service.token;
+            const obj = service.token;
             expect(service.logout).toHaveBeenCalled();
         });
 
@@ -76,7 +76,7 @@ describe('Service: Authentication', () => {
             spyOn(service, 'logout');
             localStorage.setItem(AuthenticationService.TOKEN_KEY, token);
             localStorage.removeItem(AuthenticationService.TOKEN_TIME_KEY);
-            let obj = service.token;
+            const obj = service.token;
             expect(service.logout).toHaveBeenCalled();
         });
 
@@ -84,7 +84,7 @@ describe('Service: Authentication', () => {
             spyOn(service, 'logout');
             localStorage.setItem(AuthenticationService.TOKEN_KEY, token);
             localStorage.setItem(AuthenticationService.TOKEN_TIME_KEY, (Date.now() - 1000).toString());
-            let obj = service.token;
+            const obj = service.token;
             expect(service.logout).toHaveBeenCalled();
         });
 
@@ -95,12 +95,12 @@ describe('Service: Authentication', () => {
         });
 
         it('should update the token timestamp on local storage', () => {
-            let time = Date.now() + 1000;
+            const time = Date.now() + 1000;
 
             localStorage.setItem(AuthenticationService.TOKEN_KEY, token);
             localStorage.setItem(AuthenticationService.TOKEN_TIME_KEY, (time).toString());
 
-            let obj = service.token;
+            const obj = service.token;
 
             expect(+localStorage.getItem(AuthenticationService.TOKEN_TIME_KEY)).toBeGreaterThan(time);
         });
@@ -172,7 +172,7 @@ describe('Service: Authentication', () => {
         });
 
         it('should throw an error if no user is available', () => {
-            let name = 'user';
+            const name = 'user';
             let user;
             service.getUser().subscribe(() => {
                 user = name;
@@ -184,7 +184,7 @@ describe('Service: Authentication', () => {
         });
 
         it('shoud return the user if available', () => {
-            let name = 'user';
+            const name = 'user';
             service['user'] = new Observable((observer: Observer<any>) => {
                 observer.next(name);
             });

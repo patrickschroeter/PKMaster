@@ -14,8 +14,8 @@ export class PermissionService {
     constructor() { }
 
     /**
-     * @description update the permission object in the class with the input user
-     * @version v1.0.0
+     * update the permission object in the class with the input user
+     * @param {AppUser} [user]
      */
     public updateUserPermissions(user?: AppUser): AppUser {
         this.permissions = (user && user.permissions) ? user.permissions : [];
@@ -23,8 +23,9 @@ export class PermissionService {
     }
 
     /**
-     * @description check if the user has the given permission (string), permissions (array, and), permissions (array, or)
-     * @version v1.0.0
+     * check if the user has the given permission (string), permissions (array, and), permissions (array, or)
+     * @param {(String|Array)} permission
+     * @param {Boolean} or
      */
     public hasPermission(permission: string | string[], or = false): boolean {
         if (Array.isArray(permission)) {
@@ -40,22 +41,24 @@ export class PermissionService {
     }
 
     /**
-     * @description check if the user has this one permission
+     * check if the user has this one permission
+     * @param {String} permission
      */
     private hasOnePermission(permission: string): boolean {
         return (!permission || (!!this.permissions && !!permission && this.permissions.indexOf(permission) !== -1));
     }
 
     /**
-     * @description check if the user has the given permissions (array, and)
-     * @version v1.0.0
+     * check if the user has the given permissions (array, and)
+     * @param {Array} permissions
      */
     private hasAllPermissions(permissions: string[]): boolean {
         return (!permissions || !permissions.length || (!!this.permissions && !!permissions && !_.difference(permissions, this.permissions).length));
     }
 
     /**
-     * @description check if the user has one of the given permissios (array, or)
+     * check if the user has one of the given permissios (array, or)
+     * @param {Array} permissions
      */
     private hasOneOfPermissions(permissions: string[]): boolean {
         if (!permissions.length) { return true; }

@@ -1,0 +1,7 @@
+.anchor {
+    &.anchor--hover {
+        &:hover {
+            color: $guidance-color;
+        }
+    }
+}
