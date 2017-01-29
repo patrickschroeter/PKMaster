@@ -40,18 +40,18 @@
 
                     <pk-floating horizontal top-right>
                         <pk-button rounded *ngIf="application.status?.name === 'created'" i18n-pkAlert pkAlert="Submit Application"
-                            (onClick)="submitApplication(application)"
+                            (onClick)="submitApplicationModal(application)"
                             class="element--spacing-left-tiny" icon="send" element--success></pk-button>
                         <a  *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
                             routerLink="/applications/{{ application.id }}/edit">
                             <pk-button rounded i18n-pkAlert pkAlert="Edit Application" icon="create" element--secondary></pk-button>
                         </a>
                         <pk-button rounded *ngIf="['submitted'].indexOf(application.status?.name) !== -1" i18n-pkAlert pkAlert="Recind Application"
-                            (onClick)="rescindApplication(application)"
+                            (onClick)="rescindApplicationModal(application)"
                             class="element--spacing-left-tiny"
                             icon="undo" element--error></pk-button>
                         <pk-button rounded *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1" i18n-pkAlert pkAlert="Deactivate Application"
-                            (onClick)="deactivateApplication(application)"
+                            (onClick)="deactivateApplicationModal(application)"
                             class="element--spacing-left-tiny"
                             icon="delete" element--error></pk-button>
                     </pk-floating>

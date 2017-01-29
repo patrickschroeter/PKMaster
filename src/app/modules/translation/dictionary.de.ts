@@ -61,5 +61,14 @@ export const DICTIONARY_DE = {
 
     expiredToken: 'Es konnte keine gültige Session gefunden werden.',
 
-    addElementPreset: 'Vordefiniertes Element hinzufügen'
+    addElementPreset: 'Vordefiniertes Element hinzufügen',
+
+    confirmSubmitApplicationHeader: 'Antrag einreichen?',
+    confirmSubmitApplicationContent: 'Möchten Sie den Antrag wirklich einreichen?',
+
+    confirmRescindApplicationHeader: 'Antrag zurückziehen?',
+    confirmRescindApplicationContent: 'Möchten Sie den Antrag wirklich zurückziehen?',
+
+    confirmDeactivateApplicationHeader: 'Antrag deaktivieren?',
+    confirmDeactivateApplicationContent: 'Möchten Sie den Antrag wirklich deaktivieren?'
 };

@@ -11,10 +11,10 @@ export class ModalSelectlistComponent implements OnInit {
 
     @ViewChild('overlay') overlay: OverlayComponent;
 
-    private title: string;
-    private list: Object[];
-    private isFluid: boolean;
-    private click: Function;
+    public title: string;
+    public list: Object[];
+    public isFluid: boolean;
+    public click: Function;
 
     constructor(private injector: Injector) {
         this.title = this.injector.get('title');

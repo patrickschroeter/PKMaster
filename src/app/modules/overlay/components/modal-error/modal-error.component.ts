@@ -11,9 +11,8 @@ export class ModalErrorComponent implements OnInit {
 
     @ViewChild('overlay') overlay: OverlayComponent;
 
-    private title;
-    private message;
-    private type;
+    public title: string;
+    public message: string;
 
     constructor(private injector: Injector) {
         this.title = this.injector.get('title');

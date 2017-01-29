@@ -10,6 +10,7 @@ import {
 
 import { ModalErrorComponent } from './../modal-error/modal-error.component';
 import { ModalSelectlistComponent } from './../modal-selectlist/modal-selectlist.component';
+import { ModalConfirmationComponent } from './../modal-confirmation/modal-confirmation.component';
 import { ModalService } from './../../services/modal/modal.service';
 
 @Component({
@@ -18,7 +19,8 @@ import { ModalService } from './../../services/modal/modal.service';
     styleUrls: ['./modal-outlet.component.scss'],
     entryComponents: [
         ModalErrorComponent,
-        ModalSelectlistComponent
+        ModalSelectlistComponent,
+        ModalConfirmationComponent
     ]
 })
 export class ModalOutletComponent implements OnInit {

@@ -42,6 +42,13 @@
         }
     }
 
+    &.overlay--warning {
+        .overlay__wrapper {
+            background-color: lighten($guidance-color, 5%);
+            color: $white;
+        }
+    }
+
     .overlay__wrapper {
         @include center();
         border-radius: $border-radius;

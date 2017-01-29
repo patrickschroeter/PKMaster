@@ -12,7 +12,7 @@
     <div class="comment-block">
         <h4 i18n>Comments</h4>
         <div class="comment-flex">
-            <div class="comment-add">
+            <div class="comment-add" *ngIf="application && application.status.name !== 'deactivated'">
                 <pk-loading *ngIf="savingComment"></pk-loading>
                 <pk-dynamic-form *ngIf="!savingComment" [formElements]="addComment" #dynamicForm>
                     <pk-dynamic-form-content>

@@ -13,6 +13,7 @@ import {
     /** Presets */
     ModalErrorComponent,
     ModalSelectlistComponent,
+    ModalConfirmationComponent,
 
     /** Services */
     ModalService
@@ -30,7 +31,8 @@ import { ButtonModule } from './../button/button.module';
         OverlayContentComponent,
 
         ModalErrorComponent,
-        ModalSelectlistComponent
+        ModalSelectlistComponent,
+        ModalConfirmationComponent
     ],
     imports: [
         CommonModule,
@@ -46,7 +48,8 @@ import { ButtonModule } from './../button/button.module';
         OverlayContentComponent,
 
         ModalErrorComponent,
-        ModalSelectlistComponent
+        ModalSelectlistComponent,
+        ModalConfirmationComponent
     ]
 })
 export class OverlayModule { }

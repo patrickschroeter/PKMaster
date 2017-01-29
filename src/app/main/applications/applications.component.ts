@@ -5,6 +5,7 @@ import { ApplicationService, FormService, PermissionService } from './../../core
 
 import { AlertService } from './../../modules/alert';
 import { TranslationService } from './../../modules/translation';
+import { ModalService } from './../../modules/overlay';
 
 import { Application } from './../../swagger';
 
@@ -26,7 +27,8 @@ export class ApplicationsComponent implements OnInit {
         private alert: AlertService,
         private formService: FormService,
         private permission: PermissionService,
-        private translationService: TranslationService
+        private translationService: TranslationService,
+        private modalService: ModalService
     ) { }
 
     ngOnInit() {
@@ -37,7 +39,7 @@ export class ApplicationsComponent implements OnInit {
         this.formService.getForms().subscribe(forms => {
             this.applicationTypes = [];
             for (let i = 0, length = forms.length; i < length; i++) {
-                let element = forms[i];
+                const element = forms[i];
                 this.applicationTypes.push({
                     value: element.id,
                     label: element.title
@@ -50,26 +52,65 @@ export class ApplicationsComponent implements OnInit {
         this.applicationService.getApplications(sortValue);
     }
 
-    submitApplication(application: Application) {
+    public submitApplicationModal(application: Application) {
+        this.modalService.createConfirmationModal(
+            this.translationService.translate('confirmSubmitApplicationHeader'),
+            this.translationService.translate('confirmSubmitApplicationContent'),
+            () => {
+                this.submitApplication(application);
+            }
+        );
+    }
+
+    private submitApplication(application: Application) {
         this.applicationService.submitApplication(application).subscribe(result => {
             this.alert.setSuccessHint(`submitApplication${application.id}`, this.translationService.translate('applicationSubmitted'));
+
+            this.modalService.destroyModal();
         });
     }
 
-    rescindApplication(application: Application) {
+    public rescindApplicationModal(application: Application) {
+        this.modalService.createConfirmationModal(
+            this.translationService.translate('confirmRescindApplicationHeader'),
+            this.translationService.translate('confirmRescindApplicationContent'),
+            () => {
+                this.rescindApplication(application);
+            }
+        );
+    }
+
+
+    private rescindApplication(application: Application) {
         this.applicationService.rescindApplication(application).subscribe(result => {
             this.alert.setSuccessHint(`rescindApplication${application.id}`, this.translationService.translate('applicationRescinded'));
+
+            this.modalService.destroyModal();
         });
     }
 
-    deactivateApplication(application: Application) {
+    public deactivateApplicationModal(application: Application) {
+        this.modalService.createConfirmationModal(
+            this.translationService.translate('confirmDeactivateApplicationHeader'),
+            this.translationService.translate('confirmDeactivateApplicationContent'),
+            () => {
+                this.deactivateApplication(application);
+            }
+        );
+    }
+
+    private deactivateApplication(application: Application) {
         this.applicationService.deactivateApplication(application).subscribe(result => {
-            this.alert.setSuccessHint(`deactivateApplication${application.id}`, this.translationService.translate('applicationDeactivated'));
+            this.alert.setSuccessHint(`deactivateApplication${application.id}`,
+                this.translationService.translate('applicationDeactivated')
+            );
+
+            this.modalService.destroyModal();
         });
     }
 
-    createNewApplication(form) {
-        let application: Application = {
+    public createNewApplication(form) {
+        const application: Application = {
             formId: form.value,
             form: {
                 id: form.value

@@ -61,5 +61,14 @@ export const DICTIONARY_EN = {
 
     expiredToken: 'No valid session could be found.',
 
-    addElementPreset: 'addElementPreset'
+    addElementPreset: 'addElementPreset',
+
+    confirmSubmitApplicationHeader: 'Submit Application?',
+    confirmSubmitApplicationContent: 'Do you really want to submit the application?',
+
+    confirmRescindApplicationHeader: 'Rescind Application?',
+    confirmRescindApplicationContent: 'Do you really want to rescind the application?',
+
+    confirmDeactivateApplicationHeader: 'Deactivate Applidation?',
+    confirmDeactivateApplicationContent: 'Do you really want to deactivate the application?'
 };
