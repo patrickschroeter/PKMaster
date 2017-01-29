@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, Injector } from '@angular/core';
 
 import { OverlayComponent } from './..';
 
+import { Selectable } from './../../../../models';
+
 @Component({
     selector: 'pk-modal-selectlist',
     templateUrl: './modal-selectlist.component.html',
@@ -12,7 +14,7 @@ export class ModalSelectlistComponent implements OnInit {
     @ViewChild('overlay') overlay: OverlayComponent;
 
     public title: string;
-    public list: { value: string, label: string }[];
+    public list: Selectable[];
 
     public isFluid: boolean;
 
@@ -28,7 +30,7 @@ export class ModalSelectlistComponent implements OnInit {
     public selectedValues?: string;
 
     public searchstring: string;
-    public filteredOptions: Array<{ value: string, label: string }>;
+    public filteredOptions: Array<Selectable>;
 
 
     constructor(private injector: Injector) {
