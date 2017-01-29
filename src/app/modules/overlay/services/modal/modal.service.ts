@@ -39,11 +39,10 @@ export class ModalService {
     /**
      * Create an error Modal with injected parameters
      */
-    public createErrorModal(title: string, message: string) {
-        const data = {
-            title: title,
-            message: message
-        };
+    public createErrorModal(data: {
+        title: string,
+        message: string
+    }) {
         if (!this.outlet) {
             throw new Error('No ModalOutletComponent registered in ModalService.');
         }
@@ -53,13 +52,15 @@ export class ModalService {
     /**
      * Create an list Modal with injected parameters
      */
-    public createListModal(title: string, list: Object[], click: Function, isFluid?: boolean) {
-        const data = {
-            title: title,
-            list: list,
-            click: click,
-            isFluid: isFluid
-        };
+    public createListModal(data: {
+        title: string,
+        list: Object[],
+        click: Function,
+        isFluid?: boolean
+    }) {
+        if (!data.isFluid) {
+            data.isFluid = false;
+        }
         if (!this.outlet) {
             throw new Error('No ModalOutletComponent registered in ModalService.');
         }
@@ -69,15 +70,15 @@ export class ModalService {
     /**
      * Create an confirmation Modal with injected parameters
      */
-    public createConfirmationModal(title: string, message: string, confirm: Function, cancel?: Function) {
-        const data = {
-            title: title,
-            message: message,
-            confirm: confirm,
-            cancel: cancel ? cancel : () => {
-                this.destroyModal();
-            }
-        };
+    public createConfirmationModal(data: {
+        title: string,
+        message: string,
+        confirm: Function,
+        cancel?: Function
+    }) {
+        if (!data.cancel) {
+            data.cancel = this.destroyModal.bind(this);
+        }
         if (!this.outlet) {
             throw new Error('No ModalOutletComponent registered in ModalService.');
         }

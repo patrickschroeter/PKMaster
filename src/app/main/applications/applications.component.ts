@@ -53,13 +53,13 @@ export class ApplicationsComponent implements OnInit {
     }
 
     public submitApplicationModal(application: Application) {
-        this.modalService.createConfirmationModal(
-            this.translationService.translate('confirmSubmitApplicationHeader'),
-            this.translationService.translate('confirmSubmitApplicationContent'),
-            () => {
+        this.modalService.createConfirmationModal({
+            title: this.translationService.translate('confirmSubmitApplicationHeader'),
+            message: this.translationService.translate('confirmSubmitApplicationContent'),
+            confirm: () => {
                 this.submitApplication(application);
             }
-        );
+        });
     }
 
     private submitApplication(application: Application) {
@@ -71,13 +71,13 @@ export class ApplicationsComponent implements OnInit {
     }
 
     public rescindApplicationModal(application: Application) {
-        this.modalService.createConfirmationModal(
-            this.translationService.translate('confirmRescindApplicationHeader'),
-            this.translationService.translate('confirmRescindApplicationContent'),
-            () => {
+        this.modalService.createConfirmationModal({
+            title: this.translationService.translate('confirmRescindApplicationHeader'),
+            message: this.translationService.translate('confirmRescindApplicationContent'),
+            confirm: () => {
                 this.rescindApplication(application);
             }
-        );
+        });
     }
 
 
@@ -90,13 +90,13 @@ export class ApplicationsComponent implements OnInit {
     }
 
     public deactivateApplicationModal(application: Application) {
-        this.modalService.createConfirmationModal(
-            this.translationService.translate('confirmDeactivateApplicationHeader'),
-            this.translationService.translate('confirmDeactivateApplicationContent'),
-            () => {
+        this.modalService.createConfirmationModal({
+            title: this.translationService.translate('confirmDeactivateApplicationHeader'),
+            message: this.translationService.translate('confirmDeactivateApplicationContent'),
+            confirm: () => {
                 this.deactivateApplication(application);
             }
-        );
+        });
     }
 
     private deactivateApplication(application: Application) {
