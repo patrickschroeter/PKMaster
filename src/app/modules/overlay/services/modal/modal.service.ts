@@ -1,4 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 import {
     ModalOutletComponent,
@@ -13,7 +14,7 @@ export class ModalService {
 
     private outlet: ModalOutletComponent;
 
-    constructor() { }
+    constructor(private router: Router) { }
 
     /**
      * Register a ModalOutletComponent to the Service.
@@ -56,11 +57,21 @@ export class ModalService {
         title: string,
         list: Object[],
         click: Function,
-        isFluid?: boolean
+        isFluid?: boolean,
+        emptyText?: string,
+        emptyLinkText?: string,
+        redirect?: string[],
+        redirectFn?: Function
     }) {
-        if (!data.isFluid) {
-            data.isFluid = false;
-        }
+        data.isFluid = data.isFluid || false;
+        data.emptyText = data.emptyText || '';
+        data.emptyLinkText = data.emptyLinkText || '';
+        data.redirect = data.redirect || [''];
+        data.redirectFn = () => {
+            this.router.navigate(data.redirect);
+            this.destroyModal();
+        };
+
         if (!this.outlet) {
             throw new Error('No ModalOutletComponent registered in ModalService.');
         }
@@ -76,9 +87,8 @@ export class ModalService {
         confirm: Function,
         cancel?: Function
     }) {
-        if (!data.cancel) {
-            data.cancel = this.destroyModal.bind(this);
-        }
+        data.cancel = data.cancel || this.destroyModal.bind(this)
+
         if (!this.outlet) {
             throw new Error('No ModalOutletComponent registered in ModalService.');
         }

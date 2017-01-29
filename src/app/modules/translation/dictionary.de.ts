@@ -70,5 +70,11 @@ export const DICTIONARY_DE = {
     confirmRescindApplicationContent: 'Möchten Sie den Antrag wirklich zurückziehen?',
 
     confirmDeactivateApplicationHeader: 'Antrag deaktivieren?',
-    confirmDeactivateApplicationContent: 'Möchten Sie den Antrag wirklich deaktivieren?'
+    confirmDeactivateApplicationContent: 'Möchten Sie den Antrag wirklich deaktivieren?',
+
+    createNewApplication: 'Neuen Antrag erstellen',
+    noFormsAvailable: 'Keine Formulare vorhanden.',
+    createNewForm: 'Neues Formular erstellen.',
+
+    noPresetsAvailable: 'Keine Standardelemente vorhanden.'
 };

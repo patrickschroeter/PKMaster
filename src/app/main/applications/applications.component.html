@@ -61,24 +61,6 @@
 
     </div>
     <pk-floating fixed top-right *ngIf="applications?.length">
-        <pk-button rounded i18n-pkAlert pkAlert="Create Application" icon="add" element--secondary (onClick)="overlay.toggle()"></pk-button>
+        <pk-button rounded i18n-pkAlert pkAlert="Create Application" icon="add" element--secondary (onClick)="createApplicationModal()"></pk-button>
     </pk-floating>
-
-    <pk-overlay #overlay class="overlay--fluid">
-        <pk-overlay-header i18n>Create New Application</pk-overlay-header>
-        <pk-overlay-content>
-
-            <div *ngIf="!applicationTypes?.length" class="empty-wrapper">
-                <div class="label" i18n>No Forms available.</div>
-                <a *accessEditForms routerLink="/forms">
-                    <pk-button icon="add" element--secondary value="Create New Form" class="element--spacing-top-large"></pk-button>
-                </a>
-            </div>
-
-            <div class="overlay__option selectable" *ngFor="let option of applicationTypes" (click)="createNewApplication(option)">
-                    {{ option.label }}
-            </div>
-
-        </pk-overlay-content>
-    </pk-overlay>
 </div>

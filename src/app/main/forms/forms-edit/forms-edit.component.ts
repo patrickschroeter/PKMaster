@@ -105,8 +105,9 @@ export class FormsEditComponent implements OnInit {
 
             this.modalService.createListModal({
                 title: this.translationService.translate('addElementPreset'),
-                list: presets,
-                click: this.addPreset.bind(this)
+                list: [],
+                click: this.addPreset.bind(this),
+                emptyText: this.translationService.translate('noPresetsAvailable')
             });
         } else {
             if (this.formService.addPresetToForm(option.value)) {

@@ -63,12 +63,18 @@ export const DICTIONARY_EN = {
 
     addElementPreset: 'addElementPreset',
 
-    confirmSubmitApplicationHeader: 'Submit Application?',
+    confirmSubmitApplicationHeader: 'Submit application?',
     confirmSubmitApplicationContent: 'Do you really want to submit the application?',
 
-    confirmRescindApplicationHeader: 'Rescind Application?',
+    confirmRescindApplicationHeader: 'Rescind application?',
     confirmRescindApplicationContent: 'Do you really want to rescind the application?',
 
-    confirmDeactivateApplicationHeader: 'Deactivate Applidation?',
-    confirmDeactivateApplicationContent: 'Do you really want to deactivate the application?'
+    confirmDeactivateApplicationHeader: 'Deactivate applidation?',
+    confirmDeactivateApplicationContent: 'Do you really want to deactivate the application?',
+
+    createNewApplication: 'Create new application',
+    noFormsAvailable: 'No forms available.',
+    createNewForm: 'Create new form',
+
+    noPresetsAvailable: 'No presets available'
 };

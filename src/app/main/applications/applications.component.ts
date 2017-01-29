@@ -109,7 +109,20 @@ export class ApplicationsComponent implements OnInit {
         });
     }
 
-    public createNewApplication(form) {
+    public createApplicationModal() {
+        this.modalService.createListModal({
+            title: this.translationService.translate('createNewApplication'),
+            list: this.applicationTypes,
+            click: this.createApplication.bind(this),
+            isFluid: true,
+
+            emptyText: this.translationService.translate('noFormsAvailable'),
+            emptyLinkText: this.translationService.translate('createNewForm'),
+            redirect: ['forms']
+        });
+    }
+
+    private createApplication(form) {
         const application: Application = {
             formId: form.value,
             form: {
@@ -120,6 +133,7 @@ export class ApplicationsComponent implements OnInit {
             if (created['id']) {
                 this.router.navigate([`/applications/`, created['id'], 'edit']);
             }
+            this.modalService.destroyModal();
         });
     }
 }

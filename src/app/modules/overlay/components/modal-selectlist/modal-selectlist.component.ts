@@ -16,11 +16,20 @@ export class ModalSelectlistComponent implements OnInit {
     public isFluid: boolean;
     public click: Function;
 
+    public emptyText: string;
+    public emptyLinkText: string;
+
+    public redirect: Function;
+
     constructor(private injector: Injector) {
         this.title = this.injector.get('title');
         this.list = this.injector.get('list');
         this.click = this.injector.get('click');
         this.isFluid = this.injector.get('isFluid');
+
+        this.emptyText = this.injector.get('emptyText');
+        this.emptyLinkText = this.injector.get('emptyLinkText');
+        this.redirect = this.injector.get('redirectFn');
     }
 
     ngOnInit() {
