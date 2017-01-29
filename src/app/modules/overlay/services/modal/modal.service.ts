@@ -1,17 +1,17 @@
 import { Injectable, EventEmitter } from '@angular/core';
 
-import { OverlayOutletComponent, ModalErrorComponent } from './../../';
+import { ModalOutletComponent, ModalErrorComponent } from './../../';
 
 @Injectable()
 export class ModalService {
 
-    private outlet: OverlayOutletComponent;
+    private outlet: ModalOutletComponent;
 
     constructor() { }
 
-    public register(component: OverlayOutletComponent): void {
+    public register(component: ModalOutletComponent): void {
         if (this.outlet) {
-            return console.error('OverlayOutletComponent already registered in ModalService.');
+            return console.error('ModalOutletComponent already registered in ModalService.');
         }
         this.outlet = component;
     }
@@ -23,7 +23,7 @@ export class ModalService {
             type: type
         };
         if (!this.outlet) {
-            throw new Error('No OverlayOutletComponent registered in ModalService.');
+            throw new Error('No ModalOutletComponent registered in ModalService.');
         }
         this.outlet.createComponent(data, ModalErrorComponent);
     }
@@ -34,7 +34,7 @@ export class ModalService {
             message: message
         };
         if (!this.outlet) {
-            throw new Error('No OverlayOutletComponent registered in ModalService.');
+            throw new Error('No ModalOutletComponent registered in ModalService.');
         }
         this.outlet.createComponent(data, ModalErrorComponent);
     }

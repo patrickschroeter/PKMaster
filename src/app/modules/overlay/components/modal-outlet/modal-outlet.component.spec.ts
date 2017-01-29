@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { OverlayOutletComponent } from './overlay-outlet.component';
+import { ModalOutletComponent } from './modal-outlet.component';
 
-describe('OverlayOutletComponent', () => {
-  let component: OverlayOutletComponent;
-  let fixture: ComponentFixture<OverlayOutletComponent>;
+describe('ModalOutletComponent', () => {
+  let component: ModalOutletComponent;
+  let fixture: ComponentFixture<ModalOutletComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OverlayOutletComponent ]
+      declarations: [ ModalOutletComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OverlayOutletComponent);
+    fixture = TestBed.createComponent(ModalOutletComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

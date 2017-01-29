@@ -12,14 +12,14 @@ import { ModalErrorComponent } from './../modal-error/modal-error.component';
 import { ModalService } from './../../services/modal/modal.service';
 
 @Component({
-    selector: 'pk-overlay-outlet',
-    templateUrl: './overlay-outlet.component.html',
-    styleUrls: ['./overlay-outlet.component.scss'],
+    selector: 'pk-modal-outlet',
+    templateUrl: './modal-outlet.component.html',
+    styleUrls: ['./modal-outlet.component.scss'],
     entryComponents: [
         ModalErrorComponent
     ]
 })
-export class OverlayOutletComponent implements OnInit {
+export class ModalOutletComponent implements OnInit {
 
     @ViewChild('outlet', { read: ViewContainerRef }) outlet: ViewContainerRef;
 
