@@ -1,0 +1,27 @@
+<pk-overlay #overlay class="overlay--fluid">
+    <pk-overlay-header>{{ title }}</pk-overlay-header>
+    <pk-overlay-content>
+
+        <div class="label">{{ message }}</div>
+
+        <div class="form__buttons left">
+            <div class="left">
+                <pk-button
+                    i18n-value value="Cancel"
+                    icon="clear"
+                    class="element--error"
+                    (onClick)="cancel()">
+                </pk-button>
+            </div>
+            <div class="right">
+                <pk-button
+                    i18n-value value="Continue"
+                    icon="keyboard_arrow_right"
+                    class="element--success"
+                    (onClick)="confirm()">
+                </pk-button>
+            </div>
+        </div>
+
+    </pk-overlay-content>
+</pk-overlay>

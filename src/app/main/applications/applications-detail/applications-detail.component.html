@@ -12,7 +12,7 @@
     <div class="comment-block">
         <h4 i18n>Comments</h4>
         <div class="comment-flex">
-            <div class="comment-add">
+            <div class="comment-add" *ngIf="application && application.status.name !== 'deactivated'">
                 <pk-loading *ngIf="savingComment"></pk-loading>
                 <pk-dynamic-form *ngIf="!savingComment" [formElements]="addComment" #dynamicForm>
                     <pk-dynamic-form-content>
@@ -95,7 +95,7 @@
 
         <div *accessEditConferences>
             <pk-button rounded *ngIf="application.status?.name === 'pending' || application.status?.name === 'submitted'" i18n-pkAlert pkAlert="Add application to conference"
-                (onClick)="overlay.toggle()"
+                (onClick)="addApplicationToConferenceModal()"
                 class="element--spacing-bottom-tiny"
                 icon="forum"
                 element--success
@@ -110,25 +110,6 @@
                 ></pk-button>
         </div>
     </pk-floating>
-
-
-    <pk-overlay #overlay class="overlay--fluid">
-        <pk-overlay-header i18n>Add application to conference</pk-overlay-header>
-        <pk-overlay-content>
-
-            <div *ngIf="!conferences?.length" class="empty-wrapper">
-                <div class="label" i18n>No Conferences available.</div>
-                <a *accessEditConferences routerLink="/conferences">
-                    <pk-button icon="add" element--secondary value="Create New Conference" class="element--spacing-top-large"></pk-button>
-                </a>
-            </div>
-
-            <div class="overlay__option selectable" *ngFor="let option of conferences" (click)="addApplicationToConference(option)" [class.selectable--active]="application.conference && application.conference.id === option.value">
-                    {{ option.label }}
-            </div>
-
-        </pk-overlay-content>
-    </pk-overlay>
 
     <pk-modal-accept-application #acceptModal></pk-modal-accept-application>
 </div>

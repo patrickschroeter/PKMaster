@@ -9,7 +9,7 @@ import { FormsEditComponent } from './forms-edit.component';
 import { CoreProviderMock } from './../../../core/core.module';
 import { AlertProviderMock } from './../../../modules/alert/alert.module';
 import { TranslationProviderMock } from './../../../modules/translation/translation.module';
-import { OverlayModule } from './../../../modules/overlay/overlay.module';
+import { OverlayModule, ModalProviderMock } from './../../../modules/overlay/overlay.module';
 
 describe('FormsEditComponent', () => {
     let component: FormsEditComponent;
@@ -29,7 +29,8 @@ describe('FormsEditComponent', () => {
             providers: [
                 ...CoreProviderMock,
                 ...AlertProviderMock,
-                ...TranslationProviderMock
+                ...TranslationProviderMock,
+                ...ModalProviderMock
             ],
             schemas: [NO_ERRORS_SCHEMA]
         })

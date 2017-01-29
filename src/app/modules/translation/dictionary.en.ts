@@ -59,5 +59,26 @@ export const DICTIONARY_EN = {
     errorNoConferenceWithId: `There is no conference with ID '{ 0 }'.`,
     errorNoFormWithId: `There is no form with ID '{ 0 }'.`,
 
-    expiredToken: 'No valid session could be found.'
+    expiredToken: 'No valid session could be found.',
+
+    addElementPreset: 'addElementPreset',
+
+    confirmSubmitApplicationHeader: 'Submit application?',
+    confirmSubmitApplicationContent: 'Do you really want to submit the application?',
+
+    confirmRescindApplicationHeader: 'Rescind application?',
+    confirmRescindApplicationContent: 'Do you really want to rescind the application?',
+
+    confirmDeactivateApplicationHeader: 'Deactivate applidation?',
+    confirmDeactivateApplicationContent: 'Do you really want to deactivate the application?',
+
+    createNewApplication: 'Create new application',
+    noFormsAvailable: 'No forms available.',
+    createNewForm: 'Create new form',
+
+    noPresetsAvailable: 'No presets available',
+
+    addApplicationToConference: 'Add application to conference',
+    noConferencesAvailable: 'No conferences available.',
+    createNewConference: 'Create new conference'
 };

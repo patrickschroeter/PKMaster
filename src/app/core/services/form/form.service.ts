@@ -116,11 +116,11 @@ export class FormService {
      * @return {void}
      */
     public editElementError(type: string): void {
+        this.setAddingElement(false);
         this.alert.setAlert(
             this.translationService.translate('headerWarning'),
             this.translationService.translate('elementTypeNotValid', [type])
         );
-        this.setAddingElement(false);
     }
 
     /**
@@ -134,7 +134,7 @@ export class FormService {
         this.editingElementIndex = -1;
         if (element && this.form) {
             for (let i = 0, length = this.form.formHasField.length; i < length; i++) {
-                let formElement = this.form.formHasField[i];
+                const formElement = this.form.formHasField[i];
                 if (formElement && formElement.name === element.name) {
                     this.editingElementIndex = i;
                 };

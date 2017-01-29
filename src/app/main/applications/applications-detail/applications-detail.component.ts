@@ -11,7 +11,7 @@ import { AlertService } from './../../../modules/alert';
 
 import { Application, Comment } from './../../../swagger';
 
-import { OverlayComponent } from './../../../modules/overlay';
+import { OverlayComponent, ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
 import { Access } from './../../../shared';
@@ -23,9 +23,6 @@ import { Access } from './../../../shared';
 })
 export class ApplicationsDetailComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
-
-    @ViewChild('overlay') overlay: OverlayComponent;
-    @ViewChild('acceptOverlay') acceptOverlay: OverlayComponent;
 
     private _application: Application;
 
@@ -47,7 +44,8 @@ export class ApplicationsDetailComponent implements OnInit {
         private auth: AuthenticationService,
         private permission: PermissionService,
         private conferenceService: ConferenceService,
-        private translationService: TranslationService
+        private translationService: TranslationService,
+        private modalService: ModalService
     ) { }
 
     ngOnInit() {
@@ -130,6 +128,26 @@ export class ApplicationsDetailComponent implements OnInit {
         });
     }
 
+
+    /**
+     * Opens the modal to add an application to a conference
+     */
+    public addApplicationToConferenceModal() {
+        this.modalService.createListModal({
+            title: this.translationService.translate('addApplicationToConference'),
+            list: this.conferences,
+            click: this.addApplicationToConference.bind(this),
+            isFluid: true,
+
+            selectedValue: this.application.conferenceId,
+
+            emptyText: this.translationService.translate('noConferencesAvailable'),
+            redirect: this.permission.hasPermission('ReadConferences'),
+            redirectText: this.translationService.translate('createNewConference'),
+            redirectParam: ['conferences']
+        });
+    }
+
     public addApplicationToConference(data) {
         this.application.conferenceId = data.value;
 
@@ -137,7 +155,7 @@ export class ApplicationsDetailComponent implements OnInit {
 
         this.applicationService.updateApplication(this.application).subscribe(application => {
             this.application = application;
-            this.overlay.toggle();
+            this.modalService.destroyModal();
         });
     }
 

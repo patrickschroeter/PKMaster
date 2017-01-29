@@ -20,7 +20,7 @@ export class TranslationService {
         const result = this.i18n[this.localeId][key];
         if (!result) {
             console.error(`Missing translation for '${key}' in language '${ this.localeId }`);
-            return `Missing translation for '${key}' in language '${ this.localeId }`;
+            return key;
         }
 
         if (!interpolations) { return result; }

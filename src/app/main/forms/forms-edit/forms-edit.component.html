@@ -32,17 +32,6 @@
     </pk-floating>
 </div>
 
-<pk-overlay #overlayPreset="overlay">
-    <pk-overlay-header i18n>Add Element Preset</pk-overlay-header>
-    <pk-overlay-content>
-
-        <div class="overlay__option selectable" *ngFor="let option of presets" (click)="addPreset(option)">
-                    {{ option.label }}
-        </div>
-
-    </pk-overlay-content>
-</pk-overlay>
-
 <pk-overlay #overlayAttributes="overlay" class="overlay--fluid">
     <pk-overlay-header i18n>Edit Form Attributes</pk-overlay-header>
     <pk-overlay-content>

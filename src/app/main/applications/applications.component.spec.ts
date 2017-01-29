@@ -9,6 +9,7 @@ import { ApplicationsComponent } from './applications.component';
 import { CoreProviderMock } from './../../core/core.module';
 import { AlertProviderMock } from './../../modules/alert/alert.module';
 import { TranslationProviderMock } from './../../modules/translation/translation.module';
+import { ModalProviderMock } from './../../modules/overlay/overlay.module';
 
 import { AccessDirective } from './../../shared';
 
@@ -30,7 +31,8 @@ describe('ApplicationsComponent', () => {
             providers: [
                 ...AlertProviderMock,
                 ...CoreProviderMock,
-                ...TranslationProviderMock
+                ...TranslationProviderMock,
+                ...ModalProviderMock
             ],
             schemas: [NO_ERRORS_SCHEMA]
         })
