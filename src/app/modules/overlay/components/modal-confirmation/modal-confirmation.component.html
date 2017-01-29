@@ -7,17 +7,17 @@
         <div class="form__buttons left">
             <div class="left">
                 <pk-button
-                    i18n-value value="Cancel"
-                    icon="clear"
                     class="element--error"
+                    icon="clear"
+                    [value]="cancelText"
                     (onClick)="cancel()">
                 </pk-button>
             </div>
             <div class="right">
                 <pk-button
-                    i18n-value value="Continue"
-                    icon="keyboard_arrow_right"
                     class="element--success"
+                    icon="keyboard_arrow_right"
+                    [value]="confirmText"
                     (onClick)="confirm()">
                 </pk-button>
             </div>

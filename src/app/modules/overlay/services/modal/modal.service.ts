@@ -1,6 +1,10 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
+/** Services */
+import { TranslationService } from './../../../translation';
+
+/** Components */
 import {
     ModalOutletComponent,
 
@@ -9,6 +13,7 @@ import {
     ModalConfirmationComponent
 } from './../../';
 
+/** Models */
 import { Selectable } from './../../../../models';
 
 @Injectable()
@@ -16,7 +21,10 @@ export class ModalService {
 
     private outlet: ModalOutletComponent;
 
-    constructor(private router: Router) { }
+    constructor(
+        private router: Router,
+        private translationService: TranslationService
+    ) { }
 
     /**
      * Register a ModalOutletComponent to the Service.
@@ -60,17 +68,17 @@ export class ModalService {
      * Create an list modal with injected parameters
      * @param {Object} data - the data object for injection
      * @param {String} data.title - displayed title of the modal
-     * @param {Object[]} data.list - list of elements to display
+     * @param {Array<Selectable>} data.list - list of elements to display
      * @param {Function} data.click - function to be executed on List-Element click
      *
      * @param {Boolean} data.isFluid - @optional: overlay styling attribute
      * @param {String} data.emptyText - @optional: text to be displayed if no element is in the list
      * @param {Boolean} data.redirect - @optional: flag to indicate if there is a redirect button if the list is empty
      * @param {String} data.redirectText - @optional: text on the redirect button
-     * @param {String[]} data.redirectParam - @optional: params for the @angular/router
+     * @param {Array<String>} data.redirectParam - @optional: params for the @angular/router
      * @param {Function} data.redirectFn - @optional: custom function to execute the redirect
      * @param {String} data.selectedValue - @optional: single value to highlight in the list
-     * @param {String[]} data.selectedValues - @optional: array of values to highlight in the list
+     * @param {Array<String>} data.selectedValues - @optional: array of values to highlight in the list
      */
     public createListModal(data: {
         title: string,
@@ -116,9 +124,13 @@ export class ModalService {
         title: string,
         message: string,
         confirm: Function,
-        cancel?: Function
+        confirmText?: string,
+        cancel?: Function,
+        cancelText?: string
     }): void {
-        data.cancel = data.cancel || this.destroyModal.bind(this)
+        data.cancel = data.cancel || this.destroyModal.bind(this);
+        data.confirmText = data.confirmText || this.translationService.translate('confirm');
+        data.cancelText = data.cancelText || this.translationService.translate('cancel');
 
         if (!this.outlet) {
             throw new Error('No ModalOutletComponent registered in ModalService.');

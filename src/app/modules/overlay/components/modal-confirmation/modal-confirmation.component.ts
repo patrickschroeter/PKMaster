@@ -16,7 +16,9 @@ export class ModalConfirmationComponent implements OnInit {
     public title: string;
     public message: string;
     public confirm: Function;
+    public confirmText: string;
     public cancel: Function;
+    public cancelText: string;
 
     public confirmationForm: Field[];
 
@@ -24,7 +26,9 @@ export class ModalConfirmationComponent implements OnInit {
         this.title = this.injector.get('title');
         this.message = this.injector.get('message');
         this.confirm = this.injector.get('confirm');
+        this.confirmText = this.injector.get('confirmText');
         this.cancel = this.injector.get('cancel');
+        this.cancelText = this.injector.get('cancelText');
     }
 
     ngOnInit() {

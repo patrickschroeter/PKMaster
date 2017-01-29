@@ -75,39 +75,80 @@
 
     <pk-floating top-right fixed>
         <a routerLink="/applications">
-            <pk-button rounded i18n-pkAlert pkAlert="Cancel" icon="clear" class="element--spacing-bottom-tiny" element--error></pk-button>
+            <pk-button
+                class="element--spacing-bottom-tiny"
+                rounded
+                element--error
+                i18n-pkAlert
+                     pkAlert="Cancel"
+                icon="clear">
+            </pk-button>
         </a>
-        <pk-button rounded *ngIf="application.status?.name === 'created'" i18n-pkAlert pkAlert="Submit Application"
-            (onClick)="submitApplication(application)"
-            class="element--spacing-bottom-tiny" icon="send" element--success></pk-button>
         <a  *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
             routerLink="/applications/{{ application.id }}/edit">
-            <pk-button class="element--spacing-bottom-tiny" rounded i18n-pkAlert pkAlert="Edit Application" icon="create" element--secondary></pk-button>
+            <pk-button
+                class="element--spacing-bottom-tiny"
+                rounded
+                element--secondary
+                i18n-pkAlert
+                     pkAlert="Edit Application"
+                icon="create">
+            </pk-button>
         </a>
-        <pk-button rounded *ngIf="['submitted'].indexOf(application.status?.name) !== -1" i18n-pkAlert pkAlert="Recind Application"
-            (onClick)="rescindApplication(application)"
+        <pk-button
+            *ngIf="application.status?.name === 'created'"
             class="element--spacing-bottom-tiny"
-            icon="undo" element--error></pk-button>
-        <pk-button rounded *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1" i18n-pkAlert pkAlert="Deactivate Application"
-            (onClick)="deactivateApplication(application)"
+            rounded
+            element--success
+            i18n-pkAlert
+                 pkAlert="Submit Application"
+            icon="send"
+            (onClick)="submitApplicationModal(application)">
+        </pk-button>
+        <pk-button
+            *ngIf="['submitted'].indexOf(application.status?.name) !== -1"
             class="element--spacing-bottom-tiny"
-            icon="delete" element--error></pk-button>
+            rounded
+            element--error
+            i18n-pkAlert
+                 pkAlert="Recind Application"
+            icon="undo"
+            (onClick)="rescindApplicationModal(application)">
+        </pk-button>
+        <pk-button
+            *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
+            class="element--spacing-bottom-tiny"
+            rounded
+            element--error
+            i18n-pkAlert
+                 pkAlert="Deactivate Application"
+            icon="delete"
+            (onClick)="deactivateApplicationModal(application)">
+        </pk-button>
 
         <div *accessEditConferences>
-            <pk-button rounded *ngIf="application.status?.name === 'pending' || application.status?.name === 'submitted'" i18n-pkAlert pkAlert="Add application to conference"
-                (onClick)="addApplicationToConferenceModal()"
+            <pk-button
+                *ngIf="application.status?.name === 'pending' || application.status?.name === 'submitted'"
                 class="element--spacing-bottom-tiny"
-                icon="forum"
+                rounded
                 element--success
-                ></pk-button>
+                i18n-pkAlert
+                     pkAlert="Add application to conference"
+                icon="forum"
+                (onClick)="addApplicationToConferenceModal()">
+            </pk-button>
         </div>
         <div *accessEditApplications>
-            <pk-button rounded *ngIf="application.status?.name === 'pending'" i18n-pkAlert pkAlert="Accept/Decline Application"
-                (onClick)="acceptModal.openModal(application)"
+            <pk-button
+                *ngIf="application.status?.name === 'pending'"
                 class="element--spacing-bottom-tiny"
-                icon="thumbs_up_down"
+                rounded
                 element--success
-                ></pk-button>
+                i18n-pkAlert
+                     pkAlert="Accept/Decline Application"
+                icon="thumbs_up_down"
+                (onClick)="acceptModal.openModal(application)">
+            </pk-button>
         </div>
     </pk-floating>
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
+/** Services */
 import {
     ApplicationService,
     AuthenticationService,
@@ -8,12 +9,14 @@ import {
     ConferenceService
 } from './../../../core';
 import { AlertService } from './../../../modules/alert';
-
-import { Application, Comment } from './../../../swagger';
-
 import { OverlayComponent, ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
+/** Models */
+import { Application, Comment } from './../../../swagger';
+import { Selectable } from './../../../models';
+
+/** Decorators */
 import { Access } from './../../../shared';
 
 @Component({
@@ -61,8 +64,10 @@ export class ApplicationsDetailComponent implements OnInit {
             });
         });
 
+        /** init the form */
         this.initAddCommentForm();
 
+        /** get all conferences */
         this.conferenceService.getConferences().subscribe(conferences => {
             this.conferences = [];
             for (let i = 0, length = conferences.length; i < length; i++) {
@@ -76,9 +81,9 @@ export class ApplicationsDetailComponent implements OnInit {
     }
 
     /**
-     * @description initializes or resets the add comment form
+     * initializes or resets the add comment form
      */
-    private initAddCommentForm() {
+    private initAddCommentForm(): void {
         this.addComment = [
             {
                 fieldType: 'textarea',
@@ -106,9 +111,10 @@ export class ApplicationsDetailComponent implements OnInit {
     }
 
     /**
-     * @description adds the comment to the current application
+     * Creates and adds a new comment to the application
+     * @param {Comment} values
      */
-    public createNewComment(values: Comment) {
+    public createNewComment(values: Comment): void {
         const comment: Comment = values;
         comment.created = new Date();
         /** TODO */ comment.text = comment.message;
@@ -132,7 +138,7 @@ export class ApplicationsDetailComponent implements OnInit {
     /**
      * Opens the modal to add an application to a conference
      */
-    public addApplicationToConferenceModal() {
+    public addApplicationToConferenceModal(): void {
         this.modalService.createListModal({
             title: this.translationService.translate('addApplicationToConference'),
             list: this.conferences,
@@ -148,7 +154,11 @@ export class ApplicationsDetailComponent implements OnInit {
         });
     }
 
-    public addApplicationToConference(data) {
+    /**
+     * Add the application to the conference
+     * @param {Selectable} data - the selected element
+     */
+    private addApplicationToConference(data: Selectable): void {
         this.application.conferenceId = data.value;
 
         /* TODO */ this.application.status = { name: 'pending' };
@@ -159,22 +169,80 @@ export class ApplicationsDetailComponent implements OnInit {
         });
     }
 
-    submitApplication(application: Application) {
+    /**
+     * Creates a confirmation modal to confirm submitting the selected application
+     * @param {Application} application - the application to submit
+     */
+    public submitApplicationModal(application: Application): void {
+        this.modalService.createConfirmationModal({
+            title: this.translationService.translate('confirmSubmitApplicationHeader'),
+            message: this.translationService.translate('confirmSubmitApplicationContent'),
+            confirm: () => {
+                this.submitApplication(application);
+            }
+        });
+    }
+
+    /**
+     * Submit the selected application
+     * @param {Application} application - the application to submit
+     */
+    private submitApplication(application: Application): void {
         this.applicationService.submitApplication(application).subscribe(result => {
             this.alert.setSuccessHint(`submitApplication${application.id}`, this.translationService.translate('applicationSubmitted'));
+            this.modalService.destroyModal();
         });
     }
 
-    rescindApplication(application: Application) {
+    /**
+     * Creates a confirmation modal to confirm rescinding the selected application
+     * @param {Application} application - the application to rescind
+     */
+    public rescindApplicationModal(application: Application): void {
+        this.modalService.createConfirmationModal({
+            title: this.translationService.translate('confirmRescindApplicationHeader'),
+            message: this.translationService.translate('confirmRescindApplicationContent'),
+            confirm: () => {
+                this.rescindApplication(application);
+            }
+        });
+    }
+
+    /**
+     * Rescingd the selected application
+     * @param {Application} application - the application to rescind
+     */
+    private rescindApplication(application: Application): void {
         this.applicationService.rescindApplication(application).subscribe(result => {
             this.alert.setSuccessHint(`rescindApplication${application.id}`, this.translationService.translate('applicationRescinded'));
+            this.modalService.destroyModal();
         });
     }
 
-    deactivateApplication(application: Application) {
+    /**
+     * Creates a confirmation modal to confirm deactivating the selected application
+     * @param {Application} application - the application to deactovate
+     */
+    public deactivateApplicationModal(application: Application): void {
+        this.modalService.createConfirmationModal({
+            title: this.translationService.translate('confirmDeactivateApplicationHeader'),
+            message: this.translationService.translate('confirmDeactivateApplicationContent'),
+            confirm: () => {
+                this.deactivateApplication(application);
+            }
+        });
+    }
+
+    /**
+     * Deactivate the selected application
+     * @param {Application} application - the application to deactovate
+     */
+    private deactivateApplication(application: Application): void {
         this.applicationService.deactivateApplication(application).subscribe(result => {
             this.alert.setSuccessHint(`deactivateApplication${application.id}`,
-            this.translationService.translate('applicationDeactivated'));
+                this.translationService.translate('applicationDeactivated')
+            );
+            this.modalService.destroyModal();
         });
     }
 }

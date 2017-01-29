@@ -12,6 +12,6 @@
         "**/bower_components": true,
         "**/dist": true,
         "**/coverage": true,
-        "**/documentstion": true
+        "**/documentation": true
     }
 }

@@ -72,6 +72,9 @@ export const DICTIONARY_EN = {
     confirmDeactivateApplicationHeader: 'Deactivate applidation?',
     confirmDeactivateApplicationContent: 'Do you really want to deactivate the application?',
 
+    confirm: 'Confirm',
+    cancel: 'Cancel',
+
     createNewApplication: 'Create new application',
     noFormsAvailable: 'No forms available.',
     createNewForm: 'Create new form',

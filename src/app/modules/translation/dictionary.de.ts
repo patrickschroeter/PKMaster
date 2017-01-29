@@ -72,6 +72,9 @@ export const DICTIONARY_DE = {
     confirmDeactivateApplicationHeader: 'Antrag deaktivieren?',
     confirmDeactivateApplicationContent: 'Möchten Sie den Antrag wirklich deaktivieren?',
 
+    confirm: 'Bestätigen',
+    cancel: 'Abbrechen',
+
     createNewApplication: 'Neuen Antrag erstellen',
     noFormsAvailable: 'Keine Formulare vorhanden.',
     createNewForm: 'Neues Formular erstellen.',

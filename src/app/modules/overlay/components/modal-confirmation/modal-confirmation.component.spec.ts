@@ -16,7 +16,9 @@ describe('ModalConfirmationComponent', () => {
                 { provide: 'title', useValue: 'title' },
                 { provide: 'message', useValue: 'message' },
                 { provide: 'confirm', useValue: () => { } },
-                { provide: 'cancel', useValue: () => { } }
+                { provide: 'confirmText', useValue: 'confirm' },
+                { provide: 'cancel', useValue: () => { } },
+                { provide: 'cancelText', useValue: 'cancel' }
             ],
             schemas: [NO_ERRORS_SCHEMA]
         })
