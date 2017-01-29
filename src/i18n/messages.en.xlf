@@ -330,6 +330,14 @@
         <source>Admin Profile</source>
         <target>Admin Profile</target>
       </trans-unit>
+      <trans-unit id="ac10a3d9b59575640797c1a8e6aea642cf5d5e77" datatype="html">
+        <source>Continue</source>
+        <target>Continue</target>
+      </trans-unit>
+      <trans-unit id="8314878a3dabd1db7060f440bc25d06056288c50" datatype="html">
+        <source>Conference: <x id="INTERPOLATION"/></source>
+        <target>Conference: <x id="INTERPOLATION"/></target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

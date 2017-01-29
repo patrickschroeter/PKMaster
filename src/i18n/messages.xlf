@@ -2,6 +2,14 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="d7b35c384aecd25a516200d6921836374613dfe7" datatype="html">
+        <source>Cancel</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="ac10a3d9b59575640797c1a8e6aea642cf5d5e77" datatype="html">
+        <source>Continue</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="dc90df7803f5d1fbdf44864440f1f4b87b32b341" datatype="html">
         <source>Admin Profile</source>
         <target/>
@@ -74,10 +82,6 @@
         <source>Save</source>
         <target/>
       </trans-unit>
-      <trans-unit id="d7b35c384aecd25a516200d6921836374613dfe7" datatype="html">
-        <source>Cancel</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="70a67e04629f6d412db0a12d51820b480788d795" datatype="html">
         <source>Create</source>
         <target/>
@@ -120,6 +124,10 @@
       </trans-unit>
       <trans-unit id="7d6dd27552a855029558c6fb4dec26249802e47e" datatype="html">
         <source>Application: <x id="INTERPOLATION"/></source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8314878a3dabd1db7060f440bc25d06056288c50" datatype="html">
+        <source>Conference: <x id="INTERPOLATION"/></source>
         <target/>
       </trans-unit>
       <trans-unit id="c5bb9f8936cb33db2ca351a1b87a984fdf11917c" datatype="html">
