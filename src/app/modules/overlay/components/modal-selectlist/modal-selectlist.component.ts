@@ -24,7 +24,9 @@ export class ModalSelectlistComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.overlay.toggle(true);
+        if (this.overlay instanceof OverlayComponent) {
+            this.overlay.toggle(true);
+        }
     }
 
 }

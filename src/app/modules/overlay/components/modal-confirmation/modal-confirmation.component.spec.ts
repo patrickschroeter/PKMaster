@@ -1,28 +1,35 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { ModalConfirmationComponent } from './modal-confirmation.component';
 
 describe('ModalConfirmationComponent', () => {
-  let component: ModalConfirmationComponent;
-  let fixture: ComponentFixture<ModalConfirmationComponent>;
+    let component: ModalConfirmationComponent;
+    let fixture: ComponentFixture<ModalConfirmationComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ModalConfirmationComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [ModalConfirmationComponent],
+            providers: [
+                { provide: 'title', useValue: 'title' },
+                { provide: 'message', useValue: 'message' },
+                { provide: 'confirm', useValue: () => { } },
+                { provide: 'cancel', useValue: () => { } }
+            ],
+            schemas: [NO_ERRORS_SCHEMA]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ModalConfirmationComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ModalConfirmationComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

@@ -16,7 +16,8 @@ import {
     ModalConfirmationComponent,
 
     /** Services */
-    ModalService
+    ModalService,
+    ModalMock
 } from './';
 
 import { FloatingModule } from './../floating/floating.module';
@@ -66,3 +67,7 @@ export class OverlayModule { }
     ]
 })
 export class ModalModule { }
+
+export const ModalProviderMock = [
+    { provide: ModalService, useClass: ModalMock }
+];
