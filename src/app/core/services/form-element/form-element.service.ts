@@ -91,11 +91,11 @@ export class FormElementService {
             return !!console.error('No FieldTypes Options loaded');
         }
 
-        let type = element['fieldType'];
+        const type = element['fieldType'];
 
         /** Check if the required Element Type exists in Select Options */
         let existing = false;
-        let inputTypes = this.selectTypeFormElement.options;
+        const inputTypes = this.selectTypeFormElement.options;
         for (let i = 0, length = inputTypes ? inputTypes.length : 0; i < length; i++) {
             if (type === inputTypes[i].value) { existing = true; }
         }
@@ -161,7 +161,7 @@ export class FormElementService {
                 let optionFormElement: any;
                 let formElementOptions: any;
                 for (let i = 0, length = generatedFormOfElement.length; i < length; i++) {
-                    let input = generatedFormOfElement[i];
+                    const input = generatedFormOfElement[i];
                     if (element[input.name] && input.name !== 'fieldType') {
                         input.value = element[input.name];
                         if (input.name === 'optionTable') {
@@ -196,9 +196,9 @@ export class FormElementService {
      */
     public updateElement(formGroup: FormGroup): void {
         this.elementForm = formGroup;
-        let form = formGroup.value;
+        const form = formGroup.value;
         /** Load Type Options on change */
-        let type: string = form.fieldType;
+        const type: string = form.fieldType;
         if (type && type !== this.selectedType && typeof type === 'string') {
             this.selectedType = type;
             this.getOptionsOfElementType(type).subscribe((options) => {
@@ -211,7 +211,7 @@ export class FormElementService {
                     this.setElementHasPreview(false);
                     this.setElementPreview([form]);
                     for (let i = 0, length = this.element.length; i < length; i++) {
-                        let element = this.element[i];
+                        const element = this.element[i];
                         if (form[element.name]) {
                             element.value = form[element.name];
                         }
@@ -221,14 +221,14 @@ export class FormElementService {
         }
 
         /** load optionTable */
-        let optionTable: string = form.optionTable;
+        const optionTable: string = form.optionTable;
         if (optionTable && optionTable !== this.selectedOptionTable) {
             this.selectedOptionTable = optionTable;
             this.updateOptionsOfTable();
         }
 
         /** unset optionTable on option length change TODO: content change? */
-        let options: any[] = form.options;
+        const options: any[] = form.options;
         if (options && options.length !== this.selectedOptionsLength) {
             this.selectedOptionsLength = options.length;
             this.elementForm.controls['optionTable'].setValue('');
@@ -326,7 +326,7 @@ export class FormElementService {
     public removeElement(): void {
         let name: Field;
         for (let i = 0, length = this.element.length; i < length; i++) {
-            let formElement = this.element[i];
+            const formElement = this.element[i];
             if (formElement.name === 'name') {
                 name = formElement;
             }
@@ -373,7 +373,7 @@ export class FormElementService {
      * cath all available element types from the server
      */
     private getElementTypeOptions(): Observable<Field> {
-        let result: Field = new Fields.FieldType();
+        const result: Field = new Fields.FieldType();
         this.alert.setLoading(
             'getInputTypeOptions',
             this.translationService.translate('loadingTypeOptions')
@@ -388,7 +388,7 @@ export class FormElementService {
     }
 
     private getOptionsOfTable(name: string): Observable<any[]> {
-        let result = options();
+        const result = options();
         this.alert.setLoading(
             'getOptionsOfTable',
             this.translationService.translate('loadingOptionsOf', [name.toUpperCase()])
@@ -406,8 +406,8 @@ export class FormElementService {
      * cath all available options of the element type from the server
      */
     private getOptionsOfElementType(fieldType: string): Observable<any[]> {
-        let name: Field = new Fields.FieldName();
-        let options: Field = opts()[fieldType];
+        const name: Field = new Fields.FieldName();
+        const options: Field = opts()[fieldType];
         this.alert.setLoading(
             'getOptionsOfInputType',
             this.translationService.translate('loadingOptionsOf', [fieldType.toUpperCase()])
@@ -417,7 +417,7 @@ export class FormElementService {
                 if (!options) { return observer.complete(); }
                 this.alert.removeHint('getOptionsOfInputType');
                 let result = [].concat(name);
-                let element = _.cloneDeep(options);
+                const element = _.cloneDeep(options);
                 if (element) { result = result.concat(element); }
                 result.push(new Fields.Devider());
                 observer.next(result);
@@ -430,7 +430,7 @@ export class FormElementService {
      * cath all available validations of the element type from the server
      */
     private getValidationsOfInputType(fieldType: string): Observable<any> {
-        let options: Field = validations();
+        const options: Field = validations();
         this.alert.setLoading(
             'getValidationsOfInputType',
             this.translationService.translate('loadingValidationsOf', [fieldType.toUpperCase()])
@@ -448,7 +448,7 @@ export class FormElementService {
      * cath all available styles of the element type from the server
      */
     private getStylesOfInputType(fieldType: string): Observable<any> {
-        let options: Field = styles();
+        const options: Field = styles();
         this.alert.setLoading(
             'getStyles',
             this.translationService.translate('loadingStylesOf', [fieldType.toUpperCase()])
@@ -540,7 +540,7 @@ export class FormElementService {
 
 function opts() {
 
-    let opts = {
+    const opts = {
         input: [
             new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
             new Fields.FieldLabel(),
@@ -614,7 +614,7 @@ function opts() {
 }
 
 function validations() {
-    let validations = {
+    const validations = {
         input: [
             new Fields.FieldValidation(null, {
                 /** TODO: load real data */
@@ -632,7 +632,7 @@ function validations() {
 }
 
 function styles() {
-    let styles = new Fields.FieldStyles(null, {
+    const styles = new Fields.FieldStyles(null, {
         options: [
             { value: 'small', label: 'Small' },
             { value: 'aligned', label: 'Aligned ( + 1 rem at top)' }

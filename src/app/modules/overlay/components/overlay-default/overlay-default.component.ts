@@ -13,10 +13,12 @@ export class OverlayDefaultComponent implements OnInit {
 
     private title;
     private message;
+    private type;
 
     constructor(private injector: Injector) {
         this.title = this.injector.get('title');
         this.message = this.injector.get('message');
+        this.type = this.injector.get('type');
     }
 
     ngOnInit() {

@@ -18,12 +18,12 @@ export class AlertComponent implements OnInit {
 
     constructor(
         private alert: AlertService,
-        private overlayService: ModalService
+        private modalService: ModalService
     ) { }
 
     ngOnInit() {
         this.alert.getAlert().subscribe(alert => {
-            this.overlayService.set(alert.title, alert.message, 'error').open();
+            this.modalService.create(alert.title, alert.message, 'error');
         });
         this.alert.getHintMessages().subscribe(hints => {
             this.hintElements = hints;

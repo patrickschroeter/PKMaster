@@ -1,30 +1,42 @@
 import { Injectable, EventEmitter } from '@angular/core';
 
+import { OverlayOutletComponent, OverlayDefaultComponent } from './../../';
+
 @Injectable()
 export class ModalService {
 
-    private title: EventEmitter<string> = new EventEmitter();
-    private message: EventEmitter<string> = new EventEmitter();
-    private type: EventEmitter<string> = new EventEmitter();
-
-    private toggle: EventEmitter<boolean> = new EventEmitter();
+    private outlet: OverlayOutletComponent;
 
     constructor() { }
 
-    public getTitle() { return this.title; }
-    public getMessage() { return this.message; }
-    public getType() { return this.type; }
-    public getToggle() { return this.toggle; }
-
-    public set(title: string, message: string, type: string): ModalService {
-        this.title.emit(title);
-        this.message.emit(message);
-        this.type.emit(type);
-        return this;
+    public register(component: OverlayOutletComponent): void {
+        if (this.outlet) {
+            return console.error('OverlayOutletComponent already registered in ModalService.');
+        }
+        this.outlet = component;
     }
 
-    public open() {
-        this.toggle.emit(true);
+    public create(title: string, message: string, type: string): void {
+        const data = {
+            title: title,
+            message: message,
+            type: type
+        };
+        if (!this.outlet) {
+            throw new Error('No OverlayOutletComponent registered in ModalService.');
+        }
+        this.outlet.createComponent(data, OverlayDefaultComponent);
+    }
+
+    public createErrorModal(title: string, message: string) {
+        const data = {
+            title: title,
+            message: message
+        };
+        if (!this.outlet) {
+            throw new Error('No OverlayOutletComponent registered in ModalService.');
+        }
+        this.outlet.createComponent(data, OverlayDefaultComponent);
     }
 
 }

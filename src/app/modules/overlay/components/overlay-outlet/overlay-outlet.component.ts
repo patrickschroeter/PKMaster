@@ -4,7 +4,8 @@ import {
     ReflectiveInjector,
     ComponentFactoryResolver,
     ViewChild,
-    ViewContainerRef
+    ViewContainerRef,
+    ComponentFactory
 } from '@angular/core';
 
 import { OverlayDefaultComponent } from './../overlay-default/overlay-default.component';
@@ -26,41 +27,25 @@ export class OverlayOutletComponent implements OnInit {
 
     constructor(
         private resolver: ComponentFactoryResolver,
-        private overlayService: ModalService
+        private modalService: ModalService
     ) { }
 
     ngOnInit() {
-        this.componentData = {
-            title: '',
-            message: '',
-            type: ''
-        };
-
-        this.overlayService.getTitle().subscribe(result => {
-            this.componentData.title = result;
-        });
-        this.overlayService.getMessage().subscribe(result => {
-            this.componentData.message = result;
-        });
-        this.overlayService.getType().subscribe(result => {
-            this.componentData.type = result;
-        });
-
-        this.overlayService.getToggle().subscribe(result => {
-            this.createComponent();
-        });
+        this.modalService.register(this);
     }
 
-    private createComponent() {
+    public createComponent(componentData: Object, componentClass) {
         // Inputs need to be in the following format to be resolved properly
-        const inputProviders = Object.keys(this.componentData).map((inputName) => { return { provide: inputName, useValue: this.componentData[inputName] }; });
+        const inputProviders = Object.keys(componentData).map(
+            (inputName) => { return { provide: inputName, useValue: componentData[inputName] }; }
+        );
         const resolvedInputs = ReflectiveInjector.resolve(inputProviders);
 
         // We create an injector out of the data we want to pass down and this components injector
         const injector = ReflectiveInjector.fromResolvedProviders(resolvedInputs, this.outlet.parentInjector);
 
         // We create a factory out of the component we want to create
-        const factory = this.resolver.resolveComponentFactory(OverlayDefaultComponent);
+        const factory = this.resolver.resolveComponentFactory(componentClass);
 
         // We create the component using the factory and the injector
         const component = factory.create(injector);
