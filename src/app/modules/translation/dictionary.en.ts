@@ -76,5 +76,9 @@ export const DICTIONARY_EN = {
     noFormsAvailable: 'No forms available.',
     createNewForm: 'Create new form',
 
-    noPresetsAvailable: 'No presets available'
+    noPresetsAvailable: 'No presets available',
+
+    addApplicationToConference: 'Add application to conference',
+    noConferencesAvailable: 'No conferences available.',
+    createNewConference: 'Create new conference'
 };

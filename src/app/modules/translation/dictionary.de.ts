@@ -76,5 +76,9 @@ export const DICTIONARY_DE = {
     noFormsAvailable: 'Keine Formulare vorhanden.',
     createNewForm: 'Neues Formular erstellen.',
 
-    noPresetsAvailable: 'Keine Standardelemente vorhanden.'
+    noPresetsAvailable: 'Keine Standardelemente vorhanden.',
+
+    addApplicationToConference: 'Antrag zu Sitzung hinzufügen',
+    noConferencesAvailable: 'Keine Sitzung verfügbar.',
+    createNewConference: 'Neue Sitzung erstellen'
 };
