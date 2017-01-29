@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { AlertService, Message } from './../../services';
-import { OverlayService } from './../../../../modules/overlay';
+import { ModalService } from './../../../../modules/overlay';
 
 @Component({
     selector: 'pk-alert',
@@ -18,7 +18,7 @@ export class AlertComponent implements OnInit {
 
     constructor(
         private alert: AlertService,
-        private overlayService: OverlayService
+        private overlayService: ModalService
     ) { }
 
     ngOnInit() {

@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 import { OverlayDefaultComponent } from './../overlay-default/overlay-default.component';
-import { OverlayService } from './../../services/overlay/overlay.service';
+import { ModalService } from './../../services/modal/modal.service';
 
 @Component({
     selector: 'pk-overlay-outlet',
@@ -26,7 +26,7 @@ export class OverlayOutletComponent implements OnInit {
 
     constructor(
         private resolver: ComponentFactoryResolver,
-        private overlayService: OverlayService
+        private overlayService: ModalService
     ) { }
 
     ngOnInit() {

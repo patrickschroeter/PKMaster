@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 
 @Injectable()
-export class OverlayService {
+export class ModalService {
 
     private title: EventEmitter<string> = new EventEmitter();
     private message: EventEmitter<string> = new EventEmitter();
@@ -16,7 +16,7 @@ export class OverlayService {
     public getType() { return this.type; }
     public getToggle() { return this.toggle; }
 
-    public set(title: string, message: string, type: string): OverlayService {
+    public set(title: string, message: string, type: string): ModalService {
         this.title.emit(title);
         this.message.emit(message);
         this.type.emit(type);

@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { OverlayService } from './overlay.service';
+import { ModalService } from './modal.service';
 
-describe('OverlayService', () => {
+describe('ModalService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [OverlayService]
+      providers: [ModalService]
     });
   });
 
-  it('should ...', inject([OverlayService], (service: OverlayService) => {
+  it('should ...', inject([ModalService], (service: ModalService) => {
     expect(service).toBeTruthy();
   }));
 });

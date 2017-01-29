@@ -10,7 +10,7 @@ import {
 
     OverlayDefaultComponent,
 
-    OverlayService
+    ModalService
 } from './';
 
 import { FloatingModule } from './../floating/floating.module';
@@ -32,7 +32,7 @@ import { ButtonModule } from './../button/button.module';
         ButtonModule
     ],
     providers: [
-        OverlayService
+        ModalService
     ],
     exports: [
         OverlayOutletComponent,
