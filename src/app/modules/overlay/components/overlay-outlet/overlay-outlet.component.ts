@@ -8,7 +8,7 @@ import {
     ComponentFactory
 } from '@angular/core';
 
-import { OverlayDefaultComponent } from './../overlay-default/overlay-default.component';
+import { ModalErrorComponent } from './../modal-error/modal-error.component';
 import { ModalService } from './../../services/modal/modal.service';
 
 @Component({
@@ -16,7 +16,7 @@ import { ModalService } from './../../services/modal/modal.service';
     templateUrl: './overlay-outlet.component.html',
     styleUrls: ['./overlay-outlet.component.scss'],
     entryComponents: [
-        OverlayDefaultComponent
+        ModalErrorComponent
     ]
 })
 export class OverlayOutletComponent implements OnInit {

@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 
-import { OverlayOutletComponent, OverlayDefaultComponent } from './../../';
+import { OverlayOutletComponent, ModalErrorComponent } from './../../';
 
 @Injectable()
 export class ModalService {
@@ -25,7 +25,7 @@ export class ModalService {
         if (!this.outlet) {
             throw new Error('No OverlayOutletComponent registered in ModalService.');
         }
-        this.outlet.createComponent(data, OverlayDefaultComponent);
+        this.outlet.createComponent(data, ModalErrorComponent);
     }
 
     public createErrorModal(title: string, message: string) {
@@ -36,7 +36,7 @@ export class ModalService {
         if (!this.outlet) {
             throw new Error('No OverlayOutletComponent registered in ModalService.');
         }
-        this.outlet.createComponent(data, OverlayDefaultComponent);
+        this.outlet.createComponent(data, ModalErrorComponent);
     }
 
 }

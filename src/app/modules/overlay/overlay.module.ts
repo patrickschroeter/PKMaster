@@ -8,7 +8,7 @@ import {
     OverlayHeaderComponent,
     OverlayContentComponent,
 
-    OverlayDefaultComponent,
+    ModalErrorComponent,
 
     ModalService
 } from './';
@@ -24,7 +24,7 @@ import { ButtonModule } from './../button/button.module';
         OverlayHeaderComponent,
         OverlayContentComponent,
 
-        OverlayDefaultComponent
+        ModalErrorComponent
     ],
     imports: [
         CommonModule,
@@ -41,7 +41,7 @@ import { ButtonModule } from './../button/button.module';
         OverlayHeaderComponent,
         OverlayContentComponent,
 
-        OverlayDefaultComponent
+        ModalErrorComponent
     ]
 })
 export class OverlayModule { }

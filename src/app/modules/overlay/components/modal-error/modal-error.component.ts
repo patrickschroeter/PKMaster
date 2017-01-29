@@ -3,11 +3,11 @@ import { Component, OnInit, Injector, ViewChild } from '@angular/core';
 import { OverlayComponent } from './../';
 
 @Component({
-    selector: 'pk-overlay-default',
-    templateUrl: './overlay-default.component.html',
-    styleUrls: ['./overlay-default.component.scss']
+    selector: 'pk-modal-error',
+    templateUrl: './modal-error.component.html',
+    styleUrls: ['./modal-error.component.scss']
 })
-export class OverlayDefaultComponent implements OnInit {
+export class ModalErrorComponent implements OnInit {
 
     @ViewChild('overlay') overlay: OverlayComponent;
 

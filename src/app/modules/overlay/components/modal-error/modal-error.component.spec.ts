@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { OverlayDefaultComponent } from './overlay-default.component';
+import { ModalErrorComponent } from './modal-error.component';
 
-describe('OverlayDefaultComponent', () => {
-  let component: OverlayDefaultComponent;
-  let fixture: ComponentFixture<OverlayDefaultComponent>;
+describe('ModalErrorComponent', () => {
+  let component: ModalErrorComponent;
+  let fixture: ComponentFixture<ModalErrorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OverlayDefaultComponent ]
+      declarations: [ ModalErrorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OverlayDefaultComponent);
+    fixture = TestBed.createComponent(ModalErrorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
