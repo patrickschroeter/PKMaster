@@ -5,6 +5,7 @@
 /tmp
 /aot
 /src/aot
+/documentation
 
 # dependencies
 /node_modules

@@ -11,6 +11,9 @@
     "test": "ng test",
     "pree2e": "webdriver-manager update --standalone false --gecko false",
     "e2e": "protractor",
+
+    "coverage": "ng test --watch=false --cc=true",
+
     "i18n": "cd src && ng-xi18n",
     "swagger": "rm -rf ./src/app/swagger | java -jar ./.swagger/swagger-codegen-cli.jar generate -i http://pk.multimedia.hs-augsburg.de:8000/swagger/v1/swagger.json -l typescript-angular2 -o ./src/app/swagger",
 
@@ -19,7 +22,10 @@
 
     "build-i18n:de": "ng build -o dist/de --aot --bh /de/ --i18n-file=src/i18n/messages.de.xlf --i18n-format=xlf --locale=de",
     "build-i18n:en": "ng build -o dist/en --aot --bh /en/ --i18n-file=src/i18n/messages.en.xlf --i18n-format=xlf --locale=en",
-    "build-i18n": "npm run build-i18n:de && npm run build-i18n:en"
+    "build-i18n": "npm run build-i18n:de && npm run build-i18n:en",
+
+    "compodoc": "./node_modules/.bin/compodoc -p src/tsconfig.json",
+    "compodoc:serve": "./node_modules/.bin/compodoc -p src/tsconfig.json -s"
   },
   "private": true,
   "dependencies": {
@@ -47,6 +53,7 @@
     "@types/node": "^6.0.42",
     "angular-cli": "1.0.0-beta.26",
     "codelyzer": "~2.0.0-beta.1",
+    "compodoc": "0.0.38",
     "jasmine-core": "2.5.2",
     "jasmine-spec-reporter": "2.5.0",
     "karma": "1.2.0",

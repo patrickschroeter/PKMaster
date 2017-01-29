@@ -80,6 +80,10 @@ Tests with Coverage
 ng test --cc=true --watch=false
 ```
 
+## Automatec Documentation
+
+https://github.com/compodoc/compodoc
+
 ## App Architecture: Routes
 
 ```
