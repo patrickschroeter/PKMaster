@@ -22,6 +22,7 @@ export class AdminProfileComponent implements OnInit {
 
     ngOnInit() {
 
+        /** get current user */
         this.auth.getUser().subscribe(user => {
             this.user = user;
             this.form = [

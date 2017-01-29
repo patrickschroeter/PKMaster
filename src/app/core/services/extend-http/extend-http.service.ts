@@ -16,6 +16,11 @@ export class ExtendHttpService extends Http {
         super(backend, defaultOptions);
     }
 
+    /**
+     * set required attribute to the request.header
+     * @param {(String|Request)} url
+     * @param {RequestOptionsArgs} [options]
+     */
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
         if (!options) { options = { headers: new Headers() }; };
         options.headers.set('authentication', this.authentication.token);

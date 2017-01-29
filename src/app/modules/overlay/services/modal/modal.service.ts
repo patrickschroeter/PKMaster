@@ -71,14 +71,14 @@ export class ModalService {
      * @param {Array<Selectable>} data.list - list of elements to display
      * @param {Function} data.click - function to be executed on List-Element click
      *
-     * @param {Boolean} data.isFluid - @optional: overlay styling attribute
-     * @param {String} data.emptyText - @optional: text to be displayed if no element is in the list
-     * @param {Boolean} data.redirect - @optional: flag to indicate if there is a redirect button if the list is empty
-     * @param {String} data.redirectText - @optional: text on the redirect button
-     * @param {Array<String>} data.redirectParam - @optional: params for the @angular/router
-     * @param {Function} data.redirectFn - @optional: custom function to execute the redirect
-     * @param {String} data.selectedValue - @optional: single value to highlight in the list
-     * @param {Array<String>} data.selectedValues - @optional: array of values to highlight in the list
+     * @param {Boolean} data.[isFluid] - overlay styling attribute
+     * @param {String} data.[emptyText] - text to be displayed if no element is in the list
+     * @param {Boolean} data.[redirect] - flag to indicate if there is a redirect button if the list is empty
+     * @param {String} data.[redirectText] - text on the redirect button
+     * @param {Array<String>} data.[redirectParam] - params for the @angular/router
+     * @param {Function} data.[redirectFn] - custom function to execute the redirect
+     * @param {String} data.[selectedValue] - single value to highlight in the list
+     * @param {Array<String>} data.[selectedValues] - array of values to highlight in the list
      */
     public createListModal(data: {
         title: string,
@@ -118,7 +118,7 @@ export class ModalService {
      * @param {String} data.title - the displayed title of the modal
      * @param {String} data.message - the message to display in the modal content
      * @param {Function} data.confirm - the callback function for the confirm button
-     * @param {Function} data.cancel - @optional the callback function for the cancel button
+     * @param {Function} data.[cancel] - the callback function for the cancel button
      */
     public createConfirmationModal(data: {
         title: string,

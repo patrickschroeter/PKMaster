@@ -82,6 +82,7 @@ export class FormElementService {
 
     /**
      * create the Add Attribute View with from a given FormElement
+     * @param {Field} element
      */
     private editExistingElement(element: Field): boolean {
 
@@ -193,6 +194,7 @@ export class FormElementService {
 
     /**
      * DynamicForm Change Event
+     * @param {FormGroup} formGroup
      */
     public updateElement(formGroup: FormGroup): void {
         this.elementForm = formGroup;
@@ -339,8 +341,8 @@ export class FormElementService {
 
     /**
      * Adds the element to the current Form
-     * @param {FormElement} elmenent the element to add to the form
-     * @param {Number} reset 0: add, reset, close; 1:add, reset; 3: add
+     * @param {FormElement} elmenent - the element to add to the form
+     * @param {Number} mode - the mode of
      * @return {void}
      */
     public saveElement(element: Field, mode?: 'clone' | 'add'): void {
@@ -387,6 +389,10 @@ export class FormElementService {
         });
     }
 
+    /**
+     * get the options of the requested table
+     * @param {String} name - the name of the option table
+     */
     private getOptionsOfTable(name: string): Observable<any[]> {
         const result = options();
         this.alert.setLoading(
@@ -404,6 +410,7 @@ export class FormElementService {
 
     /**
      * cath all available options of the element type from the server
+     * @param {String} fieldType
      */
     private getOptionsOfElementType(fieldType: string): Observable<any[]> {
         const name: Field = new Fields.FieldName();
@@ -428,6 +435,7 @@ export class FormElementService {
 
     /**
      * cath all available validations of the element type from the server
+     * @param {String} fieldType
      */
     private getValidationsOfInputType(fieldType: string): Observable<any> {
         const options: Field = validations();
@@ -446,6 +454,7 @@ export class FormElementService {
 
     /**
      * cath all available styles of the element type from the server
+     * @param {String} fieldType
      */
     private getStylesOfInputType(fieldType: string): Observable<any> {
         const options: Field = styles();

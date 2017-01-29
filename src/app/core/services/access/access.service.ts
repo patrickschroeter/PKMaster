@@ -41,7 +41,9 @@ export class AccessService implements CanActivate, CanDeactivate<any>, CanLoad {
     }
 
     /**
-     * @description waiting for the user object to check the permission
+     * waiting for the user object to check the permission
+     * @param {(String|Array<String>)} permission - the permission(s) to check the user for
+     * @param {Boolean} or - flag to indicate if the user needs one or all of the permissions
      */
     protected hasAccess(permission: string | string[], or = false): Observable<boolean> {
         const user = this.authentication.getUser();

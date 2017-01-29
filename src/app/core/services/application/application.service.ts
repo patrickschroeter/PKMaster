@@ -28,8 +28,8 @@ export class ApplicationService {
     ) { }
 
     /**
-     * @description returns the observable to get a applicationn by the given id
-     * @param {number} id
+     * returns the observable to get a applicationn by the given id
+     * @param {String} id - the id of the application to get
      * @return {Observable}
      */
     public getApplicationById(id: string): Observable<Application> {
@@ -39,7 +39,8 @@ export class ApplicationService {
     }
 
     /**
-     * @description return the observable to get a list of all applications the user has (sorted)
+     * return the observable to get a list of all applications the user has (sorted)
+     * @param {String} [sort]
      */
     public getApplications(sort?: string): Observable<any> {
         return this.applicationApi.getApplications().map(applications => {
@@ -51,8 +52,8 @@ export class ApplicationService {
     }
 
     /**
-     * @description returns the observable to get the new created application
-     * @param {Application} application
+     * Creates a new application with the given attributes
+     * @param {Application} application - the new application to create
      * @return {Observable}
      */
     public createNewApplication(application: Application): Observable<Application> {
@@ -68,6 +69,10 @@ export class ApplicationService {
         });
     }
 
+    /**
+     * add a comment to the current application
+     * @param {Comment} comment - the comment to add
+     */
     public addCommentToApplication(comment: Comment): Observable<Application> {
         if (!this.application) { return Observable.throw('No Application'); }
         return this.applicationApi.addCommentToApplication(this.application.id, ApplicationService.DEFAULT_TOKEN, comment).map(result => {
@@ -76,7 +81,9 @@ export class ApplicationService {
     }
 
     /**
-     * @description check if the requested Status change is allowed
+     * check if the requested Status change is allowed
+     * @param {String} name - the permission name to check
+     * @param {Array} permittedStati - a list of all states to block the request
      */
     private blockedStatusUpdate(name: string, permittedStati: string[]): Observable<any> {
         if (permittedStati.indexOf(name) === -1) {
@@ -89,6 +96,10 @@ export class ApplicationService {
         return null;
     }
 
+    /**
+     * submit the selected application
+     * @param {Application} application
+     */
     public submitApplication(application: Application): Observable<Application> {
         const blocked = this.blockedStatusUpdate(application.status.name, ['created']);
         if (blocked) { return blocked; }
@@ -99,6 +110,10 @@ export class ApplicationService {
         });
     }
 
+    /**
+     * rescind the selected application
+     * @param {Application} application
+     */
     public rescindApplication(application: Application): Observable<Application> {
         const blocked = this.blockedStatusUpdate(application.status.name, ['submitted']);
         if (blocked) { return blocked; }
@@ -109,6 +124,10 @@ export class ApplicationService {
         });
     }
 
+    /**
+     * deactivate the selected application
+     * @param {Application} application
+     */
     public deactivateApplication(application: Application): Observable<Application> {
         const blocked = this.blockedStatusUpdate(application.status.name, ['created', 'rescinded']);
         if (blocked) { return blocked; }
@@ -120,7 +139,8 @@ export class ApplicationService {
     }
 
     /**
-     * @description Saves the changed application
+     * Saves the changed application
+     * @param {Object} form - the form of the application
      * @return {void}
      */
     public saveApplication(form: Object): Observable<Application> {
@@ -140,6 +160,10 @@ export class ApplicationService {
         });
     }
 
+    /**
+     * update the application
+     * @param {Application} application
+     */
     public updateApplication(application: Application): Observable<Application> {
         return this.applicationApi.updateApplicationById(application.id, 17, application).map(result => {
             return this.application = result;

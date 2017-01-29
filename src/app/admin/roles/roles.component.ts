@@ -17,7 +17,7 @@ export class RolesComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-        this.newRole =  [
+        this.newRole = [
             {
                 fieldType: 'input',
                 name: 'title',
@@ -63,10 +63,18 @@ export class RolesComponent implements OnInit {
         ];
     }
 
+    /**
+     * Sort roles by value
+     * @param {String} sortValue
+     */
     sortBy(sortValue: string) {
         // TODO
     }
 
+    /**
+     * Create a new Role
+     * @param {Object} form
+     */
     createNewRole(form) {
         // TODO: create new role
     }
