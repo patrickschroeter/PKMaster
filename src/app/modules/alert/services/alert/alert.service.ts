@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 
 import { Observable, Observer } from 'rxjs/Rx';
 
@@ -7,19 +7,15 @@ import { Message } from './';
 @Injectable()
 export class AlertService {
 
-    private defaultMessageTime: number = 1000;
-    private defaultLoadingTime: number = 10000;
-    private defaultSuccessTime: number = 1500;
+    private defaultMessageTime = 1000;
+    private defaultLoadingTime = 10000;
+    private defaultSuccessTime = 1500;
 
-    private alertObservable: Observable<any>;
-    private alertObserver: Observer<any>;
+    private loading: EventEmitter<any> = new EventEmitter();
+    private hint: EventEmitter<any> = new EventEmitter();
+    private alert: EventEmitter<any> = new EventEmitter();
 
-    private hintObservable: Observable<any>;
-    private hintObserver: Observer<Array<any>>;
     private hints: Array<Message> = [];
-
-    private loadingObservable: Observable<any>;
-    private loadingObserver: Observer<any>;
 
     constructor() { }
 
@@ -30,13 +26,11 @@ export class AlertService {
      * @return {void}
      */
     public setAlert(title: string, message: string): void {
-        if (this.alertObserver) {
-            this.alertObserver.next({
-                title: title,
-                message: message,
-                isOpen: true
-            });
-        }
+        this.alert.emit({
+            title: title,
+            message: message,
+            isOpen: true
+        });
     }
 
     public setTooltip(message: string, time?: number): void {
@@ -56,7 +50,7 @@ export class AlertService {
     }
 
     private add(id: string, type: string, message: string, time?: number): void {
-        let hint: Message = this.addMessage(id, type, message);
+        const hint: Message = this.addMessage(id, type, message);
         if (hint.timeout) {
             clearTimeout(hint.timeout);
         }
@@ -68,7 +62,7 @@ export class AlertService {
     private addMessage(id: string, type: string, message: string): Message {
         let index = -1;
         for (let i = 0, length = this.hints.length; i < length; i++) {
-            let hint = this.hints[i];
+            const hint = this.hints[i];
             if (hint.id === id) {
                 index = i;
             }
@@ -77,9 +71,7 @@ export class AlertService {
         if (index === -1) {
             hint = new Message(id, type, message);
             this.hints.push(hint);
-            if (this.hintObserver) {
-                this.hintObserver.next(this.hints);
-            }
+            this.hint.emit(this.hints);
         } else {
             hint = this.hints[index];
             hint.message = message;
@@ -90,7 +82,7 @@ export class AlertService {
     public removeHint(id: string): void {
         let index = -1;
         for (let i = 0, length = this.hints.length; i < length; i++) {
-            let hint = this.hints[i];
+            const hint = this.hints[i];
             if (hint.id === id) {
                 index = i;
                 clearTimeout(hint.timeout);
@@ -99,17 +91,12 @@ export class AlertService {
         }
         if (index !== -1) {
             this.hints.splice(index, 1);
-            this.hintObserver.next(this.hints);
+            this.hint.emit(this.hints);
         }
     }
 
     public getAlert(): Observable<any> {
-        if (!this.alertObservable) {
-            this.alertObservable = new Observable((observer: Observer<any>) => {
-                this.alertObserver = observer;
-            });
-        }
-        return this.alertObservable;
+        return this.alert;
     }
 
     /**
@@ -117,12 +104,7 @@ export class AlertService {
      * @return {Observable}
      */
     public getHintMessages(): Observable<Array<Message>> {
-        if (!this.hintObservable) {
-            this.hintObservable = new Observable((observer: Observer<any>) => {
-                this.hintObserver = observer;
-            });
-        }
-        return this.hintObservable;
+        return this.hint;
     }
 
     /**
@@ -130,11 +112,6 @@ export class AlertService {
      * @return {Observable}
      */
     public getLoading(): Observable<any> {
-        if (!this.loadingObserver) {
-            this.loadingObservable = new Observable((observer: Observer<any>) => {
-                this.loadingObserver = observer;
-            });
-        }
-        return this.loadingObservable;
+        return this.loading;
     }
 }
