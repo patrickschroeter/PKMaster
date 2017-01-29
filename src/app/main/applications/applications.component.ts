@@ -117,8 +117,9 @@ export class ApplicationsComponent implements OnInit {
             isFluid: true,
 
             emptyText: this.translationService.translate('noFormsAvailable'),
-            emptyLinkText: this.translationService.translate('createNewForm'),
-            redirect: ['forms']
+            redirect: this.permission.hasPermission('ReadForms'),
+            redirectText: this.translationService.translate('createNewForm'),
+            redirectParam: ['forms']
         });
     }
 

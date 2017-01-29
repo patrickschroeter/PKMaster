@@ -59,16 +59,18 @@ export class ModalService {
         click: Function,
         isFluid?: boolean,
         emptyText?: string,
-        emptyLinkText?: string,
-        redirect?: string[],
+        redirect?: boolean,
+        redirectText?: string,
+        redirectParam?: string[]
         redirectFn?: Function
     }) {
         data.isFluid = data.isFluid || false;
         data.emptyText = data.emptyText || '';
-        data.emptyLinkText = data.emptyLinkText || '';
-        data.redirect = data.redirect || [''];
+        data.redirect = data.redirect || false;
+        data.redirectText = data.redirectText || '';
+        data.redirectParam = data.redirectParam || [''];
         data.redirectFn = () => {
-            this.router.navigate(data.redirect);
+            this.router.navigate(data.redirectParam);
             this.destroyModal();
         };
 
