@@ -15,8 +15,14 @@ describe('ModalSelectlistComponent', () => {
             providers: [
                 { provide: 'title', useValue: 'title' },
                 { provide: 'list', useValue: [] },
-                { provide: 'click', useValue: () => {} },
+                { provide: 'click', useValue: () => { } },
                 { provide: 'isFluid', useValue: false },
+                { provide: 'emptyText', useValue: '' },
+                { provide: 'redirect', useValue: false },
+                { provide: 'redirectText', useValue: '' },
+                { provide: 'redirectFn', useValue: () => { } },
+                { provide: 'selectedValue', useValue: '' },
+                { provide: 'selectedValues', useValue: [] },
             ],
             schemas: [
                 NO_ERRORS_SCHEMA

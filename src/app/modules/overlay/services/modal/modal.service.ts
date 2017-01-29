@@ -51,7 +51,20 @@ export class ModalService {
     }
 
     /**
-     * Create an list Modal with injected parameters
+     * Create an list modal with injected parameters
+     * title: title of the modal
+     * list: list of elements to display { label, value }
+     * click: function to be executed on List-Element click
+     *
+     * Optional parameters:
+     * isFluid: overlay styling attribute
+     * emptyText: text to be displayed if no element is in the list
+     * redirect: flag to indicate if there is a redirect button if the list is empty
+     * redirectText: text on the redirect button
+     * redirectParam: params for the @angular/router
+     * redirectFn: custom function to execute the redirect
+     * selectedValue: single value to highlight in the list
+     * selectedValues: array of values to highlight in the list
      */
     public createListModal(data: {
         title: string,
