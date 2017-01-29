@@ -59,5 +59,7 @@ export const DICTIONARY_EN = {
     errorNoConferenceWithId: `There is no conference with ID '{ 0 }'.`,
     errorNoFormWithId: `There is no form with ID '{ 0 }'.`,
 
-    expiredToken: 'No valid session could be found.'
+    expiredToken: 'No valid session could be found.',
+
+    addElementPreset: 'addElementPreset'
 };

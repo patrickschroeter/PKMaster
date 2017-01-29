@@ -1,6 +1,11 @@
 import { Injectable, EventEmitter } from '@angular/core';
 
-import { ModalOutletComponent, ModalErrorComponent } from './../../';
+import {
+    ModalOutletComponent,
+
+    ModalErrorComponent,
+    ModalSelectlistComponent
+} from './../../';
 
 @Injectable()
 export class ModalService {
@@ -16,16 +21,11 @@ export class ModalService {
         this.outlet = component;
     }
 
-    public create(title: string, message: string, type: string): void {
-        const data = {
-            title: title,
-            message: message,
-            type: type
-        };
+    public destroyModal() {
         if (!this.outlet) {
             throw new Error('No ModalOutletComponent registered in ModalService.');
         }
-        this.outlet.createComponent(data, ModalErrorComponent);
+        this.outlet.destroy();
     }
 
     public createErrorModal(title: string, message: string) {
@@ -37,6 +37,19 @@ export class ModalService {
             throw new Error('No ModalOutletComponent registered in ModalService.');
         }
         this.outlet.createComponent(data, ModalErrorComponent);
+    }
+
+    public createListModal(title: string, list: Object[], click: Function, isFluid?: boolean) {
+        const data = {
+            title: title,
+            list: list,
+            click: click,
+            isFluid: isFluid
+        };
+        if (!this.outlet) {
+            throw new Error('No ModalOutletComponent registered in ModalService.');
+        }
+        this.outlet.createComponent(data, ModalSelectlistComponent);
     }
 
 }

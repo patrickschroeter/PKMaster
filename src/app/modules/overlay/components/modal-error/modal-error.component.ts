@@ -18,7 +18,6 @@ export class ModalErrorComponent implements OnInit {
     constructor(private injector: Injector) {
         this.title = this.injector.get('title');
         this.message = this.injector.get('message');
-        this.type = this.injector.get('type');
     }
 
     ngOnInit() {

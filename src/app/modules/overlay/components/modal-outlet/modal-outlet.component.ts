@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 
 import { ModalErrorComponent } from './../modal-error/modal-error.component';
+import { ModalSelectlistComponent } from './../modal-selectlist/modal-selectlist.component';
 import { ModalService } from './../../services/modal/modal.service';
 
 @Component({
@@ -16,7 +17,8 @@ import { ModalService } from './../../services/modal/modal.service';
     templateUrl: './modal-outlet.component.html',
     styleUrls: ['./modal-outlet.component.scss'],
     entryComponents: [
-        ModalErrorComponent
+        ModalErrorComponent,
+        ModalSelectlistComponent
     ]
 })
 export class ModalOutletComponent implements OnInit {
@@ -53,6 +55,10 @@ export class ModalOutletComponent implements OnInit {
         // We insert the component into the dom container
         this.outlet.clear();
         this.outlet.insert(component.hostView);
+    }
+
+    public destroy() {
+        this.outlet.clear();
     }
 
 }

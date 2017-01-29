@@ -1,0 +1,10 @@
+<pk-overlay #overlay [ngClass]="{ 'overlay--fluid': isFluid }">
+    <pk-overlay-header>{{ title }}</pk-overlay-header>
+    <pk-overlay-content>
+
+        <div class="overlay__option selectable" *ngFor="let option of list" (click)="click(option)">
+                {{ option.label }}
+        </div>
+
+    </pk-overlay-content>
+</pk-overlay>

@@ -2,14 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
+    /** Main Components */
     ModalOutletComponent,
     OverlayComponent,
 
+    /** Lego Components */
     OverlayHeaderComponent,
     OverlayContentComponent,
 
+    /** Presets */
     ModalErrorComponent,
+    ModalSelectlistComponent,
 
+    /** Services */
     ModalService
 } from './';
 
@@ -24,16 +29,15 @@ import { ButtonModule } from './../button/button.module';
         OverlayHeaderComponent,
         OverlayContentComponent,
 
-        ModalErrorComponent
+        ModalErrorComponent,
+        ModalSelectlistComponent
     ],
     imports: [
         CommonModule,
         FloatingModule,
         ButtonModule
     ],
-    providers: [
-        ModalService
-    ],
+    providers: [],
     exports: [
         ModalOutletComponent,
         OverlayComponent,
@@ -41,7 +45,21 @@ import { ButtonModule } from './../button/button.module';
         OverlayHeaderComponent,
         OverlayContentComponent,
 
-        ModalErrorComponent
+        ModalErrorComponent,
+        ModalSelectlistComponent
     ]
 })
 export class OverlayModule { }
+
+@NgModule({
+    imports: [
+        OverlayModule
+    ],
+    providers: [
+        ModalService
+    ],
+    exports: [
+        ModalOutletComponent
+    ]
+})
+export class ModalModule { }

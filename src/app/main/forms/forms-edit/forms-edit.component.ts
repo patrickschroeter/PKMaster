@@ -3,7 +3,10 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { FormService, FormElementService } from './../../../core';
 import { AlertService } from './../../../modules/alert';
-import { OverlayComponent } from './../../../modules/overlay';
+import {
+    OverlayComponent,
+    ModalService
+} from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
 import { Field } from './../../../swagger';
@@ -19,7 +22,6 @@ import { Field } from './../../../swagger';
 export class FormsEditComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    @ViewChild('overlayPreset') overlayPreset: OverlayComponent;
     @ViewChild('overlayAttributes') overlayAttributes: OverlayComponent;
 
     /** The form to edit */
@@ -31,9 +33,7 @@ export class FormsEditComponent implements OnInit {
     get editForm() { return this._editForm; }
     set editForm(form) { this._editForm = form; }
     /** Flag if Add Element View is open */
-    private addingElement: boolean = false;
-
-    private presets: { value: string, label: string }[];
+    private addingElement = false;
 
     constructor(
         private router: Router,
@@ -41,7 +41,8 @@ export class FormsEditComponent implements OnInit {
         private formService: FormService,
         private alert: AlertService,
         private elementService: FormElementService,
-        private translationService: TranslationService
+        private translationService: TranslationService,
+        private modalService: ModalService
     ) { }
 
 
@@ -87,8 +88,7 @@ export class FormsEditComponent implements OnInit {
 
     addPreset(option?) {
         if (!option) {
-            this.overlayPreset.toggle(true);
-            this.presets = [
+            const presets = [
                 {
                     value: 'devider',
                     label: 'Devider',
@@ -102,6 +102,12 @@ export class FormsEditComponent implements OnInit {
                     label: 'Matrikelnummer',
                 }
             ];
+
+            this.modalService.createListModal(
+                this.translationService.translate('addElementPreset'),
+                presets,
+                this.addPreset.bind(this)
+            );
         } else {
             if (this.formService.addPresetToForm(option.value)) {
                 this.alert.setSuccessHint('add-preset', this.translationService.translate('addedPreset', [option.label]));
@@ -111,7 +117,7 @@ export class FormsEditComponent implements OnInit {
                     this.translationService.translate('usedId')
                 );
             }
-            this.overlayPreset.toggle(false);
+            this.modalService.destroyModal();
         }
     }
 

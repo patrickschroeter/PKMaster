@@ -23,7 +23,7 @@ export class AlertComponent implements OnInit {
 
     ngOnInit() {
         this.alert.getAlert().subscribe(alert => {
-            this.modalService.create(alert.title, alert.message, 'error');
+            this.modalService.createErrorModal(alert.title, alert.message);
         });
         this.alert.getHintMessages().subscribe(hints => {
             this.hintElements = hints;

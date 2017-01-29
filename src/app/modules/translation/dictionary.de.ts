@@ -59,5 +59,7 @@ export const DICTIONARY_DE = {
     errorNoConferenceWithId: `Es gibt keine Sitzung mit der ID '{ 0 }'.`,
     errorNoFormWithId: `Es gibt kein Formular mit der ID '{ 0 }'.`,
 
-    expiredToken: 'Es konnte keine gültige Session gefunden werden.'
+    expiredToken: 'Es konnte keine gültige Session gefunden werden.',
+
+    addElementPreset: 'Vordefiniertes Element hinzufügen'
 };
