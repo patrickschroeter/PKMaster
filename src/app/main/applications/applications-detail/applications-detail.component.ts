@@ -121,7 +121,7 @@ export class ApplicationsDetailComponent implements OnInit {
         this.auth.getUser().subscribe(user => {
             comment.user = user;
             comment.userId = user.id;
-            comment.isPrivate = !! comment.isPrivate;
+            comment.isPrivate = !!comment.isPrivate;
             comment.requiresChanges = !!comment.requiresChanges;
             // TODO: send to server
             this.savingComment = true;
@@ -189,7 +189,10 @@ export class ApplicationsDetailComponent implements OnInit {
      */
     private submitApplication(application: Application): void {
         this.applicationService.submitApplication(application).subscribe(result => {
-            this.alert.setSuccessHint(`submitApplication${application.id}`, this.translationService.translate('applicationSubmitted'));
+            this.alert.setSuccessHint(
+                `submitApplication${application.id}`,
+                this.translationService.translate('applicationSubmitted')
+            );
             this.modalService.destroyModal();
         });
     }
@@ -214,7 +217,10 @@ export class ApplicationsDetailComponent implements OnInit {
      */
     private rescindApplication(application: Application): void {
         this.applicationService.rescindApplication(application).subscribe(result => {
-            this.alert.setSuccessHint(`rescindApplication${application.id}`, this.translationService.translate('applicationRescinded'));
+            this.alert.setSuccessHint(
+                `rescindApplication${application.id}`,
+                this.translationService.translate('applicationRescinded')
+            );
             this.modalService.destroyModal();
         });
     }
@@ -239,7 +245,8 @@ export class ApplicationsDetailComponent implements OnInit {
      */
     private deactivateApplication(application: Application): void {
         this.applicationService.deactivateApplication(application).subscribe(result => {
-            this.alert.setSuccessHint(`deactivateApplication${application.id}`,
+            this.alert.setSuccessHint(
+                `deactivateApplication${application.id}`,
                 this.translationService.translate('applicationDeactivated')
             );
             this.modalService.destroyModal();

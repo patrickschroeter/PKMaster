@@ -11,10 +11,11 @@ describe('ModalService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                ModalService
+                ModalService,
+
+                ...TranslationProviderMock
             ],
             imports: [
-                ...TranslationProviderMock,
                 RouterTestingModule.withRoutes([
                     { path: '', component: class { } },
                 ])
