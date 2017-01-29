@@ -7,7 +7,21 @@
             <pk-button *ngIf="redirect" icon="keyboard_arrow_right" element--secondary [value]="redirectText" class="element--spacing-top-large" (onClick)="redirectFn()"></pk-button>
         </div>
 
-        <div class="overlay__option selectable" *ngFor="let option of list" (click)="click(option)">
+
+        <div *ngIf="list?.length > 5" class="overlay__option element">
+            <input
+                class="element__input"
+                id="search-field"
+                placeholder="Search"
+                [ngModel]="searchstring"
+                (ngModelChange)="filterOptions($event)"
+                >
+        </div>
+
+        <div class="overlay__option selectable"
+            *ngFor="let option of (filteredOptions ? filteredOptions : list)"
+            (click)="click(option)"
+            [class.selectable--active]="(selectedValues.indexOf(option.value) !== -1) || (selectedValue === option.value)">
                 {{ option.label }}
         </div>
 

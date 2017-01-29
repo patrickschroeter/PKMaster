@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import {
     /** Main Components */
@@ -36,6 +37,7 @@ import { ButtonModule } from './../button/button.module';
         ModalConfirmationComponent
     ],
     imports: [
+        FormsModule,
         CommonModule,
         FloatingModule,
         ButtonModule

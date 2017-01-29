@@ -61,8 +61,11 @@ export class ModalService {
         emptyText?: string,
         redirect?: boolean,
         redirectText?: string,
-        redirectParam?: string[]
-        redirectFn?: Function
+        redirectParam?: string[],
+        redirectFn?: Function,
+
+        selectedValue?: string,
+        selectedValues?: string[]
     }) {
         data.isFluid = data.isFluid || false;
         data.emptyText = data.emptyText || '';
@@ -73,6 +76,8 @@ export class ModalService {
             this.router.navigate(data.redirectParam);
             this.destroyModal();
         };
+        data.selectedValue = data.selectedValue || '';
+        data.selectedValues = data.selectedValues || [];
 
         if (!this.outlet) {
             throw new Error('No ModalOutletComponent registered in ModalService.');

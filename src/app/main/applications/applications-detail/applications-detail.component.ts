@@ -139,6 +139,8 @@ export class ApplicationsDetailComponent implements OnInit {
             click: this.addApplicationToConference.bind(this),
             isFluid: true,
 
+            selectedValue: this.application.conferenceId,
+
             emptyText: this.translationService.translate('noConferencesAvailable'),
             redirect: this.permission.hasPermission('ReadConferences'),
             redirectText: this.translationService.translate('createNewConference'),
