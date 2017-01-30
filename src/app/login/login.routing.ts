@@ -3,10 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './';
 
-import { AccessService } from './../core';
-
 const routes: Routes = [
-    { path: '', component: LoginComponent, canDeactivate: [AccessService] },
+    { path: '', component: LoginComponent },
 ];
 
 @NgModule({

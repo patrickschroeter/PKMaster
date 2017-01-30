@@ -5,12 +5,11 @@ import { AdminComponent, AdminProfileComponent, RolesComponent, PermissionsCompo
 
 import {
     AccessAdmin,
-    AccessEditRoles,
-    AccessReadRoles,
-    AccessEditPermissions,
-    AccessReadPermissions,
-    AccessEditUsers,
-    AccessReadUsers
+    AccessRoles,
+    AccessRolesEdit,
+    AccessPermissions,
+    AccessUsers,
+    AccessUsersEdit
 } from './../core';
 
 const routes: Routes = [
@@ -19,11 +18,54 @@ const routes: Routes = [
         component: AdminComponent,
         canActivate: [AccessAdmin],
         children: [
-            { path: 'profile', component: AdminProfileComponent },
-            { path: 'roles', component: RolesComponent, canActivate: [AccessReadRoles] },
-            { path: 'permissions', component: PermissionsComponent, canActivate: [AccessReadPermissions] },
-            { path: 'users', component: UsersComponent, canActivate: [AccessReadUsers] },
-            { path: '', redirectTo: 'roles', pathMatch: 'full' }
+            {
+                path: 'profile',
+                component: AdminProfileComponent
+            },
+            {
+                path: 'profile/edit',
+                component: AdminProfileComponent
+            },
+            {
+                path: 'roles',
+                component: RolesComponent,
+                canActivate: [AccessRoles]
+            },
+            {
+                path: 'roles/:id',
+                component: RolesComponent,
+                canActivate: [AccessRoles]
+            },
+            {
+                path: 'roles/:id/edit',
+                component: RolesComponent,
+                canActivate: [AccessRolesEdit]
+            },
+            {
+                path: 'permissions',
+                component: PermissionsComponent,
+                canActivate: [AccessPermissions]
+            },
+            {
+                path: 'users',
+                component: UsersComponent,
+                canActivate: [AccessUsers]
+            },
+            {
+                path: 'users/:id',
+                component: UsersComponent,
+                canActivate: [AccessUsers]
+            },
+            {
+                path: 'users/:id/edit',
+                component: UsersComponent,
+                canActivate: [AccessUsersEdit]
+            },
+            {
+                path: '',
+                redirectTo: 'roles',
+                pathMatch: 'full'
+            }
         ]
     }
 ];

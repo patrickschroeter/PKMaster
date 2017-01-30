@@ -16,13 +16,11 @@ export class UserApiMock {
         },
         Roles: {
             Read: 'ReadRoles',
-            Edit: 'EditRoles',
-            Delete: 'DeleteRoles'
+            Edit: 'EditRoles'
         },
         Users: {
             Read: 'ReadUsers',
-            Edit: 'EditUsers',
-            EditPassword: 'EditUsersPassword'
+            Edit: 'EditUsers'
         },
         Application: {
             Create: 'CreateApplications',
@@ -40,7 +38,7 @@ export class UserApiMock {
             Read: 'ReadForms',
             Edit: 'EditForms'
         }
-    }
+    };
 
     static PERMISSIONS = {
         All: [
@@ -50,11 +48,9 @@ export class UserApiMock {
             /** Roles */
             UserApiMock.PERMISSION.Roles.Read,
             UserApiMock.PERMISSION.Roles.Edit,
-            UserApiMock.PERMISSION.Roles.Delete,
             /** Users */
             UserApiMock.PERMISSION.Users.Read,
             UserApiMock.PERMISSION.Users.Edit,
-            UserApiMock.PERMISSION.Users.EditPassword,
             /** Applications */
             UserApiMock.PERMISSION.Application.Create,
             UserApiMock.PERMISSION.Application.Read,
@@ -74,10 +70,8 @@ export class UserApiMock {
             UserApiMock.PERMISSION.Permission.Edit,
             UserApiMock.PERMISSION.Roles.Read,
             UserApiMock.PERMISSION.Roles.Edit,
-            UserApiMock.PERMISSION.Roles.Delete,
             UserApiMock.PERMISSION.Users.Read,
             UserApiMock.PERMISSION.Users.Edit,
-            UserApiMock.PERMISSION.Users.EditPassword,
         ],
         Principal: [
             UserApiMock.PERMISSION.Application.Create,

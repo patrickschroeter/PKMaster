@@ -33,20 +33,19 @@ const API = false;
 
         // AuthGuards
 
-        services.AccessService,
-        services.AccessReadApplications,
-        services.AccessEditApplications,
-        services.AccessReadForms,
-        services.AccessEditForms,
-        services.AccessEditConferences,
-        services.AccessReadConferences,
+        services.AccessMain,
+        services.AccessApplications,
+        services.AccessApplicationsEdit,
+        services.AccessConferencesDetail,
+        services.AccessConferencesEdit,
+        services.AccessForms,
+        services.AccessFormsEdit,
         services.AccessAdmin,
-        services.AccessEditRoles,
-        services.AccessReadRoles,
-        services.AccessEditPermissions,
-        services.AccessReadPermissions,
-        services.AccessEditUsers,
-        services.AccessReadUsers,
+        services.AccessPermissions,
+        services.AccessRoles,
+        services.AccessRolesEdit,
+        services.AccessUsers,
+        services.AccessUsersEdit,
 
         // Mock API
 
