@@ -11,7 +11,15 @@ import { FormApi } from './../swagger/api/FormApi';
 import { ApplicationApi } from './../swagger/api/ApplicationApi';
 import { UserApi } from './../swagger/api/UserApi';
 import { ConferenceApi } from './../swagger/api/ConferenceApi';
-import { FormEndpoint, ApplicationEndpoint, UserEndpoint, ConferenceEndpoint } from './services/api';
+import { RoleApi } from './../swagger/api/RoleApi';
+import {
+    FormEndpoint,
+    ApplicationEndpoint,
+    UserEndpoint,
+    ConferenceEndpoint,
+    RoleEndpoint,
+    PermissionEndpoint
+} from './services/api';
 
 const BASEPATH = 'http://pk.multimedia.hs-augsburg.de:8000';
 const API = false;
@@ -61,13 +69,33 @@ const API = false;
             deps: [Http, FormApi, ConferenceApi, UserApi]
         },
 
-        { provide: UserApi, useClass: services.UserEndpoint },
+        { provide: UserApi, useClass: UserEndpoint },
+        // TODO: fix cycling provider error
+        // {
+        //     provide: UserApi,
+        //     useFactory: extendUserApi,
+        //     deps: [Http]
+        // },
 
         {
             provide: ConferenceApi,
             useFactory: extendConferenceApi,
             deps: [Http]
         },
+
+        {
+            provide: RoleApi,
+            useFactory: extendRoleApi,
+            deps: [Http]
+        },
+
+        PermissionEndpoint,
+        // TODO: wait for permission api
+        // {
+        //     provide: PermissionEndpoint,
+        //     useFactory: extendPermissionApi,
+        //     deps: [Http]
+        // },
 
         // Extend HTTP
         {
@@ -95,6 +123,9 @@ export const CoreProviderMock = [
     { provide: ApplicationApi, useClass: services.ApplicationApiMock },
     { provide: UserApi, useClass: services.UserApiMock },
     { provide: ConferenceApi, useClass: services.ConferenceApiMock },
+    { provide: RoleApi, useClass: services.RoleApiMock },
+    // TODO: wait for permission api
+    { provide: PermissionEndpoint, useClass: services.PermissionApiMock }
 ];
 
 /**
@@ -117,4 +148,17 @@ export function extendApplicationApi(http: Http, formApi: FormApi, conferenceApi
 
 export function extendConferenceApi(http: Http) {
     return API ? new ConferenceApi(http, BASEPATH) : new ConferenceEndpoint();
+}
+
+export function extendUserApi(http: Http) {
+    return API ? new UserApi(http, BASEPATH) : new UserEndpoint();
+}
+
+export function extendRoleApi(http: Http) {
+    return API ? new RoleApi(http, BASEPATH) : new RoleEndpoint();
+}
+
+export function extendPermissionApi(http: Http) {
+    // TODO: wait for permission api
+    // return API ? new PermissionApi(http, BASEPATH) : new PermissionEndpoint();
 }

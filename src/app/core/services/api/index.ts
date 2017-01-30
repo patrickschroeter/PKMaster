@@ -6,3 +6,7 @@ export * from './UserApi.mock';
 export * from './UserEndpoint';
 export * from './ConferenceEndpoint';
 export * from './ConferenceApi.mock';
+export * from './RoleEndpoint';
+export * from './RoleApi.mock';
+export * from './PermissionEndpoint';
+export * from './PermissionApi.mock';
