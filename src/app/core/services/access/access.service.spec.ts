@@ -4,20 +4,19 @@ import { TestBed, async, inject } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import {
-    AccessService,
+    AccessMain,
     AccessAdmin,
-    AccessEditForms,
-    AccessEditRoles,
-    AccessEditUsers,
-    AccessEditConferences,
-    AccessEditPermissions,
-    AccessEditApplications,
-    AccessReadUsers,
-    AccessReadForms,
-    AccessReadRoles,
-    AccessReadConferences,
-    AccessReadPermissions,
-    AccessReadApplications
+    AccessForms,
+    AccessRoles,
+    AccessUsers,
+    AccessFormsEdit,
+    AccessRolesEdit,
+    AccessUsersEdit,
+    AccessPermissions,
+    AccessApplications,
+    AccessConferencesEdit,
+    AccessApplicationsEdit,
+    AccessConferencesDetail
 } from './access.service';
 
 import { AuthenticationService, AuthenticationMock, PermissionService, PermissionMock } from './../';
@@ -26,20 +25,19 @@ describe('AuthGuard: ', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                AccessService,
+                AccessMain,
                 AccessAdmin,
-                AccessEditForms,
-                AccessEditRoles,
-                AccessEditUsers,
-                AccessEditConferences,
-                AccessEditPermissions,
-                AccessEditApplications,
-                AccessReadUsers,
-                AccessReadForms,
-                AccessReadRoles,
-                AccessReadConferences,
-                AccessReadPermissions,
-                AccessReadApplications,
+                AccessForms,
+                AccessRoles,
+                AccessUsers,
+                AccessFormsEdit,
+                AccessRolesEdit,
+                AccessUsersEdit,
+                AccessPermissions,
+                AccessApplications,
+                AccessConferencesEdit,
+                AccessApplicationsEdit,
+                AccessConferencesDetail,
 
                 { provide: AuthenticationService, useClass: AuthenticationMock },
                 { provide: PermissionService, useClass: PermissionMock }
@@ -52,8 +50,8 @@ describe('AuthGuard: ', () => {
         });
     });
 
-    describe('AccessService', () => {
-        it('should exist to protect a route', inject([AccessService], (service: AccessService) => {
+    describe('AccessMain', () => {
+        it('should exist to protect a route', inject([AccessMain], (service: AccessMain) => {
             expect(service).toBeTruthy();
         }));
     });
@@ -64,74 +62,68 @@ describe('AuthGuard: ', () => {
         }));
     });
 
-    describe('AccessEditForms', () => {
-        it('should exist to protect a route', inject([AccessEditForms], (service: AccessEditForms) => {
+    describe('AccessForms', () => {
+        it('should exist to protect a route', inject([AccessForms], (service: AccessForms) => {
             expect(service).toBeTruthy();
         }));
     });
 
-    describe('AccessEditRoles', () => {
-        it('should exist to protect a route', inject([AccessEditRoles], (service: AccessEditRoles) => {
+    describe('AccessRoles', () => {
+        it('should exist to protect a route', inject([AccessRoles], (service: AccessRoles) => {
             expect(service).toBeTruthy();
         }));
     });
 
-    describe('AccessEditUsers', () => {
-        it('should exist to protect a route', inject([AccessEditUsers], (service: AccessEditUsers) => {
+    describe('AccessUsers', () => {
+        it('should exist to protect a route', inject([AccessUsers], (service: AccessUsers) => {
             expect(service).toBeTruthy();
         }));
     });
 
-    describe('AccessEditConferences', () => {
-        it('should exist to protect a route', inject([AccessEditConferences], (service: AccessEditConferences) => {
+    describe('AccessFormsEdit', () => {
+        it('should exist to protect a route', inject([AccessFormsEdit], (service: AccessFormsEdit) => {
             expect(service).toBeTruthy();
         }));
     });
 
-    describe('AccessEditPermissions', () => {
-        it('should exist to protect a route', inject([AccessEditPermissions], (service: AccessEditPermissions) => {
+    describe('AccessRolesEdit', () => {
+        it('should exist to protect a route', inject([AccessRolesEdit], (service: AccessRolesEdit) => {
             expect(service).toBeTruthy();
         }));
     });
 
-    describe('AccessEditApplications', () => {
-        it('should exist to protect a route', inject([AccessEditApplications], (service: AccessEditApplications) => {
+    describe('AccessUsersEdit', () => {
+        it('should exist to protect a route', inject([AccessUsersEdit], (service: AccessUsersEdit) => {
             expect(service).toBeTruthy();
         }));
     });
 
-    describe('AccessReadUsers', () => {
-        it('should exist to protect a route', inject([AccessReadUsers], (service: AccessReadUsers) => {
+    describe('AccessPermissions', () => {
+        it('should exist to protect a route', inject([AccessPermissions], (service: AccessPermissions) => {
             expect(service).toBeTruthy();
         }));
     });
 
-    describe('AccessReadForms', () => {
-        it('should exist to protect a route', inject([AccessReadForms], (service: AccessReadForms) => {
+    describe('AccessApplications', () => {
+        it('should exist to protect a route', inject([AccessApplications], (service: AccessApplications) => {
             expect(service).toBeTruthy();
         }));
     });
 
-    describe('AccessReadRoles', () => {
-        it('should exist to protect a route', inject([AccessReadRoles], (service: AccessReadRoles) => {
+    describe('AccessConferencesEdit', () => {
+        it('should exist to protect a route', inject([AccessConferencesEdit], (service: AccessConferencesEdit) => {
             expect(service).toBeTruthy();
         }));
     });
 
-    describe('AccessReadConferences', () => {
-        it('should exist to protect a route', inject([AccessReadConferences], (service: AccessReadConferences) => {
+    describe('AccessApplicationsEdit', () => {
+        it('should exist to protect a route', inject([AccessApplicationsEdit], (service: AccessApplicationsEdit) => {
             expect(service).toBeTruthy();
         }));
     });
 
-    describe('AccessReadPermissions', () => {
-        it('should exist to protect a route', inject([AccessReadPermissions], (service: AccessReadPermissions) => {
-            expect(service).toBeTruthy();
-        }));
-    });
-
-    describe('AccessReadApplications', () => {
-        it('should exist to protect a route', inject([AccessReadApplications], (service: AccessReadApplications) => {
+    describe('AccessConferencesDetail', () => {
+        it('should exist to protect a route', inject([AccessConferencesDetail], (service: AccessConferencesDetail) => {
             expect(service).toBeTruthy();
         }));
     });
