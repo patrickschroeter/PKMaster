@@ -2,14 +2,6 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
-      <trans-unit id="d7b35c384aecd25a516200d6921836374613dfe7" datatype="html">
-        <source>Cancel</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="ac10a3d9b59575640797c1a8e6aea642cf5d5e77" datatype="html">
-        <source>Continue</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="dc90df7803f5d1fbdf44864440f1f4b87b32b341" datatype="html">
         <source>Admin Profile</source>
         <target/>
@@ -82,6 +74,10 @@
         <source>Save</source>
         <target/>
       </trans-unit>
+      <trans-unit id="d7b35c384aecd25a516200d6921836374613dfe7" datatype="html">
+        <source>Cancel</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="70a67e04629f6d412db0a12d51820b480788d795" datatype="html">
         <source>Create</source>
         <target/>
@@ -146,12 +142,12 @@
         <source>public</source>
         <target/>
       </trans-unit>
-      <trans-unit id="fa0d6b330917208a29c51f09ed33815922b9fcbc" datatype="html">
-        <source>Submit Application</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="d950b50abcc3b49118b3c7c04103c90a87e02456" datatype="html">
         <source>Edit Application</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="fa0d6b330917208a29c51f09ed33815922b9fcbc" datatype="html">
+        <source>Submit Application</source>
         <target/>
       </trans-unit>
       <trans-unit id="5187db9568dde464812fe052bb1a548a3298f726" datatype="html">
@@ -168,10 +164,6 @@
       </trans-unit>
       <trans-unit id="1587b365ccf74063009707819c7b2e34d8633f8b" datatype="html">
         <source>Accept/Decline Application</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="49b5ece1efb59144a28e1fc871996fbf02494573" datatype="html">
-        <source>No Conferences available.</source>
         <target/>
       </trans-unit>
       <trans-unit id="08aa41e861400dd6a1924fe17c978b24220b1b46" datatype="html">
@@ -196,14 +188,6 @@
       </trans-unit>
       <trans-unit id="16d65b47eb518d5d026cf2a9811d36d0ac7c7acc" datatype="html">
         <source>Create Application</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="47987d7fd20de87ffd59a1e34db59dcd54962a25" datatype="html">
-        <source>Create New Application</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="616496fd2289f5d943fc117e25f0f51e877bcfec" datatype="html">
-        <source>No Forms available.</source>
         <target/>
       </trans-unit>
       <trans-unit id="accad0ff6a338145562d85bf1752e12fee69230e" datatype="html">

@@ -13,7 +13,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 import { AuthenticationService } from './../authentication/authentication.service';
 import { PermissionService } from './../permission/permission.service';
 
-class AccessService implements CanActivate, CanDeactivate<any>, CanLoad {
+export class AccessService implements CanActivate, CanDeactivate<any>, CanLoad {
 
     constructor(
         protected authentication: AuthenticationService,

@@ -59,4 +59,5 @@ export interface AppUser {
     /** Custom */
     token?: string;
     permissions?: string[];
+    roles?: models.Role[];
 }
