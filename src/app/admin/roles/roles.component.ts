@@ -1,5 +1,12 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 
+import {
+    RoleService,
+    PermissionService
+ } from './../../core';
+
+import { Access } from './../../shared';
+
 @Component({
     selector: 'pk-roles',
     templateUrl: './roles.component.html',
@@ -14,7 +21,10 @@ export class RolesComponent implements OnInit {
     set newRole(value) { this._newRole = value; }
     get newRole() { return this._newRole; }
 
-    constructor() { }
+    constructor(
+        private roleService: RoleService,
+        private permission: PermissionService
+    ) { }
 
     ngOnInit() {
         this.newRole = [
@@ -29,46 +39,16 @@ export class RolesComponent implements OnInit {
                 ]
             }
         ];
-        this.roles = [
-            {
-                title: 'Student',
-                id: 1,
-                created: 674467500,
-                restricted: true
-            },
-            {
-                title: 'Dozent',
-                id: 2,
-                created: 1315382700,
-                restricted: false
-            },
-            {
-                title: 'PK Member',
-                id: 3,
-                created: 1455613500,
-                restricted: true
-            },
-            {
-                title: 'PK Chef',
-                id: 4,
-                created: 1477555500,
-                restricted: false
-            },
-            {
-                title: 'Admin',
-                id: 4,
-                created: 1477555500,
-                restricted: false
-            }
-        ];
     }
 
     /**
-     * Sort roles by value
-     * @param {String} sortValue
+     * Catch all roles from server
      */
-    sortBy(sortValue: string) {
-        // TODO
+    @Access('ReadRoles')
+    private getRoles(): void {
+        this.roleService.getRoles().subscribe(roles => {
+            this.roles = roles;
+        });
     }
 
     /**

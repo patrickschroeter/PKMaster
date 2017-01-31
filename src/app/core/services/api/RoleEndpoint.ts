@@ -9,6 +9,15 @@ export class RoleEndpoint {
 
     constructor() { }
 
+    public getRoles (token?: number, extraHttpRequestParams?: any ) : Observable<Array<Role>> {
+        return new Observable((observer: Observer<any>) => {
+            setTimeout(() => {
+                observer.next(this._roles());
+                observer.complete();
+            }, 500);
+        });
+    }
+
     /**
      * Mock Server
      */

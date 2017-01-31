@@ -5,6 +5,7 @@ export * from './form';
 export * from './form-element';
 export * from './application';
 export * from './conference';
+export * from './role';
 
 export * from './api';
 export * from './extend-http';

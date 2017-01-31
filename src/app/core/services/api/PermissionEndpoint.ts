@@ -17,18 +17,20 @@ export class PermissionEndpoint {
     constructor() { }
 
     public getPermissions() {
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 observer.next(this._permissions());
+                observer.complete();
             }, 500);
         });
     }
 
     public updatePermission(id: string, permission: Permission): Observable<any> {
         const perm = this._permissionUpdate(id, permission);
-        return new Observable(observer => {
+        return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 observer.next(perm);
+                observer.complete();
             }, 500);
         });
     }
