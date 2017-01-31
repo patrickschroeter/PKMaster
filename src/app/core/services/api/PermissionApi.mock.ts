@@ -41,7 +41,7 @@ export class PermissionApiMock {
     };
 
     /** One Permission Object */
-    static PERMISSIONS = {
+    static PERMISSION_OBJECT = {
         Permission: {
             Read: {
                 id: '1',
@@ -120,4 +120,29 @@ export class PermissionApiMock {
             },
         }
     };
+
+    static PERMISSIONS = [
+        /** Permissions */
+        PermissionApiMock.PERMISSION_OBJECT.Permission.Read,
+        PermissionApiMock.PERMISSION_OBJECT.Permission.Edit,
+        /** Roles */
+        PermissionApiMock.PERMISSION_OBJECT.Roles.Read,
+        PermissionApiMock.PERMISSION_OBJECT.Roles.Edit,
+        /** Users */
+        PermissionApiMock.PERMISSION_OBJECT.Users.Read,
+        PermissionApiMock.PERMISSION_OBJECT.Users.Edit,
+        /** Applications */
+        PermissionApiMock.PERMISSION_OBJECT.Application.Create,
+        PermissionApiMock.PERMISSION_OBJECT.Application.Read,
+        PermissionApiMock.PERMISSION_OBJECT.Application.Edit,
+        PermissionApiMock.PERMISSION_OBJECT.Application.Delete,
+        PermissionApiMock.PERMISSION_OBJECT.Application.Comment,
+        PermissionApiMock.PERMISSION_OBJECT.Application.Accept,
+        /** Conference */
+        PermissionApiMock.PERMISSION_OBJECT.Conference.Read,
+        PermissionApiMock.PERMISSION_OBJECT.Conference.Edit,
+        /** Forms */
+        PermissionApiMock.PERMISSION_OBJECT.Forms.Read,
+        PermissionApiMock.PERMISSION_OBJECT.Forms.Edit
+    ]
 }

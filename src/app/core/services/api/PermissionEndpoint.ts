@@ -5,8 +5,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 
 import {
     ApplicationApiMock,
-    PermissionApiMock,
-    RoleApiMock
+    PermissionApiMock
 } from './';
 
 import { Permission } from './../../../swagger';
@@ -40,7 +39,7 @@ export class PermissionEndpoint {
      */
 
     // tslint:disable-next-line:member-ordering
-    private _list: Permission[] = RoleApiMock.ROLES.All;
+    private _list: Permission[] = PermissionApiMock.PERMISSIONS;
 
     private _permissions(): Permission[] {
         return JSON.parse(JSON.stringify(this._list));

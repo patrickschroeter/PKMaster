@@ -38,5 +38,5 @@ export interface Role {
 
     /** Custom */
 
-    rolePermissions?: string[];
+    rolePermissions?: models.Permission[];
 }

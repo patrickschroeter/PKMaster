@@ -82,75 +82,107 @@ export class RoleApiMock {
     };
 
     /** One Role Object */
-    static ROLES = {
-        All: [
-            /** Permissions */
-            PermissionApiMock.PERMISSIONS.Permission.Read,
-            PermissionApiMock.PERMISSIONS.Permission.Edit,
-            /** Roles */
-            PermissionApiMock.PERMISSIONS.Roles.Read,
-            PermissionApiMock.PERMISSIONS.Roles.Edit,
-            /** Users */
-            PermissionApiMock.PERMISSIONS.Users.Read,
-            PermissionApiMock.PERMISSIONS.Users.Edit,
-            /** Applications */
-            PermissionApiMock.PERMISSIONS.Application.Create,
-            PermissionApiMock.PERMISSIONS.Application.Read,
-            PermissionApiMock.PERMISSIONS.Application.Edit,
-            PermissionApiMock.PERMISSIONS.Application.Delete,
-            PermissionApiMock.PERMISSIONS.Application.Comment,
-            PermissionApiMock.PERMISSIONS.Application.Accept,
-            /** Conference */
-            PermissionApiMock.PERMISSIONS.Conference.Read,
-            PermissionApiMock.PERMISSIONS.Conference.Edit,
-            /** Forms */
-            PermissionApiMock.PERMISSIONS.Forms.Read,
-            PermissionApiMock.PERMISSIONS.Forms.Edit,
-        ],
-        Admin: [
-            PermissionApiMock.PERMISSIONS.Permission.Read,
-            PermissionApiMock.PERMISSIONS.Permission.Edit,
-            PermissionApiMock.PERMISSIONS.Roles.Read,
-            PermissionApiMock.PERMISSIONS.Roles.Edit,
-            PermissionApiMock.PERMISSIONS.Users.Read,
-            PermissionApiMock.PERMISSIONS.Users.Edit,
-        ],
-        Principal: [
-            PermissionApiMock.PERMISSIONS.Application.Create,
-            PermissionApiMock.PERMISSIONS.Application.Read,
-            PermissionApiMock.PERMISSIONS.Application.Edit,
-            PermissionApiMock.PERMISSIONS.Application.Delete,
-            PermissionApiMock.PERMISSIONS.Application.Comment,
-            PermissionApiMock.PERMISSIONS.Application.Accept,
-            PermissionApiMock.PERMISSIONS.Conference.Read,
-            PermissionApiMock.PERMISSIONS.Conference.Edit,
-            PermissionApiMock.PERMISSIONS.Forms.Read,
-            PermissionApiMock.PERMISSIONS.Forms.Edit,
-        ],
-        Member: [
-            PermissionApiMock.PERMISSIONS.Application.Create,
-            PermissionApiMock.PERMISSIONS.Application.Read,
-            PermissionApiMock.PERMISSIONS.Application.Comment,
-            PermissionApiMock.PERMISSIONS.Conference.Read,
-            PermissionApiMock.PERMISSIONS.Forms.Read,
-        ],
-        Docent: [
-            PermissionApiMock.PERMISSIONS.Application.Create,
-            PermissionApiMock.PERMISSIONS.Conference.Read,
-            PermissionApiMock.PERMISSIONS.Forms.Read,
-        ],
-        Student: [
-            PermissionApiMock.PERMISSIONS.Application.Create,
-            PermissionApiMock.PERMISSIONS.Forms.Read,
-        ],
+    static ROLES_OBJECTS = {
+        All: {
+            id: '1',
+            name: 'All',
+            rolePermissions: [
+                /** Permissions */
+                PermissionApiMock.PERMISSION_OBJECT.Permission.Read,
+                PermissionApiMock.PERMISSION_OBJECT.Permission.Edit,
+                /** Roles */
+                PermissionApiMock.PERMISSION_OBJECT.Roles.Read,
+                PermissionApiMock.PERMISSION_OBJECT.Roles.Edit,
+                /** Users */
+                PermissionApiMock.PERMISSION_OBJECT.Users.Read,
+                PermissionApiMock.PERMISSION_OBJECT.Users.Edit,
+                /** Applications */
+                PermissionApiMock.PERMISSION_OBJECT.Application.Create,
+                PermissionApiMock.PERMISSION_OBJECT.Application.Read,
+                PermissionApiMock.PERMISSION_OBJECT.Application.Edit,
+                PermissionApiMock.PERMISSION_OBJECT.Application.Delete,
+                PermissionApiMock.PERMISSION_OBJECT.Application.Comment,
+                PermissionApiMock.PERMISSION_OBJECT.Application.Accept,
+                /** Conference */
+                PermissionApiMock.PERMISSION_OBJECT.Conference.Read,
+                PermissionApiMock.PERMISSION_OBJECT.Conference.Edit,
+                /** Forms */
+                PermissionApiMock.PERMISSION_OBJECT.Forms.Read,
+                PermissionApiMock.PERMISSION_OBJECT.Forms.Edit,
+            ]
+        },
+        Admin: {
+            id: '1',
+            name: 'Admin',
+            rolePermissions: [
+                PermissionApiMock.PERMISSION_OBJECT.Permission.Read,
+                PermissionApiMock.PERMISSION_OBJECT.Permission.Edit,
+                PermissionApiMock.PERMISSION_OBJECT.Roles.Read,
+                PermissionApiMock.PERMISSION_OBJECT.Roles.Edit,
+                PermissionApiMock.PERMISSION_OBJECT.Users.Read,
+                PermissionApiMock.PERMISSION_OBJECT.Users.Edit,
+            ]
+        },
+        Principal: {
+            id: '1',
+            name: 'Principal',
+            rolePermissions: [
+                PermissionApiMock.PERMISSION_OBJECT.Application.Create,
+                PermissionApiMock.PERMISSION_OBJECT.Application.Read,
+                PermissionApiMock.PERMISSION_OBJECT.Application.Edit,
+                PermissionApiMock.PERMISSION_OBJECT.Application.Delete,
+                PermissionApiMock.PERMISSION_OBJECT.Application.Comment,
+                PermissionApiMock.PERMISSION_OBJECT.Application.Accept,
+                PermissionApiMock.PERMISSION_OBJECT.Conference.Read,
+                PermissionApiMock.PERMISSION_OBJECT.Conference.Edit,
+                PermissionApiMock.PERMISSION_OBJECT.Forms.Read,
+                PermissionApiMock.PERMISSION_OBJECT.Forms.Edit,
+            ]
+        },
+        Member: {
+            id: '1',
+            name: 'Member',
+            rolePermissions: [
+                PermissionApiMock.PERMISSION_OBJECT.Application.Create,
+                PermissionApiMock.PERMISSION_OBJECT.Application.Read,
+                PermissionApiMock.PERMISSION_OBJECT.Application.Comment,
+                PermissionApiMock.PERMISSION_OBJECT.Conference.Read,
+                PermissionApiMock.PERMISSION_OBJECT.Forms.Read,
+            ]
+        },
+        Docent: {
+            id: '1',
+            name: 'Docent',
+            rolePermissions: [
+                PermissionApiMock.PERMISSION_OBJECT.Application.Create,
+                PermissionApiMock.PERMISSION_OBJECT.Conference.Read,
+                PermissionApiMock.PERMISSION_OBJECT.Forms.Read,
+            ]
+        },
+        Student: {
+            id: '1',
+            name: 'Student',
+            rolePermissions: [
+                PermissionApiMock.PERMISSION_OBJECT.Application.Create,
+                PermissionApiMock.PERMISSION_OBJECT.Forms.Read,
+            ]
+        },
 
-        Observer: [
-            PermissionApiMock.PERMISSIONS.Application.Read,
-        ],
-        Secreteriat: [
-            PermissionApiMock.PERMISSIONS.Application.Create,
-            PermissionApiMock.PERMISSIONS.Application.Read,
-            PermissionApiMock.PERMISSIONS.Application.Edit,
-        ]
+        Observer: {
+            id: '1',
+            name: 'Observer',
+            rolePermissions: [
+                PermissionApiMock.PERMISSION_OBJECT.Application.Read,
+            ]
+        },
+        Secreteriat: {
+            id: '1',
+            name: 'Secreteriat',
+            rolePermissions: [
+                PermissionApiMock.PERMISSION_OBJECT.Application.Create,
+                PermissionApiMock.PERMISSION_OBJECT.Application.Read,
+                PermissionApiMock.PERMISSION_OBJECT.Application.Edit,
+            ]
+        }
     };
 }
