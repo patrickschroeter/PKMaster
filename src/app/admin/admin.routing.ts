@@ -1,7 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AdminComponent, AdminProfileComponent, RolesComponent, PermissionsComponent, UsersComponent } from './';
+import {
+    AdminComponent,
+    AdminProfileComponent,
+    AdminProfileEditComponent,
+    RolesComponent,
+    RolesEditComponent,
+    RolesDetailComponent,
+    PermissionsComponent,
+    UsersComponent,
+    UsersEditComponent,
+    UsersDetailComponent
+} from './';
 
 import {
     AccessAdmin,
@@ -24,7 +35,7 @@ const routes: Routes = [
             },
             {
                 path: 'profile/edit',
-                component: AdminProfileComponent
+                component: AdminProfileEditComponent
             },
             {
                 path: 'roles',
@@ -33,12 +44,12 @@ const routes: Routes = [
             },
             {
                 path: 'roles/:id',
-                component: RolesComponent,
+                component: RolesDetailComponent,
                 canActivate: [AccessRoles]
             },
             {
                 path: 'roles/:id/edit',
-                component: RolesComponent,
+                component: RolesEditComponent,
                 canActivate: [AccessRolesEdit]
             },
             {
@@ -53,12 +64,12 @@ const routes: Routes = [
             },
             {
                 path: 'users/:id',
-                component: UsersComponent,
+                component: UsersDetailComponent,
                 canActivate: [AccessUsers]
             },
             {
                 path: 'users/:id/edit',
-                component: UsersComponent,
+                component: UsersEditComponent,
                 canActivate: [AccessUsersEdit]
             },
             {

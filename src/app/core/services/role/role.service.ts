@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 
-import { RoleApi } from './../../../swagger';
+import { RoleApi, Role } from './../../../swagger';
 
 @Injectable()
 export class RoleService {
@@ -18,7 +18,7 @@ export class RoleService {
     /**
      * Get all available roles
      */
-    public getRoles(): Observable<any> {
+    public getRoles(): Observable<Role[]> {
         this.alert.setLoading(
             'getRoles',
             this.translationService.translate('getRoles')
@@ -26,6 +26,20 @@ export class RoleService {
         return this.roleApi.getRoles().map(roles => {
             this.alert.removeHint('getRoles');
             return roles;
+        });
+    }
+
+    /**
+     * create a new role
+     */
+    public addRole(role?: Role) : Observable<Role> {
+        this.alert.setLoading(
+            'addRole',
+            this.translationService.translate('addRole')
+        );
+        return this.roleApi.addRole(17, role).map(result => {
+            this.alert.removeHint('addRole');
+            return result;
         });
     }
 

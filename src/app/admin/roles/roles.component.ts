@@ -1,9 +1,12 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
+import { Router } from '@angular/router';
 
 import {
     RoleService,
     PermissionService
- } from './../../core';
+} from './../../core';
+
+import { Role } from './../../swagger';
 
 import { Access } from './../../shared';
 
@@ -23,7 +26,8 @@ export class RolesComponent implements OnInit {
 
     constructor(
         private roleService: RoleService,
-        private permission: PermissionService
+        private permission: PermissionService,
+        private router: Router
     ) { }
 
     ngOnInit() {
@@ -39,6 +43,8 @@ export class RolesComponent implements OnInit {
                 ]
             }
         ];
+
+        this.getRoles();
     }
 
     /**
@@ -55,8 +61,11 @@ export class RolesComponent implements OnInit {
      * Create a new Role
      * @param {Object} form
      */
-    createNewRole(form) {
-        // TODO: create new role
+    @Access('EditRoles')
+    createNewRole(role: Role) {
+        this.roleService.addRole(role).subscribe(result => {
+            this.router.navigate(['admin', 'roles', result.id, 'edit']);
+        });
     }
 
 }

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 import { Observable, Observer } from 'rxjs/Rx';
 
+import { RoleApiMock } from './../../../core';
+
 import { Role } from './../../../swagger';
 
 @Injectable()
@@ -18,13 +20,30 @@ export class RoleEndpoint {
         });
     }
 
+    public addRole (token?: number, role?: Role, extraHttpRequestParams?: any ) : Observable<Role> {
+        const newrole = this._roleAdd(role);
+        return new Observable((observer: Observer<any>) => {
+            setTimeout(() => {
+                observer.next(newrole);
+                observer.complete();
+            }, 500);
+        });
+    }
+
     /**
      * Mock Server
      */
 
     // tslint:disable-next-line:member-ordering
     private _list: Role[] = [
-
+        RoleApiMock.ROLES_OBJECTS.All,
+        RoleApiMock.ROLES_OBJECTS.Admin,
+        RoleApiMock.ROLES_OBJECTS.Docent,
+        RoleApiMock.ROLES_OBJECTS.Member,
+        RoleApiMock.ROLES_OBJECTS.Observer,
+        RoleApiMock.ROLES_OBJECTS.Principal,
+        RoleApiMock.ROLES_OBJECTS.Secreteriat,
+        RoleApiMock.ROLES_OBJECTS.Student
     ];
 
     private _roles(): Role[] {
@@ -34,6 +53,7 @@ export class RoleEndpoint {
     private _roleAdd(role: Role): Role {
         const id = this._list.length === 0 ? 'Q' : this._list[this._list.length - 1].id + 'Q';
         role.id = id;
+        role.rolePermissions = [];
         this._list.push(role);
         return JSON.parse(JSON.stringify(this._list[this._list.length - 1]));
     }
