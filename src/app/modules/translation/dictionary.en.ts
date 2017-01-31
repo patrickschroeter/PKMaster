@@ -24,6 +24,7 @@ export const DICTIONARY_EN = {
     loadingStylesOf: 'Loading styles of { 0 }...',
 
     loadingChangePassword: 'Encrypting data...',
+    loadingUpdatePermission: 'Update permissions...',
 
     elementTypeNotValid: `Element type '{ 0 }' does not exist.`,
     identifyingError: 'There was an error identifying the element.',
@@ -58,10 +59,11 @@ export const DICTIONARY_EN = {
     errorNoApplicationWithId: `There is no application with ID '{ 0 }'.`,
     errorNoConferenceWithId: `There is no conference with ID '{ 0 }'.`,
     errorNoFormWithId: `There is no form with ID '{ 0 }'.`,
+    errorUpdatePermission: `There is no permission with ID '{ 0 }'.`,
 
     expiredToken: 'No valid session could be found.',
 
-    addElementPreset: 'addElementPreset',
+    addElementPreset: 'Add element preset',
 
     confirmSubmitApplicationHeader: 'Submit application?',
     confirmSubmitApplicationContent: 'Do you really want to submit the application?',
@@ -80,8 +82,18 @@ export const DICTIONARY_EN = {
     createNewForm: 'Create new form',
 
     noPresetsAvailable: 'No presets available',
+    noPermissionsAvailable: 'No permissions available',
 
     addApplicationToConference: 'Add application to conference',
     noConferencesAvailable: 'No conferences available.',
-    createNewConference: 'Create new conference'
+    createNewConference: 'Create new conference',
+
+    addPermissionToRole: 'Add permission to role',
+
+    loadingGetRoles: 'Getting roles...',
+    loadingAddRole: 'Adding role...',
+    loadingGetRoleById: 'Getting role...',
+    loadingUpdateRoleById: 'Update role...',
+    loadingRemovePermissionOfRole: 'Remove role...',
+    loadingAddPermissionToRole: 'Add permission to role...'
 };

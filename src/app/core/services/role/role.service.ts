@@ -21,7 +21,7 @@ export class RoleService {
     public getRoles(): Observable<Role[]> {
         this.alert.setLoading(
             'getRoles',
-            this.translationService.translate('getRoles')
+            this.translationService.translate('loadingGetRoles')
         );
         return this.roleApi.getRoles().map(roles => {
             this.alert.removeHint('getRoles');
@@ -36,7 +36,7 @@ export class RoleService {
     public addRole(role?: Role): Observable<Role> {
         this.alert.setLoading(
             'addRole',
-            this.translationService.translate('addRole')
+            this.translationService.translate('loadingAddRole')
         );
         return this.roleApi.addRole(17, role).map(result => {
             this.alert.removeHint('addRole');
@@ -51,7 +51,7 @@ export class RoleService {
     public getRoleById(id: string): Observable<Role> {
         this.alert.setLoading(
             'getRoleById',
-            this.translationService.translate('getRoleById')
+            this.translationService.translate('loadingGetRoleById')
         );
         return this.roleApi.getRoleById(id).map(result => {
             this.alert.removeHint('getRoleById');
@@ -67,7 +67,7 @@ export class RoleService {
     public updateRoleById(id: string, role: Role): Observable<Role> {
         this.alert.setLoading(
             'updateRoleById',
-            this.translationService.translate('updateRoleById')
+            this.translationService.translate('loadingUpdateRoleById')
         );
         return this.roleApi.updateRoleById(id, 17, role).map(result => {
             this.alert.removeHint('updateRoleById');
@@ -83,7 +83,7 @@ export class RoleService {
     public removePermissionOfRole(roleId: string, permissionId: string): Observable<Role> {
         this.alert.setLoading(
             'removePermissionOfRole',
-            this.translationService.translate('removePermissionOfRole')
+            this.translationService.translate('loadingRemovePermissionOfRole')
         );
         return this.roleApi.deletePermissionOfRole(roleId, permissionId).map(result => {
             this.alert.removeHint('removePermissionOfRole');
@@ -91,10 +91,15 @@ export class RoleService {
         });
     }
 
+    /**
+     * add the given permission to the role
+     * @param {String} roleId
+     * @param {String} permissionId     *
+     */
     public addPermissionToRole(roleId: string, permissionId: string): Observable<Role> {
         this.alert.setLoading(
             'addPermissionToRole',
-            this.translationService.translate('addPermissionToRole')
+            this.translationService.translate('loadingAddPermissionToRole')
         );
         return this.roleApi.addPermissionToRole(roleId, permissionId).map(result => {
             this.alert.removeHint('addPermissionToRole');

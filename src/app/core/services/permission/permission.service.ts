@@ -93,7 +93,7 @@ export class PermissionService {
     public updatePermission(id: string, permission: Permission): Observable<Permission> {
         this.alertService.setLoading(
             'updatePermission',
-            this.translationService.translate('updatePermission')
+            this.translationService.translate('loadingUpdatePermission')
         )
         return this.permissionApi.updatePermission(id, permission).map(result => {
             this.alertService.removeHint('updatePermission');

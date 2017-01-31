@@ -338,6 +338,46 @@
         <source>Conference: <x id="INTERPOLATION"/></source>
         <target>Conference: <x id="INTERPOLATION"/></target>
       </trans-unit>
+      <trans-unit id="cff1428d10d59d14e45edec3c735a27b5482db59" datatype="html">
+        <source>Name</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="1ab5d7dcd9847bd453fc0d56fc9ffc1a541bb8cb" datatype="html">
+        <source>Number of Permissions</source>
+        <target>Number of Permissions</target>
+      </trans-unit>
+      <trans-unit id="b0d7dd8a1b0349622d6e0c6e643e24a9ea0efa1d" datatype="html">
+        <source>Edit Role</source>
+        <target>Edit Role</target>
+      </trans-unit>
+      <trans-unit id="4111a49e474497ab1c70ea61dd2c68d6cf582c8d" datatype="html">
+        <source>Role: <x id="INTERPOLATION"/></source>
+        <target>Role: <x id="INTERPOLATION"/></target>
+      </trans-unit>
+      <trans-unit id="2dbf79d1a1be27ffac3f64b2f22e1348ae8f9133" datatype="html">
+        <source>No Permissions here.</source>
+        <target>No Permissions here.</target>
+      </trans-unit>
+      <trans-unit id="d9fcaaafec59db93eeadc0b5b77ad6e284ede349" datatype="html">
+        <source>Permissions:</source>
+        <target>Permissions:</target>
+      </trans-unit>
+      <trans-unit id="7fc68f5ab2543ecd8e3262285241a28fde31c975" datatype="html">
+        <source>Remove Permission</source>
+        <target>Remove Permission</target>
+      </trans-unit>
+      <trans-unit id="8fdf2cc1533fba7988237c6782aadf4ae444fc7d" datatype="html">
+        <source>Add Permission to Role</source>
+        <target>Add Permission to Role</target>
+      </trans-unit>
+      <trans-unit id="3883776cb67fe4c31a8c38f66c34e13822a1749e" datatype="html">
+        <source>Edit Role Attributes</source>
+        <target>Edit Role Attributes</target>
+      </trans-unit>
+      <trans-unit id="51542d4e56a9f79e4143cad0407adb2184014408" datatype="html">
+        <source>Edit Permission</source>
+        <target>Edit Permission</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

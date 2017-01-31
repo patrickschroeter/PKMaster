@@ -24,6 +24,7 @@ export const DICTIONARY_DE = {
     loadingStylesOf: 'Lade Stylemöglichkeiten von { 0 }...',
 
     loadingChangePassword: 'Daten werden verschlüsselt...',
+    loadingUpdatePermission: 'Update Berechtigung...',
 
     elementTypeNotValid: `Element Typ '{ 0 }' existiert nicht.`,
     identifyingError: 'Es ist ein Fehler bei der Identifizierung des Elementes aufgetreten.',
@@ -58,6 +59,7 @@ export const DICTIONARY_DE = {
     errorNoApplicationWithId: `Es gibt keinen Antrag mit der ID '{ 0 }'.`,
     errorNoConferenceWithId: `Es gibt keine Sitzung mit der ID '{ 0 }'.`,
     errorNoFormWithId: `Es gibt kein Formular mit der ID '{ 0 }'.`,
+    errorUpdatePermission: `Es gibt kein Recht mit der ID '{ 0 }'.`,
 
     expiredToken: 'Es konnte keine gültige Session gefunden werden.',
 
@@ -80,8 +82,18 @@ export const DICTIONARY_DE = {
     createNewForm: 'Neues Formular erstellen.',
 
     noPresetsAvailable: 'Keine Standardelemente vorhanden.',
+    noPermissionsAvailable: 'Keine Rechte vorhanden',
 
     addApplicationToConference: 'Antrag zu Sitzung hinzufügen',
     noConferencesAvailable: 'Keine Sitzung verfügbar.',
-    createNewConference: 'Neue Sitzung erstellen'
+    createNewConference: 'Neue Sitzung erstellen',
+
+    addPermissionToRole: 'Füge Recht zur Rolle hinzu',
+
+    loadingGetRoles: 'Lade Rollen...',
+    loadingAddRole: 'Füge Rolle hinzu...',
+    loadingGetRoleById: 'Lade Rolle...',
+    loadingUpdateRoleById: 'Update Rolle...',
+    loadingRemovePermissionOfRole: 'Entferne Rolle...',
+    loadingAddPermissionToRole: 'Füge Berechtigung zur Rolle hinzu...'
 };

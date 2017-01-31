@@ -90,20 +90,16 @@
         <source>Decline</source>
         <target/>
       </trans-unit>
-      <trans-unit id="fdf7cbdc140d0aab0f0b6c06065a0fd448ed6a2e" datatype="html">
-        <source>Title</source>
+      <trans-unit id="cff1428d10d59d14e45edec3c735a27b5482db59" datatype="html">
+        <source>Name</source>
         <target/>
       </trans-unit>
-      <trans-unit id="1b051734b0ee9021991c91b3ed4e81c244322462" datatype="html">
-        <source>Created</source>
+      <trans-unit id="1ab5d7dcd9847bd453fc0d56fc9ffc1a541bb8cb" datatype="html">
+        <source>Number of Permissions</source>
         <target/>
       </trans-unit>
-      <trans-unit id="8fe73a4787b8068b2ba61f54ab7e0f9af2ea1fc9" datatype="html">
-        <source>Version</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="81b97b8ea996ad1e4f9fca8415021850214884b1" datatype="html">
-        <source>Status</source>
+      <trans-unit id="b0d7dd8a1b0349622d6e0c6e643e24a9ea0efa1d" datatype="html">
+        <source>Edit Role</source>
         <target/>
       </trans-unit>
       <trans-unit id="9265c72e592f192411aee0195937b310c79e2684" datatype="html">
@@ -112,6 +108,46 @@
       </trans-unit>
       <trans-unit id="fd73e1d615dbe5b4f163b867ba5583c0a1094892" datatype="html">
         <source>Create New Role</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="4111a49e474497ab1c70ea61dd2c68d6cf582c8d" datatype="html">
+        <source>Role: <x id="INTERPOLATION"/></source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2dbf79d1a1be27ffac3f64b2f22e1348ae8f9133" datatype="html">
+        <source>No Permissions here.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="d9fcaaafec59db93eeadc0b5b77ad6e284ede349" datatype="html">
+        <source>Permissions:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="fdf7cbdc140d0aab0f0b6c06065a0fd448ed6a2e" datatype="html">
+        <source>Title</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="eec715de352a6b114713b30b640d319fa78207a0" datatype="html">
+        <source>Description</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7fc68f5ab2543ecd8e3262285241a28fde31c975" datatype="html">
+        <source>Remove Permission</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8fdf2cc1533fba7988237c6782aadf4ae444fc7d" datatype="html">
+        <source>Add Permission to Role</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3883776cb67fe4c31a8c38f66c34e13822a1749e" datatype="html">
+        <source>Edit Role Attributes</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="51542d4e56a9f79e4143cad0407adb2184014408" datatype="html">
+        <source>Edit Permission</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="dadd94eaa2d0503151c23a15448c4b87a3b93b07" datatype="html">
+        <source>Edit Permission:</source>
         <target/>
       </trans-unit>
       <trans-unit id="6765b4c916060f6bc42d9bb69e80377dbcb5e4e9" datatype="html">
@@ -170,12 +206,20 @@
         <source>No Applications here.</source>
         <target/>
       </trans-unit>
+      <trans-unit id="81b97b8ea996ad1e4f9fca8415021850214884b1" datatype="html">
+        <source>Status</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="d7293b61e9088c66421df2e367e0ccc00346cf9f" datatype="html">
         <source>Author</source>
         <target/>
       </trans-unit>
       <trans-unit id="e540a086395ced257d9fa5320242a39325b64f90" datatype="html">
         <source>Conference</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1b051734b0ee9021991c91b3ed4e81c244322462" datatype="html">
+        <source>Created</source>
         <target/>
       </trans-unit>
       <trans-unit id="6986e0df8092d822ac2c076520d83994c78834fc" datatype="html">
@@ -212,10 +256,6 @@
       </trans-unit>
       <trans-unit id="038cc71c1d17f4e1e8bc6c05054cc0c71a4c6129" datatype="html">
         <source>No Conferences here.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="eec715de352a6b114713b30b640d319fa78207a0" datatype="html">
-        <source>Description</source>
         <target/>
       </trans-unit>
       <trans-unit id="2f933b826a570836cab04f683970a2d22068458c" datatype="html">
@@ -304,6 +344,10 @@
       </trans-unit>
       <trans-unit id="05161c2450f7fdfb5a209d7f4e50595b5e95cd30" datatype="html">
         <source>No Forms here.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8fe73a4787b8068b2ba61f54ab7e0f9af2ea1fc9" datatype="html">
+        <source>Version</source>
         <target/>
       </trans-unit>
       <trans-unit id="e1f6d40614849f7f212e6ef4c644328c65de86a3" datatype="html">

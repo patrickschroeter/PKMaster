@@ -81,7 +81,7 @@ export class PermissionsComponent implements OnInit {
         const onError = () => {
             this.overlay.toggle(false);
             this.alertService.setAlert(
-                this.translationService.translate('error'),
+                this.translationService.translate('headerError'),
                 this.translationService.translate('errorUpdatePermission')
             );
         };
