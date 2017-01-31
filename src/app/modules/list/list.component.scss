@@ -64,6 +64,7 @@
         &.list-element__attribute--conference,
         &.list-element__attribute--date,
         &.list-element__attribute--modified,
+        &.list-element__attribute--description,
         &.list-element__attribute--version {
             @extend .font_smaller;
             line-height: 23px;
@@ -101,6 +102,7 @@
             }
         }
 
+        &.list-element__attribute--description,
         &.list-element__attribute--modified {
             @media (max-width: 500px) {
                 display: none;

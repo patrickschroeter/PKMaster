@@ -1,5 +1,7 @@
 /**
  * Required PermissionService as permission
+ *
+ * TODO: fix webpack bug in services
  */
 import { PermissionService } from './../../core';
 import { AlertService } from './../../modules/alert';

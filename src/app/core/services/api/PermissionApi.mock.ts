@@ -45,7 +45,8 @@ export class PermissionApiMock {
         Permission: {
             Read: {
                 id: '1',
-                name: PermissionApiMock.PERMISSION.Permission.Read
+                name: PermissionApiMock.PERMISSION.Permission.Read,
+                description: 'Allows the user to read the permissions'
             },
             Edit: {
                 id: '2',

@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 import * as _ from 'lodash';
 
-import { AppUser } from './../../../swagger';
+import { AlertService } from './../../../modules/alert';
+import { TranslationService } from './../../../modules/translation';
+
+import { AppUser, Permission } from './../../../swagger';
+
+import { PermissionEndpoint } from './../api/PermissionEndpoint';
 
 @Injectable()
 export class PermissionService {
@@ -11,7 +17,11 @@ export class PermissionService {
     set permissions(permissions: string[]) { this._permissions = permissions; }
     get permissions(): string[] { return this._permissions; }
 
-    constructor() { }
+    constructor(
+        private permissionApi: PermissionEndpoint,
+        private alertService: AlertService,
+        private translationService: TranslationService
+    ) { }
 
     /**
      * update the permission object in the class with the input user
@@ -68,4 +78,26 @@ export class PermissionService {
         return false;
     }
 
+    /**
+     * get all permissions
+     */
+    public getPermissions(): Observable<any> {
+        return this.permissionApi.getPermissions();
+    }
+
+    /**
+     * update the permission with the given id
+     * @param {String} id
+     * @param {Permission} permission
+     */
+    public updatePermission(id: string, permission: Permission): Observable<any> {
+        this.alertService.setLoading(
+            'updatePermission',
+            this.translationService.translate('updatePermission')
+        )
+        return this.permissionApi.updatePermission(id, permission).map(result => {
+            this.alertService.removeHint('updatePermission');
+            return result;
+        });
+    }
 }

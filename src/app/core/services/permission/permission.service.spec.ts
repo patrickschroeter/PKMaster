@@ -3,16 +3,26 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { PermissionService } from './permission.service';
 
+import { PermissionEndpoint } from './../api/PermissionEndpoint';
+
 import { PermissionApiMock as PERM } from './../api/PermissionApi.mock';
 import { RoleApiMock as ROLE } from './../api/RoleApi.mock';
 import { UserApiMock as USER } from './../api/UserApi.mock';
+
+import { AlertProviderMock } from './../../../modules/alert/alert.module';
+import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
 describe('PermissionService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                PermissionService
+                PermissionService,
+
+                { provide: PermissionEndpoint, useClass: PERM },
+
+                ...AlertProviderMock,
+                ...TranslationProviderMock
             ]
         });
     });

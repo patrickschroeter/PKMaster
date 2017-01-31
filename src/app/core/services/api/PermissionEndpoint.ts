@@ -3,7 +3,11 @@ import * as _ from 'lodash';
 
 import { Observable, Observer } from 'rxjs/Rx';
 
-import { ApplicationApiMock } from './';
+import {
+    ApplicationApiMock,
+    PermissionApiMock,
+    RoleApiMock
+} from './';
 
 import { Permission } from './../../../swagger';
 
@@ -12,14 +16,29 @@ export class PermissionEndpoint {
 
     constructor() { }
 
+    public getPermissions() {
+        return new Observable(observer => {
+            setTimeout(() => {
+                observer.next(this._permissions());
+            }, 500);
+        });
+    }
+
+    public updatePermission(id: string, permission: Permission): Observable<any> {
+        const perm = this._permissionUpdate(id, permission);
+        return new Observable(observer => {
+            setTimeout(() => {
+                observer.next(perm);
+            }, 500);
+        });
+    }
+
     /**
      * Mock Server
      */
 
     // tslint:disable-next-line:member-ordering
-    private _list: Permission[] = [
-
-    ];
+    private _list: Permission[] = RoleApiMock.ROLES.All;
 
     private _permissions(): Permission[] {
         return JSON.parse(JSON.stringify(this._list));

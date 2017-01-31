@@ -14,7 +14,7 @@
                 <pk-list-element *ngFor="let role of roles">
                     <pk-list-attribute name="state-icon"></pk-list-attribute>
                     <pk-list-attribute name="name">
-                        <a routerLink="/role/{{ role.id }}/edit">{{ role.title }}</a>
+                        <a routerLink="/roles/{{ role.id }}/edit">{{ role.title }}</a>
                     </pk-list-attribute>
                     <pk-list-attribute name="date">{{ role.created | date }}</pk-list-attribute>
                     <pk-list-attribute name="version">{{ role.version }}</pk-list-attribute>
