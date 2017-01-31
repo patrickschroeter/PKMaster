@@ -9,16 +9,8 @@ import { PermissionService } from './../../../core';
     // tslint:disable-next-line:directive-selector
     selector: ` [access],
 
-                [accessReadApplications],
-                [accessEditApplications],
-
-                [accessReadConferences],
-                [accessEditConferences],
-
-                [accessReadForms],
-                [accessEditForms],
-
-                [accessAdmin],
+                [accessReadPermissions],
+                [accessEditPermissions],
 
                 [accessReadRoles],
                 [accessEditRoles],
@@ -26,8 +18,18 @@ import { PermissionService } from './../../../core';
                 [accessReadUsers],
                 [accessEditUsers],
 
-                [accessReadPermissions],
-                [accessEditPermissions]
+                [accessCreateApplications],
+                [accessReadApplications],
+                [accessEditApplications],
+                [accessCommentApplications],
+                [accessDeleteApplications],
+                [accessAcceptApplications],
+
+                [accessReadConferences],
+                [accessEditConferences],
+
+                [accessReadForms],
+                [accessEditForms]
                 `
 })
 export class AccessDirective {
@@ -42,6 +44,10 @@ export class AccessDirective {
 
     @Input() set accessReadApplications(i: number) { this.restrictVisibility('ReadApplications', i); }
     @Input() set accessEditApplications(i: number) { this.restrictVisibility('EditApplications', i); }
+    @Input() set accessCreateApplications(i: number) { this.restrictVisibility('CreateApplications', i); }
+    @Input() set accessCommentApplications(i: number) { this.restrictVisibility('CommentApplications', i); }
+    @Input() set accessDeleteApplications(i: number) { this.restrictVisibility('DeleteApplications', i); }
+    @Input() set accessAcceptApplications(i: number) { this.restrictVisibility('AcceptApplications', i); }
 
     @Input() set accessReadConferences(i: number) { this.restrictVisibility('ReadConferences', i); }
     @Input() set accessEditConferences(i: number) { this.restrictVisibility('EditConferences', i); }
@@ -60,8 +66,14 @@ export class AccessDirective {
     @Input() set accessReadPermissions(i: number) { this.restrictVisibility('ReadPermissions', i); }
     @Input() set accessEditPermissions(i: number) { this.restrictVisibility('EditPermissions', i); }
 
+    /**
+     * check if the user has the requested permissions
+     * @param {String|Array<String>} permission - the permission(s) to check for
+     * @param {Number} param - any param. if set the function checks if the user has NOT the permission
+     * @param {Boolean} or - arrays only: checks if the user has any (true) or all (false) of the given permissions
+     */
     private restrictVisibility(permission: string | string[], param: number, or = false) {
-        let access = this.permission.hasPermission(permission, or);
+        const access = this.permission.hasPermission(permission, or);
         if ( (access && !param) || (!access && !!param) ) {
             this.viewContainer.createEmbeddedView(this.templateRef);
         } else {
@@ -69,3 +81,6 @@ export class AccessDirective {
         }
     }
 }
+
+
+
