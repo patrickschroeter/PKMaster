@@ -22,7 +22,6 @@ import { DeviderModule } from './../modules/devider/devider.module';
         admin.UsersComponent,
         admin.AdminProfileEditComponent,
         admin.RolesDetailComponent,
-        admin.RolesEditComponent,
         admin.UsersDetailComponent,
         admin.UsersEditComponent
     ],

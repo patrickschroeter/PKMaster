@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 
 import { AppUser } from './../../../swagger';
 
@@ -17,6 +18,10 @@ export class PermissionMock {
 
     public hasAllPermissions(permissions: string[]): boolean {
         return !!permissions;
+    }
+
+    public getPermissions(): Observable<any[]> {
+        return new Observable(observer => observer.next([]));
     }
 
 }

@@ -6,7 +6,6 @@ import {
     AdminProfileComponent,
     AdminProfileEditComponent,
     RolesComponent,
-    RolesEditComponent,
     RolesDetailComponent,
     PermissionsComponent,
     UsersComponent,
@@ -46,11 +45,6 @@ const routes: Routes = [
                 path: 'roles/:id',
                 component: RolesDetailComponent,
                 canActivate: [AccessRoles]
-            },
-            {
-                path: 'roles/:id/edit',
-                component: RolesEditComponent,
-                canActivate: [AccessRolesEdit]
             },
             {
                 path: 'permissions',

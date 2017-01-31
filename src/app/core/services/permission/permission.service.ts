@@ -81,7 +81,7 @@ export class PermissionService {
     /**
      * get all permissions
      */
-    public getPermissions(): Observable<any> {
+    public getPermissions(): Observable<Permission[]> {
         return this.permissionApi.getPermissions();
     }
 
@@ -90,7 +90,7 @@ export class PermissionService {
      * @param {String} id
      * @param {Permission} permission
      */
-    public updatePermission(id: string, permission: Permission): Observable<any> {
+    public updatePermission(id: string, permission: Permission): Observable<Permission> {
         this.alertService.setLoading(
             'updatePermission',
             this.translationService.translate('updatePermission')

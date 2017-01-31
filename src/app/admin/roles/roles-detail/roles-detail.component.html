@@ -7,7 +7,7 @@
 
     <div *ngIf="!role.rolePermissions || !role.rolePermissions.length" class="empty-wrapper">
         <div class="label" i18n>No Permissions here.</div>
-        <pk-button icon="add" element--secondary value="TODO" class="element--spacing-top-large"></pk-button>
+        <pk-button icon="add" element--secondary value="Add Permission to Role" (onClick)="addPermissionToRoleModal()" class="element--spacing-top-large"></pk-button>
     </div>
 
     <div *ngIf="role.rolePermissions?.length">
@@ -25,10 +25,41 @@
                     <pk-list-attribute name="description">{{ permission.description }}</pk-list-attribute>
 
                     <pk-floating top-right horizontal>
-                        <pk-button *accessEditPermissions rounded i18n-pkAlert pkAlert="Edit Permission" icon="create" (onClick)="editPermission(permission)" element--secondary></pk-button>
+                        <pk-button *accessEditRoles rounded i18n-pkAlert pkAlert="Remove Permission" icon="delete" (onClick)="removePermissionOfRole(permission)" element--error></pk-button>
                     </pk-floating>
                 </pk-list-element>
             </pk-list-content>
         </pk-list>
     </div>
+    <pk-floating fixed top-right>
+        <pk-button *accessEditRoles rounded i18n-pkAlert pkAlert="Edit Role" icon="create" element--secondary class="element--spacing-bottom-tiny" (onClick)="overlay.toggle()"></pk-button>
+        <div *accessEditRoles>
+            <pk-button *ngIf="role.rolePermissions?.length" rounded i18n-pkAlert pkAlert="Add Permission to Role" icon="add" element--secondary class="element--spacing-bottom-tiny" (onClick)="addPermissionToRoleModal()"></pk-button>
+        </div>
+    </pk-floating>
 </div>
+
+<pk-overlay #overlay class="overlay--fluid">
+    <pk-overlay-header i18n>Edit Role Attributes</pk-overlay-header>
+    <pk-overlay-content>
+
+        <pk-dynamic-form *ngIf="editRoleForm" [formElements]="editRoleForm" #dynamicForm>
+            <pk-dynamic-form-content>
+
+                <pk-dynamic-form-element *ngFor="let element of editRoleForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
+
+            </pk-dynamic-form-content>
+
+            <pk-dynamic-form-submit>
+                <pk-button
+                    i18n-value value="Save"
+                    icon="save"
+                    [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
+                    [type]="'submit'"
+                    (onClick)="saveRoleAttribute(dynamicForm.form.value)"></pk-button>
+            </pk-dynamic-form-submit>
+
+        </pk-dynamic-form>
+
+    </pk-overlay-content>
+</pk-overlay>

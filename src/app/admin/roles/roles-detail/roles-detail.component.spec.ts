@@ -7,6 +7,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { RolesDetailComponent } from './roles-detail.component';
 
 import { CoreProviderMock } from './../../../core/core.module';
+import { ModalProviderMock } from './../../../modules/overlay/overlay.module';
+import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
 describe('RolesDetailComponent', () => {
     let component: RolesDetailComponent;
@@ -18,7 +20,9 @@ describe('RolesDetailComponent', () => {
                 RolesDetailComponent
             ],
             providers: [
-                ...CoreProviderMock
+                ...CoreProviderMock,
+                ...ModalProviderMock,
+                ...TranslationProviderMock
             ],
             imports: [
                 RouterTestingModule.withRoutes([

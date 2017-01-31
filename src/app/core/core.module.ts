@@ -87,7 +87,7 @@ const API = false;
         {
             provide: RoleApi,
             useFactory: extendRoleApi,
-            deps: [Http]
+            deps: [Http, PermissionEndpoint]
         },
 
         PermissionEndpoint,
@@ -156,8 +156,8 @@ export function extendUserApi(http: Http) {
     return API ? new UserApi(http, BASEPATH) : new UserEndpoint();
 }
 
-export function extendRoleApi(http: Http) {
-    return API ? new RoleApi(http, BASEPATH) : new RoleEndpoint();
+export function extendRoleApi(http: Http, permissionApi: PermissionEndpoint) {
+    return API ? new RoleApi(http, BASEPATH) : new RoleEndpoint(permissionApi);
 }
 
 export function extendPermissionApi(http: Http) {

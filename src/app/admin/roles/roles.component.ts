@@ -60,7 +60,7 @@ export class RolesComponent implements OnInit {
     @Access('EditRoles')
     createNewRole(role: Role) {
         this.roleService.addRole(role).subscribe(result => {
-            this.router.navigate(['admin', 'roles', result.id, 'edit']);
+            this.router.navigate(['admin', 'roles', result.id]);
         });
     }
 

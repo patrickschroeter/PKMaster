@@ -58,4 +58,47 @@ export class RoleService {
             return result;
         });
     }
+
+    /**
+     * update the role with the given id
+     * @param {String} id
+     * @param {Role} role
+     */
+    public updateRoleById(id: string, role: Role): Observable<Role> {
+        this.alert.setLoading(
+            'updateRoleById',
+            this.translationService.translate('updateRoleById')
+        );
+        return this.roleApi.updateRoleById(id, 17, role).map(result => {
+            this.alert.removeHint('updateRoleById');
+            return result;
+        });
+    }
+
+    /**
+     * removed the given permission of the role
+     * @param {String} roleId
+     * @param {String} permissionId
+     */
+    public removePermissionOfRole(roleId: string, permissionId: string): Observable<Role> {
+        this.alert.setLoading(
+            'removePermissionOfRole',
+            this.translationService.translate('removePermissionOfRole')
+        );
+        return this.roleApi.deletePermissionOfRole(roleId, permissionId).map(result => {
+            this.alert.removeHint('removePermissionOfRole');
+            return result;
+        });
+    }
+
+    public addPermissionToRole(roleId: string, permissionId: string): Observable<Role> {
+        this.alert.setLoading(
+            'addPermissionToRole',
+            this.translationService.translate('addPermissionToRole')
+        );
+        return this.roleApi.addPermissionToRole(roleId, permissionId).map(result => {
+            this.alert.removeHint('addPermissionToRole');
+            return result;
+        });
+    }
 }
