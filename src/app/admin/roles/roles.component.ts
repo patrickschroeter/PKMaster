@@ -36,11 +36,7 @@ export class RolesComponent implements OnInit {
                 fieldType: 'input',
                 name: 'title',
                 label: 'Role Name:',
-                value: '',
-                required: true,
-                validations: [
-                    'minLength'
-                ]
+                required: true
             }
         ];
 

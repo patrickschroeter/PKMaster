@@ -31,8 +31,9 @@ export class RoleService {
 
     /**
      * create a new role
+     * @param {Role} role
      */
-    public addRole(role?: Role) : Observable<Role> {
+    public addRole(role?: Role): Observable<Role> {
         this.alert.setLoading(
             'addRole',
             this.translationService.translate('addRole')
@@ -43,4 +44,18 @@ export class RoleService {
         });
     }
 
+    /**
+     * get the role by id
+     * @param {String} id
+     */
+    public getRoleById(id: string): Observable<Role> {
+        this.alert.setLoading(
+            'getRoleById',
+            this.translationService.translate('getRoleById')
+        );
+        return this.roleApi.getRoleById(id).map(result => {
+            this.alert.removeHint('getRoleById');
+            return result;
+        });
+    }
 }

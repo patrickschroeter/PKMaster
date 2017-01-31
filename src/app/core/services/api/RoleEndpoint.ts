@@ -30,6 +30,16 @@ export class RoleEndpoint {
         });
     }
 
+    public getRoleById (roleId: string, token?: number, extraHttpRequestParams?: any ) : Observable<Role> {
+        const role = this._role(roleId);
+        return new Observable((observer: Observer<any>) => {
+            setTimeout(() => {
+                observer.next(role);
+                observer.complete();
+            }, 500);
+        });
+    }
+
     /**
      * Mock Server
      */
