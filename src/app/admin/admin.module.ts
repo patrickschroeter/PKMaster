@@ -11,11 +11,7 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
 import { ButtonModule } from './../modules/button/button.module';
 import { OverlayModule } from './../modules/overlay/overlay.module';
 import { AlertDirectiveModule } from './../modules/alert/alert.module';
-import { AdminProfileEditComponent } from './admin-profile/admin-profile-edit/admin-profile-edit.component';
-import { RolesDetailComponent } from './roles/roles-detail/roles-detail.component';
-import { RolesEditComponent } from './roles/roles-edit/roles-edit.component';
-import { UsersDetailComponent } from './users/users-detail/users-detail.component';
-import { UsersEditComponent } from './users/users-edit/users-edit.component';
+import { DeviderModule } from './../modules/devider/devider.module';
 
 @NgModule({
     declarations: [
@@ -24,11 +20,11 @@ import { UsersEditComponent } from './users/users-edit/users-edit.component';
         admin.RolesComponent,
         admin.PermissionsComponent,
         admin.UsersComponent,
-        AdminProfileEditComponent,
-        RolesDetailComponent,
-        RolesEditComponent,
-        UsersDetailComponent,
-        UsersEditComponent
+        admin.AdminProfileEditComponent,
+        admin.RolesDetailComponent,
+        admin.RolesEditComponent,
+        admin.UsersDetailComponent,
+        admin.UsersEditComponent
     ],
     imports: [
         CommonModule,
@@ -39,7 +35,8 @@ import { UsersEditComponent } from './users/users-edit/users-edit.component';
         DynamicFormModule,
         ButtonModule,
         OverlayModule,
-        AlertDirectiveModule
+        AlertDirectiveModule,
+        DeviderModule
     ],
     providers: [],
     exports: []

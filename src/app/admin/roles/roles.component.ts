@@ -34,7 +34,7 @@ export class RolesComponent implements OnInit {
         this.newRole = [
             {
                 fieldType: 'input',
-                name: 'title',
+                name: 'name',
                 label: 'Role Name:',
                 required: true
             }

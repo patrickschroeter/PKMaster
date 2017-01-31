@@ -112,7 +112,7 @@ export class RoleApiMock {
             ]
         },
         Admin: {
-            id: '1',
+            id: '2',
             name: 'Admin',
             rolePermissions: [
                 PermissionApiMock.PERMISSION_OBJECT.Permission.Read,
@@ -124,7 +124,7 @@ export class RoleApiMock {
             ]
         },
         Principal: {
-            id: '1',
+            id: '3',
             name: 'Principal',
             rolePermissions: [
                 PermissionApiMock.PERMISSION_OBJECT.Application.Create,
@@ -140,7 +140,7 @@ export class RoleApiMock {
             ]
         },
         Member: {
-            id: '1',
+            id: '4',
             name: 'Member',
             rolePermissions: [
                 PermissionApiMock.PERMISSION_OBJECT.Application.Create,
@@ -151,7 +151,7 @@ export class RoleApiMock {
             ]
         },
         Docent: {
-            id: '1',
+            id: '5',
             name: 'Docent',
             rolePermissions: [
                 PermissionApiMock.PERMISSION_OBJECT.Application.Create,
@@ -160,7 +160,7 @@ export class RoleApiMock {
             ]
         },
         Student: {
-            id: '1',
+            id: '6',
             name: 'Student',
             rolePermissions: [
                 PermissionApiMock.PERMISSION_OBJECT.Application.Create,
@@ -169,14 +169,14 @@ export class RoleApiMock {
         },
 
         Observer: {
-            id: '1',
+            id: '7',
             name: 'Observer',
             rolePermissions: [
                 PermissionApiMock.PERMISSION_OBJECT.Application.Read,
             ]
         },
         Secreteriat: {
-            id: '1',
+            id: '8',
             name: 'Secreteriat',
             rolePermissions: [
                 PermissionApiMock.PERMISSION_OBJECT.Application.Create,

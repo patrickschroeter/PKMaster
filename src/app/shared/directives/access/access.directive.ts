@@ -8,6 +8,7 @@ import { PermissionService } from './../../../core';
 @Directive({
     // tslint:disable-next-line:directive-selector
     selector: ` [access],
+                [accessAdmin],
 
                 [accessReadPermissions],
                 [accessEditPermissions],

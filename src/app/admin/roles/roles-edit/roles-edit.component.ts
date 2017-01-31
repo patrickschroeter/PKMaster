@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 
 import { RoleService } from './../../../core';
@@ -11,6 +11,7 @@ import { Role } from './../../../swagger';
     styleUrls: ['./roles-edit.component.scss']
 })
 export class RolesEditComponent implements OnInit {
+    @HostBinding('class') classes = 'content--default';
 
     public role: Role;
 
