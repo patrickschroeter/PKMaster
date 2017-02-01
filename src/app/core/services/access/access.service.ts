@@ -93,9 +93,15 @@ export class AccessMain extends AccessService {
  */
 @Injectable()
 export class AccessApplications extends AccessService {
-    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess(['ReadApplications', 'CreateApplications', 'EditApplications', 'DeleteApplications'], true);
+        return this.hasAccess(['ReadApplications', 'CreateApplications', 'EditApplications', 'DeleteApplications'], true).map(access => {
+            if (!access) {
+                this.router.navigate(['', 'profile']);
+                return false;
+            }
+            return true;
+        });
     }
 }
 
