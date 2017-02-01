@@ -2,16 +2,16 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
-      <trans-unit id="dc90df7803f5d1fbdf44864440f1f4b87b32b341" datatype="html">
-        <source>Admin Profile</source>
+      <trans-unit id="71b1e4d4abccce300cf5bc0ff8ddbb6157a6e984" datatype="html">
+        <source>Edit Admin Profile</source>
         <target/>
       </trans-unit>
-      <trans-unit id="d3781ad331fdd0bc9055c45a41664ac467de63af" datatype="html">
-        <source>Edit Profile</source>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
         <target/>
       </trans-unit>
-      <trans-unit id="5edf054f14aa57bc25a28cb7db01956fee53dac8" datatype="html">
-        <source>Change Password</source>
+      <trans-unit id="d7b35c384aecd25a516200d6921836374613dfe7" datatype="html">
+        <source>Cancel</source>
         <target/>
       </trans-unit>
       <trans-unit id="4b17f4f6a66c877a264d2a24f74e37310eb593fc" datatype="html">
@@ -70,16 +70,12 @@
         <source>Choose</source>
         <target/>
       </trans-unit>
-      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
-        <source>Save</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="d7b35c384aecd25a516200d6921836374613dfe7" datatype="html">
-        <source>Cancel</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="70a67e04629f6d412db0a12d51820b480788d795" datatype="html">
         <source>Create</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5edf054f14aa57bc25a28cb7db01956fee53dac8" datatype="html">
+        <source>Change Password</source>
         <target/>
       </trans-unit>
       <trans-unit id="6fc5e65900ae1415d3170d5d2842f0dcae1b6645" datatype="html">
@@ -88,6 +84,14 @@
       </trans-unit>
       <trans-unit id="ce3bb7411069c96e2065502c115323680e7f1ce0" datatype="html">
         <source>Decline</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="dc90df7803f5d1fbdf44864440f1f4b87b32b341" datatype="html">
+        <source>Admin Profile</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="d3781ad331fdd0bc9055c45a41664ac467de63af" datatype="html">
+        <source>Edit Profile</source>
         <target/>
       </trans-unit>
       <trans-unit id="cff1428d10d59d14e45edec3c735a27b5482db59" datatype="html">

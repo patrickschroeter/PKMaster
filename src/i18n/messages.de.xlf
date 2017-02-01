@@ -398,6 +398,10 @@
         <source>Edit User</source>
         <target>Benutzer bearbeiten</target>
       </trans-unit>
+      <trans-unit id="71b1e4d4abccce300cf5bc0ff8ddbb6157a6e984" datatype="html">
+        <source>Edit Admin Profile</source>
+        <target>Administratorprofil bearbeiten</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
