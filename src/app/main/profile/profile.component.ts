@@ -24,15 +24,21 @@ export class ProfileComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.getUser();
+    }
 
-        this.auth.getUser().subscribe(user => {
+    /**
+     * get the logged in user
+     */
+    private getUser() {
+        this.auth.getUser().subscribe((user: AppUser) => {
             this.user = user;
             this.form = [
                 new Fields.Firstname(user.firstname),
                 new Fields.Lastname(user.lastname),
                 new Fields.Devider(),
                 new Fields.Email(user.email),
-                new Fields.Matrikelnummer(user.matNr)
+                new Fields.Matrikelnummer(user.matNr ? user.matNr.toString() : '')
             ];
         });
     }

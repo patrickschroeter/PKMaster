@@ -1,13 +1,16 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
+/** Services */
 import {
     RoleService,
     PermissionService
 } from './../../core';
 
+/** Models */
 import { Role } from './../../swagger';
 
+/** Decorators */
 import { Access } from './../../shared';
 
 @Component({

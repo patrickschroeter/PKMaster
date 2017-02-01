@@ -114,7 +114,6 @@ export class UserEndpoint {
             return new Observable((observer: Observer<any>) => {
                 setTimeout(() => {
                     if (user) {
-                        user.token = 'TOKEN';
                         observer.next(user);
                     } else {
                         console.error(`Wrong Credentials.`);

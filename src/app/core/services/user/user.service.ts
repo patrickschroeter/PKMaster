@@ -32,4 +32,19 @@ export class UserService {
         });
     }
 
+    /**
+     * get user by id
+     * @param {String} id
+     */
+    public getUserById(id: string): Observable<AppUser> {
+        this.alert.setLoading(
+            'getUserById',
+            this.translationService.translate('loadingGetUserById')
+        );
+        return this.userApi.getUserById(id).map(result => {
+            this.alert.removeHint('getUserById');
+            return result;
+        });
+    }
+
 }
