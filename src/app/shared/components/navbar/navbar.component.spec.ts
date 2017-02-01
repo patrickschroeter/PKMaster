@@ -7,6 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NavbarComponent } from './navbar.component';
 
 import { CoreProviderMock } from './../../../core/core.module';
+import { AccessDirective } from './../../../shared';
 
 describe('NavbarComponent', () => {
     let component: NavbarComponent;
@@ -15,7 +16,9 @@ describe('NavbarComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                NavbarComponent
+                NavbarComponent,
+
+                AccessDirective
             ],
             imports: [
                 RouterTestingModule.withRoutes([

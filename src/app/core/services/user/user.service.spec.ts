@@ -3,14 +3,27 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { UserService } from './user.service';
 
-describe('UserService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [UserService]
-    });
-  });
+import { UserApi } from './../../../swagger';
+import { UserApiMock } from './../';
 
-  it('should ...', inject([UserService], (service: UserService) => {
-    expect(service).toBeTruthy();
-  }));
+import { AlertProviderMock } from './../../../modules/alert/alert.module';
+import { TranslationProviderMock } from './../../../modules/translation/translation.module';
+
+describe('UserService', () => {
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [
+                UserService,
+
+                { provide: UserApi, useClass: UserApiMock },
+
+                ...AlertProviderMock,
+                ...TranslationProviderMock
+            ]
+        });
+    });
+
+    it('should ...', inject([UserService], (service: UserService) => {
+        expect(service).toBeTruthy();
+    }));
 });
