@@ -39,6 +39,7 @@ const API = false;
         services.PermissionService,
         services.ConferenceService,
         services.RoleService,
+        services.UserService,
 
         // AuthGuards
 
@@ -122,6 +123,7 @@ export const CoreProviderMock = [
     { provide: services.ConferenceService, useClass: services.ConferenceMock },
     { provide: services.FormElementService, useClass: services.FormElementMock },
     { provide: services.RoleService, useClass: services.RoleMock },
+    { provide: services.UserService, useClass: services.UserMock },
 
     { provide: FormApi, useClass: services.FormApiMock },
     { provide: ApplicationApi, useClass: services.ApplicationApiMock },

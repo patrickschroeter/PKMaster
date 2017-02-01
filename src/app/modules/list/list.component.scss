@@ -55,7 +55,7 @@
         }
 
         &.list-element__attribute--name {
-            flex: 1;
+            flex: 2;
             transition: color .3s ease-in-out;
         }
 
@@ -68,6 +68,7 @@
         &.list-element__attribute--version {
             @extend .font_smaller;
             line-height: 23px;
+            flex: 1;
         }
         &.list-element__attribute--conference,
         &.list-element__attribute--date,
