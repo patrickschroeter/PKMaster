@@ -95,5 +95,8 @@ export const DICTIONARY_DE = {
     loadingGetRoleById: 'Lade Rolle...',
     loadingUpdateRoleById: 'Update Rolle...',
     loadingRemovePermissionOfRole: 'Entferne Rolle...',
-    loadingAddPermissionToRole: 'Füge Berechtigung zur Rolle hinzu...'
+    loadingAddPermissionToRole: 'Füge Berechtigung zur Rolle hinzu...',
+
+    loadingGetUsers: 'Lade Benutzer...',
+    loadingGetUserById: 'Lade Benutzer mit ID...'
 };

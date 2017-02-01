@@ -24,7 +24,7 @@ export class UserService {
     public getUsers(): Observable<Array<AppUser>> {
         this.alert.setLoading(
             'getUsers',
-            this.translationService.translate('loadinggetUsers')
+            this.translationService.translate('loadingGetUsers')
         );
         return this.userApi.getUsers().map(result => {
             this.alert.removeHint('getUsers');

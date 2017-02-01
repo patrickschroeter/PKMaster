@@ -95,5 +95,9 @@ export const DICTIONARY_EN = {
     loadingGetRoleById: 'Getting role...',
     loadingUpdateRoleById: 'Update role...',
     loadingRemovePermissionOfRole: 'Remove role...',
-    loadingAddPermissionToRole: 'Add permission to role...'
+    loadingAddPermissionToRole: 'Add permission to role...',
+
+    loadingGetUsers: 'Get users...',
+    loadingGetUserById: 'Get user by id...'
+
 };
