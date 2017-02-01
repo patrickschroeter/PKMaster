@@ -378,6 +378,26 @@
         <source>Edit Permission</source>
         <target>Berechtigung bearbeiten</target>
       </trans-unit>
+      <trans-unit id="76f94cf5143ad665c23e50727d76f8963511417f" datatype="html">
+        <source>No Users here.</source>
+        <target>Keine Benutzer vorhanden.</target>
+      </trans-unit>
+      <trans-unit id="b38714fa958eaae47696e2822d9ba80969385353" datatype="html">
+        <source>Lastname</source>
+        <target>Nachname</target>
+      </trans-unit>
+      <trans-unit id="adadf996dcd6f06c274f01f9ba766339a7ae6b21" datatype="html">
+        <source>Firstname</source>
+        <target>Vorname</target>
+      </trans-unit>
+      <trans-unit id="6d3b88a3ae6ff3d987f86395605397ec736dee9c" datatype="html">
+        <source>E-Mail</source>
+        <target>E-Mail</target>
+      </trans-unit>
+      <trans-unit id="2aa7c4367baad2832cb32bc21ba3b01ef2f278b9" datatype="html">
+        <source>Edit User</source>
+        <target>Benutzer bearbeiten</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
