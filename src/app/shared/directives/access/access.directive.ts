@@ -41,7 +41,7 @@ export class AccessDirective {
         private permission: PermissionService
     ) { }
 
-    @Input() set access(i: number) { this.restrictVisibility(['ReadApplications', 'ReadForms', 'ReadConferences'], i, true); }
+    @Input() set access(permissions: string | string[]) { this.restrictVisibility(permissions, null, true); }
 
     @Input() set accessReadApplications(i: number) { this.restrictVisibility('ReadApplications', i); }
     @Input() set accessEditApplications(i: number) { this.restrictVisibility('EditApplications', i); }

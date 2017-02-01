@@ -66,10 +66,14 @@ export class PermissionsComponent implements OnInit {
             }
         ];
         this.editingPermission = permission;
-        this.overlay.close.subscribe(() => {
-            this.editingPermission = null;
-        });
-        this.overlay.toggle();
+
+        if (this.overlay instanceof OverlayComponent) {
+            this.overlay.close.subscribe(() => {
+                this.editingPermission = null;
+            });
+
+            this.overlay.toggle();
+        }
     }
 
     /**

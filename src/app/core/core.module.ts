@@ -44,6 +44,7 @@ const API = false;
 
         services.AccessMain,
         services.AccessApplications,
+        services.AccessApplicationsDetail,
         services.AccessApplicationsEdit,
         services.AccessConferencesDetail,
         services.AccessConferencesEdit,
@@ -54,6 +55,7 @@ const API = false;
         services.AccessRoles,
         services.AccessRolesEdit,
         services.AccessUsers,
+        services.AccessUsersDetail,
         services.AccessUsersEdit,
 
         // Mock API

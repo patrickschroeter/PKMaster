@@ -7,7 +7,7 @@
 
     <div *ngIf="!role.rolePermissions || !role.rolePermissions.length" class="empty-wrapper">
         <div class="label" i18n>No Permissions here.</div>
-        <pk-button icon="add" element--secondary value="Add Permission to Role" (onClick)="addPermissionToRoleModal()" class="element--spacing-top-large"></pk-button>
+        <pk-button *accessEditRoles icon="add" element--secondary value="Add Permission to Role" (onClick)="addPermissionToRoleModal()" class="element--spacing-top-large"></pk-button>
     </div>
 
     <div *ngIf="role.rolePermissions?.length">
@@ -39,7 +39,7 @@
     </pk-floating>
 </div>
 
-<pk-overlay #overlay class="overlay--fluid">
+<pk-overlay *accessEditRoles #overlay class="overlay--fluid">
     <pk-overlay-header i18n>Edit Role Attributes</pk-overlay-header>
     <pk-overlay-content>
 

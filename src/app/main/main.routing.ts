@@ -6,6 +6,7 @@ import * as main from './';
 import {
     AccessMain,
     AccessApplications,
+    AccessApplicationsDetail,
     AccessApplicationsEdit,
     AccessConferencesDetail,
     AccessConferencesEdit,
@@ -36,7 +37,7 @@ const routes: Routes = [
             {
                 path: 'applications/:id',
                 component: main.ApplicationsDetailComponent,
-                canActivate: [AccessApplications]
+                canActivate: [AccessApplicationsDetail]
             },
             {
                 path: 'applications/:id/edit',

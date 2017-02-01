@@ -4,7 +4,14 @@
 
         <div *ngIf="applications && !applications.length" class="empty-wrapper">
             <div class="label" i18n>No Applications here.</div>
-            <pk-button icon="add" element--secondary (onClick)="overlay.toggle()" value="Create New Application" class="element--spacing-top-large"></pk-button>
+            <pk-button
+                *accessCreateApplications
+                class="element--spacing-top-large"
+                element--secondary
+                icon="add"
+                value="Create New Application"
+                (onClick)="overlay.toggle()">
+            </pk-button>
         </div>
 
         <h1 *ngIf="applications?.length" class="element element--spacing-bottom-small" i18n>Applications</h1>
@@ -20,17 +27,21 @@
             </pk-list-header>
             <pk-list-content>
                 <pk-list-element *ngFor="let application of applications" [name]="application.status?.name">
-                    <!--<pk-list-attribute name="state-icon" [attr.tooltip]="application.status"></pk-list-attribute>-->
+
                     <pk-list-attribute name="state">{{ application.status?.name }}</pk-list-attribute>
+
                     <pk-list-attribute name="name" *ngIf="application.form">
                         <a routerLink="/applications/{{ application.id }}">{{ application.form.title }}</a>
                     </pk-list-attribute>
                     <pk-list-attribute name="name" *ngIf="!application.form">
                         <a routerLink="/applications/{{ application.id }}" i18n>No Form to get Title from.</a>
                     </pk-list-attribute>
+
                     <pk-list-attribute name="author" *accessEditApplications>{{ application.user ? application.user.lastname : '' }}</pk-list-attribute>
                     <pk-list-attribute name="conference">
-                        <span *accessReadConferences="1">{{ application.conference ? (application.conference.dateOfEvent | date) : ''}}</span>
+                        <span *accessReadConferences="1">
+                            {{ application.conference ? (application.conference.dateOfEvent | date) : ''}}
+                        </span>
                         <span *accessReadConferences>
                             <a *ngIf="application.conference" routerLink="/conferences/{{ application.conference.id }}">{{ application.conference.dateOfEvent | date  }}</a>
                         </span>
@@ -39,21 +50,59 @@
                     <pk-list-attribute name="modified">{{ application.modified | date }}</pk-list-attribute>
 
                     <pk-floating horizontal top-right>
-                        <pk-button rounded *ngIf="application.status?.name === 'created'" i18n-pkAlert pkAlert="Submit Application"
-                            (onClick)="submitApplicationModal(application)"
-                            class="element--spacing-left-tiny" icon="send" element--success></pk-button>
-                        <a  *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
-                            routerLink="/applications/{{ application.id }}/edit">
-                            <pk-button rounded i18n-pkAlert pkAlert="Edit Application" icon="create" element--secondary></pk-button>
-                        </a>
-                        <pk-button rounded *ngIf="['submitted'].indexOf(application.status?.name) !== -1" i18n-pkAlert pkAlert="Recind Application"
-                            (onClick)="rescindApplicationModal(application)"
-                            class="element--spacing-left-tiny"
-                            icon="undo" element--error></pk-button>
-                        <pk-button rounded *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1" i18n-pkAlert pkAlert="Deactivate Application"
-                            (onClick)="deactivateApplicationModal(application)"
-                            class="element--spacing-left-tiny"
-                            icon="delete" element--error></pk-button>
+                        <!--TODO: Prevent submit foreign application with Create & Read permission-->
+                        <div *access="['CreateApplications', 'EditApplications']">
+                            <pk-button
+                                *ngIf="application.status?.name === 'created'"
+                                class="element--spacing-left-tiny"
+                                rounded
+                                element--success
+                                i18n-pkAlert
+                                        pkAlert="Submit Application"
+                                icon="send"
+                                (onClick)="submitApplicationModal(application)">
+                            </pk-button>
+                        </div>
+                        <!--TODO: Prevent edit foreign application with Create & Read permission-->
+                        <div *access="['CreateApplications', 'EditApplications']">
+                            <a
+                                *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
+                                routerLink="/applications/{{ application.id }}/edit">
+                                <pk-button
+                                    rounded
+                                    element--secondary
+                                    i18n-pkAlert
+                                        pkAlert="Edit Application"
+                                    icon="create">
+                                </pk-button>
+                            </a>
+                        </div>
+                        <!--TODO: Prevent rescind foreign application with Create & Read permission-->
+                        <div *access="['CreateApplications', 'EditApplications']">
+                            <pk-button
+                                *ngIf="['submitted'].indexOf(application.status?.name) !== -1"
+                                class="element--spacing-left-tiny"
+                                rounded
+                                element--error
+                                i18n-pkAlert
+                                    pkAlert="Recind Application"
+                                icon="undo"
+                                (onClick)="rescindApplicationModal(application)">
+                            </pk-button>
+                        </div>
+                        <!--TODO: Prevent deactivate foreign application with Create & Read permission-->
+                        <div *access="['CreateApplications', 'DeleteApplications']">
+                            <pk-button
+                                *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
+                                class="element--spacing-left-tiny"
+                                rounded
+                                element--error
+                                i18n-pkAlert
+                                    pkAlert="Deactivate Application"
+                                icon="delete"
+                                (onClick)="deactivateApplicationModal(application)">
+                            </pk-button>
+                        </div>
                     </pk-floating>
                 </pk-list-element>
             </pk-list-content>
@@ -61,6 +110,14 @@
 
     </div>
     <pk-floating fixed top-right *ngIf="applications?.length">
-        <pk-button rounded i18n-pkAlert pkAlert="Create Application" icon="add" element--secondary (onClick)="createApplicationModal()"></pk-button>
+        <pk-button
+            *accessCreateApplications
+            element--secondary
+            rounded
+            i18n-pkAlert
+                 pkAlert="Create Application"
+            icon="add"
+            (onClick)="createApplicationModal()">
+        </pk-button>
     </pk-floating>
 </div>

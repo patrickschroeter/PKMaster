@@ -19,6 +19,7 @@ import {
     AccessRolesEdit,
     AccessPermissions,
     AccessUsers,
+    AccessUsersDetail,
     AccessUsersEdit
 } from './../core';
 
@@ -59,7 +60,7 @@ const routes: Routes = [
             {
                 path: 'users/:id',
                 component: UsersDetailComponent,
-                canActivate: [AccessUsers]
+                canActivate: [AccessUsersDetail]
             },
             {
                 path: 'users/:id/edit',

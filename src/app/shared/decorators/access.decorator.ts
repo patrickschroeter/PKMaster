@@ -6,9 +6,9 @@
 import { PermissionService } from './../../core';
 import { AlertService } from './../../modules/alert';
 
-export function Access(name: string) {
+export function Access(name: string | string[]) {
     return function (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
-        let originalMethod = descriptor.value;
+        const originalMethod = descriptor.value;
 
         descriptor.value = function (...args: any[]) {
             let result;

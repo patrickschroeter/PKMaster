@@ -2,13 +2,17 @@ import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import * as _ from 'lodash';
 
+/** Services */
 import { RoleService, PermissionService } from './../../../core';
-
 import { OverlayComponent, ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
+/** Models */
 import { Role, Field, Permission } from './../../../swagger';
 import { Selectable } from './../../../models';
+
+/** Decorator */
+import { Access } from './../../../shared';
 
 @Component({
     selector: 'pk-roles-detail',
@@ -45,11 +49,13 @@ export class RolesDetailComponent implements OnInit {
     /**
      * Read Route Param and GET Role with param ID
      */
+    @Access('ReadRoles')
     private getRoleByRouteParam(): void {
         this.activatedRoute.params.forEach((params: Params) => {
             this.roleService.getRoleById(params['id']).subscribe((role) => {
                 if (!role) { return this.router.navigate(['admin', 'roles']); }
                 this.role = role;
+                /** TODO: permission denied when no 'ReadRoles' permission */
                 this.initEditRoleForm();
             }, error => {
                 console.error(error);
@@ -61,6 +67,7 @@ export class RolesDetailComponent implements OnInit {
     /**
      * Initialize the form to edit the roles attributes
      */
+    @Access('EditRoles')
     private initEditRoleForm(): void {
         this.editRoleForm = [
             {
@@ -77,6 +84,7 @@ export class RolesDetailComponent implements OnInit {
      * save the updated role
      * @param {Object} form
      */
+    @Access('EditRoles')
     public saveRoleAttribute(form): void {
         /** TODO */ const role = _.cloneDeep(this.role); role.name = form.name;
         this.roleService.updateRoleById(this.role.id, role).subscribe(result => {
@@ -89,6 +97,7 @@ export class RolesDetailComponent implements OnInit {
      * remove the given permission from the current role
      * @param {Permission} permission
      */
+    @Access('EditRoles')
     public removePermissionOfRole(permission: Permission): void {
         this.roleService.removePermissionOfRole(this.role.id, permission.id).subscribe(result => {
             this.role = result;
@@ -98,6 +107,7 @@ export class RolesDetailComponent implements OnInit {
     /**
      * open the modal to add permission to role
      */
+    @Access('EditRoles')
     public addPermissionToRoleModal(): void {
         this.modalService.createListModal({
             title: this.translationService.translate('addPermissionToRole'),
@@ -114,6 +124,7 @@ export class RolesDetailComponent implements OnInit {
      * add the given permission to the role
      * @param {Selectable} data
      */
+    @Access('EditRoles')
     private addPermissionToRole(data: Selectable): void {
         this.roleService.addPermissionToRole(this.role.id, data.value).subscribe(result => {
             this.role = result;

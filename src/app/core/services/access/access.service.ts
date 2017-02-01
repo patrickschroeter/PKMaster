@@ -35,7 +35,16 @@ export class AccessService implements CanActivate, CanDeactivate<any>, CanLoad {
         /** TODO: catch error */
         return user.map((e) => {
             /** Requires user in this.permission */
-            return this.permission.hasPermission(['ReadApplications', 'ReadForms', 'ReadConferences'], true);
+            return this.permission.hasPermission([
+                'CreateApplications',
+                'ReadApplications',
+                'EditApplications',
+                'DeleteApplications',
+                'ReadForms',
+                'EditForms',
+                'ReadConferences',
+                'EditConferences'
+            ], true);
         });
     }
 
@@ -67,6 +76,14 @@ export class AccessMain extends AccessService {
  */
 @Injectable()
 export class AccessApplications extends AccessService {
+    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.hasAccess(['ReadApplications', 'CreateApplications', 'EditApplications', 'DeleteApplications'], true);
+    }
+}
+
+@Injectable()
+export class AccessApplicationsDetail extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         return this.hasAccess(['ReadApplications', 'CreateApplications'], true);
@@ -128,11 +145,21 @@ export class AccessAdmin extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess(['ReadRoles', 'ReadPermissions', 'ReadUsers'], true);
+        return this.hasAccess([
+            'ReadRoles',
+            'ReadPermissions',
+            'ReadUsers'
+        ], true);
     }
 
     canLoad(route: Route) {
-        return this.hasAccess(['ReadRoles', 'ReadPermissions', 'ReadUsers'], true);
+        return this.hasAccess([
+            'ReadRoles',
+            'EditRoles',
+            'ReadPermissions',
+            'ReadUsers',
+            'EditUsers'
+        ], true);
     }
 }
 
@@ -143,7 +170,7 @@ export class AccessAdmin extends AccessService {
 export class AccessRoles extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess('ReadRoles').map(access => {
+        return this.hasAccess(['ReadRoles', 'EditRoles']).map(access => {
             if (!access) {
                 this.router.navigate(['', 'admin', 'profile']);
                 return false;
@@ -177,6 +204,14 @@ export class AccessPermissions extends AccessService {
  */
 @Injectable()
 export class AccessUsers extends AccessService {
+    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.hasAccess(['ReadUsers', 'EditUsers']);
+    }
+}
+
+@Injectable()
+export class AccessUsersDetail extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         return this.hasAccess('ReadUsers');
