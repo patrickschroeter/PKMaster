@@ -34,7 +34,7 @@
     <pk-floating fixed top-right>
         <pk-button *accessEditRoles rounded i18n-pkAlert pkAlert="Edit Role" icon="create" element--secondary class="element--spacing-bottom-tiny" (onClick)="overlay.toggle()"></pk-button>
         <div *accessEditRoles>
-            <pk-button *ngIf="role.rolePermissions?.length" rounded i18n-pkAlert pkAlert="Add Permission to Role" icon="add" element--secondary class="element--spacing-bottom-tiny" (onClick)="addPermissionToRoleModal()"></pk-button>
+            <pk-button *ngIf="role.rolePermissions?.length" rounded i18n-pkAlert pkAlert="Add Permission to Role" icon="lock" element--secondary class="element--spacing-bottom-tiny" (onClick)="addPermissionToRoleModal()"></pk-button>
         </div>
     </pk-floating>
 </div>

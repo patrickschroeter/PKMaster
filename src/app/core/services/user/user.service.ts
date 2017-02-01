@@ -7,7 +7,7 @@ import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { AppUser } from './../../../swagger';
+import { AppUser, Role } from './../../../swagger';
 
 @Injectable()
 export class UserService {
@@ -58,6 +58,38 @@ export class UserService {
         );
         return this.userApi.updateUserById(user.id, 0, user).map(result => {
             this.alert.removeHint('updateUser');
+            return result;
+        });
+    }
+
+    /**
+     * remove role from user
+     * @param {AppUser} user
+     * @param {Role} role
+     */
+    public removeRoleFromUser(user: AppUser, role: Role): Observable<AppUser> {
+        this.alert.setLoading(
+            'removeRoleFromUser',
+            this.translationService.translate('loadingRemoveRoleFromUser')
+        );
+        return this.userApi.removeUserRole(user.id, 0, role.id).map(result => {
+            this.alert.removeHint('removeRoleFromUser');
+            return result;
+        });
+    }
+
+    /**
+     * add role to user
+     * @param {String} userId
+     * @param {String} roleId
+     */
+    public addRoleToUser(userId: string, roleId: string): Observable<AppUser> {
+        this.alert.setLoading(
+            'addRoleToUser',
+            this.translationService.translate('loadingAddRoleToUser')
+        );
+        return this.userApi.updateUserRole(userId, 0, roleId).map(result => {
+            this.alert.removeHint('addRoleToUser');
             return result;
         });
     }

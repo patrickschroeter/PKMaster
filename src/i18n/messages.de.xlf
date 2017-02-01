@@ -406,6 +406,22 @@
         <source>User <x id="INTERPOLATION"/> <x id="INTERPOLATION_1"/></source>
         <target>Benutzer <x id="INTERPOLATION"/> <x id="INTERPOLATION_1"/></target>
       </trans-unit>
+      <trans-unit id="c2c5afb9dd938db3573fd1fceed0a9fe9fb316e9" datatype="html">
+        <source>Roles:</source>
+        <target>Rollen:</target>
+      </trans-unit>
+      <trans-unit id="929fcc62b15a0b179efeb13b7a0eee554eb3610a" datatype="html">
+        <source>No Roles here.</source>
+        <target>Keine Rollen verfügbar.</target>
+      </trans-unit>
+      <trans-unit id="507a2d0e274870de947c1c9a30b65c90ec174fc3" datatype="html">
+        <source>Remove Role from User</source>
+        <target>Entferne Rolle von Benutzer</target>
+      </trans-unit>
+      <trans-unit id="45bbb56554a54233a5583a4cc8198a836d67f86a" datatype="html">
+        <source>Add Role to User</source>
+        <target>Füge Rolle zu Benutzer hinzu</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

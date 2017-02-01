@@ -42,7 +42,7 @@ export class RolesDetailComponent implements OnInit {
         this.getRoleByRouteParam();
 
         this.permission.getPermissions().subscribe(result => {
-            this.permissions = result.map(obj => { return { value: obj.id, label: obj.name }; });
+            this.permissions = result.map(obj => { return new Selectable(obj.id, obj.name); });
         });
     }
 

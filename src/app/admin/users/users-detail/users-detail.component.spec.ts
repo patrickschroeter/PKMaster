@@ -6,7 +6,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { UsersDetailComponent } from './users-detail.component';
 
+/** Provider */
 import { CoreProviderMock } from './../../../core/core.module';
+import { ModalProviderMock } from './../../../modules/overlay/overlay.module';
+import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
 describe('UsersDetailComponent', () => {
     let component: UsersDetailComponent;
@@ -18,7 +21,9 @@ describe('UsersDetailComponent', () => {
                 UsersDetailComponent
                 ],
             providers: [
-                ...CoreProviderMock
+                ...CoreProviderMock,
+                ...ModalProviderMock,
+                ...TranslationProviderMock
             ],
             imports: [
                 RouterTestingModule.withRoutes([

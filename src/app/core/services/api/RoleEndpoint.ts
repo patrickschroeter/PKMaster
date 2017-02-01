@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 import { Observable, Observer } from 'rxjs/Rx';
 
-import { RoleApiMock, PermissionEndpoint } from './../../../core';
+import { RoleApiMock } from './../../../core';
+
+import { PermissionEndpoint } from './PermissionEndpoint';
 
 import { Role } from './../../../swagger';
 

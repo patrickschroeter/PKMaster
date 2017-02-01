@@ -4,12 +4,15 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 /** Services */
 import {
     UserService,
-    PermissionService
+    PermissionService,
+    RoleService
 } from './../../../core';
+import { ModalService } from './../../../modules/overlay';
+import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { AppUser, Field } from './../../../swagger';
-import { Fields } from './../../../models';
+import { AppUser, Field, Role } from './../../../swagger';
+import { Fields, Selectable } from './../../../models';
 
 /** Decorators */
 import { Access } from './../../../shared';
@@ -25,15 +28,24 @@ export class UsersDetailComponent implements OnInit {
     public user: AppUser;
     public form: Field[];
 
+    private roles: Selectable[];
+
     constructor(
         private userService: UserService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private permission: PermissionService
+        private permission: PermissionService,
+        private modalService: ModalService,
+        private translationService: TranslationService,
+        private roleService: RoleService
     ) { }
 
     ngOnInit() {
         this.getUser();
+
+        this.roleService.getRoles().subscribe(roles => {
+            this.roles = roles.map(obj => { return new Selectable(obj.id, obj.name); });
+        });
     }
 
     /**
@@ -66,6 +78,48 @@ export class UsersDetailComponent implements OnInit {
             new Fields.Email(user.email),
             new Fields.Matrikelnummer(user.matNr ? user.matNr.toString() : '')
         ];
+    }
+
+    /**
+     * remove role from user
+     * @param {Role} role
+     */
+    @Access(['EditUsers', 'EditRoles'])
+    private removeRole(role: Role): void {
+        this.userService.removeRoleFromUser(this.user, role).subscribe(result => {
+            this.user = result;
+        });
+    }
+
+    /**
+     * open the modal to add permission to role
+     */
+    @Access(['EditUsers', 'EditRoles'])
+    public addRoleToUserModal(): void {
+        this.modalService.createListModal({
+            title: this.translationService.translate('addRoleToUser'),
+            list: this.roles,
+            click: this.addRoleToUser.bind(this),
+
+            selectedValues: this.user.roles.map(obj => { return obj.id; }),
+
+            emptyText: this.translationService.translate('noRolesAvailable'),
+            redirect: this.permission.hasPermission('EditRoles'),
+            redirectText: this.translationService.translate('createNewRole'),
+            redirectParam: ['', 'admin', 'roles']
+        });
+    }
+
+    /**
+     * add the given permission to the role
+     * @param {Selectable} data
+     */
+    @Access(['EditUsers', 'EditRoles'])
+    private addRoleToUser(data: Selectable): void {
+        this.userService.addRoleToUser(this.user.id, data.value).subscribe(result => {
+            this.user = result;
+            this.modalService.destroyModal();
+        });
     }
 
 }
