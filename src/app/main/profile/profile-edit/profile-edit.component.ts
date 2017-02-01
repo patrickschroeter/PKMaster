@@ -29,7 +29,13 @@ export class ProfileEditComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.getUser();
+    }
 
+    /**
+     * get the current user
+     */
+    private getUser() {
         this.auth.getUser().subscribe(user => {
             this.user = user;
             this.form = [
@@ -41,15 +47,22 @@ export class ProfileEditComponent implements OnInit {
         });
     }
 
-    save(event) {
-        event.id = this.user.id;
-        this.auth.updateUser(event).subscribe(user => {
+    /**
+     * save the user attributes
+     * @param {AppUser} user
+     */
+    public save(user: AppUser) {
+        user.id = this.user.id;
+        this.auth.updateUser(user).subscribe(user => {
             this.router.navigateByUrl('/profile');
             this.alert.setSuccessHint('UpdateUser' + user.id, this.translationService.translate('updatedUser'));
         });
     }
 
-    cancel(event) {
+    /**
+     * cancel the edit user view
+     */
+    public cancel() {
         this.router.navigateByUrl('/profile');
     }
 

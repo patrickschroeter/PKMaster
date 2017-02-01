@@ -7,6 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { LoginComponent } from './login.component';
 
 import { CoreProviderMock } from './../core/core.module';
+import { AccessMain, AccessAdmin } from './../core';
 import { AlertProviderMock } from './../modules/alert/alert.module';
 
 describe('LoginComponent', () => {
@@ -24,6 +25,8 @@ describe('LoginComponent', () => {
                 ])
             ],
             providers: [
+                AccessMain,
+                AccessAdmin,
                 ...CoreProviderMock,
                 ...AlertProviderMock
             ],

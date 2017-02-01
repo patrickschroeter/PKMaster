@@ -32,7 +32,7 @@ export class RoleApiMock {
             PermissionApiMock.PERMISSION.Conference.Edit,
             /** Forms */
             PermissionApiMock.PERMISSION.Forms.Read,
-            PermissionApiMock.PERMISSION.Forms.Edit,
+            PermissionApiMock.PERMISSION.Forms.Edit
         ],
         Admin: [
             PermissionApiMock.PERMISSION.Permission.Read,
@@ -40,7 +40,7 @@ export class RoleApiMock {
             PermissionApiMock.PERMISSION.Roles.Read,
             PermissionApiMock.PERMISSION.Roles.Edit,
             PermissionApiMock.PERMISSION.Users.Read,
-            PermissionApiMock.PERMISSION.Users.Edit,
+            PermissionApiMock.PERMISSION.Users.Edit
         ],
         Principal: [
             PermissionApiMock.PERMISSION.Application.Create,
@@ -52,32 +52,32 @@ export class RoleApiMock {
             PermissionApiMock.PERMISSION.Conference.Read,
             PermissionApiMock.PERMISSION.Conference.Edit,
             PermissionApiMock.PERMISSION.Forms.Read,
-            PermissionApiMock.PERMISSION.Forms.Edit,
+            PermissionApiMock.PERMISSION.Forms.Edit
         ],
         Member: [
             PermissionApiMock.PERMISSION.Application.Create,
             PermissionApiMock.PERMISSION.Application.Read,
             PermissionApiMock.PERMISSION.Application.Comment,
             PermissionApiMock.PERMISSION.Conference.Read,
-            PermissionApiMock.PERMISSION.Forms.Read,
+            PermissionApiMock.PERMISSION.Forms.Read
         ],
         Docent: [
             PermissionApiMock.PERMISSION.Application.Create,
             PermissionApiMock.PERMISSION.Conference.Read,
-            PermissionApiMock.PERMISSION.Forms.Read,
+            PermissionApiMock.PERMISSION.Forms.Read
         ],
         Student: [
             PermissionApiMock.PERMISSION.Application.Create,
-            PermissionApiMock.PERMISSION.Forms.Read,
+            PermissionApiMock.PERMISSION.Forms.Read
         ],
 
         Observer: [
-            PermissionApiMock.PERMISSION.Application.Read,
+            PermissionApiMock.PERMISSION.Application.Read
         ],
         Secreteriat: [
             PermissionApiMock.PERMISSION.Application.Create,
             PermissionApiMock.PERMISSION.Application.Read,
-            PermissionApiMock.PERMISSION.Application.Edit,
+            PermissionApiMock.PERMISSION.Application.Edit
         ]
     };
 

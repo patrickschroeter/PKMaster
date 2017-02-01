@@ -15,6 +15,26 @@ import { PermissionService } from './../permission/permission.service';
 
 export class AccessService implements CanActivate, CanDeactivate<any>, CanLoad {
 
+    static map = {
+        main: [
+            'CreateApplications',
+            'ReadApplications',
+            'EditApplications',
+            'DeleteApplications',
+            'ReadForms',
+            'EditForms',
+            'ReadConferences',
+            'EditConferences'
+        ],
+        admin: [
+            'ReadRoles',
+            'EditRoles',
+            'ReadPermissions',
+            'ReadUsers',
+            'EditUsers'
+        ]
+    };
+
     constructor(
         protected authentication: AuthenticationService,
         protected permission: PermissionService
@@ -22,36 +42,25 @@ export class AccessService implements CanActivate, CanDeactivate<any>, CanLoad {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
         Observable<boolean> | Promise<boolean> | boolean {
-        return this.hasAccess(['ReadApplications', 'ReadForms', 'ReadConferences'], true);
+        console.error('you should not be here');
+        return false;
     }
 
     canDeactivate(component: any, route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
         Observable<boolean> | Promise<boolean> | boolean {
-        return this.authentication.isLoggedIn();
+        console.error('you should not be here');
+        return false;
     }
 
     canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
-        const user = this.authentication.getUser();
-        /** TODO: catch error */
-        return user.map((e) => {
-            /** Requires user in this.permission */
-            return this.permission.hasPermission([
-                'CreateApplications',
-                'ReadApplications',
-                'EditApplications',
-                'DeleteApplications',
-                'ReadForms',
-                'EditForms',
-                'ReadConferences',
-                'EditConferences'
-            ], true);
-        });
+        console.error('you should not be here');
+        return false;
     }
 
     /**
      * waiting for the user object to check the permission
      * @param {(String|Array<String>)} permission - the permission(s) to check the user for
-     * @param {Boolean} or - flag to indicate if the user needs one or all of the permissions
+     * @param {Boolean} or - flag to indicate if the user needs one (true) or all(false) of the permissions
      */
     protected hasAccess(permission: string | string[], or = false): Observable<boolean> {
         const user = this.authentication.getUser();
@@ -69,6 +78,14 @@ export class AccessService implements CanActivate, CanDeactivate<any>, CanLoad {
 @Injectable()
 export class AccessMain extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.hasAccess(AccessService.map.main, true);
+    }
+
+    canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
+        return this.hasAccess(AccessService.map.main, true);
+    }
 }
 
 /**
@@ -145,21 +162,11 @@ export class AccessAdmin extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess([
-            'ReadRoles',
-            'ReadPermissions',
-            'ReadUsers'
-        ], true);
+        return this.hasAccess(AccessService.map.admin, true);
     }
 
     canLoad(route: Route) {
-        return this.hasAccess([
-            'ReadRoles',
-            'EditRoles',
-            'ReadPermissions',
-            'ReadUsers',
-            'EditUsers'
-        ], true);
+        return this.hasAccess(AccessService.map.admin, true);
     }
 }
 
@@ -170,7 +177,7 @@ export class AccessAdmin extends AccessService {
 export class AccessRoles extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess(['ReadRoles', 'EditRoles']).map(access => {
+        return this.hasAccess(['ReadRoles', 'EditRoles'], true).map(access => {
             if (!access) {
                 this.router.navigate(['', 'admin', 'profile']);
                 return false;
