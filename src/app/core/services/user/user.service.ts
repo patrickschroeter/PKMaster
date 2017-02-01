@@ -47,4 +47,19 @@ export class UserService {
         });
     }
 
+    /**
+     * update the user
+     * @param {AppUser} user
+     */
+    public updateUser(user: AppUser): Observable<AppUser> {
+        this.alert.setLoading(
+            'updateUser',
+            this.translationService.translate('loadingUpdateUser')
+        );
+        return this.userApi.updateUserById(user.id, 0, user).map(result => {
+            this.alert.removeHint('updateUser');
+            return result;
+        });
+    }
+
 }

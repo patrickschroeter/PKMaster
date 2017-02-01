@@ -21,8 +21,13 @@ export class AdminProfileComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.getUser();
+    }
 
-        /** get current user */
+    /**
+     * get current user
+     */
+    private getUser(): void {
         this.auth.getUser().subscribe(user => {
             this.user = user;
             this.form = [
@@ -32,7 +37,6 @@ export class AdminProfileComponent implements OnInit {
                 new Fields.Email(user.email)
             ];
         });
-
     }
 
 }

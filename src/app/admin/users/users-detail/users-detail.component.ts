@@ -3,7 +3,8 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 
 /** Services */
 import {
-    UserService
+    UserService,
+    PermissionService
 } from './../../../core';
 
 /** Models */
@@ -27,7 +28,8 @@ export class UsersDetailComponent implements OnInit {
     constructor(
         private userService: UserService,
         private activatedRoute: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private permission: PermissionService
     ) { }
 
     ngOnInit() {
@@ -37,6 +39,7 @@ export class UsersDetailComponent implements OnInit {
     /**
      * get the user by param id
      */
+    @Access('ReadUsers')
     private getUser(): void {
         this.activatedRoute.params.forEach((params: Params) => {
             this.userService.getUserById(params['id']).subscribe(user => {
@@ -54,6 +57,7 @@ export class UsersDetailComponent implements OnInit {
      * initialize the user form
      * @param {AppUser} user
      */
+    @Access('ReadUsers')
     private initUserForm(user: AppUser) {
         this.form = [
             new Fields.Firstname(user.firstname),

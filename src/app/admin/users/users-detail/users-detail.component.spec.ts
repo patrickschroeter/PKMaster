@@ -1,28 +1,42 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { UsersDetailComponent } from './users-detail.component';
 
+import { CoreProviderMock } from './../../../core/core.module';
+
 describe('UsersDetailComponent', () => {
-  let component: UsersDetailComponent;
-  let fixture: ComponentFixture<UsersDetailComponent>;
+    let component: UsersDetailComponent;
+    let fixture: ComponentFixture<UsersDetailComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ UsersDetailComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                UsersDetailComponent
+                ],
+            providers: [
+                ...CoreProviderMock
+            ],
+            imports: [
+                RouterTestingModule.withRoutes([
+                    { path: '', component: class { } },
+                ])
+            ],
+            schemas: [NO_ERRORS_SCHEMA]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(UsersDetailComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(UsersDetailComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

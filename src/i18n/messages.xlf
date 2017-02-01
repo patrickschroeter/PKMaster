@@ -170,6 +170,10 @@
         <source>Edit User</source>
         <target/>
       </trans-unit>
+      <trans-unit id="3b3f9a3e6bc3021b50bb5c2ea1f15753a5bc57b7" datatype="html">
+        <source>User <x id="INTERPOLATION"/> <x id="INTERPOLATION_1"/></source>
+        <target/>
+      </trans-unit>
       <trans-unit id="6765b4c916060f6bc42d9bb69e80377dbcb5e4e9" datatype="html">
         <source>Login</source>
         <target/>
