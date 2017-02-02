@@ -1,164 +1,124 @@
-<div class="entry element element--spacing-bottom-large">
+<div class="entry element element--spacing-bottom-small">
     <div class="rel">
-        <div class="animation animation--trigger headline">
-            <h4>{{ index }} {{ entry.title }} ({{ entry.type }})</h4>
-            <pk-floating horizontal top-right>
-                <pk-button
-                    rounded
-                    element--error
-                    i18n-pkAlert
-                    pkAlert="Remove Element"
-                    icon="delete"
-                    (onClick)="removeElement()">
-                </pk-button>
-                <pk-button
-                    rounded
-                    element--secondary
-                    i18n-pkAlert
-                    pkAlert="Edit Element"
-                    icon="create"
-                    (onClick)="openEditModal()">
-                </pk-button>
-                <pk-button
-                    *ngIf="entry.type === 'config'"
-                    rounded
-                    element--secondary
-                    i18n-pkAlert
-                    pkAlert="Add Config to Conference"
-                    icon="add"
-                    (onClick)="openEntryModal()">
-                </pk-button>
-                <pk-button
-                    *ngIf="entry.type === 'table'"
-                    rounded
-                    element--secondary
-                    i18n-pkAlert
-                    pkAlert="Add Entry to Table"
-                    icon="add"
-                    (onClick)="openTableEntryModal()">
-                </pk-button>
-                <pk-button
-                    *ngIf="entry.type === 'application'"
-                    rounded
-                    element--secondary
-                    i18n-pkAlert
-                    pkAlert="Set Generic Id"
-                    icon="insert_drive_file"
-                    (onClick)="setFormIdModal()">
-                </pk-button>
-            </pk-floating>
-        </div>
 
-        <div class="label element element--spacing-bottom-small" *ngIf="entry.description">{{ entry.description }}</div>
+        <div class="content">
 
-        <div [ngSwitch]="entry.type">
-            <!-- Config -->
-            <div *ngSwitchCase="'config'">
-
-                <div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper">
-                    <div class="label" i18n>No Elements here.</div>
+            <div class="animation animation--trigger headline">
+                <h4>{{ index }} {{ entry.title }}</h4>
+                <pk-floating horizontal top-right>
                     <pk-button
-                        class="element--spacing-top-large"
+                        class="element--spacing-left-tiny"
+                        rounded
+                        element--error
+                        i18n-pkAlert
+                        pkAlert="Remove Element"
+                        icon="delete"
+                        (onClick)="removeElement()">
+                    </pk-button>
+                    <pk-button
+                        class="element--spacing-left-tiny"
+                        rounded
                         element--secondary
-                        i18n-value
-                        value="Add Config to Conference"
-                        icon="add"
+                        i18n-pkAlert
+                        pkAlert="Edit Element"
+                        icon="create"
+                        (onClick)="openEditModal()">
+                    </pk-button>
+                    <pk-button
+                        *ngIf="entry.type === 'config'"
+                        class="element--spacing-left-tiny"
+                        rounded
+                        element--secondary
+                        i18n-pkAlert
+                        pkAlert="Add Config to Conference"
+                        icon="playlist_add"
                         (onClick)="openEntryModal()">
                     </pk-button>
-                </div>
-
-                <div *ngIf="entry.entries && entry.entries.length">
-                    <div *ngFor="let entry of entry.entries; let i = index">
-                        <pk-conference-entry [index]="index + '.' + (i + 1)" [entry]="entry" [forms]="forms" (remove)="removeElement($event)"></pk-conference-entry>
-                    </div>
-                </div>
+                    <pk-button
+                        *ngIf="entry.type === 'table'"
+                        class="element--spacing-left-tiny"
+                        rounded
+                        element--secondary
+                        i18n-pkAlert
+                        pkAlert="Add Entry to Table"
+                        icon="playlist_add"
+                        (onClick)="openTableEntryModal()">
+                    </pk-button>
+                    <pk-button
+                        *ngIf="entry.type === 'application'"
+                        class="element--spacing-left-tiny"
+                        rounded
+                        element--secondary
+                        i18n-pkAlert
+                        pkAlert="Set Generic Id"
+                        icon="insert_drive_file"
+                        (onClick)="setFormIdModal()">
+                    </pk-button>
+                </pk-floating>
             </div>
 
-            <!-- Application -->
-            <div *ngSwitchCase="'application'">
+            <div class="label element element--spacing-bottom-small" *ngIf="entry.description">{{ entry.description }}</div>
 
-                <div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper">
-                    <div *ngIf="!entry.formId">
-                        <div class="label" i18n>No Generic Id selected</div>
+            <div [ngSwitch]="entry.type">
+                <!-- Config -->
+                <div *ngSwitchCase="'config'">
+
+                    <div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper">
+                        <div class="label" i18n>No Elements here.</div>
                         <pk-button
                             class="element--spacing-top-large"
                             element--secondary
                             i18n-value
-                            value="Set Generic Id"
-                            icon="insert_drive_file"
-                            (onClick)="setFormIdModal()">
+                            value="Add Config to Conference"
+                            icon="add"
+                            (onClick)="openEntryModal()">
                         </pk-button>
                     </div>
-                    <div *ngIf="entry.formId">
-                        <div class="label" i18n>Connected Form: {{ getLabelOfForm(entry.formId) }}</div>
+
+                    <div *ngIf="entry.entries && entry.entries.length">
+                        <div *ngFor="let entry of entry.entries; let i = index">
+                            <pk-conference-entry [index]="index + '.' + (i + 1)" [entry]="entry" [forms]="forms" (remove)="removeElement($event)"></pk-conference-entry>
+                        </div>
                     </div>
                 </div>
 
-                <pk-list *ngIf="entry.entries && entry.entries.length">
-                    <pk-list-header>
-                        <div *ngFor="let field of entry.fields">
-                            <pk-list-attribute [name]="field">{{ field }}</pk-list-attribute>
+                <!-- Application -->
+                <div *ngSwitchCase="'application'">
+
+                    <div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper">
+                        <div *ngIf="!entry.formId">
+                            <div class="label" i18n>No Generic Id selected</div>
+                            <pk-button
+                                class="element--spacing-top-large"
+                                element--secondary
+                                i18n-value
+                                value="Set Generic Id"
+                                icon="insert_drive_file"
+                                (onClick)="setFormIdModal()">
+                            </pk-button>
                         </div>
-                    </pk-list-header>
-                    <pk-list-content>
-
-                        <div *ngFor="let element of entry.entries">
-
-                            <pk-list-element [name]="element.status?.name">
-
-                                <div *ngFor="let field of entry.fields">
-                                    <pk-list-attribute [name]="field">{{ element[field] }}</pk-list-attribute>
-                                </div>
-
-                                <pk-floating horizontal top-right></pk-floating>
-
-                            </pk-list-element>
-
+                        <div *ngIf="entry.formId">
+                            <div class="label" i18n>Connected Form: {{ getLabelOfForm(entry.formId) }}</div>
                         </div>
+                    </div>
 
-                    </pk-list-content>
-                </pk-list>
-
-            </div>
-
-            <!-- Table -->
-            <div *ngSwitchCase="'table'">
-
-                <div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper">
-                    <div class="label" i18n>No Elements here.</div>
-                    <pk-button
-                        class="element--spacing-top-large"
-                        element--secondary
-                        i18n-value
-                        value="Add Entry to Table"
-                        icon="add"
-                        (onClick)="openTableEntryModal()">
-                    </pk-button>
-                </div>
-
-                <div *ngIf="entry.entries && entry.entries.length">
-
-                    <pk-list>
+                    <pk-list *ngIf="entry.entries && entry.entries.length">
+                        <pk-list-header>
+                            <div *ngFor="let field of entry.fields">
+                                <pk-list-attribute [name]="field">{{ field }}</pk-list-attribute>
+                            </div>
+                        </pk-list-header>
                         <pk-list-content>
 
-                            <div *ngFor="let element of entry.entries; let index = index">
+                            <div *ngFor="let element of entry.entries">
 
-                                <pk-list-element>
+                                <pk-list-element [name]="element.status?.name">
 
-                                    <div *ngFor="let value of element; let last = last">
-                                        <pk-list-attribute [name]="last ? 'last' : ''">{{ value }}</pk-list-attribute>
+                                    <div *ngFor="let field of entry.fields">
+                                        <pk-list-attribute [name]="field">{{ element[field] }}</pk-list-attribute>
                                     </div>
 
-                                    <pk-floating horizontal top-right>
-                                        <pk-button
-                                            rounded
-                                            element--secondary
-                                            i18n-pkAlert
-                                            pkAlert="Edit Element"
-                                            icon="create"
-                                            (onClick)="openEditTableEntryModal(element, index)">
-                                        </pk-button>
-                                    </pk-floating>
+                                    <pk-floating horizontal top-right></pk-floating>
 
                                 </pk-list-element>
 
@@ -169,14 +129,63 @@
 
                 </div>
 
+                <!-- Table -->
+                <div *ngSwitchCase="'table'">
+
+                    <div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper">
+                        <div class="label" i18n>No Elements here.</div>
+                        <pk-button
+                            class="element--spacing-top-large"
+                            element--secondary
+                            i18n-value
+                            value="Add Entry to Table"
+                            icon="add"
+                            (onClick)="openTableEntryModal()">
+                        </pk-button>
+                    </div>
+
+                    <div *ngIf="entry.entries && entry.entries.length">
+
+                        <pk-list>
+                            <pk-list-content>
+
+                                <div *ngFor="let element of entry.entries; let index = index">
+
+                                    <pk-list-element>
+
+                                        <div *ngFor="let value of element; let last = last">
+                                            <pk-list-attribute [name]="last ? 'last' : ''">{{ value }}</pk-list-attribute>
+                                        </div>
+
+                                        <pk-floating horizontal top-right>
+                                            <pk-button
+                                                rounded
+                                                element--secondary
+                                                i18n-pkAlert
+                                                pkAlert="Edit Element"
+                                                icon="create"
+                                                (onClick)="openEditTableEntryModal(element, index)">
+                                            </pk-button>
+                                        </pk-floating>
+
+                                    </pk-list-element>
+
+                                </div>
+
+                            </pk-list-content>
+                        </pk-list>
+
+                    </div>
+
+                </div>
+
+                <!-- Default -->
+                <div *ngSwitchDefault>
+                    <div *ngIf="entry.entries?.length" i18n>No Type of config set</div>
+                </div>
             </div>
 
-            <!-- Default -->
-            <div *ngSwitchDefault>
-                <div *ngIf="entry.entries?.length" i18n>No Type of config set</div>
-            </div>
+            <div class="caption element element--spacing-top-small" *ngIf="entry.footer">{{ entry.footer }}</div>
         </div>
-
-        <div class="caption element element--spacing-top-small" *ngIf="entry.footer">{{ entry.footer }}</div>
     </div>
 </div>

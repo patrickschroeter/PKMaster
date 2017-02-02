@@ -1,7 +1,29 @@
+@import './../../../theme.scss';
+
 .headline {
     overflow: hidden;
 
     .floating {
         top: 18px;
+    }
+}
+
+.content {
+    margin-left: 0.5rem;
+}
+
+.empty-wrapper {
+    padding: 2rem;
+    margin: 1rem 0;
+    border: 1px solid $guidance-color;
+}
+
+.animation {
+    cursor: pointer;
+    h4 {
+        transition: color .3s;
+    }
+    &:hover {
+        color: $guidance-color;
     }
 }

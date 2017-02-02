@@ -22,42 +22,53 @@
     </div>
 
     <pk-floating top-right fixed>
-        <a routerLink="/conferences/{{ conference.id }}">
+        <div class="animation animation--trigger">
             <pk-button
                 class="element--spacing-bottom-tiny"
                 rounded
-                element--error
-                i18n-pkAlert
-                     pkAlert="Cancel"
-                icon="clear">
+                element--primary
+                icon="more_vert">
             </pk-button>
-        </a>
-        <pk-button
-            class="element--spacing-bottom-tiny"
-            rounded
-            element--secondary
-            i18n-pkAlert
-                 pkAlert="Add Config to Conference"
-            icon="add"
-            (onClick)="openEntryModal()">
-        </pk-button>
-        <pk-button
-            class="element--spacing-bottom-tiny"
-            rounded
-            element--success
-            i18n-pkAlert
-                 pkAlert="Save Conference"
-            icon="save"
-            (onClick)="saveConference()">
-        </pk-button>
-        <pk-button
-            rounded
-            element--error
-            i18n-pkAlert
-                 pkAlert="Delete Conference"
-            icon="delete"
-            (onClick)="deleteConference()">
-        </pk-button>
+            <div class="animation--target">
+                <pk-button
+                    class="element--spacing-bottom-tiny"
+                    rounded
+                    element--secondary
+                    i18n-pkAlert
+                        pkAlert="Save Conference"
+                    icon="save"
+                    (onClick)="saveConference()">
+                </pk-button>
+                <pk-button
+                    class="element--spacing-bottom-tiny"
+                    rounded
+                    element--secondary
+                    i18n-pkAlert
+                        pkAlert="Add Config to Conference"
+                    icon="playlist_add"
+                    (onClick)="openEntryModal()">
+                </pk-button>
+                <pk-button
+                    class="element--spacing-bottom-tiny"
+                    rounded
+                    element--error
+                    i18n-pkAlert
+                        pkAlert="Delete Conference"
+                    icon="delete"
+                    (onClick)="deleteConference()">
+                </pk-button>
+            </div>
+        </div>
+                <a routerLink="/conferences/{{ conference.id }}">
+                    <pk-button
+                        class="element--spacing-bottom-tiny"
+                        rounded
+                        element--error
+                        i18n-pkAlert
+                            pkAlert="Cancel"
+                        icon="clear">
+                    </pk-button>
+                </a>
     </pk-floating>
 </div>
 
