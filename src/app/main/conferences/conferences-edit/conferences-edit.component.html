@@ -17,7 +17,7 @@
 
     <div *ngIf="conference.config && conference.config.length">
         <div *ngFor="let entry of conference.config; let index = index">
-            <pk-conference-entry [index]="index + 1" [entry]="entry" (remove)="removeElement($event)"></pk-conference-entry>
+            <pk-conference-entry [index]="index + 1" [entry]="entry" [forms]="forms" (remove)="removeElement($event)"></pk-conference-entry>
         </div>
     </div>
 
@@ -46,7 +46,7 @@
             rounded
             element--success
             i18n-pkAlert
-                 pkAlert="Sabe Conference"
+                 pkAlert="Save Conference"
             icon="save"
             (onClick)="saveConference()">
         </pk-button>
@@ -61,4 +61,6 @@
     </pk-floating>
 </div>
 
-<pk-modal-add-conference-entry #addEntryModal (save)="addConfigElement($event)"></pk-modal-add-conference-entry>
+<pk-modal-add-conference-entry #addEntryModal></pk-modal-add-conference-entry>
+
+<pk-modal-add-conference-table-entry #addTableEntryModal></pk-modal-add-conference-table-entry>

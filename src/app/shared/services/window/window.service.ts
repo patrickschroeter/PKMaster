@@ -2,18 +2,21 @@ import { Injectable } from '@angular/core';
 
 import { ModalAddConferenceEntryComponent } from './../../';
 
+/** Interfaces */
+import { Window } from './../..';
+
 @Injectable()
 export class WindowService {
 
-    private modal: ModalAddConferenceEntryComponent;
+    private modal: Window;
 
     constructor() { }
 
     /**
      * sets the component instance to work with
-     * @param {ModalAddConferenceEntryComponent} modal
+     * @param {Window} modal
      */
-    public setModal(modal: ModalAddConferenceEntryComponent): WindowService {
+    public setModal(modal: Window): WindowService {
         this.modal = modal;
         return this;
     }
@@ -30,9 +33,9 @@ export class WindowService {
     /**
      * opens the modal
      */
-    public openModal(): WindowService {
-        if (this.modal && this.modal instanceof ModalAddConferenceEntryComponent) {
-            this.modal.open();
+    public openModal(param?: any): WindowService {
+        if (this.modal) {
+            this.modal.open(param);
         }
         return this;
     }

@@ -11,17 +11,19 @@ import { TranslationService } from './../../../modules/translation';
 /** Components */
 import { OverlayComponent } from './../../../modules/overlay';
 
+/** Interfaces */
+import { Window } from './../../';
+
 @Component({
   selector: 'pk-modal-add-conference-entry',
   templateUrl: './modal-add-conference-entry.component.html',
   styleUrls: ['./modal-add-conference-entry.component.scss'],
   exportAs: 'addEntryModal'
 })
-export class ModalAddConferenceEntryComponent implements OnInit {
+export class ModalAddConferenceEntryComponent implements OnInit, Window {
 
     @ViewChild('overlay') overlay: OverlayComponent;
 
-    // @Output() save: EventEmitter<ConferenceConfig<any>> = new EventEmitter();
     public save: Function;
 
     public newEntry: Field[];

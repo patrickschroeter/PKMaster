@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter, Inject } from '@angular/core';
 import * as _ from 'lodash';
 
 /** Services */
@@ -8,12 +8,17 @@ import {
 } from './../../../core';
 import { ModalService, OverlayComponent } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
-import { WindowService } from './../../';
+import {
+    WindowService
+} from './../../';
 
 /** Models */
 import { ConferenceConfig, Selectable } from './../../../models';
 import { Application, Field } from './../../../swagger';
-import { ModalAddConferenceEntryComponent } from './../../';
+import {
+    ModalAddConferenceEntryComponent,
+    ModalAddConferenceTableEntryComponent
+ } from './../../';
 
 /** Decorators */
 import { Access } from './../../';
@@ -25,16 +30,14 @@ import { Access } from './../../';
 })
 export class ConferenceEntryComponent implements OnInit {
 
-    @ViewChild('overlay') overlay: OverlayComponent;
-
     @Input() index: string;
+    @Input() forms: Selectable[];
     @Input() entry: ConferenceConfig<any>;
     @Output() remove: EventEmitter<ConferenceConfig<any>> = new EventEmitter();
 
-    private forms: Selectable[];
     private formLabel: string;
 
-    public tableForm: Field[];
+    private numberOfTableFields: number;
 
     constructor(
         /** Modules */
@@ -43,18 +46,16 @@ export class ConferenceEntryComponent implements OnInit {
         /** Services */
         private permission: PermissionService,
         private formService: FormService,
-        private entryModalService: WindowService
+        @Inject('EntryModalService') private entryModalService: WindowService,
+        @Inject('TableEntryModalService') private tableEntryModalService: WindowService
     ) { }
 
     ngOnInit() {
-        if (this.entry.type === 'application') {
-            this.formService.getForms().subscribe(result => {
-                this.forms = result.map(obj => new Selectable(obj.id, obj.title));
-            });
-        } else if (this.entry.type === 'table') {
-            this.addFieldToTableForm();
+        if (!this.entry.entries || !this.entry.entries.length) {
+            this.numberOfTableFields = 1;
+        } else {
+            this.numberOfTableFields = _.cloneDeep(this.entry.entries).sort((a, b) => a > b ? -1 : 1)[0].length;
         }
-
     }
 
     /**
@@ -77,25 +78,8 @@ export class ConferenceEntryComponent implements OnInit {
     }
 
     /**
-     * adds a new fiel to the table form
-     */
-    public addFieldToTableForm() {
-        const form = _.cloneDeep(this.tableForm) || [];
-        form.push({
-            fieldType: 'input',
-            name: form.length.toString(),
-            value: '',
-            styles: [
-                'small'
-            ]
-        });
-        this.tableForm = form;
-    }
-
-    /**
      * open the modal to set the formId of the config
      */
-    @Access('EditRoles')
     public setFormIdModal(): void {
         this.modalService.createListModal({
             title: this.translationService.translate('setFormId'),
@@ -115,41 +99,28 @@ export class ConferenceEntryComponent implements OnInit {
      * set the given formId
      * @param {Selectable} data
      */
-    @Access('EditRoles')
     private setFormId(data: Selectable): void {
         this.entry.formId = data.value;
         this.modalService.destroyModal();
     }
 
     /**
-     * opens the overlay to add a table entry
+     * open the add entry modal
      */
-    public openTableOverlay() {
-        this.tableForm = _.cloneDeep(this.tableForm);
-        this.overlay.toggle(true);
+    public openTableEntryModal(): void {
+        this.tableEntryModalService
+        .setModalSave(this.addTableEntry.bind(this))
+        .openModal(this.numberOfTableFields);
     }
 
     /**
      * add a new line to the table
-     * @param {Object} form
+     * @param {String[]} entry
      */
-    public addTableEntry(form: Object): void {
-        const entry: string[] = this.getValues(form);
+    public addTableEntry(entry: string[]): void {
+        this.numberOfTableFields = this.numberOfTableFields > entry.length ? this.numberOfTableFields : entry.length;
         this.entry.entries = this.entry.entries || [];
         this.entry.entries.push(entry);
-        this.overlay.toggle(false);
-    }
-
-    /**
-     * recursively format object with index keys to array
-     * @param {Object} object
-     * @param {Number} [index]
-     */
-    private getValues(object: Object, index?: number): string[] {
-        index = index || 0;
-        const result = object[index];
-        if (!result) { return []; }
-        return [result].concat(this.getValues(object, 1 + index));
     }
 
     /**

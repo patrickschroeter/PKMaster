@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
+import { Component, OnInit, HostBinding, ViewChild, Inject } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as _ from 'lodash';
 
@@ -9,12 +9,17 @@ import {
 } from './../../../core';
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
-import { WindowService } from './../../../shared';
+import {
+    WindowService
+} from './../../../shared';
 
 /** Models */
 import { Conference, Form } from './../../../swagger';
 import { Selectable, ConferenceConfig } from './../../../models';
-import { ModalAddConferenceEntryComponent } from './../../../shared';
+import {
+    ModalAddConferenceEntryComponent,
+    ModalAddConferenceTableEntryComponent
+ } from './../../../shared';
 
 /** TODO */ import { ApplicationApiMock } from './../../../core';
 
@@ -23,13 +28,15 @@ import { ModalAddConferenceEntryComponent } from './../../../shared';
     templateUrl: './conferences-edit.component.html',
     styleUrls: ['./conferences-edit.component.scss'],
     providers: [
-        { provide: WindowService, useClass: WindowService }
+        { provide: 'EntryModalService', useClass: WindowService },
+        { provide: 'TableEntryModalService', useClass: WindowService }
     ]
 })
 export class ConferencesEditComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
     @ViewChild('addEntryModal') addEntryModal: ModalAddConferenceEntryComponent;
+    @ViewChild('addTableEntryModal') addTableEntryModal: ModalAddConferenceTableEntryComponent;
 
     public conference: Conference;
 
@@ -45,13 +52,16 @@ export class ConferencesEditComponent implements OnInit {
         /** Services */
         private conferenceService: ConferenceService,
         private formService: FormService,
-        private entryModalService: WindowService
+        @Inject('EntryModalService') private entryModalService: WindowService,
+        @Inject('TableEntryModalService') private tableEntryModalService: WindowService
     ) { }
 
     ngOnInit() {
         this.getConference();
+        this.getFormsAsSelectable();
 
         this.entryModalService.setModal(this.addEntryModal);
+        this.tableEntryModalService.setModal(this.addTableEntryModal);
     }
 
     /**
@@ -73,6 +83,15 @@ export class ConferencesEditComponent implements OnInit {
     }
 
     /**
+     * get all forms as Selectable array
+     */
+    private getFormsAsSelectable() {
+        this.formService.getForms().subscribe(result => {
+            this.forms = result.map(obj => new Selectable(obj.id, obj.title));
+        });
+    }
+
+    /**
      * onError function for infalid conference id
      * @param {String} id
      */
@@ -86,9 +105,9 @@ export class ConferencesEditComponent implements OnInit {
      */
     public openEntryModal(): void {
         this.entryModalService
-        .setModal(this.addEntryModal)
-        .setModalSave(this.addConfigElement.bind(this))
-        .openModal();
+            .setModal(this.addEntryModal)
+            .setModalSave(this.addConfigElement.bind(this))
+            .openModal();
     }
 
     /**
