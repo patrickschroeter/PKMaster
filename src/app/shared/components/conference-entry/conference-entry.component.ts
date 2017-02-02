@@ -109,6 +109,7 @@ export class ConferenceEntryComponent implements OnInit {
      */
     private setFormId(data: Selectable): void {
         this.entry.formId = data.value;
+        this.formLabel = undefined;
         this.modalService.destroyModal();
     }
 
@@ -119,7 +120,7 @@ export class ConferenceEntryComponent implements OnInit {
         this.tableEntryModalService
         .setModalSave(this.addTableEntry.bind(this))
         .openModal({
-            numberOfElements: this.numberOfTableFields
+            numberOfInputs: this.numberOfTableFields
         });
     }
 
@@ -127,10 +128,35 @@ export class ConferenceEntryComponent implements OnInit {
      * add a new line to the table
      * @param {String[]} entry
      */
-    public addTableEntry(entry: string[]): void {
+    private addTableEntry(entry: string[]): void {
         this.numberOfTableFields = this.numberOfTableFields > entry.length ? this.numberOfTableFields : entry.length;
         this.entry.entries = this.entry.entries || [];
         this.entry.entries.push(entry);
+    }
+
+    /**
+     * opens the modal to edit the table entry
+     * @param {String[]} element
+     * @param {Number} index
+     */
+    public openEditTableEntryModal(element: string[], index: number): void {
+        this.tableEntryModalService
+        .setModalSave(result => {
+            this.updateTableEntry(result, index);
+        })
+        .openModal({
+            numberOfInputs: this.numberOfTableFields,
+            values: element
+        });
+    }
+
+    /**
+     * update the element at index
+     * @param {String[]} element
+     * @param {Number} index
+     */
+    private updateTableEntry(element: string[], index: number): void {
+        this.entry.entries[index] = element;
     }
 
     /**

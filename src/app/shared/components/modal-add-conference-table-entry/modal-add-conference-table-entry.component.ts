@@ -30,12 +30,16 @@ export class ModalAddConferenceTableEntryComponent implements OnInit, Window {
      * reset the form and open the overlay
      * @param {Object} options
      * @param {Number} options.[numberOfInputs]
+     * @param {String[]} options.[values]
      */
     public open(options: {
         numberOfInputs: number,
         values: string[]
     }) {
-        this.generateInputs(options.numberOfInputs || 1, options.values);
+        this.generateInputs(
+            options ? options.numberOfInputs || 1 : 1,
+            options ? options.values : []
+        );
         this.overlay.toggle(true);
     }
 

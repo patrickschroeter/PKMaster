@@ -40,7 +40,7 @@ export class ModalAddConferenceEntryComponent implements OnInit, Window {
     /**
      * reset the form and open the overlay
      * @param {Object} options
-     * @param {Number} options.[values]
+     * @param {ConferenceConfig} options.[values]
      */
     public open(options: {
         values: ConferenceConfig<any>
@@ -51,6 +51,7 @@ export class ModalAddConferenceEntryComponent implements OnInit, Window {
 
     /**
      * init the new entry form
+     * @param {ConferenceConfig} values
      */
     private initEntryForm(values?: ConferenceConfig<any>) {
         this.newEntry = [
@@ -107,7 +108,6 @@ export class ModalAddConferenceEntryComponent implements OnInit, Window {
      * @param {ConferenceConfig} entry
      */
     public addNewEntry(entry: ConferenceConfig<any>) {
-        // this.save.emit(entry);
         if (this.save) {
             this.save(entry);
         }
