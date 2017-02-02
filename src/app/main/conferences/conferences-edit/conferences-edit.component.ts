@@ -9,13 +9,12 @@ import {
 } from './../../../core';
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
-import {
-    WindowService
-} from './../../../shared';
+import { WindowService } from './../../../shared';
 
 /** Models */
-import { Conference, Form } from './../../../swagger';
+import { Conference, Form, Field } from './../../../swagger';
 import { Selectable, ConferenceConfig } from './../../../models';
+import { OverlayComponent } from './../../../modules/overlay';
 import {
     ModalAddConferenceEntryComponent,
     ModalAddConferenceTableEntryComponent
@@ -35,12 +34,16 @@ import {
 export class ConferencesEditComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
+    @ViewChild('overlay') overlay: OverlayComponent;
+
     @ViewChild('addEntryModal') addEntryModal: ModalAddConferenceEntryComponent;
     @ViewChild('addTableEntryModal') addTableEntryModal: ModalAddConferenceTableEntryComponent;
 
     public conference: Conference;
 
     public forms: Selectable[];
+
+    public editConferenceForm: Field[];
 
     constructor(
         /** Angular */
@@ -74,6 +77,7 @@ export class ConferencesEditComponent implements OnInit {
                     return this.onError(params['id']);
                 } else {
                     this.conference = conference;
+                    this.editConferenceForm = this.conferenceService.getConferenceForm(conference);
                 }
             }, error => {
                 console.error(error);
@@ -98,6 +102,23 @@ export class ConferencesEditComponent implements OnInit {
     private onError(id: string) {
         this.router.navigate(['/conferences']);
         this.alert.setErrorHint('no-conference-found', this.translationService.translate('errorNoConferenceWithId', [id]), 2000);
+    }
+
+    /**
+     * update the conference attribute
+     * @param {Conference} conference
+     */
+    public updateConference(conference: Conference): void {
+        const param: Conference = _.cloneDeep(this.conference);
+        param.description = conference.description;
+        param.dateOfEvent = conference.dateOfEvent;
+        param.endOfEvent = conference.endOfEvent;
+        param.startOfEvent = conference.startOfEvent;
+        param.roomOfEvent = conference.roomOfEvent;
+        this.conferenceService.saveConference(param).subscribe(result => {
+            this.conference = result;
+            this.overlay.toggle();
+        });
     }
 
     /**

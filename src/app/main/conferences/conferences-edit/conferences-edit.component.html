@@ -51,6 +51,15 @@
                 <pk-button
                     class="element--spacing-bottom-tiny"
                     rounded
+                    element--secondary
+                    i18n-pkAlert
+                        pkAlert="Edit Conference Attributes"
+                    icon="create"
+                    (onClick)="overlay.toggle()">
+                </pk-button>
+                <pk-button
+                    class="element--spacing-bottom-tiny"
+                    rounded
                     element--error
                     i18n-pkAlert
                         pkAlert="Delete Conference"
@@ -59,19 +68,31 @@
                 </pk-button>
             </div>
         </div>
-                <a routerLink="/conferences/{{ conference.id }}">
-                    <pk-button
-                        class="element--spacing-bottom-tiny"
-                        rounded
-                        element--error
-                        i18n-pkAlert
-                            pkAlert="Cancel"
-                        icon="clear">
-                    </pk-button>
-                </a>
+        <a routerLink="/conferences/{{ conference.id }}">
+            <pk-button
+                class="element--spacing-bottom-tiny"
+                rounded
+                element--error
+                i18n-pkAlert
+                    pkAlert="Cancel"
+                icon="clear">
+            </pk-button>
+        </a>
     </pk-floating>
 </div>
 
 <pk-modal-add-conference-entry #addEntryModal></pk-modal-add-conference-entry>
 
 <pk-modal-add-conference-table-entry #addTableEntryModal></pk-modal-add-conference-table-entry>
+
+<pk-overlay #overlay class="overlay--fluid">
+    <pk-overlay-header i18n>Edit Conference</pk-overlay-header>
+    <pk-overlay-content>
+
+        <pk-dynamic-form-overlay
+            [form]="editConferenceForm"
+            (save)="updateConference($event)"
+            ></pk-dynamic-form-overlay>
+
+    </pk-overlay-content>
+</pk-overlay>
