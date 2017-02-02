@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+import * as _ from 'lodash';
 import { Observable, Observer } from 'rxjs/Rx';
 
 import { UserApiMock } from './';
@@ -160,7 +160,7 @@ export class UserEndpoint {
     public updateUserRole(userId: string, token?: number, roleId?: string, extraHttpRequestParams?: any): Observable<{}> {
         const user: AppUser = this._user(userId);
         const role = this.roleApi['_role'](roleId);
-        if (user.roles.indexOf(role) === -1) {
+        if (_.findIndex(user.roles, obj => obj.id === roleId) === -1) {
             user.roles.push(role);
         }
         return this.observe(this._userUpdate(user.id, this._updatePermissions(user)));
@@ -221,6 +221,7 @@ export class UserEndpoint {
     private _updatePermissions(user: AppUser): AppUser {
         const permissions: string[] = [];
         for (let i = 0, length = user.roles.length; i < length; i++) {
+            user.roles[i] = this.roleApi['_role'](user.roles[i].id);
             const role = user.roles[i];
             for (let j = 0, l = role.rolePermissions.length; j < l; j++) {
                 const perm = role.rolePermissions[j];
