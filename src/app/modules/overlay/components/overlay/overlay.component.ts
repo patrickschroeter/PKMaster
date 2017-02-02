@@ -10,7 +10,7 @@ export class OverlayComponent implements OnInit {
 
     @HostBinding('class.overlay') overlay = true;
 
-    public isOpen: boolean = false;
+    public isOpen = false;
 
     @Output() close: EventEmitter<any> = new EventEmitter();
 

@@ -1,69 +1,188 @@
 <div class="entry element element--spacing-bottom-large">
-    <h4>{{ index }} {{ config.title }}</h4>
-    <div class="label element element--spacing-bottom-small">{{ config.description }}</div>
+    <div class="rel">
 
+        <h4>{{ index }} {{ config.title }} ({{ config.type }})</h4>
+        <pk-floating horizontal top-right>
+            <pk-button
+                *ngIf="config.type === 'config'"
+                class="element--spacing-bottom-tiny"
+                rounded
+                element--secondary
+                i18n-pkAlert
+                pkAlert="Add Config to Conference"
+                icon="add"
+                (onClick)="addEntryOverlay.open()">
+            </pk-button>
+            <pk-button
+                *ngIf="config.type === 'table'"
+                class="element--spacing-bottom-tiny"
+                rounded
+                element--secondary
+                i18n-pkAlert
+                pkAlert="Add Entry to Table"
+                icon="add"
+                (onClick)="openTableOverlay()">
+            </pk-button>
+            <pk-button
+                *ngIf="config.type === 'application'"
+                class="element--spacing-bottom-tiny"
+                rounded
+                element--secondary
+                i18n-pkAlert
+                pkAlert="Set Generic Id"
+                [icon]="config.genericId ? 'create' : 'add'"
+                (onClick)="setGenericIdModal()">
+            </pk-button>
+        </pk-floating>
 
-    <div [ngSwitch]="config.type">
-        <div *ngSwitchCase="'config'">
-            <div *ngFor="let entry of config.entries; let i = index">
-                <pk-conference-entry [index]="index + '.' + (i + 1)" [config]="entry"></pk-conference-entry>
+        <div class="label element element--spacing-bottom-small">{{ config.description }}</div>
+
+        <div [ngSwitch]="config.type">
+            <div *ngSwitchCase="'config'">
+
+                <div *ngIf="!config.entries || !config.entries.length" class="empty-wrapper">
+                    <div class="label" i18n>No Elements here.</div>
+                    <pk-button
+                        class="element--spacing-top-large"
+                        element--secondary
+                        i18n-value
+                        value="Add Config to Conference"
+                        icon="add"
+                        (onClick)="addEntryOverlay.open()">
+                    </pk-button>
+                </div>
+
+                <div *ngIf="config.entries && config.entries.length">
+                    <div *ngFor="let entry of config.entries; let i = index">
+                        <pk-conference-entry [index]="index + '.' + (i + 1)" [config]="entry"></pk-conference-entry>
+                    </div>
+                </div>
+            </div>
+            <div *ngSwitchCase="'application'">
+
+                <div *ngIf="!config.entries || !config.entries.length" class="empty-wrapper">
+                    <div *ngIf="!config.genericId">
+                        <div class="label" i18n>No Generic Id selected</div>
+                        <pk-button
+                            class="element--spacing-top-large"
+                            element--secondary
+                            i18n-value
+                            value="Set Generic Id"
+                            icon="add"
+                            (onClick)="setGenericIdModal()">
+                        </pk-button>
+                    </div>
+                    <div *ngIf="config.genericId">
+                        <div class="label" i18n>Generic Id: {{ config.genericId }}</div>
+                    </div>
+                </div>
+
+                <pk-list *ngIf="config.entries && config.entries.length">
+                    <pk-list-header>
+                        <div *ngFor="let field of config.fields">
+                            <pk-list-attribute [name]="field">{{ field }}</pk-list-attribute>
+                        </div>
+                    </pk-list-header>
+                    <pk-list-content>
+
+                        <div *ngFor="let element of config.entries">
+
+                            <pk-list-element [name]="element.status?.name">
+
+                                <div *ngFor="let field of config.fields">
+                                    <pk-list-attribute [name]="field">{{ element[field] }}</pk-list-attribute>
+                                </div>
+
+                                <pk-floating horizontal top-right></pk-floating>
+
+                            </pk-list-element>
+
+                        </div>
+
+                    </pk-list-content>
+                </pk-list>
+
+            </div>
+            <div *ngSwitchCase="'table'">
+
+                <div *ngIf="!config.entries || !config.entries.length" class="empty-wrapper">
+                    <div class="label" i18n>No Elements here.</div>
+                    <pk-button
+                        class="element--spacing-top-large"
+                        element--secondary
+                        i18n-value
+                        value="Add Entry to Table"
+                        icon="add"
+                        (onClick)="openTableOverlay()">
+                    </pk-button>
+                </div>
+
+                <div *ngIf="config.entries && config.entries.length">
+
+                    <pk-list>
+                        <pk-list-content>
+
+                            <div *ngFor="let element of config.entries">
+
+                                <pk-list-element>
+
+                                    <div *ngFor="let value of element; let last = last">
+                                        <pk-list-attribute [name]="last ? 'last' : ''">{{ value }}</pk-list-attribute>
+                                    </div>
+
+                                    <pk-floating horizontal top-right></pk-floating>
+
+                                </pk-list-element>
+
+                            </div>
+
+                        </pk-list-content>
+                    </pk-list>
+
+                </div>
+
+            </div>
+            <div *ngSwitchDefault>
+                <div *ngIf="config.entries?.length" i18n>No Type of config set</div>
             </div>
         </div>
-        <div *ngSwitchCase="'application'">
 
-            <pk-list>
-                <pk-list-header>
-                    <div *ngFor="let field of config.fields">
-                        <pk-list-attribute [name]="field">{{ field }}</pk-list-attribute>
-                    </div>
-                </pk-list-header>
-                <pk-list-content>
-
-                    <div *ngFor="let element of config.entries">
-
-                        <pk-list-element [name]="element.status?.name">
-
-                            <div *ngFor="let field of config.fields">
-                                <pk-list-attribute [name]="field">{{ element[field] }}</pk-list-attribute>
-                            </div>
-
-                            <pk-floating horizontal top-right></pk-floating>
-
-                        </pk-list-element>
-
-                    </div>
-
-                </pk-list-content>
-            </pk-list>
-
-        </div>
-        <div *ngSwitchCase="'table'">
-
-            <pk-list>
-                <pk-list-content>
-
-                    <div *ngFor="let element of config.entries">
-
-                        <pk-list-element>
-
-                            <div *ngFor="let value of element; let last = last">
-                                <pk-list-attribute [name]="last ? 'last' : ''">{{ value }}</pk-list-attribute>
-                            </div>
-
-                            <pk-floating horizontal top-right></pk-floating>
-
-                        </pk-list-element>
-
-                    </div>
-
-                </pk-list-content>
-            </pk-list>
-
-        </div>
-        <div *ngSwitchDefault>
-            <div *ngIf="config.entries?.length" i18n>To Type of config set</div>
-        </div>
+        <div class="caption element element--spacing-top-small">{{ config.footer }}</div>
     </div>
-
-    <div class="caption element element--spacing-top-small">{{ config.footer }}</div>
 </div>
+
+<pk-modal-add-conference-entry #addEntryOverlay (save)="addConfigElement($event)"></pk-modal-add-conference-entry>
+
+<pk-overlay *ngIf="config.type === 'table'" #overlay class="overlay--fluid">
+    <pk-overlay-header i18n>Add Entry to Table</pk-overlay-header>
+    <pk-overlay-content>
+
+        <pk-dynamic-form [formElements]="tableForm" #dynamicForm>
+            <pk-dynamic-form-content>
+
+                <pk-dynamic-form-element *ngFor="let element of tableForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
+
+            </pk-dynamic-form-content>
+
+            <pk-dynamic-form-submit>
+                <pk-button
+                    *ngIf="dynamicForm?.form"
+                    i18n-value value="Create"
+                    icon="save"
+                    [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
+                    (onClick)="addTableEntry(dynamicForm.form.value)"></pk-button>
+            </pk-dynamic-form-submit>
+
+            <pk-dynamic-form-cancel>
+                <pk-button
+                    *ngIf="dynamicForm?.form"
+                    i18n-value value="Add Field"
+                    icon="add"
+                    class="element--secondary"
+                    (onClick)="addFieldToTableForm()"></pk-button>
+            </pk-dynamic-form-cancel>
+
+        </pk-dynamic-form>
+
+    </pk-overlay-content>
+</pk-overlay>

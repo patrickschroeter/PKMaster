@@ -77,7 +77,7 @@ export class FormService {
      * @param {String} sort - key to sort the result
      * @return {Observable}
      */
-    public getForms(sort?: string): Observable<any> {
+    public getForms(sort?: string): Observable<Form[]> {
         let observable = this.formApi.getForms();
         // TODO: sort on Server
         if (sort) {

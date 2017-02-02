@@ -53,6 +53,10 @@ export class ConferenceService {
      * save the given conference
      * @param {Conference} conference
      */
-    public saveConference(conference: Conference) { }
+    public saveConference(conference: Conference): Observable<Conference> {
+        return this.conferenceApi.updateConferenceById(conference.id, ConferenceService.DEFAULT_TOKEN, conference).map(result => {
+            return this.conference = result;
+        });
+    }
 
 }

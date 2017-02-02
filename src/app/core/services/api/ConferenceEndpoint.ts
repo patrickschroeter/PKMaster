@@ -75,9 +75,10 @@ export class ConferenceEndpoint {
         });
     }
 
-    public updateConferenceById(conferenceId: number, token?: number, conference?: Conference, extraHttpRequestParams?: any):
+    public updateConferenceById(conferenceId: string, token?: number, conference?: Conference, extraHttpRequestParams?: any):
         Observable<Conference> {
-        return new Observable(observer => { observer.next({ id: conferenceId }); });
+        const param = this._conferenceUpdate(conferenceId, conference);
+        return this.observe(param);
     }
 
     /**

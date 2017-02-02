@@ -98,6 +98,13 @@ export const DICTIONARY_EN = {
     loadingAddPermissionToRole: 'Add permission to role...',
 
     loadingGetUsers: 'Get users...',
-    loadingGetUserById: 'Get user by id...'
+    loadingGetUserById: 'Get user by id...',
 
+    title: 'Title',
+    description: 'Description',
+    footer: 'Caption',
+    conferenceEntryType: 'Type of entries',
+    conferenceElementConfig: 'Configuration Object',
+    conferenceElementTable: 'Table',
+    conferenceElementApplication: 'Application'
 };

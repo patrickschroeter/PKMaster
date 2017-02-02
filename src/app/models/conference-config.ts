@@ -11,7 +11,7 @@ export class ConferenceConfig<T> {
     /** shown attributes of application */
     public fields: string[];
 
-    public entries: T[] | ConferenceConfig<T> | string[];
+    public entries: (T | ConferenceConfig<T> | string)[];
 
     constructor(title: string, description?: string, footer?: string) {
         this.title = title;
@@ -31,7 +31,7 @@ export class ConferenceConfig<T> {
      * set the given entries, returns this
      * @param {T|ConferenceConfig<T>|String[]} entries
      */
-    public setEntries(entries: T[] | ConferenceConfig<T> | string[]): ConferenceConfig<T> {
+    public setEntries(entries: (T | ConferenceConfig<T> | string)[]): ConferenceConfig<T> {
         this.entries = entries;
         return this;
     }

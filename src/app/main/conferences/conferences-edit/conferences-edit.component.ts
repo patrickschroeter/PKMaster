@@ -53,7 +53,7 @@ export class ConferencesEditComponent implements OnInit {
                     return this.onError(params['id']);
                 } else {
                     this.conference = conference;
-                    this.addConfigToConference();
+                    // this.addConfigToConference();
                 }
             }, error => {
                 console.error(error);
@@ -138,6 +138,15 @@ export class ConferencesEditComponent implements OnInit {
         ];
     }
 
+    /**
+     * add a new config element to the form
+     * @param {ConferenceConfig} entry
+     */
+    public addConfigElement(entry: ConferenceConfig<any>) {
+        this.conference.config = this.conference.config || [];
+        this.conference.config.push(entry);
+    }
+
     // assign user
 
     // 6 Sonstiges
@@ -149,6 +158,16 @@ export class ConferencesEditComponent implements OnInit {
      */
     public deleteConference() {
         console.error('TODO');
+    }
+
+    /**
+     * save the update conference
+     */
+    public saveConference() {
+        this.conferenceService.saveConference(this.conference).subscribe(result => {
+            this.conference = result;
+            this.router.navigate(['conferences', result.id]);
+        });
     }
 
 }

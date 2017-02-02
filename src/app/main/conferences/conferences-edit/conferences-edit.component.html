@@ -3,7 +3,19 @@
 <div id="conference-edit" class="rel" *ngIf="conference">
     <h2 class="element element--spacing-bottom-small">Edit Conference: {{ conference.description }}</h2>
 
-    <div *ngIf="conference.config">
+    <div *ngIf="!conference.config || !conference.config.length" class="empty-wrapper">
+        <div class="label" i18n>No Elements here.</div>
+        <pk-button
+            class="element--spacing-top-large"
+            element--secondary
+            i18n-value
+                 value="Add Config to Conference"
+            icon="add"
+            (onClick)="addEntryOverlay.open()">
+        </pk-button>
+    </div>
+
+    <div *ngIf="conference.config && conference.config.length">
         <div *ngFor="let entry of conference.config; let index = index">
             <pk-conference-entry [index]="index + 1" [config]="entry"></pk-conference-entry>
         </div>
@@ -26,8 +38,17 @@
             element--secondary
             i18n-pkAlert
                  pkAlert="Add Config to Conference"
-            icon="create"
-            (onClick)="addConfigToConference()">
+            icon="add"
+            (onClick)="addEntryOverlay.open()">
+        </pk-button>
+        <pk-button
+            class="element--spacing-bottom-tiny"
+            rounded
+            element--success
+            i18n-pkAlert
+                 pkAlert="Sabe Conference"
+            icon="save"
+            (onClick)="saveConference()">
         </pk-button>
         <pk-button
             rounded
@@ -35,7 +56,9 @@
             i18n-pkAlert
                  pkAlert="Delete Conference"
             icon="delete"
-            (onClick)="deleteConference(conference)">
+            (onClick)="deleteConference()">
         </pk-button>
     </pk-floating>
 </div>
+
+<pk-modal-add-conference-entry #addEntryOverlay (save)="addConfigElement($event)"></pk-modal-add-conference-entry>
