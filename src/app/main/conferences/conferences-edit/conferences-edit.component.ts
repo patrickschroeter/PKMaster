@@ -1,5 +1,6 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import * as _ from 'lodash';
 
 /** Services */
 import {
@@ -8,20 +9,27 @@ import {
 } from './../../../core';
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
+import { WindowService } from './../../../shared';
 
 /** Models */
 import { Conference, Form } from './../../../swagger';
 import { Selectable, ConferenceConfig } from './../../../models';
+import { ModalAddConferenceEntryComponent } from './../../../shared';
 
 /** TODO */ import { ApplicationApiMock } from './../../../core';
 
 @Component({
     selector: 'pk-conferences-edit',
     templateUrl: './conferences-edit.component.html',
-    styleUrls: ['./conferences-edit.component.scss']
+    styleUrls: ['./conferences-edit.component.scss'],
+    providers: [
+        { provide: WindowService, useClass: WindowService }
+    ]
 })
 export class ConferencesEditComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
+
+    @ViewChild('addEntryModal') addEntryModal: ModalAddConferenceEntryComponent;
 
     public conference: Conference;
 
@@ -36,11 +44,14 @@ export class ConferencesEditComponent implements OnInit {
         private translationService: TranslationService,
         /** Services */
         private conferenceService: ConferenceService,
-        private formService: FormService
+        private formService: FormService,
+        private entryModalService: WindowService
     ) { }
 
     ngOnInit() {
         this.getConference();
+
+        this.entryModalService.setModal(this.addEntryModal);
     }
 
     /**
@@ -53,7 +64,6 @@ export class ConferencesEditComponent implements OnInit {
                     return this.onError(params['id']);
                 } else {
                     this.conference = conference;
-                    // this.addConfigToConference();
                 }
             }, error => {
                 console.error(error);
@@ -72,70 +82,13 @@ export class ConferencesEditComponent implements OnInit {
     }
 
     /**
-     * adds a config object to the conference
+     * open the add entry modal
      */
-    public addConfigToConference() {
-        const leistungsnachweise = new ConferenceConfig(
-            'Leistungsnachweise'
-        )
-        .setEntries([
-            new ConferenceConfig(
-                'Notennachmeldungen',
-                null,
-                `Diese Entscheidung wurde vom PK-Vorsitzenden am 30. 9. 2016 gemäß RaPO § 3 Abs. 4 vorab getroffen.
-                Das Prüfungsamt und die Kommissionsmitglieder wurden am selben Tag über diese Entscheidung informiert.`
-            )
-            .setEntries([
-                ApplicationApiMock.APPLICATION
-            ])
-            .setFields([
-                'h3',
-                'date'
-            ])
-            .setGenericId('1')
-            .setConfigType('application')
-        ])
-        .setConfigType('config');
-
-        const abschlussarbeiten = new ConferenceConfig(
-            'Abschlussarbeiten'
-        )
-        .setEntries([
-            ApplicationApiMock.APPLICATION
-        ])
-        .setFields([
-            'date',
-            'h3'
-        ])
-        .setGenericId('1')
-        .setConfigType('application');
-
-        this.conference.config = [
-            new ConferenceConfig(
-                'Feststellung der Beschlussfähigkeit und Genehmigung der Niederschrift',
-                `Die Prüfungskommission ist beschlussfähig, da alle stimmberechtigten Mitglieder anwesend sind.
-                Die Niederschrift der ${this.conference.numberOfConference - 1}. Sitzung wird einstimmig genehmigt.`
-            ),
-            leistungsnachweise,
-            abschlussarbeiten,
-            new ConferenceConfig(
-                'Sonstiges'
-            ).setEntries([
-                new ConferenceConfig(
-                    'Neue Fächer'
-                ).setEntries([
-                    ['Interaktive Mediensysteme (Nachqualifikation)'],
-                    ['Workshop Design, (englisch: Workshop Design), nq.design, 2,5 CP, 2 SWS']
-                ]).setConfigType('table'),
-                new ConferenceConfig(
-                    'Termine'
-                ).setEntries([
-                    ['24. 11. 2016, 14:00 – 16:00', 'J4.13', 'PK- und Studienganssitzung'],
-                    ['23. 12. 2016, 12:00', null, 'Abgabe Bachelorarbeit (Ausgabe zum 1. 9. 2016)']
-                ]).setConfigType('table')
-            ])
-            .setConfigType('config')
-        ];
+    public openEntryModal(): void {
+        this.entryModalService
+        .setModal(this.addEntryModal)
+        .setModalSave(this.addConfigElement.bind(this))
+        .openModal();
     }
 
     /**
@@ -146,12 +99,6 @@ export class ConferencesEditComponent implements OnInit {
         this.conference.config = this.conference.config || [];
         this.conference.config.push(entry);
     }
-
-    // assign user
-
-    // 6 Sonstiges
-    // neue fächer
-    // termine
 
     /**
      * delete conference
@@ -164,10 +111,22 @@ export class ConferencesEditComponent implements OnInit {
      * save the update conference
      */
     public saveConference() {
+        console.log(JSON.stringify(this.conference.config));
         this.conferenceService.saveConference(this.conference).subscribe(result => {
             this.conference = result;
             this.router.navigate(['conferences', result.id]);
         });
+    }
+
+    /**
+     * remove the given element from the config
+     * @param {ConferenceConfig} element
+     */
+    public removeElement(element: ConferenceConfig<any>) {
+        const index = _.findIndex(this.conference.config, obj => obj === element);
+        if (index !== -1) {
+            this.conference.config.splice(index, 1);
+        }
     }
 
 }

@@ -11,13 +11,13 @@
             i18n-value
                  value="Add Config to Conference"
             icon="add"
-            (onClick)="addEntryOverlay.open()">
+            (onClick)="openEntryModal()">
         </pk-button>
     </div>
 
     <div *ngIf="conference.config && conference.config.length">
         <div *ngFor="let entry of conference.config; let index = index">
-            <pk-conference-entry [index]="index + 1" [config]="entry"></pk-conference-entry>
+            <pk-conference-entry [index]="index + 1" [entry]="entry" (remove)="removeElement($event)"></pk-conference-entry>
         </div>
     </div>
 
@@ -39,7 +39,7 @@
             i18n-pkAlert
                  pkAlert="Add Config to Conference"
             icon="add"
-            (onClick)="addEntryOverlay.open()">
+            (onClick)="openEntryModal()">
         </pk-button>
         <pk-button
             class="element--spacing-bottom-tiny"
@@ -61,4 +61,4 @@
     </pk-floating>
 </div>
 
-<pk-modal-add-conference-entry #addEntryOverlay (save)="addConfigElement($event)"></pk-modal-add-conference-entry>
+<pk-modal-add-conference-entry #addEntryModal (save)="addConfigElement($event)"></pk-modal-add-conference-entry>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import * as _ from 'lodash';
 
 /** Services */
@@ -8,13 +8,15 @@ import {
 } from './../../../core';
 import { ModalService, OverlayComponent } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
+import { WindowService } from './../../';
 
 /** Models */
 import { ConferenceConfig, Selectable } from './../../../models';
 import { Application, Field } from './../../../swagger';
+import { ModalAddConferenceEntryComponent } from './../../';
 
 /** Decorators */
-import { Access } from './../../../shared';
+import { Access } from './../../';
 
 @Component({
     selector: 'pk-conference-entry',
@@ -26,25 +28,42 @@ export class ConferenceEntryComponent implements OnInit {
     @ViewChild('overlay') overlay: OverlayComponent;
 
     @Input() index: string;
-    @Input() config: ConferenceConfig<any>;
+    @Input() entry: ConferenceConfig<any>;
+    @Output() remove: EventEmitter<ConferenceConfig<any>> = new EventEmitter();
 
     private forms: Selectable[];
+    private formLabel: string;
 
     public tableForm: Field[];
 
     constructor(
-        private permission: PermissionService,
+        /** Modules */
         private translationService: TranslationService,
         private modalService: ModalService,
-        private formService: FormService
+        /** Services */
+        private permission: PermissionService,
+        private formService: FormService,
+        private entryModalService: WindowService
     ) { }
 
     ngOnInit() {
-        this.formService.getForms().subscribe(result => {
-            this.forms = result.map(obj => new Selectable(obj.id, obj.title));
-        });
+        if (this.entry.type === 'application') {
+            this.formService.getForms().subscribe(result => {
+                this.forms = result.map(obj => new Selectable(obj.id, obj.title));
+            });
+        } else if (this.entry.type === 'table') {
+            this.addFieldToTableForm();
+        }
 
-        this.addFieldToTableForm();
+    }
+
+    /**
+     * open the add entry modal
+     */
+    public openEntryModal(): void {
+        this.entryModalService
+        .setModalSave(this.addConfigElement.bind(this))
+        .openModal();
     }
 
     /**
@@ -52,9 +71,9 @@ export class ConferenceEntryComponent implements OnInit {
      * @param {ConferenceConfig} entry
      */
     public addConfigElement(entry: ConferenceConfig<any>) {
-        if (this.config.type !== 'config') { return; }
-        this.config.entries = this.config.entries || [];
-        this.config.entries.push(entry);
+        if (this.entry.type !== 'config') { return; }
+        this.entry.entries = this.entry.entries || [];
+        this.entry.entries.push(entry);
     }
 
     /**
@@ -65,6 +84,7 @@ export class ConferenceEntryComponent implements OnInit {
         form.push({
             fieldType: 'input',
             name: form.length.toString(),
+            value: '',
             styles: [
                 'small'
             ]
@@ -73,16 +93,16 @@ export class ConferenceEntryComponent implements OnInit {
     }
 
     /**
-     * open the modal to set the genericId of the config
+     * open the modal to set the formId of the config
      */
     @Access('EditRoles')
-    public setGenericIdModal(): void {
+    public setFormIdModal(): void {
         this.modalService.createListModal({
-            title: this.translationService.translate('setGenericId'),
+            title: this.translationService.translate('setFormId'),
             list: this.forms,
-            click: this.setGenericId.bind(this),
+            click: this.setFormId.bind(this),
 
-            selectedValue: this.config.genericId,
+            selectedValue: this.entry.formId,
 
             emptyText: this.translationService.translate('noFormsAvailable'),
             redirect: this.permission.hasPermission('EditForms'),
@@ -92,12 +112,12 @@ export class ConferenceEntryComponent implements OnInit {
     }
 
     /**
-     * set the given genericId
+     * set the given formId
      * @param {Selectable} data
      */
     @Access('EditRoles')
-    private setGenericId(data: Selectable): void {
-        this.config.genericId = data.value;
+    private setFormId(data: Selectable): void {
+        this.entry.formId = data.value;
         this.modalService.destroyModal();
     }
 
@@ -115,8 +135,8 @@ export class ConferenceEntryComponent implements OnInit {
      */
     public addTableEntry(form: Object): void {
         const entry: string[] = this.getValues(form);
-        this.config.entries = this.config.entries || [];
-        this.config.entries.push(entry);
+        this.entry.entries = this.entry.entries || [];
+        this.entry.entries.push(entry);
         this.overlay.toggle(false);
     }
 
@@ -130,6 +150,37 @@ export class ConferenceEntryComponent implements OnInit {
         const result = object[index];
         if (!result) { return []; }
         return [result].concat(this.getValues(object, 1 + index));
+    }
+
+    /**
+     * remove the given element from the config, if no element is given the element itself is removed from the parent
+     * @param {ConferenceConfig} [element]
+     */
+    public removeElement(element?: ConferenceConfig<any>) {
+        if (!element) {
+            this.remove.emit(this.entry);
+        } else {
+            const index = _.findIndex(this.entry.entries, obj => obj === element);
+            if (index !== -1) {
+                this.entry.entries.splice(index, 1);
+            }
+        }
+    }
+
+    /**
+     * gets the label of the form with the given id
+     * @param {String} id
+     */
+    public getLabelOfForm(id: string): string {
+        if (this.formLabel) { return this.formLabel; }
+        if (!this.forms) { return this.formLabel; }
+        for (let i = 0, length = this.forms.length; i < length; i++) {
+            const form = this.forms[i];
+            if (form.value === id) {
+                return this.formLabel = form.label;
+            }
+        }
+        return this.formLabel;
     }
 
 }

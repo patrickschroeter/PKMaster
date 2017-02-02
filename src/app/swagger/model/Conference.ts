@@ -45,5 +45,5 @@ export interface Conference {
     roomOfEvent?: string;
     numberOfConference?: number;
 
-    config?: ConferenceConfig<models.Application>[];
+    config?: ConferenceConfig<any>[];
 }

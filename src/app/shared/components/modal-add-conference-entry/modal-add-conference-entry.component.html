@@ -2,7 +2,7 @@
     <pk-overlay-header i18n>Add Conference Entry</pk-overlay-header>
     <pk-overlay-content>
 
-        <pk-dynamic-form [formElements]="newEntry" #dynamicForm>
+        <pk-dynamic-form *ngIf="overlay.isOpen" [formElements]="newEntry" #dynamicForm>
             <pk-dynamic-form-content>
 
                 <pk-dynamic-form-element *ngFor="let element of newEntry" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>

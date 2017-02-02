@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import * as components from './components';
 import * as elements from './elements';
 import * as directives from './directives';
+import * as services from './services';
 
 import { FloatingModule } from './../modules/floating/floating.module';
 import { ButtonModule } from './../modules/button/button.module';
@@ -44,7 +45,7 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
         ListModule
     ],
     providers: [
-
+        services.WindowService
     ],
     exports: [
         components.NavbarComponent,

@@ -15,13 +15,14 @@ import { OverlayComponent } from './../../../modules/overlay';
   selector: 'pk-modal-add-conference-entry',
   templateUrl: './modal-add-conference-entry.component.html',
   styleUrls: ['./modal-add-conference-entry.component.scss'],
-  exportAs: 'addEntryOverlay'
+  exportAs: 'addEntryModal'
 })
 export class ModalAddConferenceEntryComponent implements OnInit {
 
     @ViewChild('overlay') overlay: OverlayComponent;
 
-    @Output() save: EventEmitter<ConferenceConfig<any>> = new EventEmitter();
+    // @Output() save: EventEmitter<ConferenceConfig<any>> = new EventEmitter();
+    public save: Function;
 
     public newEntry: Field[];
 
@@ -96,7 +97,10 @@ export class ModalAddConferenceEntryComponent implements OnInit {
      * @param {ConferenceConfig} entry
      */
     public addNewEntry(entry: ConferenceConfig<any>) {
-        this.save.emit(entry);
+        // this.save.emit(entry);
+        if (this.save) {
+            this.save(entry);
+        }
         this.open();
     }
 }

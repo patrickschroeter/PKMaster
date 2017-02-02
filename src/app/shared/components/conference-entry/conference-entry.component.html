@@ -1,21 +1,27 @@
 <div class="entry element element--spacing-bottom-large">
     <div class="rel">
 
-        <h4>{{ index }} {{ config.title }} ({{ config.type }})</h4>
+        <h4>{{ index }} {{ entry.title }} ({{ entry.type }})</h4>
         <pk-floating horizontal top-right>
             <pk-button
-                *ngIf="config.type === 'config'"
-                class="element--spacing-bottom-tiny"
+                rounded
+                element--error
+                i18n-pkAlert
+                pkAlert="Remove Element"
+                icon="delete"
+                (onClick)="removeElement()">
+            </pk-button>
+            <pk-button
+                *ngIf="entry.type === 'config'"
                 rounded
                 element--secondary
                 i18n-pkAlert
                 pkAlert="Add Config to Conference"
                 icon="add"
-                (onClick)="addEntryOverlay.open()">
+                (onClick)="openEntryModal()">
             </pk-button>
             <pk-button
-                *ngIf="config.type === 'table'"
-                class="element--spacing-bottom-tiny"
+                *ngIf="entry.type === 'table'"
                 rounded
                 element--secondary
                 i18n-pkAlert
@@ -24,23 +30,23 @@
                 (onClick)="openTableOverlay()">
             </pk-button>
             <pk-button
-                *ngIf="config.type === 'application'"
-                class="element--spacing-bottom-tiny"
+                *ngIf="entry.type === 'application'"
                 rounded
                 element--secondary
                 i18n-pkAlert
                 pkAlert="Set Generic Id"
-                [icon]="config.genericId ? 'create' : 'add'"
-                (onClick)="setGenericIdModal()">
+                [icon]="entry.formId ? 'create' : 'add'"
+                (onClick)="setFormIdModal()">
             </pk-button>
         </pk-floating>
 
-        <div class="label element element--spacing-bottom-small">{{ config.description }}</div>
+        <div class="label element element--spacing-bottom-small" *ngIf="entry.description">{{ entry.description }}</div>
 
-        <div [ngSwitch]="config.type">
+        <div [ngSwitch]="entry.type">
+            <!-- Config -->
             <div *ngSwitchCase="'config'">
 
-                <div *ngIf="!config.entries || !config.entries.length" class="empty-wrapper">
+                <div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper">
                     <div class="label" i18n>No Elements here.</div>
                     <pk-button
                         class="element--spacing-top-large"
@@ -48,20 +54,22 @@
                         i18n-value
                         value="Add Config to Conference"
                         icon="add"
-                        (onClick)="addEntryOverlay.open()">
+                        (onClick)="openEntryModal()">
                     </pk-button>
                 </div>
 
-                <div *ngIf="config.entries && config.entries.length">
-                    <div *ngFor="let entry of config.entries; let i = index">
-                        <pk-conference-entry [index]="index + '.' + (i + 1)" [config]="entry"></pk-conference-entry>
+                <div *ngIf="entry.entries && entry.entries.length">
+                    <div *ngFor="let entry of entry.entries; let i = index">
+                        <pk-conference-entry [index]="index + '.' + (i + 1)" [entry]="entry" (remove)="removeElement($event)"></pk-conference-entry>
                     </div>
                 </div>
             </div>
+
+            <!-- Application -->
             <div *ngSwitchCase="'application'">
 
-                <div *ngIf="!config.entries || !config.entries.length" class="empty-wrapper">
-                    <div *ngIf="!config.genericId">
+                <div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper">
+                    <div *ngIf="!entry.formId">
                         <div class="label" i18n>No Generic Id selected</div>
                         <pk-button
                             class="element--spacing-top-large"
@@ -69,27 +77,27 @@
                             i18n-value
                             value="Set Generic Id"
                             icon="add"
-                            (onClick)="setGenericIdModal()">
+                            (onClick)="setFormIdModal()">
                         </pk-button>
                     </div>
-                    <div *ngIf="config.genericId">
-                        <div class="label" i18n>Generic Id: {{ config.genericId }}</div>
+                    <div *ngIf="entry.formId">
+                        <div class="label" i18n>Connected Form: {{ getLabelOfForm(entry.formId) }}</div>
                     </div>
                 </div>
 
-                <pk-list *ngIf="config.entries && config.entries.length">
+                <pk-list *ngIf="entry.entries && entry.entries.length">
                     <pk-list-header>
-                        <div *ngFor="let field of config.fields">
+                        <div *ngFor="let field of entry.fields">
                             <pk-list-attribute [name]="field">{{ field }}</pk-list-attribute>
                         </div>
                     </pk-list-header>
                     <pk-list-content>
 
-                        <div *ngFor="let element of config.entries">
+                        <div *ngFor="let element of entry.entries">
 
                             <pk-list-element [name]="element.status?.name">
 
-                                <div *ngFor="let field of config.fields">
+                                <div *ngFor="let field of entry.fields">
                                     <pk-list-attribute [name]="field">{{ element[field] }}</pk-list-attribute>
                                 </div>
 
@@ -103,9 +111,11 @@
                 </pk-list>
 
             </div>
+
+            <!-- Table -->
             <div *ngSwitchCase="'table'">
 
-                <div *ngIf="!config.entries || !config.entries.length" class="empty-wrapper">
+                <div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper">
                     <div class="label" i18n>No Elements here.</div>
                     <pk-button
                         class="element--spacing-top-large"
@@ -117,12 +127,12 @@
                     </pk-button>
                 </div>
 
-                <div *ngIf="config.entries && config.entries.length">
+                <div *ngIf="entry.entries && entry.entries.length">
 
                     <pk-list>
                         <pk-list-content>
 
-                            <div *ngFor="let element of config.entries">
+                            <div *ngFor="let element of entry.entries">
 
                                 <pk-list-element>
 
@@ -142,18 +152,18 @@
                 </div>
 
             </div>
+
+            <!-- Default -->
             <div *ngSwitchDefault>
-                <div *ngIf="config.entries?.length" i18n>No Type of config set</div>
+                <div *ngIf="entry.entries?.length" i18n>No Type of config set</div>
             </div>
         </div>
 
-        <div class="caption element element--spacing-top-small">{{ config.footer }}</div>
+        <div class="caption element element--spacing-top-small" *ngIf="entry.footer">{{ entry.footer }}</div>
     </div>
 </div>
 
-<pk-modal-add-conference-entry #addEntryOverlay (save)="addConfigElement($event)"></pk-modal-add-conference-entry>
-
-<pk-overlay *ngIf="config.type === 'table'" #overlay class="overlay--fluid">
+<!--<pk-overlay *ngIf="entry.type === 'table'" #overlay class="overlay--fluid">
     <pk-overlay-header i18n>Add Entry to Table</pk-overlay-header>
     <pk-overlay-content>
 
@@ -185,4 +195,4 @@
         </pk-dynamic-form>
 
     </pk-overlay-content>
-</pk-overlay>
+</pk-overlay>-->
