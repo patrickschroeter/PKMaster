@@ -12,9 +12,9 @@ export class ConferenceEndpoint {
     constructor() { }
 
 
-    public addApplicationToConference(conferenceId: number, token?: number, application?: number, extraHttpRequestParams?: any):
+    public addApplicationToConference(conferenceId: string, token?: number, application?: Application, extraHttpRequestParams?: any):
         Observable<Conference> {
-        return new Observable(observer => { observer.next({ id: conferenceId }); });
+        return this.observe(this._addApplication(conferenceId, application));
     }
 
     public addConference(token?: number, conference?: Conference, extraHttpRequestParams?: any): Observable<Conference> {
@@ -81,6 +81,18 @@ export class ConferenceEndpoint {
     }
 
     /**
+     * Helper observer
+     */
+    private observe<T>(obj: T): Observable<T> {
+        return new Observable<T>((observer: Observer<T>) => {
+            setTimeout(() => {
+                observer.next(obj);
+                observer.complete();
+            }, 500);
+        });
+    }
+
+    /**
      * Mock Server
      */
 
@@ -117,7 +129,7 @@ export class ConferenceEndpoint {
         return JSON.parse(JSON.stringify(result));
     }
 
-    private _conferenceUpdate(id: string, conference: Conference) {
+    private _conferenceUpdate(id: string, conference: Conference): Conference {
         const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id) {
@@ -126,6 +138,21 @@ export class ConferenceEndpoint {
             }
         }
         return null;
+    }
+
+    private _addApplication(id: string, application: Application): Conference {
+        const conference: Conference = this._conference(id);
+        let index = -1;
+        for (let i = 0, length = conference.applications.length; i < length; i++) {
+            const element = conference.applications[i];
+            if (element.id === application.id) {
+                index = i;
+            }
+        }
+        if (index === -1) {
+            conference.applications.push(application);
+        }
+        return this._conferenceUpdate(conference.id, conference);
     }
 
 }

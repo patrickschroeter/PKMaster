@@ -9,19 +9,19 @@
     <div>
         <h3 i18n>Agenda</h3>
         <div *ngFor="let item of agenda; let i = index">
-            {{ i + 1 }}. {{ item.formId }}
+            {{ i + 1 }}. {{ item.title }}
         </div>
     </div>
 
     <div>
         <div *ngFor="let item of agenda; let i = index">
-            <h4>{{ i + 1 }}. {{ item.formId }}</h4>
+            <h4>{{ i + 1 }}. {{ item.title }}</h4>
 
             <pk-list *ngIf="item.applications?.length">
                 <pk-list-header>
                     <pk-list-attribute name="author" *accessEditApplications i18n>Author</pk-list-attribute>
-                    <pk-list-attribute name="date" (click)="sortBy('created')" i18n>Created</pk-list-attribute>
-                    <pk-list-attribute name="modified" (click)="sortBy('modified')" i18n>Modified</pk-list-attribute>
+                    <pk-list-attribute name="date" i18n>Created</pk-list-attribute>
+                    <pk-list-attribute name="modified" i18n>Modified</pk-list-attribute>
                 </pk-list-header>
                 <pk-list-content>
                     <pk-list-element *ngFor="let application of item.applications" [name]="application.status?.name">

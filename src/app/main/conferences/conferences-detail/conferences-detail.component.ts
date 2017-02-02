@@ -34,7 +34,13 @@ export class ConferencesDetailComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        /** Read Route Param and GET Application with param ID */
+        this.getConference();
+    }
+
+    /**
+     * Read Route Param and GET Application with param ID
+     */
+    private getConference(): void {
         this.activatedRoute.params.forEach((params: Params) => {
             this.conferenceService.getConferenceById(params['id']).subscribe(conference => {
                 if (!conference) { return this.router.navigate(['/conferences']); };
@@ -48,18 +54,20 @@ export class ConferencesDetailComponent implements OnInit {
     }
 
     /**
-     * @description creates an agenda of the conference applications
+     * creates an agenda of the conference applications
+     * @param {Conference} conference
      */
-    private getAgendaOfConference(conference: Conference) {
+    private getAgendaOfConference(conference: Conference): void {
         this.agenda = [];
         if (!conference.applications) { return; }
         /** TODO */ if (conference.application) { conference.applications = conference.application; }
         for (let i = 0, length = conference.applications.length; i < length; i++) {
             const application = conference.applications[i];
-            let item = this.getItemOfAgenda(application.formId);
+            let item = this.getItemOfAgenda(application.formId || application.form.id);
             if (!item) {
                 item = {
-                    formId: application.formId,
+                    formId: application.formId || application.form.id,
+                    title: application.form.title,
                     applications: []
                 };
                 this.agenda.push(item);
@@ -69,7 +77,8 @@ export class ConferencesDetailComponent implements OnInit {
     }
 
     /**
-     * @description returns the item of the agenda with the given pk
+     * returns the item of the agenda with the given pk
+     * @param {String} formId
      */
     private getItemOfAgenda(formId: string): AgendaItem {
         for (let i = 0, length = this.agenda.length; i < length; i++) {
@@ -90,5 +99,6 @@ export class ConferencesDetailComponent implements OnInit {
 
 export interface AgendaItem {
     formId: string;
+    title: string;
     applications: Application[];
 }

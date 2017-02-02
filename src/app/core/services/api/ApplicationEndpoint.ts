@@ -86,7 +86,7 @@ export class ApplicationEndpoint {
         console.log('%cMock:' + `%c updateApplicationById ${applicationId}`, 'color: #F44336', 'color: #fefefe');
 
         if (application.conferenceId && !application.conference) {
-            application.conference = this.conferenceApi['_conference'](application.conferenceId);
+            application.conference = this.conferenceApi['_addApplication'](application.conferenceId, application);
         }
 
         const updatedApplication = this._applicationUpdate(applicationId, application);

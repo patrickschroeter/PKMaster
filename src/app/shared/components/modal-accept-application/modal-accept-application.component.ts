@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, EventEmitter, Output } from '@angular/core';
+import * as _ from 'lodash';
 
 /** Services */
 import {
@@ -25,6 +26,8 @@ import { OverlayComponent } from './../../../modules/overlay';
 export class ModalAcceptApplicationComponent implements OnInit {
 
     @ViewChild('overlay') overlay: OverlayComponent;
+
+    @Output() change: EventEmitter<Application> = new EventEmitter();
 
     public acceptForm: Field[];
 
@@ -79,9 +82,11 @@ export class ModalAcceptApplicationComponent implements OnInit {
     @Access('EditApplications')
     public acceptApplication(form) {
         /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiresChanges, isPrivate: false });
-        /** TODO */ this.application.status = { name: 'accepted' };
-        this.applicationService.updateApplication(this.application).subscribe(application => {
-            this.application = application;
+        /** TODO */ const param = _.cloneDeep(this.application);
+        /** TODO */ param.status = { name: 'accepted' };
+        this.applicationService.updateApplication(param).subscribe(result => {
+            this.application = result;
+            this.change.emit(result);
             this.overlay.toggle();
             this.initAcceptForm();
         });
@@ -93,9 +98,11 @@ export class ModalAcceptApplicationComponent implements OnInit {
     @Access('EditApplications')
     public declineApplication(form) {
         /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiresChanges, isPrivate: false });
-        /** TODO */ this.application.status = { name: 'denied' };
-        this.applicationService.updateApplication(this.application).subscribe(application => {
-            this.application = application;
+        /** TODO */ const param = _.cloneDeep(this.application);
+        /** TODO */ param.status = { name: 'denied' };
+        this.applicationService.updateApplication(param).subscribe(result => {
+            this.application = result;
+            this.change.emit(result);
             this.overlay.toggle();
             this.initAcceptForm();
         });

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs/Rx';
+import * as _ from 'lodash';
 
 import { AlertService } from './../../../modules/alert';
 import { FormService } from './../form';
@@ -64,7 +65,7 @@ export class ApplicationService {
 
         application.formId = application.form.id;
 
-        return this.applicationApi.createApplication(17, (application as ApplicationCreateDto)).map(result => {
+        return this.applicationApi.createApplication(ApplicationService.DEFAULT_TOKEN, (application as ApplicationCreateDto)).map(result => {
             return this.application = result;
         });
     }
@@ -104,8 +105,9 @@ export class ApplicationService {
         const blocked = this.blockedStatusUpdate(application.status.name, ['created']);
         if (blocked) { return blocked; }
         /** TODO: move to server */
-        application.status = { name: 'submitted' };
-        return this.applicationApi.updateApplicationById(application.id, ApplicationService.DEFAULT_TOKEN, application).map(result => {
+        const param = _.cloneDeep(application);
+        param.status = { name: 'submitted' };
+        return this.updateApplication(param).map(result => {
             return this.application = result;
         });
     }
@@ -118,8 +120,9 @@ export class ApplicationService {
         const blocked = this.blockedStatusUpdate(application.status.name, ['submitted']);
         if (blocked) { return blocked; }
         /** TODO: move to server */
-        application.status = { name: 'rescinded' };
-        return this.applicationApi.updateApplicationById(application.id, 17, application).map(result => {
+        const param = _.cloneDeep(application);
+        param.status = { name: 'rescinded' };
+        return this.updateApplication(param).map(result => {
             return this.application = result;
         });
     }
@@ -132,8 +135,9 @@ export class ApplicationService {
         const blocked = this.blockedStatusUpdate(application.status.name, ['created', 'rescinded']);
         if (blocked) { return blocked; }
         /** TODO: move to server */
-        application.status = { name: 'deactivated' };
-        return this.applicationApi.updateApplicationById(application.id, 17, application).map(result => {
+        const param = _.cloneDeep(application);
+        param.status = { name: 'deactivated' };
+        return this.updateApplication(param).map(result => {
             return this.application = result;
         });
     }
@@ -151,10 +155,10 @@ export class ApplicationService {
                 element.value = form[element.name];
             };
         }
-        return this.applicationApi.updateApplicationById(this.application.id, 17, this.application).map(application => {
-            /** hack */
+        return this.updateApplication(this.application).map(application => {
+            /** TODO: hack */
             application.status = { name: 'created' };
-            this.applicationApi.updateApplicationById(application.id, 17, application);
+            this.applicationApi.updateApplicationById(application.id, ApplicationService.DEFAULT_TOKEN, application);
             /** hack end */
             return this.application = application;
         });
@@ -165,7 +169,29 @@ export class ApplicationService {
      * @param {Application} application
      */
     public updateApplication(application: Application): Observable<Application> {
+        this.alert.setLoading(
+            'updateApplication',
+            this.translationService.translate('loadingUpdateApplication')
+        );
         return this.applicationApi.updateApplicationById(application.id, 17, application).map(result => {
+            this.alert.removeHint('updateApplication');
+            return this.application = result;
+        });
+    }
+
+    /**
+     * add the conference to the application
+     * @param {Application} application
+     * @param {String} conferenceId
+     */
+    public assignConferenceToApplication(application: Application, conferenceId: string): Observable<Application> {
+        const param = _.cloneDeep(application);
+
+        param.conferenceId = conferenceId;
+
+        /* TODO */ param.status = { name: 'pending' };
+
+        return this.updateApplication(param).map(result => {
             return this.application = result;
         });
     }
