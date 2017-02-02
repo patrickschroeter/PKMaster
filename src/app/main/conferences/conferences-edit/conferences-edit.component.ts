@@ -10,6 +10,7 @@ import {
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 import { WindowService } from './../../../shared';
+import { ModalService } from './../../../modules/overlay';
 
 /** Models */
 import { Conference, Form, Field } from './../../../swagger';
@@ -52,6 +53,7 @@ export class ConferencesEditComponent implements OnInit {
         /** Modules */
         private alert: AlertService,
         private translationService: TranslationService,
+        private modalService: ModalService,
         /** Services */
         private conferenceService: ConferenceService,
         private formService: FormService,
@@ -141,10 +143,24 @@ export class ConferencesEditComponent implements OnInit {
     }
 
     /**
+     * open the confirmation modal for deleting the conference
+     */
+    public deleteConferenceModal(): void {
+        this.modalService.createConfirmationModal({
+            title: this.translationService.translate('confirmDeleteConferenceHeader'),
+            message: this.translationService.translate('confirmDeleteConferenceContent'),
+            confirm: this.deleteConference.bind(this)
+        });
+    }
+
+    /**
      * delete conference
      */
-    public deleteConference() {
-        console.error('TODO');
+    private deleteConference(): void {
+        this.conferenceService.removeConference(this.conference.id).subscribe(() => {
+            this.router.navigate(['conferences']);
+            this.modalService.destroyModal();
+        });
     }
 
     /**

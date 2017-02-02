@@ -85,7 +85,7 @@
                 <!-- Application -->
                 <div *ngSwitchCase="'application'">
 
-                    <div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper">
+                    <div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper animation animation--trigger">
                         <div *ngIf="!entry.formId">
                             <div class="label" i18n>No Generic Id selected</div>
                             <pk-button
@@ -99,6 +99,17 @@
                         </div>
                         <div *ngIf="entry.formId">
                             <div class="label" i18n>Connected Form: {{ getLabelOfForm(entry.formId) }}</div>
+                            <pk-floating horizontal top-right>
+                                <pk-button
+                                    class="element--spacing-left-tiny"
+                                    rounded
+                                    element--secondary
+                                    i18n-pkAlert
+                                    pkAlert="Edit Attributes"
+                                    icon="create"
+                                    (onClick)="editFormFields()">
+                                </pk-button>
+                            </pk-floating>
                         </div>
                     </div>
 

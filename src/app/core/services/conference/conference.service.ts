@@ -62,6 +62,16 @@ export class ConferenceService {
     }
 
     /**
+     * remove the conference with the given id
+     * @param {String} conferenceId
+     */
+    public removeConference(conferenceId: string): Observable<any> {
+        return this.conferenceApi.deleteConferenceById(conferenceId).map(result => {
+            return result;
+        });
+    }
+
+    /**
      * create the form for creating/editing conference properties
      * @param {Conference} values
      */

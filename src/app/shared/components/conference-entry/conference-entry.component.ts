@@ -216,4 +216,11 @@ export class ConferenceEntryComponent implements OnInit {
         return this.formLabel;
     }
 
+    /**
+     * edit the displayed form fields
+     */
+    public editFormFields() {
+        console.error('TODO');
+    }
+
 }
