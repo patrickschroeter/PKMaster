@@ -11,7 +11,7 @@ import { ApplicationApiMock } from './';
 @Injectable()
 export class ConferenceApiMock {
 
-    static CONFERENCE: Conference = { id: '1', description: 'First Conference!', dateOfEvent: new Date(), applications: [ ] };
+    static CONFERENCE: Conference = { id: '1', description: 'Abschlusssitzung Winter 2016/2017', dateOfEvent: new Date(), applications: [ ], numberOfConference: 111 };
 
     private list: Conference[] = [];
 

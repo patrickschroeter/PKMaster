@@ -1,0 +1,69 @@
+<div class="entry element element--spacing-bottom-large">
+    <h4>{{ index }} {{ config.title }}</h4>
+    <div class="label element element--spacing-bottom-small">{{ config.description }}</div>
+
+
+    <div [ngSwitch]="config.type">
+        <div *ngSwitchCase="'config'">
+            <div *ngFor="let entry of config.entries; let i = index">
+                <pk-conference-entry [index]="index + '.' + (i + 1)" [config]="entry"></pk-conference-entry>
+            </div>
+        </div>
+        <div *ngSwitchCase="'application'">
+
+            <pk-list>
+                <pk-list-header>
+                    <div *ngFor="let field of config.fields">
+                        <pk-list-attribute [name]="field">{{ field }}</pk-list-attribute>
+                    </div>
+                </pk-list-header>
+                <pk-list-content>
+
+                    <div *ngFor="let element of config.entries">
+
+                        <pk-list-element [name]="element.status?.name">
+
+                            <div *ngFor="let field of config.fields">
+                                <pk-list-attribute [name]="field">{{ element[field] }}</pk-list-attribute>
+                            </div>
+
+                            <pk-floating horizontal top-right></pk-floating>
+
+                        </pk-list-element>
+
+                    </div>
+
+                </pk-list-content>
+            </pk-list>
+
+        </div>
+        <div *ngSwitchCase="'table'">
+
+            <pk-list>
+                <pk-list-content>
+
+                    <div *ngFor="let element of config.entries">
+
+                        <pk-list-element>
+
+                            <div *ngFor="let value of element; let last = last">
+                                <pk-list-attribute [name]="last ? 'last' : ''">{{ value }}</pk-list-attribute>
+                            </div>
+
+                            <pk-floating horizontal top-right></pk-floating>
+
+                        </pk-list-element>
+
+                    </div>
+
+                </pk-list-content>
+            </pk-list>
+
+        </div>
+        <div *ngSwitchDefault>
+            <div *ngIf="config.entries?.length" i18n>To Type of config set</div>
+        </div>
+    </div>
+
+    <div class="caption element element--spacing-top-small">{{ config.footer }}</div>
+</div>

@@ -12,6 +12,7 @@ import { FloatingModule } from './../modules/floating/floating.module';
 import { ButtonModule } from './../modules/button/button.module';
 import { DeviderModule } from './../modules/devider/devider.module';
 import { OverlayModule } from './../modules/overlay/overlay.module';
+import { ListModule } from './../modules/list/list.module';
 import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module';
 
 @NgModule({
@@ -22,10 +23,11 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
         components.ModalChangePasswordComponent,
         components.ModalAcceptApplicationComponent,
 
+        components.ConferenceEntryComponent,
+
         elements.LoadingComponent,
 
         directives.AccessDirective,
-
     ],
     imports: [
         CommonModule,
@@ -37,7 +39,8 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
         ButtonModule,
         DeviderModule,
         OverlayModule,
-        DynamicFormModule
+        DynamicFormModule,
+        ListModule
     ],
     providers: [
 
@@ -48,6 +51,8 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
 
         components.ModalChangePasswordComponent,
         components.ModalAcceptApplicationComponent,
+
+        components.ConferenceEntryComponent,
 
         elements.LoadingComponent,
 

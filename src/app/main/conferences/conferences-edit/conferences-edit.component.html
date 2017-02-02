@@ -3,10 +3,39 @@
 <div id="conference-edit" class="rel" *ngIf="conference">
     <h2 class="element element--spacing-bottom-small">Edit Conference: {{ conference.description }}</h2>
 
+    <div *ngIf="conference.config">
+        <div *ngFor="let entry of conference.config; let index = index">
+            <pk-conference-entry [index]="index + 1" [config]="entry"></pk-conference-entry>
+        </div>
+    </div>
+
     <pk-floating top-right fixed>
         <a routerLink="/conferences/{{ conference.id }}">
-            <pk-button rounded i18n-pkAlert pkAlert="Cancel" class="element--spacing-bottom-tiny" icon="clear" element--error></pk-button>
+            <pk-button
+                class="element--spacing-bottom-tiny"
+                rounded
+                element--error
+                i18n-pkAlert
+                     pkAlert="Cancel"
+                icon="clear">
+            </pk-button>
         </a>
-        <pk-button rounded i18n-pkAlert pkAlert="Delete Conference" icon="delete" element--error (onClick)="deleteConference(conference)"></pk-button>
+        <pk-button
+            class="element--spacing-bottom-tiny"
+            rounded
+            element--secondary
+            i18n-pkAlert
+                 pkAlert="Add Config to Conference"
+            icon="create"
+            (onClick)="addConfigToConference()">
+        </pk-button>
+        <pk-button
+            rounded
+            element--error
+            i18n-pkAlert
+                 pkAlert="Delete Conference"
+            icon="delete"
+            (onClick)="deleteConference(conference)">
+        </pk-button>
     </pk-floating>
 </div>
