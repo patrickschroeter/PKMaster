@@ -51,6 +51,14 @@ export class ConferenceEntryComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.setNumberOfTableFields();
+    }
+
+    /**
+     * calculates the number of table fields
+     */
+    public setNumberOfTableFields() {
+        if (this.entry.type !== 'table') { return; }
         if (!this.entry.entries || !this.entry.entries.length) {
             this.numberOfTableFields = 1;
         } else {
@@ -71,7 +79,7 @@ export class ConferenceEntryComponent implements OnInit {
      * add a new config element to the form
      * @param {ConferenceConfig} entry
      */
-    public addConfigElement(entry: ConferenceConfig<any>) {
+    public addConfigElement(entry: ConferenceConfig<any>): void {
         if (this.entry.type !== 'config') { return; }
         this.entry.entries = this.entry.entries || [];
         this.entry.entries.push(entry);
@@ -110,7 +118,9 @@ export class ConferenceEntryComponent implements OnInit {
     public openTableEntryModal(): void {
         this.tableEntryModalService
         .setModalSave(this.addTableEntry.bind(this))
-        .openModal(this.numberOfTableFields);
+        .openModal({
+            numberOfElements: this.numberOfTableFields
+        });
     }
 
     /**
@@ -127,7 +137,7 @@ export class ConferenceEntryComponent implements OnInit {
      * remove the given element from the config, if no element is given the element itself is removed from the parent
      * @param {ConferenceConfig} [element]
      */
-    public removeElement(element?: ConferenceConfig<any>) {
+    public removeElement(element?: ConferenceConfig<any>): void {
         if (!element) {
             this.remove.emit(this.entry);
         } else {
@@ -135,6 +145,32 @@ export class ConferenceEntryComponent implements OnInit {
             if (index !== -1) {
                 this.entry.entries.splice(index, 1);
             }
+        }
+    }
+
+    /**
+     * open the modal to edit the element
+     */
+    public openEditModal(): void {
+        this.entryModalService
+        .setModalSave(this.editElement.bind(this))
+        .openModal({
+            values: this.entry
+        });
+    }
+
+    /**
+     * edits the element
+     * @param {ConferenceConfig} element
+     */
+    private editElement(element: ConferenceConfig<any>): void {
+        this.entry.title = element.title;
+        this.entry.description = element.description;
+        this.entry.footer = element.footer;
+        if (this.entry.type !== element.type) {
+            this.entry.type = element.type;
+            this.entry.entries = [];
+            this.setNumberOfTableFields();
         }
     }
 

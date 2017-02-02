@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 
-/** Models */
-import { Field } from './../../../swagger';
-import { ConferenceConfig } from './../../../models';
-
 /** Services */
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
+
+/** Models */
+import { Field } from './../../../swagger';
+import { ConferenceConfig } from './../../../models';
 
 /** Components */
 import { OverlayComponent } from './../../../modules/overlay';
@@ -34,32 +34,38 @@ export class ModalAddConferenceEntryComponent implements OnInit, Window {
     ) { }
 
     ngOnInit() {
-        this.initNewEntryForm();
+        this.initEntryForm();
     }
 
     /**
      * reset the form and open the overlay
+     * @param {Object} options
+     * @param {Number} options.[values]
      */
-    public open() {
-        this.initNewEntryForm();
+    public open(options: {
+        values: ConferenceConfig<any>
+    }) {
+        this.initEntryForm(options ? options.values : null);
         this.overlay.toggle();
     }
 
     /**
      * init the new entry form
      */
-    private initNewEntryForm() {
+    private initEntryForm(values?: ConferenceConfig<any>) {
         this.newEntry = [
             {
                 fieldType: 'input',
                 name: 'title',
                 label: this.translationService.translate('title'),
-                required: true
+                required: true,
+                value: values ? values.title : ''
             },
             {
                 fieldType: 'textarea',
                 name: 'description',
                 label: this.translationService.translate('description'),
+                value: values ? values.description : '',
                 styles: [
                     'small'
                 ]
@@ -68,6 +74,7 @@ export class ModalAddConferenceEntryComponent implements OnInit, Window {
                 fieldType: 'textarea',
                 name: 'footer',
                 label: this.translationService.translate('footer'),
+                value: values ? values.footer : '',
                 styles: [
                     'small'
                 ]
@@ -76,6 +83,7 @@ export class ModalAddConferenceEntryComponent implements OnInit, Window {
                 fieldType: 'radio',
                 name: 'type',
                 label: this.translationService.translate('conferenceEntryType'),
+                value: values ? values.type : '',
                 options: [
                     {
                         value: 'config',
@@ -103,7 +111,7 @@ export class ModalAddConferenceEntryComponent implements OnInit, Window {
         if (this.save) {
             this.save(entry);
         }
-        this.open();
+        this.overlay.toggle(false);
     }
 }
 

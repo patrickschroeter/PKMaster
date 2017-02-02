@@ -33,9 +33,9 @@ export class WindowService {
     /**
      * opens the modal
      */
-    public openModal(param?: any): WindowService {
+    public openModal(options?: Object): WindowService {
         if (this.modal) {
-            this.modal.open(param);
+            this.modal.open(options);
         }
         return this;
     }

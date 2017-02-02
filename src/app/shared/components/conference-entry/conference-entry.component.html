@@ -12,6 +12,14 @@
                 (onClick)="removeElement()">
             </pk-button>
             <pk-button
+                rounded
+                element--secondary
+                i18n-pkAlert
+                pkAlert="Edit Element"
+                icon="create"
+                (onClick)="openEditModal()">
+            </pk-button>
+            <pk-button
                 *ngIf="entry.type === 'config'"
                 rounded
                 element--secondary

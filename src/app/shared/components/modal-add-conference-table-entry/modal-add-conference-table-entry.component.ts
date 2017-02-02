@@ -28,10 +28,14 @@ export class ModalAddConferenceTableEntryComponent implements OnInit, Window {
 
     /**
      * reset the form and open the overlay
-     * @param {Number} numberOfInputs
+     * @param {Object} options
+     * @param {Number} options.[numberOfInputs]
      */
-    public open(numberOfInputs = 1) {
-        this.generateInputs(numberOfInputs);
+    public open(options: {
+        numberOfInputs: number,
+        values: string[]
+    }) {
+        this.generateInputs(options.numberOfInputs || 1, options.values);
         this.overlay.toggle(true);
     }
 
@@ -39,13 +43,13 @@ export class ModalAddConferenceTableEntryComponent implements OnInit, Window {
      * generates the form with the given number of elements
      * @param {Number} number
      */
-    private generateInputs(number: number): void {
+    private generateInputs(number: number, values: string[]): void {
         const form = [];
         for (let i = 0; i < number; i++) {
             form.push({
                 fieldType: 'input',
                 name: form.length.toString(),
-                value: '',
+                value: values ? values[i] : '',
                 styles: [
                     'small'
                 ]
