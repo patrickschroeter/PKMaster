@@ -14,6 +14,7 @@ import { ButtonModule } from './../modules/button/button.module';
 import { DeviderModule } from './../modules/devider/devider.module';
 import { OverlayModule } from './../modules/overlay/overlay.module';
 import { ListModule } from './../modules/list/list.module';
+import { AlertDirectiveModule } from './../modules/alert/alert.module';
 import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module';
 
 @NgModule({
@@ -44,7 +45,8 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
         DeviderModule,
         OverlayModule,
         DynamicFormModule,
-        ListModule
+        ListModule,
+        AlertDirectiveModule
     ],
     providers: [
         services.WindowService

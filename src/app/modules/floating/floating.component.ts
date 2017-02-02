@@ -9,6 +9,7 @@ import { Component, OnInit, Renderer, ElementRef, AfterViewInit, HostBinding, Vi
 export class FloatingComponent implements OnInit, AfterViewInit {
 
     @HostBinding('class.floating') floating = true;
+    @HostBinding('class.animation--target') animation = true;
 
     private options: String[];
 

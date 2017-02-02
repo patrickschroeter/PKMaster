@@ -37,3 +37,57 @@
   -o-animation: rotating $animation-time linear infinite;
   animation: rotating $animation-time linear infinite;
 }
+
+
+// http://lea.verou.me/2011/01/styling-children-based-on-their-number-with-css3/
+.animation {
+    $delta-t: 0.1;
+    &.animation--trigger:hover {
+        .animation--target {
+            visibility: visible;
+            transition-delay: 0s;
+            > * {
+                transform: translateX(-15px);
+                visibility: visible;
+                opacity: 1;
+            }
+            @for $i from 1 through 4 {
+                > *:first-child:nth-last-child(#{$i}),
+                > *:first-child:nth-last-child(#{$i}) ~ * {
+                    @for $j from 1 through $i {
+                        &:nth-child(#{$j}) {
+                            transform: scale(1) translateX(-12px);
+                            transition-delay: #{$delta-t * ($i + 1 - $j) + 0.1}s;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .animation--target {
+        visibility: hidden;
+        transition: visibility .5s linear .5s;
+        > * {
+            position: relative;
+            visibility: hidden;
+            opacity: 0;
+            transform-origin: center;
+            transform: scale(0.9);
+        }
+        @for $i from 1 through 4 {
+            > *:first-child:nth-last-child(#{$i}),
+            > *:first-child:nth-last-child(#{$i}) ~ * {
+                @for $j from 1 through $i {
+                    &:nth-child(#{$j}) {
+                        left: 12px;
+                        transition:
+                            opacity .3s ease-in-out #{ $delta-t * $j + 0.0 }s,
+                            visibility .3s linear #{ $delta-t * $j + 0.3 }s,
+                            transform .3s ease-in-out #{ $delta-t * $j + 0 }s;
+                    }
+                }
+            }
+        }
+    }
+}
