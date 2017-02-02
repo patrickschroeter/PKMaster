@@ -58,7 +58,7 @@ export class ConferenceEntryComponent implements OnInit {
      * calculates the number of table fields
      */
     public setNumberOfTableFields() {
-        if (this.entry.type !== 'table') { return; }
+        if (!this.entry || this.entry.type !== 'table') { return; }
         if (!this.entry.entries || !this.entry.entries.length) {
             this.numberOfTableFields = 1;
         } else {

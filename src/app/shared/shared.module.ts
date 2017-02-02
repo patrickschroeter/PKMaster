@@ -68,3 +68,7 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
     ]
 })
 export class SharedModule { }
+
+export const SharedProviderMock = [
+    { provide: services.WindowService, useClass: services.WindowMock }
+];

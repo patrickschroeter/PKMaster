@@ -30,5 +30,7 @@ export class ConferenceMock {
     public createNewConference(conference: Conference) { }
 
     public saveConference(conference: Conference) { }
+
+    public getConferenceForm() { return [] }
 }
 

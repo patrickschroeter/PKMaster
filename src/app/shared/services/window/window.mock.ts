@@ -1,14 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { ModalAddConferenceEntryComponent } from './../../';
-
-/** Interfaces */
-import { Window } from './../..';
+import { WindowService } from './';
 
 @Injectable()
-export class WindowService {
-
-    protected modal: Window;
+export class WindowMock {
 
     constructor() { }
 
@@ -17,8 +12,7 @@ export class WindowService {
      * @param {Window} modal
      */
     public setModal(modal: Window): WindowService {
-        this.modal = modal;
-        return this;
+        return null;
     }
 
     /**
@@ -26,17 +20,13 @@ export class WindowService {
      * @param {Function} save
      */
     public setModalSave(save: Function): WindowService {
-        this.modal.save = save;
-        return this;
+        return null;
     }
 
     /**
      * opens the modal
      */
     public openModal(options?: Object): WindowService {
-        if (this.modal) {
-            this.modal.open(options);
-        }
-        return this;
+        return null;
     }
 }
