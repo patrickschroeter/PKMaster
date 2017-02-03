@@ -83,52 +83,7 @@
 
                 <!-- List -->
                 <div *ngSwitchCase="'list'">
-
-                    <div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper">
-                        <div class="label" i18n>No Elements here.</div>
-                    </div>
-
-                    <div *ngIf="entry.entries && entry.entries.length">
-
-                        <pk-list>
-                            <pk-list-content>
-
-                                <div *ngFor="let element of entry.entries; let index = index">
-
-                                    <pk-list-element>
-
-                                        <div *ngFor="let value of element; let last = last">
-                                            <pk-list-attribute [name]="last ? 'last' : ''">{{ value }}</pk-list-attribute>
-                                        </div>
-
-                                        <pk-floating horizontal top-right>
-                                            <pk-button
-                                                rounded
-                                                element--error
-                                                i18n-pkAlert
-                                                pkAlert="Delete Element"
-                                                icon="delete"
-                                                (onClick)="deleteListEntry(index)">
-                                            </pk-button>
-                                            <pk-button
-                                                rounded
-                                                element--secondary
-                                                i18n-pkAlert
-                                                pkAlert="Edit Element"
-                                                icon="create"
-                                                (onClick)="openEditListEntryModal(element, index)">
-                                            </pk-button>
-                                        </pk-floating>
-
-                                    </pk-list-element>
-
-                                </div>
-
-                            </pk-list-content>
-                        </pk-list>
-
-                    </div>
-
+                    <pk-conference-entry-list [entry]="entry"></pk-conference-entry-list>
                 </div>
 
                 <!-- Default -->
