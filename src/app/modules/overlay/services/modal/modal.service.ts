@@ -138,4 +138,12 @@ export class ModalService {
         this.outlet.createComponent(data, ModalConfirmationComponent);
     }
 
+    /**
+     * update the selected values
+     * @param {String[]} values
+     */
+    public updateSelectedValues(values: string[]): void {
+        this.outlet.updateSelectedValues(values);
+    }
+
 }
