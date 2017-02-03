@@ -1,20 +1,19 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter, Inject } from '@angular/core';
 import * as _ from 'lodash';
 
 /** Services */
 import {
-    PermissionService,
-    FormService
+    PermissionService
 } from './../../../core';
-import { ModalService, OverlayComponent } from './../../../modules/overlay';
+import { ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
+import { WindowService } from './../../';
 
 /** Models */
 import { ConferenceConfig, Selectable } from './../../../models';
-import { Application, Field } from './../../../swagger';
 
 /** Decorators */
-import { Access } from './../../../shared';
+import { Access } from './../../';
 
 @Component({
     selector: 'pk-conference-entry',
@@ -23,66 +22,98 @@ import { Access } from './../../../shared';
 })
 export class ConferenceEntryComponent implements OnInit {
 
-    @ViewChild('overlay') overlay: OverlayComponent;
-
     @Input() index: string;
-    @Input() config: ConferenceConfig<any>;
-
-    private forms: Selectable[];
-
-    public tableForm: Field[];
+    @Input() forms: Selectable[];
+    @Input() entry: ConferenceConfig<any>;
+    @Output() remove: EventEmitter<ConferenceConfig<any>> = new EventEmitter();
 
     constructor(
-        private permission: PermissionService,
+        /** Modules */
         private translationService: TranslationService,
         private modalService: ModalService,
-        private formService: FormService
+        /** Services */
+        private permission: PermissionService,
+        /** Custom */
+        @Inject('EntryModalService') private entryModalService: WindowService,
+        @Inject('ListModalService') private listModalService: WindowService
     ) { }
 
     ngOnInit() {
-        this.formService.getForms().subscribe(result => {
-            this.forms = result.map(obj => new Selectable(obj.id, obj.title));
-        });
+    }
 
-        this.addFieldToTableForm();
+    /****************************************************
+     * ENTRY
+     */
+
+    /**
+     * remove itself from the parent
+     */
+    public removeElement(): void {
+        this.remove.emit(this.entry);
+    }
+
+    /**
+     * open the modal to edit the element
+     */
+    public openEditModal(): void {
+        this.entryModalService
+        .setModalSave(this.editElement.bind(this))
+        .openModal({
+            values: this.entry
+        });
+    }
+
+    /**
+     * edits the element
+     * @param {ConferenceConfig} element
+     */
+    private editElement(element: ConferenceConfig<any>): void {
+        this.entry.title = element.title;
+        this.entry.description = element.description;
+        this.entry.footer = element.footer;
+        if (this.entry.type !== element.type) {
+            this.entry.type = element.type;
+            this.entry.entries = [];
+        }
+    }
+
+    /****************************************************
+     * CONFIG
+     */
+
+    /**
+     * open the add entry modal
+     */
+    public openEntryModal(): void {
+        this.entryModalService
+        .setModalSave(this.addConfigElement.bind(this))
+        .openModal();
     }
 
     /**
      * add a new config element to the form
      * @param {ConferenceConfig} entry
      */
-    public addConfigElement(entry: ConferenceConfig<any>) {
-        if (this.config.type !== 'config') { return; }
-        this.config.entries = this.config.entries || [];
-        this.config.entries.push(entry);
+    public addConfigElement(entry: ConferenceConfig<any>): void {
+        if (this.entry.type !== 'config') { return; }
+        this.entry.entries = this.entry.entries || [];
+        this.entry.entries.push(entry);
     }
 
-    /**
-     * adds a new fiel to the table form
+    /****************************************************
+     * APPLICATION
      */
-    public addFieldToTableForm() {
-        const form = _.cloneDeep(this.tableForm) || [];
-        form.push({
-            fieldType: 'input',
-            name: form.length.toString(),
-            styles: [
-                'small'
-            ]
-        });
-        this.tableForm = form;
-    }
 
     /**
-     * open the modal to set the genericId of the config
+     * open the modal to set the formId of the config
      */
-    @Access('EditRoles')
-    public setGenericIdModal(): void {
+    public setFormIdModal(): void {
         this.modalService.createListModal({
-            title: this.translationService.translate('setGenericId'),
+            title: this.translationService.translate('setFormId'),
             list: this.forms,
-            click: this.setGenericId.bind(this),
+            click: this.setFormId.bind(this),
 
-            selectedValue: this.config.genericId,
+            selectedValue: this.entry.formId,
 
             emptyText: this.translationService.translate('noFormsAvailable'),
             redirect: this.permission.hasPermission('EditForms'),
@@ -92,44 +123,34 @@ export class ConferenceEntryComponent implements OnInit {
     }
 
     /**
-     * set the given genericId
+     * set the given formId
      * @param {Selectable} data
      */
-    @Access('EditRoles')
-    private setGenericId(data: Selectable): void {
-        this.config.genericId = data.value;
+    private setFormId(data: Selectable): void {
+        this.entry.formId = data.value;
         this.modalService.destroyModal();
     }
 
-    /**
-     * opens the overlay to add a table entry
+    /****************************************************
+     * LIST
      */
-    public openTableOverlay() {
-        this.tableForm = _.cloneDeep(this.tableForm);
-        this.overlay.toggle(true);
+
+    /**
+     * open the add entry modal
+     */
+    public openListEntryModal(): void {
+        this.listModalService
+        .setModalSave(this.addListEntry.bind(this))
+        .openModal({});
     }
 
     /**
-     * add a new line to the table
-     * @param {Object} form
+     * add a new line to the list
+     * @param {String[]} entry
      */
-    public addTableEntry(form: Object): void {
-        const entry: string[] = this.getValues(form);
-        this.config.entries = this.config.entries || [];
-        this.config.entries.push(entry);
-        this.overlay.toggle(false);
-    }
-
-    /**
-     * recursively format object with index keys to array
-     * @param {Object} object
-     * @param {Number} [index]
-     */
-    private getValues(object: Object, index?: number): string[] {
-        index = index || 0;
-        const result = object[index];
-        if (!result) { return []; }
-        return [result].concat(this.getValues(object, 1 + index));
+    private addListEntry(entry: string[]): void {
+        this.entry.entries = this.entry.entries || [];
+        this.entry.entries.push(entry);
     }
 
 }

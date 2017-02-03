@@ -128,7 +128,8 @@ export class RolesDetailComponent implements OnInit {
     private addPermissionToRole(data: Selectable): void {
         this.roleService.addPermissionToRole(this.role.id, data.value).subscribe(result => {
             this.role = result;
-            this.modalService.destroyModal();
+            this.modalService.updateSelectedValues(result.rolePermissions.map(obj => { return obj.id; }))
+            // this.modalService.destroyModal();
         });
     }
 

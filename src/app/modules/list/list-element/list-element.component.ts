@@ -7,6 +7,8 @@ import { Component, OnInit, HostBinding, ElementRef, Renderer, AfterViewInit, In
 export class ListElementComponent implements OnInit, AfterViewInit, OnChanges {
 
     @HostBinding('class.list-element') element = true;
+    @HostBinding('class.animation') animation = true;
+    @HostBinding('class.animation--trigger') animationTrigger = true;
 
     @Input() name;
 
@@ -16,9 +18,6 @@ export class ListElementComponent implements OnInit, AfterViewInit, OnChanges {
     }
 
     ngAfterViewInit() {
-        // if (this.name) {
-        //     this.renderer.setElementClass(this.elementRef.nativeElement, `list-element--${this.name}`, true);
-        // }
     }
 
     ngOnChanges(changes: SimpleChanges) {

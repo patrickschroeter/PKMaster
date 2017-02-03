@@ -28,63 +28,7 @@ export class ConferencesComponent implements OnInit {
             this.conferences = conferences;
         });
 
-        this.newConference = [
-            {
-                fieldType: 'input',
-                name: 'description',
-                label: 'Conference Description:',
-                required: true,
-                styles: [
-                    'small'
-                ]
-            },
-            {
-                fieldType: 'input',
-                name: 'dateOfEvent',
-                contentType: 'date',
-                label: 'Datum',
-                required: true,
-                styles: [
-                    'small'
-                ]
-            },
-            {
-                fieldType: 'input',
-                name: 'startOfEvent',
-                contentType: 'string',
-                label: 'Beginn',
-                required: true,
-                styles: [
-                    'small'
-                ],
-                validations: [
-                    'time'
-                ]
-            },
-            {
-                fieldType: 'input',
-                name: 'endOfEvent',
-                contentType: 'string',
-                label: 'Ende',
-                required: true,
-                styles: [
-                    'small'
-                ],
-                validations: [
-                    'time'
-                ]
-            },
-            {
-                fieldType: 'input',
-                name: 'roomOfEvent',
-                contentType: 'string',
-                label: 'Raum',
-                required: true,
-                styles: [
-                    'small'
-                ]
-            }
-        ];
+        this.newConference = this.conferenceService.getConferenceForm();
     }
 
     /**

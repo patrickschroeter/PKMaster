@@ -51,7 +51,7 @@
         </div>
     </div>
 
-    <pk-overlay #overlay class="overlay--fluid" *ngIf="!isDisabled()" (close)="resetAddOptionForm()">
+    <pk-overlay #overlay *ngIf="!isDisabled()" (close)="resetAddOptionForm()">
         <pk-overlay-header>
             <span *ngIf="config.placeholder">{{ config.placeholder }}</span>
             <span *ngIf="!config.placeholder" i18n>Add Option</span>

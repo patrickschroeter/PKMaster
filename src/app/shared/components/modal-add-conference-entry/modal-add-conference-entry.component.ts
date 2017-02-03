@@ -1,27 +1,30 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 
-/** Models */
-import { Field } from './../../../swagger';
-import { ConferenceConfig } from './../../../models';
-
 /** Services */
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 
+/** Models */
+import { Field } from './../../../swagger';
+import { ConferenceConfig } from './../../../models';
+
 /** Components */
 import { OverlayComponent } from './../../../modules/overlay';
+
+/** Interfaces */
+import { Window } from './../../';
 
 @Component({
   selector: 'pk-modal-add-conference-entry',
   templateUrl: './modal-add-conference-entry.component.html',
   styleUrls: ['./modal-add-conference-entry.component.scss'],
-  exportAs: 'addEntryOverlay'
+  exportAs: 'addEntryModal'
 })
-export class ModalAddConferenceEntryComponent implements OnInit {
+export class ModalAddConferenceEntryComponent implements OnInit, Window {
 
     @ViewChild('overlay') overlay: OverlayComponent;
 
-    @Output() save: EventEmitter<ConferenceConfig<any>> = new EventEmitter();
+    public save: Function;
 
     public newEntry: Field[];
 
@@ -31,32 +34,39 @@ export class ModalAddConferenceEntryComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.initNewEntryForm();
+        this.initEntryForm();
     }
 
     /**
      * reset the form and open the overlay
+     * @param {Object} options
+     * @param {ConferenceConfig} options.[values]
      */
-    public open() {
-        this.initNewEntryForm();
+    public open(options: {
+        values: ConferenceConfig<any>
+    }) {
+        this.initEntryForm(options ? options.values : null);
         this.overlay.toggle();
     }
 
     /**
      * init the new entry form
+     * @param {ConferenceConfig} values
      */
-    private initNewEntryForm() {
+    private initEntryForm(values?: ConferenceConfig<any>) {
         this.newEntry = [
             {
                 fieldType: 'input',
                 name: 'title',
                 label: this.translationService.translate('title'),
-                required: true
+                required: true,
+                value: values ? values.title : ''
             },
             {
                 fieldType: 'textarea',
                 name: 'description',
                 label: this.translationService.translate('description'),
+                value: values ? values.description : '',
                 styles: [
                     'small'
                 ]
@@ -65,6 +75,7 @@ export class ModalAddConferenceEntryComponent implements OnInit {
                 fieldType: 'textarea',
                 name: 'footer',
                 label: this.translationService.translate('footer'),
+                value: values ? values.footer : '',
                 styles: [
                     'small'
                 ]
@@ -73,6 +84,7 @@ export class ModalAddConferenceEntryComponent implements OnInit {
                 fieldType: 'radio',
                 name: 'type',
                 label: this.translationService.translate('conferenceEntryType'),
+                value: values ? values.type : '',
                 options: [
                     {
                         value: 'config',
@@ -83,8 +95,8 @@ export class ModalAddConferenceEntryComponent implements OnInit {
                         label: this.translationService.translate('conferenceElementApplication')
                     },
                     {
-                        value: 'table',
-                        label: this.translationService.translate('conferenceElementTable')
+                        value: 'list',
+                        label: this.translationService.translate('conferenceElementList')
                     }
                 ]
             }
@@ -96,8 +108,10 @@ export class ModalAddConferenceEntryComponent implements OnInit {
      * @param {ConferenceConfig} entry
      */
     public addNewEntry(entry: ConferenceConfig<any>) {
-        this.save.emit(entry);
-        this.open();
+        if (this.save) {
+            this.save(entry);
+        }
+        this.overlay.toggle(false);
     }
 }
 

@@ -7,12 +7,14 @@ import { CommonModule } from '@angular/common';
 import * as components from './components';
 import * as elements from './elements';
 import * as directives from './directives';
+import * as services from './services';
 
 import { FloatingModule } from './../modules/floating/floating.module';
 import { ButtonModule } from './../modules/button/button.module';
 import { DeviderModule } from './../modules/devider/devider.module';
 import { OverlayModule } from './../modules/overlay/overlay.module';
 import { ListModule } from './../modules/list/list.module';
+import { AlertDirectiveModule } from './../modules/alert/alert.module';
 import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module';
 
 @NgModule({
@@ -24,11 +26,19 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
         components.ModalAcceptApplicationComponent,
 
         components.ConferenceEntryComponent,
+        components.ConferenceEntryDetailComponent,
+
+        elements.ConferenceEntryConfigComponent,
+        elements.ConferenceEntryApplicationComponent,
+        elements.ConferenceEntryListComponent,
+
         components.ModalAddConferenceEntryComponent,
+        components.ModalAddConferenceListComponent,
 
         elements.LoadingComponent,
 
         directives.AccessDirective
+
     ],
     imports: [
         CommonModule,
@@ -41,10 +51,11 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
         DeviderModule,
         OverlayModule,
         DynamicFormModule,
-        ListModule
+        ListModule,
+        AlertDirectiveModule
     ],
     providers: [
-
+        services.WindowService
     ],
     exports: [
         components.NavbarComponent,
@@ -54,7 +65,10 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
         components.ModalAcceptApplicationComponent,
 
         components.ConferenceEntryComponent,
+        components.ConferenceEntryDetailComponent,
+
         components.ModalAddConferenceEntryComponent,
+        components.ModalAddConferenceListComponent,
 
         elements.LoadingComponent,
 
@@ -62,3 +76,7 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
     ]
 })
 export class SharedModule { }
+
+export const SharedProviderMock = [
+    { provide: services.WindowService, useClass: services.WindowMock }
+];

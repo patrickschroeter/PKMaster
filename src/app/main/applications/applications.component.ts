@@ -85,6 +85,7 @@ export class ApplicationsComponent implements OnInit {
     @Access(['CreateApplications', 'EditApplications'])
     private submitApplication(application: Application): void {
         this.applicationService.submitApplication(application).subscribe(result => {
+            /** TODO */ application.status = result.status;
             this.alert.setSuccessHint(`submitApplication${application.id}`, this.translationService.translate('applicationSubmitted'));
             this.modalService.destroyModal();
         });
@@ -112,6 +113,7 @@ export class ApplicationsComponent implements OnInit {
     @Access(['CreateApplications', 'EditApplications'])
     private rescindApplication(application: Application): void {
         this.applicationService.rescindApplication(application).subscribe(result => {
+            /** TODO */ application.status = result.status;
             this.alert.setSuccessHint(`rescindApplication${application.id}`, this.translationService.translate('applicationRescinded'));
             this.modalService.destroyModal();
         });
@@ -139,6 +141,7 @@ export class ApplicationsComponent implements OnInit {
     @Access(['CreateApplications', 'DeleteApplications'])
     private deactivateApplication(application: Application): void {
         this.applicationService.deactivateApplication(application).subscribe(result => {
+            /** TODO */ application.status = result.status;
             this.alert.setSuccessHint(`deactivateApplication${application.id}`,
                 this.translationService.translate('applicationDeactivated')
             );

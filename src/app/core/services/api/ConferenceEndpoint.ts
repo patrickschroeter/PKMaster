@@ -37,8 +37,8 @@ export class ConferenceEndpoint {
         return new Observable(observer => { observer.next({ id: conferenceId }); });
     }
 
-    public deleteConferenceById(conferenceId: number, token?: number, extraHttpRequestParams?: any): Observable<{}> {
-        return new Observable(observer => { observer.next({ id: conferenceId }); });
+    public deleteConferenceById(conferenceId: string, token?: number, extraHttpRequestParams?: any): Observable<{}> {
+        return this.observe(this._delete(conferenceId));
     }
 
     public getApplicationsByConference(conferenceId: number, token?: number, extraHttpRequestParams?: any): Observable<Array<Application>> {
@@ -139,6 +139,22 @@ export class ConferenceEndpoint {
             }
         }
         return null;
+    }
+
+    private _delete(id: string): boolean {
+        let index = -1;
+        for (let i = 0, length = this._list.length; i < length; i++) {
+            const element = this._list[i];
+            if (element.id === id) {
+                index = i;
+            }
+        }
+        if (index === -1) {
+            return false;
+        } else {
+            this._list.splice(index, 1);
+            return true;
+        }
     }
 
     private _addApplication(id: string, application: Application): Conference {

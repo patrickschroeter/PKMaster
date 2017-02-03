@@ -40,10 +40,10 @@ export interface Conference {
     // custom
     applications?: Array<models.Application>;
 
-    startOfEvent?: number;
-    endOfEvent?: number;
+    startOfEvent?: string;
+    endOfEvent?: string;
     roomOfEvent?: string;
     numberOfConference?: number;
 
-    config?: ConferenceConfig<models.Application>[];
+    config?: ConferenceConfig<any>[];
 }

@@ -1,0 +1,46 @@
+<ng-container *ngIf="!entry.entries || !entry.entries.length">
+    <div class="empty-wrapper">
+        <div class="label" i18n>No Elements here.</div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="entry.entries && entry.entries.length">
+
+    <pk-list>
+        <pk-list-content>
+
+            <ng-container *ngFor="let element of entry.entries; let index = index">
+
+                <pk-list-element>
+
+                    <ng-container *ngFor="let value of element; let last = last">
+                        <pk-list-attribute [name]="last ? 'last' : ''">{{ value }}</pk-list-attribute>
+                    </ng-container>
+
+                    <pk-floating horizontal top-right>
+                        <pk-button
+                            rounded
+                            element--error
+                            i18n-pkAlert
+                            pkAlert="Delete Element"
+                            icon="delete"
+                            (onClick)="deleteListEntry(index)">
+                        </pk-button>
+                        <pk-button
+                            rounded
+                            element--secondary
+                            i18n-pkAlert
+                            pkAlert="Edit Element"
+                            icon="create"
+                            (onClick)="openEditListEntryModal(element, index)">
+                        </pk-button>
+                    </pk-floating>
+
+                </pk-list-element>
+
+            </ng-container>
+
+        </pk-list-content>
+    </pk-list>
+
+</ng-container>
