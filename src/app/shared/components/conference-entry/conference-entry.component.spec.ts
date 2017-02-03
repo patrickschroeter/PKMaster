@@ -27,7 +27,7 @@ describe('ConferenceEntryComponent', () => {
                 ...AlertProviderMock,
                 ...ModalProviderMock,
                 { provide: 'EntryModalService', useClass: WindowMock },
-                { provide: 'TableEntryModalService', useClass: WindowMock }
+                { provide: 'ListModalService', useClass: WindowMock }
             ],
             schemas: [NO_ERRORS_SCHEMA]
         })

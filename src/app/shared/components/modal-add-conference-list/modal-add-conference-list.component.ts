@@ -7,12 +7,12 @@ import { Window } from './../../';
 import { OverlayComponent } from './../../../modules/overlay';
 
 @Component({
-    selector: 'pk-modal-add-conference-table-entry',
-    templateUrl: './modal-add-conference-table-entry.component.html',
-    styleUrls: ['./modal-add-conference-table-entry.component.scss'],
-    exportAs: 'addTableEntryModal'
+    selector: 'pk-modal-add-conference-list',
+    templateUrl: './modal-add-conference-list.component.html',
+    styleUrls: ['./modal-add-conference-list.component.scss'],
+    exportAs: 'addListModal'
 })
-export class ModalAddConferenceTableEntryComponent implements OnInit, Window {
+export class ModalAddConferenceListComponent implements OnInit, Window {
 
     @ViewChild('overlay') overlay: OverlayComponent;
 
@@ -23,7 +23,7 @@ export class ModalAddConferenceTableEntryComponent implements OnInit, Window {
     constructor() { }
 
     ngOnInit() {
-        this.addFieldToTableForm();
+        this.addFieldToListForm();
     }
 
     /**
@@ -53,35 +53,29 @@ export class ModalAddConferenceTableEntryComponent implements OnInit, Window {
             form.push({
                 fieldType: 'input',
                 name: form.length.toString(),
-                value: values ? values[i] : '',
-                styles: [
-                    'small'
-                ]
+                value: values ? values[i] : ''
             });
         }
         this.newEntry = form;
     }
 
     /**
-     * adds a new fiel to the table form
+     * adds a new fiel to the list form
      */
-    public addFieldToTableForm() {
+    public addFieldToListForm() {
         const form = _.cloneDeep(this.newEntry) || [];
         form.push({
             fieldType: 'input',
             name: form.length.toString(),
-            value: '',
-            styles: [
-                'small'
-            ]
+            value: ''
         });
         this.newEntry = form;
     }
 
     /**
-     *  adds the new entry to the table
+     *  adds the new entry to the list
      */
-    public addTableEntry(form): void {
+    public addListEntry(form): void {
         if (this.save) {
             const entry: string[] = this.getValues(form);
             this.save(entry);

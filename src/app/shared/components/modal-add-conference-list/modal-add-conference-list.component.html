@@ -1,5 +1,5 @@
-<pk-overlay #overlay class="overlay--fluid">
-    <pk-overlay-header i18n>Add Entry to Table</pk-overlay-header>
+<pk-overlay #overlay>
+    <pk-overlay-header i18n>Add Entry to List</pk-overlay-header>
     <pk-overlay-content>
 
         <pk-dynamic-form *ngIf="overlay.isOpen" [formElements]="newEntry" #dynamicForm>
@@ -15,7 +15,7 @@
                     i18n-value value="Save"
                     icon="save"
                     [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
-                    (onClick)="addTableEntry(dynamicForm.form.value)"></pk-button>
+                    (onClick)="addListEntry(dynamicForm.form.value)"></pk-button>
             </pk-dynamic-form-submit>
 
             <pk-dynamic-form-cancel>
@@ -24,7 +24,7 @@
                     i18n-value value="Add Field"
                     icon="add"
                     class="element--secondary"
-                    (onClick)="addFieldToTableForm()"></pk-button>
+                    (onClick)="addFieldToListForm()"></pk-button>
             </pk-dynamic-form-cancel>
 
         </pk-dynamic-form>

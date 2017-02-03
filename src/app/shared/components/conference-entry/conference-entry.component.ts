@@ -17,7 +17,7 @@ import { ConferenceConfig, Selectable } from './../../../models';
 import { Application, Field } from './../../../swagger';
 import {
     ModalAddConferenceEntryComponent,
-    ModalAddConferenceTableEntryComponent
+    ModalAddConferenceListComponent
  } from './../../';
 
 /** Decorators */
@@ -37,7 +37,7 @@ export class ConferenceEntryComponent implements OnInit {
 
     private formLabel: string;
 
-    private numberOfTableFields: number;
+    private numberOfListFields: number;
 
     constructor(
         /** Modules */
@@ -46,23 +46,24 @@ export class ConferenceEntryComponent implements OnInit {
         /** Services */
         private permission: PermissionService,
         private formService: FormService,
+        /** Custom */
         @Inject('EntryModalService') private entryModalService: WindowService,
-        @Inject('TableEntryModalService') private tableEntryModalService: WindowService
+        @Inject('ListModalService') private listModalService: WindowService
     ) { }
 
     ngOnInit() {
-        this.setNumberOfTableFields();
+        this.setNumberOfListFields();
     }
 
     /**
-     * calculates the number of table fields
+     * calculates the number of list fields
      */
-    public setNumberOfTableFields() {
-        if (!this.entry || this.entry.type !== 'table') { return; }
+    public setNumberOfListFields() {
+        if (!this.entry || this.entry.type !== 'list') { return; }
         if (!this.entry.entries || !this.entry.entries.length) {
-            this.numberOfTableFields = 1;
+            this.numberOfListFields = 1;
         } else {
-            this.numberOfTableFields = _.cloneDeep(this.entry.entries).sort((a, b) => a > b ? -1 : 1)[0].length;
+            this.numberOfListFields = _.cloneDeep(this.entry.entries).sort((a, b) => a > b ? -1 : 1)[0].length;
         }
     }
 
@@ -116,47 +117,58 @@ export class ConferenceEntryComponent implements OnInit {
     /**
      * open the add entry modal
      */
-    public openTableEntryModal(): void {
-        this.tableEntryModalService
-        .setModalSave(this.addTableEntry.bind(this))
+    public openListEntryModal(): void {
+        this.listModalService
+        .setModalSave(this.addListEntry.bind(this))
         .openModal({
-            numberOfInputs: this.numberOfTableFields
+            numberOfInputs: this.numberOfListFields
         });
     }
 
     /**
-     * add a new line to the table
+     * add a new line to the list
      * @param {String[]} entry
      */
-    private addTableEntry(entry: string[]): void {
-        this.numberOfTableFields = this.numberOfTableFields > entry.length ? this.numberOfTableFields : entry.length;
+    private addListEntry(entry: string[]): void {
+        this.numberOfListFields = this.numberOfListFields > entry.length ? this.numberOfListFields : entry.length;
         this.entry.entries = this.entry.entries || [];
         this.entry.entries.push(entry);
     }
 
     /**
-     * opens the modal to edit the table entry
+     * opens the modal to edit the list entry
      * @param {String[]} element
      * @param {Number} index
      */
-    public openEditTableEntryModal(element: string[], index: number): void {
-        this.tableEntryModalService
+    public openEditListEntryModal(element: string[], index: number): void {
+        this.listModalService
         .setModalSave(result => {
-            this.updateTableEntry(result, index);
+            this.updateListEntry(result, index);
         })
         .openModal({
-            numberOfInputs: this.numberOfTableFields,
+            numberOfInputs: this.numberOfListFields,
             values: element
         });
     }
 
     /**
      * update the element at index
-     * @param {String[]} element
+     * @param {String[]} entry
      * @param {Number} index
      */
-    private updateTableEntry(element: string[], index: number): void {
-        this.entry.entries[index] = element;
+    private updateListEntry(entry: string[], index: number): void {
+        this.numberOfListFields = this.numberOfListFields > entry.length ? this.numberOfListFields : entry.length;
+        this.entry.entries[index] = entry;
+    }
+
+    /**
+     * removes the list entry at the given index
+     * @param {Number} index
+     */
+    public deleteListEntry(index: number) {
+        if (index > -1) {
+            this.entry.entries.splice(index, 1);
+        }
     }
 
     /**
@@ -196,7 +208,7 @@ export class ConferenceEntryComponent implements OnInit {
         if (this.entry.type !== element.type) {
             this.entry.type = element.type;
             this.entry.entries = [];
-            this.setNumberOfTableFields();
+            this.setNumberOfListFields();
         }
     }
 

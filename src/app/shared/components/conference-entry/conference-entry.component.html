@@ -42,7 +42,7 @@
                         i18n-pkAlert
                         pkAlert="Add Entry to Table"
                         icon="playlist_add"
-                        (onClick)="openTableEntryModal()">
+                        (onClick)="openListEntryModal()">
                     </pk-button>
                     <pk-button
                         *ngIf="entry.type === 'application'"
@@ -140,8 +140,8 @@
 
                 </div>
 
-                <!-- Table -->
-                <div *ngSwitchCase="'table'">
+                <!-- List -->
+                <div *ngSwitchCase="'list'">
 
                     <div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper">
                         <div class="label" i18n>No Elements here.</div>
@@ -149,9 +149,9 @@
                             class="element--spacing-top-large"
                             element--secondary
                             i18n-value
-                            value="Add Entry to Table"
+                            value="Add Entry to List"
                             icon="add"
-                            (onClick)="openTableEntryModal()">
+                            (onClick)="openListEntryModal()">
                         </pk-button>
                     </div>
 
@@ -171,11 +171,19 @@
                                         <pk-floating horizontal top-right>
                                             <pk-button
                                                 rounded
+                                                element--error
+                                                i18n-pkAlert
+                                                pkAlert="Delete Element"
+                                                icon="delete"
+                                                (onClick)="deleteListEntry(index)">
+                                            </pk-button>
+                                            <pk-button
+                                                rounded
                                                 element--secondary
                                                 i18n-pkAlert
                                                 pkAlert="Edit Element"
                                                 icon="create"
-                                                (onClick)="openEditTableEntryModal(element, index)">
+                                                (onClick)="openEditListEntryModal(element, index)">
                                             </pk-button>
                                         </pk-floating>
 

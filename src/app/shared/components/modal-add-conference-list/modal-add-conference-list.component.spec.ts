@@ -3,23 +3,23 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { ModalAddConferenceTableEntryComponent } from './modal-add-conference-table-entry.component';
+import { ModalAddConferenceListComponent } from './modal-add-conference-list.component';
 
-describe('ModalAddConferenceTableEntryComponent', () => {
-    let component: ModalAddConferenceTableEntryComponent;
-    let fixture: ComponentFixture<ModalAddConferenceTableEntryComponent>;
+describe('ModalAddConferenceListEntryComponent', () => {
+    let component: ModalAddConferenceListComponent;
+    let fixture: ComponentFixture<ModalAddConferenceListComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                ModalAddConferenceTableEntryComponent
+                ModalAddConferenceListComponent
             ], schemas: [NO_ERRORS_SCHEMA]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ModalAddConferenceTableEntryComponent);
+        fixture = TestBed.createComponent(ModalAddConferenceListComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

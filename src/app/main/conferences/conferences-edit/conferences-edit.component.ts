@@ -18,7 +18,7 @@ import { Selectable, ConferenceConfig } from './../../../models';
 import { OverlayComponent } from './../../../modules/overlay';
 import {
     ModalAddConferenceEntryComponent,
-    ModalAddConferenceTableEntryComponent
+    ModalAddConferenceListComponent
  } from './../../../shared';
 
 /** TODO */ import { ApplicationApiMock } from './../../../core';
@@ -29,7 +29,7 @@ import {
     styleUrls: ['./conferences-edit.component.scss'],
     providers: [
         { provide: 'EntryModalService', useClass: WindowService },
-        { provide: 'TableEntryModalService', useClass: WindowService }
+        { provide: 'ListModalService', useClass: WindowService }
     ]
 })
 export class ConferencesEditComponent implements OnInit {
@@ -38,7 +38,7 @@ export class ConferencesEditComponent implements OnInit {
     @ViewChild('overlay') overlay: OverlayComponent;
 
     @ViewChild('addEntryModal') addEntryModal: ModalAddConferenceEntryComponent;
-    @ViewChild('addTableEntryModal') addTableEntryModal: ModalAddConferenceTableEntryComponent;
+    @ViewChild('addListModal') addListModal: ModalAddConferenceListComponent;
 
     public conference: Conference;
 
@@ -58,7 +58,7 @@ export class ConferencesEditComponent implements OnInit {
         private conferenceService: ConferenceService,
         private formService: FormService,
         @Inject('EntryModalService') private entryModalService: WindowService,
-        @Inject('TableEntryModalService') private tableEntryModalService: WindowService
+        @Inject('ListModalService') private listModalService: WindowService
     ) { }
 
     ngOnInit() {
@@ -66,7 +66,7 @@ export class ConferencesEditComponent implements OnInit {
         this.getFormsAsSelectable();
 
         this.entryModalService.setModal(this.addEntryModal);
-        this.tableEntryModalService.setModal(this.addTableEntryModal);
+        this.listModalService.setModal(this.addListModal);
     }
 
     /**

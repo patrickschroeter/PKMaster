@@ -27,7 +27,7 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
 
         components.ConferenceEntryComponent,
         components.ModalAddConferenceEntryComponent,
-        components.ModalAddConferenceTableEntryComponent,
+        components.ModalAddConferenceListComponent,
 
         elements.LoadingComponent,
 
@@ -60,7 +60,7 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
 
         components.ConferenceEntryComponent,
         components.ModalAddConferenceEntryComponent,
-        components.ModalAddConferenceTableEntryComponent,
+        components.ModalAddConferenceListComponent,
 
         elements.LoadingComponent,
 

@@ -4,7 +4,7 @@ export class ConferenceConfig<T> {
     public footer?: string;
 
     /** type of config.entries */
-    public type?: 'config' | 'application' | 'table';
+    public type?: 'config' | 'application' | 'list';
 
     /** id of form to sort into config.entries */
     public formId?: string;
