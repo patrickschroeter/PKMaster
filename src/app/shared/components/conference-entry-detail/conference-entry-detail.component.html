@@ -38,7 +38,7 @@
                                         <pk-list-element [name]="element.status?.name">
 
                                             <ng-container *ngFor="let field of entry.fields">
-                                                <pk-list-attribute [name]="field">{{ element[field] }}</pk-list-attribute>
+                                                <pk-list-attribute [name]="field">{{ element.filledForm[field] }}</pk-list-attribute>
                                             </ng-container>
 
                                             <pk-floating horizontal top-right></pk-floating>

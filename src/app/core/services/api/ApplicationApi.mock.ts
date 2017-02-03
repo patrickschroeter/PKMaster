@@ -18,7 +18,7 @@ export class ApplicationApiMock {
 
     static COMMENT_PUBLIC: Comment = { isPrivate: true, message: 'privater Testkommentar, der leider etwas länger wurde als anfangs geplant, aber auch nicht gekürzt werden kann, da sonst informationen fehlen', created: new Date(), user: { lastname: 'Falsey' } };
 
-    static APPLICATION: Application = { id: '1', status: { name: 'created' }, created: new Date(), form: FormApiMock.FORM, formId: FormApiMock.FORM.id, attributes: FormApiMock.FORM.formHasField, comments: [ApplicationApiMock.COMMENT_PUBLIC, ApplicationApiMock.COMMENT_PRIVATE], user: UserApiMock.USER, filledForm: '{"header01":"Hochschule für Angewandte Wissenschaften Augsburg","firstname":"Franz","lastname":"Bauer"}' };
+    static APPLICATION: Application = { id: '1', status: { name: 'created' }, created: new Date(), form: FormApiMock.FORM, formId: FormApiMock.FORM.id, comments: [ApplicationApiMock.COMMENT_PUBLIC, ApplicationApiMock.COMMENT_PRIVATE], user: UserApiMock.USER, filledForm: '{"header01":"Hochschule für Angewandte Wissenschaften Augsburg","firstname":"Franz","lastname":"Bauer"}' };
 
     private list: Application[] = [];
 

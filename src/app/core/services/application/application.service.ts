@@ -17,7 +17,12 @@ export class ApplicationService {
 
     static DEFAULT_TOKEN = 17;
 
-    private application: Application;
+    private _application: Application;
+    get application() { return this._application; }
+    set application(application) {
+        this._application = application;
+        this.setValues();
+    }
     private applications: Application[];
 
     constructor(
@@ -29,12 +34,30 @@ export class ApplicationService {
     ) { }
 
     /**
+     * set the attributes property with filled values
+     */
+    private setValues() {
+        const application = this.application;
+        if (application.form && !application.attributes) {
+            application.attributes = application.form.formHasField;
+        }
+        if (!application.filledForm || typeof application.filledForm !== 'string') { return; }
+        application.filledForm = JSON.parse(application.filledForm);
+        /** TODO */
+        for (let i = 0, length = application.attributes.length; i < length; i++) {
+            const field = application.attributes[i];
+            field.value = application.filledForm[field.name];
+        }
+    }
+
+    /**
      * returns the observable to get a applicationn by the given id
      * @param {String} id - the id of the application to get
      * @return {Observable}
      */
     public getApplicationById(id: string): Observable<Application> {
         return this.applicationApi.getApplicationById(id).map(application => {
+            console.log(application);
             return this.application = application;
         });
     }
@@ -62,8 +85,6 @@ export class ApplicationService {
         this.auth.getUser().subscribe(user => {
             application.userId = user.id;
         });
-
-        application.formId = application.form.id;
 
         return this.applicationApi.createApplication(ApplicationService.DEFAULT_TOKEN, (application as ApplicationCreateDto)).map(result => {
             return this.application = result;
@@ -149,12 +170,14 @@ export class ApplicationService {
      */
     public saveApplication(form: Object): Observable<Application> {
         if (!this.application) { return; }
-        if (this.application.attributes) {
-            for (let i = 0, length = this.application.attributes.length; i < length; i++) {
-                const element: Field = this.application.attributes[i];
-                element.value = form[element.name];
-            };
-        }
+        // if (this.application.attributes) {
+        //     for (let i = 0, length = this.application.attributes.length; i < length; i++) {
+        //         const element: Field = this.application.attributes[i];
+        //         element.value = form[element.name];
+        //     };
+        // }
+        this.application.filledForm = JSON.stringify(form);
+        console.log(JSON.stringify(this.application.filledForm));
         return this.updateApplication(this.application).map(application => {
             /** TODO: hack */
             application.status = { name: 'created' };
