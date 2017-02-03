@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
 /** Models */
 import { ConferenceConfig } from './../../../models';
+import { Application } from './../../../swagger';
+import { ModalAcceptApplicationComponent } from './../../';
 
 @Component({
     selector: 'pk-conference-entry-detail',
@@ -9,6 +11,8 @@ import { ConferenceConfig } from './../../../models';
     styleUrls: ['./conference-entry-detail.component.scss']
 })
 export class ConferenceEntryDetailComponent implements OnInit {
+
+    @ViewChild('acceptModal') acceptModal: ModalAcceptApplicationComponent;
 
     @Input() index: string;
     @Input() entry: ConferenceConfig<any>;
@@ -23,6 +27,17 @@ export class ConferenceEntryDetailComponent implements OnInit {
      */
     public trackByFn(index, item) {
         return index;
+    }
+
+    /**
+     * select the current application
+     */
+    public updateApplication(application: Application) {
+        for (let i = 0, length = this.entry.entries.length; i < length; i++) {
+            if (this.entry.entries[i].id === application.id) {
+                this.entry.entries[i] = application;
+            }
+        }
     }
 
 }

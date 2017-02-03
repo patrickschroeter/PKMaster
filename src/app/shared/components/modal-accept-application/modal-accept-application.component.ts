@@ -50,8 +50,15 @@ export class ModalAcceptApplicationComponent implements OnInit {
     public openModal(application: Application): void {
         this.application = application;
         setTimeout(() => {
-            this.overlay.toggle();
+            this.overlay.toggle(true);
         }, 0);
+    }
+
+    /**
+     * close the overlay modal
+     */
+    public closeModal() {
+        this.overlay.toggle(false);
     }
 
     /**
@@ -87,7 +94,7 @@ export class ModalAcceptApplicationComponent implements OnInit {
         this.applicationService.updateApplication(param).subscribe(result => {
             this.application = result;
             this.change.emit(result);
-            this.overlay.toggle();
+            this.overlay.toggle(false);
             this.initAcceptForm();
         });
     }
@@ -103,7 +110,7 @@ export class ModalAcceptApplicationComponent implements OnInit {
         this.applicationService.updateApplication(param).subscribe(result => {
             this.application = result;
             this.change.emit(result);
-            this.overlay.toggle();
+            this.overlay.toggle(false);
             this.initAcceptForm();
         });
     }

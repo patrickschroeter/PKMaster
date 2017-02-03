@@ -90,8 +90,4 @@ export class ConferencesDetailComponent implements OnInit {
         }
     }
 
-    public selectApplication(application: Application) {
-        this.application = application;
-    }
-
 }
