@@ -1,24 +1,4 @@
-<div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper animation animation--trigger">
-    <div *ngIf="!entry.formId">
-        <div class="label" i18n>No Generic Id selected</div>
-    </div>
-    <div *ngIf="entry.formId">
-        <div class="label" i18n>Connected Form: {{ getLabelOfForm(entry.formId) }}</div>
-        <pk-floating horizontal top-right>
-            <pk-button
-                class="element--spacing-left-tiny"
-                rounded
-                element--secondary
-                i18n-pkAlert
-                pkAlert="Edit Attributes"
-                icon="create"
-                (onClick)="editFormFields()">
-            </pk-button>
-        </pk-floating>
-    </div>
-</div>
-
-<pk-list *ngIf="entry.entries && entry.entries.length">
+<pk-list *ngIf="entry.entries && entry.entries.length && entry.fields && entry.fields.length">
     <pk-list-header>
         <div *ngFor="let field of entry.fields">
             <pk-list-attribute [name]="field">{{ field }}</pk-list-attribute>
@@ -42,3 +22,31 @@
 
     </pk-list-content>
 </pk-list>
+
+<div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper animation animation--trigger">
+    <div *ngIf="!entry.formId">
+        <div class="label" i18n>No Generic Id selected</div>
+    </div>
+    <div *ngIf="entry.formId">
+        <div class="label" i18n>Connected Form: {{ getLabelOfForm(entry.formId) }}</div>
+        <div *ngIf="entry.fields">
+            <div class="label element element--spacing-bottom-tiny element element--spacing-top-small" i18n>Selected Fields</div>
+            <div class="label">
+                <ng-container *ngFor="let field of entry.fields; let last = last">
+                    <span>{{ field }}{{ last ? '': ', ' }}</span>
+                </ng-container>
+            </div>
+        </div>
+        <pk-floating horizontal top-right>
+            <pk-button
+                class="element--spacing-left-tiny"
+                rounded
+                element--secondary
+                i18n-pkAlert
+                pkAlert="Edit Attributes"
+                icon="create"
+                (onClick)="editFormFields()">
+            </pk-button>
+        </pk-floating>
+    </div>
+</div>
