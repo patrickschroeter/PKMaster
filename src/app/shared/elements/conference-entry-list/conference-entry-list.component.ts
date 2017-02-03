@@ -43,7 +43,7 @@ export class ConferenceEntryListComponent implements OnInit {
      * @param {Number} index
      */
     public deleteListEntry(index: number) {
-        if (index > -1) {
+        if (index > -1 && this.entry && this.entry.entries) {
             this.entry.entries.splice(index, 1);
         }
     }
@@ -71,7 +71,9 @@ export class ConferenceEntryListComponent implements OnInit {
      */
     private updateListEntry(entry: string[], index: number): void {
         this.numberOfListFields = this.numberOfListFields > entry.length ? this.numberOfListFields : entry.length;
-        this.entry.entries[index] = entry;
+        if (this.entry && this.entry.entries) {
+            this.entry.entries[index] = entry;
+        }
     }
 
 }

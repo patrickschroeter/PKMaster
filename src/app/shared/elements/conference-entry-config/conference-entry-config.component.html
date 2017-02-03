@@ -1,11 +1,13 @@
-<ng-container *ngIf="!entry.entries || !entry.entries.length">
-    <div class="empty-wrapper">
-        <div class="label" i18n>No Elements here.</div>
-    </div>
-</ng-container>
+<ng-container *ngIf="entry">
+    <ng-container *ngIf="!entry.entries || !entry.entries.length">
+        <div class="empty-wrapper">
+            <div class="label" i18n>No Elements here.</div>
+        </div>
+    </ng-container>
 
-<ng-container *ngIf="entry.entries && entry.entries.length">
-    <ng-container *ngFor="let entry of entry.entries; trackBy: trackByFn; let i = index">
-        <pk-conference-entry [index]="index + '.' + (i + 1)" [entry]="entry" [forms]="forms" (remove)="removeElement($event)"></pk-conference-entry>
+    <ng-container *ngIf="entry.entries && entry.entries.length">
+        <ng-container *ngFor="let entry of entry.entries; trackBy: trackByFn; let i = index">
+            <pk-conference-entry [index]="index + '.' + (i + 1)" [entry]="entry" [forms]="forms" (remove)="removeElement($event)"></pk-conference-entry>
+        </ng-container>
     </ng-container>
 </ng-container>

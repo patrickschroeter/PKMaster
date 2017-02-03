@@ -102,7 +102,7 @@ describe('Service: Form', () => {
 
         it('should prepare the new form (title restrictedAccess, isPublic, formHasField)', () => {
             spyOn(api, 'addForm').and.returnValue(new Observable(obs => { obs.next('value'); }));
-            let submit: Form = {
+            const submit: Form = {
                 title: 'titel des tests',
                 restrictedAccess: true
             };
@@ -118,7 +118,7 @@ describe('Service: Form', () => {
 
         it('should copy the form (title restrictedAccess, isPublic, formHasField)', () => {
             spyOn(api, 'addForm').and.returnValue(new Observable(obs => { obs.next('value'); }));
-            let submit: Form = {
+            const submit: Form = {
                 id: 'id',
                 title: 'titel des tests',
                 restrictedAccess: true,
@@ -192,8 +192,8 @@ describe('Service: Form', () => {
             });
 
             service.getFormById('id').subscribe(result => {
-                let field: Field = {
-                    name: 'header01'
+                const field: Field = {
+                    name: 'firstname'
                 };
                 service.editElementOfForm(field);
                 expect(element).toEqual(field);
@@ -255,25 +255,25 @@ describe('Service: Form', () => {
 
             it('should return false if the element is in the form but no index is given (by value)', () => {
                 service.getFormById('id').subscribe(result => {
-                    expect(service.removeElement({ value: 'header01' })).toBe(false);
+                    expect(service.removeElement({ value: 'firstname' })).toBe(false);
                 });
             });
 
             it('should return false if the element is in the form but no index is given (by name)', () => {
                 service.getFormById('id').subscribe(result => {
-                    expect(service.removeElement({ name: 'header01' })).toBe(false);
+                    expect(service.removeElement({ name: 'firstname' })).toBe(false);
                 });
             });
 
             it('should return false if the element is in the form and a wrong index is given', () => {
                 service.getFormById('id').subscribe(result => {
-                    expect(service.removeElement({ name: 'header01' }, 2)).toBe(false);
+                    expect(service.removeElement({ name: 'firstname' }, 2)).toBe(false);
                 });
             });
 
             it('should return true if the element is in the form and a right index is given', () => {
                 service.getFormById('id').subscribe(result => {
-                    expect(service.removeElement({ name: 'header01' }, 0)).toBe(true);
+                    expect(service.removeElement({ name: 'firstname' }, 1)).toBe(true);
                 });
             });
 
@@ -288,29 +288,29 @@ describe('Service: Form', () => {
 
             it('should return true if the element is in the form but no index is given (by value)', () => {
                 service.getFormById('id').subscribe(result => {
-                    service.editElementOfForm({ name: 'header01'});
-                    expect(service.removeElement({ value: 'header01' })).toBe(true);
+                    service.editElementOfForm({ name: 'firstname'});
+                    expect(service.removeElement({ value: 'firstname' })).toBe(true);
                 });
             });
 
             it('should return false if the element is in the form but no index is given (by name)', () => {
                 service.getFormById('id').subscribe(result => {
-                    service.editElementOfForm({ name: 'header01'});
-                    expect(service.removeElement({ name: 'header01' })).toBe(false);
+                    service.editElementOfForm({ name: 'firstname'});
+                    expect(service.removeElement({ name: 'firstname' })).toBe(false);
                 });
             });
 
             it('should return false if the element is in the form and a wrong index is given', () => {
                 service.getFormById('id').subscribe(result => {
-                    service.editElementOfForm({ name: 'header01'});
-                    expect(service.removeElement({ name: 'header01' }, 2)).toBe(false);
+                    service.editElementOfForm({ name: 'firstname'});
+                    expect(service.removeElement({ name: 'firstname' }, 2)).toBe(false);
                 });
             });
 
             it('should return true if the element is in the form and a right index is given', () => {
                 service.getFormById('id').subscribe(result => {
-                    service.editElementOfForm({ name: 'header01'});
-                    expect(service.removeElement({ name: 'header01' }, 0)).toBe(true);
+                    service.editElementOfForm({ name: 'firstname'});
+                    expect(service.removeElement({ name: 'firstname' }, 1)).toBe(true);
                 });
             });
 
@@ -340,7 +340,7 @@ describe('Service: Form', () => {
 
             it('should add the new element at the end of the form', () => {
                 service.getFormById('id').subscribe(form => {
-                    let elements = form.formHasField.length;
+                    const elements = form.formHasField.length;
                     service.addElementToForm({
                         name: 'unique_name'
                     });
@@ -363,7 +363,7 @@ describe('Service: Form', () => {
             it('should return false', () => {
                 service.getFormById('id').subscribe(form => {
                     expect(service.addElementToForm({
-                        name: 'header01'
+                        name: 'firstname'
                     })).toBe(false);
                 });
             });
@@ -383,7 +383,7 @@ describe('Service: Form', () => {
             it('should return true', () => {
                 service.getFormById('id').subscribe(form => {
                     service.editElementOfForm({
-                        name: 'header01'
+                        name: 'firstname'
                     });
                     expect(service.addElementToForm({
                         name: 'unique_name'
@@ -393,11 +393,11 @@ describe('Service: Form', () => {
 
             it('should update the element at the given index', () => {
                 service.getFormById('id').subscribe(form => {
-                    let index = _.findIndex(form.formHasField, obj => obj.name === 'header01');
+                    const index = _.findIndex(form.formHasField, obj => obj.name === 'firstname');
                     service.editElementOfForm({
-                        name: 'header01'
+                        name: 'firstname'
                     });
-                    expect(form.formHasField[index].name).toEqual('header01');
+                    expect(form.formHasField[index].name).toEqual('firstname');
                     service.addElementToForm({
                         name: 'unique_name'
                     });
@@ -420,23 +420,23 @@ describe('Service: Form', () => {
             it('should return true', () => {
                 service.getFormById('id').subscribe(form => {
                     service.editElementOfForm({
-                        name: 'header01'
+                        name: 'firstname'
                     });
                     expect(service.addElementToForm({
-                        name: 'header01'
+                        name: 'firstname'
                     })).toBe(true);
                 });
             });
 
             it('should update the element at the given index', () => {
                 service.getFormById('id').subscribe(form => {
-                    let index = _.findIndex(form.formHasField, obj => obj.name === 'header01');
+                    const index = _.findIndex(form.formHasField, obj => obj.name === 'firstname');
                     service.editElementOfForm({
-                        name: 'header01'
+                        name: 'firstname'
                     });
-                    expect(form.formHasField[index].fieldType).toEqual('h3');
+                    expect(form.formHasField[index].fieldType).toEqual('input');
                     service.addElementToForm({
-                        name: 'header01',
+                        name: 'firstname',
                         fieldType: 'h4'
                     });
                     expect(form.formHasField[index].fieldType).toEqual('h4');
@@ -448,7 +448,7 @@ describe('Service: Form', () => {
          * editingIndex: index
          * name: not unique
          */
-        describe('when it\' an existing element with different not unique name', () => {
+        describe('when it\'s an existing element with different not unique name', () => {
             let service: FormService;
 
             beforeEach(inject([FormService], (formService: FormService) => {
@@ -458,10 +458,10 @@ describe('Service: Form', () => {
             it('should return false', () => {
                 service.getFormById('id').subscribe(form => {
                     service.editElementOfForm({
-                        name: 'header01'
+                        name: 'firstname'
                     });
                     expect(service.addElementToForm({
-                        name: 'date'
+                        name: 'lastname'
                     })).toBe(false);
                 });
             });
@@ -531,7 +531,7 @@ describe('Service: Form', () => {
         it('should return the Field Config for the Edit Form Overlay if an id is given', () => {
             service.getFormById('id').subscribe(form => {
                 service.getEditFormTemplate('id').subscribe(fields => {
-                    expect(fields[0].value).toEqual('Titel der Form');
+                    expect(fields[0].value).toEqual('Notennachberechnung');
                 });
             });
         });
@@ -540,7 +540,7 @@ describe('Service: Form', () => {
     describe('saveFormAttributes', () => {
 
         let service: FormService;
-        let api: FormApi
+        let api: FormApi;
 
         beforeEach(inject([FormService, FormApi], (formService: FormService, formApi: FormApi) => {
             service = formService;
@@ -549,7 +549,7 @@ describe('Service: Form', () => {
 
         it('should save the attributes but keep required old ones', () => {
             service.getFormById('id').subscribe(form => {
-                let created = form.created;
+                const created = form.created;
                 service.saveFormAttributes({
                     title: 'New Title'
                 }).subscribe(result => {
@@ -563,7 +563,7 @@ describe('Service: Form', () => {
     describe('saveForm', () => {
 
         let service: FormService;
-        let api: FormApi
+        let api: FormApi;
 
         beforeEach(inject([FormService, FormApi], (formService: FormService, formApi: FormApi) => {
             service = formService;
