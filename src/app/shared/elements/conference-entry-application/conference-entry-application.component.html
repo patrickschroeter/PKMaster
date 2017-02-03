@@ -1,52 +1,56 @@
-<pk-list *ngIf="entry.entries && entry.entries.length && entry.fields && entry.fields.length">
-    <pk-list-header>
-        <div *ngFor="let field of entry.fields">
-            <pk-list-attribute [name]="field">{{ field }}</pk-list-attribute>
-        </div>
-    </pk-list-header>
-    <pk-list-content>
+<ng-container *ngIf="entry.entries && entry.entries.length && entry.fields && entry.fields.length">
+    <pk-list>
+        <pk-list-header>
+            <ng-container *ngFor="let field of entry.fields">
+                <pk-list-attribute [name]="field">{{ field }}</pk-list-attribute>
+            </ng-container>
+        </pk-list-header>
+        <pk-list-content>
 
-        <div *ngFor="let element of entry.entries">
+            <ng-container *ngFor="let element of entry.entries">
 
-            <pk-list-element [name]="element.status?.name">
+                <pk-list-element [name]="element.status?.name">
 
-                <div *ngFor="let field of entry.fields">
-                    <pk-list-attribute [name]="field">{{ element[field] }}</pk-list-attribute>
+                    <ng-container *ngFor="let field of entry.fields">
+                        <pk-list-attribute [name]="field">{{ element[field] }}</pk-list-attribute>
+                    </ng-container>
+
+                    <pk-floating horizontal top-right></pk-floating>
+
+                </pk-list-element>
+
+            </ng-container>
+
+        </pk-list-content>
+    </pk-list>
+</ng-container>
+
+<ng-container *ngIf="!entry.entries || !entry.entries.length">
+    <div class="empty-wrapper animation animation--trigger">
+        <ng-container *ngIf="!entry.formId">
+            <div class="label" i18n>No Generic Id selected</div>
+        </ng-container>
+        <ng-container *ngIf="entry.formId">
+            <div class="label" i18n>Connected Form: {{ getLabelOfForm(entry.formId) }}</div>
+            <ng-container *ngIf="entry.fields">
+                <div class="label element element--spacing-bottom-tiny element element--spacing-top-small" i18n>Selected Fields</div>
+                <div class="label">
+                    <ng-container *ngFor="let field of entry.fields; let last = last">
+                        <span>{{ field }}{{ last ? '': ', ' }}</span>
+                    </ng-container>
                 </div>
-
-                <pk-floating horizontal top-right></pk-floating>
-
-            </pk-list-element>
-
-        </div>
-
-    </pk-list-content>
-</pk-list>
-
-<div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper animation animation--trigger">
-    <div *ngIf="!entry.formId">
-        <div class="label" i18n>No Generic Id selected</div>
+            </ng-container>
+            <pk-floating horizontal top-right>
+                <pk-button
+                    class="element--spacing-left-tiny"
+                    rounded
+                    element--secondary
+                    i18n-pkAlert
+                    pkAlert="Edit Attributes"
+                    icon="create"
+                    (onClick)="editFormFields()">
+                </pk-button>
+            </pk-floating>
+        </ng-container>
     </div>
-    <div *ngIf="entry.formId">
-        <div class="label" i18n>Connected Form: {{ getLabelOfForm(entry.formId) }}</div>
-        <div *ngIf="entry.fields">
-            <div class="label element element--spacing-bottom-tiny element element--spacing-top-small" i18n>Selected Fields</div>
-            <div class="label">
-                <ng-container *ngFor="let field of entry.fields; let last = last">
-                    <span>{{ field }}{{ last ? '': ', ' }}</span>
-                </ng-container>
-            </div>
-        </div>
-        <pk-floating horizontal top-right>
-            <pk-button
-                class="element--spacing-left-tiny"
-                rounded
-                element--secondary
-                i18n-pkAlert
-                pkAlert="Edit Attributes"
-                icon="create"
-                (onClick)="editFormFields()">
-            </pk-button>
-        </pk-floating>
-    </div>
-</div>
+</ng-container>

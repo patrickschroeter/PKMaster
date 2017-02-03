@@ -1,19 +1,21 @@
-<div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper">
-    <div class="label" i18n>No Elements here.</div>
-</div>
+<ng-container *ngIf="!entry.entries || !entry.entries.length">
+    <div class="empty-wrapper">
+        <div class="label" i18n>No Elements here.</div>
+    </div>
+</ng-container>
 
-<div *ngIf="entry.entries && entry.entries.length">
+<ng-container *ngIf="entry.entries && entry.entries.length">
 
     <pk-list>
         <pk-list-content>
 
-            <div *ngFor="let element of entry.entries; let index = index">
+            <ng-container *ngFor="let element of entry.entries; let index = index">
 
                 <pk-list-element>
 
-                    <div *ngFor="let value of element; let last = last">
+                    <ng-container *ngFor="let value of element; let last = last">
                         <pk-list-attribute [name]="last ? 'last' : ''">{{ value }}</pk-list-attribute>
-                    </div>
+                    </ng-container>
 
                     <pk-floating horizontal top-right>
                         <pk-button
@@ -36,9 +38,9 @@
 
                 </pk-list-element>
 
-            </div>
+            </ng-container>
 
         </pk-list-content>
     </pk-list>
 
-</div>
+</ng-container>

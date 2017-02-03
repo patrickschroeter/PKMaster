@@ -1,100 +1,103 @@
 <div class="entry element element--spacing-bottom-small">
-    <div class="rel" *ngIf="entry">
+    <ng-container *ngIf="entry">
+        <div class="rel">
+            <div class="content">
 
-        <div class="content">
+                <div class="animation animation--trigger headline">
+                    <h4>{{ index }} {{ entry.title }}</h4>
+                    <pk-floating horizontal top-right>
+                        <pk-button
+                            class="element--spacing-left-tiny"
+                            rounded
+                            element--error
+                            i18n-pkAlert
+                            pkAlert="Remove Element"
+                            icon="delete"
+                            (onClick)="removeElement()">
+                        </pk-button>
+                        <pk-button
+                            class="element--spacing-left-tiny"
+                            rounded
+                            element--secondary
+                            i18n-pkAlert
+                            pkAlert="Edit Element"
+                            icon="create"
+                            (onClick)="openEditModal()">
+                        </pk-button>
 
-            <div class="animation animation--trigger headline">
-                <h4>{{ index }} {{ entry.title }}</h4>
-                <pk-floating horizontal top-right>
-                    <pk-button
-                        class="element--spacing-left-tiny"
-                        rounded
-                        element--error
-                        i18n-pkAlert
-                        pkAlert="Remove Element"
-                        icon="delete"
-                        (onClick)="removeElement()">
-                    </pk-button>
-                    <pk-button
-                        class="element--spacing-left-tiny"
-                        rounded
-                        element--secondary
-                        i18n-pkAlert
-                        pkAlert="Edit Element"
-                        icon="create"
-                        (onClick)="openEditModal()">
-                    </pk-button>
+                        <ng-container [ngSwitch]="entry.type">
+                            <!-- Config -->
+                            <ng-container *ngSwitchCase="'config'">
+                                <pk-button
+                                    class="element--spacing-left-tiny"
+                                    rounded
+                                    element--secondary
+                                    i18n-pkAlert
+                                    pkAlert="Add Config to Conference"
+                                    icon="playlist_add"
+                                    (onClick)="openEntryModal()">
+                                </pk-button>
+                            </ng-container>
 
-                    <div [ngSwitch]="entry.type">
-                        <!-- Config -->
-                        <div *ngSwitchCase="'config'">
-                            <pk-button
-                                class="element--spacing-left-tiny"
-                                rounded
-                                element--secondary
-                                i18n-pkAlert
-                                pkAlert="Add Config to Conference"
-                                icon="playlist_add"
-                                (onClick)="openEntryModal()">
-                            </pk-button>
-                        </div>
+                            <!-- Application -->
+                            <ng-container *ngSwitchCase="'application'">
+                                <pk-button
+                                    class="element--spacing-left-tiny"
+                                    rounded
+                                    element--secondary
+                                    i18n-pkAlert
+                                    pkAlert="Set Generic Id"
+                                    icon="list"
+                                    (onClick)="setFormIdModal()">
+                                </pk-button>
+                            </ng-container>
 
-                        <!-- Application -->
-                        <div *ngSwitchCase="'application'">
-                            <pk-button
-                                class="element--spacing-left-tiny"
-                                rounded
-                                element--secondary
-                                i18n-pkAlert
-                                pkAlert="Set Generic Id"
-                                icon="list"
-                                (onClick)="setFormIdModal()">
-                            </pk-button>
-                        </div>
+                            <!-- List -->
+                            <ng-container *ngSwitchCase="'list'">
+                                <pk-button
+                                    class="element--spacing-left-tiny"
+                                    rounded
+                                    element--secondary
+                                    i18n-pkAlert
+                                    pkAlert="Add Entry to List"
+                                    icon="playlist_add"
+                                    (onClick)="openListEntryModal()">
+                                </pk-button>
+                            </ng-container>
+                        </ng-container>
+                    </pk-floating>
+                </div>
 
-                        <!-- List -->
-                        <div *ngSwitchCase="'list'">
-                            <pk-button
-                                class="element--spacing-left-tiny"
-                                rounded
-                                element--secondary
-                                i18n-pkAlert
-                                pkAlert="Add Entry to List"
-                                icon="playlist_add"
-                                (onClick)="openListEntryModal()">
-                            </pk-button>
-                        </div>
-                    </div>
-                </pk-floating>
+                <div class="label element element--spacing-bottom-small" *ngIf="entry.description">{{ entry.description }}</div>
+
+                <ng-container [ngSwitch]="entry.type">
+                    <!-- Config -->
+                    <ng-container *ngSwitchCase="'config'">
+                        <pk-conference-entry-config [entry]="entry" [index]="index" [forms]="forms"></pk-conference-entry-config>
+                    </ng-container>
+
+                    <!-- Application -->
+                    <ng-container *ngSwitchCase="'application'">
+                        <pk-conference-entry-application [entry]="entry" [forms]="forms"></pk-conference-entry-application>
+                    </ng-container>
+
+                    <!-- List -->
+                    <ng-container *ngSwitchCase="'list'">
+                        <pk-conference-entry-list [entry]="entry"></pk-conference-entry-list>
+                    </ng-container>
+
+                    <!-- Default -->
+                    <ng-container *ngSwitchDefault>
+                        <ng-container *ngIf="entry.entries?.length">
+                            <div class="empty-wrapper">
+                                <div i18n>No Type of config set</div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+
+                <div class="caption element element--spacing-top-small" *ngIf="entry.footer">{{ entry.footer }}</div>
             </div>
-
-            <div class="label element element--spacing-bottom-small" *ngIf="entry.description">{{ entry.description }}</div>
-
-            <div [ngSwitch]="entry.type">
-                <!-- Config -->
-                <div *ngSwitchCase="'config'">
-                    <pk-conference-entry-config [entry]="entry" [index]="index" [forms]="forms"></pk-conference-entry-config>
-                </div>
-
-                <!-- Application -->
-                <div *ngSwitchCase="'application'">
-                    <pk-conference-entry-application [entry]="entry" [forms]="forms"></pk-conference-entry-application>
-                </div>
-
-                <!-- List -->
-                <div *ngSwitchCase="'list'">
-                    <pk-conference-entry-list [entry]="entry"></pk-conference-entry-list>
-                </div>
-
-                <!-- Default -->
-                <div *ngSwitchDefault>
-                    <div class="empty-wrapper" *ngIf="entry.entries?.length">
-                        <div i18n>No Type of config set</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="caption element element--spacing-top-small" *ngIf="entry.footer">{{ entry.footer }}</div>
         </div>
-    </div>
+    </ng-container>
 </div>
