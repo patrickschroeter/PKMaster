@@ -1,0 +1,9 @@
+<div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper">
+    <div class="label" i18n>No Elements here.</div>
+</div>
+
+<div *ngIf="entry.entries && entry.entries.length">
+    <div *ngFor="let entry of entry.entries; let i = index">
+        <pk-conference-entry [index]="index + '.' + (i + 1)" [entry]="entry" [forms]="forms" (remove)="removeElement($event)"></pk-conference-entry>
+    </div>
+</div>

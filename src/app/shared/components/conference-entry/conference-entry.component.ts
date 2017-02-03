@@ -8,9 +8,7 @@ import {
 } from './../../../core';
 import { ModalService, OverlayComponent } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
-import {
-    WindowService
-} from './../../';
+import { WindowService } from './../../';
 
 /** Models */
 import { ConferenceConfig, Selectable } from './../../../models';
@@ -172,18 +170,10 @@ export class ConferenceEntryComponent implements OnInit {
     }
 
     /**
-     * remove the given element from the config, if no element is given the element itself is removed from the parent
-     * @param {ConferenceConfig} [element]
+     * remove itself from the parent
      */
-    public removeElement(element?: ConferenceConfig<any>): void {
-        if (!element) {
-            this.remove.emit(this.entry);
-        } else {
-            const index = _.findIndex(this.entry.entries, obj => obj === element);
-            if (index !== -1) {
-                this.entry.entries.splice(index, 1);
-            }
-        }
+    public removeElement(): void {
+        this.remove.emit(this.entry);
     }
 
     /**

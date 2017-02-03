@@ -62,24 +62,7 @@
             <div [ngSwitch]="entry.type">
                 <!-- Config -->
                 <div *ngSwitchCase="'config'">
-
-                    <div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper">
-                        <div class="label" i18n>No Elements here.</div>
-                        <pk-button
-                            class="element--spacing-top-large"
-                            element--secondary
-                            i18n-value
-                            value="Add Config to Conference"
-                            icon="add"
-                            (onClick)="openEntryModal()">
-                        </pk-button>
-                    </div>
-
-                    <div *ngIf="entry.entries && entry.entries.length">
-                        <div *ngFor="let entry of entry.entries; let i = index">
-                            <pk-conference-entry [index]="index + '.' + (i + 1)" [entry]="entry" [forms]="forms" (remove)="removeElement($event)"></pk-conference-entry>
-                        </div>
-                    </div>
+                    <pk-conference-entry-config [entry]="entry" [index]="index" [forms]="forms"></pk-conference-entry-config>
                 </div>
 
                 <!-- Application -->
@@ -88,14 +71,6 @@
                     <div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper animation animation--trigger">
                         <div *ngIf="!entry.formId">
                             <div class="label" i18n>No Generic Id selected</div>
-                            <pk-button
-                                class="element--spacing-top-large"
-                                element--secondary
-                                i18n-value
-                                value="Set Generic Id"
-                                icon="insert_drive_file"
-                                (onClick)="setFormIdModal()">
-                            </pk-button>
                         </div>
                         <div *ngIf="entry.formId">
                             <div class="label" i18n>Connected Form: {{ getLabelOfForm(entry.formId) }}</div>
@@ -145,14 +120,6 @@
 
                     <div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper">
                         <div class="label" i18n>No Elements here.</div>
-                        <pk-button
-                            class="element--spacing-top-large"
-                            element--secondary
-                            i18n-value
-                            value="Add Entry to List"
-                            icon="add"
-                            (onClick)="openListEntryModal()">
-                        </pk-button>
                     </div>
 
                     <div *ngIf="entry.entries && entry.entries.length">
@@ -200,7 +167,9 @@
 
                 <!-- Default -->
                 <div *ngSwitchDefault>
-                    <div *ngIf="entry.entries?.length" i18n>No Type of config set</div>
+                    <div class="empty-wrapper" *ngIf="entry.entries?.length">
+                        <div i18n>No Type of config set</div>
+                    </div>
                 </div>
             </div>
 

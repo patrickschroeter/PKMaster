@@ -26,12 +26,14 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
         components.ModalAcceptApplicationComponent,
 
         components.ConferenceEntryComponent,
+        elements.ConferenceEntryConfigComponent,
+
         components.ModalAddConferenceEntryComponent,
         components.ModalAddConferenceListComponent,
 
         elements.LoadingComponent,
 
-        directives.AccessDirective,
+        directives.AccessDirective
 
     ],
     imports: [
@@ -59,6 +61,7 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
         components.ModalAcceptApplicationComponent,
 
         components.ConferenceEntryComponent,
+
         components.ModalAddConferenceEntryComponent,
         components.ModalAddConferenceListComponent,
 
