@@ -14,7 +14,7 @@
                     <ng-container *ngSwitchCase="'config'">
                         <ng-container *ngIf="entry.entries">
                             <ng-container *ngFor="let entry of entry.entries; trackBy: trackByFn; let i = index">
-                                <pk-conference-entry-detail [index]="index + 1" [entry]="entry"></pk-conference-entry-detail>
+                                <pk-conference-entry-detail [index]="index + '.' + (i + 1)" [entry]="entry"></pk-conference-entry-detail>
                             </ng-container>
                         </ng-container>
                     </ng-container>
