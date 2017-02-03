@@ -95,8 +95,8 @@ export class ModalAddConferenceEntryComponent implements OnInit, Window {
                         label: this.translationService.translate('conferenceElementApplication')
                     },
                     {
-                        value: 'table',
-                        label: this.translationService.translate('conferenceElementTable')
+                        value: 'list',
+                        label: this.translationService.translate('conferenceElementList')
                     }
                 ]
             }

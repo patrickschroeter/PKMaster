@@ -24,36 +24,47 @@
                         icon="create"
                         (onClick)="openEditModal()">
                     </pk-button>
-                    <pk-button
-                        *ngIf="entry.type === 'config'"
-                        class="element--spacing-left-tiny"
-                        rounded
-                        element--secondary
-                        i18n-pkAlert
-                        pkAlert="Add Config to Conference"
-                        icon="playlist_add"
-                        (onClick)="openEntryModal()">
-                    </pk-button>
-                    <pk-button
-                        *ngIf="entry.type === 'table'"
-                        class="element--spacing-left-tiny"
-                        rounded
-                        element--secondary
-                        i18n-pkAlert
-                        pkAlert="Add Entry to Table"
-                        icon="playlist_add"
-                        (onClick)="openListEntryModal()">
-                    </pk-button>
-                    <pk-button
-                        *ngIf="entry.type === 'application'"
-                        class="element--spacing-left-tiny"
-                        rounded
-                        element--secondary
-                        i18n-pkAlert
-                        pkAlert="Set Generic Id"
-                        icon="insert_drive_file"
-                        (onClick)="setFormIdModal()">
-                    </pk-button>
+
+                    <div [ngSwitch]="entry.type">
+                        <!-- Config -->
+                        <div *ngSwitchCase="'config'">
+                            <pk-button
+                                class="element--spacing-left-tiny"
+                                rounded
+                                element--secondary
+                                i18n-pkAlert
+                                pkAlert="Add Config to Conference"
+                                icon="playlist_add"
+                                (onClick)="openEntryModal()">
+                            </pk-button>
+                        </div>
+
+                        <!-- Application -->
+                        <div *ngSwitchCase="'application'">
+                            <pk-button
+                                class="element--spacing-left-tiny"
+                                rounded
+                                element--secondary
+                                i18n-pkAlert
+                                pkAlert="Set Generic Id"
+                                icon="list"
+                                (onClick)="setFormIdModal()">
+                            </pk-button>
+                        </div>
+
+                        <!-- List -->
+                        <div *ngSwitchCase="'list'">
+                            <pk-button
+                                class="element--spacing-left-tiny"
+                                rounded
+                                element--secondary
+                                i18n-pkAlert
+                                pkAlert="Add Entry to List"
+                                icon="playlist_add"
+                                (onClick)="openListEntryModal()">
+                            </pk-button>
+                        </div>
+                    </div>
                 </pk-floating>
             </div>
 
@@ -67,52 +78,7 @@
 
                 <!-- Application -->
                 <div *ngSwitchCase="'application'">
-
-                    <div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper animation animation--trigger">
-                        <div *ngIf="!entry.formId">
-                            <div class="label" i18n>No Generic Id selected</div>
-                        </div>
-                        <div *ngIf="entry.formId">
-                            <div class="label" i18n>Connected Form: {{ getLabelOfForm(entry.formId) }}</div>
-                            <pk-floating horizontal top-right>
-                                <pk-button
-                                    class="element--spacing-left-tiny"
-                                    rounded
-                                    element--secondary
-                                    i18n-pkAlert
-                                    pkAlert="Edit Attributes"
-                                    icon="create"
-                                    (onClick)="editFormFields()">
-                                </pk-button>
-                            </pk-floating>
-                        </div>
-                    </div>
-
-                    <pk-list *ngIf="entry.entries && entry.entries.length">
-                        <pk-list-header>
-                            <div *ngFor="let field of entry.fields">
-                                <pk-list-attribute [name]="field">{{ field }}</pk-list-attribute>
-                            </div>
-                        </pk-list-header>
-                        <pk-list-content>
-
-                            <div *ngFor="let element of entry.entries">
-
-                                <pk-list-element [name]="element.status?.name">
-
-                                    <div *ngFor="let field of entry.fields">
-                                        <pk-list-attribute [name]="field">{{ element[field] }}</pk-list-attribute>
-                                    </div>
-
-                                    <pk-floating horizontal top-right></pk-floating>
-
-                                </pk-list-element>
-
-                            </div>
-
-                        </pk-list-content>
-                    </pk-list>
-
+                    <pk-conference-entry-application [entry]="entry" [forms]="forms"></pk-conference-entry-application>
                 </div>
 
                 <!-- List -->

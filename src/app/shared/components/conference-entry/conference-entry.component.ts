@@ -33,8 +33,6 @@ export class ConferenceEntryComponent implements OnInit {
     @Input() entry: ConferenceConfig<any>;
     @Output() remove: EventEmitter<ConferenceConfig<any>> = new EventEmitter();
 
-    private formLabel: string;
-
     private numberOfListFields: number;
 
     constructor(
@@ -108,7 +106,6 @@ export class ConferenceEntryComponent implements OnInit {
      */
     private setFormId(data: Selectable): void {
         this.entry.formId = data.value;
-        this.formLabel = undefined;
         this.modalService.destroyModal();
     }
 
@@ -200,29 +197,6 @@ export class ConferenceEntryComponent implements OnInit {
             this.entry.entries = [];
             this.setNumberOfListFields();
         }
-    }
-
-    /**
-     * gets the label of the form with the given id
-     * @param {String} id
-     */
-    public getLabelOfForm(id: string): string {
-        if (this.formLabel) { return this.formLabel; }
-        if (!this.forms) { return this.formLabel; }
-        for (let i = 0, length = this.forms.length; i < length; i++) {
-            const form = this.forms[i];
-            if (form.value === id) {
-                return this.formLabel = form.label;
-            }
-        }
-        return this.formLabel;
-    }
-
-    /**
-     * edit the displayed form fields
-     */
-    public editFormFields() {
-        console.error('TODO');
     }
 
 }

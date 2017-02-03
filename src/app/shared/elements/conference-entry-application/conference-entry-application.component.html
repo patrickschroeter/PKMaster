@@ -1,0 +1,44 @@
+<div *ngIf="!entry.entries || !entry.entries.length" class="empty-wrapper animation animation--trigger">
+    <div *ngIf="!entry.formId">
+        <div class="label" i18n>No Generic Id selected</div>
+    </div>
+    <div *ngIf="entry.formId">
+        <div class="label" i18n>Connected Form: {{ getLabelOfForm(entry.formId) }}</div>
+        <pk-floating horizontal top-right>
+            <pk-button
+                class="element--spacing-left-tiny"
+                rounded
+                element--secondary
+                i18n-pkAlert
+                pkAlert="Edit Attributes"
+                icon="create"
+                (onClick)="editFormFields()">
+            </pk-button>
+        </pk-floating>
+    </div>
+</div>
+
+<pk-list *ngIf="entry.entries && entry.entries.length">
+    <pk-list-header>
+        <div *ngFor="let field of entry.fields">
+            <pk-list-attribute [name]="field">{{ field }}</pk-list-attribute>
+        </div>
+    </pk-list-header>
+    <pk-list-content>
+
+        <div *ngFor="let element of entry.entries">
+
+            <pk-list-element [name]="element.status?.name">
+
+                <div *ngFor="let field of entry.fields">
+                    <pk-list-attribute [name]="field">{{ element[field] }}</pk-list-attribute>
+                </div>
+
+                <pk-floating horizontal top-right></pk-floating>
+
+            </pk-list-element>
+
+        </div>
+
+    </pk-list-content>
+</pk-list>

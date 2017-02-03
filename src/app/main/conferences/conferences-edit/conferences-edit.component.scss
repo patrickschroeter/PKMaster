@@ -5,9 +5,11 @@
     flex-direction: column-reverse;
 }
 
-.empty-wrapper {
-    padding: 2rem;
-    margin: 1rem 0;
-    border: 1px solid $guidance-color;
-    position: relative;
+#conference-edit {
+    .empty-wrapper, /deep/ .empty-wrapper {
+        padding: 2rem;
+        margin: 1rem 0;
+        border: 1px solid $guidance-color;
+        position: relative;
+    }
 }
