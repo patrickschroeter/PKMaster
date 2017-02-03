@@ -60,7 +60,6 @@ export class ModalOutletComponent implements OnInit {
         const component = factory.create(injector);
 
         this.component = component;
-        console.log(component);
 
         // We insert the component into the dom container
         this.outlet.clear();
