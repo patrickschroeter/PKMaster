@@ -490,6 +490,14 @@
         <source>Create New Form</source>
         <target>Create New Form</target>
       </trans-unit>
+      <trans-unit id="f261dce7aeb8ea3369a29227ff846efb409ccf6e" datatype="html">
+        <source>Username or Password is wrong</source>
+        <target>Username or Password is wrong</target>
+      </trans-unit>
+      <trans-unit id="b2ee444cf5f5b86bb0b2b16a68ec78e5c96891d8" datatype="html">
+        <source>Duplicate Conference</source>
+        <target>Duplicate Conference</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

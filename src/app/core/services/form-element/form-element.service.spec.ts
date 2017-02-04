@@ -1,6 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
+import { EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Observable, Observer } from 'rxjs/Rx';
 import * as _ from 'lodash';
@@ -823,16 +824,15 @@ describe('Service: FormElement', () => {
 
     describe('constructor()', () => {
         let form: FormService;
-        let observer: Observer<Field>;
+        let observer: EventEmitter<Field>;
 
         beforeEach(
             inject([FormService], (formService: FormService) => {
             form = formService;
 
-            form.onEditElement = function (): Observable<Field> {
-                return new Observable((obs: Observer<Field>) => {
-                    observer = obs;
-                });
+            observer = new EventEmitter();
+            form.onEditElement = function (): EventEmitter<Field> {
+                return observer;
             };
         }));
 
@@ -845,7 +845,7 @@ describe('Service: FormElement', () => {
                 service.getElementPreview().subscribe(result => { preview = result; });
                 element = styles = validations = preview = null;
 
-                observer.next(0); tick(600);
+                observer.emit(0); tick(600);
 
                 expect(element.length).toEqual(1);
                 expect(styles).toBe(false);
@@ -854,7 +854,7 @@ describe('Service: FormElement', () => {
 
                 element = styles = validations = preview = null;
 
-                observer.next(false); tick(600);
+                observer.emit(false); tick(600);
 
                 expect(element.length).toEqual(1);
                 expect(styles).toBe(false);
@@ -863,7 +863,7 @@ describe('Service: FormElement', () => {
 
                 element = styles = validations = preview = null;
 
-                observer.next(null); tick(600);
+                observer.emit(null); tick(600);
 
                 expect(element.length).toEqual(1);
                 expect(styles).toBe(false);
@@ -872,7 +872,7 @@ describe('Service: FormElement', () => {
 
                 element = styles = validations = preview = null;
 
-                observer.next(undefined); tick(600);
+                observer.emit(undefined); tick(600);
 
                 expect(element.length).toEqual(1);
                 expect(styles).toBe(false);
@@ -881,7 +881,7 @@ describe('Service: FormElement', () => {
 
                 element = styles = validations = preview = null;
 
-                observer.next(''); tick(600);
+                observer.emit(''); tick(600);
 
                 expect(element.length).toEqual(1);
                 expect(styles).toBe(false);
@@ -895,7 +895,7 @@ describe('Service: FormElement', () => {
             spyOn(service, 'editExistingElement').and.returnValue(false);
             spyOn(form, 'editElementError');
 
-            observer.next(1);
+            observer.emit(1);
 
             expect(form.editElementError).toHaveBeenCalled();
         }));
@@ -903,42 +903,42 @@ describe('Service: FormElement', () => {
         it('should log an error when trying to edit an element if no types are loaded',
             inject([FormElementService], (service: FormElementService) => {
             spyOn(console, 'error');
-            observer.next(1);
+            observer.emit(1);
             expect(console.error).toHaveBeenCalled();
         }));
 
         it('should fail editing an element when recieving a number',
             fakeAsync(inject([FormElementService], (service: FormElementService) => {
             spyOn(form, 'editElementError'); tick(600);
-            observer.next(1);
+            observer.emit(1);
             expect(form.editElementError).toHaveBeenCalled();
         })));
 
         it('should fail editing an element when recieving a string',
             fakeAsync(inject([FormElementService], (service: FormElementService) => {
             spyOn(form, 'editElementError'); tick(600);
-            observer.next('value');
+            observer.emit('value');
             expect(form.editElementError).toHaveBeenCalled();
         })));
 
         it('should fail editing an element when recieving an empty array',
             fakeAsync(inject([FormElementService], (service: FormElementService) => {
             spyOn(form, 'editElementError'); tick(600);
-            observer.next([]);
+            observer.emit([]);
             expect(form.editElementError).toHaveBeenCalled();
         })));
 
         it('should fail editing an element when recieving an empty object',
             fakeAsync(inject([FormElementService], (service: FormElementService) => {
             spyOn(form, 'editElementError'); tick(600);
-            observer.next({});
+            observer.emit({});
             expect(form.editElementError).toHaveBeenCalled();
         })));
 
         it('should fail editing an element if the FieldType is not supported',
             fakeAsync(inject([FormElementService], (service: FormElementService) => {
             spyOn(form, 'editElementError'); tick(600);
-            observer.next({
+            observer.emit({
                 fieldType: '0'
             });
             expect(form.editElementError).toHaveBeenCalled();
@@ -947,7 +947,7 @@ describe('Service: FormElement', () => {
         it('should not fail editing an element when the FieldType is supported',
             fakeAsync(inject([FormElementService], (service: FormElementService) => {
             spyOn(form, 'editElementError'); tick(600);
-            observer.next({
+            observer.emit({
                 fieldType: 'input'
             }); tick(600);
             expect(form.editElementError).not.toHaveBeenCalled();
@@ -963,7 +963,7 @@ describe('Service: FormElement', () => {
 
                 expect(element.length).toEqual(1);
 
-                observer.next({
+                observer.emit({
                     fieldType: 'input'
                 }); tick(600);
 
@@ -982,7 +982,7 @@ describe('Service: FormElement', () => {
                     hasSubmit = result;
                 });
 
-                observer.next({
+                observer.emit({
                     fieldType: 'input'
                 }); tick(600);
 
@@ -1000,7 +1000,7 @@ describe('Service: FormElement', () => {
                     styles = result;
                 });
 
-                observer.next({
+                observer.emit({
                     fieldType: 'input',
                     styles: ['small']
                 }); tick(600);
@@ -1019,7 +1019,7 @@ describe('Service: FormElement', () => {
                     validation = result;
                 });
 
-                observer.next({
+                observer.emit({
                     fieldType: 'input',
                     validations: ['small']
                 }); tick(600);
@@ -1036,7 +1036,7 @@ describe('Service: FormElement', () => {
                     element = result;
                 });
 
-                observer.next({
+                observer.emit({
                     fieldType: 'input',
                     styles: ['invalid']
                 }); tick(600);
@@ -1053,7 +1053,7 @@ describe('Service: FormElement', () => {
                     element = result;
                 });
 
-                observer.next({
+                observer.emit({
                     fieldType: 'input',
                     validations: ['small']
                 }); tick(600);
@@ -1070,7 +1070,7 @@ describe('Service: FormElement', () => {
                     element = result;
                 });
 
-                observer.next({
+                observer.emit({
                     fieldType: 'select',
                     options: [{ value: 'a', label: 'b'}]
                 }); tick(600);
@@ -1087,7 +1087,7 @@ describe('Service: FormElement', () => {
                     element = result;
                 });
 
-                observer.next({
+                observer.emit({
                     fieldType: 'select',
                     optionTable: 'fakultaet',
                     options: [{ value: 'a', label: 'b'}]

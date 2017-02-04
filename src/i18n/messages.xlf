@@ -62,22 +62,6 @@
         <source>No Elements here.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="742324d6c9e06b9b1600827dca88a5bab01238cd" datatype="html">
-        <source>No Generic Id selected</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="cb1a39bb121bdd9082851c42be38e2f0978e5eee" datatype="html">
-        <source>Connected Form: <x id="INTERPOLATION"/></source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="6fe81aa5b37f4ca03cfe9bb86215958f789072ad" datatype="html">
-        <source>Selected Fields</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="fa9c37861c6d25c8e800a9b39f1c61deecd9a7ee" datatype="html">
-        <source>Edit Attributes</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="66012dd73a20ef944c574b38418b8501c6493919" datatype="html">
         <source>Delete Element</source>
         <target/>
@@ -108,6 +92,18 @@
       </trans-unit>
       <trans-unit id="1d330d2c3e76b7ebf4823ff57326819a18ad80f0" datatype="html">
         <source>No Fields selected</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="81b97b8ea996ad1e4f9fca8415021850214884b1" datatype="html">
+        <source>Status</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="d7293b61e9088c66421df2e367e0ccc00346cf9f" datatype="html">
+        <source>Author</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1587b365ccf74063009707819c7b2e34d8633f8b" datatype="html">
+        <source>Accept/Decline Application</source>
         <target/>
       </trans-unit>
       <trans-unit id="6186a27f1d8d9854f8790c7db85aa63aced506ca" datatype="html">
@@ -250,6 +246,10 @@
         <source>Add Role to User</source>
         <target/>
       </trans-unit>
+      <trans-unit id="f261dce7aeb8ea3369a29227ff846efb409ccf6e" datatype="html">
+        <source>Username or Password is wrong</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="6765b4c916060f6bc42d9bb69e80377dbcb5e4e9" datatype="html">
         <source>Login</source>
         <target/>
@@ -298,24 +298,12 @@
         <source>Add application to conference</source>
         <target/>
       </trans-unit>
-      <trans-unit id="1587b365ccf74063009707819c7b2e34d8633f8b" datatype="html">
-        <source>Accept/Decline Application</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="08aa41e861400dd6a1924fe17c978b24220b1b46" datatype="html">
         <source>No Applications here.</source>
         <target/>
       </trans-unit>
       <trans-unit id="47987d7fd20de87ffd59a1e34db59dcd54962a25" datatype="html">
         <source>Create New Application</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="81b97b8ea996ad1e4f9fca8415021850214884b1" datatype="html">
-        <source>Status</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="d7293b61e9088c66421df2e367e0ccc00346cf9f" datatype="html">
-        <source>Author</source>
         <target/>
       </trans-unit>
       <trans-unit id="e540a086395ced257d9fa5320242a39325b64f90" datatype="html">
@@ -384,6 +372,10 @@
       </trans-unit>
       <trans-unit id="02969438a91ab2201026e0f585ac971cb6f59338" datatype="html">
         <source>Room</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="b2ee444cf5f5b86bb0b2b16a68ec78e5c96891d8" datatype="html">
+        <source>Duplicate Conference</source>
         <target/>
       </trans-unit>
       <trans-unit id="d500243572af7b8ce80f8069c4eaa1a4a8cb84b0" datatype="html">
