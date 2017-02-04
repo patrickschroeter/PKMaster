@@ -27,7 +27,7 @@ export class ModalOutletComponent implements OnInit {
 
     @ViewChild('outlet', { read: ViewContainerRef }) outlet: ViewContainerRef;
 
-    private componentData;
+    private component: any;
 
     constructor(
         private resolver: ComponentFactoryResolver,
@@ -38,6 +38,11 @@ export class ModalOutletComponent implements OnInit {
         this.modalService.register(this);
     }
 
+    /**
+     * create a component of the class
+     * @param {Object} componentData
+     * @param {Class} componentClass
+     */
     public createComponent(componentData: Object, componentClass) {
         // Inputs need to be in the following format to be resolved properly
         const inputProviders = Object.keys(componentData).map(
@@ -54,6 +59,8 @@ export class ModalOutletComponent implements OnInit {
         // We create the component using the factory and the injector
         const component = factory.create(injector);
 
+        this.component = component;
+
         // We insert the component into the dom container
         this.outlet.clear();
         this.outlet.insert(component.hostView);
@@ -61,6 +68,16 @@ export class ModalOutletComponent implements OnInit {
 
     public destroy() {
         this.outlet.clear();
+    }
+
+    /**
+     * update the selected values
+     * @param {String[]} values
+     */
+    public updateSelectedValues(values: string[]): void {
+        if (this.component && this.component.instance) {
+            this.component.instance.selectedValues = values;
+        }
     }
 
 }

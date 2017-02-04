@@ -1,0 +1,111 @@
+<div class="entry element element--spacing-bottom-small">
+    <ng-container *ngIf="entry">
+        <div class="rel">
+            <div class="content">
+
+                <div class="animation animation--trigger headline">
+                    <h4>{{ index }} {{ entry.title }}</h4>
+                </div>
+
+                <div class="label element element--spacing-bottom-small" *ngIf="entry.description">{{ entry.description }}</div>
+
+                <ng-container [ngSwitch]="entry.type">
+                    <!-- Config -->
+                    <ng-container *ngSwitchCase="'config'">
+                        <ng-container *ngIf="entry.entries">
+                            <ng-container *ngFor="let entry of entry.entries; trackBy: trackByFn; let i = index">
+                                <pk-conference-entry-detail [index]="index + 1" [entry]="entry"></pk-conference-entry-detail>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+
+                    <!-- Application -->
+                    <ng-container *ngSwitchCase="'application'">
+                        <ng-container *ngIf="!entry.fields">
+                            <div class="label" i18n>No Fields selected</div>
+                        </ng-container>
+                        <ng-container *ngIf="entry.entries && entry.fields">
+                            <pk-list>
+                                <pk-list-header>
+                                    <ng-container *ngFor="let field of entry.fields">
+                                        <pk-list-attribute [name]="field">{{ field }}</pk-list-attribute>
+                                    </ng-container>
+                                </pk-list-header>
+                                <pk-list-content>
+
+                                    <ng-container *ngFor="let element of entry.entries">
+
+                                        <pk-list-element [name]="element.status?.name">
+
+                                            <ng-container *ngFor="let field of entry.fields">
+                                                <pk-list-attribute [name]="field">{{ element[field] }}</pk-list-attribute>
+                                            </ng-container>
+
+                                            <pk-floating horizontal top-right></pk-floating>
+
+                                        </pk-list-element>
+
+                                    </ng-container>
+
+                                </pk-list-content>
+                            </pk-list>
+                        </ng-container>
+                    </ng-container>
+
+                    <!-- List -->
+                    <ng-container *ngSwitchCase="'list'">
+                        <ng-container *ngIf="entry.entries">
+                            <pk-list>
+                                <pk-list-content>
+
+                                    <ng-container *ngFor="let element of entry.entries; let index = index">
+
+                                        <pk-list-element>
+
+                                            <ng-container *ngFor="let value of element; let last = last">
+                                                <pk-list-attribute [name]="last ? 'last' : ''">{{ value }}</pk-list-attribute>
+                                            </ng-container>
+
+                                            <pk-floating horizontal top-right>
+                                                <pk-button
+                                                    rounded
+                                                    element--error
+                                                    i18n-pkAlert
+                                                    pkAlert="Delete Element"
+                                                    icon="delete"
+                                                    (onClick)="deleteListEntry(index)">
+                                                </pk-button>
+                                                <pk-button
+                                                    rounded
+                                                    element--secondary
+                                                    i18n-pkAlert
+                                                    pkAlert="Edit Element"
+                                                    icon="create"
+                                                    (onClick)="openEditListEntryModal(element, index)">
+                                                </pk-button>
+                                            </pk-floating>
+
+                                        </pk-list-element>
+
+                                    </ng-container>
+
+                                </pk-list-content>
+                            </pk-list>
+                        </ng-container>
+                    </ng-container>
+
+                    <!-- Default -->
+                    <ng-container *ngSwitchDefault>
+                        <ng-container *ngIf="entry.entries?.length">
+                            <div class="empty-wrapper">
+                                <div i18n>No Type of config set</div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+
+                <div class="caption element element--spacing-top-small" *ngIf="entry.footer">{{ entry.footer }}</div>
+            </div>
+        </div>
+    </ng-container>
+</div>

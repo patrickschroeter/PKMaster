@@ -12,9 +12,9 @@ export class ConferenceEndpoint {
     constructor() { }
 
 
-    public addApplicationToConference(conferenceId: number, token?: number, application?: number, extraHttpRequestParams?: any):
+    public addApplicationToConference(conferenceId: string, token?: number, application?: Application, extraHttpRequestParams?: any):
         Observable<Conference> {
-        return new Observable(observer => { observer.next({ id: conferenceId }); });
+        return this.observe(this._addApplication(conferenceId, application));
     }
 
     public addConference(token?: number, conference?: Conference, extraHttpRequestParams?: any): Observable<Conference> {
@@ -37,8 +37,8 @@ export class ConferenceEndpoint {
         return new Observable(observer => { observer.next({ id: conferenceId }); });
     }
 
-    public deleteConferenceById(conferenceId: number, token?: number, extraHttpRequestParams?: any): Observable<{}> {
-        return new Observable(observer => { observer.next({ id: conferenceId }); });
+    public deleteConferenceById(conferenceId: string, token?: number, extraHttpRequestParams?: any): Observable<{}> {
+        return this.observe(this._delete(conferenceId));
     }
 
     public getApplicationsByConference(conferenceId: number, token?: number, extraHttpRequestParams?: any): Observable<Array<Application>> {
@@ -75,9 +75,22 @@ export class ConferenceEndpoint {
         });
     }
 
-    public updateConferenceById(conferenceId: number, token?: number, conference?: Conference, extraHttpRequestParams?: any):
+    public updateConferenceById(conferenceId: string, token?: number, conference?: Conference, extraHttpRequestParams?: any):
         Observable<Conference> {
-        return new Observable(observer => { observer.next({ id: conferenceId }); });
+        const param = this._conferenceUpdate(conferenceId, conference);
+        return this.observe(param);
+    }
+
+    /**
+     * Helper observer
+     */
+    private observe<T>(obj: T): Observable<T> {
+        return new Observable<T>((observer: Observer<T>) => {
+            setTimeout(() => {
+                observer.next(obj);
+                observer.complete();
+            }, 500);
+        });
     }
 
     /**
@@ -117,7 +130,7 @@ export class ConferenceEndpoint {
         return JSON.parse(JSON.stringify(result));
     }
 
-    private _conferenceUpdate(id: string, conference: Conference) {
+    private _conferenceUpdate(id: string, conference: Conference): Conference {
         const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id) {
@@ -126,6 +139,37 @@ export class ConferenceEndpoint {
             }
         }
         return null;
+    }
+
+    private _delete(id: string): boolean {
+        let index = -1;
+        for (let i = 0, length = this._list.length; i < length; i++) {
+            const element = this._list[i];
+            if (element.id === id) {
+                index = i;
+            }
+        }
+        if (index === -1) {
+            return false;
+        } else {
+            this._list.splice(index, 1);
+            return true;
+        }
+    }
+
+    private _addApplication(id: string, application: Application): Conference {
+        const conference: Conference = this._conference(id);
+        let index = -1;
+        for (let i = 0, length = conference.applications.length; i < length; i++) {
+            const element = conference.applications[i];
+            if (element.id === application.id) {
+                index = i;
+            }
+        }
+        if (index === -1) {
+            conference.applications.push(application);
+        }
+        return this._conferenceUpdate(conference.id, conference);
     }
 
 }

@@ -1,4 +1,17 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
+import { Router } from '@angular/router';
+
+/** Services */
+import {
+    RoleService,
+    PermissionService
+} from './../../core';
+
+/** Models */
+import { Role } from './../../swagger';
+
+/** Decorators */
+import { Access } from './../../shared';
 
 @Component({
     selector: 'pk-roles',
@@ -14,69 +27,44 @@ export class RolesComponent implements OnInit {
     set newRole(value) { this._newRole = value; }
     get newRole() { return this._newRole; }
 
-    constructor() { }
+    constructor(
+        private roleService: RoleService,
+        private permission: PermissionService,
+        private router: Router
+    ) { }
 
     ngOnInit() {
         this.newRole = [
             {
                 fieldType: 'input',
-                name: 'title',
+                name: 'name',
                 label: 'Role Name:',
-                value: '',
-                required: true,
-                validations: [
-                    'minLength'
-                ]
+                required: true
             }
         ];
-        this.roles = [
-            {
-                title: 'Student',
-                id: 1,
-                created: 674467500,
-                restricted: true
-            },
-            {
-                title: 'Dozent',
-                id: 2,
-                created: 1315382700,
-                restricted: false
-            },
-            {
-                title: 'PK Member',
-                id: 3,
-                created: 1455613500,
-                restricted: true
-            },
-            {
-                title: 'PK Chef',
-                id: 4,
-                created: 1477555500,
-                restricted: false
-            },
-            {
-                title: 'Admin',
-                id: 4,
-                created: 1477555500,
-                restricted: false
-            }
-        ];
+
+        this.getRoles();
     }
 
     /**
-     * Sort roles by value
-     * @param {String} sortValue
+     * Catch all roles from server
      */
-    sortBy(sortValue: string) {
-        // TODO
+    @Access('ReadRoles')
+    private getRoles(): void {
+        this.roleService.getRoles().subscribe(roles => {
+            this.roles = roles;
+        });
     }
 
     /**
      * Create a new Role
      * @param {Object} form
      */
-    createNewRole(form) {
-        // TODO: create new role
+    @Access('EditRoles')
+    createNewRole(role: Role) {
+        this.roleService.addRole(role).subscribe(result => {
+            this.router.navigate(['admin', 'roles', result.id]);
+        });
     }
 
 }

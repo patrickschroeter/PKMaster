@@ -10,7 +10,7 @@ export class OverlayComponent implements OnInit {
 
     @HostBinding('class.overlay') overlay = true;
 
-    public isOpen: boolean = false;
+    public isOpen = false;
 
     @Output() close: EventEmitter<any> = new EventEmitter();
 
@@ -26,6 +26,10 @@ export class OverlayComponent implements OnInit {
     ngOnInit() {
     }
 
+    /**
+     * toggle the state of the overlay, or set the value
+     * @param {Boolean} [state]
+     */
     public toggle(state?: boolean) {
         if (typeof state === 'undefined') {
             this.isOpen = !this.isOpen;

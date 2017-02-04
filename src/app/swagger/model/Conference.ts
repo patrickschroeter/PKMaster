@@ -24,6 +24,7 @@
 
 'use strict';
 import * as models from './models';
+import { ConferenceConfig } from './../../models';
 
 export interface Conference {
 
@@ -39,8 +40,10 @@ export interface Conference {
     // custom
     applications?: Array<models.Application>;
 
-    startOfEvent?: number;
-    endOfEvent?: number;
+    startOfEvent?: string;
+    endOfEvent?: string;
     roomOfEvent?: string;
     numberOfConference?: number;
+
+    config?: ConferenceConfig<any>[];
 }

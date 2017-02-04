@@ -9,7 +9,8 @@ import {
 } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
-import { Field } from './../../../swagger';
+/** Models */
+import { Field, Form } from './../../../swagger';
 
 @Component({
     selector: 'pk-forms-edit',
@@ -25,7 +26,7 @@ export class FormsEditComponent implements OnInit {
     @ViewChild('overlayAttributes') overlayAttributes: OverlayComponent;
 
     /** The form to edit */
-    private _form;
+    private _form: Form;
     get form() { return this._form; }
     set form(form) { this._form = form; }
     /** The form to edit the Form attributes */
@@ -150,6 +151,9 @@ export class FormsEditComponent implements OnInit {
     saveFormAttributes(form): void {
         this.formService.saveFormAttributes(form).subscribe(success => {
             if (success) {
+                /** TODO */
+                this.form.title = success.title;
+                this.form.restrictedAccess = success.restrictedAccess;
                 this.overlayAttributes.toggle(false);
                 this.alert.setSuccessHint('form_attribute_saved', this.translationService.translate('savedFormAttributes'));
             }
@@ -162,6 +166,7 @@ export class FormsEditComponent implements OnInit {
      */
     saveForm(): void {
         this.formService.saveForm().subscribe(form => {
+            console.log(JSON.stringify(form));
             this.alert.setSuccessHint('saveForm', this.translationService.translate('savedForm'));
             this.router.navigate(['forms']);
         });

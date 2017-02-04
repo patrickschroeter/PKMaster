@@ -55,7 +55,7 @@
         }
 
         &.list-element__attribute--name {
-            flex: 1;
+            flex: 2;
             transition: color .3s ease-in-out;
         }
 
@@ -64,9 +64,11 @@
         &.list-element__attribute--conference,
         &.list-element__attribute--date,
         &.list-element__attribute--modified,
+        &.list-element__attribute--description,
         &.list-element__attribute--version {
             @extend .font_smaller;
             line-height: 23px;
+            flex: 1;
         }
         &.list-element__attribute--conference,
         &.list-element__attribute--date,
@@ -101,6 +103,7 @@
             }
         }
 
+        &.list-element__attribute--description,
         &.list-element__attribute--modified {
             @media (max-width: 500px) {
                 display: none;
@@ -162,58 +165,10 @@
 .list {
     :not(.list__header) {
         // Button Animation
-
-        $delta-t: 0.1;
         transition: background .3s ease-in-out, border-color .3s ease-in-out;
 
         .list-element:hover {
             background: $white;
-            .floating {
-                visibility: visible;
-                transition-delay: 0s;
-                > * {
-                    transform: translateX(-15px);
-                    visibility: visible;
-                    opacity: 1;
-                }
-                @for $i from 1 through 4 {
-                    > *:first-child:nth-last-child(#{$i}),
-                    > *:first-child:nth-last-child(#{$i}) ~ * {
-                        @for $j from 1 through $i {
-                            &:nth-child(#{$j}) {
-                                transform: scale(1) translateX(-12px);
-                                transition-delay: #{$delta-t * ($i + 1 - $j) + 0.1}s;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        .floating {
-            visibility: hidden;
-            transition: visibility .5s linear .5s;
-            > * {
-                position: relative;
-                visibility: hidden;
-                opacity: 0;
-                transform-origin: center;
-                transform: scale(0.9);
-            }
-            @for $i from 1 through 4 {
-                > *:first-child:nth-last-child(#{$i}),
-                > *:first-child:nth-last-child(#{$i}) ~ * {
-                    @for $j from 1 through $i {
-                        &:nth-child(#{$j}) {
-                            left: 12px;
-                            transition:
-                                opacity .3s ease-in-out #{ $delta-t * $j + 0.0 }s,
-                                visibility .3s linear #{ $delta-t * $j + 0.3 }s,
-                                transform .3s ease-in-out #{ $delta-t * $j + 0 }s;
-                        }
-                    }
-                }
-            }
         }
     }
 }

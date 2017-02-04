@@ -6,9 +6,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { Access } from './';
 
-import { AlertModule } from './../../modules/alert/alert.module';
+import { TranslationProviderMock } from './../../modules/translation/translation.module';
 import { AlertService } from './../../modules/alert';
 import { PermissionService, PermissionMock } from './../../core';
+
+import { PermissionEndpoint } from './../../core/services/api/PermissionEndpoint';
+import { PermissionApiMock } from './../../core/services/api/PermissionApi.mock';
 
 @Injectable()
 class TestService {
@@ -25,7 +28,11 @@ describe('Decorator: Access', () => {
             providers: [
                 TestService,
                 PermissionService,
-                AlertService
+                AlertService,
+
+                { provide: PermissionEndpoint, useClass: PermissionApiMock },
+
+                ...TranslationProviderMock
             ]
         });
     }));

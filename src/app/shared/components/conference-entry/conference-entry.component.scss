@@ -1,0 +1,23 @@
+@import './../../../theme.scss';
+
+.headline {
+    overflow: hidden;
+
+    .floating {
+        top: 18px;
+    }
+}
+
+.content {
+    margin-left: 0.5rem;
+}
+
+.animation {
+    cursor: pointer;
+    h4 {
+        transition: color .3s;
+    }
+    &:hover {
+        color: $guidance-color;
+    }
+}

@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
-
+import * as _ from 'lodash';
 import { Observable, Observer } from 'rxjs/Rx';
 
 import { UserApiMock } from './';
 
-import { AppUser } from './../../../swagger';
+import { AppUser, RoleApi } from './../../../swagger';
 
 @Injectable()
 export class UserEndpoint {
     private basePath: string;
 
-    constructor() { }
+    constructor(
+        private roleApi: RoleApi
+    ) { }
 
     public addUser(token?: string, user?: AppUser, extraHttpRequestParams?: any): Observable<any> {
         /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
@@ -114,7 +116,6 @@ export class UserEndpoint {
             return new Observable((observer: Observer<any>) => {
                 setTimeout(() => {
                     if (user) {
-                        user.token = 'TOKEN';
                         observer.next(user);
                     } else {
                         console.error(`Wrong Credentials.`);
@@ -136,6 +137,42 @@ export class UserEndpoint {
                 } else {
                     observer.next(true);
                 }
+                observer.complete();
+            }, 500);
+        });
+    }
+
+    public removeUserRole(userId: string, token?: number, roleId?: string, extraHttpRequestParams?: any): Observable<{}> {
+        const user: AppUser = this._user(userId);
+        let index = -1;
+        for (let i = 0, length = user.roles.length; i < length; i++) {
+            const element = user.roles[i];
+            if (element.id === roleId) {
+                index = i;
+            }
+        }
+        if (index !== -1) {
+            user.roles.splice(index, 1);
+        }
+        return this.observe(this._userUpdate(user.id, this._updatePermissions(user)));
+    }
+
+    public updateUserRole(userId: string, token?: number, roleId?: string, extraHttpRequestParams?: any): Observable<{}> {
+        const user: AppUser = this._user(userId);
+        const role = this.roleApi['_role'](roleId);
+        if (_.findIndex(user.roles, obj => obj.id === roleId) === -1) {
+            user.roles.push(role);
+        }
+        return this.observe(this._userUpdate(user.id, this._updatePermissions(user)));
+    }
+
+    /**
+     * Helper observer
+     */
+    private observe<T>(obj: T): Observable<T> {
+        return new Observable<T>((observer: Observer<T>) => {
+            setTimeout(() => {
+                observer.next(obj);
                 observer.complete();
             }, 500);
         });
@@ -167,7 +204,7 @@ export class UserEndpoint {
         return JSON.parse(JSON.stringify(this._list[this._list.length - 1]));
     }
 
-    private _userUpdate(id: string, user: AppUser) {
+    private _userUpdate(id: string, user: AppUser): AppUser {
         const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id) {
@@ -179,6 +216,22 @@ export class UserEndpoint {
             }
         }
         return null;
+    }
+
+    private _updatePermissions(user: AppUser): AppUser {
+        const permissions: string[] = [];
+        for (let i = 0, length = user.roles.length; i < length; i++) {
+            user.roles[i] = this.roleApi['_role'](user.roles[i].id);
+            const role = user.roles[i];
+            for (let j = 0, l = role.rolePermissions.length; j < l; j++) {
+                const perm = role.rolePermissions[j];
+                if (permissions.indexOf(perm.name) === -1) {
+                    permissions.push(perm.name);
+                }
+            }
+        }
+        user.permissions = permissions;
+        return user;
     }
 
     private _login(username: string, password: string) {

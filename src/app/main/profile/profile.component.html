@@ -1,7 +1,8 @@
-<div id="profile">
-    <pk-loading *ngIf="!user"></pk-loading>
+<pk-loading *ngIf="!user"></pk-loading>
 
-    <div class="rel"  *ngIf="user">
+<div id="profile" *ngIf="user">
+
+    <div class="rel">
         <h1 class="element element--spacing-bottom-small" i18n>Profile</h1>
 
         <pk-dynamic-form [formElements]="form" #dynamicForm>

@@ -36,7 +36,9 @@ export class FormService {
      * @return {Observable}
      */
     public getAddingElement(): Observable<boolean> {
-        if (!this.addingElementRx) { this.addingElementRx = new Observable((observer: Observer<any>) => { this.addingElement$ = observer; }); };
+        if (!this.addingElementRx) {
+            this.addingElementRx = new Observable((observer: Observer<any>) => { this.addingElement$ = observer; });
+        };
         return this.addingElementRx;
     }
 
@@ -77,8 +79,8 @@ export class FormService {
      * @param {String} sort - key to sort the result
      * @return {Observable}
      */
-    public getForms(sort?: string): Observable<any> {
-        let observable = this.formApi.getForms();
+    public getForms(sort?: string): Observable<Form[]> {
+        const observable = this.formApi.getForms();
         // TODO: sort on Server
         if (sort) {
             return observable.map(element => {
@@ -97,7 +99,7 @@ export class FormService {
      * @return {Observable}
      */
     public createNewForm(submit: Form): Observable<any> {
-        let newform: Form = {
+        const newform: Form = {
             title: submit.id ? 'Copy of ' + submit.title : submit.title,
             formHasField: submit.id ? submit.formHasField : [],
             restrictedAccess: submit.restrictedAccess,
@@ -183,7 +185,7 @@ export class FormService {
         } else {
             index = -1;
             for (let i = 0, length = this.form.formHasField.length; i < length; i++) {
-                let input = this.form.formHasField[i];
+                const input = this.form.formHasField[i];
                 if (input.name === element.value) {
                     index = i;
                 }
@@ -216,7 +218,7 @@ export class FormService {
         /** Check if the element.name is Unique in the current Form */
         let index = -1;
         for (let i = 0, length = this.form.formHasField.length; i < length; i++) {
-            let input = this.form.formHasField[i];
+            const input = this.form.formHasField[i];
             if (input.name === element.name) {
                 index = i;
             }
@@ -261,7 +263,7 @@ export class FormService {
      * @return {Observable}
      */
     public getEditFormTemplate(id?: string): Observable<any> {
-        let formEdit = [
+        const formEdit = [
             {
                 fieldType: 'input',
                 name: 'title',
@@ -302,7 +304,7 @@ export class FormService {
      */
     public saveFormAttributes(submit: Form): Observable<any> {
         // TODO: save real data
-        let form = _.cloneDeep(this.form);
+        const form = _.cloneDeep(this.form);
 
         form.title = submit.title;
         form.restrictedAccess = submit.restrictedAccess;

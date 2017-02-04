@@ -25,4 +25,10 @@ export class AuthenticationMock {
         });
     }
 
+    logout(): Observable<any> {
+        return new Observable((observer: Observer<any>) => {
+            observer.next(this.user);
+        });
+    }
+
 }

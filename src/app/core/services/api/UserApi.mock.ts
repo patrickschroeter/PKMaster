@@ -4,40 +4,23 @@ import { Injectable } from '@angular/core';
 
 import { Observable, Observer } from 'rxjs/Rx';
 
+import { RoleApiMock } from './RoleApi.mock';
 import { AppUser } from './../../../swagger';
 
 @Injectable()
 export class UserApiMock {
 
-    static PERMISSION = {
-        READAPPLICATIONS: 'ReadApplications',
-        EDITAPPLICATIONS: 'EditApplications',
-        READCONFERENCES: 'ReadConferences',
-        EDITCONFERENCES: 'EditConferences',
-        READFORMS: 'ReadForms',
-        EDITFORMS: 'EditForms',
-        READPERMISSIONS: 'ReadPermissions',
-        EDITPERMISSIONS: 'EditPermissions'
-    };
-
-    static PERMISSIONS = {
-        ALL: [
-            UserApiMock.PERMISSION.READAPPLICATIONS,
-            UserApiMock.PERMISSION.EDITAPPLICATIONS,
-            UserApiMock.PERMISSION.READCONFERENCES,
-            UserApiMock.PERMISSION.EDITCONFERENCES,
-            UserApiMock.PERMISSION.READFORMS,
-            UserApiMock.PERMISSION.EDITFORMS,
-            UserApiMock.PERMISSION.READPERMISSIONS,
-            UserApiMock.PERMISSION.EDITPERMISSIONS
-        ],
-        PARTIAL: [
-            UserApiMock.PERMISSION.READAPPLICATIONS,
-            UserApiMock.PERMISSION.READPERMISSIONS
-        ]
-    };
-
-    static USERS: AppUser[] = [{ id: 'b904cc6e-b3a6-42a9-8880-3096be1b6c61', email: 'patrick.schroeter@hotmail.de', password: 'password', token: 'TOKEN', firstname: 'Patrick', lastname: 'Schroeter', matNr: 949225, permissions: UserApiMock.PERMISSIONS.ALL }, { id: 'ee632373-432e-40f0-9f33-8cc6b684e673', email: 'stephan.reichinger@gmail.de', password: 'password', firstname: 'Stephan', lastname: 'Reichinger', permissions: UserApiMock.PERMISSIONS.PARTIAL }];
+    static USERS: AppUser[] = [
+        { id: 'b904cc6e-b3a6-42a9-8880-3096be1b6c61', email: 'patrick.schroeter@hotmail.de', password: 'password', token: 'patrick.schroeter@hotmail.de', firstname: 'Patrick', lastname: 'Schroeter', matNr: 949225, permissions: RoleApiMock.ROLE.All, roles: [RoleApiMock.ROLES_OBJECTS.All] },
+        { id: 'ee632373-432e-40f0-9f33-8cc6b684e673', email: 'stephan.reichinger@gmail.de', token: 'stephan.reichinger@gmail.de', password: 'password', firstname: 'Stephan', lastname: 'Reichinger', permissions: RoleApiMock.ROLE.Student, roles: [RoleApiMock.ROLES_OBJECTS.Student] },
+        { id: '1', email: 'admin@pk.de', token: 'admin@pk.de', password: 'password', firstname: 'Admin', lastname: 'PK-Admin', permissions: RoleApiMock.ROLE.Admin, roles: [RoleApiMock.ROLES_OBJECTS.Admin] },
+        { id: '2', email: 'principal@pk.de', token: 'principal@pk.de', password: 'password', firstname: 'Principal', lastname: 'PK-Principal', permissions: RoleApiMock.ROLE.Principal, roles: [RoleApiMock.ROLES_OBJECTS.Principal] },
+        { id: '3', email: 'member@pk.de', token: 'member@pk.de', password: 'password', firstname: 'Member', lastname: 'PK-Member', permissions: RoleApiMock.ROLE.Member, roles: [RoleApiMock.ROLES_OBJECTS.Member] },
+        { id: '4', email: 'docent@pk.de', token: 'docent@pk.de', password: 'password', firstname: 'Docent', lastname: 'PK-Docent', permissions: RoleApiMock.ROLE.Docent, roles: [RoleApiMock.ROLES_OBJECTS.Docent] },
+        { id: '5', email: 'student@pk.de', token: 'student@pk.de', password: 'password', firstname: 'Student', lastname: 'PK-Student', permissions: RoleApiMock.ROLE.Student, roles: [RoleApiMock.ROLES_OBJECTS.Student] },
+        { id: '6', email: 'observer@pk.de', token: 'observer@pk.de', password: 'password', firstname: 'Observer', lastname: 'PK-Observer', permissions: RoleApiMock.ROLE.Observer, roles: [RoleApiMock.ROLES_OBJECTS.Observer] },
+        { id: '7', email: 'secreteriat@pk.de', token: 'secreteriat@pk.de', password: 'password', firstname: 'Secreteriat', lastname: 'PK-Secreteriat', permissions: RoleApiMock.ROLE.Secreteriat, roles: [RoleApiMock.ROLES_OBJECTS.Secreteriat] },
+    ];
 
     static USER: AppUser = UserApiMock.USERS[1];
 

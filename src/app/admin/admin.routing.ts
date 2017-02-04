@@ -1,16 +1,26 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AdminComponent, AdminProfileComponent, RolesComponent, PermissionsComponent, UsersComponent } from './';
+import {
+    AdminComponent,
+    AdminProfileComponent,
+    AdminProfileEditComponent,
+    RolesComponent,
+    RolesDetailComponent,
+    PermissionsComponent,
+    UsersComponent,
+    UsersEditComponent,
+    UsersDetailComponent
+} from './';
 
 import {
     AccessAdmin,
-    AccessEditRoles,
-    AccessReadRoles,
-    AccessEditPermissions,
-    AccessReadPermissions,
-    AccessEditUsers,
-    AccessReadUsers
+    AccessRoles,
+    AccessRolesEdit,
+    AccessPermissions,
+    AccessUsers,
+    AccessUsersDetail,
+    AccessUsersEdit
 } from './../core';
 
 const routes: Routes = [
@@ -19,11 +29,49 @@ const routes: Routes = [
         component: AdminComponent,
         canActivate: [AccessAdmin],
         children: [
-            { path: 'profile', component: AdminProfileComponent },
-            { path: 'roles', component: RolesComponent, canActivate: [AccessReadRoles] },
-            { path: 'permissions', component: PermissionsComponent, canActivate: [AccessReadPermissions] },
-            { path: 'users', component: UsersComponent, canActivate: [AccessReadUsers] },
-            { path: '', redirectTo: 'roles', pathMatch: 'full' }
+            {
+                path: 'profile',
+                component: AdminProfileComponent
+            },
+            {
+                path: 'profile/edit',
+                component: AdminProfileEditComponent
+            },
+            {
+                path: 'roles',
+                component: RolesComponent,
+                canActivate: [AccessRoles]
+            },
+            {
+                path: 'roles/:id',
+                component: RolesDetailComponent,
+                canActivate: [AccessRoles]
+            },
+            {
+                path: 'permissions',
+                component: PermissionsComponent,
+                canActivate: [AccessPermissions]
+            },
+            {
+                path: 'users',
+                component: UsersComponent,
+                canActivate: [AccessUsers]
+            },
+            {
+                path: 'users/:id',
+                component: UsersDetailComponent,
+                canActivate: [AccessUsersDetail]
+            },
+            {
+                path: 'users/:id/edit',
+                component: UsersEditComponent,
+                canActivate: [AccessUsersEdit]
+            },
+            {
+                path: '',
+                redirectTo: 'roles',
+                pathMatch: 'full'
+            }
         ]
     }
 ];

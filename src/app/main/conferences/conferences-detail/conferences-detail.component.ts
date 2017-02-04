@@ -1,15 +1,19 @@
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 
+/** Services */
 import {
     ConferenceService,
     ApplicationService,
     PermissionService
 } from './../../../core';
-import { Conference, Application, Comment } from './../../../swagger';
 
+/** Models */
+import { ConferenceConfig } from './../../../models';
+import { Conference, Application, Comment } from './../../../swagger';
 import { OverlayComponent } from './../../../modules/overlay';
 
+/** Decorators */
 import { Access } from './../../../shared';
 
 @Component({
@@ -22,7 +26,7 @@ export class ConferencesDetailComponent implements OnInit {
 
     public conference: Conference;
 
-    public agenda: AgendaItem[];
+    public agenda: string[];
 
     public application: Application;
 
@@ -34,12 +38,18 @@ export class ConferencesDetailComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        /** Read Route Param and GET Application with param ID */
+        this.getConference();
+    }
+
+    /**
+     * Read Route Param and GET Application with param ID
+     */
+    private getConference(): void {
         this.activatedRoute.params.forEach((params: Params) => {
             this.conferenceService.getConferenceById(params['id']).subscribe(conference => {
                 if (!conference) { return this.router.navigate(['/conferences']); };
                 this.conference = conference;
-                this.getAgendaOfConference(conference);
+                this.populateConfigWithApplications();
             }, error => {
                 console.error(error);
                 this.router.navigate(['/conferences']);
@@ -48,47 +58,40 @@ export class ConferencesDetailComponent implements OnInit {
     }
 
     /**
-     * @description creates an agenda of the conference applications
+     * TODO get all applications for the config
      */
-    private getAgendaOfConference(conference: Conference) {
-        this.agenda = [];
-        if (!conference.applications) { return; }
-        /** TODO */ if (conference.application) { conference.applications = conference.application; }
-        for (let i = 0, length = conference.applications.length; i < length; i++) {
-            const application = conference.applications[i];
-            let item = this.getItemOfAgenda(application.formId);
-            if (!item) {
-                item = {
-                    formId: application.formId,
-                    applications: []
-                };
-                this.agenda.push(item);
-            }
-            item.applications.push(application);
+    public populateConfigWithApplications() {
+        if (!this.conference.applications) { return; }
+
+        const applicationsByForm = {};
+        for (let i = 0, length = this.conference.applications.length; i < length; i++) {
+            let application = this.conference.applications[i];
+            applicationsByForm[application.formId] = applicationsByForm[application.formId] || [];
+            applicationsByForm[application.formId].push(application);
         }
+
+        for (let i = 0, length = this.conference.config.length; i < length; i++) {
+            this.setApplication(this.conference.config[i], applicationsByForm);
+        }
+        console.log(this.conference.config);
     }
 
     /**
-     * @description returns the item of the agenda with the given pk
+     * insert the applications into the config with formId
+     * @param {ConferenceConfig} config
      */
-    private getItemOfAgenda(formId: string): AgendaItem {
-        for (let i = 0, length = this.agenda.length; i < length; i++) {
-            const item = this.agenda[i];
-            if (item.formId === formId) {
-                return item;
+    private setApplication(config: ConferenceConfig<any>, applications: Object) {
+        if (config.formId) {
+            config.entries = applications[config.formId];
+        } else if (config.type === 'config') {
+            for (let i = 0, length = config.entries.length; i < length; i++) {
+                this.setApplication(config.entries[i], applications);
             }
         }
-        return null;
     }
 
     public selectApplication(application: Application) {
         this.application = application;
     }
 
-}
-
-
-export interface AgendaItem {
-    formId: string;
-    applications: Application[];
 }

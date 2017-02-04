@@ -24,8 +24,8 @@
     "build-i18n:en": "ng build -o dist/en --aot --bh /en/ --i18n-file=src/i18n/messages.en.xlf --i18n-format=xlf --locale=en",
     "build-i18n": "npm run build-i18n:de && npm run build-i18n:en",
 
-    "compodoc": "./node_modules/.bin/compodoc -p src/tsconfig.json",
-    "compodoc:serve": "./node_modules/.bin/compodoc -p src/tsconfig.json -s"
+    "doc": "./node_modules/.bin/compodoc -p src/tsconfig.json",
+    "doc:serve": "./node_modules/.bin/compodoc -p src/tsconfig.json -s"
   },
   "private": true,
   "dependencies": {

@@ -29,12 +29,6 @@
         z-index: 5;
     }
 
-    &:not(.overlay--fluid) {
-        .overlay__wrapper {
-            height: 60%;
-        }
-    }
-
     &.overlay--error {
         .overlay__wrapper {
             background-color: lighten($error, 5%);
@@ -63,6 +57,7 @@
             padding: 45px;
             background: $white;
             color: $darkgray;
+            max-height: 600px;
         }
 
         .overlay__label {

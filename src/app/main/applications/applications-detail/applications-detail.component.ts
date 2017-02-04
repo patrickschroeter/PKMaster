@@ -35,8 +35,6 @@ export class ApplicationsDetailComponent implements OnInit {
     public addComment: Array<any>;
     public savingComment: Boolean;
 
-    public acceptForm: Array<any>;
-
     public conferences: any[];
 
     constructor(
@@ -111,6 +109,14 @@ export class ApplicationsDetailComponent implements OnInit {
     }
 
     /**
+     * update the application with the given one
+     * @param {Application} application
+     */
+    public updateApplication(application: Application): void {
+        this.application = application;
+    }
+
+    /**
      * Creates and adds a new comment to the application
      * @param {Comment} values
      */
@@ -159,11 +165,7 @@ export class ApplicationsDetailComponent implements OnInit {
      * @param {Selectable} data - the selected element
      */
     private addApplicationToConference(data: Selectable): void {
-        this.application.conferenceId = data.value;
-
-        /* TODO */ this.application.status = { name: 'pending' };
-
-        this.applicationService.updateApplication(this.application).subscribe(application => {
+        this.applicationService.assignConferenceToApplication(this.application, data.value).subscribe(application => {
             this.application = application;
             this.modalService.destroyModal();
         });
@@ -193,6 +195,7 @@ export class ApplicationsDetailComponent implements OnInit {
                 `submitApplication${application.id}`,
                 this.translationService.translate('applicationSubmitted')
             );
+            this.application = result;
             this.modalService.destroyModal();
         });
     }
@@ -221,6 +224,7 @@ export class ApplicationsDetailComponent implements OnInit {
                 `rescindApplication${application.id}`,
                 this.translationService.translate('applicationRescinded')
             );
+            this.application = result;
             this.modalService.destroyModal();
         });
     }
@@ -249,6 +253,7 @@ export class ApplicationsDetailComponent implements OnInit {
                 `deactivateApplication${application.id}`,
                 this.translationService.translate('applicationDeactivated')
             );
+            this.application = result;
             this.modalService.destroyModal();
         });
     }

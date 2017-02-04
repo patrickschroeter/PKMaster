@@ -4,23 +4,20 @@
 
         <pk-list>
             <pk-list-header>
-                <pk-list-attribute name="state-icon" (click)="sortBy('restricted')"></pk-list-attribute>
-                <pk-list-attribute name="name" (click)="sortBy('title')" i18n>Title</pk-list-attribute>
-                <pk-list-attribute name="date" (click)="sortBy('created')" i18n>Created</pk-list-attribute>
-                <pk-list-attribute name="version" i18n>Version</pk-list-attribute>
-                <pk-list-attribute name="state" i18n>Status</pk-list-attribute>
+                <pk-list-attribute name="name" i18n>Name</pk-list-attribute>
+                <pk-list-attribute name="state" i18n>Number of Permissions</pk-list-attribute>
             </pk-list-header>
             <pk-list-content>
                 <pk-list-element *ngFor="let role of roles">
-                    <pk-list-attribute name="state-icon"></pk-list-attribute>
                     <pk-list-attribute name="name">
-                        <a routerLink="/role/{{ role.id }}/edit">{{ role.title }}</a>
+                        <a routerLink="{{ role.id }}">{{ role.name }}</a>
                     </pk-list-attribute>
-                    <pk-list-attribute name="date">{{ role.created | date }}</pk-list-attribute>
-                    <pk-list-attribute name="version">{{ role.version }}</pk-list-attribute>
-                    <pk-list-attribute name="state">{{ role.status }}</pk-list-attribute>
+                    <pk-list-attribute name="state">{{ role.rolePermissions.length }}</pk-list-attribute>
 
                     <pk-floating top-right horizontal>
+                        <a *accessEditRoles routerLink="{{ role.id }}">
+                            <pk-button rounded i18n-pkAlert pkAlert="Edit Role" icon="create" element--secondary></pk-button>
+                        </a>
                     </pk-floating>
                 </pk-list-element>
             </pk-list-content>
@@ -28,10 +25,10 @@
 
     </div>
     <pk-floating fixed top-right>
-        <pk-button rounded i18n-pkAlert pkAlert="Create Role" icon="add" element--secondary (onClick)="overlay.toggle()"></pk-button>
+        <pk-button *accessEditRoles rounded i18n-pkAlert pkAlert="Create Role" icon="add" element--secondary (onClick)="overlay.toggle()"></pk-button>
     </pk-floating>
 
-    <pk-overlay #overlay class="overlay--fluid">
+    <pk-overlay #overlay>
         <pk-overlay-header i18n>Create New Role</pk-overlay-header>
         <pk-overlay-content>
 

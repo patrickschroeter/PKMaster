@@ -1,4 +1,6 @@
-<div id="edit-profile">
+<pk-loading *ngIf="!user"></pk-loading>
+
+<div id="profile-edit" *ngIf="user">
     <div class="rel">
         <h1 class="element element--spacing-bottom-small" i18n>Edit Profile</h1>
 

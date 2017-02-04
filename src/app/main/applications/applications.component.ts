@@ -15,6 +15,9 @@ import { ModalService } from './../../modules/overlay';
 import { Application } from './../../swagger';
 import { Selectable } from './../../models';
 
+/** Decorators */
+import { Access } from './../../shared';
+
 @Component({
     selector: 'pk-applications',
     templateUrl: './applications.component.html',
@@ -62,7 +65,9 @@ export class ApplicationsComponent implements OnInit {
 
     /**
      * Creates a confirmation modal to confirm submitting the selected application
+     * TODO: Prevent submit foreign application with Create & Read permission
      */
+    @Access(['CreateApplications', 'EditApplications'])
     public submitApplicationModal(application: Application): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmSubmitApplicationHeader'),
@@ -75,9 +80,12 @@ export class ApplicationsComponent implements OnInit {
 
     /**
      * Submit the selected application
+     * TODO: Prevent submit foreign application with Create & Read permission
      */
+    @Access(['CreateApplications', 'EditApplications'])
     private submitApplication(application: Application): void {
         this.applicationService.submitApplication(application).subscribe(result => {
+            /** TODO */ application.status = result.status;
             this.alert.setSuccessHint(`submitApplication${application.id}`, this.translationService.translate('applicationSubmitted'));
             this.modalService.destroyModal();
         });
@@ -85,7 +93,9 @@ export class ApplicationsComponent implements OnInit {
 
     /**
      * Creates a confirmation modal to confirm rescinding the selected application
+     * TODO: Prevent rescind foreign application with Create & Read permission
      */
+    @Access(['CreateApplications', 'EditApplications'])
     public rescindApplicationModal(application: Application): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmRescindApplicationHeader'),
@@ -98,9 +108,12 @@ export class ApplicationsComponent implements OnInit {
 
     /**
      * Rescind the selected application
+     * TODO: Prevent rescind foreign application with Create & Read permission
      */
+    @Access(['CreateApplications', 'EditApplications'])
     private rescindApplication(application: Application): void {
         this.applicationService.rescindApplication(application).subscribe(result => {
+            /** TODO */ application.status = result.status;
             this.alert.setSuccessHint(`rescindApplication${application.id}`, this.translationService.translate('applicationRescinded'));
             this.modalService.destroyModal();
         });
@@ -108,7 +121,9 @@ export class ApplicationsComponent implements OnInit {
 
     /**
      * Creates a confirmation modal to confirm deactivating the selected application
+     * TODO: Prevent deactivate foreign application with Create & Read permission
      */
+    @Access(['CreateApplications', 'DeleteApplications'])
     public deactivateApplicationModal(application: Application): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmDeactivateApplicationHeader'),
@@ -121,9 +136,12 @@ export class ApplicationsComponent implements OnInit {
 
     /**
      * Deactivate the selected application
+     * TODO: Prevent deactivate foreign application with Create & Read permission
      */
+    @Access(['CreateApplications', 'DeleteApplications'])
     private deactivateApplication(application: Application): void {
         this.applicationService.deactivateApplication(application).subscribe(result => {
+            /** TODO */ application.status = result.status;
             this.alert.setSuccessHint(`deactivateApplication${application.id}`,
                 this.translationService.translate('applicationDeactivated')
             );
@@ -134,6 +152,7 @@ export class ApplicationsComponent implements OnInit {
     /**
      * Creates a list modal to select the form for the new application
      */
+    @Access('CreateApplications')
     public createApplicationModal(): void {
         this.modalService.createListModal({
             title: this.translationService.translate('createNewApplication'),
@@ -151,6 +170,7 @@ export class ApplicationsComponent implements OnInit {
     /**
      * Create a new application with the selected form
      */
+    @Access('CreateApplications')
     private createApplication(listelement: Selectable): void {
         const application: Application = {
             formId: listelement.value,

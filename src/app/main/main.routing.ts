@@ -4,18 +4,21 @@ import { Routes, RouterModule } from '@angular/router';
 import * as main from './';
 
 import {
-    AccessService,
-    AccessReadForms,
-    AccessEditForms,
-    AccessEditConferences,
-    AccessReadConferences,
+    AccessMain,
+    AccessApplications,
+    AccessApplicationsDetail,
+    AccessApplicationsEdit,
+    AccessConferencesDetail,
+    AccessConferencesEdit,
+    AccessForms,
+    AccessFormsEdit
 } from './../core';
 
 const routes: Routes = [
     {
         path: '',
         component: main.MainComponent,
-        canActivate: [AccessService],
+        canActivate: [AccessMain],
         children: [
             {
                 path: 'profile',
@@ -28,41 +31,43 @@ const routes: Routes = [
             },
             {
                 path: 'applications',
-                component: main.ApplicationsComponent
+                component: main.ApplicationsComponent,
+                canActivate: [AccessApplications]
             },
             {
                 path: 'applications/:id',
-                component: main.ApplicationsDetailComponent
+                component: main.ApplicationsDetailComponent,
+                canActivate: [AccessApplicationsDetail]
             },
             {
                 path: 'applications/:id/edit',
-                component: main.ApplicationsEditComponent
+                component: main.ApplicationsEditComponent,
+                canActivate: [AccessApplicationsEdit]
             },
             {
                 path: 'conferences',
-                component: main.ConferencesComponent,
-                canActivate: [AccessReadConferences]
+                component: main.ConferencesComponent
             },
             {
                 path: 'conferences/:id',
                 component: main.ConferencesDetailComponent,
-                canActivate: [AccessReadConferences]
+                canActivate: [AccessConferencesDetail]
             },
             {
                 path: 'conferences/:id/edit',
                 component: main.ConferencesEditComponent,
-                canActivate: [AccessEditConferences]
+                canActivate: [AccessConferencesEdit]
             },
             {
                 path: 'forms',
                 component: main.FormsComponent,
-                canActivate: [AccessReadForms],
+                canActivate: [AccessForms],
                 pathMatch: 'full'
             },
             {
                 path: 'forms/:id/edit',
                 component: main.FormsEditComponent,
-                canActivate: [AccessEditForms]
+                canActivate: [AccessFormsEdit]
             },
             {
                 path: '', redirectTo: 'applications', pathMatch: 'full'

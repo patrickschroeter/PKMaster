@@ -1,12 +1,102 @@
 <pk-loading *ngIf="!conference"></pk-loading>
 
-<div id="conference-edit" class="rel" *ngIf="conference">
-    <h2 class="element element--spacing-bottom-small">Edit Conference: {{ conference.description }}</h2>
+<ng-container *ngIf="conference">
+    <div id="conference-edit" class="rel">
+        <h2 class="element element--spacing-bottom-small">Edit Conference: {{ conference.description }}</h2>
 
-    <pk-floating top-right fixed>
-        <a routerLink="/conferences/{{ conference.id }}">
-            <pk-button rounded i18n-pkAlert pkAlert="Cancel" class="element--spacing-bottom-tiny" icon="clear" element--error></pk-button>
-        </a>
-        <pk-button rounded i18n-pkAlert pkAlert="Delete Conference" icon="delete" element--error (onClick)="deleteConference(conference)"></pk-button>
-    </pk-floating>
-</div>
+        <ng-container *ngIf="!conference.config || !conference.config.length">
+            <div class="empty-wrapper">
+                <div class="label" i18n>No Elements here.</div>
+                <pk-button
+                    class="element--spacing-top-large"
+                    element--secondary
+                    i18n-value
+                        value="Add Config to Conference"
+                    icon="add"
+                    (onClick)="openEntryModal()">
+                </pk-button>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="conference.config && conference.config.length">
+            <ng-container *ngFor="let entry of conference.config; let index = index">
+                <pk-conference-entry [index]="index + 1" [entry]="entry" [forms]="forms" (remove)="removeElement($event)"></pk-conference-entry>
+            </ng-container>
+        </ng-container>
+
+        <pk-floating top-right fixed>
+            <div class="animation animation--trigger">
+                <pk-button
+                    class="element--spacing-bottom-tiny"
+                    rounded
+                    element--primary
+                    icon="more_vert">
+                </pk-button>
+                <div class="animation--target">
+                    <pk-button
+                        class="element--spacing-bottom-tiny"
+                        rounded
+                        element--secondary
+                        i18n-pkAlert
+                            pkAlert="Save Conference"
+                        icon="save"
+                        (onClick)="saveConference()">
+                    </pk-button>
+                    <pk-button
+                        class="element--spacing-bottom-tiny"
+                        rounded
+                        element--secondary
+                        i18n-pkAlert
+                            pkAlert="Add Config to Conference"
+                        icon="playlist_add"
+                        (onClick)="openEntryModal()">
+                    </pk-button>
+                    <pk-button
+                        class="element--spacing-bottom-tiny"
+                        rounded
+                        element--secondary
+                        i18n-pkAlert
+                            pkAlert="Edit Conference Attributes"
+                        icon="create"
+                        (onClick)="overlay.toggle()">
+                    </pk-button>
+                    <pk-button
+                        class="element--spacing-bottom-tiny"
+                        rounded
+                        element--error
+                        i18n-pkAlert
+                            pkAlert="Delete Conference"
+                        icon="delete"
+                        (onClick)="deleteConferenceModal()">
+                    </pk-button>
+                </div>
+            </div>
+            <a routerLink="/conferences/{{ conference.id }}">
+                <pk-button
+                    class="element--spacing-bottom-tiny"
+                    rounded
+                    element--error
+                    i18n-pkAlert
+                        pkAlert="Cancel"
+                    icon="clear">
+                </pk-button>
+            </a>
+        </pk-floating>
+    </div>
+</ng-container>
+
+<pk-modal-add-conference-entry #addEntryModal></pk-modal-add-conference-entry>
+
+<pk-modal-add-conference-list #addListModal></pk-modal-add-conference-list>
+
+<pk-overlay #overlay>
+    <pk-overlay-header i18n>Edit Conference</pk-overlay-header>
+    <pk-overlay-content>
+
+        <pk-dynamic-form-overlay
+            [form]="editConferenceForm"
+            (save)="updateConference($event)"
+            ></pk-dynamic-form-overlay>
+
+    </pk-overlay-content>
+</pk-overlay>

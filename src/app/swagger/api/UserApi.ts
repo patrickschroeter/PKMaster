@@ -214,7 +214,7 @@ export class UserApi {
      * @param token Accesstoken to authenticate with the API
      * @param role The AppUser&#39;s new Role
      */
-    public updateUserRole (userId: number, token?: number, role?: number, extraHttpRequestParams?: any ) : Observable<{}> {
+    public updateUserRole (userId: string, token?: number, role?: string, extraHttpRequestParams?: any ) : Observable<{}> {
         const path = this.basePath + '/users/{userId}/role'
             .replace('{' + 'userId' + '}', String(userId));
 
@@ -248,6 +248,10 @@ export class UserApi {
     }
 
     public logout(token: string): Observable<any> {
+        return null;
+    }
+
+    public removeUserRole(userId: string, token?: number, roleId?: string, extraHttpRequestParams?: any ) : Observable<{}> {
         return null;
     }
 }
