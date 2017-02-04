@@ -233,9 +233,9 @@ describe('Service: Application', () => {
             inject([ApplicationService], (service: ApplicationService) => {
                 service.getApplicationById('id').subscribe(application => {
                     service.saveApplication({
-                        date: 'some date'
+                        firstname: 'some date'
                     }).subscribe(result => {
-                        expect(_.find(result.attributes, obj => obj.name === 'date').value).toEqual('some date');
+                        expect(_.find(result.attributes, obj => obj.name === 'firstname').value).toEqual('some date');
                     });
                 });
             })
