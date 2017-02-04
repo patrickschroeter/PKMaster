@@ -14,7 +14,9 @@ import {
 })
 export class LoginComponent implements OnInit {
 
-    loginForm: Array<Object>;
+    public loginForm: Array<Object>;
+
+    public error: boolean;
 
     constructor(
         private authentication: AuthenticationService,
@@ -69,7 +71,6 @@ export class LoginComponent implements OnInit {
     private automaticLogin() {
         if (this.authentication.isLoggedIn()) {
             this.authentication.logout();
-            // this.redirect();
         }
     }
 
@@ -78,10 +79,12 @@ export class LoginComponent implements OnInit {
      * @param {Object} credentials
      */
     public login(credentials) {
+        this.error = false;
         this.authentication.login(credentials.email, credentials.password).subscribe(user => {
             this.redirect();
         }, error => {
             /** TODO: catch */
+            this.error = true;
         });
     }
 
@@ -101,6 +104,14 @@ export class LoginComponent implements OnInit {
                     }
                 });
             }
+        });
+    }
+
+    /** TODO remove for production */
+    public fake(username) {
+        this.login({
+            email: username,
+            password: 'password'
         });
     }
 }

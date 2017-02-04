@@ -28,3 +28,11 @@ h1 {
   background-color: $white;
   border-radius: $border-radius;
 }
+
+.invalid-wrapper {
+    padding: 2rem;
+    margin: 1rem 0;
+    border: 1px solid $error;
+    position: relative;
+    text-align: center;
+}

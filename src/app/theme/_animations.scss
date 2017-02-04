@@ -51,7 +51,7 @@
                 visibility: visible;
                 opacity: 1;
             }
-            @for $i from 1 through 4 {
+            @for $i from 1 through 7 {
                 > *:first-child:nth-last-child(#{$i}),
                 > *:first-child:nth-last-child(#{$i}) ~ * {
                     @for $j from 1 through $i {
@@ -76,7 +76,7 @@
             transform-origin: center;
             transform: scale(0.9);
         }
-        @for $i from 1 through 4 {
+        @for $i from 1 through 7 {
             > *:first-child:nth-last-child(#{$i}),
             > *:first-child:nth-last-child(#{$i}) ~ * {
                 @for $j from 1 through $i {
@@ -90,5 +90,13 @@
                 }
             }
         }
+    }
+}
+
+
+.floating {
+    .animation--target {
+        display: flex;
+        flex-direction: column-reverse;
     }
 }

@@ -1,10 +1,5 @@
 @import './../../../theme.scss';
 
-.animation--target {
-    display: flex;
-    flex-direction: column-reverse;
-}
-
 #conference-edit {
     .empty-wrapper, /deep/ .empty-wrapper {
         padding: 2rem;

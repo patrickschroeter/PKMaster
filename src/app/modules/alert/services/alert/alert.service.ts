@@ -8,7 +8,7 @@ import { Message } from './';
 export class AlertService {
 
     private defaultMessageTime = 1000;
-    private defaultLoadingTime = 10000;
+    private defaultLoadingTime = 2000;
     private defaultSuccessTime = 1500;
 
     private loading: EventEmitter<any> = new EventEmitter();
