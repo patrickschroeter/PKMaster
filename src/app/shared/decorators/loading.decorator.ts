@@ -30,11 +30,13 @@ export function Loading(name: string) {
 
             result = originalMethod.apply(this, args);
 
-            if (result.map && this.alert instanceof AlertService) {
-                return result.map(element => {
-                    this.alert.removeHint(name);
-                    return element;
-                });
+            if (result && result.map) {
+                if (this.alert instanceof AlertService) {
+                    return result.map(element => {
+                        this.alert.removeHint(name);
+                        return element;
+                    });
+                }
             } else {
                 console.error('Loading.decorator: No returned Observable');
             }

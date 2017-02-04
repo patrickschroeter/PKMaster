@@ -118,7 +118,7 @@ export class FormElementService {
 
         /** Request all Options of the selected Type */
         let returnedNumberOfRequests = 0;
-        let optionsOfElementType: any[], validationsOfElementType: any[], stylesOfElementType: any[];
+        let optionsOfElementType: Field[], validationsOfElementType: Field[], stylesOfElementType: Field[];
 
         let numberOfRequests = 1; // always get options
         this.getOptionsOfElementType(type).subscribe((opt) => {
@@ -159,7 +159,7 @@ export class FormElementService {
 
                 /** Show Styles if existing */
                 if (stylesOfElementType) {
-                    generatedFormOfElement = generatedFormOfElement.concat([stylesOfElementType]);
+                    generatedFormOfElement = generatedFormOfElement.concat(stylesOfElementType);
                     this.setElementHasStyles(true);
                 }
 
@@ -320,8 +320,8 @@ export class FormElementService {
         /** Get Styles Options */
         this.getStylesOfInputType(this.selectedType).subscribe((styles) => {
             if (this.selectedType) {
-                if (styles) { // catch else case with message?
-                    this.setElement(this.element.concat([styles]));
+                if (styles) { // TODO: catch else case with message?
+                    this.setElement(this.element.concat(styles));
                 };
                 this.setElementHasStyles(true);
             }
@@ -451,7 +451,11 @@ export class FormElementService {
         return new Observable((observer: Observer<Field[]>) => {
             setTimeout(() => {
                 /** TODO */
-                observer.next([options]);
+                if (options) {
+                    observer.next([options]);
+                } else {
+                    observer.next(undefined);
+                }
                 observer.complete();
             }, 500);
         });

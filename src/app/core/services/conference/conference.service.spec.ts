@@ -9,7 +9,8 @@ import { ConferenceApiMock } from './../../../core';
 
 import { ConferenceApi } from './../../../swagger';
 
-import { AlertModule } from './../../../modules/alert/alert.module';
+import { AlertProviderMock } from './../../../modules/alert/alert.module';
+import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
 describe('ConferenceService', () => {
 
@@ -18,10 +19,9 @@ describe('ConferenceService', () => {
             providers: [
                 ConferenceService,
 
-                { provide: ConferenceApi, useClass: ConferenceApiMock }
-            ],
-            imports: [
-                AlertModule
+                { provide: ConferenceApi, useClass: ConferenceApiMock },
+                ...AlertProviderMock,
+                ...TranslationProviderMock
             ]
         });
     });
