@@ -5,7 +5,7 @@ import { TRANSLATE } from './dictionary';
 @Injectable()
 export class TranslationService {
 
-    private defaultLocaleId: string = 'en';
+    private defaultLocaleId = 'en';
 
     constructor( @Inject(LOCALE_ID) protected localeId, @Inject(TRANSLATE) private i18n: any ) {
         if (!i18n[localeId]) {
@@ -20,6 +20,21 @@ export class TranslationService {
         const result = this.i18n[this.localeId][key];
         if (!result) {
             console.error(`Missing translation for '${key}' in language '${ this.localeId }`);
+
+            /** TODO: remove for production */
+            const errorString = localStorage.getItem('translate');
+            let error;
+            if (!errorString) {
+                error = {};
+            } else {
+                error = JSON.parse(errorString);
+            }
+
+            if (!error[this.localeId]) { error[this.localeId] = {}; }
+            error[this.localeId][key] = key;
+
+            localStorage.setItem('translate', JSON.stringify(error));
+
             return key;
         }
 
