@@ -16,7 +16,7 @@ import { Application } from './../../swagger';
 import { Selectable } from './../../models';
 
 /** Decorators */
-import { Access } from './../../shared';
+import { Access } from './../../shared/decorators/access.decorator';
 
 @Component({
     selector: 'pk-applications',

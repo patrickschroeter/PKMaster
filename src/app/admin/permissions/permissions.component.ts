@@ -2,14 +2,17 @@ import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import * as _ from 'lodash';
 
+/** Services */
 import { PermissionService } from './../../core';
-
-import { OverlayComponent } from './../../modules/overlay';
 import { AlertService } from './../../modules/alert';
 import { TranslationService } from './../../modules/translation';
 
+/** Models */
 import { Permission, Field } from './../../swagger';
-import { Access } from './../../shared';
+import { OverlayComponent } from './../../modules/overlay';
+
+/** Decorators */
+import { Access } from './../../shared/decorators/access.decorator';
 
 @Component({
     selector: 'pk-permissions',

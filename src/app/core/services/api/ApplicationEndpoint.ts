@@ -162,6 +162,8 @@ export class ApplicationEndpoint {
     }
 
     private _applicationUpdate(id: string, application: Application) {
+        delete application.attributes;
+        if (typeof application.filledForm === 'Object') { application.filledForm = JSON.stringify(application.filledForm); }
         const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id) {

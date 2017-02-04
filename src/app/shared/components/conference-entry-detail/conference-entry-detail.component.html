@@ -39,7 +39,9 @@
 
                                         <pk-list-element [name]="application.status?.name">
 
-                                            <pk-list-attribute name="state">{{ application.status?.name }}</pk-list-attribute><pk-list-attribute name="author" *accessEditApplications>{{ application.user ? application.user.lastname : '' }}</pk-list-attribute>
+                                            <pk-list-attribute name="state">{{ application.status?.name }}</pk-list-attribute>
+                                            <pk-list-attribute name="author" *accessEditApplications>{{ application.user ? application.user.lastname : '' }}</pk-list-attribute>
+
                                             <ng-container *ngFor="let field of entry.fields">
                                                 <pk-list-attribute [name]="field">{{ application.filledForm[field] }}</pk-list-attribute>
                                             </ng-container>

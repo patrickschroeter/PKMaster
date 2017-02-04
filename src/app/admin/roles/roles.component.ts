@@ -11,7 +11,7 @@ import {
 import { Role } from './../../swagger';
 
 /** Decorators */
-import { Access } from './../../shared';
+import { Access } from './../../shared/decorators/access.decorator';
 
 @Component({
     selector: 'pk-roles',

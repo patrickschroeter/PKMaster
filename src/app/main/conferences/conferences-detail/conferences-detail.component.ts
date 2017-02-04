@@ -14,7 +14,7 @@ import { Conference, Application, Comment } from './../../../swagger';
 import { OverlayComponent } from './../../../modules/overlay';
 
 /** Decorators */
-import { Access } from './../../../shared';
+import { Access } from './../../../shared/decorators/access.decorator';
 
 @Component({
     selector: 'pk-conferences-detail',
@@ -65,7 +65,8 @@ export class ConferencesDetailComponent implements OnInit {
 
         const applicationsByForm = {};
         for (let i = 0, length = this.conference.applications.length; i < length; i++) {
-            let application = this.conference.applications[i];
+            const application = this.conference.applications[i];
+            if (typeof application.filledForm === 'string') { application.filledForm = JSON.parse(application.filledForm); }
             applicationsByForm[application.formId] = applicationsByForm[application.formId] || [];
             applicationsByForm[application.formId].push(application);
         }

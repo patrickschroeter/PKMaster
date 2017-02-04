@@ -13,7 +13,7 @@ import { WindowService } from './../../';
 import { ConferenceConfig, Selectable } from './../../../models';
 
 /** Decorators */
-import { Access } from './../../';
+import { Access } from './../../decorators/access.decorator';
 
 @Component({
     selector: 'pk-conference-entry',

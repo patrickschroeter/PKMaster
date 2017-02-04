@@ -12,7 +12,7 @@ import {
 import { Field, Comment, Application } from './../../../swagger';
 
 /** Decorators */
-import { Access } from './../../../shared';
+import { Access } from './../../../shared/decorators/access.decorator';
 
 /** Components */
 import { OverlayComponent } from './../../../modules/overlay';

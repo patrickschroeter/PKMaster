@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement, Injectable } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { Access } from './';
+import { Access } from './access.decorator';
 
 import { TranslationProviderMock } from './../../modules/translation/translation.module';
 import { AlertService } from './../../modules/alert';
