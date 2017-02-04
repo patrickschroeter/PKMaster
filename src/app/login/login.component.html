@@ -23,49 +23,41 @@
 
 <!--TODO remove for production-->
 <pk-floating top-right fixed>
-    <div class="animation animation--trigger">
+    <pk-button-animation-wrapper>
         <pk-button
             class="element--spacing-bottom-tiny"
             rounded
-            element--error
-            icon="more_vert">
+            element--success
+            (onClick)="fake('observer@pk.de')"
+            icon='O'>
         </pk-button>
-        <div class="animation--target">
-            <pk-button
-                class="element--spacing-bottom-tiny"
-                rounded
-                element--success
-                (onClick)="fake('observer@pk.de')"
-                icon='O'>
-            </pk-button>
-            <pk-button
-                class="element--spacing-bottom-tiny"
-                rounded
-                element--success
-                (onClick)="fake('student@pk.de')"
-                icon='S'>
-            </pk-button>
-            <pk-button
-                class="element--spacing-bottom-tiny"
-                rounded
-                element--success
-                (onClick)="fake('principal@pk.de')"
-                icon='P'>
-            </pk-button>
-            <pk-button
-                class="element--spacing-bottom-tiny"
-                rounded
-                element--success
-                icon='A'
-                (onClick)="fake('admin@pk.de')">
-            </pk-button>
-            <pk-button
-                class="element--spacing-bottom-tiny"
-                rounded
-                element--success
-                (onClick)="fake('patrick.schroeter@hotmail.de')"
-                icon='PS'>
-            </pk-button>
-        </div>
-    </div>
+        <pk-button
+            class="element--spacing-bottom-tiny"
+            rounded
+            element--success
+            (onClick)="fake('student@pk.de')"
+            icon='S'>
+        </pk-button>
+        <pk-button
+            class="element--spacing-bottom-tiny"
+            rounded
+            element--success
+            (onClick)="fake('principal@pk.de')"
+            icon='P'>
+        </pk-button>
+        <pk-button
+            class="element--spacing-bottom-tiny"
+            rounded
+            element--success
+            icon='A'
+            (onClick)="fake('admin@pk.de')">
+        </pk-button>
+        <pk-button
+            class="element--spacing-bottom-tiny"
+            rounded
+            element--success
+            (onClick)="fake('patrick.schroeter@hotmail.de')"
+            icon='PS'>
+        </pk-button>
+    </pk-button-animation-wrapper>
 </pk-floating>

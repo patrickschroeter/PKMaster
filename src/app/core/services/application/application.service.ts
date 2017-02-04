@@ -131,7 +131,6 @@ export class ApplicationService {
      * submit the selected application
      * @param {Application} application
      */
-    @Loading('submitApplication')
     public submitApplication(application: Application): Observable<Application> {
         const blocked = this.blockedStatusUpdate(application.status.name, ['created']);
         if (blocked) { return blocked; }
@@ -147,7 +146,6 @@ export class ApplicationService {
      * rescind the selected application
      * @param {Application} application
      */
-    @Loading('rescindApplication')
     public rescindApplication(application: Application): Observable<Application> {
         const blocked = this.blockedStatusUpdate(application.status.name, ['submitted']);
         if (blocked) { return blocked; }
@@ -163,7 +161,6 @@ export class ApplicationService {
      * deactivate the selected application
      * @param {Application} application
      */
-    @Loading('deactivateApplication')
     public deactivateApplication(application: Application): Observable<Application> {
         const blocked = this.blockedStatusUpdate(application.status.name, ['created', 'rescinded']);
         if (blocked) { return blocked; }
@@ -179,7 +176,6 @@ export class ApplicationService {
      * Saves the changed application
      * @param {Object} form - the form of the application
      */
-    @Loading('saveApplication')
     public saveApplication(form: Object): Observable<Application> {
         if (!this.application) { return; }
         const param = _.cloneDeep(this.application);
@@ -207,7 +203,6 @@ export class ApplicationService {
      * @param {Application} application
      * @param {String} conferenceId
      */
-    @Loading('assignConferenceToApplication')
     public assignConferenceToApplication(application: Application, conferenceId: string): Observable<Application> {
         const param = _.cloneDeep(application);
         param.conferenceId = conferenceId;

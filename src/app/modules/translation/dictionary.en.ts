@@ -91,7 +91,6 @@ export const DICTIONARY_EN = {
 
     'loading-getApplicationById': 'loading-getApplicationById',
     'loading-getApplications': 'loading-getApplications',
-    'loading-submitApplication': 'loading-submitApplication',
     'loading-updateApplication': 'loading-updateApplication',
     'loading-getConferences': 'loading-getConferences',
     'loading-login': 'loading-login',
@@ -106,5 +105,20 @@ export const DICTIONARY_EN = {
     'loading-getOptionsOfElementType': 'loading-getOptionsOfElementType',
     'loading-createNewConference': 'loading-createNewConference',
     'loading-createNewForm': 'loading-createNewForm',
-    'loading-saveConference': 'loading-saveConference'
+    'loading-saveConference': 'loading-saveConference',
+    'loading-createNewApplication': 'loading-createNewApplication',
+    'loading-getStylesOfInputType': 'loading-getStylesOfInputType',
+    'loading-getValidationsOfInputType': 'loading-getValidationsOfInputType',
+    'loading-getRoles': 'loading-getRoles',
+    'loading-getRoleById': 'loading-getRoleById',
+    'loading-getUsers': 'loading-getUsers',
+    'loading-getUserById': 'loading-getUserById',
+    'loading-getPermissions': 'loading-getPermissions',
+    'loading-addRole': 'loading-addRole',
+    'loading-addPermissionToRole': 'loading-addPermissionToRole',
+
+    'conferenceElementList': 'conferenceElementList',
+    'addRoleToUser': 'addRoleToUser',
+    'noRolesAvailable': 'noRolesAvailable',
+    'createNewRole': 'createNewRole',
 };

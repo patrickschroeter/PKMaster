@@ -23,7 +23,7 @@ export class PermissionService {
 
     constructor(
         private permissionApi: PermissionEndpoint,
-        private alertService: AlertService,
+        private alert: AlertService,
         private translationService: TranslationService
     ) { }
 
