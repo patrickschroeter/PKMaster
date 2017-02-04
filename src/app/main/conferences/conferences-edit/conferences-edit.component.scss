@@ -6,5 +6,9 @@
         margin: 1rem 0;
         border: 1px solid $guidance-color;
         position: relative;
+
+        &:hover {
+            background-color: rgba($guidance-color, 0.2);
+        }
     }
 }
