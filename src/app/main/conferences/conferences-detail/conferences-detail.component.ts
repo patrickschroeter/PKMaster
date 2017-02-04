@@ -58,7 +58,7 @@ export class ConferencesDetailComponent implements OnInit {
     }
 
     /**
-     * TODO get all applications for the config
+     * get all applications for the config
      */
     public populateConfigWithApplications() {
         if (!this.conference.applications) { return; }
@@ -90,5 +90,12 @@ export class ConferencesDetailComponent implements OnInit {
             }
         }
     }
+
+    /**
+     * Delete the conference
+     */
+     public deleteConference() {
+         console.error('TODO: deleteConference');
+     }
 
 }

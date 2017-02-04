@@ -1,7 +1,11 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
+/** Forms */
 import { FormService } from './../../core';
+
+/** Models */
+import { Form } from './../../swagger';
 
 @Component({
     selector: 'pk-forms',
@@ -28,15 +32,21 @@ export class FormsComponent implements OnInit {
         });
     }
 
-    sortBy(sortValue: string) {
-        this.formService.getForms(sortValue);
-    }
-
-    createNewForm(form) {
+    /**
+     * create a new form
+     */
+    public createNewForm(form: Form) {
         this.formService.createNewForm(form).subscribe(created => {
             if (created['id']) {
                 this.router.navigate([`/forms/`, created['id'], 'edit']);
             }
         });
     }
+
+    /**
+     * Delete the form
+     */
+     public deleteForm(form: Form) {
+         console.error('TODO: deleteForm');
+     }
 }

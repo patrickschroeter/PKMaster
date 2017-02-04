@@ -33,17 +33,46 @@
                             <pk-list-attribute name="version">{{ form.version }}</pk-list-attribute>
 
                             <pk-floating top-right horizontal>
+                                <pk-button
+                                    rounded
+                                    element--error
+                                    i18n-pkAlert
+                                        pkAlert="Delete Form"
+                                    icon="delete"
+                                    (onClick)="deleteForm(form)">
+                                </pk-button>
                                 <a routerLink="/forms/{{ form.id }}/edit">
-                                    <pk-button rounded i18n-pkAlert pkAlert="Edit Form" icon="create" element--secondary></pk-button>
+                                    <pk-button
+                                        rounded
+                                        i18n-pkAlert
+                                        pkAlert="Edit Form"
+                                        icon="create"
+                                        element--secondary>
+                                    </pk-button>
                                 </a>
-                                <pk-button rounded i18n-pkAlert pkAlert="Duplicate Form" icon="content_copy" (onClick)="createNewForm(form)" element--secondary></pk-button>
+                                <pk-button
+                                    rounded
+                                    i18n-pkAlert
+                                    pkAlert="Duplicate Form"
+                                    icon="content_copy"
+                                    (onClick)="createNewForm(form)"
+                                    element--secondary>
+                                </pk-button>
                             </pk-floating>
                         </pk-list-element>
                     </pk-list-content>
                 </pk-list>
 
                 <pk-floating fixed top-right>
-                    <pk-button rounded i18n-pkAlert pkAlert="Create New Form" class="element--spacing-bottom-tiny" icon="add" element--secondary (onClick)="overlay.toggle()"></pk-button>
+                    <pk-button
+                        rounded
+                        i18n-pkAlert
+                        pkAlert="Create New Form"
+                        class="element--spacing-bottom-tiny"
+                        icon="add"
+                        element--secondary
+                        (onClick)="overlay.toggle()">
+                    </pk-button>
                 </pk-floating>
 
             </ng-container>

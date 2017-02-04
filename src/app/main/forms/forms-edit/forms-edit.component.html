@@ -12,8 +12,8 @@
 
             <pk-dynamic-form-element *ngFor="let element of form.formHasField, let i = index" [element]="element" [form]="dynamicForm.form">
                 <pk-floating bottom-right-corner horizontal>
+                    <pk-button rounded i18n-pkAlert pkAlert="Remove Form Element" class="button button--edit element element--spacing-left-tiny" icon="delete" (onClick)="removeElement(element, i)" element--error></pk-button>
                     <pk-button rounded i18n-pkAlert pkAlert="Edit Form Element" class="button button--edit element element--spacing-left-tiny" icon="create" (onClick)="editElement(element)" element--secondary></pk-button>
-                    <pk-button rounded i18n-pkAlert pkAlert="Remove Form Element" class="button button--edit element element--spacing-left-tiny" icon="clear" (onClick)="removeElement(element, i)" element--error></pk-button>
                 </pk-floating>
             </pk-dynamic-form-element>
 
@@ -26,10 +26,51 @@
             <pk-button rounded i18n-pkAlert pkAlert="Cancel" class="element--spacing-bottom-tiny" icon="clear" element--error></pk-button>
         </a>
         <pk-button-animation-wrapper>
-            <pk-button rounded i18n-pkAlert pkAlert="Save Form" class="element--spacing-bottom-tiny" icon="save" (onClick)="saveForm()" element--secondary></pk-button>
-            <pk-button rounded i18n-pkAlert pkAlert="Add Element Preset" class="element--spacing-bottom-tiny" icon="library_add" element--secondary (onClick)="addPreset()"></pk-button>
-            <pk-button rounded i18n-pkAlert pkAlert="Add Form Element" class="element--spacing-bottom-tiny" icon="add" element--secondary (onClick)="addElement()"></pk-button>
-            <pk-button rounded i18n-pkAlert pkAlert="Edit Form Attributes" class="element--spacing-bottom-tiny" icon="edit" rounded element--secondary (onClick)="editFormAttributes()"></pk-button>
+            <pk-button
+                rounded
+                i18n-pkAlert
+                pkAlert="Save Form"
+                class="element--spacing-bottom-tiny"
+                icon="save"
+                (onClick)="saveForm()"
+                element--secondary>
+            </pk-button>
+            <pk-button
+                rounded
+                i18n-pkAlert
+                pkAlert="Add Element Preset"
+                class="element--spacing-bottom-tiny"
+                icon="library_add"
+                element--secondary
+                (onClick)="addPreset()">
+            </pk-button>
+            <pk-button
+                rounded
+                i18n-pkAlert
+                pkAlert="Add Form Element"
+                class="element--spacing-bottom-tiny"
+                icon="add"
+                element--secondary
+                (onClick)="addElement()">
+            </pk-button>
+            <pk-button
+                rounded
+                i18n-pkAlert
+                pkAlert="Edit Form Attributes"
+                class="element--spacing-bottom-tiny"
+                icon="edit"
+                element--secondary
+                (onClick)="editFormAttributes()">
+            </pk-button>
+            <pk-button
+                class="element--spacing-bottom-tiny"
+                rounded
+                element--error
+                i18n-pkAlert
+                    pkAlert="Delete Form"
+                icon="delete"
+                (onClick)="deleteForm()">
+            </pk-button>
         </pk-button-animation-wrapper>
     </pk-floating>
 </div>

@@ -169,4 +169,11 @@ export class FormsEditComponent implements OnInit {
         });
     }
 
+    /**
+     * Delete the form
+     */
+     public deleteForm() {
+         console.error('TODO: deleteForm');
+     }
+
 }

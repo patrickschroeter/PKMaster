@@ -1,42 +1,84 @@
-<pk-loading *ngIf="!role"></pk-loading>
+<div class="rel">
+    <pk-loading *ngIf="!role"></pk-loading>
 
-<div *ngIf="role" class="rel">
+    <ng-container *ngIf="role">
 
-    <h2 class="element element--spacing-bottom-small" i18n>Role: {{ role.name }}</h2>
-    <pk-devider class="element element--spacing-bottom-large"></pk-devider>
-
-    <div *ngIf="!role.rolePermissions || !role.rolePermissions.length" class="empty-wrapper">
-        <div class="label" i18n>No Permissions here.</div>
-        <pk-button *accessEditRoles icon="add" element--secondary value="Add Permission to Role" (onClick)="addPermissionToRoleModal()" class="element--spacing-top-large"></pk-button>
-    </div>
-
-    <div *ngIf="role.rolePermissions?.length">
-        <h3 class="element element--spacing-bottom-small" i18n>Permissions:</h3>
+        <h2 class="element element--spacing-bottom-small" i18n>Role: {{ role.name }}</h2>
         <pk-devider class="element element--spacing-bottom-large"></pk-devider>
 
-        <pk-list>
-            <pk-list-header>
-                <pk-list-attribute name="name" i18n>Title</pk-list-attribute>
-                <pk-list-attribute name="description" i18n>Description</pk-list-attribute>
-            </pk-list-header>
-            <pk-list-content>
-                <pk-list-element *ngFor="let permission of role.rolePermissions">
-                    <pk-list-attribute name="name">{{ permission.name }}</pk-list-attribute>
-                    <pk-list-attribute name="description">{{ permission.description }}</pk-list-attribute>
+        <ng-container *ngIf="!role.rolePermissions || !role.rolePermissions.length">
+            <div class="empty-wrapper">
+                <div class="label" i18n>No Permissions here.</div>
+                <pk-button *accessEditRoles icon="add" element--secondary value="Add Permission to Role" (onClick)="addPermissionToRoleModal()" class="element--spacing-top-large"></pk-button>
+            </div>
+        </ng-container>
 
-                    <pk-floating top-right horizontal>
-                        <pk-button *accessEditRoles rounded i18n-pkAlert pkAlert="Remove Permission" icon="delete" (onClick)="removePermissionOfRole(permission)" element--error></pk-button>
-                    </pk-floating>
-                </pk-list-element>
-            </pk-list-content>
-        </pk-list>
-    </div>
-    <pk-floating fixed top-right>
-        <pk-button *accessEditRoles rounded i18n-pkAlert pkAlert="Edit Role" icon="create" element--secondary class="element--spacing-bottom-tiny" (onClick)="overlay.toggle()"></pk-button>
-        <div *accessEditRoles>
-            <pk-button *ngIf="role.rolePermissions?.length" rounded i18n-pkAlert pkAlert="Add Permission to Role" icon="lock" element--secondary class="element--spacing-bottom-tiny" (onClick)="addPermissionToRoleModal()"></pk-button>
-        </div>
-    </pk-floating>
+        <ng-container *ngIf="role.rolePermissions?.length">
+            <h3 class="element element--spacing-bottom-small" i18n>Permissions:</h3>
+            <pk-devider class="element element--spacing-bottom-large"></pk-devider>
+
+            <pk-list>
+                <pk-list-header>
+                    <pk-list-attribute name="name" i18n>Title</pk-list-attribute>
+                    <pk-list-attribute name="description" i18n>Description</pk-list-attribute>
+                </pk-list-header>
+                <pk-list-content>
+                    <pk-list-element *ngFor="let permission of role.rolePermissions">
+                        <pk-list-attribute name="name">{{ permission.name }}</pk-list-attribute>
+                        <pk-list-attribute name="description">{{ permission.description }}</pk-list-attribute>
+
+                        <pk-floating top-right horizontal>
+                            <pk-button
+                                *accessEditRoles
+                                rounded
+                                i18n-pkAlert
+                                pkAlert="Remove Permission"
+                                icon="delete"
+                                (onClick)="removePermissionOfRole(permission)"
+                                element--error>
+                            </pk-button>
+                        </pk-floating>
+                    </pk-list-element>
+                </pk-list-content>
+            </pk-list>
+        </ng-container>
+
+        <pk-floating fixed top-right>
+
+            <a routerLink="/admin/roles">
+                <pk-button
+                    class="element--spacing-bottom-tiny"
+                    rounded
+                    element--error
+                    i18n-pkAlert
+                        pkAlert="Back to Listview"
+                    icon="arrow_back">
+                </pk-button>
+            </a>
+
+            <pk-button-animation-wrapper *accessEditRoles>
+                <pk-button
+                    *ngIf="role.rolePermissions?.length"
+                    rounded
+                    i18n-pkAlert
+                    pkAlert="Add Permission to Role"
+                    icon="lock"
+                    element--secondary
+                    class="element--spacing-bottom-tiny"
+                    (onClick)="addPermissionToRoleModal()">
+                </pk-button>
+                <pk-button
+                    rounded
+                    i18n-pkAlert
+                    pkAlert="Edit Role"
+                    icon="create"
+                    element--secondary
+                    class="element--spacing-bottom-tiny"
+                    (onClick)="overlay.toggle()">
+                </pk-button>
+            </pk-button-animation-wrapper>
+        </pk-floating>
+    </ng-container>
 </div>
 
 <pk-overlay *accessEditRoles #overlay>

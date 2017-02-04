@@ -54,4 +54,10 @@ export class ConferencesComponent implements OnInit {
         this.createConference(param);
     }
 
+    /**
+     * Delete the conference
+     */
+     public deleteConference(conference: Conference) {
+         console.error('TODO: deleteConference');
+     }
 }

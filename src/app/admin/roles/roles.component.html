@@ -27,16 +27,24 @@
                             <pk-list-attribute name="state">{{ role.rolePermissions.length }}</pk-list-attribute>
 
                             <pk-floating top-right horizontal>
-                                <a *accessEditRoles routerLink="{{ role.id }}">
+                                <!--<a *accessEditRoles routerLink="{{ role.id }}">
                                     <pk-button rounded i18n-pkAlert pkAlert="Edit Role" icon="create" element--secondary></pk-button>
-                                </a>
+                                </a>-->
                             </pk-floating>
                         </pk-list-element>
                     </pk-list-content>
                 </pk-list>
 
             <pk-floating fixed top-right>
-                <pk-button *accessEditRoles rounded i18n-pkAlert pkAlert="Create Role" icon="add" element--secondary (onClick)="overlay.toggle()"></pk-button>
+                <pk-button
+                    *accessEditRoles
+                    rounded
+                    i18n-pkAlert
+                    pkAlert="Create Role"
+                    icon="add"
+                    element--secondary
+                    (onClick)="overlay.toggle()">
+                </pk-button>
             </pk-floating>
 
             </ng-container>

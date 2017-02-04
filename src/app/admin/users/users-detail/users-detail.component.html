@@ -51,17 +51,29 @@
     </pk-list>
 
     <pk-floating fixed top-right>
-        <a  routerLink="/admin/users/{{ user.id }}/edit">
-            <pk-button rounded i18n-pkAlert pkAlert="Edit User" class="element--spacing-bottom-tiny" icon="create" element--secondary></pk-button>
+        <a routerLink="/admin/users">
+            <pk-button
+                class="element--spacing-bottom-tiny"
+                rounded
+                element--error
+                i18n-pkAlert
+                    pkAlert="Back to Listview"
+                icon="arrow_back">
+            </pk-button>
         </a>
-        <pk-button
-            *accessEditRoles
-            rounded
-            element--secondary
-            i18n-pkAlert
-                 pkAlert="Add Role to User"
-            icon="share"
-            (onClick)="addRoleToUserModal()">
-        </pk-button>
+        <pk-button-animation-wrapper>
+            <pk-button
+                *accessEditRoles
+                rounded
+                element--secondary
+                i18n-pkAlert
+                    pkAlert="Add Role to User"
+                icon="share"
+                (onClick)="addRoleToUserModal()">
+            </pk-button>
+            <a  routerLink="/admin/users/{{ user.id }}/edit">
+                <pk-button rounded i18n-pkAlert pkAlert="Edit User" class="element--spacing-bottom-tiny" icon="create" element--secondary></pk-button>
+            </a>
+        </pk-button-animation-wrapper>
     </pk-floating>
 </div>

@@ -25,7 +25,15 @@
                             <pk-list-attribute name="description">{{ permission.description }}</pk-list-attribute>
 
                             <pk-floating top-right horizontal>
-                                <pk-button *accessEditPermissions rounded i18n-pkAlert pkAlert="Edit Permission" icon="create" (onClick)="editPermission(permission)" element--secondary></pk-button>
+                                <pk-button
+                                    *accessEditPermissions
+                                    rounded
+                                    i18n-pkAlert
+                                    pkAlert="Edit Permission"
+                                    icon="create"
+                                    (onClick)="editPermission(permission)"
+                                    element--secondary>
+                                </pk-button>
                             </pk-floating>
                         </pk-list-element>
                     </pk-list-content>
