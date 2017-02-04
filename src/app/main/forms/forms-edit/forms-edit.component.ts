@@ -51,15 +51,12 @@ export class FormsEditComponent implements OnInit {
 
         /** Read Route Param and GET Form with param ID */
         this.activatedRoute.params.forEach((params: Params) => {
-            this.alert.setLoading('getFormById', this.translationService.translate('loadingForm'));
             this.formService.getFormById(params['id']).subscribe((form) => {
-                this.alert.removeHint('getFormById');
                 if (!form) { this.router.navigate(['/forms']); }
                 this.form = form;
             }, error => {
                 /** TODO: catch */
                 this.router.navigate(['/forms']);
-                this.alert.removeHint('getFormById');
                 this.alert.setErrorHint('no-form-found', this.translationService.translate('errorNoFormWithId', [params['id']]), 2000);
             });
         });

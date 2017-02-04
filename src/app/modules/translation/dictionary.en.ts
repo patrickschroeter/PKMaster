@@ -18,14 +18,6 @@ export const DICTIONARY_EN = {
 
     usedId: 'ID already in use.',
 
-    loadingTypeOptions: 'Loading type options...',
-    loadingOptionsOf: 'Loading options of { 0 }...',
-    loadingValidationsOf: 'Loading validations of { 0 }...',
-    loadingStylesOf: 'Loading styles of { 0 }...',
-
-    loadingChangePassword: 'Encrypting data...',
-    loadingUpdatePermission: 'Update permissions...',
-
     elementTypeNotValid: `Element type '{ 0 }' does not exist.`,
     identifyingError: 'There was an error identifying the element.',
     operationNotAllowed: 'This operation is not allowed.',
@@ -35,7 +27,6 @@ export const DICTIONARY_EN = {
 
     saveForm: 'Save form...',
     savedForm: 'Form saved.',
-    loadingForm: 'Loading form...',
     formName: 'Form Name',
 
     restricted: 'Restricted',
@@ -90,21 +81,23 @@ export const DICTIONARY_EN = {
 
     addPermissionToRole: 'Add permission to role',
 
-    loadingGetRoles: 'Getting roles...',
-    loadingAddRole: 'Adding role...',
-    loadingGetRoleById: 'Getting role...',
-    loadingUpdateRoleById: 'Update role...',
-    loadingRemovePermissionOfRole: 'Remove role...',
-    loadingAddPermissionToRole: 'Add permission to role...',
-
-    loadingGetUsers: 'Get users...',
-    loadingGetUserById: 'Get user by id...',
-
     title: 'Title',
     description: 'Description',
     footer: 'Caption',
     conferenceEntryType: 'Type of entries',
     conferenceElementConfig: 'Configuration Object',
     conferenceElementTable: 'Table',
-    conferenceElementApplication: 'Application'
+    conferenceElementApplication: 'Application',
+
+    'loading-getApplicationById': 'loading-getApplicationById',
+    'loading-getApplications': 'loading-getApplications',
+    'loading-submitApplication': 'loading-submitApplication',
+    'loading-updateApplication': 'loading-updateApplication',
+    'loading-getConferences': 'loading-getConferences',
+    'loading-login': 'loading-login',
+    'loading-getUser': 'loading-getUser',
+    'loading-getForms': 'loading-getForms',
+    'loading-getEditFormTemplate': 'loading-getEditFormTemplate',
+    'loading-getFormById': 'loading-getFormById',
+    'loading-saveForm': 'loading-saveForm'
 };

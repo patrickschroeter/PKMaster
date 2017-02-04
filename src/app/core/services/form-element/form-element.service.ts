@@ -5,11 +5,17 @@ import { FormGroup } from '@angular/forms';
 import { Observable, BehaviorSubject, Observer } from 'rxjs/Rx';
 import * as _ from 'lodash';
 
+/** Services */
 import { FormService } from './../form';
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
+
+/** Models */
 import { Field } from './../../../swagger';
-import { Fields } from './../../../models';
+import { Fields, Selectable } from './../../../models';
+
+/** Decorators */
+import { Loading } from './../../../shared/decorators/loading.decorator';
 
 @Injectable()
 export class FormElementService {
@@ -247,7 +253,7 @@ export class FormElementService {
     /**
      * Get all Options from the selected TableName and set them as Options
      */
-    private updateOptionsOfTable() {
+    private updateOptionsOfTable(): void {
         this.getOptionsOfTable(this.selectedOptionTable).subscribe((options: Field[]) => {
             if (!options) {
                 this.selectedOptionsLength = 0;
@@ -343,7 +349,6 @@ export class FormElementService {
      * Adds the element to the current Form
      * @param {FormElement} elmenent - the element to add to the form
      * @param {Number} mode - the mode of
-     * @return {void}
      */
     public saveElement(element: Field, mode?: 'clone' | 'add'): void {
         if (this.formService.addElementToForm(element, mode)) {
@@ -374,15 +379,11 @@ export class FormElementService {
     /**
      * cath all available element types from the server
      */
+    @Loading('getElementTypeOptions')
     private getElementTypeOptions(): Observable<Field> {
         const result: Field = new Fields.FieldType();
-        this.alert.setLoading(
-            'getInputTypeOptions',
-            this.translationService.translate('loadingTypeOptions')
-        );
-        return new Observable((observer: Observer<any>) => {
+        return new Observable((observer: Observer<Field>) => {
             setTimeout(() => {
-                this.alert.removeHint('getInputTypeOptions');
                 observer.next(result);
                 observer.complete();
             }, 500);
@@ -393,15 +394,11 @@ export class FormElementService {
      * get the options of the requested table
      * @param {String} name - the name of the option table
      */
-    private getOptionsOfTable(name: string): Observable<any[]> {
+    @Loading('getOptionsOfTable')
+    private getOptionsOfTable(name: string): Observable<Selectable[]> {
         const result = options();
-        this.alert.setLoading(
-            'getOptionsOfTable',
-            this.translationService.translate('loadingOptionsOf', [name.toUpperCase()])
-        );
-        return new Observable((observer: Observer<any>) => {
+        return new Observable((observer: Observer<Selectable[]>) => {
             setTimeout(() => {
-                this.alert.removeHint('getOptionsOfTable');
                 observer.next(result[name]);
                 observer.complete();
             }, 500);
@@ -412,17 +409,13 @@ export class FormElementService {
      * cath all available options of the element type from the server
      * @param {String} fieldType
      */
-    private getOptionsOfElementType(fieldType: string): Observable<any[]> {
+    @Loading('getOptionsOfElementType')
+    private getOptionsOfElementType(fieldType: string): Observable<Field[]> {
         const name: Field = new Fields.FieldName();
         const options: Field = opts()[fieldType];
-        this.alert.setLoading(
-            'getOptionsOfInputType',
-            this.translationService.translate('loadingOptionsOf', [fieldType.toUpperCase()])
-        );
-        return new Observable((observer: Observer<any>) => {
+        return new Observable((observer: Observer<Field[]>) => {
             setTimeout(() => {
                 if (!options) { return observer.complete(); }
-                this.alert.removeHint('getOptionsOfInputType');
                 let result = [].concat(name);
                 const element = _.cloneDeep(options);
                 if (element) { result = result.concat(element); }
@@ -437,15 +430,11 @@ export class FormElementService {
      * cath all available validations of the element type from the server
      * @param {String} fieldType
      */
-    private getValidationsOfInputType(fieldType: string): Observable<any> {
-        const options: Field = validations();
-        this.alert.setLoading(
-            'getValidationsOfInputType',
-            this.translationService.translate('loadingValidationsOf', [fieldType.toUpperCase()])
-        );
-        return new Observable((observer: Observer<any>) => {
+    @Loading('getValidationsOfInputType')
+    private getValidationsOfInputType(fieldType: string): Observable<Field[]> {
+        const options = validations();
+        return new Observable((observer: Observer<Field[]>) => {
             setTimeout(() => {
-                this.alert.removeHint('getValidationsOfInputType');
                 observer.next(options[fieldType]);
                 observer.complete();
             }, 500);
@@ -456,16 +445,13 @@ export class FormElementService {
      * cath all available styles of the element type from the server
      * @param {String} fieldType
      */
-    private getStylesOfInputType(fieldType: string): Observable<any> {
-        const options: Field = styles();
-        this.alert.setLoading(
-            'getStyles',
-            this.translationService.translate('loadingStylesOf', [fieldType.toUpperCase()])
-        );
-        return new Observable((observer: Observer<any>) => {
+    @Loading('getStylesOfInputType')
+    private getStylesOfInputType(fieldType: string): Observable<Field[]> {
+        const options = styles();
+        return new Observable((observer: Observer<Field[]>) => {
             setTimeout(() => {
-                this.alert.removeHint('getStyles');
-                observer.next(options);
+                /** TODO */
+                observer.next([options]);
                 observer.complete();
             }, 500);
         });

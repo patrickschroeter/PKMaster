@@ -3,10 +3,14 @@ import { Observable, Observer } from 'rxjs/Rx';
 
 /** Services */
 import { AlertService } from './../../../modules/alert';
+import { TranslationService } from './../../../modules/translation';
 import { ConferenceApi } from './../../../swagger/api/ConferenceApi';
 
 /** Models */
 import { Conference, Field } from './../../../swagger';
+
+/** Decorators */
+import { Loading } from './../../../shared/decorators/loading.decorator';
 
 @Injectable()
 export class ConferenceService {
@@ -18,13 +22,15 @@ export class ConferenceService {
 
     constructor(
         private conferenceApi: ConferenceApi,
-        private alert: AlertService
+        private alert: AlertService,
+        private translationService: TranslationService
     ) { }
 
     /**
      * request the conference by the given id
      * @param {String} id
      */
+    @Loading('getConferenceById')
     public getConferenceById(id: string): Observable<Conference> {
         return this.conferenceApi.getConferenceById(id).map(conference => {
             return this.conference = conference;
@@ -34,6 +40,7 @@ export class ConferenceService {
     /**
      * request all conferences
      */
+    @Loading('getConferences')
     public getConferences(): Observable<Conference[]> {
         return this.conferenceApi.getConferences().map(conferences => {
             // TODO: sort
@@ -45,6 +52,7 @@ export class ConferenceService {
      * create a new conference with the given values
      * @param {Conference} conference
      */
+    @Loading('createNewConference')
     public createNewConference(conference: Conference): Observable<Conference> {
         return this.conferenceApi.addConference(ConferenceService.DEFAULT_TOKEN, conference).map(result => {
             return this.conference = result;
@@ -55,6 +63,7 @@ export class ConferenceService {
      * save the given conference
      * @param {Conference} conference
      */
+    @Loading('saveConference')
     public saveConference(conference: Conference): Observable<Conference> {
         return this.conferenceApi.updateConferenceById(conference.id, ConferenceService.DEFAULT_TOKEN, conference).map(result => {
             return this.conference = result;
@@ -65,6 +74,7 @@ export class ConferenceService {
      * remove the conference with the given id
      * @param {String} conferenceId
      */
+    @Loading('removeConference')
     public removeConference(conferenceId: string): Observable<any> {
         return this.conferenceApi.deleteConferenceById(conferenceId).map(result => {
             return result;

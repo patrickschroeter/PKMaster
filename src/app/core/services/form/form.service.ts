@@ -1,12 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Observable, Observer } from 'rxjs/Rx';
 import * as _ from 'lodash';
 
+/** Services */
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
+import { FormApi } from './../../../swagger/api/FormApi';
+
+/** Models */
 import { Field, Form, SingleFormDto } from './../../../swagger';
 
-import { FormApi } from './../../../swagger/api/FormApi';
+/** Decorators */
+import { Loading } from './../../../shared/decorators/loading.decorator';
 
 @Injectable()
 export class FormService {
@@ -19,11 +24,9 @@ export class FormService {
     /** Index of editing Element */
     private editingElementIndex: number;
 
-    private addingElement$: Observer<boolean>;
-    private addingElementRx: Observable<any>;
+    private addingElement: EventEmitter<boolean> = new EventEmitter();
 
-    private editElementRx: Observable<any>;
-    private editElement$: Observer<Field>;
+    private editElement: EventEmitter<Field> = new EventEmitter();
 
     constructor(
         private alert: AlertService,
@@ -35,11 +38,8 @@ export class FormService {
      * return the observable for the adding element status
      * @return {Observable}
      */
-    public getAddingElement(): Observable<boolean> {
-        if (!this.addingElementRx) {
-            this.addingElementRx = new Observable((observer: Observer<any>) => { this.addingElement$ = observer; });
-        };
-        return this.addingElementRx;
+    public getAddingElement(): EventEmitter<boolean> {
+        return this.addingElement;
     }
 
     /**
@@ -48,68 +48,23 @@ export class FormService {
      * @return {void}
      */
     public setAddingElement(addingElement: boolean) {
-        if (this.addingElement$) {
-            this.addingElement$.next(addingElement);
-        }
+        this.addingElement.emit(addingElement);
     }
 
     /**
      * return the observable for editing an element
      * @return {Observable}
      */
-    public onEditElement(): Observable<Field> {
-        if (!this.editElementRx) { this.editElementRx = new Observable((observer: Observer<any>) => { this.editElement$ = observer; }); };
-        return this.editElementRx;
+    public onEditElement(): EventEmitter<Field> {
+        return this.editElement;
     }
 
     /**
-     * returns the observable to get a form by the given id
-     * @param {String} id
-     * @return {Observable}
+     * Emits the given value if someone subscribed for it
+     * @param {Field} [element]
      */
-    public getFormById(id: string): Observable<Form> {
-        // TODO: load real data
-        return this.formApi.getFormById(id).map(form => {
-            return this.form = form;
-        });
-    }
-
-    /**
-     * get the form with the given id with optional sorting
-     * @param {String} sort - key to sort the result
-     * @return {Observable}
-     */
-    public getForms(sort?: string): Observable<Form[]> {
-        const observable = this.formApi.getForms();
-        // TODO: sort on Server
-        if (sort) {
-            return observable.map(element => {
-                return element.sort(function (a, b) { return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
-            });
-        }
-        // TODO: load real data
-        return observable.map(forms => {
-            return this.forms = forms;
-        });
-    }
-
-    /**
-     * returns the observable to get the new created form
-     * @param {Form} submit - to copy or new form
-     * @return {Observable}
-     */
-    public createNewForm(submit: Form): Observable<any> {
-        const newform: Form = {
-            title: submit.id ? 'Copy of ' + submit.title : submit.title,
-            formHasField: submit.id ? submit.formHasField : [],
-            restrictedAccess: submit.restrictedAccess,
-            isPublic: true
-        };
-
-        // TODO: save real data
-        return this.formApi.addForm(FormService.DEFAULT_TOKEN, (newform as SingleFormDto)).map(form => {
-            return this.form = form;
-        });
+    private setEditElement(element?: Field): void {
+        this.editElement.emit(element);
     }
 
     /**
@@ -149,16 +104,6 @@ export class FormService {
             this.setEditElement(element);
         } else {
             this.setEditElement(null);
-        }
-    }
-
-    /**
-     * Emits the given value if someone subscribed for it
-     * @param {Field} [element]
-     */
-    private setEditElement(element?: Field): void {
-        if (this.editElement$) {
-            this.editElement$.next(element);
         }
     }
 
@@ -257,12 +202,14 @@ export class FormService {
         return this.addElementToForm({ 'fieldType': 'input', 'name': 'matnr', 'required': true, 'label': 'Matrikelnummer', 'contentType': 'number', 'placeholder': '', 'styles': ['small'], 'value': '' }, 'clone');
     }
 
+
     /**
      * returns the template to edit form attributes
      * @param {String} id
      * @return {Observable}
      */
-    public getEditFormTemplate(id?: string): Observable<any> {
+    @Loading('getEditFormTemplate')
+    public getEditFormTemplate(id?: string): Observable<Field[]> {
         const formEdit = [
             {
                 fieldType: 'input',
@@ -302,7 +249,8 @@ export class FormService {
      * @param {Form} form - the edit-form with the data to save
      * @return {Observable}
      */
-    public saveFormAttributes(submit: Form): Observable<any> {
+    @Loading('saveFormAttributes')
+    public saveFormAttributes(submit: Form): Observable<Form> {
         // TODO: save real data
         const form = _.cloneDeep(this.form);
 
@@ -322,7 +270,8 @@ export class FormService {
      * Saves the changed Form
      * @return {void}
      */
-    public saveForm(): Observable<any> {
+    @Loading('saveForm')
+    public saveForm(): Observable<Form> {
         // TODO: save real data
         this.alert.setLoading('saveForm', this.translationService.translate('saveForm'));
         return this.formApi.updateFormById(this.form.id, FormService.DEFAULT_TOKEN, this.form).map(form => {
@@ -332,6 +281,59 @@ export class FormService {
             } else {
                 return this.form;
             }
+        });
+    }
+
+    /**
+     * returns the observable to get a form by the given id
+     * @param {String} id
+     * @return {Observable}
+     */
+    @Loading('getFormById')
+    public getFormById(id: string): Observable<Form> {
+        // TODO: load real data
+        return this.formApi.getFormById(id).map(form => {
+            return this.form = form;
+        });
+    }
+
+    /**
+     * get the form with the given id with optional sorting
+     * @param {String} sort - key to sort the result
+     * @return {Observable}
+     */
+    @Loading('getForms')
+    public getForms(sort?: string): Observable<Form[]> {
+        const observable = this.formApi.getForms();
+        // TODO: sort on Server
+        if (sort) {
+            return observable.map(element => {
+                return element.sort(function (a, b) { return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
+            });
+        }
+        // TODO: load real data
+        return observable.map(forms => {
+            return this.forms = forms;
+        });
+    }
+
+    /**
+     * returns the observable to get the new created form
+     * @param {Form} submit - to copy or new form
+     * @return {Observable}
+     */
+    @Loading('createNewForm')
+    public createNewForm(submit: Form): Observable<Form> {
+        const newform: Form = {
+            title: submit.id ? 'Copy of ' + submit.title : submit.title,
+            formHasField: submit.id ? submit.formHasField : [],
+            restrictedAccess: submit.restrictedAccess,
+            isPublic: true
+        };
+
+        // TODO: save real data
+        return this.formApi.addForm(FormService.DEFAULT_TOKEN, (newform as SingleFormDto)).map(form => {
+            return this.form = form;
         });
     }
 }
