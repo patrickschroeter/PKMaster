@@ -99,5 +99,12 @@ export const DICTIONARY_EN = {
     'loading-getForms': 'loading-getForms',
     'loading-getEditFormTemplate': 'loading-getEditFormTemplate',
     'loading-getFormById': 'loading-getFormById',
-    'loading-saveForm': 'loading-saveForm'
+    'loading-saveForm': 'loading-saveForm',
+    'loading-assignConferenceToApplication': 'loading-assignConferenceToApplication',
+    'loading-getConferenceById': 'loading-getConferenceById',
+    'loading-getElementTypeOptions': 'loading-getElementTypeOptions',
+    'loading-getOptionsOfElementType': 'loading-getOptionsOfElementType',
+    'loading-createNewConference': 'loading-createNewConference',
+    'loading-createNewForm': 'loading-createNewForm',
+    'loading-saveConference': 'loading-saveConference'
 };
