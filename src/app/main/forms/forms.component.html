@@ -2,70 +2,78 @@
     <div class="rel">
         <pk-loading *ngIf="!forms"></pk-loading>
 
-        <div *ngIf="forms && !forms.length" class="empty-wrapper">
-            <div class="label" i18n>No Forms here.</div>
-            <pk-button icon="add" element--secondary (onClick)="overlay.toggle()" value="Create New Form" class="element--spacing-top-large"></pk-button>
-        </div>
+        <ng-container *ngIf="forms">
 
-        <h1 *ngIf="forms?.length" class="element element--spacing-bottom-small" i18n>Forms</h1>
+            <ng-container *ngIf="!forms.length">
+                <div class="empty-wrapper">
+                    <div class="label" i18n>No Forms here.</div>
+                    <pk-button icon="add" element--secondary (onClick)="overlay.toggle()" i18n-value value="Create New Form" class="element--spacing-top-large"></pk-button>
+                </div>
+            </ng-container>
 
-        <pk-list *ngIf="forms?.length">
-            <pk-list-header>
-                <!--<pk-list-attribute (click)="sortBy('restrictedAccess')" name="state-icon"></pk-list-attribute>-->
-                <pk-list-attribute name="state" i18n>Status</pk-list-attribute>
-                <pk-list-attribute name="name" (click)="sortBy('title')" i18n>Title</pk-list-attribute>
-                <pk-list-attribute name="date" (click)="sortBy('created')" i18n>Created</pk-list-attribute>
-                <pk-list-attribute name="version" i18n>Version</pk-list-attribute>
-            </pk-list-header>
-            <pk-list-content>
-                <pk-list-element *ngFor="let form of forms" [name]="form.restrictedAccess ? 'restricted' : 'no-restricted'">
-                    <!--<pk-list-attribute name="state-icon"></pk-list-attribute>-->
-                    <pk-list-attribute name="state" *ngIf="form.restrictedAccess" i18n>restricted</pk-list-attribute>
-                    <pk-list-attribute name="state" *ngIf="!form.restrictedAccess" i18n>public</pk-list-attribute>
+            <ng-container *ngIf="forms.length">
+                <h1 class="element element--spacing-bottom-small" i18n>Forms</h1>
 
-                    <pk-list-attribute name="name">
-                        <a routerLink="/forms/{{ form.id }}/edit">{{ form.title }}</a>
-                    </pk-list-attribute>
-                    <pk-list-attribute name="date">{{ form.created | date }}</pk-list-attribute>
-                    <pk-list-attribute name="version">{{ form.version }}</pk-list-attribute>
+                <pk-list>
+                    <pk-list-header>
+                        <pk-list-attribute name="state" i18n>Status</pk-list-attribute>
+                        <pk-list-attribute name="name" i18n>Title</pk-list-attribute>
+                        <pk-list-attribute name="date" i18n>Created</pk-list-attribute>
+                        <pk-list-attribute name="version" i18n>Version</pk-list-attribute>
+                    </pk-list-header>
+                    <pk-list-content>
+                        <pk-list-element *ngFor="let form of forms" [name]="form.restrictedAccess ? 'restricted' : 'no-restricted'">
+                            <pk-list-attribute name="state" *ngIf="form.restrictedAccess" i18n>restricted</pk-list-attribute>
+                            <pk-list-attribute name="state" *ngIf="!form.restrictedAccess" i18n>public</pk-list-attribute>
 
-                    <pk-floating top-right horizontal>
-                        <a routerLink="/forms/{{ form.id }}/edit">
-                            <pk-button rounded i18n-pkAlert pkAlert="Edit Form" icon="create" element--secondary></pk-button>
-                        </a>
-                        <pk-button rounded i18n-pkAlert pkAlert="Duplicate Form" icon="content_copy" (onClick)="createNewForm(form)" element--secondary></pk-button>
-                    </pk-floating>
-                </pk-list-element>
-            </pk-list-content>
-        </pk-list>
+                            <pk-list-attribute name="name">
+                                <a routerLink="/forms/{{ form.id }}/edit">{{ form.title }}</a>
+                            </pk-list-attribute>
+                            <pk-list-attribute name="date">{{ form.created | date }}</pk-list-attribute>
+                            <pk-list-attribute name="version">{{ form.version }}</pk-list-attribute>
+
+                            <pk-floating top-right horizontal>
+                                <a routerLink="/forms/{{ form.id }}/edit">
+                                    <pk-button rounded i18n-pkAlert pkAlert="Edit Form" icon="create" element--secondary></pk-button>
+                                </a>
+                                <pk-button rounded i18n-pkAlert pkAlert="Duplicate Form" icon="content_copy" (onClick)="createNewForm(form)" element--secondary></pk-button>
+                            </pk-floating>
+                        </pk-list-element>
+                    </pk-list-content>
+                </pk-list>
+
+                <pk-floating fixed top-right>
+                    <pk-button rounded i18n-pkAlert pkAlert="Create New Form" class="element--spacing-bottom-tiny" icon="add" element--secondary (onClick)="overlay.toggle()"></pk-button>
+                </pk-floating>
+
+            </ng-container>
+
+        </ng-container>
     </div>
-    <pk-floating fixed top-right>
-        <pk-button rounded i18n-pkAlert pkAlert="Create New Form" class="element--spacing-bottom-tiny" icon="add" element--secondary (onClick)="overlay.toggle()"></pk-button>
-    </pk-floating>
-
-    <pk-overlay #overlay>
-        <pk-overlay-header i18n>Create New Form</pk-overlay-header>
-        <pk-overlay-content>
-
-            <pk-dynamic-form [formElements]="newForm" #dynamicForm>
-                <pk-dynamic-form-content>
-
-                    <pk-dynamic-form-element *ngFor="let element of newForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
-
-                </pk-dynamic-form-content>
-
-                <pk-dynamic-form-submit>
-                    <pk-button
-                        *ngIf="dynamicForm?.form"
-                        i18n-value value="Create"
-                        icon="note_add"
-                        [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
-                        [type]="'submit'"
-                        (onClick)="createNewForm(dynamicForm.form.value)"></pk-button>
-                </pk-dynamic-form-submit>
-
-            </pk-dynamic-form>
-
-        </pk-overlay-content>
-    </pk-overlay>
 </div>
+
+<pk-overlay #overlay>
+    <pk-overlay-header i18n>Create New Form</pk-overlay-header>
+    <pk-overlay-content>
+
+        <pk-dynamic-form [formElements]="newForm" #dynamicForm>
+            <pk-dynamic-form-content>
+
+                <pk-dynamic-form-element *ngFor="let element of newForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
+
+            </pk-dynamic-form-content>
+
+            <pk-dynamic-form-submit>
+                <pk-button
+                    *ngIf="dynamicForm?.form"
+                    i18n-value value="Create"
+                    icon="note_add"
+                    [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
+                    [type]="'submit'"
+                    (onClick)="createNewForm(dynamicForm.form.value)"></pk-button>
+            </pk-dynamic-form-submit>
+
+        </pk-dynamic-form>
+
+    </pk-overlay-content>
+</pk-overlay>

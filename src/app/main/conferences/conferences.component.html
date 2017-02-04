@@ -2,62 +2,71 @@
     <div class="rel">
         <pk-loading *ngIf="!conferences"></pk-loading>
 
-        <div *ngIf="conferences && !conferences.length" class="empty-wrapper">
-            <div class="label" i18n>No Conferences here.</div>
-            <pk-button *accessEditConferences icon="add" element--secondary value="Create New Conference" (onClick)="overlay.toggle()" class="element--spacing-top-large"></pk-button>
-        </div>
+        <ng-container *ngIf="conferences">
 
-        <h1 *ngIf="conferences?.length" class="element element--spacing-bottom-small" i18n>Conferences</h1>
-        <pk-list *ngIf="conferences?.length">
-            <pk-list-header>
-                <pk-list-attribute name="name" i18n>Description</pk-list-attribute>
-                <pk-list-attribute name="date" i18n>Date</pk-list-attribute>
-                <pk-list-attribute name="date" i18n>Start</pk-list-attribute>
-                <pk-list-attribute name="date" i18n>End</pk-list-attribute>
-                <pk-list-attribute name="date" i18n>Room</pk-list-attribute>
-            </pk-list-header>
-            <pk-list-content>
-                <pk-list-element *ngFor="let conference of conferences">
-                    <pk-list-attribute name="name">
-                        <a routerLink="/conferences/{{ conference.id }}">{{ conference.description }}</a>
-                    </pk-list-attribute>
-                    <pk-list-attribute name="date">{{ conference.dateOfEvent | date }}</pk-list-attribute>
-                    <pk-list-attribute name="date">{{ conference.startOfEvent }}</pk-list-attribute>
-                    <pk-list-attribute name="date">{{ conference.endOfEvent }}</pk-list-attribute>
-                    <pk-list-attribute name="date">{{ conference.roomOfEvent }}</pk-list-attribute>
+            <ng-container *ngIf="!conferences.length">
+                <div class="empty-wrapper">
+                    <div class="label" i18n>No Conferences here.</div>
+                    <pk-button icon="add" element--secondary (onClick)="overlay.toggle()" i18n-value value="Create Conference" class="element--spacing-top-large"></pk-button>
+                </div>
+            </ng-container>
 
-                    <pk-floating horizontal top-right>
-                        <a routerLink="/conferences/{{ conference.id }}/edit">
-                            <pk-button
-                                class="element--spacing-bottom-tiny"
-                                rounded
-                                element--secondary
-                                i18n-pkAlert
-                                    pkAlert="Edit Conference"
-                                icon="create">
-                            </pk-button>
-                        </a>
-                        <pk-button rounded i18n-pkAlert pkAlert="Duplicate Conference" icon="content_copy" (onClick)="cloneConference(conference)" element--secondary></pk-button>
-                    </pk-floating>
-                </pk-list-element>
-            </pk-list-content>
-        </pk-list>
+            <ng-container *ngIf="conferences.length">
+                <h1 class="element element--spacing-bottom-small" i18n>Conferences</h1>
+
+                <pk-list>
+                    <pk-list-header>
+                        <pk-list-attribute name="name" i18n>Description</pk-list-attribute>
+                        <pk-list-attribute name="date" i18n>Date</pk-list-attribute>
+                        <pk-list-attribute name="date" i18n>Start</pk-list-attribute>
+                        <pk-list-attribute name="date" i18n>End</pk-list-attribute>
+                        <pk-list-attribute name="date" i18n>Room</pk-list-attribute>
+                    </pk-list-header>
+                    <pk-list-content>
+                        <pk-list-element *ngFor="let conference of conferences">
+                            <pk-list-attribute name="name">
+                                <a routerLink="/conferences/{{ conference.id }}">{{ conference.description }}</a>
+                            </pk-list-attribute>
+                            <pk-list-attribute name="date">{{ conference.dateOfEvent | date }}</pk-list-attribute>
+                            <pk-list-attribute name="date">{{ conference.startOfEvent }}</pk-list-attribute>
+                            <pk-list-attribute name="date">{{ conference.endOfEvent }}</pk-list-attribute>
+                            <pk-list-attribute name="date">{{ conference.roomOfEvent }}</pk-list-attribute>
+
+                            <pk-floating horizontal top-right>
+                                <a routerLink="/conferences/{{ conference.id }}/edit">
+                                    <pk-button
+                                        class="element--spacing-bottom-tiny"
+                                        rounded
+                                        element--secondary
+                                        i18n-pkAlert
+                                            pkAlert="Edit Conference"
+                                        icon="create">
+                                    </pk-button>
+                                </a>
+                                <pk-button rounded i18n-pkAlert pkAlert="Duplicate Conference" icon="content_copy" (onClick)="cloneConference(conference)" element--secondary></pk-button>
+                            </pk-floating>
+                        </pk-list-element>
+                    </pk-list-content>
+                </pk-list>
+
+                <pk-floating fixed top-right>
+                    <pk-button rounded i18n-pkAlert pkAlert="Create Conference" icon="add" element--secondary (onClick)="overlay.toggle()"></pk-button>
+                </pk-floating>
+
+            </ng-container>
+        </ng-container>
 
     </div>
-
-    <pk-floating fixed top-right *ngIf="conferences?.length">
-        <pk-button rounded i18n-pkAlert pkAlert="Create Conference" icon="add" element--secondary (onClick)="overlay.toggle()"></pk-button>
-    </pk-floating>
-
-    <pk-overlay #overlay>
-        <pk-overlay-header i18n>Create New Conference</pk-overlay-header>
-        <pk-overlay-content>
-
-            <pk-dynamic-form-overlay
-                [form]="newConference"
-                (save)="createConference($event)"
-                ></pk-dynamic-form-overlay>
-
-        </pk-overlay-content>
-    </pk-overlay>
 </div>
+
+<pk-overlay #overlay>
+    <pk-overlay-header i18n>Create New Conference</pk-overlay-header>
+    <pk-overlay-content>
+
+        <pk-dynamic-form-overlay
+            [form]="newConference"
+            (save)="createConference($event)"
+            ></pk-dynamic-form-overlay>
+
+    </pk-overlay-content>
+</pk-overlay>

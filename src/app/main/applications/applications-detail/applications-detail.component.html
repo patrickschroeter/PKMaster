@@ -25,7 +25,7 @@
                         <pk-button
                             *ngIf="dynamicForm?.form"
                             i18n-value value="Add"
-                            icon="note_add"
+                            icon="comment"
                             [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
                             (onClick)="createNewComment(dynamicForm.form.value)"></pk-button>
                     </pk-dynamic-form-submit>

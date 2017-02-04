@@ -2,52 +2,61 @@
     <div class="rel">
         <pk-loading *ngIf="!permissions"></pk-loading>
 
-        <div *ngIf="permissions && !permissions.length" class="empty-wrapper">
-            <div class="label" i18n>No Permissions here.</div>
-        </div>
+        <ng-container *ngIf="permissions">
 
-        <h1 *ngIf="permissions?.length" class="element element--spacing-bottom-small" i18n>Permissions</h1>
+            <ng-container *ngIf="!permissions.length">
+                <div class="empty-wrapper">
+                    <div class="label" i18n>No Permissions here.</div>
+                </div>
+            </ng-container>
 
-        <pk-list *ngIf="permissions?.length">
-            <pk-list-header>
-                <pk-list-attribute name="name" i18n>Title</pk-list-attribute>
-                <pk-list-attribute name="description" i18n>Description</pk-list-attribute>
-            </pk-list-header>
-            <pk-list-content>
-                <pk-list-element *ngFor="let permission of permissions">
-                    <pk-list-attribute name="name">{{ permission.name }}</pk-list-attribute>
-                    <pk-list-attribute name="description">{{ permission.description }}</pk-list-attribute>
+            <ng-container *ngIf="permissions.length">
 
-                    <pk-floating top-right horizontal>
-                        <pk-button *accessEditPermissions rounded i18n-pkAlert pkAlert="Edit Permission" icon="create" (onClick)="editPermission(permission)" element--secondary></pk-button>
-                    </pk-floating>
-                </pk-list-element>
-            </pk-list-content>
-        </pk-list>
+                <h1 class="element element--spacing-bottom-small" i18n>Permissions</h1>
+
+                <pk-list>
+                    <pk-list-header>
+                        <pk-list-attribute name="name" i18n>Title</pk-list-attribute>
+                        <pk-list-attribute name="description" i18n>Description</pk-list-attribute>
+                    </pk-list-header>
+                    <pk-list-content>
+                        <pk-list-element *ngFor="let permission of permissions">
+                            <pk-list-attribute name="name">{{ permission.name }}</pk-list-attribute>
+                            <pk-list-attribute name="description">{{ permission.description }}</pk-list-attribute>
+
+                            <pk-floating top-right horizontal>
+                                <pk-button *accessEditPermissions rounded i18n-pkAlert pkAlert="Edit Permission" icon="create" (onClick)="editPermission(permission)" element--secondary></pk-button>
+                            </pk-floating>
+                        </pk-list-element>
+                    </pk-list-content>
+                </pk-list>
+
+                <pk-overlay *accessEditPermissions #overlay>
+                    <pk-overlay-header i18n>Edit Permission</pk-overlay-header>
+                    <pk-overlay-content>
+
+                        <pk-dynamic-form [formElements]="editPermissionForm" #dynamicForm>
+                            <pk-dynamic-form-content>
+
+                                <pk-dynamic-form-element *ngFor="let element of editPermissionForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
+
+                            </pk-dynamic-form-content>
+
+                            <pk-dynamic-form-submit>
+                                <pk-button
+                                    *ngIf="dynamicForm?.form"
+                                    i18n-value value="Save"
+                                    icon="save"
+                                    [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
+                                    (onClick)="updatePermission(dynamicForm.form)"></pk-button>
+                            </pk-dynamic-form-submit>
+
+                        </pk-dynamic-form>
+
+                    </pk-overlay-content>
+                </pk-overlay>
+
+            </ng-container>
+        </ng-container>
     </div>
-
-    <pk-overlay *accessEditPermissions #overlay>
-        <pk-overlay-header i18n>Edit Permission</pk-overlay-header>
-        <pk-overlay-content>
-
-            <pk-dynamic-form [formElements]="editPermissionForm" #dynamicForm>
-                <pk-dynamic-form-content>
-
-                    <pk-dynamic-form-element *ngFor="let element of editPermissionForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
-
-                </pk-dynamic-form-content>
-
-                <pk-dynamic-form-submit>
-                    <pk-button
-                        *ngIf="dynamicForm?.form"
-                        i18n-value value="Save"
-                        icon="save"
-                        [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
-                        (onClick)="updatePermission(dynamicForm.form)"></pk-button>
-                </pk-dynamic-form-submit>
-
-            </pk-dynamic-form>
-
-        </pk-overlay-content>
-    </pk-overlay>
 </div>
