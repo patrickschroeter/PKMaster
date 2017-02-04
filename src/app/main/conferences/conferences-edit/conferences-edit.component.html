@@ -25,6 +25,16 @@
         </ng-container>
 
         <pk-floating top-right fixed>
+            <a routerLink="/conferences/{{ conference.id }}">
+                <pk-button
+                    class="element--spacing-bottom-tiny"
+                    rounded
+                    element--error
+                    i18n-pkAlert
+                        pkAlert="Cancel"
+                    icon="clear">
+                </pk-button>
+            </a>
             <div class="animation animation--trigger">
                 <pk-button
                     class="element--spacing-bottom-tiny"
@@ -71,16 +81,6 @@
                     </pk-button>
                 </div>
             </div>
-            <a routerLink="/conferences/{{ conference.id }}">
-                <pk-button
-                    class="element--spacing-bottom-tiny"
-                    rounded
-                    element--error
-                    i18n-pkAlert
-                        pkAlert="Cancel"
-                    icon="clear">
-                </pk-button>
-            </a>
         </pk-floating>
     </div>
 </ng-container>

@@ -1,9 +1,11 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
+import * as _ from 'lodash';
 
-import {
-    ConferenceService
-} from './../../core';
+/** Services */
+import { ConferenceService } from './../../core';
+
+/** Models */
 import { Conference, Field } from './../../swagger';
 
 @Component({
@@ -32,14 +34,24 @@ export class ConferencesComponent implements OnInit {
     }
 
     /**
-     * @description create a new conference from input
+     * create a new conference from input
      */
-    public createConference(form) {
+    public createConference(form: Conference): void {
         this.conferenceService.createNewConference(form).subscribe(conference => {
             if (conference['id']) {
                 this.router.navigate([`/conferences/`, conference['id'], 'edit']);
             }
         });
+    }
+
+    /**
+     * clone conference
+     */
+    public cloneConference(conference: Conference) {
+        const param = _.cloneDeep(conference);
+        delete param.id;
+        param.description = 'Copy of ' + param.description;
+        this.createConference(param);
     }
 
 }
