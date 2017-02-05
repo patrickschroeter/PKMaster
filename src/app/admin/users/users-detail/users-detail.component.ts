@@ -1,5 +1,6 @@
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import * as _ from 'lodash';
 
 /** Services */
 import {
@@ -111,15 +112,21 @@ export class UsersDetailComponent implements OnInit {
     }
 
     /**
-     * add the given permission to the role
+     * add/remove the given permission to the role
      * @param {Selectable} data
      */
     @Access(['EditUsers', 'EditRoles'])
     private addRoleToUser(data: Selectable): void {
-        this.userService.addRoleToUser(this.user.id, data.value).subscribe(result => {
+        const role = _.find(this.user.roles, obj => obj.id === data.value);
+        const fn = result => {
             this.user = result;
-            this.modalService.destroyModal();
-        });
+            this.modalService.updateSelectedValues(result.roles.map(obj => { return obj.id; }));
+        };
+        if (role) {
+            this.userService.removeRoleFromUser(this.user, role).subscribe(fn.bind(this));
+        } else {
+            this.userService.addRoleToUser(this.user.id, data.value).subscribe(fn.bind(this));
+        }
     }
 
 }

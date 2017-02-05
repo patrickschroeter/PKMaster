@@ -1,4 +1,9 @@
-<div class="animation animation--trigger">
+<div class="animation animation--trigger"
+    [ngClass]="{
+        'animation--right': _animationRight,
+        'animation--up': _animationUp,
+        'animation--down': _animationDown
+    }">
     <pk-button
         class="element--spacing-bottom-tiny"
         rounded

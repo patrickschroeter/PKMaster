@@ -1,0 +1,7 @@
+@import './../../../theme.scss';
+
+.label {
+    &.label--verified {
+        color: $success;
+    }
+}

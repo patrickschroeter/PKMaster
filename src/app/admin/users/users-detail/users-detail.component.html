@@ -1,79 +1,86 @@
-<pk-loading *ngIf="!user"></pk-loading>
+<div id="user">
+    <pk-loading *ngIf="!user"></pk-loading>
 
-<div id="user" *ngIf="user">
+    <ng-container *ngIf="user">
+        <div class="rel">
+            <h1 class="element element--spacing-bottom-small" i18n>User {{ user.firstname }} {{ user.lastname }}</h1>
 
-    <div class="rel">
-        <h1 class="element element--spacing-bottom-small" i18n>User {{ user.firstname }} {{ user.lastname }}</h1>
+            <pk-dynamic-form [formElements]="form" #dynamicForm>
+                <pk-dynamic-form-content>
 
-        <pk-dynamic-form [formElements]="form" #dynamicForm>
-            <pk-dynamic-form-content>
+                    <pk-dynamic-form-element *ngFor="let element of form" [element]="element" [disabled]="true" [form]="dynamicForm.form"></pk-dynamic-form-element>
 
-                <pk-dynamic-form-element *ngFor="let element of form" [element]="element" [disabled]="true" [form]="dynamicForm.form"></pk-dynamic-form-element>
+                </pk-dynamic-form-content>
 
-            </pk-dynamic-form-content>
+            </pk-dynamic-form>
 
-        </pk-dynamic-form>
+        </div>
 
-    </div>
+        <h3 class="element element--spacing-bottom-small element--spacing-top-large" i18n>Roles:</h3>
 
-    <h3 class="element element--spacing-bottom-small element--spacing-top-large" i18n>Roles:</h3>
-    <pk-devider class="element element--spacing-bottom-large"></pk-devider>
+        <ng-container *ngIf="!user.roles || !user.roles.length">
+            <div class="empty-wrapper">
+                <div class="label" i18n>No Roles here.</div>
+            </div>
+        </ng-container>
 
-    <div *ngIf="!user.roles || !user.roles.length" class="empty-wrapper">
-        <div class="label" i18n>No Roles here.</div>
-    </div>
+        <ng-container *ngIf="user.roles && user.roles.length">
 
-    <pk-list *ngIf="user.roles && user.roles.length">
-        <pk-list-header>
-            <pk-list-attribute name="name" i18n>Name</pk-list-attribute>
-            <pk-list-attribute name="state" i18n>Number of Permissions</pk-list-attribute>
-        </pk-list-header>
-        <pk-list-content>
-            <pk-list-element *ngFor="let role of user.roles">
-                <pk-list-attribute name="name">
-                    <a routerLink="{{ role.id }}">{{ role.name }}</a>
-                </pk-list-attribute>
-                <pk-list-attribute name="state">{{ role.rolePermissions.length }}</pk-list-attribute>
+            <pk-list>
+                <pk-list-header>
+                    <pk-list-attribute name="name" i18n>Name</pk-list-attribute>
+                    <pk-list-attribute name="state" i18n>Number of Permissions</pk-list-attribute>
+                </pk-list-header>
+                <pk-list-content>
+                    <pk-list-element *ngFor="let role of user.roles">
+                        <pk-list-attribute name="name">
+                            <a routerLink="{{ role.id }}">{{ role.name }}</a>
+                        </pk-list-attribute>
+                        <pk-list-attribute name="state">{{ role.rolePermissions.length }}</pk-list-attribute>
 
-                <pk-floating top-right horizontal>
-                    <pk-button
-                        *accessEditRoles
-                        rounded
-                        element--error
-                        i18n-pkAlert
-                             pkAlert="Remove Role from User"
-                        icon="delete"
-                        (onClick)="removeRole(role)">
-                    </pk-button>
-                </pk-floating>
-            </pk-list-element>
-        </pk-list-content>
-    </pk-list>
+                        <pk-floating top-right horizontal>
+                            <pk-button
+                                *accessEditRoles
+                                rounded
+                                element--error
+                                i18n-pkAlert
+                                    pkAlert="Remove Role from User"
+                                icon="delete"
+                                (onClick)="removeRole(role)">
+                            </pk-button>
+                        </pk-floating>
+                    </pk-list-element>
+                </pk-list-content>
+            </pk-list>
 
-    <pk-floating fixed top-right>
-        <a routerLink="/admin/users">
-            <pk-button
-                class="element--spacing-bottom-tiny"
-                rounded
-                element--error
-                i18n-pkAlert
-                    pkAlert="Back to Listview"
-                icon="arrow_back">
-            </pk-button>
-        </a>
-        <pk-button-animation-wrapper>
-            <pk-button
-                *accessEditRoles
-                rounded
-                element--secondary
-                i18n-pkAlert
-                    pkAlert="Add Role to User"
-                icon="share"
-                (onClick)="addRoleToUserModal()">
-            </pk-button>
-            <a  routerLink="/admin/users/{{ user.id }}/edit">
-                <pk-button rounded i18n-pkAlert pkAlert="Edit User" class="element--spacing-bottom-tiny" icon="create" element--secondary></pk-button>
+        </ng-container>
+
+        <pk-floating fixed top-right>
+            <a routerLink="/admin/users">
+                <pk-button
+                    class="element--spacing-bottom-tiny"
+                    rounded
+                    element--error
+                    i18n-pkAlert
+                        pkAlert="Back to Listview"
+                    icon="arrow_back">
+                </pk-button>
             </a>
-        </pk-button-animation-wrapper>
-    </pk-floating>
+            <pk-button-animation-wrapper>
+                <pk-button
+                    *accessEditRoles
+                    rounded
+                    element--secondary
+                    i18n-pkAlert
+                        pkAlert="Add Role to User"
+                    icon="share"
+                    (onClick)="addRoleToUserModal()">
+                </pk-button>
+                <a  routerLink="/admin/users/{{ user.id }}/edit">
+                    <pk-button rounded i18n-pkAlert pkAlert="Edit User" class="element--spacing-bottom-tiny" icon="create" element--secondary></pk-button>
+                </a>
+            </pk-button-animation-wrapper>
+        </pk-floating>
+
+    </ng-container>
 </div>

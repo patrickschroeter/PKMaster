@@ -46,4 +46,6 @@ export interface Conference {
     numberOfConference?: number;
 
     config?: ConferenceConfig<any>[];
+
+    assignments?: string[];
 }

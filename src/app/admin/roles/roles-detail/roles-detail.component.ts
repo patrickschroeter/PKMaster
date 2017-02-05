@@ -126,11 +126,16 @@ export class RolesDetailComponent implements OnInit {
      */
     @Access('EditRoles')
     private addPermissionToRole(data: Selectable): void {
-        this.roleService.addPermissionToRole(this.role.id, data.value).subscribe(result => {
+        const permission = _.find(this.role.rolePermissions, obj => obj.id === data.value);
+        const fn = result => {
             this.role = result;
-            this.modalService.updateSelectedValues(result.rolePermissions.map(obj => { return obj.id; }))
-            // this.modalService.destroyModal();
-        });
+            this.modalService.updateSelectedValues(result.rolePermissions.map(obj => { return obj.id; }));
+        };
+        if (permission) {
+            this.roleService.removePermissionOfRole(this.role.id, permission.id).subscribe(fn.bind(this));
+        } else {
+            this.roleService.addPermissionToRole(this.role.id, data.value).subscribe(fn.bind(this));
+        }
     }
 
 }

@@ -92,10 +92,7 @@ export class ConferenceService {
                 name: 'description',
                 label: 'Conference Description:',
                 required: true,
-                value: values ? values.description : '',
-                styles: [
-                    'small'
-                ]
+                value: values ? values.description : ''
             },
             {
                 fieldType: 'input',

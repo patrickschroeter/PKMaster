@@ -8,7 +8,8 @@ import { ConferencesDetailComponent } from './conferences-detail.component';
 
 import { CoreProviderMock } from './../../../core/core.module';
 import { AlertProviderMock } from './../../../modules/alert/alert.module';
-import { OverlayModule } from './../../../modules/overlay/overlay.module';
+import { OverlayModule, ModalProviderMock } from './../../../modules/overlay/overlay.module';
+import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
 describe('ConferencesDetailComponent', () => {
     let component: ConferencesDetailComponent;
@@ -25,7 +26,9 @@ describe('ConferencesDetailComponent', () => {
             ],
             providers: [
                 ...CoreProviderMock,
-                ...AlertProviderMock
+                ...AlertProviderMock,
+                ...ModalProviderMock,
+                ...TranslationProviderMock
             ],
             schemas: [NO_ERRORS_SCHEMA]
         })

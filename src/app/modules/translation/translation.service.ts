@@ -7,7 +7,7 @@ export class TranslationService {
 
     private defaultLocaleId = 'en';
 
-    constructor( @Inject(LOCALE_ID) protected localeId, @Inject(TRANSLATE) private i18n: any ) {
+    constructor( @Inject(LOCALE_ID) protected localeId: string, @Inject(TRANSLATE) private i18n: any ) {
         if (!i18n[localeId]) {
             this.localeId = this.defaultLocaleId;
         }

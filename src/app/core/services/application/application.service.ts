@@ -213,4 +213,18 @@ export class ApplicationService {
         });
     }
 
+    /**
+     * confirm the application by a docent
+     * @param {Boolean} confirmation
+     * @param {Application} application
+     */
+    public confirmApplication(confirmation: boolean, application: Application): Observable<Application> {
+        const param = _.cloneDeep(application);
+        param.confirmed = confirmation;
+
+        return this.updateApplication(param).map(result => {
+            return this.application = result;
+        });
+    }
+
 }

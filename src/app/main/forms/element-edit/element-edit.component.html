@@ -39,37 +39,37 @@
         </pk-button>
 
         <ng-container *ngIf="elementPreview.length > 0 && dynamicForm.form.valid">
+            <pk-button
+                class="element--spacing-bottom-tiny"
+                i18n-pkAlert pkAlert="Save Element"
+                rounded icon="save" (onClick)="saveElement(dynamicForm.form.value)" element--secondary>
+            </pk-button>
             <pk-button-animation-wrapper>
                 <pk-button
                     class="element--spacing-bottom-tiny"
-                    i18n-pkAlert pkAlert="Save Element"
-                    rounded icon="save" (onClick)="saveElement(dynamicForm.form.value)" element--success>
-                </pk-button>
-                <pk-button
-                    class="element--spacing-bottom-tiny"
                     i18n-pkAlert pkAlert="Save & Add Element"
-                    rounded icon="add" (onClick)="copyElement(dynamicForm.form.value, 'add')" element--success>
+                    rounded icon="add" (onClick)="copyElement(dynamicForm.form.value, 'add')" element--secondary>
                 </pk-button>
                 <pk-button
                     class="element--spacing-bottom-tiny"
                     i18n-pkAlert pkAlert="Save & Copy Element"
-                    rounded icon="content_copy" (onClick)="copyElement(dynamicForm.form.value, 'clone')" element--success>
+                    rounded icon="content_copy" (onClick)="copyElement(dynamicForm.form.value, 'clone')" element--secondary>
                 </pk-button>
 
                 <pk-button *ngIf="!elementHasStyles"
                     class="element--spacing-bottom-tiny"
                     i18n-pkAlert pkAlert="Add Styling"
-                    rounded icon="color_lens" (onClick)="addStyles()" element--secondary>
+                    rounded icon="color_lens" (onClick)="addStyles()" element--success>
                 </pk-button>
                 <pk-button *ngIf="!elementHasValidations"
                     class="element--spacing-bottom-tiny"
                     i18n-pkAlert pkAlert="Add Validations"
-                    rounded icon="security" (onClick)="addValidations()" element--secondary>
+                    rounded icon="security" (onClick)="addValidations()" element--success>
                 </pk-button>
                 <pk-button
                     class="element--spacing-bottom-tiny"
                     i18n-pkAlert pkAlert="Toggle Preview"
-                    rounded class="element--spacing-bottom-tiny" icon="visibility" (onClick)="toggleElementPreview()" element--secondary>
+                    rounded class="element--spacing-bottom-tiny" icon="visibility" (onClick)="toggleElementPreview()" element--success>
                 </pk-button>
 
                 <pk-button rounded

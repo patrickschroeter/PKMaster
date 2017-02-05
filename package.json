@@ -11,19 +11,14 @@
     "test": "ng test",
     "pree2e": "webdriver-manager update --standalone false --gecko false",
     "e2e": "protractor",
-
     "coverage": "ng test --watch=false --cc=true",
-
     "i18n": "cd src && ng-xi18n",
     "swagger": "rm -rf ./src/app/swagger | java -jar ./.swagger/swagger-codegen-cli.jar generate -i http://pk.multimedia.hs-augsburg.de:8000/swagger/v1/swagger.json -l typescript-angular2 -o ./src/app/swagger",
-
     "serve-i18n:de": "ng serve --aot --i18n-file=src/i18n/messages.de.xlf --locale=de --i18n-format=xlf",
     "serve-i18n:en": "ng serve --aot --i18n-file=src/i18n/messages.en.xlf --locale=en --i18n-format=xlf",
-
     "build-i18n:de": "ng build -o dist/de --aot --bh /de/ --i18n-file=src/i18n/messages.de.xlf --i18n-format=xlf --locale=de",
     "build-i18n:en": "ng build -o dist/en --aot --bh /en/ --i18n-file=src/i18n/messages.en.xlf --i18n-format=xlf --locale=en",
     "build-i18n": "npm run build-i18n:de && npm run build-i18n:en",
-
     "doc": "./node_modules/.bin/compodoc -p src/tsconfig.json",
     "doc:serve": "./node_modules/.bin/compodoc -p src/tsconfig.json -s"
   },
@@ -42,6 +37,7 @@
     "core-js": "^2.4.1",
     "lodash": "^4.17.2",
     "material-design-icons": "^3.0.1",
+    "ng2-dnd": "^2.2.2",
     "rxjs": "^5.0.1",
     "ts-helpers": "^1.1.1",
     "zone.js": "^0.7.2"

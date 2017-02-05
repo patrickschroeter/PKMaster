@@ -4,6 +4,8 @@ import * as _ from 'lodash';
 
 /** Services */
 import { ConferenceService } from './../../core';
+import { ModalService } from './../../modules/overlay';
+import { TranslationService } from './../../modules/translation';
 
 /** Models */
 import { Conference, Field } from './../../swagger';
@@ -21,8 +23,13 @@ export class ConferencesComponent implements OnInit {
     public newConference: Field[];
 
     constructor(
+        /** Angular */
+        private router: Router,
+        /** Modules */
+        private modalService: ModalService,
+        private translationService: TranslationService,
+        /** Services */
         private conferenceService: ConferenceService,
-        private router: Router
     ) { }
 
     ngOnInit() {
@@ -35,6 +42,7 @@ export class ConferencesComponent implements OnInit {
 
     /**
      * create a new conference from input
+     * @param {Conference} form
      */
     public createConference(form: Conference): void {
         this.conferenceService.createNewConference(form).subscribe(conference => {
@@ -46,6 +54,7 @@ export class ConferencesComponent implements OnInit {
 
     /**
      * clone conference
+     * @param {Conference} conference
      */
     public cloneConference(conference: Conference) {
         const param = _.cloneDeep(conference);
@@ -56,8 +65,21 @@ export class ConferencesComponent implements OnInit {
 
     /**
      * Delete the conference
+     * @param {Conference} conference
      */
      public deleteConference(conference: Conference) {
-         console.error('TODO: deleteConference');
+        this.modalService.createConfirmationModal({
+            title: this.translationService.translate('confirmDeleteConferenceHeader'),
+            message: this.translationService.translate('confirmDeleteConferenceContent'),
+            confirm: () => {
+                this.conferenceService.removeConference(conference.id).subscribe(result => {
+                    const index = _.findIndex(this.conferences, obj => obj.id === conference.id);
+                    if (result && index !== -1) {
+                        this.conferences.splice(index, 1);
+                    }
+                    this.modalService.destroyModal();
+                });
+            }
+        });
      }
 }

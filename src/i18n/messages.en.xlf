@@ -70,9 +70,9 @@
         <source>Connected Form: <x id="INTERPOLATION"/></source>
         <target>Connected Form: <x id="INTERPOLATION"/></target>
       </trans-unit>
-      <trans-unit id="6fe81aa5b37f4ca03cfe9bb86215958f789072ad" datatype="html">
-        <source>Selected Fields</source>
-        <target>Selected Fields</target>
+      <trans-unit id="3d2680bba01388b7f06c28d7f985e09243b0afc3" datatype="html">
+        <source>No Fields selected.</source>
+        <target>No Fields selected.</target>
       </trans-unit>
       <trans-unit id="fa9c37861c6d25c8e800a9b39f1c61deecd9a7ee" datatype="html">
         <source>Edit Attributes</source>
@@ -278,9 +278,21 @@
         <source>Application: <x id="INTERPOLATION"/></source>
         <target>Application: <x id="INTERPOLATION"/></target>
       </trans-unit>
+      <trans-unit id="814efcc244d182cabfdcdf7754097cdd023514d9" datatype="html">
+        <source>Verified</source>
+        <target>Verified</target>
+      </trans-unit>
       <trans-unit id="8314878a3dabd1db7060f440bc25d06056288c50" datatype="html">
         <source>Conference: <x id="INTERPOLATION"/></source>
         <target>Conference: <x id="INTERPOLATION"/></target>
+      </trans-unit>
+      <trans-unit id="93dc875fad57390c19c009b1bb8deede9a4fa629" datatype="html">
+        <source>Assigned Docents</source>
+        <target>Assigned Docents</target>
+      </trans-unit>
+      <trans-unit id="d3e6c0a6dc3d117cad4cfb7175d33035075a2d47" datatype="html">
+        <source>Delete assignment from application</source>
+        <target>Delete assignment from application</target>
       </trans-unit>
       <trans-unit id="c5bb9f8936cb33db2ca351a1b87a984fdf11917c" datatype="html">
         <source>Comments</source>
@@ -314,6 +326,14 @@
         <source>Edit Application</source>
         <target>Edit Application</target>
       </trans-unit>
+      <trans-unit id="3f341a5e1fba3c8ba7d9bf1897ceb88df4f190f0" datatype="html">
+        <source>Assign User</source>
+        <target>Assign User</target>
+      </trans-unit>
+      <trans-unit id="e225a597fb81f209bfcd5da807003b90f1e357cf" datatype="html">
+        <source>Validate Application</source>
+        <target>Validate Application</target>
+      </trans-unit>
       <trans-unit id="9e2ef06d7ac84404c77610732f10d7ff0942c96e" datatype="html">
         <source>Deactivate Application</source>
         <target>Deactivate Application</target>
@@ -346,9 +366,17 @@
         <source>Conference: <x id="INTERPOLATION"/></source>
         <target>Conference: <x id="INTERPOLATION"/></target>
       </trans-unit>
-      <trans-unit id="56c4f18f1457632404fac28882b172120d2263f4" datatype="html">
-        <source>Attendant PK-Members (TODO)</source>
-        <target>Attendant PK-Members (TODO)</target>
+      <trans-unit id="7ace8d80635faec093ec894966e2837f4fccae11" datatype="html">
+        <source>Attendant PK-Members</source>
+        <target>Attendant PK-Members</target>
+      </trans-unit>
+      <trans-unit id="bc77a5a84148e6ecae15a1afffa6f6313f1c787d" datatype="html">
+        <source>No attendant members.</source>
+        <target>No attendant members.</target>
+      </trans-unit>
+      <trans-unit id="81423bb2453b0754a09030770fbf965b5d6904b0" datatype="html">
+        <source>Delete Member from Conference</source>
+        <target>Delete Member from Conference</target>
       </trans-unit>
       <trans-unit id="d19bf052163bf96dc9856ac2c0c4ed59963a56d3" datatype="html">
         <source>Agenda</source>

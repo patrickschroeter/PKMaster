@@ -1,0 +1,21 @@
+@import './../../../theme.scss';
+
+.empty-wrapper {
+    &.animation {
+        .floating.floating--top-right {
+            top: 1rem;
+        }
+    }
+}
+
+#conference-entry-selected-form {
+    &.empty-wrapper {
+        .list-element__attribute {
+            &:hover {
+                color: $black;
+                background-color: $element-hover-edit;
+                cursor: move;
+            }
+        }
+    }
+}

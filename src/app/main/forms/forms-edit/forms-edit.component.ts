@@ -37,13 +37,16 @@ export class FormsEditComponent implements OnInit {
     private addingElement = false;
 
     constructor(
+        /** Angular */
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private formService: FormService,
+        /** Modules */
         private alert: AlertService,
-        private elementService: FormElementService,
         private translationService: TranslationService,
-        private modalService: ModalService
+        private modalService: ModalService,
+        /** Services */
+        private formService: FormService,
+        private elementService: FormElementService
     ) { }
 
 
@@ -173,7 +176,16 @@ export class FormsEditComponent implements OnInit {
      * Delete the form
      */
      public deleteForm() {
-         console.error('TODO: deleteForm');
+        this.modalService.createConfirmationModal({
+            title: this.translationService.translate('confirmDeleteFormHeader'),
+            message: this.translationService.translate('confirmDeleteFormContent'),
+            confirm: () => {
+                this.formService.removeForm(this.form.id).subscribe(result => {
+                    this.router.navigate(['forms']);
+                    this.modalService.destroyModal();
+                });
+            }
+        });
      }
 
 }

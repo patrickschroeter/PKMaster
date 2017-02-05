@@ -2,12 +2,41 @@
 
 <div id="application-detail" class="rel" *ngIf="application">
     <h2 class="element element--spacing-bottom-small" i18n>Application: {{ application.title }}</h2>
+    <div class="label label--verified" *ngIf="application.confirmed" i18n>Verified</div>
     <h4 class="element element--spacing-bottom-small">
         <a class="anchor anchor--hover" routerLink="/conferences/{{ application.conference.id }}" *ngIf="application.conference" i18n>Conference: {{ application.conference.dateOfEvent | date }}</a>
     </h4>
     <pk-devider class="element element--spacing-bottom-large"></pk-devider>
 
     <pk-dynamic-form-disabled *ngIf="application.attributes?.length > 0" [form]="application.attributes"></pk-dynamic-form-disabled>
+
+    <ng-container *ngIf="application.assignments && application.assignments.length">
+        <pk-devider class="element element--spacing-bottom-large"></pk-devider>
+        <h4 i18n>Assigned Docents</h4>
+        <pk-list>
+            <pk-list-header>
+                <pk-list-attribute name="name" i18n>Name</pk-list-attribute>
+            </pk-list-header>
+            <pk-list-content>
+                <pk-list-element *ngFor="let user of application.assignments">
+                    <pk-list-attribute name="name">
+                        {{ userLabels[user] }}
+                    </pk-list-attribute>
+
+                    <pk-floating top-right horizontal>
+                        <pk-button
+                            rounded
+                            i18n-pkAlert
+                            pkAlert="Delete assignment from application"
+                            icon="delete"
+                            element--error
+                            (onClick)="unassignUser(user)">
+                        </pk-button>
+                    </pk-floating>
+                </pk-list-element>
+            </pk-list-content>
+        </pk-list>
+    </ng-container>
 
     <div class="comment-block">
         <h4 i18n>Comments</h4>
@@ -145,7 +174,28 @@
                     icon="create">
                 </pk-button>
             </a>
-
+            <!--assign-->
+            <pk-button
+                class="element--spacing-bottom-tiny"
+                rounded
+                element--secondary
+                i18n-pkAlert
+                pkAlert="Assign User"
+                icon="supervisor_account"
+                (onClick)="assignUserModal(application)">
+            </pk-button>
+            <!--Assigned-->
+            <ng-container *ngIf="user">
+                <pk-button
+                    *ngIf="application.status?.name === 'submitted' && application.assignments.indexOf(user.id) !== -1"
+                    rounded
+                    element--secondary
+                    i18n-pkAlert
+                    pkAlert="Validate Application"
+                    icon="playlist_add_check"
+                    (onClick)="validateApplication(application)">
+                </pk-button>
+            </ng-container>
             <pk-button
                 *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
                 class="element--spacing-bottom-tiny"
