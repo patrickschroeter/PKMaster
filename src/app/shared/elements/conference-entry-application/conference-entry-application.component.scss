@@ -1,0 +1,9 @@
+@import './../../../theme.scss';
+
+.empty-wrapper {
+    &.animation {
+        .floating.floating--top-right {
+            top: 1rem;
+        }
+    }
+}
