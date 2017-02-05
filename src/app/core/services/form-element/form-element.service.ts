@@ -415,7 +415,6 @@ export class FormElementService {
         const options: Field = opts()[fieldType];
         return new Observable((observer: Observer<Field[]>) => {
             setTimeout(() => {
-                if (!options) { return observer.complete(); }
                 let result = [].concat(name);
                 const element = _.cloneDeep(options);
                 if (element) { result = result.concat(element); }
