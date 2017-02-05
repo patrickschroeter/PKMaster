@@ -12,9 +12,9 @@
                 </ng-container>
                 <ng-container *ngIf="entry.fields && entry.fields.length">
                     <pk-list>
-                        <pk-list-header>
-                            <ng-container *ngFor="let field of entry.fields">
-                                <pk-list-attribute [name]="field">{{ field }}</pk-list-attribute>
+                        <pk-list-header dnd-sortable-container [sortableData]="entry.fields">
+                            <ng-container *ngFor="let field of entry.fields; let i = index">
+                                <pk-list-attribute [name]="field" dnd-sortable [sortableIndex]="i">{{ field }}</pk-list-attribute>
                             </ng-container>
                         </pk-list-header>
                     </pk-list>

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
 import { CommonModule } from '@angular/common';
+import { DndModule } from 'ng2-dnd';
 
 import * as components from './components';
 import * as elements from './elements';
@@ -52,7 +52,9 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
         OverlayModule,
         DynamicFormModule,
         ListModule,
-        AlertDirectiveModule
+        AlertDirectiveModule,
+
+        DndModule.forRoot()
     ],
     providers: [
         services.WindowService
@@ -73,7 +75,9 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
         elements.LoadingComponent,
         elements.ButtonAnimationWrapperComponent,
 
-        directives.AccessDirective
+        directives.AccessDirective,
+
+        DndModule
     ]
 })
 export class SharedModule { }
