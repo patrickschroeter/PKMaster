@@ -3,8 +3,7 @@
 
     <ng-container *ngIf="role">
 
-        <h2 class="element element--spacing-bottom-small" i18n>Role: {{ role.name }}</h2>
-        <pk-devider class="element element--spacing-bottom-large"></pk-devider>
+        <h1 class="element element--spacing-bottom-small" i18n>Role: {{ role.name }}</h1>
 
         <ng-container *ngIf="!role.rolePermissions || !role.rolePermissions.length">
             <div class="empty-wrapper">
