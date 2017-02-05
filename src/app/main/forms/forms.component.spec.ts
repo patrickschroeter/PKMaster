@@ -8,6 +8,8 @@ import { FormsComponent } from './forms.component';
 
 import { CoreProviderMock } from './../../core/core.module';
 import { AlertProviderMock } from './../../modules/alert/alert.module';
+import { OverlayModule, ModalProviderMock } from './../../modules/overlay/overlay.module';
+import { TranslationProviderMock } from './../../modules/translation/translation.module';
 
 describe('FormsComponent', () => {
     let component: FormsComponent;
@@ -25,7 +27,9 @@ describe('FormsComponent', () => {
             ],
             providers: [
                 ...CoreProviderMock,
-                ...AlertProviderMock
+                ...AlertProviderMock,
+                ...ModalProviderMock,
+                ...TranslationProviderMock
             ],
             schemas: [NO_ERRORS_SCHEMA]
         })
