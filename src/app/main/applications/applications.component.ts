@@ -1,18 +1,20 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
+import * as _ from 'lodash';
 
 /** Services */
 import {
     ApplicationService,
     FormService,
-    PermissionService
+    PermissionService,
+    AuthenticationService
 } from './../../core';
 import { AlertService } from './../../modules/alert';
 import { TranslationService } from './../../modules/translation';
 import { ModalService } from './../../modules/overlay';
 
 /** Models */
-import { Application } from './../../swagger';
+import { Application, AppUser } from './../../swagger';
 import { Selectable } from './../../models';
 
 /** Decorators */
@@ -26,18 +28,24 @@ import { Access } from './../../shared/decorators/access.decorator';
 export class ApplicationsComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    private applications: Application[];
+    public applications: Application[];
 
     private applicationTypes: Array<Selectable>;
 
+    public user: AppUser;
+
     constructor(
+        /** Angular */
         private router: Router,
-        private applicationService: ApplicationService,
+        /** Modules */
         private alert: AlertService,
+        private translationService: TranslationService,
+        private modalService: ModalService,
+        /** Services */
+        private applicationService: ApplicationService,
         private formService: FormService,
         private permission: PermissionService,
-        private translationService: TranslationService,
-        private modalService: ModalService
+        private auth: AuthenticationService
     ) { }
 
     ngOnInit() {
@@ -54,6 +62,10 @@ export class ApplicationsComponent implements OnInit {
                 this.applicationTypes.push(new Selectable(element.id, element.title));
             }
         });
+
+        this.auth.getUser().subscribe(user => {
+            this.user = user;
+        });
     }
 
     /**
@@ -61,6 +73,17 @@ export class ApplicationsComponent implements OnInit {
      */
     public sortBy(sortValue: string): void {
         this.applicationService.getApplications(sortValue);
+    }
+
+    /**
+     * update the application in the applications list
+     * @param {Application} application
+     */
+    private updateApplication(application: Application): void {
+        const index = _.findIndex(this.applications, obj => obj.id === application.id);
+        if (index !== -1) {
+            this.applications[index] = application;
+        }
     }
 
     /**
@@ -85,7 +108,7 @@ export class ApplicationsComponent implements OnInit {
     @Access(['CreateApplications', 'EditApplications'])
     private submitApplication(application: Application): void {
         this.applicationService.submitApplication(application).subscribe(result => {
-            /** TODO */ application.status = result.status;
+            this.updateApplication(result);
             this.alert.setSuccessHint(`submitApplication${application.id}`, this.translationService.translate('applicationSubmitted'));
             this.modalService.destroyModal();
         });
@@ -113,7 +136,7 @@ export class ApplicationsComponent implements OnInit {
     @Access(['CreateApplications', 'EditApplications'])
     private rescindApplication(application: Application): void {
         this.applicationService.rescindApplication(application).subscribe(result => {
-            /** TODO */ application.status = result.status;
+            this.updateApplication(result);
             this.alert.setSuccessHint(`rescindApplication${application.id}`, this.translationService.translate('applicationRescinded'));
             this.modalService.destroyModal();
         });
@@ -141,7 +164,7 @@ export class ApplicationsComponent implements OnInit {
     @Access(['CreateApplications', 'DeleteApplications'])
     private deactivateApplication(application: Application): void {
         this.applicationService.deactivateApplication(application).subscribe(result => {
-            /** TODO */ application.status = result.status;
+            this.updateApplication(result);
             this.alert.setSuccessHint(`deactivateApplication${application.id}`,
                 this.translationService.translate('applicationDeactivated')
             );
@@ -181,6 +204,31 @@ export class ApplicationsComponent implements OnInit {
                 this.router.navigate([`/applications/`, created['id'], 'edit']);
             }
             this.modalService.destroyModal();
+        });
+    }
+
+    /**
+     * open the confirm dialog for the validation
+     * @param {Application} application
+     */
+    public validateApplication(application: Application): void {
+        this.modalService.createConfirmationModal({
+            title: this.translationService.translate('confirmValidateApplicationHeader'),
+            message: this.translationService.translate('confirmValidateApplicationHeader'),
+            confirm: () => {
+                this.applicationService.confirmApplication(true, application).subscribe(result => {
+                    this.updateApplication(result);
+                    this.modalService.destroyModal();
+                });
+            },
+            cancel: () => {
+                this.applicationService.confirmApplication(false, application).subscribe(result => {
+                    this.updateApplication(result);
+                    this.modalService.destroyModal();
+                });
+            },
+            confirmText: this.translationService.translate('confirmValidateApplicationSave'),
+            cancelText: this.translationService.translate('confirmValidateApplicationCancel')
         });
     }
 }

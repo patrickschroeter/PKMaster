@@ -73,4 +73,6 @@ export interface Application {
     comments?: models.Comment[];
 
     assignments?: string[];
+
+    confirmed?: boolean;
 }

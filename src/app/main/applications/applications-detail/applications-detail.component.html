@@ -2,6 +2,7 @@
 
 <div id="application-detail" class="rel" *ngIf="application">
     <h2 class="element element--spacing-bottom-small" i18n>Application: {{ application.title }}</h2>
+    <div class="label label--verified" *ngIf="application.confirmed" i18n>Verified</div>
     <h4 class="element element--spacing-bottom-small">
         <a class="anchor anchor--hover" routerLink="/conferences/{{ application.conference.id }}" *ngIf="application.conference" i18n>Conference: {{ application.conference.dateOfEvent | date }}</a>
     </h4>
@@ -173,6 +174,7 @@
                     icon="create">
                 </pk-button>
             </a>
+            <!--assign-->
             <pk-button
                 class="element--spacing-bottom-tiny"
                 rounded
@@ -182,6 +184,18 @@
                 icon="supervisor_account"
                 (onClick)="assignUserModal(application)">
             </pk-button>
+            <!--Assigned-->
+            <ng-container *ngIf="user">
+                <pk-button
+                    *ngIf="application.status?.name === 'submitted' && application.assignments.indexOf(user.id) !== -1"
+                    rounded
+                    element--secondary
+                    i18n-pkAlert
+                    pkAlert="Validate Application"
+                    icon="playlist_add_check"
+                    (onClick)="validateApplication(application)">
+                </pk-button>
+            </ng-container>
             <pk-button
                 *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
                 class="element--spacing-bottom-tiny"

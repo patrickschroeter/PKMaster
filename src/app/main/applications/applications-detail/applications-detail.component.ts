@@ -15,7 +15,7 @@ import { OverlayComponent, ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { Application, Comment } from './../../../swagger';
+import { Application, Comment, AppUser } from './../../../swagger';
 import { Selectable } from './../../../models';
 
 /** Decorators */
@@ -39,6 +39,7 @@ export class ApplicationsDetailComponent implements OnInit {
 
     public conferences: any[];
 
+    public user: AppUser;
     public users: Selectable[];
     public userLabels: { [id: string]: string } = {};
 
@@ -128,6 +129,9 @@ export class ApplicationsDetailComponent implements OnInit {
             users.forEach((value) => {
                 this.userLabels[value.id] = `${value.lastname}, ${value.firstname}`;
             });
+        });
+        this.auth.getUser().subscribe(user => {
+            this.user = user;
         });
     }
 
@@ -321,5 +325,30 @@ export class ApplicationsDetailComponent implements OnInit {
      */
     public unassignUser(userId: string) {
         this.assignUser(new Selectable(userId, userId));
+    }
+
+    /**
+     * open the confirm dialog for the validation
+     * @param {Application} application
+     */
+    public validateApplication(): void {
+        this.modalService.createConfirmationModal({
+            title: this.translationService.translate('confirmValidateApplicationHeader'),
+            message: this.translationService.translate('confirmValidateApplicationHeader'),
+            confirm: () => {
+                this.applicationService.confirmApplication(true, this.application).subscribe(result => {
+                    this.updateApplication(result);
+                    this.modalService.destroyModal();
+                });
+            },
+            cancel: () => {
+                this.applicationService.confirmApplication(false, this.application).subscribe(result => {
+                    this.updateApplication(result);
+                    this.modalService.destroyModal();
+                });
+            },
+            confirmText: this.translationService.translate('confirmValidateApplicationSave'),
+            cancelText: this.translationService.translate('confirmValidateApplicationCancel')
+        });
     }
 }
