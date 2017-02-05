@@ -128,6 +128,7 @@ export class ConferenceEntryComponent implements OnInit {
      */
     private setFormId(data: Selectable): void {
         this.entry.formId = data.value;
+        this.entry.fields = [];
         this.modalService.destroyModal();
     }
 

@@ -252,6 +252,7 @@ formService als !singleton into element-edit.component?
 - ~~Fläche? -> Statusmeldung, Passpartout~~
 
 
-### known Bugs because of Data mocking
+### known Bugs
 
-- changing roles does not update user permissione (requires update role of user)
+- changing roles does not update user permissione (requires update role of user) [Data Mock]
+- Conference Edit Form Fields: move Field in other Config [Library]
