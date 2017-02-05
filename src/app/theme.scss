@@ -4,6 +4,9 @@
 @import './theme/_typescale.scss';
 @import './theme/_animations.scss';
 
+/** libraries */
+@import './theme/ng2-dnd.scss';
+
 /** Elements */
 @import './theme/elements/_devider.scss';
 @import './theme/elements/_element-label.scss';
