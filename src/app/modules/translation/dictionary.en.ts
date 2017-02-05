@@ -123,6 +123,7 @@ export const DICTIONARY_EN = {
     'loading-removePermissionOfRole': 'loading-removePermissionOfRole',
     'loading-removeConference': 'loading-removeConference',
     'loading-removeForm': 'loading-removeForm',
+    'loading-getOptionsOfTable': 'loading-getOptionsOfTable',
 
     'conferenceElementList': 'conferenceElementList',
     'addRoleToUser': 'addRoleToUser',
@@ -137,5 +138,11 @@ export const DICTIONARY_EN = {
     'confirmDeleteConferenceHeader': 'confirmDeleteConferenceHeader',
     'confirmDeleteConferenceContent': 'confirmDeleteConferenceContent',
     'confirmDeleteFormHeader': 'confirmDeleteFormHeader',
-    'confirmDeleteFormContent': 'confirmDeleteFormContent'
+    'confirmDeleteFormContent': 'confirmDeleteFormContent',
+
+    'assignUserHeader': 'assignUserHeader',
+    'noUsersAvailable': 'noUsersAvailable',
+    'confirmValidateApplicationHeader': 'confirmValidateApplicationHeader',
+    'confirmValidateApplicationSave': 'confirmValidateApplicationSave',
+    'confirmValidateApplicationCancel': 'confirmValidateApplicationCancel'
 };
