@@ -1,12 +1,14 @@
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import * as _ from 'lodash';
 
 /** Services */
 import {
     ApplicationService,
     AuthenticationService,
     PermissionService,
-    ConferenceService
+    ConferenceService,
+    UserService
 } from './../../../core';
 import { AlertService } from './../../../modules/alert';
 import { OverlayComponent, ModalService } from './../../../modules/overlay';
@@ -37,16 +39,23 @@ export class ApplicationsDetailComponent implements OnInit {
 
     public conferences: any[];
 
+    public users: Selectable[];
+    public userLabels: { [id: string]: string } = {};
+
     constructor(
+        /** Angular */
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private applicationService: ApplicationService,
+        /** Modules */
         private alert: AlertService,
+        private translationService: TranslationService,
+        private modalService: ModalService,
+        /** Services */
+        private applicationService: ApplicationService,
         private auth: AuthenticationService,
         private permission: PermissionService,
         private conferenceService: ConferenceService,
-        private translationService: TranslationService,
-        private modalService: ModalService
+        private userService: UserService
     ) { }
 
     ngOnInit() {
@@ -76,6 +85,8 @@ export class ApplicationsDetailComponent implements OnInit {
                 });
             }
         });
+
+        this.getUsers();
     }
 
     /**
@@ -106,6 +117,18 @@ export class ApplicationsDetailComponent implements OnInit {
                 ]
             }
         ];
+    }
+
+    /**
+     * get users as Selectable[]
+     */
+    private getUsers(): void {
+        this.userService.getUsers().subscribe(users => {
+            this.users = users.map(obj => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`));
+            users.forEach((value) => {
+                this.userLabels[value.id] = `${value.lastname}, ${value.firstname}`;
+            });
+        });
     }
 
     /**
@@ -256,5 +279,47 @@ export class ApplicationsDetailComponent implements OnInit {
             this.application = result;
             this.modalService.destroyModal();
         });
+    }
+
+    /**
+     * opens the assignment modal for users
+     */
+    public assignUserModal() {
+        this.modalService.createListModal({
+            title: this.translationService.translate('assignUserHeader'),
+            list: this.users,
+            click: this.assignUser.bind(this),
+
+            selectedValues: this.application.assignments,
+
+            emptyText: this.translationService.translate('noUsersAvailable')
+        });
+    }
+
+    /**
+     * add/remove a user from the application
+     * @param {Selectable} user
+     */
+    public assignUser(user: Selectable): void {
+        const param = _.cloneDeep(this.application);
+        if (!param.assignments) { param.assignments = []; }
+        const index = param.assignments.indexOf(user.value);
+        if (index === -1) {
+            param.assignments.push(user.value);
+        } else {
+            param.assignments.splice(index, 1);
+        }
+        this.applicationService.updateApplication(param).subscribe(result => {
+            this.application = result;
+            this.modalService.updateSelectedValues(this.application.assignments);
+        });
+    }
+
+    /**
+     * remove user from the application
+     * @param {String} userId
+     */
+    public unassignUser(userId: string) {
+        this.assignUser(new Selectable(userId, userId));
     }
 }

@@ -5,6 +5,8 @@ import { FormGroup } from '@angular/forms';
 import { Observable, BehaviorSubject, Observer } from 'rxjs/Rx';
 import * as _ from 'lodash';
 
+import { UserApiMock } from './../../';
+
 /** Services */
 import { FormService } from './../form';
 import { AlertService } from './../../../modules/alert';
@@ -646,10 +648,7 @@ function options() {
             { value: 'gestaltung', label: 'Gestaltung' },
             { value: 'informatik', label: 'informatik' }
         ],
-        user: [
-            { value: 'sf', label: 'Stephan Reichinger' },
-            { value: 'ps', label: 'Patrick Schröter' }
-        ],
+        user: UserApiMock.USERS.map(obj => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`)),
         language: [
             { value: 'de', label: 'Deutschland' },
             { value: 'fr', label: 'Frankreich' },

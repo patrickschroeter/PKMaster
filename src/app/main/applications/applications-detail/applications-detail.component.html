@@ -9,6 +9,34 @@
 
     <pk-dynamic-form-disabled *ngIf="application.attributes?.length > 0" [form]="application.attributes"></pk-dynamic-form-disabled>
 
+    <ng-container *ngIf="application.assignments && application.assignments.length">
+        <pk-devider class="element element--spacing-bottom-large"></pk-devider>
+        <h4 i18n>Assigned Docents</h4>
+        <pk-list>
+            <pk-list-header>
+                <pk-list-attribute name="name" i18n>Name</pk-list-attribute>
+            </pk-list-header>
+            <pk-list-content>
+                <pk-list-element *ngFor="let user of application.assignments">
+                    <pk-list-attribute name="name">
+                        {{ userLabels[user] }}
+                    </pk-list-attribute>
+
+                    <pk-floating top-right horizontal>
+                        <pk-button
+                            rounded
+                            i18n-pkAlert
+                            pkAlert="Delete assignment from application"
+                            icon="delete"
+                            element--error
+                            (onClick)="unassignUser(user)">
+                        </pk-button>
+                    </pk-floating>
+                </pk-list-element>
+            </pk-list-content>
+        </pk-list>
+    </ng-container>
+
     <div class="comment-block">
         <h4 i18n>Comments</h4>
         <div class="comment-flex">
@@ -145,7 +173,15 @@
                     icon="create">
                 </pk-button>
             </a>
-
+            <pk-button
+                class="element--spacing-bottom-tiny"
+                rounded
+                element--secondary
+                i18n-pkAlert
+                pkAlert="Assign User"
+                icon="supervisor_account"
+                (onClick)="assignUserModal(application)">
+            </pk-button>
             <pk-button
                 *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
                 class="element--spacing-bottom-tiny"
