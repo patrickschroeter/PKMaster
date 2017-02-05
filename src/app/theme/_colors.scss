@@ -65,13 +65,13 @@ $theme: (primary, $accent-color),
         (error, $error),
         (hover, $white);
 
-$colors:  (primary, $accent-color),
-          (secondary, $guidance-color),
-          (success, $success),
-          (error, $error),
-          (black, $black),
-          (darkgray, $darkgray),
-          (lightgray, $lightgray),
-          (darkwhite, $darkwhite),
-          (mediumwhite, $mediumwhite),
-          (white, $white);
+$colors:  ('primary', $accent-color),
+          ('secondary', $guidance-color),
+          ('success', $success),
+          ('error', $error),
+          ('black', $black),
+          ('darkgray', $darkgray),
+          ('lightgray', $lightgray),
+          ('darkwhite', $darkwhite),
+          ('mediumwhite', $mediumwhite),
+          ('white', $white);
