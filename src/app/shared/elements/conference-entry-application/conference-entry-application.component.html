@@ -1,7 +1,7 @@
 <ng-container *ngIf="entry">
 
     <ng-container *ngIf="!entry.entries || !entry.entries.length">
-        <div class="empty-wrapper animation animation--trigger">
+        <div id="conference-entry-selected-form" class="empty-wrapper animation animation--trigger">
             <ng-container *ngIf="!entry.formId">
                 <div class="label" i18n>No Generic Id selected</div>
             </ng-container>
