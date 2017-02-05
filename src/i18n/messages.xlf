@@ -70,8 +70,8 @@
         <source>Connected Form: <x id="INTERPOLATION"/></source>
         <target/>
       </trans-unit>
-      <trans-unit id="6fe81aa5b37f4ca03cfe9bb86215958f789072ad" datatype="html">
-        <source>Selected Fields</source>
+      <trans-unit id="3d2680bba01388b7f06c28d7f985e09243b0afc3" datatype="html">
+        <source>No Fields selected.</source>
         <target/>
       </trans-unit>
       <trans-unit id="fa9c37861c6d25c8e800a9b39f1c61deecd9a7ee" datatype="html">

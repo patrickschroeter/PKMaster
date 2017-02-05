@@ -502,6 +502,10 @@
         <source>Duplicate Form</source>
         <target>Duplicate Form</target>
       </trans-unit>
+      <trans-unit id="3d2680bba01388b7f06c28d7f985e09243b0afc3" datatype="html">
+        <source>No Fields selected.</source>
+        <target>No Fields selected.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
