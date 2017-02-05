@@ -25,52 +25,6 @@
         </ng-container>
 
         <pk-floating top-right fixed>
-            <div class="animation animation--trigger">
-                <pk-button
-                    class="element--spacing-bottom-tiny"
-                    rounded
-                    element--primary
-                    icon="more_vert">
-                </pk-button>
-                <div class="animation--target">
-                    <pk-button
-                        class="element--spacing-bottom-tiny"
-                        rounded
-                        element--secondary
-                        i18n-pkAlert
-                            pkAlert="Save Conference"
-                        icon="save"
-                        (onClick)="saveConference()">
-                    </pk-button>
-                    <pk-button
-                        class="element--spacing-bottom-tiny"
-                        rounded
-                        element--secondary
-                        i18n-pkAlert
-                            pkAlert="Add Config to Conference"
-                        icon="playlist_add"
-                        (onClick)="openEntryModal()">
-                    </pk-button>
-                    <pk-button
-                        class="element--spacing-bottom-tiny"
-                        rounded
-                        element--secondary
-                        i18n-pkAlert
-                            pkAlert="Edit Conference Attributes"
-                        icon="create"
-                        (onClick)="overlay.toggle()">
-                    </pk-button>
-                    <pk-button
-                        class="element--spacing-bottom-tiny"
-                        rounded
-                        element--error
-                        i18n-pkAlert
-                            pkAlert="Delete Conference"
-                        icon="delete"
-                        (onClick)="deleteConferenceModal()">
-                    </pk-button>
-                </div>
-            </div>
             <a routerLink="/conferences/{{ conference.id }}">
                 <pk-button
                     class="element--spacing-bottom-tiny"
@@ -81,6 +35,44 @@
                     icon="clear">
                 </pk-button>
             </a>
+            <pk-button-animation-wrapper>
+                <pk-button
+                    class="element--spacing-bottom-tiny"
+                    rounded
+                    element--secondary
+                    i18n-pkAlert
+                        pkAlert="Save Conference"
+                    icon="save"
+                    (onClick)="saveConference()">
+                </pk-button>
+                <pk-button
+                    class="element--spacing-bottom-tiny"
+                    rounded
+                    element--secondary
+                    i18n-pkAlert
+                        pkAlert="Add Config to Conference"
+                    icon="playlist_add"
+                    (onClick)="openEntryModal()">
+                </pk-button>
+                <pk-button
+                    class="element--spacing-bottom-tiny"
+                    rounded
+                    element--secondary
+                    i18n-pkAlert
+                        pkAlert="Edit Conference Attributes"
+                    icon="create"
+                    (onClick)="overlay.toggle()">
+                </pk-button>
+                <pk-button
+                    class="element--spacing-bottom-tiny"
+                    rounded
+                    element--error
+                    i18n-pkAlert
+                        pkAlert="Delete Conference"
+                    icon="delete"
+                    (onClick)="deleteConferenceModal()">
+                </pk-button>
+            </pk-button-animation-wrapper>
         </pk-floating>
     </div>
 </ng-container>

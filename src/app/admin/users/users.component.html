@@ -2,45 +2,54 @@
     <div class="rel">
         <pk-loading *ngIf="!users"></pk-loading>
 
-        <div *ngIf="users && !users.length" class="empty-wrapper">
-            <div class="label" i18n>No Users here.</div>
-        </div>
+        <ng-container *ngIf="users">
 
-        <h1 *ngIf="users?.length" class="element element--spacing-bottom-small" i18n>Users</h1>
+            <ng-container *ngIf="!users.length">
+                <div class="empty-wrapper">
+                    <div class="label" i18n>No Users here.</div>
+                </div>
+            </ng-container>
 
-        <pk-list *ngIf="users?.length">
-            <pk-list-header>
-                <pk-list-attribute name="name" i18n>Lastname</pk-list-attribute>
-                <pk-list-attribute name="author" i18n>Firstname</pk-list-attribute>
-                <pk-list-attribute name="author" i18n>E-Mail</pk-list-attribute>
-                <pk-list-attribute name="description" i18n>Roles</pk-list-attribute>
-            </pk-list-header>
-            <pk-list-content>
-                <pk-list-element *ngFor="let user of users">
-                    <pk-list-attribute name="name">
-                        <a routerLink="{{ user.id }}">
-                            {{ user.lastname }}
-                        </a>
-                    </pk-list-attribute>
-                    <pk-list-attribute name="author">{{ user.firstname }}</pk-list-attribute>
-                    <pk-list-attribute name="author">{{ user.email }}</pk-list-attribute>
-                    <pk-list-attribute name="description">{{ user.roles.length }}</pk-list-attribute>
+            <ng-container *ngIf="users.length">
 
-                    <pk-floating top-right horizontal>
-                        <a
-                            *accessEditUsers
-                            routerLink="{{ user.id }}/edit">
-                            <pk-button
-                                rounded
-                                element--secondary
-                                i18n-pkAlert
-                                     pkAlert="Edit User"
-                                icon="create">
-                            </pk-button>
-                        </a>
-                    </pk-floating>
-                </pk-list-element>
-            </pk-list-content>
-        </pk-list>
+                <h1 class="element element--spacing-bottom-small" i18n>Users</h1>
+
+                <pk-list>
+                    <pk-list-header>
+                        <pk-list-attribute name="name" i18n>Lastname</pk-list-attribute>
+                        <pk-list-attribute name="author" i18n>Firstname</pk-list-attribute>
+                        <pk-list-attribute name="author" i18n>E-Mail</pk-list-attribute>
+                        <pk-list-attribute name="description" i18n>Roles</pk-list-attribute>
+                    </pk-list-header>
+                    <pk-list-content>
+                        <pk-list-element *ngFor="let user of users">
+                            <pk-list-attribute name="name">
+                                <a routerLink="{{ user.id }}">
+                                    {{ user.lastname }}
+                                </a>
+                            </pk-list-attribute>
+                            <pk-list-attribute name="author">{{ user.firstname }}</pk-list-attribute>
+                            <pk-list-attribute name="author">{{ user.email }}</pk-list-attribute>
+                            <pk-list-attribute name="description">{{ user.roles.length }}</pk-list-attribute>
+
+                            <pk-floating top-right horizontal>
+                                <a
+                                    *accessEditUsers
+                                    routerLink="{{ user.id }}/edit">
+                                    <pk-button
+                                        rounded
+                                        element--secondary
+                                        i18n-pkAlert
+                                            pkAlert="Edit User"
+                                        icon="create">
+                                    </pk-button>
+                                </a>
+                            </pk-floating>
+                        </pk-list-element>
+                    </pk-list-content>
+                </pk-list>
+
+            </ng-container>
+        </ng-container>
     </div>
 </div>

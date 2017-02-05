@@ -7,6 +7,7 @@ import { LoginRouting } from './login.routing';
 import { SharedModule } from './../shared/shared.module';
 import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module';
 import { ButtonModule } from './../modules/button/button.module';
+import { FloatingModule } from './../modules/floating/floating.module';
 
 @NgModule({
     declarations: [
@@ -18,7 +19,8 @@ import { ButtonModule } from './../modules/button/button.module';
 
         SharedModule,
         DynamicFormModule,
-        ButtonModule
+        ButtonModule,
+        FloatingModule
     ],
     providers: [],
     exports: []

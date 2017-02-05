@@ -14,7 +14,7 @@
                     <ng-container *ngSwitchCase="'config'">
                         <ng-container *ngIf="entry.entries">
                             <ng-container *ngFor="let entry of entry.entries; trackBy: trackByFn; let i = index">
-                                <pk-conference-entry-detail [index]="index + 1" [entry]="entry"></pk-conference-entry-detail>
+                                <pk-conference-entry-detail [index]="index + '.' + (i + 1)" [entry]="entry"></pk-conference-entry-detail>
                             </ng-container>
                         </ng-container>
                     </ng-container>
@@ -27,21 +27,37 @@
                         <ng-container *ngIf="entry.entries && entry.fields">
                             <pk-list>
                                 <pk-list-header>
+                                    <pk-list-attribute name="state" i18n>Status</pk-list-attribute>
+                                    <pk-list-attribute name="author" i18n>Author</pk-list-attribute>
                                     <ng-container *ngFor="let field of entry.fields">
                                         <pk-list-attribute [name]="field">{{ field }}</pk-list-attribute>
                                     </ng-container>
                                 </pk-list-header>
                                 <pk-list-content>
 
-                                    <ng-container *ngFor="let element of entry.entries">
+                                    <ng-container *ngFor="let application of entry.entries">
 
-                                        <pk-list-element [name]="element.status?.name">
+                                        <pk-list-element [name]="application.status?.name">
+
+                                            <pk-list-attribute name="state">{{ application.status?.name }}</pk-list-attribute>
+                                            <pk-list-attribute name="author" *accessEditApplications>{{ application.user ? application.user.lastname : '' }}</pk-list-attribute>
 
                                             <ng-container *ngFor="let field of entry.fields">
-                                                <pk-list-attribute [name]="field">{{ element[field] }}</pk-list-attribute>
+                                                <pk-list-attribute [name]="field">{{ application.filledForm[field] }}</pk-list-attribute>
                                             </ng-container>
 
-                                            <pk-floating horizontal top-right></pk-floating>
+                                            <pk-floating horizontal top-right>
+                                                <pk-button
+                                                    *ngIf="application.status?.name === 'pending'"
+                                                    class="application--spacing-bottom-tiny"
+                                                    rounded
+                                                    element--success
+                                                    i18n-pkAlert
+                                                        pkAlert="Accept/Decline Application"
+                                                    icon="thumbs_up_down"
+                                                    (onClick)="acceptModal.openModal(application)">
+                                                </pk-button>
+                                            </pk-floating>
 
                                         </pk-list-element>
 
@@ -65,25 +81,6 @@
                                             <ng-container *ngFor="let value of element; let last = last">
                                                 <pk-list-attribute [name]="last ? 'last' : ''">{{ value }}</pk-list-attribute>
                                             </ng-container>
-
-                                            <pk-floating horizontal top-right>
-                                                <pk-button
-                                                    rounded
-                                                    element--error
-                                                    i18n-pkAlert
-                                                    pkAlert="Delete Element"
-                                                    icon="delete"
-                                                    (onClick)="deleteListEntry(index)">
-                                                </pk-button>
-                                                <pk-button
-                                                    rounded
-                                                    element--secondary
-                                                    i18n-pkAlert
-                                                    pkAlert="Edit Element"
-                                                    icon="create"
-                                                    (onClick)="openEditListEntryModal(element, index)">
-                                                </pk-button>
-                                            </pk-floating>
 
                                         </pk-list-element>
 
@@ -109,3 +106,5 @@
         </div>
     </ng-container>
 </div>
+
+<pk-modal-accept-application #acceptModal (change)="updateApplication($event)"></pk-modal-accept-application>

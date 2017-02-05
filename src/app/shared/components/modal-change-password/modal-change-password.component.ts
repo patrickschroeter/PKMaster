@@ -67,10 +67,6 @@ export class ModalChangePasswordComponent implements OnInit {
      * Saves the changes password
      */
     public changePassword(form): void {
-        this.alert.setLoading(
-            'changePassword',
-            this.translationService.translate('loadingChangePassword')
-        );
         this.auth.changePassword(this.user, form.password, form.newpassword).subscribe(
             () => {
                 this.alert.setSuccessHint('password_changed', this.translationService.translate('changedPassword'));
@@ -81,7 +77,6 @@ export class ModalChangePasswordComponent implements OnInit {
                     this.translationService.translate('errorChangedPassword')
                 );
             }, () => {
-                this.alert.removeHint('changePassword');
                 this.overlay.toggle(false);
                 this.initChangePasswordField();
             }

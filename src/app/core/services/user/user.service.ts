@@ -9,6 +9,9 @@ import { TranslationService } from './../../../modules/translation';
 /** Models */
 import { AppUser, Role } from './../../../swagger';
 
+/** Decorators */
+import { Loading } from './../../../shared/decorators/loading.decorator';
+
 @Injectable()
 export class UserService {
 
@@ -21,13 +24,9 @@ export class UserService {
     /**
      * get a list of all users
      */
+    @Loading('getUsers')
     public getUsers(): Observable<Array<AppUser>> {
-        this.alert.setLoading(
-            'getUsers',
-            this.translationService.translate('loadingGetUsers')
-        );
         return this.userApi.getUsers().map(result => {
-            this.alert.removeHint('getUsers');
             return result;
         });
     }
@@ -36,13 +35,9 @@ export class UserService {
      * get user by id
      * @param {String} id
      */
+    @Loading('getUserById')
     public getUserById(id: string): Observable<AppUser> {
-        this.alert.setLoading(
-            'getUserById',
-            this.translationService.translate('loadingGetUserById')
-        );
         return this.userApi.getUserById(id).map(result => {
-            this.alert.removeHint('getUserById');
             return result;
         });
     }
@@ -51,13 +46,9 @@ export class UserService {
      * update the user
      * @param {AppUser} user
      */
+    @Loading('updateUser')
     public updateUser(user: AppUser): Observable<AppUser> {
-        this.alert.setLoading(
-            'updateUser',
-            this.translationService.translate('loadingUpdateUser')
-        );
         return this.userApi.updateUserById(user.id, 0, user).map(result => {
-            this.alert.removeHint('updateUser');
             return result;
         });
     }
@@ -67,13 +58,9 @@ export class UserService {
      * @param {AppUser} user
      * @param {Role} role
      */
+    @Loading('removeRoleFromUser')
     public removeRoleFromUser(user: AppUser, role: Role): Observable<AppUser> {
-        this.alert.setLoading(
-            'removeRoleFromUser',
-            this.translationService.translate('loadingRemoveRoleFromUser')
-        );
         return this.userApi.removeUserRole(user.id, 0, role.id).map(result => {
-            this.alert.removeHint('removeRoleFromUser');
             return result;
         });
     }
@@ -83,13 +70,9 @@ export class UserService {
      * @param {String} userId
      * @param {String} roleId
      */
+    @Loading('addRoleToUser')
     public addRoleToUser(userId: string, roleId: string): Observable<AppUser> {
-        this.alert.setLoading(
-            'addRoleToUser',
-            this.translationService.translate('loadingAddRoleToUser')
-        );
         return this.userApi.updateUserRole(userId, 0, roleId).map(result => {
-            this.alert.removeHint('addRoleToUser');
             return result;
         });
     }

@@ -18,14 +18,6 @@ export const DICTIONARY_DE = {
 
     usedId: 'ID wird schon verwendet.',
 
-    loadingTypeOptions: 'Lade Optionen...',
-    loadingOptionsOf: 'Lade Optionen von { 0 }...',
-    loadingValidationsOf: 'Lade Validierungsmöglichkeiten von { 0 }...',
-    loadingStylesOf: 'Lade Stylemöglichkeiten von { 0 }...',
-
-    loadingChangePassword: 'Daten werden verschlüsselt...',
-    loadingUpdatePermission: 'Update Berechtigung...',
-
     elementTypeNotValid: `Element Typ '{ 0 }' existiert nicht.`,
     identifyingError: 'Es ist ein Fehler bei der Identifizierung des Elementes aufgetreten.',
     operationNotAllowed: 'Diese Operation ist nicht erlaubt.',
@@ -35,7 +27,6 @@ export const DICTIONARY_DE = {
 
     saveForm: 'Speichere Formular...',
     savedForm: 'Formular wurde gespeichert.',
-    loadingForm: 'Lade Formular...',
     formName: 'Name des Formulars',
 
     restricted: 'Beschränkter Zugriff',
@@ -89,14 +80,4 @@ export const DICTIONARY_DE = {
     createNewConference: 'Neue Sitzung erstellen',
 
     addPermissionToRole: 'Füge Recht zur Rolle hinzu',
-
-    loadingGetRoles: 'Lade Rollen...',
-    loadingAddRole: 'Füge Rolle hinzu...',
-    loadingGetRoleById: 'Lade Rolle...',
-    loadingUpdateRoleById: 'Update Rolle...',
-    loadingRemovePermissionOfRole: 'Entferne Rolle...',
-    loadingAddPermissionToRole: 'Füge Berechtigung zur Rolle hinzu...',
-
-    loadingGetUsers: 'Lade Benutzer...',
-    loadingGetUserById: 'Lade Benutzer mit ID...'
 };

@@ -12,7 +12,7 @@ import { Role, Field, Permission } from './../../../swagger';
 import { Selectable } from './../../../models';
 
 /** Decorator */
-import { Access } from './../../../shared';
+import { Access } from './../../../shared/decorators/access.decorator';
 
 @Component({
     selector: 'pk-roles-detail',

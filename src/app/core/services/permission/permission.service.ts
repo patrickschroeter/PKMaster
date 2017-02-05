@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import * as _ from 'lodash';
 
+/** Services */
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
+import { PermissionEndpoint } from './../api/PermissionEndpoint';
 
+/** Models */
 import { AppUser, Permission } from './../../../swagger';
 
-import { PermissionEndpoint } from './../api/PermissionEndpoint';
+/** Decorators */
+import { Loading } from './../../../shared/decorators/loading.decorator';
 
 @Injectable()
 export class PermissionService {
@@ -19,7 +23,7 @@ export class PermissionService {
 
     constructor(
         private permissionApi: PermissionEndpoint,
-        private alertService: AlertService,
+        private alert: AlertService,
         private translationService: TranslationService
     ) { }
 
@@ -63,6 +67,7 @@ export class PermissionService {
      * @param {Array} permissions
      */
     private hasAllPermissions(permissions: string[]): boolean {
+        // tslint:disable-next-line:max-line-length
         return (!permissions || !permissions.length || (!!this.permissions && !!permissions && !_.difference(permissions, this.permissions).length));
     }
 
@@ -81,6 +86,7 @@ export class PermissionService {
     /**
      * get all permissions
      */
+    @Loading('getPermissions')
     public getPermissions(): Observable<Permission[]> {
         return this.permissionApi.getPermissions();
     }
@@ -90,13 +96,9 @@ export class PermissionService {
      * @param {String} id
      * @param {Permission} permission
      */
+    @Loading('updatePermission')
     public updatePermission(id: string, permission: Permission): Observable<Permission> {
-        this.alertService.setLoading(
-            'updatePermission',
-            this.translationService.translate('loadingUpdatePermission')
-        )
         return this.permissionApi.updatePermission(id, permission).map(result => {
-            this.alertService.removeHint('updatePermission');
             return result;
         });
     }

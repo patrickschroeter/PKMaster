@@ -7,7 +7,7 @@
 
     <ng-container *ngIf="entry.entries && entry.entries.length">
 
-        <pk-list>
+        <pk-list id="conference-list">
             <pk-list-content>
 
                 <ng-container *ngFor="let element of entry.entries; let index = index">
@@ -20,6 +20,7 @@
 
                         <pk-floating horizontal top-right>
                             <pk-button
+                                class="element--spacing-left-tiny"
                                 rounded
                                 element--error
                                 i18n-pkAlert
@@ -28,6 +29,7 @@
                                 (onClick)="deleteListEntry(index)">
                             </pk-button>
                             <pk-button
+                                class="element--spacing-left-tiny"
                                 rounded
                                 element--secondary
                                 i18n-pkAlert

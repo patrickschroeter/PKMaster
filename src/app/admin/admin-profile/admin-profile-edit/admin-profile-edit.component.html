@@ -19,16 +19,15 @@
                     (onClick)="save(dynamicForm.form.value)"></pk-button>
             </pk-dynamic-form-submit>
 
-            <pk-dynamic-form-cancel>
-                <pk-button
-                    i18n-value value="Cancel"
-                    icon="clear"
-                    [class]="'element--error'"
-                    (onClick)="cancel()"></pk-button>
-            </pk-dynamic-form-cancel>
-
         </pk-dynamic-form>
 
 
     </div>
 </div>
+
+<pk-floating fixed top-right>
+    <pk-button rounded
+        i18n-pkAlert pkAlert="Cancel"
+        class="element--spacing-bottom-tiny" icon="clear" (onClick)="cancel()" element--error>
+    </pk-button>
+</pk-floating>

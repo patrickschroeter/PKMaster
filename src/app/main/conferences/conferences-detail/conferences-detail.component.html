@@ -6,13 +6,10 @@
 
     <div i18n>Attendant PK-Members (TODO)</div>
 
-    <div>
-        <h3 i18n>Agenda</h3>
-        <div *ngFor="let item of conference.config; let i = index">
-            {{ i + 1 }}. {{ item.title }}
-        </div>
+    <h3 i18n>Agenda</h3>
+    <div *ngFor="let item of conference.config; let i = index">
+        {{ i + 1 }}. {{ item.title }}
     </div>
-
 
     <ng-container *ngIf="conference.config && conference.config.length">
         <ng-container *ngFor="let entry of conference.config; let index = index">
@@ -20,42 +17,38 @@
         </ng-container>
     </ng-container>
 
-    <!--<div>
-        <div *ngFor="let item of agenda; let i = index">
-            <h4>{{ i + 1 }}. {{ item.title }}</h4>
-
-            <pk-list *ngIf="item.applications?.length">
-                <pk-list-header>
-                    <pk-list-attribute name="author" *accessEditApplications i18n>Author</pk-list-attribute>
-                    <pk-list-attribute name="date" i18n>Created</pk-list-attribute>
-                    <pk-list-attribute name="modified" i18n>Modified</pk-list-attribute>
-                </pk-list-header>
-                <pk-list-content>
-                    <pk-list-element *ngFor="let application of item.applications" [name]="application.status?.name">
-                        <pk-list-attribute name="author" *accessEditApplications>{{ application.user ? application.user.lastname : '' }}</pk-list-attribute>
-                        <pk-list-attribute name="date">{{ application.created | date }}</pk-list-attribute>
-                        <pk-list-attribute name="modified">{{ application.modified | date }}</pk-list-attribute>
-
-                        <pk-floating horizontal top-right>
-                            <div *accessEditApplications>
-                                <pk-button rounded i18n-pkAlert pkAlert="Accept/Decline Application"
-                                    (onClick)="acceptModal.openModal(application); selectApplication(application);"
-                                    class="element--spacing-bottom-tiny"
-                                    icon="thumbs_up_down"
-                                    element--success
-                                    ></pk-button>
-                            </div>
-                        </pk-floating>
-                    </pk-list-element>
-                </pk-list-content>
-            </pk-list>
-        </div>
-    </div>-->
-
     <pk-floating fixed top-right>
-        <a routerLink="/conferences/{{ conference.id }}/edit">
-            <pk-button class="element--spacing-bottom-tiny" rounded i18n-pkAlert pkAlert="Edit Conference" icon="create" element--secondary></pk-button>
+        <a routerLink="/conferences">
+            <pk-button
+                class="element--spacing-bottom-tiny"
+                rounded
+                element--error
+                i18n-pkAlert
+                    pkAlert="Back to Listview"
+                icon="arrow_back">
+            </pk-button>
         </a>
+        <pk-button-animation-wrapper>
+            <a routerLink="/conferences/{{ conference.id }}/edit">
+                <pk-button
+                    class="element--spacing-bottom-tiny"
+                    rounded
+                    i18n-pkAlert
+                    pkAlert="Edit Conference"
+                    icon="create"
+                    element--secondary>
+                </pk-button>
+            </a>
+            <pk-button
+                class="element--spacing-bottom-tiny"
+                rounded
+                element--error
+                i18n-pkAlert
+                    pkAlert="Delete Conference"
+                icon="delete"
+                (onClick)="deleteConference()">
+            </pk-button>
+        </pk-button-animation-wrapper>
     </pk-floating>
 
     <pk-modal-accept-application #acceptModal></pk-modal-accept-application>

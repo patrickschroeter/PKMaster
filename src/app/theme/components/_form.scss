@@ -1,15 +1,15 @@
 
 .form__elements {
-  @include clearfix();
-  margin: 0 -$element-grid-base/2;
+    @include clearfix();
+    margin: 0 -$element-grid-base/2;
 }
 
 .form__element {
-  padding: $element-grid-base/2;
-  /*margin-bottom: 10px;*/
-  float: left;
-  width: 100%;
-  position: relative;
+    padding: $element-grid-base/2;
+    /*margin-bottom: 10px;*/
+    float: left;
+    width: 100%;
+    position: relative;
 }
 
 @media (min-width: $form-mobile-break + 1) {
@@ -27,14 +27,14 @@
 }
 
 .form__buttons {
-  @include clearfix();
-  margin-top: $element-grid-base;
-  .left {
-    float: left;
-  }
-  .right {
-    float: right;
-  }
+    @include clearfix();
+    margin-top: $element-grid-base;
+    .left {
+        float: left;
+    }
+    .right {
+        float: right;
+    }
 }
 
 .button.button--edit {

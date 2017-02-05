@@ -15,7 +15,7 @@ import { AppUser, Field, Role } from './../../../swagger';
 import { Fields, Selectable } from './../../../models';
 
 /** Decorators */
-import { Access } from './../../../shared';
+import { Access } from './../../../shared/decorators/access.decorator';
 
 @Component({
     selector: 'pk-users-detail',

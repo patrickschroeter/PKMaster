@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
+/** Services */
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
+import { RoleApi } from './../../../swagger';
 
-import { RoleApi, Role } from './../../../swagger';
+/** Models */
+import { Role } from './../../../swagger';
+
+/** Decorators */
+import { Loading } from './../../../shared/decorators/loading.decorator';
 
 @Injectable()
 export class RoleService {
@@ -18,13 +24,9 @@ export class RoleService {
     /**
      * Get all available roles
      */
+    @Loading('getRoles')
     public getRoles(): Observable<Role[]> {
-        this.alert.setLoading(
-            'getRoles',
-            this.translationService.translate('loadingGetRoles')
-        );
         return this.roleApi.getRoles().map(roles => {
-            this.alert.removeHint('getRoles');
             return roles;
         });
     }
@@ -33,13 +35,9 @@ export class RoleService {
      * create a new role
      * @param {Role} role
      */
+    @Loading('addRole')
     public addRole(role?: Role): Observable<Role> {
-        this.alert.setLoading(
-            'addRole',
-            this.translationService.translate('loadingAddRole')
-        );
         return this.roleApi.addRole(17, role).map(result => {
-            this.alert.removeHint('addRole');
             return result;
         });
     }
@@ -48,13 +46,9 @@ export class RoleService {
      * get the role by id
      * @param {String} id
      */
+    @Loading('getRoleById')
     public getRoleById(id: string): Observable<Role> {
-        this.alert.setLoading(
-            'getRoleById',
-            this.translationService.translate('loadingGetRoleById')
-        );
         return this.roleApi.getRoleById(id).map(result => {
-            this.alert.removeHint('getRoleById');
             return result;
         });
     }
@@ -64,13 +58,9 @@ export class RoleService {
      * @param {String} id
      * @param {Role} role
      */
+    @Loading('updateRoleById')
     public updateRoleById(id: string, role: Role): Observable<Role> {
-        this.alert.setLoading(
-            'updateRoleById',
-            this.translationService.translate('loadingUpdateRoleById')
-        );
         return this.roleApi.updateRoleById(id, 17, role).map(result => {
-            this.alert.removeHint('updateRoleById');
             return result;
         });
     }
@@ -80,13 +70,9 @@ export class RoleService {
      * @param {String} roleId
      * @param {String} permissionId
      */
+    @Loading('removePermissionOfRole')
     public removePermissionOfRole(roleId: string, permissionId: string): Observable<Role> {
-        this.alert.setLoading(
-            'removePermissionOfRole',
-            this.translationService.translate('loadingRemovePermissionOfRole')
-        );
         return this.roleApi.deletePermissionOfRole(roleId, permissionId).map(result => {
-            this.alert.removeHint('removePermissionOfRole');
             return result;
         });
     }
@@ -96,13 +82,9 @@ export class RoleService {
      * @param {String} roleId
      * @param {String} permissionId     *
      */
+    @Loading('addPermissionToRole')
     public addPermissionToRole(roleId: string, permissionId: string): Observable<Role> {
-        this.alert.setLoading(
-            'addPermissionToRole',
-            this.translationService.translate('loadingAddPermissionToRole')
-        );
         return this.roleApi.addPermissionToRole(roleId, permissionId).map(result => {
-            this.alert.removeHint('addPermissionToRole');
             return result;
         });
     }

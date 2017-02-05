@@ -2,37 +2,65 @@ import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs/Rx';
 import * as _ from 'lodash';
 
+/** Services */
 import { AlertService } from './../../../modules/alert';
 import { FormService } from './../form';
 import { AuthenticationService } from './../authentication';
-
 import { ApplicationApi } from './../../../swagger/api/ApplicationApi';
+import { TranslationService } from './../../../modules/translation';
 
+/** Models */
 import { Application, Field, ApplicationCreateDto, Comment } from './../../../swagger';
 
-import { TranslationService } from './../../../modules/translation';
+/** Decorators */
+import { Loading } from './../../../shared/decorators/loading.decorator';
+
 
 @Injectable()
 export class ApplicationService {
 
     static DEFAULT_TOKEN = 17;
 
-    private application: Application;
+    private _application: Application;
+    get application() { return this._application; }
+    set application(application) {
+        this._application = application;
+        this.setValues();
+    }
     private applications: Application[];
 
     constructor(
-        private formService: FormService,
+        /** Modules */
         private alert: AlertService,
-        private applicationApi: ApplicationApi,
+        private translationService: TranslationService,
+        /** Services */
         private auth: AuthenticationService,
-        private translationService: TranslationService
+        private formService: FormService,
+        private applicationApi: ApplicationApi
     ) { }
+
+    /**
+     * set the attributes property with filled values
+     */
+    private setValues() {
+        const application = this.application;
+        if (application.form && !application.attributes) {
+            application.attributes = application.form.formHasField;
+        }
+        if (!application.filledForm || typeof application.filledForm !== 'string') { return; }
+        application.filledForm = JSON.parse(application.filledForm);
+        /** TODO */
+        for (let i = 0, length = application.attributes.length; i < length; i++) {
+            const field = application.attributes[i];
+            field.value = application.filledForm[field.name];
+        }
+    }
 
     /**
      * returns the observable to get a applicationn by the given id
      * @param {String} id - the id of the application to get
-     * @return {Observable}
      */
+    @Loading('getApplicationById')
     public getApplicationById(id: string): Observable<Application> {
         return this.applicationApi.getApplicationById(id).map(application => {
             return this.application = application;
@@ -43,6 +71,7 @@ export class ApplicationService {
      * return the observable to get a list of all applications the user has (sorted)
      * @param {String} [sort]
      */
+    @Loading('getApplications')
     public getApplications(sort?: string): Observable<any> {
         return this.applicationApi.getApplications().map(applications => {
             if (sort) {
@@ -55,25 +84,26 @@ export class ApplicationService {
     /**
      * Creates a new application with the given attributes
      * @param {Application} application - the new application to create
-     * @return {Observable}
      */
+    @Loading('createNewApplication')
     public createNewApplication(application: Application): Observable<Application> {
         /* TODO: wait for token */
         this.auth.getUser().subscribe(user => {
             application.userId = user.id;
         });
 
-        application.formId = application.form.id;
-
-        return this.applicationApi.createApplication(ApplicationService.DEFAULT_TOKEN, (application as ApplicationCreateDto)).map(result => {
-            return this.application = result;
-        });
+        return this.applicationApi.createApplication(
+            ApplicationService.DEFAULT_TOKEN,
+            (application as ApplicationCreateDto)).map(result => {
+                return this.application = result;
+            });
     }
 
     /**
      * add a comment to the current application
      * @param {Comment} comment - the comment to add
      */
+    @Loading('addCommentToApplication')
     public addCommentToApplication(comment: Comment): Observable<Application> {
         if (!this.application) { return Observable.throw('No Application'); }
         return this.applicationApi.addCommentToApplication(this.application.id, ApplicationService.DEFAULT_TOKEN, comment).map(result => {
@@ -145,21 +175,14 @@ export class ApplicationService {
     /**
      * Saves the changed application
      * @param {Object} form - the form of the application
-     * @return {void}
      */
     public saveApplication(form: Object): Observable<Application> {
         if (!this.application) { return; }
-        if (this.application.attributes) {
-            for (let i = 0, length = this.application.attributes.length; i < length; i++) {
-                const element: Field = this.application.attributes[i];
-                element.value = form[element.name];
-            };
-        }
-        return this.updateApplication(this.application).map(application => {
-            /** TODO: hack */
-            application.status = { name: 'created' };
-            this.applicationApi.updateApplicationById(application.id, ApplicationService.DEFAULT_TOKEN, application);
-            /** hack end */
+        const param = _.cloneDeep(this.application);
+        param.filledForm = JSON.stringify(form);
+        param.status = { name: 'created' };
+        console.log(JSON.stringify(param.filledForm));
+        return this.updateApplication(param).map(application => {
             return this.application = application;
         });
     }
@@ -168,13 +191,9 @@ export class ApplicationService {
      * update the application
      * @param {Application} application
      */
+    @Loading('updateApplication')
     public updateApplication(application: Application): Observable<Application> {
-        this.alert.setLoading(
-            'updateApplication',
-            this.translationService.translate('loadingUpdateApplication')
-        );
         return this.applicationApi.updateApplicationById(application.id, 17, application).map(result => {
-            this.alert.removeHint('updateApplication');
             return this.application = result;
         });
     }
@@ -186,10 +205,8 @@ export class ApplicationService {
      */
     public assignConferenceToApplication(application: Application, conferenceId: string): Observable<Application> {
         const param = _.cloneDeep(application);
-
         param.conferenceId = conferenceId;
-
-        /* TODO */ param.status = { name: 'pending' };
+        param.status = { name: 'pending' };
 
         return this.updateApplication(param).map(result => {
             return this.application = result;

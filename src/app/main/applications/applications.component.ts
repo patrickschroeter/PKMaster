@@ -16,7 +16,7 @@ import { Application } from './../../swagger';
 import { Selectable } from './../../models';
 
 /** Decorators */
-import { Access } from './../../shared';
+import { Access } from './../../shared/decorators/access.decorator';
 
 @Component({
     selector: 'pk-applications',
@@ -172,11 +172,9 @@ export class ApplicationsComponent implements OnInit {
      */
     @Access('CreateApplications')
     private createApplication(listelement: Selectable): void {
+        /** TODO */
         const application: Application = {
-            formId: listelement.value,
-            form: {
-                id: listelement.value
-            },
+            formId: listelement.value
         };
         this.applicationService.createNewApplication(application).subscribe((created) => {
             if (created['id']) {

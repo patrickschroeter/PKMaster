@@ -36,9 +36,9 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
         components.ModalAddConferenceListComponent,
 
         elements.LoadingComponent,
+        elements.ButtonAnimationWrapperComponent,
 
         directives.AccessDirective
-
     ],
     imports: [
         CommonModule,
@@ -71,6 +71,7 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
         components.ModalAddConferenceListComponent,
 
         elements.LoadingComponent,
+        elements.ButtonAnimationWrapperComponent,
 
         directives.AccessDirective
     ]

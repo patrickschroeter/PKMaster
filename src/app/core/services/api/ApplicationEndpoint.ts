@@ -142,11 +142,8 @@ export class ApplicationEndpoint {
         const id = this._list.length === 0 ? 'Q' : this._list[this._list.length - 1].id + 'Q';
         application.id = id;
         application.created = new Date();
-        if (application.form) {
-            application.form = this.formApi['_form'](application.form.id);
-            if (application.form) {
-                application.attributes = application.form.formHasField;
-            }
+        if (application.formId) {
+            application.form = this.formApi['_form'](application.formId);
         }
         this._list.push(application);
         return JSON.parse(JSON.stringify(this._list[this._list.length - 1]));
@@ -165,6 +162,8 @@ export class ApplicationEndpoint {
     }
 
     private _applicationUpdate(id: string, application: Application) {
+        delete application.attributes;
+        if (typeof application.filledForm === 'Object') { application.filledForm = JSON.stringify(application.filledForm); }
         const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id) {

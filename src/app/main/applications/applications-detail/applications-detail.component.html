@@ -25,7 +25,7 @@
                         <pk-button
                             *ngIf="dynamicForm?.form"
                             i18n-value value="Add"
-                            icon="note_add"
+                            icon="comment"
                             [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
                             (onClick)="createNewComment(dynamicForm.form.value)"></pk-button>
                     </pk-dynamic-form-submit>
@@ -80,76 +80,83 @@
                 rounded
                 element--error
                 i18n-pkAlert
-                     pkAlert="Cancel"
-                icon="clear">
+                    pkAlert="Back to Listview"
+                icon="arrow_back">
             </pk-button>
         </a>
-        <a  *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
-            routerLink="/applications/{{ application.id }}/edit">
+        <pk-button-animation-wrapper>
+
+            <ng-container *accessEditApplications>
+                <pk-button
+                    *ngIf="application.status?.name === 'pending'"
+                    class="element--spacing-bottom-tiny"
+                    rounded
+                    element--secondary
+                    i18n-pkAlert
+                        pkAlert="Accept/Decline Application"
+                    icon="thumbs_up_down"
+                    (onClick)="acceptModal.openModal(application)">
+                </pk-button>
+            </ng-container>
+
+            <ng-container *accessEditConferences>
+                <pk-button
+                    *ngIf="application.status?.name === 'pending' || application.status?.name === 'submitted'"
+                    class="element--spacing-bottom-tiny"
+                    rounded
+                    element--secondary
+                    i18n-pkAlert
+                        pkAlert="Add application to conference"
+                    icon="forum"
+                    (onClick)="addApplicationToConferenceModal()">
+                </pk-button>
+            </ng-container>
+
             <pk-button
+                *ngIf="application.status?.name === 'created'"
                 class="element--spacing-bottom-tiny"
                 rounded
                 element--secondary
                 i18n-pkAlert
-                     pkAlert="Edit Application"
-                icon="create">
+                    pkAlert="Submit Application"
+                icon="send"
+                (onClick)="submitApplicationModal(application)">
             </pk-button>
-        </a>
-        <pk-button
-            *ngIf="application.status?.name === 'created'"
-            class="element--spacing-bottom-tiny"
-            rounded
-            element--success
-            i18n-pkAlert
-                 pkAlert="Submit Application"
-            icon="send"
-            (onClick)="submitApplicationModal(application)">
-        </pk-button>
-        <pk-button
-            *ngIf="['submitted'].indexOf(application.status?.name) !== -1"
-            class="element--spacing-bottom-tiny"
-            rounded
-            element--error
-            i18n-pkAlert
-                 pkAlert="Recind Application"
-            icon="undo"
-            (onClick)="rescindApplicationModal(application)">
-        </pk-button>
-        <pk-button
-            *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
-            class="element--spacing-bottom-tiny"
-            rounded
-            element--error
-            i18n-pkAlert
-                 pkAlert="Deactivate Application"
-            icon="delete"
-            (onClick)="deactivateApplicationModal(application)">
-        </pk-button>
 
-        <div *accessEditConferences>
             <pk-button
-                *ngIf="application.status?.name === 'pending' || application.status?.name === 'submitted'"
+                *ngIf="['submitted'].indexOf(application.status?.name) !== -1"
                 class="element--spacing-bottom-tiny"
                 rounded
-                element--success
+                element--error
                 i18n-pkAlert
-                     pkAlert="Add application to conference"
-                icon="forum"
-                (onClick)="addApplicationToConferenceModal()">
+                    pkAlert="Recind Application"
+                icon="undo"
+                (onClick)="rescindApplicationModal(application)">
             </pk-button>
-        </div>
-        <div *accessEditApplications>
+
+            <a  *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
+                routerLink="/applications/{{ application.id }}/edit">
+                <pk-button
+                    class="element--spacing-bottom-tiny"
+                    rounded
+                    element--secondary
+                    i18n-pkAlert
+                        pkAlert="Edit Application"
+                    icon="create">
+                </pk-button>
+            </a>
+
             <pk-button
-                *ngIf="application.status?.name === 'pending'"
+                *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
                 class="element--spacing-bottom-tiny"
                 rounded
-                element--success
+                element--error
                 i18n-pkAlert
-                     pkAlert="Accept/Decline Application"
-                icon="thumbs_up_down"
-                (onClick)="acceptModal.openModal(application)">
+                    pkAlert="Deactivate Application"
+                icon="delete"
+                (onClick)="deactivateApplicationModal(application)">
             </pk-button>
-        </div>
+        </pk-button-animation-wrapper>
     </pk-floating>
 
     <pk-modal-accept-application #acceptModal (change)="updateApplication($event)"></pk-modal-accept-application>

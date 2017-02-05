@@ -164,11 +164,11 @@
 
 .list {
     :not(.list__header) {
-        // Button Animation
         transition: background .3s ease-in-out, border-color .3s ease-in-out;
 
         .list-element:hover {
             background: $white;
+            // background-color: rgba($guidance-color, 0.2);
         }
     }
 }

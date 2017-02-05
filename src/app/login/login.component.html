@@ -1,6 +1,10 @@
 <div class="login-wrapper">
     <h1 class="">PK 4.0</h1>
 
+    <ng-container *ngIf="error">
+        <div class="invalid-wrapper" i18n>Username or Password is wrong</div>
+    </ng-container>
+
     <pk-dynamic-form [formElements]="loginForm" #dynamicForm>
         <pk-dynamic-form-content>
 
@@ -16,3 +20,44 @@
     </pk-dynamic-form>
 
 </div>
+
+<!--TODO remove for production-->
+<pk-floating top-right fixed>
+    <pk-button-animation-wrapper>
+        <pk-button
+            class="element--spacing-bottom-tiny"
+            rounded
+            element--success
+            (onClick)="fake('observer@pk.de')"
+            icon='O'>
+        </pk-button>
+        <pk-button
+            class="element--spacing-bottom-tiny"
+            rounded
+            element--success
+            (onClick)="fake('student@pk.de')"
+            icon='S'>
+        </pk-button>
+        <pk-button
+            class="element--spacing-bottom-tiny"
+            rounded
+            element--success
+            (onClick)="fake('principal@pk.de')"
+            icon='P'>
+        </pk-button>
+        <pk-button
+            class="element--spacing-bottom-tiny"
+            rounded
+            element--success
+            icon='A'
+            (onClick)="fake('admin@pk.de')">
+        </pk-button>
+        <pk-button
+            class="element--spacing-bottom-tiny"
+            rounded
+            element--success
+            (onClick)="fake('patrick.schroeter@hotmail.de')"
+            icon='PS'>
+        </pk-button>
+    </pk-button-animation-wrapper>
+</pk-floating>
