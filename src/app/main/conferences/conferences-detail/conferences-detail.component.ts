@@ -34,6 +34,7 @@ export class ConferencesDetailComponent implements OnInit {
 
     public application: Application;
     public users: Selectable[];
+    public userLabels: { [id: string]: string } = {};
 
     constructor(
         /** Angular */
@@ -75,6 +76,9 @@ export class ConferencesDetailComponent implements OnInit {
     private getUsers(): void {
         this.userService.getUsers().subscribe(users => {
             this.users = users.map(obj => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`));
+            users.forEach((value) => {
+                this.userLabels[value.id] = `${value.lastname}, ${value.firstname}`;
+            });
         });
     }
 

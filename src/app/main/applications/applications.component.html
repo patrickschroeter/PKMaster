@@ -7,7 +7,14 @@
             <ng-container *ngIf="!applications.length">
                 <div class="empty-wrapper">
                     <div class="label" i18n>No Applications here.</div>
-                    <pk-button icon="add" element--secondary (onClick)="overlay.toggle()" i18n-value value="Create Application" class="element--spacing-top-large"></pk-button>
+                    <pk-button
+                        icon="add"
+                        element--secondary
+                        (onClick)="overlay.toggle()"
+                        i18n-value
+                        value="Create Application"
+                        class="element--spacing-top-large">
+                    </pk-button>
                 </div>
             </ng-container>
 

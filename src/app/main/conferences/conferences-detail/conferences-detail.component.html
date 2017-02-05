@@ -6,7 +6,17 @@
 
     <h4 i18n>Attendant PK-Members</h4>
     <ng-container *ngIf="!conference.assignments || !conference.assignments.length">
-        <div class="empty-wrapper" i18n>No attendant members.</div>
+        <div class="empty-wrapper">
+            <div class="label" i18n>No attendant members.</div>
+            <pk-button
+                class="element--spacing-top-large"
+                element--secondary
+                i18n-value
+                value="Assign User"
+                icon="supervisor_account"
+                (onClick)="assignUserModal()">
+            </pk-button>
+        </div>
     </ng-container>
     <ng-container *ngIf="conference.assignments && conference.assignments.length">
         <pk-list>
@@ -16,7 +26,7 @@
             <pk-list-content>
                 <pk-list-element *ngFor="let user of conference.assignments">
                     <pk-list-attribute name="name">
-                        {{ user }}
+                        {{ userLabels[user] }}
                     </pk-list-attribute>
 
                     <pk-floating top-right horizontal>
@@ -52,7 +62,7 @@
                 rounded
                 element--error
                 i18n-pkAlert
-                    pkAlert="Back to Listview"
+                pkAlert="Back to Listview"
                 icon="arrow_back">
             </pk-button>
         </a>
@@ -62,7 +72,7 @@
                 rounded
                 element--secondary
                 i18n-pkAlert
-                    pkAlert="Assign User"
+                pkAlert="Assign User"
                 icon="supervisor_account"
                 (onClick)="assignUserModal()">
             </pk-button>
@@ -81,7 +91,7 @@
                 rounded
                 element--error
                 i18n-pkAlert
-                    pkAlert="Delete Conference"
+                pkAlert="Delete Conference"
                 icon="delete"
                 (onClick)="deleteConference()">
             </pk-button>
