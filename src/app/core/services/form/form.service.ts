@@ -336,4 +336,15 @@ export class FormService {
             return this.form = form;
         });
     }
+
+    /**
+     * delete the selected form
+     * @param {String} formId
+     */
+    @Loading('removeForm')
+    public removeForm(formId: string): Observable<boolean> {
+        return this.formApi.deleteFormById(formId).map(result => {
+            return result;
+        });
+    }
 }

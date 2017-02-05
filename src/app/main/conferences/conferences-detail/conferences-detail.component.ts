@@ -7,6 +7,8 @@ import {
     ApplicationService,
     PermissionService
 } from './../../../core';
+import { ModalService } from './../../../modules/overlay';
+import { TranslationService } from './../../../modules/translation';
 
 /** Models */
 import { ConferenceConfig } from './../../../models';
@@ -31,8 +33,13 @@ export class ConferencesDetailComponent implements OnInit {
     public application: Application;
 
     constructor(
+        /** Angular */
         private activatedRoute: ActivatedRoute,
         private router: Router,
+        /** Modules */
+        private modalService: ModalService,
+        private translationService: TranslationService,
+        /** Services */
         private conferenceService: ConferenceService,
         private applicationService: ApplicationService
     ) { }
@@ -74,12 +81,12 @@ export class ConferencesDetailComponent implements OnInit {
         for (let i = 0, length = this.conference.config.length; i < length; i++) {
             this.setApplication(this.conference.config[i], applicationsByForm);
         }
-        console.log(this.conference.config);
     }
 
     /**
      * insert the applications into the config with formId
      * @param {ConferenceConfig} config
+     * @param {Object} applications
      */
     private setApplication(config: ConferenceConfig<any>, applications: Object) {
         if (config.formId) {
@@ -94,8 +101,17 @@ export class ConferencesDetailComponent implements OnInit {
     /**
      * Delete the conference
      */
-     public deleteConference() {
-         console.error('TODO: deleteConference');
-     }
+    public deleteConference() {
+        this.modalService.createConfirmationModal({
+            title: this.translationService.translate('confirmDeleteConferenceHeader'),
+            message: this.translationService.translate('confirmDeleteConferenceContent'),
+            confirm: () => {
+                this.conferenceService.removeConference(this.conference.id).subscribe(result => {
+                    this.router.navigate(['conferences']);
+                    this.modalService.destroyModal();
+                });
+            }
+        });
+    }
 
 }

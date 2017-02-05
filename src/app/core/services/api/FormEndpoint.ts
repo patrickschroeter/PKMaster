@@ -91,6 +91,22 @@ export class FormEndpoint {
         });
     }
 
+    public deleteFormById(formId: string, token?: number, extraHttpRequestParams?: any): Observable<{}> {
+        return this.observe(this._delete(formId));
+    }
+
+    /**
+     * Helper observer
+     */
+    private observe<T>(obj: T): Observable<T> {
+        return new Observable<T>((observer: Observer<T>) => {
+            setTimeout(() => {
+                observer.next(obj);
+                observer.complete();
+            }, 500);
+        });
+    }
+
     /**
      * Mock Server
      */
@@ -139,6 +155,22 @@ export class FormEndpoint {
             }
         }
         return null;
+    }
+
+    private _delete(id: string): boolean {
+        let index = -1;
+        for (let i = 0, length = this._list.length; i < length; i++) {
+            const element = this._list[i];
+            if (element.id === id) {
+                index = i;
+            }
+        }
+        if (index === -1) {
+            return false;
+        } else {
+            this._list.splice(index, 1);
+            return true;
+        }
     }
 
 }

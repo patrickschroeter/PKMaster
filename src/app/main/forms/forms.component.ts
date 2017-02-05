@@ -1,8 +1,11 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
+import * as _ from 'lodash';
 
-/** Forms */
+/** Services */
 import { FormService } from './../../core';
+import { ModalService } from './../../modules/overlay';
+import { TranslationService } from './../../modules/translation';
 
 /** Models */
 import { Form } from './../../swagger';
@@ -15,12 +18,20 @@ import { Form } from './../../swagger';
 export class FormsComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    private forms: Array<Object>;
+    private forms: Array<Form>;
     private _newForm: Array<any>;
     get newForm() { return this._newForm; }
     set newForm(form) { this._newForm = form; }
 
-    constructor(private formService: FormService, private router: Router) { }
+    constructor(
+        /** Angular */
+        private router: Router,
+        /** Modules */
+        private modalService: ModalService,
+        private translationService: TranslationService,
+        /** Services */
+        private formService: FormService,
+    ) { }
 
     ngOnInit() {
         this.formService.getForms().subscribe(result => {
@@ -34,6 +45,7 @@ export class FormsComponent implements OnInit {
 
     /**
      * create a new form
+     * @param {Form} form
      */
     public createNewForm(form: Form) {
         this.formService.createNewForm(form).subscribe(created => {
@@ -45,8 +57,21 @@ export class FormsComponent implements OnInit {
 
     /**
      * Delete the form
+     * @param {Form} form
      */
-     public deleteForm(form: Form) {
-         console.error('TODO: deleteForm');
-     }
+    public deleteForm(form: Form) {
+        this.modalService.createConfirmationModal({
+            title: this.translationService.translate('confirmDeleteFormHeader'),
+            message: this.translationService.translate('confirmDeleteFormContent'),
+            confirm: () => {
+                this.formService.removeForm(form.id).subscribe(result => {
+                    const index = _.findIndex(this.forms, obj => obj.id === form.id);
+                    if (result && index !== -1) {
+                        this.forms.splice(index, 1);
+                    }
+                    this.modalService.destroyModal();
+                });
+            }
+        });
+    }
 }
