@@ -91,6 +91,103 @@
             }
         }
     }
+
+    // default animation--left
+    &.animation--down {
+        &.animation--trigger:hover {
+            .animation--target {
+                > * {
+                    transform: translateY(15px);
+                }
+                @for $i from 1 through 7 {
+                    > *:first-child:nth-last-child(#{$i}),
+                    > *:first-child:nth-last-child(#{$i}) ~ * {
+                        @for $j from 1 through $i {
+                            &:nth-child(#{$j}) {
+                                transform: scale(1) translateY(12px);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .animation--target {
+            @for $i from 1 through 7 {
+                > *:first-child:nth-last-child(#{$i}),
+                > *:first-child:nth-last-child(#{$i}) ~ * {
+                    @for $j from 1 through $i {
+                        &:nth-child(#{$j}) {
+                            left: 0;
+                            top: -12px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &.animation--up {
+        &.animation--trigger:hover {
+            .animation--target {
+                > * {
+                    transform: translateY(-15px);
+                }
+                @for $i from 1 through 7 {
+                    > *:first-child:nth-last-child(#{$i}),
+                    > *:first-child:nth-last-child(#{$i}) ~ * {
+                        @for $j from 1 through $i {
+                            &:nth-child(#{$j}) {
+                                transform: scale(1) translateY(-12px);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .animation--target {
+            @for $i from 1 through 7 {
+                > *:first-child:nth-last-child(#{$i}),
+                > *:first-child:nth-last-child(#{$i}) ~ * {
+                    @for $j from 1 through $i {
+                        &:nth-child(#{$j}) {
+                            left: 0;
+                            top: 12px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &.animation--right {
+        &.animation--trigger:hover {
+            .animation--target {
+                > * {
+                    transform: translateX(15px);
+                }
+                @for $i from 1 through 7 {
+                    > *:first-child:nth-last-child(#{$i}),
+                    > *:first-child:nth-last-child(#{$i}) ~ * {
+                        @for $j from 1 through $i {
+                            &:nth-child(#{$j}) {
+                                transform: scale(1) translateX(12px);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .animation--target {
+            @for $i from 1 through 7 {
+                > *:first-child:nth-last-child(#{$i}),
+                > *:first-child:nth-last-child(#{$i}) ~ * {
+                    @for $j from 1 through $i {
+                        &:nth-child(#{$j}) {
+                            left: -12px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 

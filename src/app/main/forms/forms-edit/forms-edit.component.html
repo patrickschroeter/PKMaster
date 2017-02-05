@@ -41,16 +41,16 @@
         <a routerLink="/forms">
             <pk-button rounded i18n-pkAlert pkAlert="Cancel" class="element--spacing-bottom-tiny" icon="clear" element--error></pk-button>
         </a>
+        <pk-button
+            rounded
+            i18n-pkAlert
+            pkAlert="Save Form"
+            class="element--spacing-bottom-tiny"
+            icon="save"
+            (onClick)="saveForm()"
+            element--secondary>
+        </pk-button>
         <pk-button-animation-wrapper>
-            <pk-button
-                rounded
-                i18n-pkAlert
-                pkAlert="Save Form"
-                class="element--spacing-bottom-tiny"
-                icon="save"
-                (onClick)="saveForm()"
-                element--secondary>
-            </pk-button>
             <pk-button
                 rounded
                 i18n-pkAlert
@@ -74,7 +74,7 @@
                 i18n-pkAlert
                 pkAlert="Edit Form Attributes"
                 class="element--spacing-bottom-tiny"
-                icon="edit"
+                icon="settings"
                 element--secondary
                 (onClick)="editFormAttributes()">
             </pk-button>
