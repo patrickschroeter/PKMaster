@@ -4,7 +4,35 @@
     <h2 class="element element--spacing-bottom-small" i18n>Conference: {{ conference.description }}</h2>
     <h4 class="element element--spacing-bottom-large">{{ conference.dateOfEvent | date }} ({{ conference.startOfEvent }} - {{ conference.endOfEvent }}), {{ conference.roomOfEvent }}</h4>
 
-    <div i18n>Attendant PK-Members (TODO)</div>
+    <h4 i18n>Attendant PK-Members</h4>
+    <ng-container *ngIf="!conference.assignments || !conference.assignments.length">
+        <div class="empty-wrapper" i18n>No attendant members.</div>
+    </ng-container>
+    <ng-container *ngIf="conference.assignments && conference.assignments.length">
+        <pk-list>
+            <pk-list-header>
+                <pk-list-attribute name="name" i18n>Name</pk-list-attribute>
+            </pk-list-header>
+            <pk-list-content>
+                <pk-list-element *ngFor="let user of conference.assignments">
+                    <pk-list-attribute name="name">
+                        {{ user }}
+                    </pk-list-attribute>
+
+                    <pk-floating top-right horizontal>
+                        <pk-button
+                            rounded
+                            i18n-pkAlert
+                            pkAlert="Delete Member from Conference"
+                            icon="delete"
+                            element--error
+                            (onClick)="unassignUser(user)">
+                        </pk-button>
+                    </pk-floating>
+                </pk-list-element>
+            </pk-list-content>
+        </pk-list>
+    </ng-container>
 
     <h3 i18n>Agenda</h3>
     <div *ngFor="let item of conference.config; let i = index">
@@ -29,6 +57,15 @@
             </pk-button>
         </a>
         <pk-button-animation-wrapper>
+            <pk-button
+                class="element--spacing-bottom-tiny"
+                rounded
+                element--secondary
+                i18n-pkAlert
+                    pkAlert="Assign User"
+                icon="supervisor_account"
+                (onClick)="assignUserModal()">
+            </pk-button>
             <a routerLink="/conferences/{{ conference.id }}/edit">
                 <pk-button
                     class="element--spacing-bottom-tiny"

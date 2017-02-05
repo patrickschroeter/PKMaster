@@ -116,9 +116,26 @@ export const DICTIONARY_EN = {
     'loading-getPermissions': 'loading-getPermissions',
     'loading-addRole': 'loading-addRole',
     'loading-addPermissionToRole': 'loading-addPermissionToRole',
+    'loading-rescindApplication': 'loading-rescindApplication',
+    'loading-saveApplication': 'loading-saveApplication',
+    'loading-addRoleToUser': 'loading-addRoleToUser',
+    'loading-removeRoleFromUser': 'loading-removeRoleFromUser',
+    'loading-removePermissionOfRole': 'loading-removePermissionOfRole',
+    'loading-removeConference': 'loading-removeConference',
+    'loading-removeForm': 'loading-removeForm',
 
     'conferenceElementList': 'conferenceElementList',
     'addRoleToUser': 'addRoleToUser',
     'noRolesAvailable': 'noRolesAvailable',
     'createNewRole': 'createNewRole',
+
+    'setFormId': 'setFormId',
+
+    'editFormFieldsHeader': 'editFormFieldsHeader',
+    'editFormFieldsEmpty': 'editFormFieldsEmpty',
+
+    'confirmDeleteConferenceHeader': 'confirmDeleteConferenceHeader',
+    'confirmDeleteConferenceContent': 'confirmDeleteConferenceContent',
+    'confirmDeleteFormHeader': 'confirmDeleteFormHeader',
+    'confirmDeleteFormContent': 'confirmDeleteFormContent'
 };

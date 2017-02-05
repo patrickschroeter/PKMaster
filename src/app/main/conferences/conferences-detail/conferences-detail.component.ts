@@ -1,18 +1,20 @@
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import * as _ from 'lodash';
 
 /** Services */
 import {
     ConferenceService,
     ApplicationService,
-    PermissionService
+    PermissionService,
+    UserService
 } from './../../../core';
 import { ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { ConferenceConfig } from './../../../models';
-import { Conference, Application, Comment } from './../../../swagger';
+import { ConferenceConfig, Selectable } from './../../../models';
+import { Conference, Application, Comment, AppUser } from './../../../swagger';
 import { OverlayComponent } from './../../../modules/overlay';
 
 /** Decorators */
@@ -31,6 +33,7 @@ export class ConferencesDetailComponent implements OnInit {
     public agenda: string[];
 
     public application: Application;
+    public users: Selectable[];
 
     constructor(
         /** Angular */
@@ -41,11 +44,13 @@ export class ConferencesDetailComponent implements OnInit {
         private translationService: TranslationService,
         /** Services */
         private conferenceService: ConferenceService,
-        private applicationService: ApplicationService
+        private applicationService: ApplicationService,
+        private userService: UserService
     ) { }
 
     ngOnInit() {
         this.getConference();
+        this.getUsers();
     }
 
     /**
@@ -61,6 +66,15 @@ export class ConferencesDetailComponent implements OnInit {
                 console.error(error);
                 this.router.navigate(['/conferences']);
             });
+        });
+    }
+
+    /**
+     * get users as Selectable[]
+     */
+    private getUsers(): void {
+        this.userService.getUsers().subscribe(users => {
+            this.users = users.map(obj => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`));
         });
     }
 
@@ -112,6 +126,48 @@ export class ConferencesDetailComponent implements OnInit {
                 });
             }
         });
+    }
+
+    /**
+     * opens the assignment modal for users
+     */
+    public assignUserModal() {
+        this.modalService.createListModal({
+            title: this.translationService.translate('assignUserHeader'),
+            list: this.users,
+            click: this.assignUser.bind(this),
+
+            selectedValues: this.conference.assignments,
+
+            emptyText: this.translationService.translate('noUsersAvailable')
+        });
+    }
+
+    /**
+     * add/remove a user from the conference
+     * @param {Selectable} user
+     */
+    public assignUser(user: Selectable): void {
+        const param = _.cloneDeep(this.conference);
+        if (!param.assignments) { param.assignments = []; }
+        const index = param.assignments.indexOf(user.value);
+        if (index === -1) {
+            param.assignments.push(user.value);
+        } else {
+            param.assignments.splice(index, 1);
+        }
+        this.conferenceService.saveConference(param).subscribe(result => {
+            this.conference = result;
+            this.modalService.updateSelectedValues(this.conference.assignments);
+        });
+    }
+
+    /**
+     * remove user from the conference
+     * @param {String} userId
+     */
+    public unassignUser(userId: string) {
+        this.assignUser(new Selectable(userId, userId));
     }
 
 }
