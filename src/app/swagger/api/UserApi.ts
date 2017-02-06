@@ -1,6 +1,6 @@
 /**
- * PK-4.0 API
- * API for the PK-4.0
+ * API Schnittstelle für die Prüfungskommision der Hochschule Augsburg
+ * Hier sind alle Routen aufgelistet die zur verfügung stehen. Zuvor muss jedoch ein JWT Token überden Authorize Button hinzufügen
  *
  * OpenAPI spec version: v1
  *
@@ -46,16 +46,13 @@ export class UserApi {
     /**
      * Create new AppUser from LDAP
      *
-     * @param token Accesstoken to authenticate with the API
      * @param user The AppUser credentials
      */
-    public addUser (token?: number, user?: models.AppUser, extraHttpRequestParams?: any ) : Observable<models.AppUser> {
+    public addUser (user?: models.UserCreateDto, extraHttpRequestParams?: any ) : Observable<models.UserDto> {
         const path = this.basePath + '/users';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-            headerParams.set('token', String(token));
-
         let requestOptions: RequestOptionsArgs = {
             method: 'POST',
             headers: headerParams,
@@ -77,9 +74,8 @@ export class UserApi {
      * GET one AppUser by Id
      *
      * @param userId ID of AppUser
-     * @param token Accesstoken to authenticate with the API
      */
-    public getUserById (userId: string, token?: number, extraHttpRequestParams?: any ) : Observable<models.UserDto> {
+    public getUserById (userId: string, extraHttpRequestParams?: any ) : Observable<models.UserDto> {
         const path = this.basePath + '/users/{userId}'
             .replace('{' + 'userId' + '}', String(userId));
 
@@ -89,8 +85,6 @@ export class UserApi {
         if (userId === null || userId === undefined) {
             throw new Error('Required parameter userId was null or undefined when calling getUserById.');
         }
-            headerParams.set('token', String(token));
-
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
             headers: headerParams,
@@ -136,49 +130,12 @@ export class UserApi {
     }
 
     /**
-     * Reset the AppUser&#39;s Password
-     *
-     * @param userId ID of AppUser
-     * @param token Accesstoken to authenticate with the API
-     * @param email The AppUser&#39;s E-Mail address
-     */
-    public resetUserPassword (userId: number, token?: number, email?: string, extraHttpRequestParams?: any ) : Observable<{}> {
-        const path = this.basePath + '/users/{userId}/reset'
-            .replace('{' + 'userId' + '}', String(userId));
-
-        let queryParameters = new URLSearchParams();
-        let headerParams = this.defaultHeaders;
-        // verify required parameter 'userId' is not null or undefined
-        if (userId === null || userId === undefined) {
-            throw new Error('Required parameter userId was null or undefined when calling resetUserPassword.');
-        }
-            headerParams.set('token', String(token));
-
-        let requestOptions: RequestOptionsArgs = {
-            method: 'PUT',
-            headers: headerParams,
-            search: queryParameters
-        };
-        requestOptions.body = JSON.stringify(email);
-
-        return this.http.request(path, requestOptions)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return response.json();
-                }
-            });
-    }
-
-    /**
      * Update AppUser with Id
      *
      * @param userId ID of AppUser
-     * @param token Accesstoken to authenticate with the API
      * @param user Updated AppUser
      */
-    public updateUserById (userId: string, token?: number, user?: models.AppUser, extraHttpRequestParams?: any ) : Observable<models.AppUser> {
+    public updateUserById (userId: number, user?: models.AppUser, extraHttpRequestParams?: any ) : Observable<models.AppUser> {
         const path = this.basePath + '/users/{userId}'
             .replace('{' + 'userId' + '}', String(userId));
 
@@ -188,8 +145,6 @@ export class UserApi {
         if (userId === null || userId === undefined) {
             throw new Error('Required parameter userId was null or undefined when calling updateUserById.');
         }
-            headerParams.set('token', String(token));
-
         let requestOptions: RequestOptionsArgs = {
             method: 'PUT',
             headers: headerParams,
@@ -211,10 +166,9 @@ export class UserApi {
      * Update the AppUser&#39;s Role
      *
      * @param userId ID of AppUser
-     * @param token Accesstoken to authenticate with the API
      * @param role The AppUser&#39;s new Role
      */
-    public updateUserRole (userId: string, token?: number, role?: string, extraHttpRequestParams?: any ) : Observable<{}> {
+    public updateUserRole (userId: number, role?: number, extraHttpRequestParams?: any ) : Observable<{}> {
         const path = this.basePath + '/users/{userId}/role'
             .replace('{' + 'userId' + '}', String(userId));
 
@@ -224,8 +178,6 @@ export class UserApi {
         if (userId === null || userId === undefined) {
             throw new Error('Required parameter userId was null or undefined when calling updateUserRole.');
         }
-            headerParams.set('token', String(token));
-
         let requestOptions: RequestOptionsArgs = {
             method: 'PUT',
             headers: headerParams,
@@ -254,4 +206,5 @@ export class UserApi {
     public removeUserRole(userId: string, token?: number, roleId?: string, extraHttpRequestParams?: any ) : Observable<{}> {
         return null;
     }
+
 }
