@@ -135,7 +135,7 @@ export class UserApi {
      * @param userId ID of AppUser
      * @param user Updated AppUser
      */
-    public updateUserById (userId: number, user?: models.AppUser, extraHttpRequestParams?: any ) : Observable<models.AppUser> {
+    public updateUserById (userId: string, user?: models.AppUser, extraHttpRequestParams?: any ) : Observable<models.AppUser> {
         const path = this.basePath + '/users/{userId}'
             .replace('{' + 'userId' + '}', String(userId));
 
@@ -168,7 +168,7 @@ export class UserApi {
      * @param userId ID of AppUser
      * @param role The AppUser&#39;s new Role
      */
-    public updateUserRole (userId: number, role?: number, extraHttpRequestParams?: any ) : Observable<{}> {
+    public updateUserRole (userId: string, role?: string, extraHttpRequestParams?: any ) : Observable<{}> {
         const path = this.basePath + '/users/{userId}/role'
             .replace('{' + 'userId' + '}', String(userId));
 
@@ -203,7 +203,7 @@ export class UserApi {
         return null;
     }
 
-    public removeUserRole(userId: string, token?: number, roleId?: string, extraHttpRequestParams?: any ) : Observable<{}> {
+    public removeUserRole(userId: string, roleId?: string, extraHttpRequestParams?: any ) : Observable<{}> {
         return null;
     }
 

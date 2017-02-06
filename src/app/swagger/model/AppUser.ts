@@ -57,6 +57,9 @@ export interface AppUser {
     userHasRole?: Array<models.UserHasRole>;
 
     /** Custom */
+
+    matNr?: number;
+
     token?: string;
     permissions?: string[];
     roles?: models.Role[];

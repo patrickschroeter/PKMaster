@@ -193,7 +193,7 @@ export class ApplicationService {
      */
     @Loading('updateApplication')
     public updateApplication(application: Application): Observable<Application> {
-        return this.applicationApi.updateApplicationById(application.id, 17, application).map(result => {
+        return this.applicationApi.updateApplicationById(application.id, application).map(result => {
             return this.application = result;
         });
     }

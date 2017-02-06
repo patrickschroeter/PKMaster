@@ -150,7 +150,6 @@ export class ApplicationsDetailComponent implements OnInit {
     public createNewComment(values: Comment): void {
         const comment: Comment = values;
         comment.created = new Date();
-        /** TODO */ comment.text = comment.message;
         this.auth.getUser().subscribe(user => {
             comment.user = user;
             comment.userId = user.id;

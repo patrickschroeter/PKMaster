@@ -60,7 +60,7 @@ export class RoleService {
      */
     @Loading('updateRoleById')
     public updateRoleById(id: string, role: Role): Observable<Role> {
-        return this.roleApi.updateRoleById(id, 17, role).map(result => {
+        return this.roleApi.updateRoleById(id, role).map(result => {
             return result;
         });
     }

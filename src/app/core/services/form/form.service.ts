@@ -16,8 +16,6 @@ import { Loading } from './../../../shared/decorators/loading.decorator';
 @Injectable()
 export class FormService {
 
-    static DEFAULT_TOKEN = 17;
-
     /** The form to edit */
     private form: Form;
     private forms: Form[];
@@ -258,7 +256,7 @@ export class FormService {
         form.restrictedAccess = submit.restrictedAccess;
 
         this.alert.setLoading('saveFormAttributes', this.translationService.translate('saveForm'));
-        return this.formApi.updateFormById(form.id, FormService.DEFAULT_TOKEN, form).map(result => {
+        return this.formApi.updateFormById(form.id, form).map(result => {
             this.alert.removeHint('saveFormAttributes');
             this.alert.setSuccessHint('saveFormAttributes', this.translationService.translate('savedForm'));
             return this.form = result;
@@ -274,7 +272,7 @@ export class FormService {
     public saveForm(): Observable<Form> {
         // TODO: save real data
         this.alert.setLoading('saveForm', this.translationService.translate('saveForm'));
-        return this.formApi.updateFormById(this.form.id, FormService.DEFAULT_TOKEN, this.form).map(form => {
+        return this.formApi.updateFormById(this.form.id, this.form).map(form => {
             this.alert.removeHint('saveForm');
             if (form) {
                 return this.form = form;
@@ -332,7 +330,7 @@ export class FormService {
         };
 
         // TODO: save real data
-        return this.formApi.addForm(FormService.DEFAULT_TOKEN, (newform as SingleFormDto)).map(form => {
+        return this.formApi.addForm(newform).map(form => {
             return this.form = form;
         });
     }

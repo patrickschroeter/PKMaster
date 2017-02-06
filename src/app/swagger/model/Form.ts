@@ -42,7 +42,7 @@ export interface Form {
 
     application?: Array<models.Application>;
 
-    formHasField?: Array<models.FormHasField>;
+    formHasField?: Array<models.Field>;
 
     previousVersionNavigation?: models.Form;
 

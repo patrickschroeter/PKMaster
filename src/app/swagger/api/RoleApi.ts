@@ -50,7 +50,7 @@ export class RoleApi {
      * @param permissionId ID of Permission
      * @param permissionId2
      */
-    public addPermissionToRole (roleId: number, permissionId: number, extraHttpRequestParams?: any ) : Observable<{}> {
+    public addPermissionToRole (roleId: string, permissionId: string, extraHttpRequestParams?: any ) : Observable<{}> {
         const path = this.basePath + '/roles/{roleId}/permissions/{permission_id}'
             .replace('{' + 'roleId' + '}', String(roleId))
             .replace('{' + 'permissionId' + '}', String(permissionId))
@@ -115,7 +115,7 @@ export class RoleApi {
      * @param permissionId ID of Permission
      * @param permissionId2
      */
-    public deletePermissionOfRole (roleId: number, permissionId: number, extraHttpRequestParams?: any ) : Observable<{}> {
+    public deletePermissionOfRole (roleId: string, permissionId: string, extraHttpRequestParams?: any ) : Observable<{}> {
         const path = this.basePath + '/roles/{roleId}/permissions/{permission_id}'
             .replace('{' + 'roleId' + '}', String(roleId))
             .replace('{' + 'permissionId' + '}', String(permissionId))
@@ -151,7 +151,7 @@ export class RoleApi {
      *
      * @param roleId ID of Role
      */
-    public deleteRoleById (roleId: number, extraHttpRequestParams?: any ) : Observable<{}> {
+    public deleteRoleById (roleId: string, extraHttpRequestParams?: any ) : Observable<{}> {
         const path = this.basePath + '/roles/{roleId}'
             .replace('{' + 'roleId' + '}', String(roleId));
 
@@ -239,7 +239,7 @@ export class RoleApi {
      * @param roleId ID of Role
      * @param role Updated Role
      */
-    public updateRoleById (roleId: number, role?: models.Role, extraHttpRequestParams?: any ) : Observable<models.Role> {
+    public updateRoleById (roleId: string, role?: models.Role, extraHttpRequestParams?: any ) : Observable<models.Role> {
         const path = this.basePath + '/roles/{roleId}'
             .replace('{' + 'roleId' + '}', String(roleId));
 

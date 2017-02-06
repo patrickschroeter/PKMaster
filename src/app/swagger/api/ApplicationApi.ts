@@ -239,7 +239,7 @@ export class ApplicationApi {
      * @param applicationId ID of the Application
      * @param application Application to Update
      */
-    public updateApplicationById (applicationId: string, application?: models.ApplicationCreateDto, extraHttpRequestParams?: any ) : Observable<models.ApplicationDto> {
+    public updateApplicationById (applicationId: string, application?: models.Application, extraHttpRequestParams?: any ) : Observable<models.ApplicationDto> {
         const path = this.basePath + '/applications/{applicationId}'
             .replace('{' + 'applicationId' + '}', String(applicationId));
 

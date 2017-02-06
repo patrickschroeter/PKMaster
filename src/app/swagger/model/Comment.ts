@@ -46,7 +46,4 @@ export interface Comment {
 
     user?: models.AppUser;
 
-    // Custom
-
-    message?: string;
 }
