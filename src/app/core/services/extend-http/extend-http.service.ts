@@ -12,7 +12,7 @@ import { AuthenticationService } from './..';
 export class ExtendHttpService extends Http {
 
 
-    constructor(backend: ConnectionBackend, defaultOptions: RequestOptions, private authentication: AuthenticationService) {
+    constructor(backend: ConnectionBackend, defaultOptions: RequestOptions) {
         super(backend, defaultOptions);
     }
 
@@ -23,7 +23,7 @@ export class ExtendHttpService extends Http {
      */
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
         if (!options) { options = { headers: new Headers() }; };
-        options.headers.set('authentication', this.authentication.token);
+        options.headers.set('authentication', AuthenticationService.getStaticToken());
         options.headers.set('Accept', 'application/json');
         options.headers.set('Content-Type', 'application/json');
         return super.request(url, options);

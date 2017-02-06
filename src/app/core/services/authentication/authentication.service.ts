@@ -23,6 +23,10 @@ export class AuthenticationService {
 
     private user: Observable<AppUser>;
 
+    static getStaticToken() {
+        return localStorage.getItem(AuthenticationService.TOKEN_KEY);
+    }
+
     constructor(
         /** Angular */
         private router: Router,
