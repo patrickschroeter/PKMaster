@@ -107,7 +107,7 @@
                                     </pk-button>
                                 </ng-container>
                                 <!--Assigned-->
-                                <ng-container *ngIf="user">
+                                <ng-container *ngIf="user && application.assignments">
                                     <pk-button
                                         *ngIf="application.status?.name === 'submitted' && application.assignments.indexOf(user.id) !== -1"
                                         rounded

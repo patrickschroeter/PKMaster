@@ -159,6 +159,7 @@ export class ConferenceEndpoint {
 
     private _addApplication(id: string, application: Application): Conference {
         const conference: Conference = this._conference(id);
+        conference.applications = conference.applications || [];
         let index = -1;
         for (let i = 0, length = conference.applications.length; i < length; i++) {
             const element = conference.applications[i];

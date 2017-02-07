@@ -159,6 +159,7 @@ export class ApplicationsDetailComponent implements OnInit {
             this.savingComment = true;
 
             this.applicationService.addCommentToApplication(comment).subscribe(result => {
+                this.application.comments = this.application.comments || [];
                 this.application.comments.push(result);
                 this.savingComment = false;
                 this.initAddCommentForm();

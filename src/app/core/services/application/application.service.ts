@@ -103,7 +103,7 @@ export class ApplicationService {
     public addCommentToApplication(comment: Comment): Observable<Application> {
         if (!this.application) { return Observable.throw('No Application'); }
         return this.applicationApi.addCommentToApplication(this.application.id, comment).map(result => {
-            return this.application = result;
+            return result;
         });
     }
 
