@@ -242,7 +242,7 @@ describe('Service: Authentication', () => {
 
         it('should save the user on success', () => {
             let user;
-            expect(service.getUser()).toEqual(Observable.throw('No User'));
+            expect(user).toBeUndefined();
 
             service.login('username', 'password');
             service.getUser().subscribe(response => {
@@ -286,7 +286,7 @@ describe('Service: Authentication', () => {
             service.login('username', 'password');
             expect(service.getUser()).toBeTruthy();
             service.logout();
-            expect(service.getUser()).toEqual(Observable.throw('No User'));
+            expect(service.isLoggedIn()).toBeFalsy();
         });
     });
 
@@ -320,9 +320,9 @@ describe('Service: Authentication', () => {
         }));
 
         it('should update the user', () => {
-            expect(service.getUser()).toEqual(Observable.throw('No User'));
+            expect(service.isLoggedIn()).toBeFalsy();
             service.updateUser({ id: 'user' });
-            expect(service.getUser()).not.toEqual(Observable.throw('No User'));
+            expect(service.isLoggedIn()).toBeTruthy();
         });
 
     });
