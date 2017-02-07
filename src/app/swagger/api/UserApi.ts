@@ -196,7 +196,55 @@ export class UserApi {
     }
 
     public login(username: string, password: string, token?: string): Observable<any> {
-        return null;
+        const path = this.basePath + '/connect/token';
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+        let requestOptions: RequestOptionsArgs = {
+            method: 'POST',
+            headers: headerParams,
+            search: queryParameters
+        };
+        let urlSearchParams = new URLSearchParams();
+        urlSearchParams.append('client_id', 'a2pkfrontend');
+        urlSearchParams.append('client_secret', 'frontendsecret');
+        urlSearchParams.append('grant_type', 'password');
+        urlSearchParams.append('scope', 'api openid profile');
+        urlSearchParams.append('username', 'patrick.schroeter@hs-augsburg.de');
+        urlSearchParams.append('password', 'safePassword');
+        requestOptions.body = urlSearchParams.toString();
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    const result = response.json();
+                    return result;
+                }
+            });
+    }
+
+    public getCurrentUser(): Observable<any> {
+        const path = this.basePath + '/connect/userinfo';
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+
+        let requestOptions: RequestOptionsArgs = {
+            method: 'GET',
+            headers: headerParams,
+            search: queryParameters
+        };
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json();
+                }
+            });
     }
 
     public logout(token: string): Observable<any> {

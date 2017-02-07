@@ -23,9 +23,13 @@ export class ExtendHttpService extends Http {
      */
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
         if (!options) { options = { headers: new Headers() }; };
-        options.headers.set('authentication', AuthenticationService.getStaticToken());
+        options.headers.set('Authorization', AuthenticationService.getStaticToken());
         options.headers.set('Accept', 'application/json');
         options.headers.set('Content-Type', 'application/json');
+        // TODO: hack
+        if (typeof url === 'string' && (url as string).indexOf('/connect/token')) {
+            options.headers.set('Content-Type', 'application/x-www-form-urlencoded');
+        }
         return super.request(url, options);
     }
 
