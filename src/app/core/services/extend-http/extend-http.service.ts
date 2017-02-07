@@ -25,10 +25,11 @@ export class ExtendHttpService extends Http {
         if (!options) { options = { headers: new Headers() }; };
         options.headers.set('Authorization', AuthenticationService.getStaticToken());
         options.headers.set('Accept', 'application/json');
-        options.headers.set('Content-Type', 'application/json');
         // TODO: hack
-        if (typeof url === 'string' && (url as string).indexOf('/connect/token')) {
+        if (typeof url === 'string' && (url as string).indexOf('/connect/token') !== -1) {
             options.headers.set('Content-Type', 'application/x-www-form-urlencoded');
+        } else {
+            options.headers.set('Content-Type', 'application/json');
         }
         return super.request(url, options);
     }

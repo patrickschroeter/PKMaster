@@ -18,7 +18,7 @@ import { AppUser } from './../../../swagger';
 import { Loading } from './../../../shared/decorators/loading.decorator';
 
 /**
- *
+ * A Service taking care of the user beeing logged in
  *
  * @export
  * @class AuthenticationService
@@ -176,28 +176,40 @@ export class AuthenticationService {
     public login(username?: string, password?: string): Observable<AppUser> {
         if (username && password) {
             let observer;
+            // the returned user observable
             this.user = new Observable((obs: Observer<any>) => {
                 observer = obs;
-            }).map(result => {
+            })
+            // update the permissions
+            .map(result => {
               return this.permission.updateUserPermissions(UserApiMock.USERS[0]);
-            }).publishReplay(1).refCount();
+            })
+            // cache user
+            .publishReplay(1).refCount();
 
+            // log the user in and save token
             this.userApi.login(username, password).subscribe(bearer => {
                 this.token = `${bearer.token_type} ${bearer.access_token}`;
 
+                // get the user object
                 this.publishCurrentUser(observer);
-
             }, error => {
                 observer.error(error);
             });
 
             return this.user;
         } else {
+            // the returned user observable
             this.user = new Observable((observer: Observer<any>) => {
+                // get the user object
                 this.publishCurrentUser(observer);
-            }).map(result => {
+            })
+            // update the permissions
+            .map(result => {
               return this.permission.updateUserPermissions(UserApiMock.USERS[0]);
-            }).publishReplay(1).refCount();
+            })
+            // cache user
+            .publishReplay(1).refCount();
 
             return this.user;
         }

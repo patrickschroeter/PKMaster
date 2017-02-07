@@ -24,7 +24,7 @@
                             <pk-list-attribute name="name">
                                 <a routerLink="{{ role.id }}">{{ role.name }}</a>
                             </pk-list-attribute>
-                            <pk-list-attribute name="state">{{ role.rolePermissions.length }}</pk-list-attribute>
+                            <pk-list-attribute name="state">{{ role.rolePermissions ? role.rolePermissions.length : 0 }}</pk-list-attribute>
 
                             <pk-floating top-right horizontal>
                                 <!--<a *accessEditRoles routerLink="{{ role.id }}">
