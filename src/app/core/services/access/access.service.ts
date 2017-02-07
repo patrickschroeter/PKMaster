@@ -77,14 +77,26 @@ export class AccessService implements CanActivate, CanDeactivate<any>, CanLoad {
  */
 @Injectable()
 export class AccessMain extends AccessService {
-    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess(AccessService.map.main, true);
+        return this.hasAccess(AccessService.map.main, true).map(access => {
+            if (!access) {
+                this.router.navigate(['', 'login']);
+                return false;
+            }
+            return access;
+        });
     }
 
     canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
-        return this.hasAccess(AccessService.map.main, true);
+        return this.hasAccess(AccessService.map.main, true).map(access => {
+            if (!access) {
+                this.router.navigate(['', 'login']);
+                return false;
+            }
+            return access;
+        });
     }
 }
 

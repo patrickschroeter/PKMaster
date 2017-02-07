@@ -103,6 +103,7 @@ export class InputValidationService {
      * @return {Object} return a Object with Information if validation fails
      */
     public validateExternalEmail(control: FormControl): Object {
+        if (!control.value) { return null; }
         if (!control.value.match(InputValidationService.emailRegex) || control.value.match(/hs-augsburg/)) {
             return { internalEmail: true };
         }
@@ -114,6 +115,7 @@ export class InputValidationService {
      * @return {Object} return a Object with Information if validation fails
      */
     public validateEmail(control: FormControl): Object {
+        if (!control.value) { return null; }
         if (!control.value.match(InputValidationService.emailRegex)) {
             return { invalidEmail: true };
         }
@@ -134,6 +136,7 @@ export class InputValidationService {
      * @description validate time input to (h)h:mm
      */
     public validateTime(control: FormControl): Object {
+        if (!control.value) { return null; }
         if (!control.value.match(/^([01]?[0-9]|2[0-3])(:|.)[0-5][0-9]$/gm)) {
             return { invalidTime: true };
         }

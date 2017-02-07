@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 import { Observable, Observer } from 'rxjs/Rx';
 
-import { UserApiMock } from './';
+import { UserApiMock, AuthenticationService } from './../';
 
 import { AppUser, RoleApi } from './../../../swagger';
 
@@ -81,11 +81,11 @@ export class UserEndpoint {
     /** TODO */
     public login(username: string, password: string): Observable<any> {
         console.log('%cMock:' + `%c login ${username}`, 'color: #F44336', 'color: #fefefe');
-        const user = this._login(username, password);
+        const bearer = this._login(username, password);
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
-                if (user) {
-                    observer.next(user);
+                if (bearer) {
+                    observer.next(bearer);
                 } else {
                     console.error(`Wrong Credentials.`);
                     observer.error(`Wrong Credentials.`);
@@ -128,13 +128,22 @@ export class UserEndpoint {
         return this.observe(this._userUpdate(user.id, this._updatePermissions(user)));
     }
 
+    public getCurrentUser(): Observable<any> {
+        const user = this._user('null', AuthenticationService.getStaticToken());
+        return this.observe(user);
+    }
+
     /**
      * Helper observer
      */
     private observe<T>(obj: T): Observable<T> {
         return new Observable<T>((observer: Observer<T>) => {
             setTimeout(() => {
-                observer.next(obj);
+                if (obj) {
+                    observer.next(obj);
+                } else {
+                    observer.error('No obj found');
+                }
                 observer.complete();
             }, 500);
         });
@@ -150,7 +159,7 @@ export class UserEndpoint {
     private _user(id?: string, token?: string) {
         const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
-            if (list[i].id === id || list[i].token === token) {
+            if (list[i].id === id || 'local ' + list[i].token === token) {
                 return JSON.parse(JSON.stringify(list[i]));
             }
         }
@@ -200,7 +209,12 @@ export class UserEndpoint {
         const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].email === username && list[i].password === password) {
-                return JSON.parse(JSON.stringify(list[i]));
+
+                return {
+                    token_type: 'local',
+                    access_token: list[i].token
+                }
+                // return JSON.parse(JSON.stringify(list[i]));
             }
         }
         return null;

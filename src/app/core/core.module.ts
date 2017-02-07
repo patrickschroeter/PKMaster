@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Http, XHRBackend, RequestOptions, HttpModule } from '@angular/http';
 
+import { environment } from './../../environments/environment';
+
 import { SharedModule } from './../shared/shared.module';
 
 import * as services from './services';
@@ -22,7 +24,7 @@ import {
 } from './services/api';
 
 const BASEPATH = 'http://pk.multimedia.hs-augsburg.de:8000';
-const API = true;
+const API = !!environment.api;
 
 @NgModule({
     declarations: [

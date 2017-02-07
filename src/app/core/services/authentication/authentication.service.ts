@@ -149,7 +149,9 @@ export class AuthenticationService {
     public getUser(): Observable<any> {
         if (this.user) { return this.user; }
         this.logout();
-        return Observable.throw('No User');
+        return new Observable((observer: Observer<any>) => {
+            observer.complete();
+        });
     }
 
     /**
@@ -175,9 +177,9 @@ export class AuthenticationService {
     @Loading('login')
     public login(username?: string, password?: string): Observable<AppUser> {
         if (username && password) {
-            let observer;
+            let observer: Observer<AppUser>;
             // the returned user observable
-            this.user = new Observable((obs: Observer<any>) => {
+            this.user = new Observable<AppUser>((obs: Observer<any>) => {
                 observer = obs;
 
                 // log the user in and save token
@@ -190,26 +192,28 @@ export class AuthenticationService {
                     observer.error(error);
                 });
             })
-            // update the permissions
-            .map(result => {
-              return this.permission.updateUserPermissions(UserApiMock.USERS[0]);
-            })
-            // cache user
-            .publishReplay(1).refCount();
+                // update the permissions
+                .map(result => {
+                    const user = result.permissions ? result : UserApiMock.USERS[0];
+                    return this.permission.updateUserPermissions(user);
+                })
+                // cache user
+                .publishReplay(1).refCount();
 
             return this.user;
         } else {
             // the returned user observable
-            this.user = new Observable((observer: Observer<any>) => {
+            this.user = new Observable<AppUser>((observer: Observer<any>) => {
                 // get the user object
                 this.publishCurrentUser(observer);
             })
-            // update the permissions
-            .map(result => {
-              return this.permission.updateUserPermissions(UserApiMock.USERS[0]);
-            })
-            // cache user
-            .publishReplay(1).refCount();
+                // update the permissions
+                .map(result => {
+                    const user = result.permissions ? result : UserApiMock.USERS[0];
+                    return this.permission.updateUserPermissions(user);
+                })
+                // cache user
+                .publishReplay(1).refCount();
 
             return this.user;
         }
