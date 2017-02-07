@@ -104,14 +104,12 @@ export class UserApi {
     /**
      * GET all AppUser
      * The Users Endpoint returns all Users
-     * @param token Accesstoken to authenticate with the API
      */
-    public getUsers (token?: number, extraHttpRequestParams?: any ) : Observable<Array<models.UserDto>> {
+    public getUsers (extraHttpRequestParams?: any ) : Observable<Array<models.UserDto>> {
         const path = this.basePath + '/users';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-            headerParams.set('token', String(token));
 
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
@@ -195,7 +193,7 @@ export class UserApi {
             });
     }
 
-    public login(username: string, password: string, token?: string): Observable<any> {
+    public login(username: string, password: string): Observable<any> {
         const path = this.basePath + '/connect/token';
 
         let queryParameters = new URLSearchParams();
@@ -247,7 +245,7 @@ export class UserApi {
             });
     }
 
-    public logout(token: string): Observable<any> {
+    public logout(): Observable<any> {
         return null;
     }
 

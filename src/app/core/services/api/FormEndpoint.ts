@@ -11,16 +11,12 @@ export class FormEndpoint {
 
     constructor() { }
 
-    public addForm(token?: string, form?: Form, extraHttpRequestParams?: any): Observable<Form> {
-        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
+    public addForm(form?: Form, extraHttpRequestParams?: any): Observable<Form> {
         console.log('%cMock:' + '%c addForm', 'color: #F44336', 'color: #fefefe');
         const newform = this._formAdd(form);
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
-                if (!token) {
-                    console.error(`No Token!`);
-                    observer.error(`No Token!`);
-                } else if (form) {
+                if (form) {
                     observer.next(newform);
                 } else {
                     console.error('Error creating Form');
@@ -31,16 +27,12 @@ export class FormEndpoint {
         });
     }
 
-    public getForms(token?: string, extraHttpRequestParams?: any): Observable<any> {
-        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
+    public getForms(extraHttpRequestParams?: any): Observable<any> {
         console.log('%cMock:' + '%c getForms', 'color: #F44336', 'color: #fefefe');
         const forms = this._forms();
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
-                if (!token) {
-                    console.error(`No Token!`);
-                    observer.error(`No Token!`);
-                } else if (forms) {
+                if (forms) {
                     observer.next(forms);
                 } else {
                     console.error('No Forms found');
@@ -51,16 +43,12 @@ export class FormEndpoint {
         });
     }
 
-    public getFormById(formId: string, token?: string, extraHttpRequestParams?: any): Observable<any> {
-        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
+    public getFormById(formId: string, extraHttpRequestParams?: any): Observable<any> {
         console.log('%cMock:' + `%c getFormById ${formId}`, 'color: #F44336', 'color: #fefefe');
         const form = this._form(formId);
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
-                if (!token) {
-                    console.error(`No Token!`);
-                    observer.error(`No Token!`);
-                } else if (form) {
+                if (form) {
                     observer.next(form);
                 } else {
                     console.error(`No Form with ID ${formId} found`);
@@ -71,16 +59,12 @@ export class FormEndpoint {
         });
     }
 
-    public updateFormById(formId: number, token?: string, form?: Form, extraHttpRequestParams?: any): Observable<any> {
-        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
+    public updateFormById(formId: number, form?: Form, extraHttpRequestParams?: any): Observable<any> {
         console.log('%cMock:' + `%c updateFormById ${formId}`, 'color: #F44336', 'color: #fefefe');
         const updatedForm = this._formUpdate(formId.toString(), form);
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
-                if (!token) {
-                    console.error(`No Token!`);
-                    observer.error(`No Token!`);
-                } else if (form) {
+                if (form) {
                     observer.next(updatedForm);
                 } else {
                     console.error(`No Form with ID ${formId} found`);
@@ -91,7 +75,7 @@ export class FormEndpoint {
         });
     }
 
-    public deleteFormById(formId: string, token?: number, extraHttpRequestParams?: any): Observable<{}> {
+    public deleteFormById(formId: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.observe(this._delete(formId));
     }
 

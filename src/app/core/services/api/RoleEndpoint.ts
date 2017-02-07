@@ -15,31 +15,31 @@ export class RoleEndpoint {
         private permissionApi: PermissionEndpoint
     ) {}
 
-    public getRoles(token?: number, extraHttpRequestParams?: any): Observable<Array<Role>> {
+    public getRoles(extraHttpRequestParams?: any): Observable<Array<Role>> {
         return this.observe(this._roles());
     }
 
-    public addRole(token?: number, role?: Role, extraHttpRequestParams?: any): Observable<Role> {
+    public addRole(role?: Role, extraHttpRequestParams?: any): Observable<Role> {
         const newrole = this._roleAdd(role);
         return this.observe(newrole);
     }
 
-    public getRoleById(roleId: string, token?: number, extraHttpRequestParams?: any): Observable<Role> {
+    public getRoleById(roleId: string, extraHttpRequestParams?: any): Observable<Role> {
         const role = this._role(roleId);
         return this.observe(role);
     }
 
-    public updateRoleById(roleId: string, token?: number, role?: Role, extraHttpRequestParams?: any): Observable<Role> {
+    public updateRoleById(roleId: string, role?: Role, extraHttpRequestParams?: any): Observable<Role> {
         const updaterole = this._roleUpdate(roleId, role);
         return this.observe(updaterole);
     }
 
-    public deletePermissionOfRole (roleId: string, permissionId: string, token?: number, extraHttpRequestParams?: any ) : Observable<any> {
+    public deletePermissionOfRole (roleId: string, permissionId: string, extraHttpRequestParams?: any ) : Observable<any> {
         const updaterole = this._removePermission(roleId, permissionId);
         return this.observe(updaterole);
     }
 
-    public addPermissionToRole (roleId: string, permissionId: string, permissionId2: string, token?: number, extraHttpRequestParams?: any ) : Observable<any> {
+    public addPermissionToRole (roleId: string, permissionId: string, permissionId2: string, extraHttpRequestParams?: any ) : Observable<any> {
         const role = this._addPermission(roleId, permissionId);
         return this.observe(role);
     }

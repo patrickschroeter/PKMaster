@@ -48,7 +48,7 @@ export class AuthenticationService {
      * time the token is valid
      *
      * @static
-     * @type {number}
+     * @type {Number}
      * @memberOf AuthenticationService
      */
     static TOKEN_TIME: number = 1000 * 60 * 60 * 24;
@@ -106,7 +106,7 @@ export class AuthenticationService {
      * getter method for token, handling local storage
      *
      * @readonly
-     * @type {string}
+     * @type {String}
      * @memberOf AuthenticationService
      */
     get token(): string {
@@ -166,8 +166,8 @@ export class AuthenticationService {
     /**
      * gets the user with username & password, or token. updates the users permission on success
      *
-     * @param {string} [username]
-     * @param {string} [password]
+     * @param {String} [username]
+     * @param {String} [password]
      * @returns {Observable<AppUser>}
      *
      * @memberOf AuthenticationService
@@ -179,6 +179,16 @@ export class AuthenticationService {
             // the returned user observable
             this.user = new Observable((obs: Observer<any>) => {
                 observer = obs;
+
+                // log the user in and save token
+                this.userApi.login(username, password).subscribe(bearer => {
+                    this.token = `${bearer.token_type} ${bearer.access_token}`;
+
+                    // get the user object
+                    this.publishCurrentUser(observer);
+                }, error => {
+                    observer.error(error);
+                });
             })
             // update the permissions
             .map(result => {
@@ -186,16 +196,6 @@ export class AuthenticationService {
             })
             // cache user
             .publishReplay(1).refCount();
-
-            // log the user in and save token
-            this.userApi.login(username, password).subscribe(bearer => {
-                this.token = `${bearer.token_type} ${bearer.access_token}`;
-
-                // get the user object
-                this.publishCurrentUser(observer);
-            }, error => {
-                observer.error(error);
-            });
 
             return this.user;
         } else {
@@ -250,8 +250,8 @@ export class AuthenticationService {
      * change the users password
      *
      * @param {AppUser} user
-     * @param {string} oldpassword
-     * @param {string} newpassword
+     * @param {String} oldpassword
+     * @param {String} newpassword
      * @returns {Observable<AppUser>}
      *
      * @memberOf AuthenticationService
@@ -260,7 +260,7 @@ export class AuthenticationService {
     public changePassword(user: AppUser, oldpassword: string, newpassword: string): Observable<AppUser> {
         /** TODO */
         user.password = newpassword;
-        return this.userApi.updateUserById(user.id, null, user);
+        return this.userApi.updateUserById(user.id, user);
     }
 
     /**
@@ -273,7 +273,7 @@ export class AuthenticationService {
      */
     @Loading('updateUser')
     public updateUser(user: AppUser): Observable<AppUser> {
-        this.user = this.userApi.updateUserById(user.id, null, user).map(result => {
+        this.user = this.userApi.updateUserById(user.id, user).map(result => {
             return this.permission.updateUserPermissions(result);
         }).publishReplay(1).refCount();
         return this.user;

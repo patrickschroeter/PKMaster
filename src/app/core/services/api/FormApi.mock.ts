@@ -19,7 +19,7 @@ export class FormApiMock {
 
     constructor() { }
 
-    public addForm(token?: number, form?: Form, extraHttpRequestParams?: any): Observable<Form> {
+    public addForm(form?: Form, extraHttpRequestParams?: any): Observable<Form> {
         if (form) {
             form.id = '1';
             this.list.push(form);
@@ -27,16 +27,16 @@ export class FormApiMock {
         return new Observable((observer: Observer<any>) => { form ? observer.next(form) : observer.error('error'); observer.complete(); });
     }
 
-    public getForms(token?: number, extraHttpRequestParams?: any): Observable<any> {
+    public getForms(extraHttpRequestParams?: any): Observable<any> {
         return new Observable((observer: Observer<any>) => { observer.next(this.list); observer.complete(); });
     }
 
-    public getFormById(formId: string, token?: number, extraHttpRequestParams?: any): Observable<any> {
+    public getFormById(formId: string, extraHttpRequestParams?: any): Observable<any> {
         const form = _.cloneDeep(FormApiMock.FORM); form.id = formId;
         return new Observable((observer: Observer<any>) => { formId ? observer.next(form) : observer.error('error'); observer.complete(); });
     }
 
-    public updateFormById(formId: string, token?: number, form?: Form, extraHttpRequestParams?: any): Observable<any> {
+    public updateFormById(formId: string, form?: Form, extraHttpRequestParams?: any): Observable<any> {
         return new Observable((observer: Observer<any>) => { formId === form.id ? observer.next(form) : observer.error('error'); observer.complete(); });
     }
 }
