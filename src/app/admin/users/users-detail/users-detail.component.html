@@ -16,15 +16,30 @@
 
         </div>
 
-        <h3 class="element element--spacing-bottom-small element--spacing-top-large" i18n>Roles:</h3>
-
         <ng-container *ngIf="!user.roles || !user.roles.length">
             <div class="empty-wrapper">
                 <div class="label" i18n>No Roles here.</div>
+                <pk-button icon="add" element--secondary value="Add Role to User" (onClick)="addRoleToUserModal()" class="element--spacing-top-large"></pk-button>
             </div>
         </ng-container>
 
         <ng-container *ngIf="user.roles && user.roles.length">
+
+            <div class="animation animation--trigger animation__headline">
+                <h4 i18n>Roles:</h4>
+                <pk-floating horizontal top-right>
+                    <pk-button
+                        *accessEditRoles
+                        rounded
+                        element--secondary
+                        i18n-pkAlert
+                            pkAlert="Add Role to User"
+                        icon="share"
+                        (onClick)="addRoleToUserModal()">
+                    </pk-button>
+                </pk-floating>
+            </div>
+            <!--<h3 class="element element--spacing-bottom-small element--spacing-top-large" i18n>Roles:</h3>-->
 
             <pk-list>
                 <pk-list-header>
@@ -74,6 +89,7 @@
                     i18n-pkAlert
                         pkAlert="Add Role to User"
                     icon="share"
+                    class="element--spacing-bottom-tiny"
                     (onClick)="addRoleToUserModal()">
                 </pk-button>
                 <a  routerLink="/admin/users/{{ user.id }}/edit">

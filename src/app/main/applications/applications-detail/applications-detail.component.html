@@ -13,7 +13,21 @@
 
         <ng-container *ngIf="application.assignments && application.assignments.length">
             <pk-devider class="element element--spacing-bottom-large"></pk-devider>
-            <h4 i18n>Assigned Docents</h4>
+
+            <div class="animation animation--trigger animation__headline">
+                <h4 i18n>Assigned Docents:</h4>
+                <pk-floating horizontal top-right>
+                    <pk-button
+                        class="element--spacing-bottom-tiny"
+                        rounded
+                        element--secondary
+                        i18n-pkAlert
+                        pkAlert="Assign User"
+                        icon="supervisor_account"
+                        (onClick)="assignUserModal(application)">
+                    </pk-button>
+                </pk-floating>
+            </div>
             <pk-list>
                 <pk-list-header>
                     <pk-list-attribute name="name" i18n>Name</pk-list-attribute>
@@ -189,6 +203,7 @@
                 <ng-container *ngIf="user && application.assignments">
                     <pk-button
                         *ngIf="application.status?.name === 'submitted' && application.assignments.indexOf(user.id) !== -1"
+                        class="element--spacing-bottom-tiny"
                         rounded
                         element--secondary
                         i18n-pkAlert
