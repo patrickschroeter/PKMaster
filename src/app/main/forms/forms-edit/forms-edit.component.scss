@@ -25,6 +25,7 @@
 
         /deep/ {
             .form__element {
+                cursor: move;
                 &:hover {
                     background-color: $element-hover-edit;
 
