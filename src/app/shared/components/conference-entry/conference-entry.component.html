@@ -83,7 +83,7 @@
 
                     <!-- List -->
                     <ng-container *ngSwitchCase="'list'">
-                        <pk-conference-entry-list [entry]="entry"></pk-conference-entry-list>
+                        <pk-conference-entry-list [entry]="entry" (change)="updateNumberOfInputs($event)"></pk-conference-entry-list>
                     </ng-container>
 
                     <!-- Default -->

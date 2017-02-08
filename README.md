@@ -80,6 +80,54 @@ Tests with Coverage
 ng test --cc=true --watch=false
 ```
 
+### Scripts
+
+#### Server
+
+Dev Server with Mock
+```
+ng serve
+```
+
+Dev Server with API
+```
+npm start
+```
+
+Dev Server with i18n:de
+```
+npm run serve-i18n:de
+```
+
+Dev Server with i18n:en
+```
+npm run serve-i18n:en
+```
+
+Documentation server
+```
+npm run doc:serve
+```
+
+#### Build
+
+Build application for production including i18n
+```
+npm run build-i18n
+```
+
+Build Documentation
+```
+npm run doc
+```
+
+#### Other
+
+Single Test run
+```
+npm test
+```
+
 ## Automatec Documentation
 
 https://github.com/compodoc/compodoc

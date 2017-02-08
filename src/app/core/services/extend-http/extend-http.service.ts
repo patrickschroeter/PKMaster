@@ -11,7 +11,6 @@ import { AuthenticationService } from './..';
 @Injectable()
 export class ExtendHttpService extends Http {
 
-
     constructor(backend: ConnectionBackend, defaultOptions: RequestOptions) {
         super(backend, defaultOptions);
     }

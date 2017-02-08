@@ -1,4 +1,4 @@
-export class ConferenceConfig<T> {
+export class ConferenceConfig {
     public title: string;
     public description?: string;
     public footer?: string;
@@ -11,7 +11,7 @@ export class ConferenceConfig<T> {
     /** shown attributes of application */
     public fields?: string[];
 
-    public entries?: (T | ConferenceConfig<T> | string)[];
+    public entries?: any[];
 
     constructor(title: string, description?: string, footer?: string) {
         this.title = title;

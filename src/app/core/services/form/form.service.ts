@@ -79,7 +79,7 @@ export class FormService {
     }
 
     /**
-     * Open the Add Element View with the Element as preset
+     * Open the Add Element View with the Element Values set
      * @param {FormElement} element - the element to edit
      * @return {void}
      */
@@ -185,6 +185,7 @@ export class FormService {
             this.setAddingElement(false);
         }
         this.editingElementIndex = -1;
+        this.form.title = 'sparta'
         return true;
     }
 

@@ -137,7 +137,7 @@ export class ConferencesEditComponent implements OnInit {
      * add a new config element to the form
      * @param {ConferenceConfig} entry
      */
-    public addConfigElement(entry: ConferenceConfig<any>) {
+    public addConfigElement(entry: ConferenceConfig) {
         this.conference.config = this.conference.config || [];
         this.conference.config.push(entry);
     }
@@ -178,7 +178,7 @@ export class ConferencesEditComponent implements OnInit {
      * remove the given element from the config
      * @param {ConferenceConfig} element
      */
-    public removeElement(element: ConferenceConfig<any>) {
+    public removeElement(element: ConferenceConfig) {
         const index = _.findIndex(this.conference.config, obj => obj === element);
         if (index !== -1) {
             this.conference.config.splice(index, 1);

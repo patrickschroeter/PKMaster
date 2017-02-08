@@ -45,7 +45,7 @@ export interface Conference {
     roomOfEvent?: string;
     numberOfConference?: number;
 
-    config?: ConferenceConfig<any>[];
+    config?: ConferenceConfig[];
 
     assignments?: string[];
 }

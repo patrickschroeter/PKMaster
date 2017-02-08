@@ -12,11 +12,10 @@ describe('ExtendHttpService', () => {
     TestBed.configureTestingModule({
       providers: [
           { provide: ExtendHttpService,
-              useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, authentication: AuthenticationService) =>
-               new ExtendHttpService(xhrBackend, requestOptions, authentication),
+              useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions) =>
+               new ExtendHttpService(xhrBackend, requestOptions),
             deps: [XHRBackend, RequestOptions, AuthenticationService]
-          },
-          { provide: AuthenticationService, useClass: AuthenticationMock }
+          }
         ],
         imports: [
             HttpModule,

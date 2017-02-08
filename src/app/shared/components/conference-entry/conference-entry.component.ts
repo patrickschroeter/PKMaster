@@ -15,6 +15,13 @@ import { ConferenceConfig, Selectable } from './../../../models';
 /** Decorators */
 import { Access } from './../../decorators/access.decorator';
 
+/**
+ * An configuration element of a conference
+ *
+ * @export
+ * @class ConferenceEntryComponent
+ * @implements {OnInit}
+ */
 @Component({
     selector: 'pk-conference-entry',
     templateUrl: './conference-entry.component.html',
@@ -22,11 +29,58 @@ import { Access } from './../../decorators/access.decorator';
 })
 export class ConferenceEntryComponent implements OnInit {
 
+    /**
+     * input index of entry
+     *
+     * @type {string}
+     * @memberOf ConferenceEntryComponent
+     */
     @Input() index: string;
-    @Input() forms: Selectable[];
-    @Input() entry: ConferenceConfig<any>;
-    @Output() remove: EventEmitter<ConferenceConfig<any>> = new EventEmitter();
 
+    /**
+     * input list of all forms
+     *
+     * @type {Selectable[]}
+     * @memberOf ConferenceEntryComponent
+     */
+    @Input() forms: Selectable[];
+
+    /**
+     * input the current entry
+     *
+     * @type {ConferenceConfig}
+     * @memberOf ConferenceEntryComponent
+     */
+    @Input() entry: ConferenceConfig;
+
+    /**
+     * EventEmitter for removing the element
+     *
+     * @type {EventEmitter<ConferenceConfig>}
+     * @memberOf ConferenceEntryComponent
+     */
+    @Output() remove: EventEmitter<ConferenceConfig> = new EventEmitter();
+
+    /**
+     * number of inputs for list
+     *
+     * @private
+     * @type {Number}
+     * @memberOf ConferenceEntryComponent
+     */
+    private numberOfInputs: Number;
+
+    /**
+     * Creates an instance of ConferenceEntryComponent.
+     *
+     * @param {TranslationService} translationService
+     * @param {ModalService} modalService
+     * @param {PermissionService} permission
+     * @param {WindowService} entryModalService
+     * @param {WindowService} listModalService
+     *
+     * @memberOf ConferenceEntryComponent
+     */
     constructor(
         /** Modules */
         private translationService: TranslationService,
@@ -38,6 +92,11 @@ export class ConferenceEntryComponent implements OnInit {
         @Inject('ListModalService') private listModalService: WindowService
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf ConferenceEntryComponent
+     */
     ngOnInit() {
     }
 
@@ -47,6 +106,8 @@ export class ConferenceEntryComponent implements OnInit {
 
     /**
      * remove itself from the parent
+     *
+     * @memberOf ConferenceEntryComponent
      */
     public removeElement(): void {
         this.remove.emit(this.entry);
@@ -54,6 +115,8 @@ export class ConferenceEntryComponent implements OnInit {
 
     /**
      * open the modal to edit the element
+     *
+     * @memberOf ConferenceEntryComponent
      */
     public openEditModal(): void {
         this.entryModalService
@@ -65,9 +128,13 @@ export class ConferenceEntryComponent implements OnInit {
 
     /**
      * edits the element
+     *
+     * @private
      * @param {ConferenceConfig} element
+     *
+     * @memberOf ConferenceEntryComponent
      */
-    private editElement(element: ConferenceConfig<any>): void {
+    private editElement(element: ConferenceConfig): void {
         this.entry.title = element.title;
         this.entry.description = element.description;
         this.entry.footer = element.footer;
@@ -83,6 +150,8 @@ export class ConferenceEntryComponent implements OnInit {
 
     /**
      * open the add entry modal
+     *
+     * @memberOf ConferenceEntryComponent
      */
     public openEntryModal(): void {
         this.entryModalService
@@ -92,9 +161,13 @@ export class ConferenceEntryComponent implements OnInit {
 
     /**
      * add a new config element to the form
+     *
      * @param {ConferenceConfig} entry
+     * @returns {void}
+     *
+     * @memberOf ConferenceEntryComponent
      */
-    public addConfigElement(entry: ConferenceConfig<any>): void {
+    public addConfigElement(entry: ConferenceConfig): void {
         if (this.entry.type !== 'config') { return; }
         this.entry.entries = this.entry.entries || [];
         this.entry.entries.push(entry);
@@ -106,6 +179,8 @@ export class ConferenceEntryComponent implements OnInit {
 
     /**
      * open the modal to set the formId of the config
+     *
+     * @memberOf ConferenceEntryComponent
      */
     public setFormIdModal(): void {
         this.modalService.createListModal({
@@ -124,7 +199,11 @@ export class ConferenceEntryComponent implements OnInit {
 
     /**
      * set the given formId
+     *
+     * @private
      * @param {Selectable} data
+     *
+     * @memberOf ConferenceEntryComponent
      */
     private setFormId(data: Selectable): void {
         this.entry.formId = data.value;
@@ -138,20 +217,39 @@ export class ConferenceEntryComponent implements OnInit {
 
     /**
      * open the add entry modal
+     *
+     * @memberOf ConferenceEntryComponent
      */
     public openListEntryModal(): void {
         this.listModalService
         .setModalSave(this.addListEntry.bind(this))
-        .openModal({});
+        .openModal({
+            numberOfInputs: this.numberOfInputs
+        });
     }
 
     /**
      * add a new line to the list
-     * @param {String[]} entry
+     *
+     * @private
+     * @param {string[]} entry
+     *
+     * @memberOf ConferenceEntryComponent
      */
     private addListEntry(entry: string[]): void {
         this.entry.entries = this.entry.entries || [];
         this.entry.entries.push(entry);
+    }
+
+    /**
+     * update the number of inputs for list modal
+     *
+     * @param {Number} number
+     *
+     * @memberOf ConferenceEntryComponent
+     */
+    public updateNumberOfInputs(number: Number): void {
+        this.numberOfInputs = number;
     }
 
 }
