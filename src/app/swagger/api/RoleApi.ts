@@ -1,6 +1,6 @@
 /**
  * API Schnittstelle für die Prüfungskommision der Hochschule Augsburg
- * Hier sind alle Routen aufgelistet die zur verfügung stehen. Zuvor muss jedoch ein JWT Token überden Authorize Button hinzufügen
+ * Hier sind alle Routen aufgelistet die zur verfügung stehen. Zuvor muss jedoch ein JWT Token überden Authorize Button hinzugefügt werden
  *
  * OpenAPI spec version: v1
  *
@@ -22,9 +22,9 @@
  * limitations under the License.
  */
 
-import {Http, Headers, RequestOptionsArgs, Response, URLSearchParams} from '@angular/http';
-import {Injectable, Optional} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Http, Headers, RequestOptionsArgs, Response, URLSearchParams } from '@angular/http';
+import { Injectable, Optional } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
 
@@ -35,7 +35,7 @@ import 'rxjs/Rx';
 @Injectable()
 export class RoleApi {
     protected basePath = 'https://pk.multimedia.hs-augsburg.de:8000/';
-    public defaultHeaders : Headers = new Headers();
+    public defaultHeaders: Headers = new Headers();
 
     constructor(protected http: Http, @Optional() basePath: string) {
         if (basePath) {
@@ -50,7 +50,7 @@ export class RoleApi {
      * @param permissionId ID of Permission
      * @param permissionId2
      */
-    public addPermissionToRole (roleId: string, permissionId: string, extraHttpRequestParams?: any ) : Observable<{}> {
+    public addPermissionToRole(roleId: string, permissionId: string, extraHttpRequestParams?: any): Observable<{}> {
         const path = this.basePath + '/roles/{roleId}/permissions/{permission_id}'
             .replace('{' + 'roleId' + '}', String(roleId))
             .replace('{' + 'permissionId' + '}', String(permissionId))
@@ -86,7 +86,7 @@ export class RoleApi {
      *
      * @param role The new Role Object
      */
-    public addRole (role?: models.Role, extraHttpRequestParams?: any ) : Observable<models.Role> {
+    public addRole(role?: models.RoleDto, extraHttpRequestParams?: any): Observable<models.RoleDto> {
         const path = this.basePath + '/roles';
 
         let queryParameters = new URLSearchParams();
@@ -115,7 +115,7 @@ export class RoleApi {
      * @param permissionId ID of Permission
      * @param permissionId2
      */
-    public deletePermissionOfRole (roleId: string, permissionId: string, extraHttpRequestParams?: any ) : Observable<{}> {
+    public deletePermissionOfRole(roleId: string, permissionId: string, extraHttpRequestParams?: any): Observable<{}> {
         const path = this.basePath + '/roles/{roleId}/permissions/{permission_id}'
             .replace('{' + 'roleId' + '}', String(roleId))
             .replace('{' + 'permissionId' + '}', String(permissionId))
@@ -151,7 +151,7 @@ export class RoleApi {
      *
      * @param roleId ID of Role
      */
-    public deleteRoleById (roleId: string, extraHttpRequestParams?: any ) : Observable<{}> {
+    public deleteRoleById(roleId: string, extraHttpRequestParams?: any): Observable<{}> {
         const path = this.basePath + '/roles/{roleId}'
             .replace('{' + 'roleId' + '}', String(roleId));
 
@@ -182,7 +182,7 @@ export class RoleApi {
      *
      * @param roleId ID of Role
      */
-    public getRoleById (roleId: string, extraHttpRequestParams?: any ) : Observable<models.RoleDto> {
+    public getRoleById(roleId: string, extraHttpRequestParams?: any): Observable<models.RoleDto> {
         const path = this.basePath + '/roles/{roleId}'
             .replace('{' + 'roleId' + '}', String(roleId));
 
@@ -212,7 +212,7 @@ export class RoleApi {
      * GET all Roles
      * The Roles Endpoint returns all Roles
      */
-    public getRoles (extraHttpRequestParams?: any ) : Observable<Array<models.RoleDto>> {
+    public getRoles(extraHttpRequestParams?: any): Observable<Array<models.RoleDto>> {
         const path = this.basePath + '/roles';
 
         let queryParameters = new URLSearchParams();
@@ -239,7 +239,7 @@ export class RoleApi {
      * @param roleId ID of Role
      * @param role Updated Role
      */
-    public updateRoleById (roleId: string, role?: models.Role, extraHttpRequestParams?: any ) : Observable<models.Role> {
+    public updateRoleById(roleId: string, role?: models.RoleDto, extraHttpRequestParams?: any): Observable<models.RoleDto> {
         const path = this.basePath + '/roles/{roleId}'
             .replace('{' + 'roleId' + '}', String(roleId));
 

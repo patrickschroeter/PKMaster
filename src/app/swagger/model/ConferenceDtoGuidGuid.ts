@@ -1,6 +1,6 @@
 /**
  * API Schnittstelle für die Prüfungskommision der Hochschule Augsburg
- * Hier sind alle Routen aufgelistet die zur verfügung stehen. Zuvor muss jedoch ein JWT Token überden Authorize Button hinzufügen
+ * Hier sind alle Routen aufgelistet die zur verfügung stehen. Zuvor muss jedoch ein JWT Token überden Authorize Button hinzugefügt werden
  *
  * OpenAPI spec version: v1
  *
@@ -26,7 +26,7 @@
 import * as models from './models';
 import { ConferenceConfig } from './../../models';
 
-export interface Conference {
+export interface ConferenceDto {
 
 
     id?: string;
@@ -35,17 +35,22 @@ export interface Conference {
 
     dateOfEvent?: Date;
 
-    application?: Array<models.Application>;
+    roomOfEvent?: string;
 
-    // custom
-    applications?: Array<models.Application>;
+    numberOfConference?: number;
+
+    application?: Array<string>;
+
+    attendand?: Array<string>;
+
+    // Custom
 
     startOfEvent?: string;
     endOfEvent?: string;
-    roomOfEvent?: string;
-    numberOfConference?: number;
 
-    config?: ConferenceConfig[];
+    applications?: Array<models.ApplicationDto>;
+    attendants?: Array<models.UserDto>;
 
-    assignments?: string[];
+    config?: Array<ConferenceConfig>;
+    configJSON?: string;
 }

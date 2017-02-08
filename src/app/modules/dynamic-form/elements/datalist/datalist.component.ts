@@ -5,7 +5,7 @@ import { DynamicFormComponent } from './../../dynamic-form.component';
 
 import { AlertService } from './../../../../modules/alert';
 
-import { Field } from './../../../../swagger';
+import { FieldDto } from './../../../../swagger';
 
 import { OverlayComponent } from './../../../../modules/overlay';
 import { TranslationService } from './../../../../modules/translation';
@@ -20,7 +20,7 @@ export class DatalistComponent implements OnInit {
 
     @ViewChild('overlay') overlay: OverlayComponent;
 
-    @Input() config: Field;
+    @Input() config: FieldDto;
     @Input() disabled: boolean;
     @Input() form: FormGroup;
 

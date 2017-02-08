@@ -15,7 +15,7 @@ import {
 
 import { Fields } from './../../../models';
 
-import { FormApi, Form, Field } from './../../../swagger';
+import { FormApi, SingleFormDto, FieldDto } from './../../../swagger';
 
 import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
@@ -102,7 +102,7 @@ describe('Service: Form', () => {
 
         it('should prepare the new form (title restrictedAccess, isPublic, formHasField)', () => {
             spyOn(api, 'addForm').and.returnValue(new Observable(obs => { obs.next('value'); }));
-            const submit: Form = {
+            const submit: SingleFormDto = {
                 title: 'titel des tests',
                 restrictedAccess: true
             };
@@ -118,7 +118,7 @@ describe('Service: Form', () => {
 
         it('should copy the form (title restrictedAccess, isPublic, formHasField)', () => {
             spyOn(api, 'addForm').and.returnValue(new Observable(obs => { obs.next('value'); }));
-            const submit: Form = {
+            const submit: SingleFormDto = {
                 id: 'id',
                 title: 'titel des tests',
                 restrictedAccess: true,
@@ -192,7 +192,7 @@ describe('Service: Form', () => {
             });
 
             service.getFormById('id').subscribe(result => {
-                const field: Field = {
+                const field: FieldDto = {
                     name: 'firstname'
                 };
                 service.editElementOfForm(field);

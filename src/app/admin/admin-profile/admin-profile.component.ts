@@ -2,7 +2,7 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 
 import { AuthenticationService } from './../../core';
 
-import { Form, AppUser } from './../../swagger';
+import { SingleFormDto, UserDto } from './../../swagger';
 import { Fields } from './../../models';
 
 @Component({
@@ -13,8 +13,8 @@ import { Fields } from './../../models';
 export class AdminProfileComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    public user: AppUser;
-    public form: Form;
+    public user: UserDto;
+    public form: SingleFormDto;
 
     constructor(
         private auth: AuthenticationService

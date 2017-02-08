@@ -7,7 +7,7 @@ import {
  } from './../../core';
 
 /** Models */
-import { AppUser } from './../../swagger';
+import { UserDto } from './../../swagger';
 
 /** Decorators */
 import { Access } from './../../shared/decorators/access.decorator';
@@ -20,7 +20,7 @@ import { Access } from './../../shared/decorators/access.decorator';
 export class UsersComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    public users: AppUser[];
+    public users: UserDto[];
 
     constructor(
         private userService: UserService,

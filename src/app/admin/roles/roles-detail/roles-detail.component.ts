@@ -8,7 +8,7 @@ import { OverlayComponent, ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { Role, Field, Permission } from './../../../swagger';
+import { RoleDto, FieldDto, Permission } from './../../../swagger';
 import { Selectable } from './../../../models';
 
 /** Decorator */
@@ -24,8 +24,8 @@ export class RolesDetailComponent implements OnInit {
 
     @ViewChild('overlay') overlay: OverlayComponent;
 
-    public role: Role;
-    public editRoleForm: Field[];
+    public role: RoleDto;
+    public editRoleForm: FieldDto[];
 
     private permissions: Selectable[];
 

@@ -8,7 +8,7 @@ import {
 } from './../../../core';
 
 /** Models */
-import { AppUser, Field } from './../../../swagger';
+import { UserDto, FieldDto } from './../../../swagger';
 import { Fields } from './../../../models';
 
 /** Decorators */
@@ -22,8 +22,8 @@ import { Access } from './../../../shared/decorators/access.decorator';
 export class UsersEditComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    public user: AppUser;
-    public form: Field[];
+    public user: UserDto;
+    public form: FieldDto[];
 
     constructor(
         private userService: UserService,
@@ -58,7 +58,7 @@ export class UsersEditComponent implements OnInit {
      * @param {AppUser} user
      */
     @Access('EditUsers')
-    private initUserForm(user: AppUser) {
+    private initUserForm(user: UserDto) {
         this.form = [
             new Fields.Firstname(user.firstname),
             new Fields.Lastname(user.lastname),
@@ -72,7 +72,7 @@ export class UsersEditComponent implements OnInit {
      * @param {AppUser} user
      */
     @Access('EditUsers')
-    public save(user: AppUser): void {
+    public save(user: UserDto): void {
         user.id = this.user.id;
         this.userService.updateUser(user).subscribe(result => {
             this.router.navigate(['', 'admin', 'users', result.id]);

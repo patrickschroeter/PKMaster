@@ -8,7 +8,7 @@ import { ModalService } from './../../modules/overlay';
 import { TranslationService } from './../../modules/translation';
 
 /** Models */
-import { Conference, Field } from './../../swagger';
+import { ConferenceDto, ConferenceCreateDto, FieldDto } from './../../swagger';
 
 @Component({
   selector: 'pk-conferences',
@@ -18,9 +18,9 @@ import { Conference, Field } from './../../swagger';
 export class ConferencesComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    public conferences: Conference[];
+    public conferences: ConferenceDto[];
 
-    public newConference: Field[];
+    public newConference: FieldDto[];
 
     constructor(
         /** Angular */
@@ -44,7 +44,7 @@ export class ConferencesComponent implements OnInit {
      * create a new conference from input
      * @param {Conference} form
      */
-    public createConference(form: Conference): void {
+    public createConference(form: ConferenceCreateDto): void {
         this.conferenceService.createNewConference(form).subscribe(conference => {
             if (conference['id']) {
                 this.router.navigate([`/conferences/`, conference['id'], 'edit']);
@@ -56,9 +56,8 @@ export class ConferencesComponent implements OnInit {
      * clone conference
      * @param {Conference} conference
      */
-    public cloneConference(conference: Conference) {
+    public cloneConference(conference: ConferenceCreateDto) {
         const param = _.cloneDeep(conference);
-        delete param.id;
         param.description = 'Copy of ' + param.description;
         this.createConference(param);
     }
@@ -67,7 +66,7 @@ export class ConferencesComponent implements OnInit {
      * Delete the conference
      * @param {Conference} conference
      */
-     public deleteConference(conference: Conference) {
+     public deleteConference(conference: ConferenceDto) {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmDeleteConferenceHeader'),
             message: this.translationService.translate('confirmDeleteConferenceContent'),

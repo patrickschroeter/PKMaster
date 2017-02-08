@@ -8,19 +8,19 @@ import { FormApiMock } from './FormApi.mock';
 import { ConferenceApiMock } from './ConferenceApi.mock';
 import { UserApiMock } from './UserApi.mock';
 
-import { Application, Comment } from './../../../swagger';
+import { ApplicationDto, CommentDto } from './../../../swagger';
 import { FormApi } from './../../../swagger/api/FormApi';
 
 @Injectable()
 export class ApplicationApiMock {
 
-    static COMMENT_PRIVATE: Comment = { isPrivate: false, message: 'Testkommentar', created: new Date(), user: { lastname: 'Truthy' } };
+    static COMMENT_PRIVATE: CommentDto = { isPrivate: false, message: 'Testkommentar', created: new Date(), user: { lastname: 'Truthy' } };
 
-    static COMMENT_PUBLIC: Comment = { isPrivate: true, message: 'privater Testkommentar, der leider etwas länger wurde als anfangs geplant, aber auch nicht gekürzt werden kann, da sonst informationen fehlen', created: new Date(), user: { lastname: 'Falsey' } };
+    static COMMENT_PUBLIC: CommentDto = { isPrivate: true, message: 'privater Testkommentar, der leider etwas länger wurde als anfangs geplant, aber auch nicht gekürzt werden kann, da sonst informationen fehlen', created: new Date(), user: { lastname: 'Falsey' } };
 
-    static APPLICATION: Application = { id: '1', status: { name: 'created' }, created: new Date(), form: FormApiMock.FORM, formId: FormApiMock.FORM.id, comments: [ApplicationApiMock.COMMENT_PUBLIC, ApplicationApiMock.COMMENT_PRIVATE], user: UserApiMock.USER, filledForm: '{"header01":"Hochschule für Angewandte Wissenschaften Augsburg","firstname":"Franz","lastname":"Bauer"}' };
+    static APPLICATION: ApplicationDto = { id: '1', status: { name: 'created' }, created: new Date(), form: FormApiMock.FORM, formId: FormApiMock.FORM.id, comments: [ApplicationApiMock.COMMENT_PUBLIC, ApplicationApiMock.COMMENT_PRIVATE], user: UserApiMock.USER, filledForm: '{"header01":"Hochschule für Angewandte Wissenschaften Augsburg","firstname":"Franz","lastname":"Bauer"}' };
 
-    private list: Application[] = [];
+    private list: ApplicationDto[] = [];
 
     constructor(private formApi: FormApi) { }
 
@@ -33,7 +33,7 @@ export class ApplicationApiMock {
         return new Observable((observer: Observer<any>) => { observer.next(this.list); observer.complete(); });
     }
 
-    public createApplication(application?: Application, extraHttpRequestParams?: any): Observable<any> {
+    public createApplication(application?: ApplicationDto, extraHttpRequestParams?: any): Observable<any> {
         if (application) {
             application.id = '1';
             this.list.push(application);
@@ -41,7 +41,7 @@ export class ApplicationApiMock {
         return new Observable((observer: Observer<any>) => { application ? observer.next(application) : observer.error('error'); observer.complete(); });
     }
 
-    public updateApplicationById(applicationId: string, application?: Application, extraHttpRequestParams?: any): Observable<any> {
+    public updateApplicationById(applicationId: string, application?: ApplicationDto, extraHttpRequestParams?: any): Observable<any> {
         return new Observable((observer: Observer<any>) => { applicationId === application.id ? observer.next(application) : observer.error('error'); observer.complete(); });
     }
 

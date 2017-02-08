@@ -5,7 +5,7 @@ import { AlertService } from './../../../../modules/alert';
 
 import { InputValidationService } from './../input-validation/input-validation.service';
 
-import { Field } from './../../../../swagger';
+import { FieldDto } from './../../../../swagger';
 
 @Injectable()
 export class DynamicFormService {
@@ -23,7 +23,7 @@ export class DynamicFormService {
      * @param {FormElement[]} input the input configuration
      * @return {FormGroup}
      */
-    public generateFormFromInput(input?: Field[], config = {}): FormGroup {
+    public generateFormFromInput(input?: FieldDto[], config = {}): FormGroup {
         const options = {};
         for (let i = 0, length = input.length; i < length; i++) {
             const element = input[i];
@@ -42,7 +42,7 @@ export class DynamicFormService {
      * @param {FormGroup} form the form to extend
      * @param {Field[]} input the input configuration
      */
-    public updateFormFromInput(form: FormGroup, input?: Field[]): void {
+    public updateFormFromInput(form: FormGroup, input?: FieldDto[]): void {
 
         /** get all existing form.controls */
         const unusedElementNames: string[] = [];
@@ -87,7 +87,7 @@ export class DynamicFormService {
      * @param {FormElement} element
      * @return {boolean}
      */
-    private createFormControl(element: Field): FormControl {
+    private createFormControl(element: FieldDto): FormControl {
         if (!element || !element.name || element.disabled) { return null; }
 
         /** Create Array of ValidationFn */

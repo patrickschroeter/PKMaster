@@ -14,7 +14,7 @@ import { TranslationService } from './../../../modules/translation';
 
 /** Models */
 import { ConferenceConfig, Selectable } from './../../../models';
-import { Conference, Application, Comment, AppUser } from './../../../swagger';
+import { ConferenceDto, ApplicationDto, CommentDto, UserDto } from './../../../swagger';
 import { OverlayComponent } from './../../../modules/overlay';
 
 /** Decorators */
@@ -28,11 +28,11 @@ import { Access } from './../../../shared/decorators/access.decorator';
 export class ConferencesDetailComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    public conference: Conference;
+    public conference: ConferenceDto;
 
     public agenda: string[];
 
-    public application: Application;
+    public application: ApplicationDto;
     public users: Selectable[];
     public userLabels: { [id: string]: string } = {};
 
@@ -141,7 +141,7 @@ export class ConferencesDetailComponent implements OnInit {
             list: this.users,
             click: this.assignUser.bind(this),
 
-            selectedValues: this.conference.assignments,
+            selectedValues: this.conference.attendants.map(obj => obj.id),
 
             emptyText: this.translationService.translate('noUsersAvailable')
         });
@@ -152,17 +152,19 @@ export class ConferencesDetailComponent implements OnInit {
      * @param {Selectable} user
      */
     public assignUser(user: Selectable): void {
-        const param = _.cloneDeep(this.conference);
-        if (!param.assignments) { param.assignments = []; }
-        const index = param.assignments.indexOf(user.value);
+        const param: ConferenceDto = _.cloneDeep(this.conference);
+        if (!param.attendants) { param.attendants = []; }
+        const index = _.findIndex(param.attendants, obj => obj.id === user.value);
         if (index === -1) {
-            param.assignments.push(user.value);
+            // TODO: add new attendant to server and return user object to push
+            console.error('TODO');
+            // param.attendants.push(user.value);
         } else {
-            param.assignments.splice(index, 1);
+            param.attendants.splice(index, 1);
         }
         this.conferenceService.saveConference(param).subscribe(result => {
             this.conference = result;
-            this.modalService.updateSelectedValues(this.conference.assignments);
+            this.modalService.updateSelectedValues(this.conference.attendants.map(obj => obj.id));
         });
     }
 

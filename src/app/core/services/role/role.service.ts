@@ -7,7 +7,7 @@ import { TranslationService } from './../../../modules/translation';
 import { RoleApi } from './../../../swagger';
 
 /** Models */
-import { Role } from './../../../swagger';
+import { RoleDto } from './../../../swagger';
 
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
@@ -44,7 +44,7 @@ export class RoleService {
      * @memberOf RoleService
      */
     @Loading('getRoles')
-    public getRoles(): Observable<Role[]> {
+    public getRoles(): Observable<RoleDto[]> {
         return this.roleApi.getRoles().map(roles => {
             return roles;
         });
@@ -59,7 +59,7 @@ export class RoleService {
      * @memberOf RoleService
      */
     @Loading('addRole')
-    public addRole(role: Role): Observable<Role> {
+    public addRole(role: RoleDto): Observable<RoleDto> {
         return this.roleApi.addRole(role).map(result => {
             return result;
         });
@@ -74,7 +74,7 @@ export class RoleService {
      * @memberOf RoleService
      */
     @Loading('getRoleById')
-    public getRoleById(id: string): Observable<Role> {
+    public getRoleById(id: string): Observable<RoleDto> {
         return this.roleApi.getRoleById(id).map(result => {
             return result;
         });
@@ -90,7 +90,7 @@ export class RoleService {
      * @memberOf RoleService
      */
     @Loading('updateRoleById')
-    public updateRoleById(id: string, role: Role): Observable<Role> {
+    public updateRoleById(id: string, role: RoleDto): Observable<RoleDto> {
         return this.roleApi.updateRoleById(id, role).map(result => {
             return result;
         });
@@ -106,7 +106,7 @@ export class RoleService {
      * @memberOf RoleService
      */
     @Loading('removePermissionOfRole')
-    public removePermissionOfRole(roleId: string, permissionId: string): Observable<Role> {
+    public removePermissionOfRole(roleId: string, permissionId: string): Observable<RoleDto> {
         return this.roleApi.deletePermissionOfRole(roleId, permissionId).map(result => {
             return result;
         });
@@ -122,7 +122,7 @@ export class RoleService {
      * @memberOf RoleService
      */
     @Loading('addPermissionToRole')
-    public addPermissionToRole(roleId: string, permissionId: string): Observable<Role> {
+    public addPermissionToRole(roleId: string, permissionId: string): Observable<RoleDto> {
         return this.roleApi.addPermissionToRole(roleId, permissionId).map(result => {
             return result;
         });

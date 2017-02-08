@@ -11,7 +11,7 @@ import {
 } from './../form';
 
 import { ApplicationMock } from './';
-import { Status, ApplicationApi, FormApi, Application } from './../../../swagger';
+import { StatusDto, ApplicationApi, FormApi, ApplicationDto } from './../../../swagger';
 import { ApplicationApiMock, FormApiMock, AuthenticationService, AuthenticationMock } from './..';
 
 import { AlertProviderMock } from './../../../modules/alert/alert.module';

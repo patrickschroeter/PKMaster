@@ -15,7 +15,7 @@ import { OverlayComponent, ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { Application, Comment, AppUser } from './../../../swagger';
+import { ApplicationDto, CommentDto, UserDto } from './../../../swagger';
 import { Selectable } from './../../../models';
 
 /** Decorators */
@@ -29,17 +29,17 @@ import { Access } from './../../../shared/decorators/access.decorator';
 export class ApplicationsDetailComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    private _application: Application;
+    private _application: ApplicationDto;
 
     get application() { return this._application; }
-    set application(application: Application) { this._application = application; }
+    set application(application: ApplicationDto) { this._application = application; }
 
     public addComment: Array<any>;
     public savingComment: Boolean;
 
     public conferences: any[];
 
-    public user: AppUser;
+    public user: UserDto;
     public users: Selectable[];
     public userLabels: { [id: string]: string } = {};
 
@@ -139,7 +139,7 @@ export class ApplicationsDetailComponent implements OnInit {
      * update the application with the given one
      * @param {Application} application
      */
-    public updateApplication(application: Application): void {
+    public updateApplication(application: ApplicationDto): void {
         this.application = application;
     }
 
@@ -147,8 +147,8 @@ export class ApplicationsDetailComponent implements OnInit {
      * Creates and adds a new comment to the application
      * @param {Comment} values
      */
-    public createNewComment(values: Comment): void {
-        const comment: Comment = values;
+    public createNewComment(values: CommentDto): void {
+        const comment: CommentDto = values;
         comment.created = new Date();
         this.auth.getUser().subscribe(user => {
             comment.user = user;
@@ -202,7 +202,7 @@ export class ApplicationsDetailComponent implements OnInit {
      * Creates a confirmation modal to confirm submitting the selected application
      * @param {Application} application - the application to submit
      */
-    public submitApplicationModal(application: Application): void {
+    public submitApplicationModal(application: ApplicationDto): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmSubmitApplicationHeader'),
             message: this.translationService.translate('confirmSubmitApplicationContent'),
@@ -216,7 +216,7 @@ export class ApplicationsDetailComponent implements OnInit {
      * Submit the selected application
      * @param {Application} application - the application to submit
      */
-    private submitApplication(application: Application): void {
+    private submitApplication(application: ApplicationDto): void {
         this.applicationService.submitApplication(application).subscribe(result => {
             this.alert.setSuccessHint(
                 `submitApplication${application.id}`,
@@ -231,7 +231,7 @@ export class ApplicationsDetailComponent implements OnInit {
      * Creates a confirmation modal to confirm rescinding the selected application
      * @param {Application} application - the application to rescind
      */
-    public rescindApplicationModal(application: Application): void {
+    public rescindApplicationModal(application: ApplicationDto): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmRescindApplicationHeader'),
             message: this.translationService.translate('confirmRescindApplicationContent'),
@@ -245,7 +245,7 @@ export class ApplicationsDetailComponent implements OnInit {
      * Rescingd the selected application
      * @param {Application} application - the application to rescind
      */
-    private rescindApplication(application: Application): void {
+    private rescindApplication(application: ApplicationDto): void {
         this.applicationService.rescindApplication(application).subscribe(result => {
             this.alert.setSuccessHint(
                 `rescindApplication${application.id}`,
@@ -260,7 +260,7 @@ export class ApplicationsDetailComponent implements OnInit {
      * Creates a confirmation modal to confirm deactivating the selected application
      * @param {Application} application - the application to deactovate
      */
-    public deactivateApplicationModal(application: Application): void {
+    public deactivateApplicationModal(application: ApplicationDto): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmDeactivateApplicationHeader'),
             message: this.translationService.translate('confirmDeactivateApplicationContent'),
@@ -274,7 +274,7 @@ export class ApplicationsDetailComponent implements OnInit {
      * Deactivate the selected application
      * @param {Application} application - the application to deactovate
      */
-    private deactivateApplication(application: Application): void {
+    private deactivateApplication(application: ApplicationDto): void {
         this.applicationService.deactivateApplication(application).subscribe(result => {
             this.alert.setSuccessHint(
                 `deactivateApplication${application.id}`,

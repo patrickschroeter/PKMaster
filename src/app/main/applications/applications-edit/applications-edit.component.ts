@@ -8,7 +8,7 @@ import { TranslationService } from './../../../modules/translation';
 import { ModalService } from './../../../modules/overlay';
 
 /** Models */
-import { Application } from './../../../swagger';
+import { ApplicationDto } from './../../../swagger';
 
 @Component({
     selector: 'pk-applications-edit',
@@ -18,10 +18,10 @@ import { Application } from './../../../swagger';
 export class ApplicationsEditComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    private _application: Application;
+    private _application: ApplicationDto;
 
     get application() { return this._application; }
-    set application(application: Application) { this._application = application; }
+    set application(application: ApplicationDto) { this._application = application; }
 
     constructor(
         private router: Router,
@@ -85,7 +85,7 @@ export class ApplicationsEditComponent implements OnInit {
      * Creates a confirmation modal to confirm deactivating the selected application
      * @param {Application} application - the application to deactovate
      */
-    public deactivateApplicationModal(application: Application): void {
+    public deactivateApplicationModal(application: ApplicationDto): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmDeactivateApplicationHeader'),
             message: this.translationService.translate('confirmDeactivateApplicationContent'),
@@ -99,7 +99,7 @@ export class ApplicationsEditComponent implements OnInit {
      * Deactivate the selected application
      * @param {Application} application - the application to deactovate
      */
-    private deactivateApplication(application: Application): void {
+    private deactivateApplication(application: ApplicationDto): void {
         this.applicationService.deactivateApplication(application).subscribe(result => {
             this.alert.setSuccessHint(
                 `deactivateApplication${application.id}`,

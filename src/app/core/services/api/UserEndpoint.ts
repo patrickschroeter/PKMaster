@@ -4,7 +4,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 
 import { UserApiMock, AuthenticationService } from './../';
 
-import { AppUser, RoleApi } from './../../../swagger';
+import { UserDto, RoleApi } from './../../../swagger';
 
 @Injectable()
 export class UserEndpoint {
@@ -14,7 +14,7 @@ export class UserEndpoint {
         private roleApi: RoleApi
     ) { }
 
-    public addUser(user?: AppUser, extraHttpRequestParams?: any): Observable<any> {
+    public addUser(user?: UserDto, extraHttpRequestParams?: any): Observable<any> {
         console.log('%cMock:' + `%c getUserById ${user.email}`, 'color: #F44336', 'color: #fefefe');
         const newUser = this._user(user.id);
         return new Observable((observer: Observer<any>) => {
@@ -62,7 +62,7 @@ export class UserEndpoint {
         });
     }
 
-    public updateUserById(userId: string, user?: AppUser, extraHttpRequestParams?: any): Observable<AppUser> {
+    public updateUserById(userId: string, user?: UserDto, extraHttpRequestParams?: any): Observable<UserDto> {
         console.log('%cMock:' + `%c updateUserById`, 'color: #F44336', 'color: #fefefe');
         const updatedUser = this._userUpdate(userId, user);
         return new Observable((observer: Observer<any>) => {
@@ -105,7 +105,7 @@ export class UserEndpoint {
     }
 
     public removeUserRole(userId: string, roleId?: string, extraHttpRequestParams?: any): Observable<{}> {
-        const user: AppUser = this._user(userId);
+        const user: UserDto = this._user(userId);
         let index = -1;
         for (let i = 0, length = user.roles.length; i < length; i++) {
             const element = user.roles[i];
@@ -120,7 +120,7 @@ export class UserEndpoint {
     }
 
     public updateUserRole(userId: string, roleId?: string, extraHttpRequestParams?: any): Observable<{}> {
-        const user: AppUser = this._user(userId);
+        const user: UserDto = this._user(userId);
         const role = this.roleApi['_role'](roleId);
         if (_.findIndex(user.roles, obj => obj.id === roleId) === -1) {
             user.roles.push(role);
@@ -150,7 +150,7 @@ export class UserEndpoint {
     }
 
     // tslint:disable-next-line:member-ordering
-    private _list: AppUser[] = UserApiMock.USERS;
+    private _list: UserDto[] = UserApiMock.USERS;
 
     private _users() {
         return JSON.parse(JSON.stringify(this._list));
@@ -159,7 +159,7 @@ export class UserEndpoint {
     private _user(id?: string, token?: string) {
         const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
-            if (list[i].id === id || 'local ' + list[i].token === token) {
+            if (list[i].id === id || 'local ' + list[i]['token'] === token) {
                 return JSON.parse(JSON.stringify(list[i]));
             }
         }
@@ -167,7 +167,7 @@ export class UserEndpoint {
     }
 
     // tslint:disable-next-line:no-unused-variable
-    private _userAdd(user: AppUser): AppUser {
+    private _userAdd(user: UserDto): UserDto {
         const id = this._list.length === 0 ? 'W' : this._list[this._list.length - 1].id + 'W';
         user.id = id;
         user.created = new Date();
@@ -175,7 +175,7 @@ export class UserEndpoint {
         return JSON.parse(JSON.stringify(this._list[this._list.length - 1]));
     }
 
-    private _userUpdate(id: string, user: AppUser): AppUser {
+    private _userUpdate(id: string, user: UserDto): UserDto {
         const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id) {
@@ -189,7 +189,7 @@ export class UserEndpoint {
         return null;
     }
 
-    private _updatePermissions(user: AppUser): AppUser {
+    private _updatePermissions(user: UserDto): UserDto {
         const permissions: string[] = [];
         for (let i = 0, length = user.roles.length; i < length; i++) {
             user.roles[i] = this.roleApi['_role'](user.roles[i].id);
@@ -208,11 +208,11 @@ export class UserEndpoint {
     private _login(username: string, password: string) {
         const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
-            if (list[i].email === username && list[i].password === password) {
+            if (list[i].email === username && list[i]['password'] === password) {
 
                 return {
                     token_type: 'local',
-                    access_token: list[i].token
+                    access_token: list[i]['token']
                 }
                 // return JSON.parse(JSON.stringify(list[i]));
             }

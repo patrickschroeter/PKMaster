@@ -6,7 +6,7 @@ import { RoleApiMock } from './../../../core';
 
 import { PermissionEndpoint } from './PermissionEndpoint';
 
-import { Role } from './../../../swagger';
+import { RoleDto } from './../../../swagger';
 
 @Injectable()
 export class RoleEndpoint {
@@ -15,21 +15,21 @@ export class RoleEndpoint {
         private permissionApi: PermissionEndpoint
     ) {}
 
-    public getRoles(extraHttpRequestParams?: any): Observable<Array<Role>> {
+    public getRoles(extraHttpRequestParams?: any): Observable<Array<RoleDto>> {
         return this.observe(this._roles());
     }
 
-    public addRole(role?: Role, extraHttpRequestParams?: any): Observable<Role> {
+    public addRole(role?: RoleDto, extraHttpRequestParams?: any): Observable<RoleDto> {
         const newrole = this._roleAdd(role);
         return this.observe(newrole);
     }
 
-    public getRoleById(roleId: string, extraHttpRequestParams?: any): Observable<Role> {
+    public getRoleById(roleId: string, extraHttpRequestParams?: any): Observable<RoleDto> {
         const role = this._role(roleId);
         return this.observe(role);
     }
 
-    public updateRoleById(roleId: string, role?: Role, extraHttpRequestParams?: any): Observable<Role> {
+    public updateRoleById(roleId: string, role?: RoleDto, extraHttpRequestParams?: any): Observable<RoleDto> {
         const updaterole = this._roleUpdate(roleId, role);
         return this.observe(updaterole);
     }
@@ -61,7 +61,7 @@ export class RoleEndpoint {
      */
 
     // tslint:disable-next-line:member-ordering
-    private _list: Role[] = [
+    private _list: RoleDto[] = [
         RoleApiMock.ROLES_OBJECTS.All,
         RoleApiMock.ROLES_OBJECTS.Admin,
         RoleApiMock.ROLES_OBJECTS.Docent,
@@ -72,11 +72,11 @@ export class RoleEndpoint {
         RoleApiMock.ROLES_OBJECTS.Student
     ];
 
-    private _roles(): Role[] {
+    private _roles(): RoleDto[] {
         return JSON.parse(JSON.stringify(this._list));
     }
 
-    private _roleAdd(role: Role): Role {
+    private _roleAdd(role: RoleDto): RoleDto {
         const id = this._list.length === 0 ? 'Q' : this._list[this._list.length - 1].id + 'Q';
         role.id = id;
         role.rolePermissions = [];
@@ -84,8 +84,8 @@ export class RoleEndpoint {
         return JSON.parse(JSON.stringify(this._list[this._list.length - 1]));
     }
 
-    private _role(id?: string): Role {
-        let result: Role;
+    private _role(id?: string): RoleDto {
+        let result: RoleDto;
         const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id) {
@@ -96,7 +96,7 @@ export class RoleEndpoint {
         return JSON.parse(JSON.stringify(result));
     }
 
-    private _roleUpdate(id: string, role: Role): Role {
+    private _roleUpdate(id: string, role: RoleDto): RoleDto {
         const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id) {
@@ -107,7 +107,7 @@ export class RoleEndpoint {
         return null;
     }
 
-    private _removePermission(roleId: string, permissionId: string): Role {
+    private _removePermission(roleId: string, permissionId: string): RoleDto {
         const role = this._role(roleId);
         if (!role) { return; }
 
@@ -124,7 +124,7 @@ export class RoleEndpoint {
         return this._roleUpdate(role.id, role);
     }
 
-    private _addPermission(roleId: string, permissionId: string): Role {
+    private _addPermission(roleId: string, permissionId: string): RoleDto {
         const permission = this.permissionApi['_permission'](permissionId);
         const role = this._role(roleId);
         if (!role) { return; }

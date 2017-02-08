@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 /** Models */
-import { Field, AppUser } from './../../../swagger';
+import { FieldDto, UserDto } from './../../../swagger';
 import { Fields } from './../../../models';
 
 /** Services */
@@ -27,9 +27,9 @@ export class ModalChangePasswordComponent implements OnInit {
 
     @ViewChild('overlay') overlay: OverlayComponent;
 
-    private user: AppUser;
+    private user: UserDto;
 
-    public changePasswordElements: Field[];
+    public changePasswordElements: FieldDto[];
     public changePasswordForm: FormGroup;
 
     constructor(

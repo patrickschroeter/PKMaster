@@ -13,7 +13,7 @@ import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { Field } from './../../../swagger';
+import { FieldDto, UserDto } from './../../../swagger';
 import { Fields, Selectable } from './../../../models';
 
 /** Decorators */
@@ -24,12 +24,12 @@ export class FormElementService {
 
     /** The current Element as FormElement[] */
     private elementForm: FormGroup;
-    private element: Field[];
+    private element: FieldDto[];
     /** The default view for adding new Element */
-    private elementBase: Field[] = [];
+    private elementBase: FieldDto[] = [];
 
     /** The Select Element for the Element Type */
-    private selectTypeFormElement: Field = {};
+    private selectTypeFormElement: FieldDto = {};
     /** The current Selected Element Type */
     private selectedType: string;
 
@@ -37,8 +37,8 @@ export class FormElementService {
     private selectedOptionsLength: number;
 
     /** BehaviorSubjects */
-    private elementRx: BehaviorSubject<Field[]> = new BehaviorSubject(this.element);
-    private elementPreviewRx: BehaviorSubject<Field[]> = new BehaviorSubject(null);
+    private elementRx: BehaviorSubject<FieldDto[]> = new BehaviorSubject(this.element);
+    private elementPreviewRx: BehaviorSubject<FieldDto[]> = new BehaviorSubject(null);
     private elementHasSubmitRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
     private elementHasPreviewRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
     private elementHasValidationsRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -49,7 +49,7 @@ export class FormElementService {
         private alert: AlertService,
         private translationService: TranslationService
     ) {
-        this.formService.onEditElement().subscribe((element?: Field) => {
+        this.formService.onEditElement().subscribe((element?: FieldDto) => {
             if (element) {
                 if (!this.editExistingElement(element)) {
                     this.formService.editElementError(this.selectedType);
@@ -92,7 +92,7 @@ export class FormElementService {
      * create the Add Attribute View with from a given FormElement
      * @param {Field} element
      */
-    private editExistingElement(element: Field): boolean {
+    private editExistingElement(element: FieldDto): boolean {
 
         this.resetElement();
 
@@ -120,7 +120,7 @@ export class FormElementService {
 
         /** Request all Options of the selected Type */
         let returnedNumberOfRequests = 0;
-        let optionsOfElementType: Field[], validationsOfElementType: Field[], stylesOfElementType: Field[];
+        let optionsOfElementType: FieldDto[], validationsOfElementType: FieldDto[], stylesOfElementType: FieldDto[];
 
         let numberOfRequests = 1; // always get options
         this.getOptionsOfElementType(type).subscribe((opt) => {
@@ -256,7 +256,7 @@ export class FormElementService {
      * Get all Options from the selected TableName and set them as Options
      */
     private updateOptionsOfTable(): void {
-        this.getOptionsOfTable(this.selectedOptionTable).subscribe((options: Field[]) => {
+        this.getOptionsOfTable(this.selectedOptionTable).subscribe((options: FieldDto[]) => {
             if (!options) {
                 this.selectedOptionsLength = 0;
                 if (this.elementForm) { this.elementForm.controls['options'].setValue([]); }
@@ -334,7 +334,7 @@ export class FormElementService {
      * remove the current element from the form
      */
     public removeElement(): void {
-        let name: Field;
+        let name: FieldDto;
         for (let i = 0, length = this.element.length; i < length; i++) {
             const formElement = this.element[i];
             if (formElement.name === 'name') {
@@ -352,7 +352,7 @@ export class FormElementService {
      * @param {FormElement} elmenent - the element to add to the form
      * @param {Number} mode - the mode of
      */
-    public saveElement(element: Field, mode?: 'clone' | 'add'): void {
+    public saveElement(element: FieldDto, mode?: 'clone' | 'add'): void {
         if (this.formService.addElementToForm(element, mode)) {
             if (!mode || mode === 'add') {
                 this.resetElement();
@@ -382,9 +382,9 @@ export class FormElementService {
      * cath all available element types from the server
      */
     @Loading('getElementTypeOptions')
-    private getElementTypeOptions(): Observable<Field> {
-        const result: Field = new Fields.FieldType();
-        return new Observable((observer: Observer<Field>) => {
+    private getElementTypeOptions(): Observable<FieldDto> {
+        const result: FieldDto = new Fields.FieldType();
+        return new Observable((observer: Observer<FieldDto>) => {
             setTimeout(() => {
                 observer.next(result);
                 observer.complete();
@@ -412,10 +412,10 @@ export class FormElementService {
      * @param {String} fieldType
      */
     @Loading('getOptionsOfElementType')
-    private getOptionsOfElementType(fieldType: string): Observable<Field[]> {
-        const name: Field = new Fields.FieldName();
-        const options: Field = opts()[fieldType];
-        return new Observable((observer: Observer<Field[]>) => {
+    private getOptionsOfElementType(fieldType: string): Observable<FieldDto[]> {
+        const name: FieldDto = new Fields.FieldName();
+        const options: FieldDto = opts()[fieldType];
+        return new Observable((observer: Observer<FieldDto[]>) => {
             setTimeout(() => {
                 let result = [].concat(name);
                 const element = _.cloneDeep(options);
@@ -432,9 +432,9 @@ export class FormElementService {
      * @param {String} fieldType
      */
     @Loading('getValidationsOfInputType')
-    private getValidationsOfInputType(fieldType: string): Observable<Field[]> {
+    private getValidationsOfInputType(fieldType: string): Observable<FieldDto[]> {
         const options = validations();
-        return new Observable((observer: Observer<Field[]>) => {
+        return new Observable((observer: Observer<FieldDto[]>) => {
             setTimeout(() => {
                 observer.next(options[fieldType]);
                 observer.complete();
@@ -447,9 +447,9 @@ export class FormElementService {
      * @param {String} fieldType
      */
     @Loading('getStylesOfInputType')
-    private getStylesOfInputType(fieldType: string): Observable<Field[]> {
+    private getStylesOfInputType(fieldType: string): Observable<FieldDto[]> {
         const options = styles();
-        return new Observable((observer: Observer<Field[]>) => {
+        return new Observable((observer: Observer<FieldDto[]>) => {
             setTimeout(() => {
                 /** TODO */
                 if (options) {
@@ -471,10 +471,10 @@ export class FormElementService {
     /**
      * BehaviorSubject for the element
      */
-    public getElement(): Observable<Field[]> {
+    public getElement(): Observable<FieldDto[]> {
         return this.elementRx.asObservable();
     }
-    public setElement(element: Field[]): void {
+    public setElement(element: FieldDto[]): void {
         this.element = element;
         this.elementRx.next(this.element);
     }
@@ -483,10 +483,10 @@ export class FormElementService {
     /**
      * BehaviorSubject for the preview element
      */
-    public getElementPreview(): Observable<Field[]> {
+    public getElementPreview(): Observable<FieldDto[]> {
         return this.elementPreviewRx.asObservable();
     }
-    public setElementPreview(element: Field[]): void {
+    public setElementPreview(element: FieldDto[]): void {
         this.elementPreviewRx.next(element);
     }
 
@@ -538,7 +538,7 @@ export class FormElementService {
 
 
 
-function opts() {
+function opts(): { [_: string]: FieldDto[] } {
 
     const opts = {
         input: [
@@ -613,7 +613,7 @@ function opts() {
     return opts;
 }
 
-function validations() {
+function validations(): { [_: string]: FieldDto[] } {
     const validations = {
         input: [
             new Fields.FieldValidation(null, {
@@ -631,7 +631,7 @@ function validations() {
     return validations;
 }
 
-function styles() {
+function styles(): FieldDto {
     const styles = new Fields.FieldStyles(null, {
         options: [
             { value: 'small', label: 'Small' },
@@ -642,13 +642,13 @@ function styles() {
 }
 
 
-function options() {
+function options(): { [key: string]: Selectable[] } {
     return {
         fakultaet: [
             { value: 'gestaltung', label: 'Gestaltung' },
             { value: 'informatik', label: 'informatik' }
         ],
-        user: UserApiMock.USERS.map(obj => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`)),
+        user: UserApiMock.USERS.map((obj: UserDto) => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`)),
         language: [
             { value: 'de', label: 'Deutschland' },
             { value: 'fr', label: 'Frankreich' },

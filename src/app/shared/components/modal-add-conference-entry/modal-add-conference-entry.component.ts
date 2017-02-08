@@ -5,7 +5,7 @@ import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { Field } from './../../../swagger';
+import { FieldDto } from './../../../swagger';
 import { ConferenceConfig } from './../../../models';
 
 /** Components */
@@ -26,7 +26,7 @@ export class ModalAddConferenceEntryComponent implements OnInit, Window {
 
     public save: Function;
 
-    public newEntry: Field[];
+    public newEntry: FieldDto[];
 
     constructor(
         private alert: AlertService,

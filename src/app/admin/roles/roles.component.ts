@@ -8,7 +8,7 @@ import {
 } from './../../core';
 
 /** Models */
-import { Role } from './../../swagger';
+import { RoleDto } from './../../swagger';
 
 /** Decorators */
 import { Access } from './../../shared/decorators/access.decorator';
@@ -61,7 +61,7 @@ export class RolesComponent implements OnInit {
      * @param {Object} form
      */
     @Access('EditRoles')
-    createNewRole(role: Role) {
+    createNewRole(role: RoleDto) {
         this.roleService.addRole(role).subscribe(result => {
             this.router.navigate(['admin', 'roles', result.id]);
         });

@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 
 import { Observable, Observer } from 'rxjs/Rx';
 
-import { Conference } from './../../../swagger';
+import { ConferenceDto } from './../../../swagger';
 
 @Injectable()
 export class ConferenceMock {
 
     constructor() {}
 
-    public getConferenceById(id: string): Observable<Conference> {
+    public getConferenceById(id: string): Observable<ConferenceDto> {
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 observer.next('');
@@ -18,7 +18,7 @@ export class ConferenceMock {
         });
     }
 
-    public getConferences(): Observable<Conference[]> {
+    public getConferences(): Observable<ConferenceDto[]> {
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 observer.next('');
@@ -27,9 +27,9 @@ export class ConferenceMock {
         });
     }
 
-    public createNewConference(conference: Conference) { }
+    public createNewConference(conference: ConferenceDto) { }
 
-    public saveConference(conference: Conference) { }
+    public saveConference(conference: ConferenceDto) { }
 
     public getConferenceForm() { return [] }
 }

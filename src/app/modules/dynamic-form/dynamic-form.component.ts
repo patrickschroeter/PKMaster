@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { DynamicFormService, InputValidationService } from './services';
 
-import { Field } from './../../swagger';
+import { FieldDto } from './../../swagger';
 
 @Component({
     selector: 'pk-dynamic-form',
@@ -15,7 +15,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
     @HostBinding('class.form') formClass = true;
 
-    @Input() formElements: Field[];
+    @Input() formElements: FieldDto[];
     @Input() formGroup: FormGroup;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter<any>();

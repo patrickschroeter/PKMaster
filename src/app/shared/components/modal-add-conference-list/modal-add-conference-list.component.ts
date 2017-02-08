@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import * as _ from 'lodash';
 
 /** Models */
-import { Field } from './../../../swagger';
+import { FieldDto } from './../../../swagger';
 import { Window } from './../../';
 import { OverlayComponent } from './../../../modules/overlay';
 
@@ -18,7 +18,7 @@ export class ModalAddConferenceListComponent implements OnInit, Window {
 
     public save: Function;
 
-    public newEntry: Field[];
+    public newEntry: FieldDto[];
 
     constructor() { }
 

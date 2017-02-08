@@ -7,7 +7,7 @@ import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { AppUser, Role } from './../../../swagger';
+import { UserDto, RoleDto } from './../../../swagger';
 
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
@@ -25,7 +25,7 @@ export class UserService {
      * get a list of all users
      */
     @Loading('getUsers')
-    public getUsers(): Observable<Array<AppUser>> {
+    public getUsers(): Observable<Array<UserDto>> {
         return this.userApi.getUsers().map(result => {
             return result;
         });
@@ -36,7 +36,7 @@ export class UserService {
      * @param {String} id
      */
     @Loading('getUserById')
-    public getUserById(id: string): Observable<AppUser> {
+    public getUserById(id: string): Observable<UserDto> {
         return this.userApi.getUserById(id).map(result => {
             return result;
         });
@@ -47,7 +47,7 @@ export class UserService {
      * @param {AppUser} user
      */
     @Loading('updateUser')
-    public updateUser(user: AppUser): Observable<AppUser> {
+    public updateUser(user: UserDto): Observable<UserDto> {
         return this.userApi.updateUserById(user.id, user).map(result => {
             return result;
         });
@@ -59,7 +59,7 @@ export class UserService {
      * @param {Role} role
      */
     @Loading('removeRoleFromUser')
-    public removeRoleFromUser(user: AppUser, role: Role): Observable<AppUser> {
+    public removeRoleFromUser(user: UserDto, role: RoleDto): Observable<UserDto> {
         return this.userApi.removeUserRole(user.id, role.id).map(result => {
             return result;
         });
@@ -71,7 +71,7 @@ export class UserService {
      * @param {String} roleId
      */
     @Loading('addRoleToUser')
-    public addRoleToUser(userId: string, roleId: string): Observable<AppUser> {
+    public addRoleToUser(userId: string, roleId: string): Observable<UserDto> {
         return this.userApi.updateUserRole(userId, roleId).map(result => {
             return result;
         });

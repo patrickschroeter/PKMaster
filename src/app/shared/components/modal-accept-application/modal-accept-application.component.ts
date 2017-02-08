@@ -9,7 +9,7 @@ import {
 } from './../../../core';
 
 /** Models */
-import { Field, Comment, Application } from './../../../swagger';
+import { FieldDto, CommentDto, ApplicationDto } from './../../../swagger';
 
 /** Decorators */
 import { Access } from './../../../shared/decorators/access.decorator';
@@ -27,11 +27,11 @@ export class ModalAcceptApplicationComponent implements OnInit {
 
     @ViewChild('overlay') overlay: OverlayComponent;
 
-    @Output() change: EventEmitter<Application> = new EventEmitter();
+    @Output() change: EventEmitter<ApplicationDto> = new EventEmitter();
 
-    public acceptForm: Field[];
+    public acceptForm: FieldDto[];
 
-    public application: Application;
+    public application: ApplicationDto;
 
     constructor(
         private auth: AuthenticationService,
@@ -47,7 +47,7 @@ export class ModalAcceptApplicationComponent implements OnInit {
     /**
      * Opens the Modal and sets the given application
      */
-    public openModal(application: Application): void {
+    public openModal(application: ApplicationDto): void {
         this.application = application;
         setTimeout(() => {
             this.overlay.toggle(true);
@@ -118,8 +118,8 @@ export class ModalAcceptApplicationComponent implements OnInit {
     /**
      * @description adds the comment to the current application
      */
-    public createNewComment(values: Comment) {
-        const comment: Comment = values;
+    public createNewComment(values: CommentDto) {
+        const comment: CommentDto = values;
         comment.created = new Date();
         this.auth.getUser().subscribe(user => {
             comment.user = user;

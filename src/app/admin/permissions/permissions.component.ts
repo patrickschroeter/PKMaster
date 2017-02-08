@@ -8,7 +8,7 @@ import { AlertService } from './../../modules/alert';
 import { TranslationService } from './../../modules/translation';
 
 /** Models */
-import { Permission, Field } from './../../swagger';
+import { Permission, FieldDto } from './../../swagger';
 import { OverlayComponent } from './../../modules/overlay';
 
 /** Decorators */
@@ -25,7 +25,7 @@ export class PermissionsComponent implements OnInit {
     @ViewChild('overlay') overlay: OverlayComponent;
 
     public permissions: Permission[];
-    public editPermissionForm: Field[];
+    public editPermissionForm: FieldDto[];
 
     public editingPermission: Permission;
 

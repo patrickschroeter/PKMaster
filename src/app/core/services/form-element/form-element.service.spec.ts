@@ -14,7 +14,7 @@ import { TranslationProviderMock } from './../../../modules/translation/translat
 import { AlertProviderMock } from './../../../modules/alert/alert.module';
 import { AlertService } from './../../../modules/alert';
 
-import { Field } from './../../../swagger';
+import { FieldDto } from './../../../swagger';
 import { Fields } from './../../../models';
 
 describe('Service: FormElement', () => {
@@ -120,12 +120,12 @@ describe('Service: FormElement', () => {
     describe('updateElement', () => {
         let service: FormElementService;
         let formGroup: FormGroup;
-        let elementForm: Field[];
+        let elementForm: FieldDto[];
 
-        const getNameField = (): Field => {
+        const getNameField = (): FieldDto => {
             return _.find(elementForm, obj => { return obj.name === 'name'; });
         };
-        const getPlaceholderField = (): Field => {
+        const getPlaceholderField = (): FieldDto => {
             return _.find(elementForm, obj => { return obj.name === 'placeholder'; });
         };
 
@@ -824,14 +824,14 @@ describe('Service: FormElement', () => {
 
     describe('constructor()', () => {
         let form: FormService;
-        let observer: EventEmitter<Field>;
+        let observer: EventEmitter<FieldDto>;
 
         beforeEach(
             inject([FormService], (formService: FormService) => {
             form = formService;
 
             observer = new EventEmitter();
-            form.onEditElement = function (): EventEmitter<Field> {
+            form.onEditElement = function (): EventEmitter<FieldDto> {
                 return observer;
             };
         }));
@@ -955,7 +955,7 @@ describe('Service: FormElement', () => {
 
         it('should load the options of the fieldType',
             fakeAsync(inject([FormElementService], (service: FormElementService) => {
-                let element: Field[];
+                let element: FieldDto[];
                 spyOn(form, 'editElementError'); tick(600);
                 service.getElement().subscribe(result => {
                     element = result;
@@ -975,7 +975,7 @@ describe('Service: FormElement', () => {
         it('should set hasSubmit if input is given',
             fakeAsync(inject([FormElementService], (service: FormElementService) => {
                 tick(600);
-                let element: Field[];
+                let element: FieldDto[];
                 let hasSubmit: boolean;
 
                 service.getElementHasSubmit().subscribe(result => {
@@ -993,7 +993,7 @@ describe('Service: FormElement', () => {
         it('should set hasStyles if styles are given',
             fakeAsync(inject([FormElementService], (service: FormElementService) => {
                 tick(600);
-                let element: Field[];
+                let element: FieldDto[];
                 let styles: boolean;
 
                 service.getElementHasStyles().subscribe(result => {
@@ -1012,7 +1012,7 @@ describe('Service: FormElement', () => {
         it('should set hasValidation if styles are given',
             fakeAsync(inject([FormElementService], (service: FormElementService) => {
                 tick(600);
-                let element: Field[];
+                let element: FieldDto[];
                 let validation: boolean;
 
                 service.getElementHasValidations().subscribe(result => {
@@ -1031,7 +1031,7 @@ describe('Service: FormElement', () => {
         it('should set styles if given even if invalid',
             fakeAsync(inject([FormElementService], (service: FormElementService) => {
                 tick(600);
-                let element: Field[];
+                let element: FieldDto[];
                 service.getElement().subscribe(result => {
                     element = result;
                 });
@@ -1048,7 +1048,7 @@ describe('Service: FormElement', () => {
         it('should set validations if given even if invalid',
             fakeAsync(inject([FormElementService], (service: FormElementService) => {
                 tick(600);
-                let element: Field[];
+                let element: FieldDto[];
                 service.getElement().subscribe(result => {
                     element = result;
                 });
@@ -1065,7 +1065,7 @@ describe('Service: FormElement', () => {
         it('should set options if no optionTable is set',
             fakeAsync(inject([FormElementService], (service: FormElementService) => {
                 tick(600);
-                let element: Field[];
+                let element: FieldDto[];
                 service.getElement().subscribe(result => {
                     element = result;
                 });
@@ -1082,7 +1082,7 @@ describe('Service: FormElement', () => {
         it('should not set options if optionTable is set',
             fakeAsync(inject([FormElementService], (service: FormElementService) => {
                 tick(600);
-                let element: Field[];
+                let element: FieldDto[];
                 service.getElement().subscribe(result => {
                     element = result;
                 });

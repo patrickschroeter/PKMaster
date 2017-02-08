@@ -1,6 +1,6 @@
 /**
  * API Schnittstelle für die Prüfungskommision der Hochschule Augsburg
- * Hier sind alle Routen aufgelistet die zur verfügung stehen. Zuvor muss jedoch ein JWT Token überden Authorize Button hinzufügen
+ * Hier sind alle Routen aufgelistet die zur verfügung stehen. Zuvor muss jedoch ein JWT Token überden Authorize Button hinzugefügt werden
  *
  * OpenAPI spec version: v1
  *
@@ -133,7 +133,7 @@ export class UserApi {
      * @param userId ID of AppUser
      * @param user Updated AppUser
      */
-    public updateUserById (userId: string, user?: models.AppUser, extraHttpRequestParams?: any ) : Observable<models.AppUser> {
+    public updateUserById (userId: string, user?: models.UserDto, extraHttpRequestParams?: any ) : Observable<models.UserDto> {
         const path = this.basePath + '/users/{userId}'
             .replace('{' + 'userId' + '}', String(userId));
 

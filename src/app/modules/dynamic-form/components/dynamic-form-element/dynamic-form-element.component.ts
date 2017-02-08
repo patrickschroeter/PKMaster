@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 
 import { DynamicFormService } from './../../services';
 
-import { Field } from './../../../../swagger';
+import { FieldDto } from './../../../../swagger';
 
 import { DynamicFormComponent } from './../../dynamic-form.component';
 
@@ -28,7 +28,7 @@ export class DynamicFormElementComponent implements OnInit {
      * @param {FormElement} element the element to validate
      * @return {void}
      */
-    showElementValidation(element: Field): void {
+    showElementValidation(element: FieldDto): void {
         this.dynamicForm.showElementValidation(this.form.controls[element.name]);
     }
 

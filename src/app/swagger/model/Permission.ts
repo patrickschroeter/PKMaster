@@ -32,7 +32,7 @@ export interface Permission {
 
     name?: string;
 
-    rolePermission?: Array<models.RolePermission>;
+    rolePermission?: Array<models.RoleDto>;
 
     // Custom
 

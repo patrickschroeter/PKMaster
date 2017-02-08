@@ -1,6 +1,6 @@
-import { Field } from './../swagger';
+import { FieldDto } from './../swagger';
 
-export class FieldModel implements Field {
+export class FieldModel implements FieldDto {
 
     name: string = undefined;
     label: string = undefined;

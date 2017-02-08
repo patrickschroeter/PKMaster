@@ -12,7 +12,7 @@ import { ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { AppUser, Field, Role } from './../../../swagger';
+import { UserDto, FieldDto, RoleDto } from './../../../swagger';
 import { Fields, Selectable } from './../../../models';
 
 /** Decorators */
@@ -26,8 +26,8 @@ import { Access } from './../../../shared/decorators/access.decorator';
 export class UsersDetailComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    public user: AppUser;
-    public form: Field[];
+    public user: UserDto;
+    public form: FieldDto[];
 
     private roles: Selectable[];
 
@@ -71,7 +71,7 @@ export class UsersDetailComponent implements OnInit {
      * @param {AppUser} user
      */
     @Access('ReadUsers')
-    private initUserForm(user: AppUser) {
+    private initUserForm(user: UserDto) {
         this.form = [
             new Fields.Firstname(user.firstname),
             new Fields.Lastname(user.lastname),
@@ -86,7 +86,7 @@ export class UsersDetailComponent implements OnInit {
      * @param {Role} role
      */
     @Access(['EditUsers', 'EditRoles'])
-    private removeRole(role: Role): void {
+    private removeRole(role: RoleDto): void {
         this.userService.removeRoleFromUser(this.user, role).subscribe(result => {
             this.user = result;
         });
