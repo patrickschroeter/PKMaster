@@ -5,8 +5,6 @@ import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ExtendHttpService } from './extend-http.service';
 
-import { AuthenticationService, AuthenticationMock } from './..';
-
 describe('ExtendHttpService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -14,7 +12,7 @@ describe('ExtendHttpService', () => {
           { provide: ExtendHttpService,
               useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions) =>
                new ExtendHttpService(xhrBackend, requestOptions),
-            deps: [XHRBackend, RequestOptions, AuthenticationService]
+            deps: [XHRBackend, RequestOptions]
           }
         ],
         imports: [
