@@ -198,6 +198,10 @@
         <source>Permissions:</source>
         <target/>
       </trans-unit>
+      <trans-unit id="8fdf2cc1533fba7988237c6782aadf4ae444fc7d" datatype="html">
+        <source>Add Permission to Role</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="fdf7cbdc140d0aab0f0b6c06065a0fd448ed6a2e" datatype="html">
         <source>Title</source>
         <target/>
@@ -212,10 +216,6 @@
       </trans-unit>
       <trans-unit id="1ea2b0f0ae01c0e9a7788bc0371a9329c42b9910" datatype="html">
         <source>Back to Listview</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="8fdf2cc1533fba7988237c6782aadf4ae444fc7d" datatype="html">
-        <source>Add Permission to Role</source>
         <target/>
       </trans-unit>
       <trans-unit id="b0d7dd8a1b0349622d6e0c6e643e24a9ea0efa1d" datatype="html">
@@ -258,12 +258,12 @@
         <source>Roles:</source>
         <target/>
       </trans-unit>
-      <trans-unit id="507a2d0e274870de947c1c9a30b65c90ec174fc3" datatype="html">
-        <source>Remove Role from User</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="45bbb56554a54233a5583a4cc8198a836d67f86a" datatype="html">
         <source>Add Role to User</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="507a2d0e274870de947c1c9a30b65c90ec174fc3" datatype="html">
+        <source>Remove Role from User</source>
         <target/>
       </trans-unit>
       <trans-unit id="f261dce7aeb8ea3369a29227ff846efb409ccf6e" datatype="html">
@@ -286,8 +286,12 @@
         <source>Conference: <x id="INTERPOLATION"/></source>
         <target/>
       </trans-unit>
-      <trans-unit id="93dc875fad57390c19c009b1bb8deede9a4fa629" datatype="html">
-        <source>Assigned Docents</source>
+      <trans-unit id="77e5a7a9d2c918ed617d5a9d7b42f07533939f49" datatype="html">
+        <source>Assigned Docents:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3f341a5e1fba3c8ba7d9bf1897ceb88df4f190f0" datatype="html">
+        <source>Assign User</source>
         <target/>
       </trans-unit>
       <trans-unit id="d3e6c0a6dc3d117cad4cfb7175d33035075a2d47" datatype="html">
@@ -324,10 +328,6 @@
       </trans-unit>
       <trans-unit id="d950b50abcc3b49118b3c7c04103c90a87e02456" datatype="html">
         <source>Edit Application</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="3f341a5e1fba3c8ba7d9bf1897ceb88df4f190f0" datatype="html">
-        <source>Assign User</source>
         <target/>
       </trans-unit>
       <trans-unit id="e225a597fb81f209bfcd5da807003b90f1e357cf" datatype="html">
