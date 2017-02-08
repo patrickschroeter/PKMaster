@@ -15,7 +15,7 @@ import { ConferenceConfig, Selectable } from './../../../models';
 })
 export class ConferenceEntryApplicationComponent implements OnInit {
 
-    @Input() entry: ConferenceConfig<any>;
+    @Input() entry: ConferenceConfig;
     @Input() forms: Selectable[];
 
     private cachedFormLabel: string;

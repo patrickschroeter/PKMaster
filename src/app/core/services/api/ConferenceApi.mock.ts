@@ -17,35 +17,35 @@ export class ConferenceApiMock {
 
     constructor() { }
 
-    public addApplicationToConference(conferenceId: string, applicationId: string, token?: number, extraHttpRequestParams?: any): Observable<{}> {
+    public addApplicationToConference(conferenceId: string, applicationId: string, extraHttpRequestParams?: any): Observable<{}> {
         return new Observable(observer => { observer.next({ id: conferenceId }); });
     }
 
-    public addConference(token?: number, conference?: any, extraHttpRequestParams?: any): Observable<any> {
+    public addConference(conference?: any, extraHttpRequestParams?: any): Observable<any> {
         return new Observable(observer => { observer.next(conference); });
     }
 
-    public deleteApplicationOfConference(conferenceId: string, applicationId: string, token?: number, extraHttpRequestParams?: any): Observable<{}> {
+    public deleteApplicationOfConference(conferenceId: string, applicationId: string, extraHttpRequestParams?: any): Observable<{}> {
         return new Observable(observer => { observer.next({ id: conferenceId }); });
     }
 
-    public deleteConferenceById(conferenceId: string, token?: number, extraHttpRequestParams?: any): Observable<{}> {
+    public deleteConferenceById(conferenceId: string, extraHttpRequestParams?: any): Observable<{}> {
         return new Observable(observer => { observer.next({ id: conferenceId }); });
     }
 
-    public getApplicationsByConference(conferenceId: string, token?: number, extraHttpRequestParams?: any): Observable<Array<any>> {
+    public getApplicationsByConference(conferenceId: string, extraHttpRequestParams?: any): Observable<Array<any>> {
         return new Observable(observer => { observer.next({ id: conferenceId }); });
     }
 
-    public getConferenceById(conferenceId: string, token?: number, extraHttpRequestParams?: any): Observable<any> {
+    public getConferenceById(conferenceId: string, extraHttpRequestParams?: any): Observable<any> {
         return new Observable(observer => { observer.next({ id: conferenceId }); });
     }
 
-    public getConferences(token?: number, filter?: string, sort?: string, extraHttpRequestParams?: any): Observable<Array<any>> {
+    public getConferences(filter?: string, sort?: string, extraHttpRequestParams?: any): Observable<Array<any>> {
         return new Observable(observer => { observer.next([{ id: 'id' }]); });
     }
 
-    public updateConferenceById(conferenceId: string, token?: number, conference?: any, extraHttpRequestParams?: any): Observable<any> {
+    public updateConferenceById(conferenceId: string, conference?: any, extraHttpRequestParams?: any): Observable<any> {
         return new Observable(observer => { observer.next(conference); });
     }
 

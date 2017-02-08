@@ -3,7 +3,7 @@
         <div class="rel">
             <div class="content">
 
-                <div class="animation animation--trigger headline">
+                <div class="animation animation--trigger animation__headline">
                     <h4>{{ index }} {{ entry.title }}</h4>
                     <pk-floating horizontal top-right>
                         <pk-button
@@ -83,7 +83,7 @@
 
                     <!-- List -->
                     <ng-container *ngSwitchCase="'list'">
-                        <pk-conference-entry-list [entry]="entry"></pk-conference-entry-list>
+                        <pk-conference-entry-list [entry]="entry" (change)="updateNumberOfInputs($event)"></pk-conference-entry-list>
                     </ng-container>
 
                     <!-- Default -->

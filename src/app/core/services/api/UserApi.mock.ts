@@ -29,7 +29,7 @@ export class UserApiMock {
 
     constructor() { }
 
-    public addUser(token?: number, user?: AppUser, extraHttpRequestParams?: any): Observable<any> {
+    public addUser(user?: AppUser, extraHttpRequestParams?: any): Observable<any> {
         if (user) {
             user.id = '1';
             this.list.push(user);
@@ -37,7 +37,7 @@ export class UserApiMock {
         return new Observable((observer: Observer<any>) => { user ? observer.next(user) : observer.error('error'); observer.complete(); });
     }
 
-    public getUserById(userId: string, token?: number, extraHttpRequestParams?: any): Observable<any> {
+    public getUserById(userId: string, extraHttpRequestParams?: any): Observable<any> {
         const user = UserApiMock.USER; user.id = userId;
         return new Observable((observer: Observer<any>) => { userId ? observer.next(user) : observer.error('error'); observer.complete(); });
     }
@@ -46,15 +46,20 @@ export class UserApiMock {
         return new Observable((observer: Observer<any>) => { observer.next(this.list); observer.complete(); });
     }
 
-    public updateUserById(userId: string, token?: number, user?: AppUser, extraHttpRequestParams?: any): Observable<AppUser> {
+    public updateUserById(userId: string, user?: AppUser, extraHttpRequestParams?: any): Observable<AppUser> {
         return new Observable((observer: Observer<any>) => { userId === user.id ? observer.next(user) : observer.error('error'); observer.complete(); });
     }
 
-    public login(username: string, password: string, token?: string): Observable<any> {
-        return new Observable((observer: Observer<any>) => { (username && password) || token ? observer.next(UserApiMock.USER) : observer.error('error'); observer.complete(); });
+    public login(username: string, password: string): Observable<any> {
+        return new Observable((observer: Observer<any>) => { username && password ? observer.next(UserApiMock.USER) : observer.error('error'); observer.complete(); });
     }
 
     public logout(token: string): Observable<any> {
         return new Observable((observer: Observer<any>) => { observer.next('logout'); observer.complete(); });
+    }
+
+    public getCurrentUser(): Observable<any> {
+        const user = UserApiMock.USER;
+        return new Observable((observer: Observer<any>) => { observer.next(user); observer.complete(); });
     }
 }

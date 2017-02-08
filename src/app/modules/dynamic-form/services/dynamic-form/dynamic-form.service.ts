@@ -95,7 +95,7 @@ export class DynamicFormService {
         if (element.required) { activeValidations.push(Validators.required); }
 
         /** FIX for multiselect */
-        if (!element.value) { element.value = element.multipleSelect ? null : ''; }
+        if (!element.value && element.multipleSelect) { element.value = null; }
         return new FormControl(element.value, Validators.compose(activeValidations));
     }
 

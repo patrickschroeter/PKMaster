@@ -1,6 +1,6 @@
 /**
- * PK-4.0 API
- * API for the PK-4.0
+ * API Schnittstelle für die Prüfungskommision der Hochschule Augsburg
+ * Hier sind alle Routen aufgelistet die zur verfügung stehen. Zuvor muss jedoch ein JWT Token überden Authorize Button hinzufügen
  *
  * OpenAPI spec version: v1
  * 
@@ -29,6 +29,8 @@ export interface Validation {
     
 
     id?: string;
+
+    description?: string;
 
     validationString?: string;
 

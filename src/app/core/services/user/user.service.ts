@@ -48,7 +48,7 @@ export class UserService {
      */
     @Loading('updateUser')
     public updateUser(user: AppUser): Observable<AppUser> {
-        return this.userApi.updateUserById(user.id, 0, user).map(result => {
+        return this.userApi.updateUserById(user.id, user).map(result => {
             return result;
         });
     }
@@ -60,7 +60,7 @@ export class UserService {
      */
     @Loading('removeRoleFromUser')
     public removeRoleFromUser(user: AppUser, role: Role): Observable<AppUser> {
-        return this.userApi.removeUserRole(user.id, 0, role.id).map(result => {
+        return this.userApi.removeUserRole(user.id, role.id).map(result => {
             return result;
         });
     }
@@ -72,7 +72,7 @@ export class UserService {
      */
     @Loading('addRoleToUser')
     public addRoleToUser(userId: string, roleId: string): Observable<AppUser> {
-        return this.userApi.updateUserRole(userId, 0, roleId).map(result => {
+        return this.userApi.updateUserRole(userId, roleId).map(result => {
             return result;
         });
     }

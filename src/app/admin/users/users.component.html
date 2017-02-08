@@ -30,7 +30,7 @@
                             </pk-list-attribute>
                             <pk-list-attribute name="author">{{ user.firstname }}</pk-list-attribute>
                             <pk-list-attribute name="author">{{ user.email }}</pk-list-attribute>
-                            <pk-list-attribute name="description">{{ user.roles.length }}</pk-list-attribute>
+                            <pk-list-attribute name="description">{{ user.roles ? user.roles.length : 0 }}</pk-list-attribute>
 
                             <pk-floating top-right horizontal>
                                 <a

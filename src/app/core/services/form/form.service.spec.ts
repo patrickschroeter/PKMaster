@@ -107,7 +107,7 @@ describe('Service: Form', () => {
                 restrictedAccess: true
             };
             service.createNewForm(submit).subscribe(() => {
-                expect(api.addForm).toHaveBeenCalledWith(FormService.DEFAULT_TOKEN, {
+                expect(api.addForm).toHaveBeenCalledWith({
                     title: submit.title,
                     restrictedAccess: submit.restrictedAccess,
                     isPublic: true,
@@ -125,7 +125,7 @@ describe('Service: Form', () => {
                 formHasField: [new Fields.Email]
             };
             service.createNewForm(submit).subscribe(() => {
-                expect(api.addForm).toHaveBeenCalledWith(FormService.DEFAULT_TOKEN, {
+                expect(api.addForm).toHaveBeenCalledWith({
                     title: 'Copy of ' + submit.title,
                     restrictedAccess: submit.restrictedAccess,
                     isPublic: true,
@@ -574,7 +574,7 @@ describe('Service: Form', () => {
             spyOn(api, 'updateFormById').and.callThrough();
             service.getFormById('id').subscribe(form => {
                 service.saveForm().subscribe(result => {
-                    expect(api.updateFormById).toHaveBeenCalledWith(form.id, FormService.DEFAULT_TOKEN, form);
+                    expect(api.updateFormById).toHaveBeenCalledWith(form.id, form);
                 });
             });
         });

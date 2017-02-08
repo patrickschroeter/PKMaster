@@ -1,6 +1,6 @@
 /**
- * PK-4.0 API
- * API for the PK-4.0
+ * API Schnittstelle für die Prüfungskommision der Hochschule Augsburg
+ * Hier sind alle Routen aufgelistet die zur verfügung stehen. Zuvor muss jedoch ein JWT Token überden Authorize Button hinzufügen
  *
  * OpenAPI spec version: v1
  *
@@ -49,9 +49,8 @@ export class RoleApi {
      * @param roleId ID of Role
      * @param permissionId ID of Permission
      * @param permissionId2
-     * @param token Accesstoken to authenticate with the API
      */
-    public addPermissionToRole (roleId: string, permissionId: string, token?: number, extraHttpRequestParams?: any ) : Observable<{}> {
+    public addPermissionToRole (roleId: string, permissionId: string, extraHttpRequestParams?: any ) : Observable<{}> {
         const path = this.basePath + '/roles/{roleId}/permissions/{permission_id}'
             .replace('{' + 'roleId' + '}', String(roleId))
             .replace('{' + 'permissionId' + '}', String(permissionId))
@@ -66,8 +65,6 @@ export class RoleApi {
         if (permissionId === null || permissionId === undefined) {
             throw new Error('Required parameter permissionId was null or undefined when calling addPermissionToRole.');
         }
-            headerParams.set('token', String(token));
-
         let requestOptions: RequestOptionsArgs = {
             method: 'POST',
             headers: headerParams,
@@ -87,16 +84,13 @@ export class RoleApi {
     /**
      * Create new Role
      *
-     * @param token Accesstoken to authenticate with the API
      * @param role The new Role Object
      */
-    public addRole (token?: number, role?: models.Role, extraHttpRequestParams?: any ) : Observable<models.Role> {
+    public addRole (role?: models.Role, extraHttpRequestParams?: any ) : Observable<models.Role> {
         const path = this.basePath + '/roles';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-            headerParams.set('token', String(token));
-
         let requestOptions: RequestOptionsArgs = {
             method: 'POST',
             headers: headerParams,
@@ -120,12 +114,11 @@ export class RoleApi {
      * @param roleId ID of Role
      * @param permissionId ID of Permission
      * @param permissionId2
-     * @param token Accesstoken to authenticate with the API
      */
-    public deletePermissionOfRole (roleId: string, permissionId: string, token?: number, extraHttpRequestParams?: any ) : Observable<{}> {
+    public deletePermissionOfRole (roleId: string, permissionId: string, extraHttpRequestParams?: any ) : Observable<{}> {
         const path = this.basePath + '/roles/{roleId}/permissions/{permission_id}'
             .replace('{' + 'roleId' + '}', String(roleId))
-            .replace('{' + 'permissionId' + '}', String(permissionId));
+            .replace('{' + 'permissionId' + '}', String(permissionId))
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
@@ -137,8 +130,6 @@ export class RoleApi {
         if (permissionId === null || permissionId === undefined) {
             throw new Error('Required parameter permissionId was null or undefined when calling deletePermissionOfRole.');
         }
-            headerParams.set('token', String(token));
-
         let requestOptions: RequestOptionsArgs = {
             method: 'DELETE',
             headers: headerParams,
@@ -159,9 +150,8 @@ export class RoleApi {
      * Delete Role with Id
      *
      * @param roleId ID of Role
-     * @param token Accesstoken to authenticate with the API
      */
-    public deleteRoleById (roleId: number, token?: number, extraHttpRequestParams?: any ) : Observable<{}> {
+    public deleteRoleById (roleId: string, extraHttpRequestParams?: any ) : Observable<{}> {
         const path = this.basePath + '/roles/{roleId}'
             .replace('{' + 'roleId' + '}', String(roleId));
 
@@ -171,8 +161,6 @@ export class RoleApi {
         if (roleId === null || roleId === undefined) {
             throw new Error('Required parameter roleId was null or undefined when calling deleteRoleById.');
         }
-            headerParams.set('token', String(token));
-
         let requestOptions: RequestOptionsArgs = {
             method: 'DELETE',
             headers: headerParams,
@@ -193,9 +181,8 @@ export class RoleApi {
      * GET one Role by Id
      *
      * @param roleId ID of Role
-     * @param token Accesstoken to authenticate with the API
      */
-    public getRoleById (roleId: string, token?: number, extraHttpRequestParams?: any ) : Observable<models.RoleDto> {
+    public getRoleById (roleId: string, extraHttpRequestParams?: any ) : Observable<models.RoleDto> {
         const path = this.basePath + '/roles/{roleId}'
             .replace('{' + 'roleId' + '}', String(roleId));
 
@@ -205,8 +192,6 @@ export class RoleApi {
         if (roleId === null || roleId === undefined) {
             throw new Error('Required parameter roleId was null or undefined when calling getRoleById.');
         }
-            headerParams.set('token', String(token));
-
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
             headers: headerParams,
@@ -226,15 +211,12 @@ export class RoleApi {
     /**
      * GET all Roles
      * The Roles Endpoint returns all Roles
-     * @param token Accesstoken to authenticate with the API
      */
-    public getRoles (token?: number, extraHttpRequestParams?: any ) : Observable<Array<models.RoleDto>> {
+    public getRoles (extraHttpRequestParams?: any ) : Observable<Array<models.RoleDto>> {
         const path = this.basePath + '/roles';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-            headerParams.set('token', String(token));
-
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
             headers: headerParams,
@@ -255,10 +237,9 @@ export class RoleApi {
      * Update Role with Id
      *
      * @param roleId ID of Role
-     * @param token Accesstoken to authenticate with the API
      * @param role Updated Role
      */
-    public updateRoleById (roleId: string, token?: number, role?: models.Role, extraHttpRequestParams?: any ) : Observable<models.Role> {
+    public updateRoleById (roleId: string, role?: models.Role, extraHttpRequestParams?: any ) : Observable<models.Role> {
         const path = this.basePath + '/roles/{roleId}'
             .replace('{' + 'roleId' + '}', String(roleId));
 
@@ -268,8 +249,6 @@ export class RoleApi {
         if (roleId === null || roleId === undefined) {
             throw new Error('Required parameter roleId was null or undefined when calling updateRoleById.');
         }
-            headerParams.set('token', String(token));
-
         let requestOptions: RequestOptionsArgs = {
             method: 'PUT',
             headers: headerParams,

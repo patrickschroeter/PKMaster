@@ -19,8 +19,6 @@ import { Loading } from './../../../shared/decorators/loading.decorator';
 @Injectable()
 export class ApplicationService {
 
-    static DEFAULT_TOKEN = 17;
-
     private _application: Application;
     get application() { return this._application; }
     set application(application) {
@@ -92,9 +90,7 @@ export class ApplicationService {
             application.userId = user.id;
         });
 
-        return this.applicationApi.createApplication(
-            ApplicationService.DEFAULT_TOKEN,
-            (application as ApplicationCreateDto)).map(result => {
+        return this.applicationApi.createApplication((application as ApplicationCreateDto)).map(result => {
                 return this.application = result;
             });
     }
@@ -106,8 +102,8 @@ export class ApplicationService {
     @Loading('addCommentToApplication')
     public addCommentToApplication(comment: Comment): Observable<Application> {
         if (!this.application) { return Observable.throw('No Application'); }
-        return this.applicationApi.addCommentToApplication(this.application.id, ApplicationService.DEFAULT_TOKEN, comment).map(result => {
-            return this.application = result;
+        return this.applicationApi.addCommentToApplication(this.application.id, comment).map(result => {
+            return result;
         });
     }
 
@@ -193,7 +189,7 @@ export class ApplicationService {
      */
     @Loading('updateApplication')
     public updateApplication(application: Application): Observable<Application> {
-        return this.applicationApi.updateApplicationById(application.id, 17, application).map(result => {
+        return this.applicationApi.updateApplicationById(application.id, application).map(result => {
             return this.application = result;
         });
     }

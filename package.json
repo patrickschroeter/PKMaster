@@ -5,10 +5,10 @@
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --env=api",
     "lint": "tslint \"src/**/*.ts\" --project src/tsconfig.json --type-check && tslint \"e2e/**/*.ts\" --project e2e/tsconfig.json --type-check",
     "lint:unused": "tslint \"src/**/*.ts\" --noUnusedParameters --noUnusedLocals",
-    "test": "ng test",
+    "test": "ng test --watch=false",
     "pree2e": "webdriver-manager update --standalone false --gecko false",
     "e2e": "protractor",
     "coverage": "ng test --watch=false --cc=true",

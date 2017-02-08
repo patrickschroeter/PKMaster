@@ -1,6 +1,6 @@
 /**
- * PK-4.0 API
- * API for the PK-4.0
+ * API Schnittstelle für die Prüfungskommision der Hochschule Augsburg
+ * Hier sind alle Routen aufgelistet die zur verfügung stehen. Zuvor muss jedoch ein JWT Token überden Authorize Button hinzufügen
  *
  * OpenAPI spec version: v1
  * 
@@ -46,15 +46,12 @@ export class ConfigurationApi {
     /**
      * GET all Field Definitions
      * The config Endpoint returns all form relevant configs
-     * @param token Accesstoken to authenticate with the API
      */
-    public getFieldDefinitions (token?: number, extraHttpRequestParams?: any ) : Observable<Array<models.T>> {
+    public getFieldDefinitions (extraHttpRequestParams?: any ) : Observable<Array<models.FieldTypeDto>> {
         const path = this.basePath + '/config/fieldDefinitions';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-            headerParams.set('token', String(token));
-
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
             headers: headerParams,
@@ -74,15 +71,12 @@ export class ConfigurationApi {
     /**
      * GET all possible Styles
      * 
-     * @param token Accesstoken to authenticate with the API
      */
-    public getFieldStyles (token?: number, extraHttpRequestParams?: any ) : Observable<any> {
+    public getFieldStyles (extraHttpRequestParams?: any ) : Observable<Array<models.StyleDto>> {
         const path = this.basePath + '/config/styles';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-            headerParams.set('token', String(token));
-
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
             headers: headerParams,
@@ -102,15 +96,12 @@ export class ConfigurationApi {
     /**
      * GET all possible Validations
      * 
-     * @param token Accesstoken to authenticate with the API
      */
-    public getFieldValidations (token?: number, extraHttpRequestParams?: any ) : Observable<any> {
+    public getFieldValidations (extraHttpRequestParams?: any ) : Observable<Array<models.ValidationDto>> {
         const path = this.basePath + '/config/validations';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-            headerParams.set('token', String(token));
-
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
             headers: headerParams,
@@ -130,15 +121,12 @@ export class ConfigurationApi {
     /**
      * GET all possible Status
      * 
-     * @param token Accesstoken to authenticate with the API
      */
-    public getStatusValues (token?: number, extraHttpRequestParams?: any ) : Observable<any> {
+    public getStatusValues (extraHttpRequestParams?: any ) : Observable<Array<models.StatusDto>> {
         const path = this.basePath + '/config/status';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-            headerParams.set('token', String(token));
-
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
             headers: headerParams,

@@ -8,30 +8,31 @@
     <div class="form" *ngIf="!form.formHasField || form.formHasField.length < 1" i18n>No Elements in this form.</div>
 
     <pk-dynamic-form *ngIf="form && form.formHasField && form.formHasField.length > 0" [formElements]="form.formHasField" #dynamicForm>
-        <pk-dynamic-form-content>
-
-            <pk-dynamic-form-element *ngFor="let element of form.formHasField, let i = index" [element]="element" [form]="dynamicForm.form" class="animation animation--trigger">
-                <pk-floating top-right horizontal>
-                    <pk-button
-                        rounded
-                        i18n-pkAlert
-                        pkAlert="Remove Form Element"
-                        class="button button--edit element element--spacing-left-tiny"
-                        icon="delete"
-                        (onClick)="removeElement(element, i)"
-                        element--error>
-                    </pk-button>
-                    <pk-button
-                        rounded
-                        i18n-pkAlert
-                        pkAlert="Edit Form Element"
-                        class="button button--edit element element--spacing-left-tiny"
-                        icon="create"
-                        (onClick)="editElement(element)"
-                        element--secondary>
-                    </pk-button>
-                </pk-floating>
-            </pk-dynamic-form-element>
+        <pk-dynamic-form-content dnd-sortable-container [sortableData]="form.formHasField">
+            <ng-container *ngFor="let element of form.formHasField, let i = index">
+                <pk-dynamic-form-element [element]="element" [form]="dynamicForm.form" class="animation animation--trigger" dnd-sortable [sortableIndex]="i">
+                    <pk-floating top-right horizontal>
+                        <pk-button
+                            rounded
+                            i18n-pkAlert
+                            pkAlert="Remove Form Element"
+                            class="button button--edit element element--spacing-left-tiny"
+                            icon="delete"
+                            (onClick)="removeElement(element, i)"
+                            element--error>
+                        </pk-button>
+                        <pk-button
+                            rounded
+                            i18n-pkAlert
+                            pkAlert="Edit Form Element"
+                            class="button button--edit element element--spacing-left-tiny"
+                            icon="create"
+                            (onClick)="editElement(element)"
+                            element--secondary>
+                        </pk-button>
+                    </pk-floating>
+                </pk-dynamic-form-element>
+            </ng-container>
 
         </pk-dynamic-form-content>
 

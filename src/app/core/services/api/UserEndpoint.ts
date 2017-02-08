@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 import { Observable, Observer } from 'rxjs/Rx';
 
-import { UserApiMock } from './';
+import { UserApiMock, AuthenticationService } from './../';
 
 import { AppUser, RoleApi } from './../../../swagger';
 
@@ -14,16 +14,12 @@ export class UserEndpoint {
         private roleApi: RoleApi
     ) { }
 
-    public addUser(token?: string, user?: AppUser, extraHttpRequestParams?: any): Observable<any> {
-        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
+    public addUser(user?: AppUser, extraHttpRequestParams?: any): Observable<any> {
         console.log('%cMock:' + `%c getUserById ${user.email}`, 'color: #F44336', 'color: #fefefe');
         const newUser = this._user(user.id);
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
-                if (!token) {
-                    console.error(`No Token!`);
-                    observer.error(`No Token!`);
-                } else if (newUser) {
+                if (newUser) {
                     observer.next(newUser);
                 } else {
                     console.error(`No User with ID ${user.email} found`);
@@ -34,16 +30,12 @@ export class UserEndpoint {
         });
     }
 
-    public getUserById(userId: string, token?: string, extraHttpRequestParams?: any): Observable<any> {
-        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
+    public getUserById(userId: string, extraHttpRequestParams?: any): Observable<any> {
         console.log('%cMock:' + `%c getUserById ${userId}`, 'color: #F44336', 'color: #fefefe');
         const user = this._user(userId);
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
-                if (!token) {
-                    console.error(`No Token!`);
-                    observer.error(`No Token!`);
-                } else if (user) {
+                if (user) {
                     observer.next(user);
                 } else {
                     console.error(`No User with ID ${userId} found`);
@@ -54,16 +46,12 @@ export class UserEndpoint {
         });
     }
 
-    public getUsers(token?: string, extraHttpRequestParams?: any): Observable<any> {
-        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
+    public getUsers(extraHttpRequestParams?: any): Observable<any> {
         console.log('%cMock:' + `%c getUsers`, 'color: #F44336', 'color: #fefefe');
         const users = this._users();
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
-                if (!token) {
-                    console.error(`No Token!`);
-                    observer.error(`No Token!`);
-                } else if (users) {
+                if (users) {
                     observer.next(users);
                 } else {
                     console.error(`Error loading Users.`);
@@ -74,16 +62,12 @@ export class UserEndpoint {
         });
     }
 
-    public updateUserById(userId: string, token?: string, user?: AppUser, extraHttpRequestParams?: any): Observable<AppUser> {
-        /** hack */if (!token) { token = localStorage.getItem('authtoken'); }
+    public updateUserById(userId: string, user?: AppUser, extraHttpRequestParams?: any): Observable<AppUser> {
         console.log('%cMock:' + `%c updateUserById`, 'color: #F44336', 'color: #fefefe');
         const updatedUser = this._userUpdate(userId, user);
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
-                if (!token) {
-                    console.error(`No Token!`);
-                    observer.error(`No Token!`);
-                } else if (updatedUser) {
+                if (updatedUser) {
                     observer.next(updatedUser);
                 } else {
                     console.error(`Error loading User with ID ${userId}`);
@@ -95,54 +79,32 @@ export class UserEndpoint {
     }
 
     /** TODO */
-    public login(username: string, password: string, token?: string): Observable<any> {
-        if (token) {
-            console.log('%cMock:' + `%c login ${token}`, 'color: #F44336', 'color: #fefefe');
-            const user = this._user(null, token);
-            return new Observable((observer: Observer<any>) => {
-                setTimeout(() => {
-                    if (user) {
-                        observer.next(user);
-                    } else {
-                        console.error(`No User with Token`);
-                        observer.error(`No User with Token`);
-                    }
-                    observer.complete();
-                }, 500);
-            });
-        } else {
-            console.log('%cMock:' + `%c login ${username}`, 'color: #F44336', 'color: #fefefe');
-            const user = this._login(username, password);
-            return new Observable((observer: Observer<any>) => {
-                setTimeout(() => {
-                    if (user) {
-                        observer.next(user);
-                    } else {
-                        console.error(`Wrong Credentials.`);
-                        observer.error(`Wrong Credentials.`);
-                    }
-                    observer.complete();
-                }, 500);
-            });
-        }
-    }
-
-    public logout(token: string): Observable<any> {
-        console.log('%cMock:' + `%c logout ${token}`, 'color: #F44336', 'color: #fefefe');
+    public login(username: string, password: string): Observable<any> {
+        console.log('%cMock:' + `%c login ${username}`, 'color: #F44336', 'color: #fefefe');
+        const bearer = this._login(username, password);
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
-                if (!token) {
-                    console.error(`No Token!`);
-                    observer.error(`No Token!`);
+                if (bearer) {
+                    observer.next(bearer);
                 } else {
-                    observer.next(true);
+                    console.error(`Wrong Credentials.`);
+                    observer.error(`Wrong Credentials.`);
                 }
                 observer.complete();
             }, 500);
         });
     }
 
-    public removeUserRole(userId: string, token?: number, roleId?: string, extraHttpRequestParams?: any): Observable<{}> {
+    public logout(): Observable<any> {
+        return new Observable((observer: Observer<any>) => {
+            setTimeout(() => {
+                observer.next(true);
+                observer.complete();
+            }, 500);
+        });
+    }
+
+    public removeUserRole(userId: string, roleId?: string, extraHttpRequestParams?: any): Observable<{}> {
         const user: AppUser = this._user(userId);
         let index = -1;
         for (let i = 0, length = user.roles.length; i < length; i++) {
@@ -157,7 +119,7 @@ export class UserEndpoint {
         return this.observe(this._userUpdate(user.id, this._updatePermissions(user)));
     }
 
-    public updateUserRole(userId: string, token?: number, roleId?: string, extraHttpRequestParams?: any): Observable<{}> {
+    public updateUserRole(userId: string, roleId?: string, extraHttpRequestParams?: any): Observable<{}> {
         const user: AppUser = this._user(userId);
         const role = this.roleApi['_role'](roleId);
         if (_.findIndex(user.roles, obj => obj.id === roleId) === -1) {
@@ -166,13 +128,22 @@ export class UserEndpoint {
         return this.observe(this._userUpdate(user.id, this._updatePermissions(user)));
     }
 
+    public getCurrentUser(): Observable<any> {
+        const user = this._user('null', AuthenticationService.getStaticToken());
+        return this.observe(user);
+    }
+
     /**
      * Helper observer
      */
     private observe<T>(obj: T): Observable<T> {
         return new Observable<T>((observer: Observer<T>) => {
             setTimeout(() => {
-                observer.next(obj);
+                if (obj) {
+                    observer.next(obj);
+                } else {
+                    observer.error('No obj found');
+                }
                 observer.complete();
             }, 500);
         });
@@ -188,7 +159,7 @@ export class UserEndpoint {
     private _user(id?: string, token?: string) {
         const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
-            if (list[i].id === id || list[i].token === token) {
+            if (list[i].id === id || 'local ' + list[i].token === token) {
                 return JSON.parse(JSON.stringify(list[i]));
             }
         }
@@ -238,7 +209,12 @@ export class UserEndpoint {
         const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].email === username && list[i].password === password) {
-                return JSON.parse(JSON.stringify(list[i]));
+
+                return {
+                    token_type: 'local',
+                    access_token: list[i].token
+                }
+                // return JSON.parse(JSON.stringify(list[i]));
             }
         }
         return null;

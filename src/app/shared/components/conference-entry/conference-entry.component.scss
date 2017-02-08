@@ -1,24 +1,5 @@
 @import './../../../theme.scss';
 
-.headline {
-    overflow: hidden;
-    padding: 1rem;
-    margin-left: -1rem;
-    transition: background .3s ease-in-out, border-color .3s ease-in-out;
-
-    h4 {
-        margin: 0;
-        transition: color .3s;
-    }
-    .floating {
-        top: 8px;
-    }
-
-    &:hover {
-        background-color: $element-hover-edit;
-    }
-}
-
 .content {
     margin-left: 0.5rem;
 }

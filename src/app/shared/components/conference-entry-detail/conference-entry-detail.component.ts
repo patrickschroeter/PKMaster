@@ -15,7 +15,7 @@ export class ConferenceEntryDetailComponent implements OnInit {
     @ViewChild('acceptModal') acceptModal: ModalAcceptApplicationComponent;
 
     @Input() index: string;
-    @Input() entry: ConferenceConfig<any>;
+    @Input() entry: ConferenceConfig;
 
     constructor() { }
 

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Http, XHRBackend, RequestOptions } from '@angular/http';
+import { Http, XHRBackend, RequestOptions, HttpModule } from '@angular/http';
+
+import { environment } from './../../environments/environment';
 
 import { SharedModule } from './../shared/shared.module';
 
@@ -22,7 +24,7 @@ import {
 } from './services/api';
 
 const BASEPATH = 'http://pk.multimedia.hs-augsburg.de:8000';
-const API = false;
+const API = !!environment.api;
 
 @NgModule({
     declarations: [
@@ -30,7 +32,8 @@ const API = false;
     ],
     imports: [
         CommonModule,
-        SharedModule
+        SharedModule,
+        HttpModule
     ],
     providers: [
         services.AuthenticationService,
@@ -60,55 +63,44 @@ const API = false;
         services.AccessUsersEdit,
 
         // Mock API
+        {
+            provide: FormApi,
+            useFactory: extendFormApi,
+            deps: [Http]
+        },
+        {
+            provide: ApplicationApi,
+            useFactory: extendApplicationApi,
+            deps: [Http, FormApi, ConferenceApi, UserApi]
+        },
+        {
+            provide: UserApi,
+            useFactory: extendUserApi,
+            deps: [Http, RoleApi]
+        },
+        {
+            provide: ConferenceApi,
+            useFactory: extendConferenceApi,
+            deps: [Http]
+        },
+        {
+            provide: RoleApi,
+            useFactory: extendRoleApi,
+            deps: [Http, PermissionEndpoint]
+        },
 
-        { provide: FormApi, useClass: FormEndpoint },
-        // {
-        //     provide: FormApi,
-        //     useFactory: extendFormApi,
-        //     deps: [Http]
-        // },
-
-        { provide: ApplicationApi, useClass: ApplicationEndpoint },
-        // {
-        //     provide: ApplicationApi,
-        //     useFactory: extendApplicationApi,
-        //     deps: [Http, FormApi, ConferenceApi, UserApi]
-        // },
-
-        { provide: UserApi, useClass: UserEndpoint },
-        // {
-        //     provide: UserApi,
-        //     useFactory: extendUserApi,
-        //     deps: [Http, RoleApi]
-        // },
-
-        { provide: ConferenceApi, useClass: ConferenceEndpoint },
-        // {
-        //     provide: ConferenceApi,
-        //     useFactory: extendConferenceApi,
-        //     deps: [Http]
-        // },
-
-        { provide: RoleApi, useClass: RoleEndpoint },
-        // {
-        //     provide: RoleApi,
-        //     useFactory: extendRoleApi,
-        //     deps: [Http, PermissionEndpoint]
-        // },
-
-        { provide: PermissionEndpoint, useClass: PermissionEndpoint },
         // TODO: wait for permission api
-        // {
-        //     provide: PermissionEndpoint,
-        //     useFactory: extendPermissionApi,
-        //     deps: [Http]
-        // },
+        {
+            provide: PermissionEndpoint,
+            useFactory: extendPermissionApi,
+            deps: [Http]
+        },
 
         // Extend HTTP
         {
             provide: Http,
             useFactory: extendHttp,
-            deps: [XHRBackend, RequestOptions, services.AuthenticationService]
+            deps: [XHRBackend, RequestOptions]
         }
     ],
     exports: [
@@ -140,8 +132,8 @@ export const CoreProviderMock = [
 /**
  * Factory Functions
  */
-export function extendHttp(xhrBackend: XHRBackend, requestOptions: RequestOptions, authentication: services.AuthenticationService) {
-    return new ExtendHttpService(xhrBackend, requestOptions, authentication);
+export function extendHttp(xhrBackend: XHRBackend, requestOptions: RequestOptions) {
+    return new ExtendHttpService(xhrBackend, requestOptions);
 }
 
 /**

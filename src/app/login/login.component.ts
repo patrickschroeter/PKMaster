@@ -69,8 +69,11 @@ export class LoginComponent implements OnInit {
      * Redirect the user to the start page if he is logged in
      */
     private automaticLogin() {
-        if (this.authentication.isLoggedIn()) {
+        const isLoggedIn = this.authentication.isLoggedIn();
+        if (!isLoggedIn) {
             this.authentication.logout();
+        } else {
+            this.redirect();
         }
     }
 
@@ -84,6 +87,7 @@ export class LoginComponent implements OnInit {
             this.redirect();
         }, error => {
             /** TODO: catch */
+            console.error(error);
             this.error = true;
         });
     }

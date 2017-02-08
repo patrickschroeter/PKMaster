@@ -15,8 +15,6 @@ import { Loading } from './../../../shared/decorators/loading.decorator';
 @Injectable()
 export class ConferenceService {
 
-    static DEFAULT_TOKEN = 17;
-
     private conference: Conference;
     private conferences: Conference[];
 
@@ -54,7 +52,7 @@ export class ConferenceService {
      */
     @Loading('createNewConference')
     public createNewConference(conference: Conference): Observable<Conference> {
-        return this.conferenceApi.addConference(ConferenceService.DEFAULT_TOKEN, conference).map(result => {
+        return this.conferenceApi.addConference(conference).map(result => {
             return this.conference = result;
         });
     }
@@ -65,7 +63,7 @@ export class ConferenceService {
      */
     @Loading('saveConference')
     public saveConference(conference: Conference): Observable<Conference> {
-        return this.conferenceApi.updateConferenceById(conference.id, ConferenceService.DEFAULT_TOKEN, conference).map(result => {
+        return this.conferenceApi.updateConferenceById(conference.id, conference).map(result => {
             return this.conference = result;
         });
     }

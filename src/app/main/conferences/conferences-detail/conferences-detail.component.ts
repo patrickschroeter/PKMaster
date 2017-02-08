@@ -106,7 +106,7 @@ export class ConferencesDetailComponent implements OnInit {
      * @param {ConferenceConfig} config
      * @param {Object} applications
      */
-    private setApplication(config: ConferenceConfig<any>, applications: Object) {
+    private setApplication(config: ConferenceConfig, applications: Object) {
         if (config.formId) {
             config.entries = applications[config.formId];
         } else if (config.type === 'config') {

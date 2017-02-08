@@ -150,7 +150,6 @@ export class ApplicationsDetailComponent implements OnInit {
     public createNewComment(values: Comment): void {
         const comment: Comment = values;
         comment.created = new Date();
-        /** TODO */ comment.text = comment.message;
         this.auth.getUser().subscribe(user => {
             comment.user = user;
             comment.userId = user.id;
@@ -160,6 +159,7 @@ export class ApplicationsDetailComponent implements OnInit {
             this.savingComment = true;
 
             this.applicationService.addCommentToApplication(comment).subscribe(result => {
+                this.application.comments = this.application.comments || [];
                 this.application.comments.push(result);
                 this.savingComment = false;
                 this.initAddCommentForm();
