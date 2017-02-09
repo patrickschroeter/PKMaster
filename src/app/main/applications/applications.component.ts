@@ -146,7 +146,7 @@ export class ApplicationsComponent implements OnInit {
      * Creates a confirmation modal to confirm deactivating the selected application
      * TODO: Prevent deactivate foreign application with Create & Read permission
      */
-    @Access(['CreateApplications', 'DeleteApplications'])
+    @Access(['CreateApplications', 'DeactivateApplications'])
     public deactivateApplicationModal(application: ApplicationDto): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmDeactivateApplicationHeader'),
@@ -161,7 +161,7 @@ export class ApplicationsComponent implements OnInit {
      * Deactivate the selected application
      * TODO: Prevent deactivate foreign application with Create & Read permission
      */
-    @Access(['CreateApplications', 'DeleteApplications'])
+    @Access(['CreateApplications', 'DeactivateApplications'])
     private deactivateApplication(application: ApplicationDto): void {
         this.applicationService.deactivateApplication(application).subscribe(result => {
             this.updateApplication(result);

@@ -57,7 +57,7 @@
 
                             <pk-floating horizontal top-right>
                                 <!--TODO: Prevent deactivate foreign application with Create & Read permission-->
-                                <ng-container *access="['CreateApplications', 'DeleteApplications']">
+                                <ng-container *access="['CreateApplications', 'DeactivateApplications']">
                                     <pk-button
                                         *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
                                         rounded

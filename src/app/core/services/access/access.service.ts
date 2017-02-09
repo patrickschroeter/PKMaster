@@ -20,7 +20,11 @@ export class AccessService implements CanActivate, CanDeactivate<any>, CanLoad {
             'CreateApplications',
             'ReadApplications',
             'EditApplications',
-            'DeleteApplications',
+            'CommentApplications',
+            'DeactivateApplications',
+            'AcceptApplications',
+            'SubmitApplications',
+            'ValidateApplications',
             'ReadForms',
             'EditForms',
             'ReadConferences',
@@ -30,6 +34,7 @@ export class AccessService implements CanActivate, CanDeactivate<any>, CanLoad {
             'ReadRoles',
             'EditRoles',
             'ReadPermissions',
+            'EditPermissions',
             'ReadUsers',
             'EditUsers'
         ]
@@ -107,7 +112,10 @@ export class AccessMain extends AccessService {
 export class AccessApplications extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess(['ReadApplications', 'CreateApplications', 'EditApplications', 'DeleteApplications'], true).map(access => {
+        return this.hasAccess([
+            'ReadApplications',
+            'CreateApplications'
+        ], true).map(access => {
             if (!access) {
                 this.router.navigate(['', 'profile']);
                 return false;
@@ -121,7 +129,10 @@ export class AccessApplications extends AccessService {
 export class AccessApplicationsDetail extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess(['ReadApplications', 'CreateApplications'], true);
+        return this.hasAccess([
+            'ReadApplications',
+            'CreateApplications'
+        ], true);
     }
 }
 
@@ -129,13 +140,25 @@ export class AccessApplicationsDetail extends AccessService {
 export class AccessApplicationsEdit extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess(['EditApplications', 'CreateApplications'], true);
+        return this.hasAccess([
+            'EditApplications',
+            'CreateApplications'
+        ], true);
     }
 }
 
 /**
  * Conferences
  */
+@Injectable()
+export class AccessConferences extends AccessService {
+    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.hasAccess(AccessService.map.main, true);
+    }
+}
+
+
 @Injectable()
 export class AccessConferencesDetail extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
@@ -195,7 +218,9 @@ export class AccessAdmin extends AccessService {
 export class AccessRoles extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess(['ReadRoles', 'EditRoles'], true).map(access => {
+        return this.hasAccess([
+            'ReadRoles'
+        ], true).map(access => {
             if (!access) {
                 this.router.navigate(['', 'admin', 'profile']);
                 return false;
@@ -209,7 +234,10 @@ export class AccessRoles extends AccessService {
 export class AccessRolesEdit extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess('EditRoles');
+        return this.hasAccess([
+            'EditRoles',
+            'ReadRoles'
+        ], true);
     }
 }
 
@@ -231,7 +259,10 @@ export class AccessPermissions extends AccessService {
 export class AccessUsers extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess(['ReadUsers', 'EditUsers']);
+        return this.hasAccess([
+            'ReadUsers',
+            'EditUsers'
+        ], true);
     }
 }
 
