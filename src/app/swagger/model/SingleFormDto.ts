@@ -46,4 +46,7 @@ export interface SingleFormDto {
 
     title?: string;
     created?: Date | Number;
+
+    requiresValidation?: boolean;
+    isActive?: boolean;
 }

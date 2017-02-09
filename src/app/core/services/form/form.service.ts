@@ -216,9 +216,6 @@ export class FormService {
                 label: this.translationService.translate('formName'),
                 value: (id && this.form) ? this.form.title : '',
                 required: true,
-                validations: [
-                    'minLength'
-                ],
                 styles: [
                     'small'
                 ]
@@ -231,6 +228,24 @@ export class FormService {
                 styles: [
                     'small',
                     'aligned'
+                ]
+            },
+            {
+                fieldType: 'checkbox',
+                name: 'requiresValidation',
+                label: this.translationService.translate('requiresValidation'),
+                value: (id && this.form) ? this.form.requiresValidation : false,
+                styles: [
+                    'small'
+                ]
+            },
+            {
+                fieldType: 'checkbox',
+                name: 'isActive',
+                label: this.translationService.translate('isActive'),
+                value: (id && this.form) ? this.form.isActive : false,
+                styles: [
+                    'small'
                 ]
             }
         ];
@@ -323,15 +338,12 @@ export class FormService {
      */
     @Loading('createNewForm')
     public createNewForm(submit: SingleFormDto): Observable<SingleFormDto> {
-        const newform: FormCreateDto = {
-            title: submit.id ? 'Copy of ' + submit.title : submit.title,
-            formHasField: submit.id ? submit.formHasField : [],
-            restrictedAccess: submit.restrictedAccess,
-            isPublic: true
-        };
+        const param = _.cloneDeep(submit);
+        param.title = submit.id ? 'Copy of ' + submit.title : submit.title;
+        param.formHasField = submit.id ? submit.formHasField : [];
 
         // TODO: save real data
-        return this.formApi.addForm(newform).map(form => {
+        return this.formApi.addForm(param).map(form => {
             return this.form = form;
         });
     }
