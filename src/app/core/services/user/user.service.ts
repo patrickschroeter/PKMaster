@@ -12,9 +12,24 @@ import { UserDto, RoleDto } from './../../../swagger';
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
 
+/**
+ * A service taking care of the users
+ *
+ * @export
+ * @class UserService
+ */
 @Injectable()
 export class UserService {
 
+    /**
+     * Creates an instance of UserService.
+     *
+     * @param {UserApi} userApi
+     * @param {AlertService} alert
+     * @param {TranslationService} translationService
+     *
+     * @memberOf UserService
+     */
     constructor(
         private userApi: UserApi,
         private alert: AlertService,
@@ -23,6 +38,10 @@ export class UserService {
 
     /**
      * get a list of all users
+     *
+     * @returns {Observable<Array>}
+     *
+     * @memberOf UserService
      */
     @Loading('getUsers')
     public getUsers(): Observable<Array<UserDto>> {
@@ -32,8 +51,40 @@ export class UserService {
     }
 
     /**
+     * get a list of all pk members
+     *
+     * @returns {Observable<Array>}
+     *
+     * @memberOf UserService
+     */
+    public getMembers(): Observable<Array<UserDto>> {
+        return this.userApi.getUsers().map(result => {
+            const param = result.filter(obj => obj.roles[0].name === 'Member');
+            return param;
+        });
+    }
+
+    /**
+     * get a list of all pk guests
+     *
+     * @returns {Observable<Array>}
+     *
+     * @memberOf UserService
+     */
+    public getGuests(): Observable<Array<UserDto>> {
+        return this.userApi.getUsers().map(result => {
+            const param = result.filter(obj => obj.roles[0].name === 'Docent');
+            return param;
+        });
+    }
+
+    /**
      * get user by id
-     * @param {String} id
+     *
+     * @param {string} id
+     * @returns {Observable<UserDto>}
+     *
+     * @memberOf UserService
      */
     @Loading('getUserById')
     public getUserById(id: string): Observable<UserDto> {
@@ -44,7 +95,11 @@ export class UserService {
 
     /**
      * update the user
-     * @param {AppUser} user
+     *
+     * @param {UserDto} user
+     * @returns {Observable<UserDto>}
+     *
+     * @memberOf UserService
      */
     @Loading('updateUser')
     public updateUser(user: UserDto): Observable<UserDto> {
@@ -55,8 +110,12 @@ export class UserService {
 
     /**
      * remove role from user
-     * @param {AppUser} user
-     * @param {Role} role
+     *
+     * @param {UserDto} user
+     * @param {RoleDto} role
+     * @returns {Observable<UserDto>}
+     *
+     * @memberOf UserService
      */
     @Loading('removeRoleFromUser')
     public removeRoleFromUser(user: UserDto, role: RoleDto): Observable<UserDto> {
@@ -67,8 +126,12 @@ export class UserService {
 
     /**
      * add role to user
-     * @param {String} userId
-     * @param {String} roleId
+     *
+     * @param {string} userId
+     * @param {string} roleId
+     * @returns {Observable<UserDto>}
+     *
+     * @memberOf UserService
      */
     @Loading('addRoleToUser')
     public addRoleToUser(userId: string, roleId: string): Observable<UserDto> {

@@ -10,18 +10,53 @@ import { TranslationService } from './../../modules/translation';
 /** Models */
 import { ConferenceDto, ConferenceCreateDto, FieldDto } from './../../swagger';
 
+/**
+ * A Component to list all conferences
+ *
+ * @export
+ * @class ConferencesComponent
+ * @implements {OnInit}
+ */
 @Component({
-  selector: 'pk-conferences',
-  templateUrl: './conferences.component.html',
-  styleUrls: ['./conferences.component.scss']
+    selector: 'pk-conferences',
+    templateUrl: './conferences.component.html',
+    styleUrls: ['./conferences.component.scss']
 })
 export class ConferencesComponent implements OnInit {
+
+    /**
+     * Default Layout Class for component
+     *
+     * @memberOf ConferencesComponent
+     */
     @HostBinding('class') classes = 'content--default';
 
+    /**
+     * a list of all conferences
+     *
+     * @type {ConferenceDto[]}
+     * @memberOf ConferencesComponent
+     */
     public conferences: ConferenceDto[];
 
+    /**
+     * Form config for creating a new conference
+     *
+     * @type {FieldDto[]}
+     * @memberOf ConferencesComponent
+     */
     public newConference: FieldDto[];
 
+    /**
+     * Creates an instance of ConferencesComponent.
+     *
+     * @param {Router} router
+     * @param {ModalService} modalService
+     * @param {TranslationService} translationService
+     * @param {ConferenceService} conferenceService
+     *
+     * @memberOf ConferencesComponent
+     */
     constructor(
         /** Angular */
         private router: Router,
@@ -32,6 +67,11 @@ export class ConferencesComponent implements OnInit {
         private conferenceService: ConferenceService,
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf ConferencesComponent
+     */
     ngOnInit() {
         this.conferenceService.getConferences().subscribe(conferences => {
             this.conferences = conferences;
@@ -42,7 +82,10 @@ export class ConferencesComponent implements OnInit {
 
     /**
      * create a new conference from input
-     * @param {Conference} form
+     *
+     * @param {ConferenceCreateDto} form
+     *
+     * @memberOf ConferencesComponent
      */
     public createConference(form: ConferenceCreateDto): void {
         this.conferenceService.createNewConference(form).subscribe(conference => {
@@ -54,7 +97,10 @@ export class ConferencesComponent implements OnInit {
 
     /**
      * clone conference
-     * @param {Conference} conference
+     *
+     * @param {ConferenceCreateDto} conference
+     *
+     * @memberOf ConferencesComponent
      */
     public cloneConference(conference: ConferenceCreateDto) {
         const param = _.cloneDeep(conference);
@@ -64,12 +110,18 @@ export class ConferencesComponent implements OnInit {
 
     /**
      * Delete the conference
-     * @param {Conference} conference
+     *
+     * @param {ConferenceDto} conference
+     *
+     * @memberOf ConferencesComponent
      */
-     public deleteConference(conference: ConferenceDto) {
+    public deleteConference(conference: ConferenceDto) {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmDeleteConferenceHeader'),
             message: this.translationService.translate('confirmDeleteConferenceContent'),
+            /**
+             * modal callback on confirm
+             */
             confirm: () => {
                 this.conferenceService.removeConference(conference.id).subscribe(result => {
                     const index = _.findIndex(this.conferences, obj => obj.id === conference.id);
@@ -80,5 +132,5 @@ export class ConferencesComponent implements OnInit {
                 });
             }
         });
-     }
+    }
 }

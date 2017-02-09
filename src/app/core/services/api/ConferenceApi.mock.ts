@@ -22,6 +22,7 @@ export class ConferenceApiMock {
     }
 
     public addConference(conference?: any, extraHttpRequestParams?: any): Observable<any> {
+        conference.id = 'anyid';
         return new Observable(observer => { observer.next(conference); });
     }
 

@@ -94,9 +94,9 @@ describe('ConferenceService', () => {
         });
 
         it('should create a new conference', () => {
-            service.createNewConference({ id: 'newid' }).subscribe(conference => {
+            service.createNewConference({ }).subscribe(conference => {
                 expect(conference).toBeDefined();
-                expect(conference.id).toEqual('newid');
+                expect(conference.id).toBeDefined();
             });
         });
 
