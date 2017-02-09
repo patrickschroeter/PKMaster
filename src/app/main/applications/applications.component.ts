@@ -63,6 +63,7 @@ export class ApplicationsComponent implements OnInit {
             }
         });
 
+        // TODO remove when filtered on server
         this.auth.getUser().subscribe(user => {
             this.user = user;
             /** get applications */
@@ -85,7 +86,7 @@ export class ApplicationsComponent implements OnInit {
     @Access('ReadApplications')
     private getAllApplications(): void {
         this.applicationService.getApplications().subscribe(result => {
-            this.activeTab = this.activeTab || (result.length ? 'all' : null);
+            this.activeTab = result.length ? 'all' : null;
             this.applications = result;
         });
     }

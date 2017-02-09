@@ -163,3 +163,15 @@ export class ApplicationsListComponent implements OnInit {
     }
 
 }
+
+@Component({
+    selector: 'pk-applications-list-owned',
+    templateUrl: './applications-list-owned.component.html'
+})
+export class ApplicationsListOwnedComponent extends ApplicationsListComponent { }
+
+@Component({
+    selector: 'pk-applications-list-assigned',
+    templateUrl: './applications-list-assigned.component.html'
+})
+export class ApplicationsListAssignedComponent extends ApplicationsListComponent { }

@@ -9,7 +9,7 @@
             <div class="tab-navigation">
                 <div class="tab selectable" *accessCreateApplications (click)="activeTab = 'owned';" [ngClass]="{ 'selectable--active': activeTab === 'owned' }">Owned</div>
                 <div class="tab selectable" *ngIf="assignedApplications && assignedApplications.length" (click)="activeTab = 'assigned';" [ngClass]="{ 'selectable--active': activeTab === 'assigned' }">Assigned</div>
-                <ng-container *accessReadConferences>
+                <ng-container *accessReadApplications>
                     <div class="tab selectable" *ngIf="applications && applications.length" (click)="activeTab = 'all';" [ngClass]="{ 'selectable--active': activeTab === 'all' }">All</div>
                 </ng-container>
             </div>
@@ -33,11 +33,10 @@
 
                     <ng-container *ngIf="ownApplications.length">
                         <h3 i18n>Own applications</h3>
-                        <pk-applications-list [applications]="ownApplications" [user]="user"></pk-applications-list>
+                        <pk-applications-list-owned [applications]="ownApplications" [user]="user"></pk-applications-list-owned>
 
                         <pk-floating fixed top-right>
                             <pk-button
-                                *accessCreateApplications
                                 element--secondary
                                 rounded
                                 i18n-pkAlert
@@ -54,7 +53,7 @@
             <ng-container *ngIf="assignedApplications && activeTab === 'assigned'">
                 <ng-container *ngIf="assignedApplications.length">
                     <h3 i18n>Assigned applications</h3>
-                    <pk-applications-list [applications]="assignedApplications" [user]="user"></pk-applications-list>
+                    <pk-applications-list-assigned [applications]="assignedApplications"></pk-applications-list-assigned>
                 </ng-container>
             </ng-container>
 
@@ -63,7 +62,7 @@
                 <ng-container *ngIf="applications && activeTab === 'all'">
                     <ng-container *ngIf="applications.length">
                         <h3 i18n>All applications</h3>
-                        <pk-applications-list [applications]="applications" [user]="user"></pk-applications-list>
+                        <pk-applications-list [applications]="applications"></pk-applications-list>
                     </ng-container>
                 </ng-container>
             </ng-container>

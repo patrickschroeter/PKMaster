@@ -51,26 +51,24 @@ export class RoleApiMock {
             PermissionApiMock.PERMISSION.Application.Deactivate,
             PermissionApiMock.PERMISSION.Application.Comment,
             PermissionApiMock.PERMISSION.Application.Accept,
+            PermissionApiMock.PERMISSION.Application.Validate,
+            PermissionApiMock.PERMISSION.Application.Submit,
             PermissionApiMock.PERMISSION.Conference.Read,
             PermissionApiMock.PERMISSION.Conference.Edit,
             PermissionApiMock.PERMISSION.Forms.Read,
             PermissionApiMock.PERMISSION.Forms.Edit
         ],
         Member: [
-            PermissionApiMock.PERMISSION.Application.Create,
             PermissionApiMock.PERMISSION.Application.Read,
             PermissionApiMock.PERMISSION.Application.Comment,
-            PermissionApiMock.PERMISSION.Conference.Read,
-            PermissionApiMock.PERMISSION.Forms.Read
+            PermissionApiMock.PERMISSION.Application.Validate,
+            PermissionApiMock.PERMISSION.Conference.Read
         ],
         Docent: [
-            PermissionApiMock.PERMISSION.Application.Create,
-            PermissionApiMock.PERMISSION.Conference.Read,
-            PermissionApiMock.PERMISSION.Forms.Read
+            PermissionApiMock.PERMISSION.Application.Create
         ],
         Student: [
-            PermissionApiMock.PERMISSION.Application.Create,
-            PermissionApiMock.PERMISSION.Forms.Read
+            PermissionApiMock.PERMISSION.Application.Create
         ],
 
         Observer: [
