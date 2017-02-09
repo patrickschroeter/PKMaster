@@ -25,6 +25,8 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
         components.ModalChangePasswordComponent,
         components.ModalAcceptApplicationComponent,
 
+        components.ApplicationsListComponent,
+
         components.ConferenceEntryComponent,
         components.ConferenceEntryDetailComponent,
 
@@ -65,6 +67,8 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
 
         components.ModalChangePasswordComponent,
         components.ModalAcceptApplicationComponent,
+
+        components.ApplicationsListComponent,
 
         components.ConferenceEntryComponent,
         components.ConferenceEntryDetailComponent,

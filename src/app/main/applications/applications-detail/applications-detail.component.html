@@ -35,7 +35,7 @@
                 <pk-list-content>
                     <pk-list-element *ngFor="let user of application.assignments">
                         <pk-list-attribute name="name">
-                            {{ userLabels[user] }}
+                            {{ user.firstname }}
                         </pk-list-attribute>
 
                         <pk-floating top-right horizontal>

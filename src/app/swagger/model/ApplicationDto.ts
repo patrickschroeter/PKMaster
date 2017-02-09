@@ -50,8 +50,6 @@ export interface ApplicationDto {
 
     formId?: string;
 
-    assignments?: Array<string>;
-
     comments?: Array<models.CommentDto>;
 
     // Custom
@@ -60,6 +58,8 @@ export interface ApplicationDto {
     userId?: string;
     conference?: models.ConferenceDto;
     confirmed?: Boolean;
+
+    assignments?: Array<models.UserDto>;
 
     // Client Only
 

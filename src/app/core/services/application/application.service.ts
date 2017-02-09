@@ -10,7 +10,7 @@ import { ApplicationApi } from './../../../swagger/api/ApplicationApi';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { ApplicationDto, FieldDto, ApplicationCreateDto, CommentDto } from './../../../swagger';
+import { ApplicationDto, FieldDto, ApplicationCreateDto, CommentDto, UserDto } from './../../../swagger';
 
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
@@ -75,6 +75,25 @@ export class ApplicationService {
             if (sort) {
                 applications.sort(function (a, b) { return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
             }
+            return this.applications = applications;
+        });
+    }
+
+    @Loading('getApplications')
+    public getOwnApplications(sort?: string, user?: UserDto): Observable<any> {
+        return this.applicationApi.getApplications().map(param => {
+            const applications  = param.filter(obj => obj.userId === user.id);
+            return this.applications = applications;
+        });
+    }
+
+    @Loading('getApplications')
+    public getAssignedApplications(sort?: string, user?: UserDto): Observable<any> {
+        return this.applicationApi.getApplications().map(param => {
+            const applications  = param.filter(obj => {
+               const assignment = _.find(obj.assignments, assign => assign.id === user.id);
+               return !!assignment ;
+            });
             return this.applications = applications;
         });
     }

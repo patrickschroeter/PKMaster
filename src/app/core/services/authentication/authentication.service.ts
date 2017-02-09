@@ -51,7 +51,7 @@ export class AuthenticationService {
      * @type {Number}
      * @memberOf AuthenticationService
      */
-    private expiration: number;
+    private expiration = 0;
 
     /**
      * the user observable
@@ -112,11 +112,9 @@ export class AuthenticationService {
     get token(): string {
         const time = +localStorage.getItem(AuthenticationService.TOKEN_TIME_KEY);
         const token = localStorage.getItem(AuthenticationService.TOKEN_KEY);
-        console.log(time);
-        console.log(Date.now());
         if (time >= Date.now() && token) {
             // TODO refresh token
-            localStorage.setItem(AuthenticationService.TOKEN_TIME_KEY, (Date.now() + this.expiration).toString());
+            localStorage.setItem(AuthenticationService.TOKEN_TIME_KEY, (Date.now() + 120000000).toString());
             return token;
         } else {
             this.logout();
@@ -187,7 +185,7 @@ export class AuthenticationService {
 
                 // log the user in and save token
                 this.userApi.login(username, password).subscribe(bearer => {
-                    this.expiration = bearer.expires_in / 3 * 1000;
+                    this.expiration = (bearer.expires_in / 3) * 60 * 1000;
                     this.token = `${bearer.token_type} ${bearer.access_token}`;
 
                     // get the user object

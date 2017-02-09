@@ -40,7 +40,7 @@ describe('ConferenceService', () => {
         }));
 
         it('should call the api', () => {
-            spyOn(api, 'getConferenceById').and.returnValue(new Observable(obs => obs.next('id')));
+            spyOn(api, 'getConferenceById').and.returnValue(new Observable(obs => obs.next({})));
             service.getConferenceById('1').subscribe();
             expect(api.getConferenceById).toHaveBeenCalled();
         });

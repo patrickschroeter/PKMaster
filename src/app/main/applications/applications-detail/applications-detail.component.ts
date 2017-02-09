@@ -294,7 +294,7 @@ export class ApplicationsDetailComponent implements OnInit {
             list: this.users,
             click: this.assignUser.bind(this),
 
-            selectedValues: this.application.assignments,
+            selectedValues: this.application.assignments ? this.application.assignments.map(obj => obj.id) : [],
 
             emptyText: this.translationService.translate('noUsersAvailable')
         });
@@ -307,15 +307,23 @@ export class ApplicationsDetailComponent implements OnInit {
     public assignUser(user: Selectable): void {
         const param = _.cloneDeep(this.application);
         if (!param.assignments) { param.assignments = []; }
-        const index = param.assignments.indexOf(user.value);
+        const index = _.findIndex(param.assignments, obj => obj.id === user.value);
         if (index === -1) {
             param.assignments.push(user.value);
+            this.userService.getUserById(user.value).subscribe(result => {
+                param.assignments.push(result);
+                this.saveApplication(param);
+            });
         } else {
             param.assignments.splice(index, 1);
+            this.saveApplication(param);
         }
+    }
+
+    private saveApplication(param: ApplicationDto): void {
         this.applicationService.updateApplication(param).subscribe(result => {
             this.application = result;
-            this.modalService.updateSelectedValues(this.application.assignments);
+            this.modalService.updateSelectedValues(this.application.assignments.map(obj => obj.id));
         });
     }
 

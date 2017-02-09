@@ -156,8 +156,8 @@ export class ConferencesDetailComponent implements OnInit {
         if (!param.attendants) { param.attendants = []; }
         const index = _.findIndex(param.attendants, obj => obj.id === user.value);
         if (index === -1) {
-            this.userService.getUserById(user.value).subscribe(retult => {
-                param.attendants.push(retult);
+            this.userService.getUserById(user.value).subscribe(result => {
+                param.attendants.push(result);
                 this.saveConference(param);
             });
         } else {
