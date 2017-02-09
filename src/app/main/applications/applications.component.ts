@@ -32,6 +32,8 @@ export class ApplicationsComponent implements OnInit {
     public assignedApplications: ApplicationDto[];
     public applications: ApplicationDto[];
 
+    public activeTab: string;
+
     private applicationTypes: Array<Selectable>;
 
     public user: UserDto;
@@ -70,12 +72,12 @@ export class ApplicationsComponent implements OnInit {
 
     private getApplications(): void {
         this.applicationService.getOwnApplications(null, this.user).subscribe(result => {
+            this.activeTab = this.activeTab || (result ? 'owned' : null);
             this.ownApplications = result;
-            console.log(result);
         });
         this.applicationService.getAssignedApplications(null, this.user).subscribe(result => {
+            this.activeTab = this.activeTab || (result.length ? 'assigned' : null);
             this.assignedApplications = result;
-            console.log(result);
         });
         this.getAllApplications();
     }
@@ -83,6 +85,7 @@ export class ApplicationsComponent implements OnInit {
     @Access('ReadApplications')
     private getAllApplications(): void {
         this.applicationService.getApplications().subscribe(result => {
+            this.activeTab = this.activeTab || (result.length ? 'all' : null);
             this.applications = result;
         });
     }

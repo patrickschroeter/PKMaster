@@ -1,0 +1,10 @@
+.tab-navigation {
+    @include clearfix();
+    border-bottom: 1px solid $darkwhite;
+
+    .tab {
+        float: left;
+        padding: 8px 13px;
+        border-radius: 0;
+    }
+}
