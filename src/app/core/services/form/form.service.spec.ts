@@ -110,13 +110,12 @@ describe('Service: Form', () => {
                 expect(api.addForm).toHaveBeenCalledWith({
                     title: submit.title,
                     restrictedAccess: submit.restrictedAccess,
-                    isPublic: true,
                     formHasField: []
                 });
             });
         });
 
-        it('should copy the form (title restrictedAccess, isPublic, formHasField)', () => {
+        it('should copy the form (title restrictedAccess, formHasField)', () => {
             spyOn(api, 'addForm').and.returnValue(new Observable(obs => { obs.next('value'); }));
             const submit: SingleFormDto = {
                 id: 'id',
@@ -128,7 +127,6 @@ describe('Service: Form', () => {
                 expect(api.addForm).toHaveBeenCalledWith({
                     title: 'Copy of ' + submit.title,
                     restrictedAccess: submit.restrictedAccess,
-                    isPublic: true,
                     formHasField: submit.formHasField
                 });
             });

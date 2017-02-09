@@ -185,7 +185,6 @@ export class FormService {
             this.setAddingElement(false);
         }
         this.editingElementIndex = -1;
-        this.form.title = 'sparta'
         return true;
     }
 
@@ -339,6 +338,7 @@ export class FormService {
     @Loading('createNewForm')
     public createNewForm(submit: SingleFormDto): Observable<SingleFormDto> {
         const param = _.cloneDeep(submit);
+        delete param.id;
         param.title = submit.id ? 'Copy of ' + submit.title : submit.title;
         param.formHasField = submit.id ? submit.formHasField : [];
 
