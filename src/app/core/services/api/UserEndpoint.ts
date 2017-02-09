@@ -212,9 +212,9 @@ export class UserEndpoint {
 
                 return {
                     token_type: 'local',
-                    access_token: list[i]['token']
-                }
-                // return JSON.parse(JSON.stringify(list[i]));
+                    access_token: list[i]['token'],
+                    expires_in: 3600
+                };
             }
         }
         return null;

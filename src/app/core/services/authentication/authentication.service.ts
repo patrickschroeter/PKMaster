@@ -47,11 +47,11 @@ export class AuthenticationService {
     /**
      * time the token is valid
      *
-     * @static
+     * @private
      * @type {Number}
      * @memberOf AuthenticationService
      */
-    static TOKEN_TIME: number = 1000 * 60 * 60 * 24;
+    private expiration: number;
 
     /**
      * the user observable
@@ -112,9 +112,11 @@ export class AuthenticationService {
     get token(): string {
         const time = +localStorage.getItem(AuthenticationService.TOKEN_TIME_KEY);
         const token = localStorage.getItem(AuthenticationService.TOKEN_KEY);
+        console.log(time);
+        console.log(Date.now());
         if (time >= Date.now() && token) {
             // TODO refresh token
-            localStorage.setItem(AuthenticationService.TOKEN_TIME_KEY, (Date.now() + AuthenticationService.TOKEN_TIME).toString());
+            localStorage.setItem(AuthenticationService.TOKEN_TIME_KEY, (Date.now() + this.expiration).toString());
             return token;
         } else {
             this.logout();
@@ -135,7 +137,7 @@ export class AuthenticationService {
             localStorage.removeItem(AuthenticationService.TOKEN_TIME_KEY);
             return;
         }
-        localStorage.setItem(AuthenticationService.TOKEN_TIME_KEY, (Date.now() + AuthenticationService.TOKEN_TIME).toString());
+        localStorage.setItem(AuthenticationService.TOKEN_TIME_KEY, (Date.now() + this.expiration).toString());
         localStorage.setItem(AuthenticationService.TOKEN_KEY, token);
     }
 
@@ -185,6 +187,7 @@ export class AuthenticationService {
 
                 // log the user in and save token
                 this.userApi.login(username, password).subscribe(bearer => {
+                    this.expiration = bearer.expires_in / 3 * 1000;
                     this.token = `${bearer.token_type} ${bearer.access_token}`;
 
                     // get the user object
