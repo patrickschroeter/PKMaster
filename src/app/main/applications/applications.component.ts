@@ -72,12 +72,11 @@ export class ApplicationsComponent implements OnInit {
     }
 
     private getApplications(): void {
+        this.activeTab = 'owned';
         this.applicationService.getOwnApplications(null, this.user).subscribe(result => {
-            this.activeTab = this.activeTab || (result ? 'owned' : null);
             this.ownApplications = result;
         });
         this.applicationService.getAssignedApplications(null, this.user).subscribe(result => {
-            this.activeTab = this.activeTab || (result.length ? 'assigned' : null);
             this.assignedApplications = result;
         });
         this.getAllApplications();
@@ -85,8 +84,8 @@ export class ApplicationsComponent implements OnInit {
 
     @Access('ReadApplications')
     private getAllApplications(): void {
+        this.activeTab = 'all';
         this.applicationService.getApplications().subscribe(result => {
-            this.activeTab = result.length ? 'all' : null;
             this.applications = result;
         });
     }
