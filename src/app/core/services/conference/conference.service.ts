@@ -31,6 +31,7 @@ export class ConferenceService {
     @Loading('getConferenceById')
     public getConferenceById(id: string): Observable<ConferenceDto> {
         return this.conferenceApi.getConferenceById(id).map(conference => {
+            if (!conference.attendants) { conference.attendants = []; }
             return this.conference = conference;
         });
     }

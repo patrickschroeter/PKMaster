@@ -151,17 +151,22 @@ export class ConferencesDetailComponent implements OnInit {
      * add/remove a user from the conference
      * @param {Selectable} user
      */
-    public assignUser(user: Selectable): void {
+    private assignUser(user: Selectable): void {
         const param: ConferenceDto = _.cloneDeep(this.conference);
         if (!param.attendants) { param.attendants = []; }
         const index = _.findIndex(param.attendants, obj => obj.id === user.value);
         if (index === -1) {
-            // TODO: add new attendant to server and return user object to push
-            console.error('TODO');
-            // param.attendants.push(user.value);
+            this.userService.getUserById(user.value).subscribe(retult => {
+                param.attendants.push(retult);
+                this.saveConference(param);
+            });
         } else {
             param.attendants.splice(index, 1);
+            this.saveConference(param);
         }
+    }
+
+    private saveConference(param: ConferenceDto): void {
         this.conferenceService.saveConference(param).subscribe(result => {
             this.conference = result;
             this.modalService.updateSelectedValues(this.conference.attendants.map(obj => obj.id));

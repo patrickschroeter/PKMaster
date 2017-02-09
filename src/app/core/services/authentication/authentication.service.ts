@@ -113,6 +113,7 @@ export class AuthenticationService {
         const time = +localStorage.getItem(AuthenticationService.TOKEN_TIME_KEY);
         const token = localStorage.getItem(AuthenticationService.TOKEN_KEY);
         if (time >= Date.now() && token) {
+            // TODO refresh token
             localStorage.setItem(AuthenticationService.TOKEN_TIME_KEY, (Date.now() + AuthenticationService.TOKEN_TIME).toString());
             return token;
         } else {
