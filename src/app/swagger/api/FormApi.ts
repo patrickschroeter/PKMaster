@@ -1,6 +1,6 @@
 /**
  * API Schnittstelle für die Prüfungskommision der Hochschule Augsburg
- * Hier sind alle Routen aufgelistet die zur verfügung stehen. Zuvor muss jedoch ein JWT Token überden Authorize Button hinzufügen
+ * Hier sind alle Routen aufgelistet die zur verfügung stehen. Zuvor muss jedoch ein JWT Token überden Authorize Button hinzugefügt werden
  *
  * OpenAPI spec version: v1
  *
@@ -48,7 +48,7 @@ export class FormApi {
      *
      * @param form new Form
      */
-    public addForm (form?: models.Form, extraHttpRequestParams?: any ) : Observable<models.FormsDto> {
+    public addForm (form?: models.FormCreateDto, extraHttpRequestParams?: any ) : Observable<models.FormsDto> {
         const path = this.basePath + '/forms';
 
         let queryParameters = new URLSearchParams();
@@ -106,7 +106,7 @@ export class FormApi {
      *
      * @param formId ID of the Form
      */
-    public getFormById (formId: string, extraHttpRequestParams?: any ) : Observable<models.Form> {
+    public getFormById (formId: string, extraHttpRequestParams?: any ) : Observable<models.SingleFormDto> {
         const path = this.basePath + '/forms/{formId}'
             .replace('{' + 'formId' + '}', String(formId));
 
@@ -163,7 +163,7 @@ export class FormApi {
      * @param formId ID of the Form
      * @param form Updated Form
      */
-    public updateFormById (formId: string, form?: models.Form, extraHttpRequestParams?: any ) : Observable<models.Form> {
+    public updateFormById (formId: string, form?: models.SingleFormDto, extraHttpRequestParams?: any ) : Observable<models.SingleFormDto> {
         const path = this.basePath + '/forms/{formId}'
             .replace('{' + 'formId' + '}', String(formId));
 

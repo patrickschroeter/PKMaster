@@ -8,7 +8,7 @@ export class ListAttributeComponent implements OnInit, AfterViewInit {
 
     @HostBinding('class.list-element__attribute') attribute = true;
 
-    @Input() name;
+    @Input() name: string;
 
     constructor(private renderer: Renderer, private elementRef: ElementRef) { }
 

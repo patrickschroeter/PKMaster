@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Injector } from '@angular/core';
 
 import { OverlayComponent } from './../';
 
-import { Field } from './../../../../swagger';
+import { FieldDto } from './../../../../swagger';
 
 @Component({
   selector: 'pk-modal-confirmation',
@@ -20,7 +20,7 @@ export class ModalConfirmationComponent implements OnInit {
     public cancel: Function;
     public cancelText: string;
 
-    public confirmationForm: Field[];
+    public confirmationForm: FieldDto[];
 
     constructor(private injector: Injector) {
         this.title = this.injector.get('title');

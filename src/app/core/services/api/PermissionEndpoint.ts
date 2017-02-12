@@ -55,7 +55,7 @@ export class PermissionEndpoint {
     private _permission(id?: string): Permission {
         let result: Permission;
         const list = this._list;
-        for (let i = 0, length = list.length; i < length; i++) {
+        for (let i = 0; i < list.length; i++) {
             if (list[i].id === id) {
                 result = list[i];
             }
@@ -66,7 +66,7 @@ export class PermissionEndpoint {
 
     private _permissionUpdate(id: string, permission: Permission) {
         const list = this._list;
-        for (let i = 0, length = list.length; i < length; i++) {
+        for (let i = 0; i < list.length; i++) {
             if (list[i].id === id) {
                 list[i] = permission;
                 return JSON.parse(JSON.stringify(list[i]));

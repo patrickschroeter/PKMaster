@@ -12,25 +12,71 @@ import { ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { AppUser, Field, Role } from './../../../swagger';
+import { UserDto, FieldDto, RoleDto } from './../../../swagger';
 import { Fields, Selectable } from './../../../models';
 
 /** Decorators */
 import { Access } from './../../../shared/decorators/access.decorator';
 
+/**
+ *
+ *
+ * @export
+ * @class UsersDetailComponent
+ * @implements {OnInit}
+ */
 @Component({
     selector: 'pk-users-detail',
     templateUrl: './users-detail.component.html',
     styleUrls: ['./users-detail.component.scss']
 })
 export class UsersDetailComponent implements OnInit {
+
+    /**
+     * Default Layout class
+     *
+     * @memberOf UsersDetailComponent
+     */
     @HostBinding('class') classes = 'content--default';
 
-    public user: AppUser;
-    public form: Field[];
+    /**
+     * the selected user
+     *
+     * @type {UserDto}
+     * @memberOf UsersDetailComponent
+     */
+    public user: UserDto;
 
+    /**
+     * the user form
+     *
+     * @type {FieldDto[]}
+     * @memberOf UsersDetailComponent
+     */
+    public form: FieldDto[];
+
+    /**
+     * a list of all roles as Selectable
+     *
+     * @private
+     * @type {Selectable[]}
+     * @memberOf UsersDetailComponent
+     */
     private roles: Selectable[];
 
+    /**
+     * Creates an instance of UsersDetailComponent.
+     *
+     * @param {UserService} userService
+     * @param {ActivatedRoute} activatedRoute
+     * @param {Router} router
+     * @param {PermissionService} permission
+     * @param {ModalService} modalService
+     * @param {TranslationService} translationService
+     * @param {RoleService} roleService
+     *
+     * @memberOf UsersDetailComponent
+     */
     constructor(
         private userService: UserService,
         private activatedRoute: ActivatedRoute,
@@ -41,6 +87,11 @@ export class UsersDetailComponent implements OnInit {
         private roleService: RoleService
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf UsersDetailComponent
+     */
     ngOnInit() {
         this.getUser();
 
@@ -51,6 +102,10 @@ export class UsersDetailComponent implements OnInit {
 
     /**
      * get the user by param id
+     *
+     * @private
+     *
+     * @memberOf UsersDetailComponent
      */
     @Access('ReadUsers')
     private getUser(): void {
@@ -68,10 +123,14 @@ export class UsersDetailComponent implements OnInit {
 
     /**
      * initialize the user form
-     * @param {AppUser} user
+     *
+     * @private
+     * @param {UserDto} user
+     *
+     * @memberOf UsersDetailComponent
      */
     @Access('ReadUsers')
-    private initUserForm(user: AppUser) {
+    private initUserForm(user: UserDto) {
         this.form = [
             new Fields.Firstname(user.firstname),
             new Fields.Lastname(user.lastname),
@@ -83,10 +142,13 @@ export class UsersDetailComponent implements OnInit {
 
     /**
      * remove role from user
-     * @param {Role} role
+     *
+     * @param {RoleDto} role
+     *
+     * @memberOf UsersDetailComponent
      */
     @Access(['EditUsers', 'EditRoles'])
-    private removeRole(role: Role): void {
+    public removeRole(role: RoleDto): void {
         this.userService.removeRoleFromUser(this.user, role).subscribe(result => {
             this.user = result;
         });
@@ -94,6 +156,8 @@ export class UsersDetailComponent implements OnInit {
 
     /**
      * open the modal to add permission to role
+     *
+     * @memberOf UsersDetailComponent
      */
     @Access(['EditUsers', 'EditRoles'])
     public addRoleToUserModal(): void {
@@ -113,12 +177,16 @@ export class UsersDetailComponent implements OnInit {
 
     /**
      * add/remove the given permission to the role
+     *
+     * @private
      * @param {Selectable} data
+     *
+     * @memberOf UsersDetailComponent
      */
     @Access(['EditUsers', 'EditRoles'])
     private addRoleToUser(data: Selectable): void {
-        const role = _.find(this.user.roles, obj => obj.id === data.value);
-        const fn = result => {
+        const role = _.find(this.user.roles, (obj: RoleDto) => obj.id === data.value);
+        const fn = (result: UserDto) => {
             this.user = result;
             this.modalService.updateSelectedValues(result.roles.map(obj => { return obj.id; }));
         };

@@ -25,7 +25,7 @@ export class ConferenceEntryConfigComponent implements OnInit {
      * @param {ConferenceConfig} element
      */
     public removeElement(element: ConferenceConfig): void {
-        const index = _.findIndex(this.entry.entries, obj => obj === element);
+        const index = _.findIndex(this.entry.entries, (obj: any) => obj === element);
         if (index !== -1) {
             this.entry.entries.splice(index, 1);
         }
@@ -34,7 +34,7 @@ export class ConferenceEntryConfigComponent implements OnInit {
     /**
      * ngFor trackByFn
      */
-    public trackByFn(index, item) {
+    public trackByFn(index: number, item: any) {
         return index;
     }
 

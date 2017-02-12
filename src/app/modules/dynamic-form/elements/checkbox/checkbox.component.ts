@@ -3,7 +3,7 @@ import { FormControl, AbstractControl, FormGroup } from '@angular/forms';
 
 import { DynamicFormComponent } from './../../dynamic-form.component';
 
-import { Field } from './../../../../swagger';
+import { FieldDto } from './../../../../swagger';
 
 @Component({
     selector: 'pk-checkbox',
@@ -15,7 +15,7 @@ export class CheckboxComponent implements OnInit {
     @HostBinding('class.element') element = true;
     @HostBinding('class.element--primary') elementPrimary = true;
 
-    @Input() config: Field;
+    @Input() config: FieldDto;
     @Input() disabled: boolean;
     @Input() form: FormGroup;
 

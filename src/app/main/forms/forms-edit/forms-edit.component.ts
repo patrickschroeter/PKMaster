@@ -10,7 +10,7 @@ import {
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { Field, Form } from './../../../swagger';
+import { FieldDto, SingleFormDto } from './../../../swagger';
 import { Selectable } from './../../../models';
 
 /**
@@ -52,7 +52,7 @@ export class FormsEditComponent implements OnInit {
      * @type {Form}
      * @memberOf FormsEditComponent
      */
-    private _form: Form;
+    private _form: SingleFormDto;
 
     /**
      * getter method for _form
@@ -66,7 +66,7 @@ export class FormsEditComponent implements OnInit {
      *
      * @memberOf FormsEditComponent
      */
-    set form(form: Form) { this._form = form; }
+    set form(form: SingleFormDto) { this._form = form; }
 
     /**
      * The form to edit the Form attributes
@@ -75,7 +75,7 @@ export class FormsEditComponent implements OnInit {
      * @type {Field[]}
      * @memberOf FormsEditComponent
      */
-    private _editForm: Field[];
+    private _editForm: FieldDto[];
 
     /**
      * getter method for _editForm
@@ -90,7 +90,7 @@ export class FormsEditComponent implements OnInit {
      *
      * @memberOf FormsEditComponent
      */
-    set editForm(form: Field[]) { this._editForm = form; }
+    set editForm(form: FieldDto[]) { this._editForm = form; }
 
     /**
      * Flag if Add Element View is open
@@ -138,7 +138,7 @@ export class FormsEditComponent implements OnInit {
         this.getForm();
 
         /** subscribe to the add element flag */
-        this.formService.getAddingElement().subscribe(addingElement => {
+        this.formService.getAddingElement().subscribe((addingElement: boolean) => {
             this.addingElement = addingElement;
         });
     }
@@ -171,7 +171,7 @@ export class FormsEditComponent implements OnInit {
      *
      * @memberOf FormsEditComponent
      */
-    public editElement(element: Field): void {
+    public editElement(element: FieldDto): void {
         this.formService.editElementOfForm(element);
     }
 
@@ -235,7 +235,7 @@ export class FormsEditComponent implements OnInit {
      *
      * @memberOf FormsEditComponent
      */
-    public removeElement(element: Field, index: number): void {
+    public removeElement(element: FieldDto, index: number): void {
         this.formService.removeElement(element, index);
     }
 
@@ -259,7 +259,7 @@ export class FormsEditComponent implements OnInit {
      *
      * @memberOf FormsEditComponent
      */
-    public saveFormAttributes(form: Form): void {
+    public saveFormAttributes(form: SingleFormDto): void {
         this.formService.saveFormAttributes(form).subscribe(success => {
             this.form = success;
             this.overlayAttributes.toggle(false);

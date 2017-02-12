@@ -9,7 +9,7 @@ export class AlertDirective {
 
     @Input() pkAlert: string;
 
-    private delay: number = 700;
+    private delay = 700;
     private timeout: any;
 
     constructor(private alert: AlertService) { }

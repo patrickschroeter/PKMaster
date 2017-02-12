@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { FormElementService } from './../../../core';
-import { Field } from './../../../swagger';
+import { FieldDto } from './../../../swagger';
 
 @Component({
     selector: 'pk-element-edit',
@@ -12,21 +12,21 @@ import { Field } from './../../../swagger';
 export class ElementEditComponent implements OnInit {
 
     /** The current Element as FormElement[] */
-    private _element: Array<Field>;
+    private _element: Array<FieldDto>;
     get element() { return this._element; }
-    set element(element: Array<Field>) { this._element = element; }
+    set element(element: Array<FieldDto>) { this._element = element; }
     /** The new Element interpreted as new FormElement */
-    private _elementPreview: Array<Field> = [];
+    private _elementPreview: Array<FieldDto> = [];
     get elementPreview() { return this._elementPreview; }
-    set elementPreview(element: Array<Field>) { this._elementPreview = element; }
+    set elementPreview(element: Array<FieldDto>) { this._elementPreview = element; }
     /** Flag if View has Submit Enabled */
-    private elementHasSubmit: boolean = false;
+    private elementHasSubmit: Boolean = false;
     /** Flag if View has Preview Enabled */
-    private elementHasPreview: boolean = false;
+    private elementHasPreview: Boolean = false;
     /** Flag if Element has Validations */
-    private elementHasValidations: boolean = false;
+    private elementHasValidations: Boolean = false;
     /** Flag if Element has Styles */
-    private elementHasStyles: boolean = false;
+    private elementHasStyles: Boolean = false;
 
     constructor(private elementService: FormElementService) { }
 
@@ -77,11 +77,11 @@ export class ElementEditComponent implements OnInit {
      * @param {FormElement} element
      * @return {void}
      */
-    saveElement(element: Field): void {
+    saveElement(element: FieldDto): void {
         this.elementService.saveElement(element);
     }
 
-    copyElement(element: Field, type: 'clone' | 'add'): void {
+    copyElement(element: FieldDto, type: 'clone' | 'add'): void {
         this.elementService.saveElement(element, type);
     }
 

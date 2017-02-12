@@ -1,0 +1,101 @@
+<pk-list>
+    <pk-list-header>
+        <!--<pk-list-attribute name="state-icon" (click)="sortBy('status')"></pk-list-attribute>-->
+        <pk-list-attribute name="state" i18n>Status</pk-list-attribute>
+        <pk-list-attribute name="name" i18n>Title</pk-list-attribute>
+        <pk-list-attribute name="author" *accessEditApplications i18n>Author</pk-list-attribute>
+        <pk-list-attribute name="conference" i18n>Conference</pk-list-attribute>
+        <pk-list-attribute name="date" i18n>Created</pk-list-attribute>
+        <pk-list-attribute name="modified" i18n>Modified</pk-list-attribute>
+    </pk-list-header>
+    <pk-list-content>
+        <pk-list-element *ngFor="let application of applications" [name]="application.status?.name">
+
+            <pk-list-attribute name="state">{{ application.status?.name }}</pk-list-attribute>
+
+            <pk-list-attribute name="name" *ngIf="application.form">
+                <a routerLink="/applications/{{ application.id }}">{{ application.form.title }}</a>
+            </pk-list-attribute>
+            <pk-list-attribute name="name" *ngIf="!application.form">
+                <a routerLink="/applications/{{ application.id }}" i18n>No Form to get Title from.</a>
+            </pk-list-attribute>
+
+            <pk-list-attribute name="author">{{ application.user ? application.user.lastname : '' }}</pk-list-attribute>
+            <pk-list-attribute name="conference">
+                <ng-container *accessReadConferences="1">
+                    {{ application.conference ? (application.conference.dateOfEvent | date) : ''}}
+                </ng-container>
+                <ng-container *accessReadConferences>
+                    <a *ngIf="application.conference" routerLink="/conferences/{{ application.conference.id }}">{{ application.conference.dateOfEvent | date  }}</a>
+                </ng-container>
+            </pk-list-attribute>
+            <pk-list-attribute name="date">{{ application.created | date }}</pk-list-attribute>
+            <pk-list-attribute name="modified">{{ application.modified | date }}</pk-list-attribute>
+
+            <pk-floating horizontal top-right>
+
+                <ng-container *accessDeactivateApplications>
+                    <pk-button
+                        *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
+                        rounded
+                        element--error
+                        i18n-pkAlert
+                        pkAlert="Deactivate Application"
+                        icon="delete"
+                        (onClick)="deactivateApplicationModal(application)">
+                    </pk-button>
+                </ng-container>
+
+                <ng-container *accessEditApplications>
+                    <a
+                        *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
+                        routerLink="/applications/{{ application.id }}/edit">
+                        <pk-button
+                            rounded
+                            element--secondary
+                            i18n-pkAlert
+                            pkAlert="Edit Application"
+                            icon="create">
+                        </pk-button>
+                    </a>
+                </ng-container>
+
+                <ng-container *accessEditApplications>
+                    <pk-button
+                        *ngIf="['submitted'].indexOf(application.status?.name) !== -1"
+                        rounded
+                        element--error
+                        i18n-pkAlert
+                        pkAlert="Recind Application"
+                        icon="undo"
+                        (onClick)="rescindApplicationModal(application)">
+                    </pk-button>
+                </ng-container>
+
+                <ng-container *accessSubmitApplications>
+                    <pk-button
+                        *ngIf="application.status?.name === 'created'"
+                        rounded
+                        element--secondary
+                        i18n-pkAlert
+                        pkAlert="Submit Application"
+                        icon="send"
+                        (onClick)="submitApplicationModal(application)">
+                    </pk-button>
+                </ng-container>
+
+                <ng-container *accessValidateApplications>
+                    <pk-button
+                        *ngIf="application.status?.name === 'submitted'"
+                        rounded
+                        element--secondary
+                        i18n-pkAlert
+                        pkAlert="Validate Application"
+                        icon="playlist_add_check"
+                        (onClick)="validateApplication(application)">
+                    </pk-button>
+                </ng-container>
+            </pk-floating>
+        </pk-list-element>
+    </pk-list-content>
+</pk-list>

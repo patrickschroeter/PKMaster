@@ -24,8 +24,10 @@ import { PermissionService, AccessService } from './../../../core';
                 [accessReadApplications],
                 [accessEditApplications],
                 [accessCommentApplications],
-                [accessDeleteApplications],
+                [accessDeactivateApplications],
                 [accessAcceptApplications],
+                [accessSubmitApplications],
+                [accessValidateApplications],
 
                 [accessReadConferences],
                 [accessEditConferences],
@@ -58,8 +60,10 @@ export class AccessDirective {
     @Input() set accessEditApplications(i: number) { this.restrictVisibility('EditApplications', i); }
     @Input() set accessCreateApplications(i: number) { this.restrictVisibility('CreateApplications', i); }
     @Input() set accessCommentApplications(i: number) { this.restrictVisibility('CommentApplications', i); }
-    @Input() set accessDeleteApplications(i: number) { this.restrictVisibility('DeleteApplications', i); }
+    @Input() set accessDeactivateApplications(i: number) { this.restrictVisibility('DeactivateApplications', i); }
     @Input() set accessAcceptApplications(i: number) { this.restrictVisibility('AcceptApplications', i); }
+    @Input() set accessSubmitApplications(i: number) { this.restrictVisibility('SubmitApplications', i); }
+    @Input() set accessValidateApplications(i: number) { this.restrictVisibility('ValidateApplications', i); }
 
     @Input() set accessReadConferences(i: number) { this.restrictVisibility('ReadConferences', i); }
     @Input() set accessEditConferences(i: number) { this.restrictVisibility('EditConferences', i); }

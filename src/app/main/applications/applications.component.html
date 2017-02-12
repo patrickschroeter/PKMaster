@@ -1,140 +1,73 @@
 <div id="applications">
     <div class="rel">
-        <pk-loading *ngIf="!applications"></pk-loading>
+        <pk-loading *ngIf="!(applications || ownApplications || assignedApplications)"></pk-loading>
 
-        <ng-container *ngIf="applications">
+        <ng-container *ngIf="applications || ownApplications || assignedApplications">
 
-            <ng-container *ngIf="!applications.length">
-                <div class="empty-wrapper">
-                    <div class="label" i18n>No Applications here.</div>
-                    <pk-button
-                        icon="add"
-                        element--secondary
-                        (onClick)="overlay.toggle()"
-                        i18n-value
-                        value="Create Application"
-                        class="element--spacing-top-large">
-                    </pk-button>
-                </div>
+            <h1 class="element element--spacing-bottom-small" i18n>Applications</h1>
+
+            <div class="tab-navigation">
+                <div class="tab selectable" *accessCreateApplications (click)="activeTab = 'owned';" [ngClass]="{ 'selectable--active': activeTab === 'owned' }">Owned</div>
+                <div class="tab selectable" *ngIf="assignedApplications && assignedApplications.length" (click)="activeTab = 'assigned';" [ngClass]="{ 'selectable--active': activeTab === 'assigned' }">Assigned</div>
+                <ng-container *accessReadApplications>
+                    <div class="tab selectable" *ngIf="applications && applications.length" (click)="activeTab = 'all';" [ngClass]="{ 'selectable--active': activeTab === 'all' }">All</div>
+                </ng-container>
+            </div>
+
+            <!--Owned Applications-->
+            <ng-container *accessCreateApplications>
+                <ng-container *ngIf="ownApplications && activeTab === 'owned'">
+                    <ng-container *ngIf="!ownApplications.length">
+                        <div class="empty-wrapper">
+                            <div class="label" i18n>No own Applications here.</div>
+                            <pk-button
+                                class="element--spacing-top-large"
+                                element--secondary
+                                i18n-value
+                                value="Create Application"
+                                icon="add"
+                                (onClick)="createApplicationModal()">
+                            </pk-button>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="ownApplications.length">
+                        <h3 i18n>Own applications</h3>
+                        <pk-applications-list-owned [applications]="ownApplications" [user]="user"></pk-applications-list-owned>
+
+                        <pk-floating fixed top-right>
+                            <pk-button
+                                element--secondary
+                                rounded
+                                i18n-pkAlert
+                                    pkAlert="Create Application"
+                                icon="add"
+                                (onClick)="createApplicationModal()">
+                            </pk-button>
+                        </pk-floating>
+                    </ng-container>
+                </ng-container>
             </ng-container>
 
-            <ng-container *ngIf="applications.length">
-                <h1 class="element element--spacing-bottom-small" i18n>Applications</h1>
-
-                <pk-list>
-                    <pk-list-header>
-                        <!--<pk-list-attribute name="state-icon" (click)="sortBy('status')"></pk-list-attribute>-->
-                        <pk-list-attribute name="state" i18n>Status</pk-list-attribute>
-                        <pk-list-attribute name="name" i18n>Title</pk-list-attribute>
-                        <pk-list-attribute name="author" *accessEditApplications i18n>Author</pk-list-attribute>
-                        <pk-list-attribute name="conference" i18n>Conference</pk-list-attribute>
-                        <pk-list-attribute name="date" i18n>Created</pk-list-attribute>
-                        <pk-list-attribute name="modified" i18n>Modified</pk-list-attribute>
-                    </pk-list-header>
-                    <pk-list-content>
-                        <pk-list-element *ngFor="let application of applications" [name]="application.status?.name">
-
-                            <pk-list-attribute name="state">{{ application.status?.name }}</pk-list-attribute>
-
-                            <pk-list-attribute name="name" *ngIf="application.form">
-                                <a routerLink="/applications/{{ application.id }}">{{ application.form.title }}</a>
-                            </pk-list-attribute>
-                            <pk-list-attribute name="name" *ngIf="!application.form">
-                                <a routerLink="/applications/{{ application.id }}" i18n>No Form to get Title from.</a>
-                            </pk-list-attribute>
-
-                            <pk-list-attribute name="author" *accessEditApplications>{{ application.user ? application.user.lastname : '' }}</pk-list-attribute>
-                            <pk-list-attribute name="conference">
-                                <ng-container *accessReadConferences="1">
-                                    {{ application.conference ? (application.conference.dateOfEvent | date) : ''}}
-                                </ng-container>
-                                <ng-container *accessReadConferences>
-                                    <a *ngIf="application.conference" routerLink="/conferences/{{ application.conference.id }}">{{ application.conference.dateOfEvent | date  }}</a>
-                                </ng-container>
-                            </pk-list-attribute>
-                            <pk-list-attribute name="date">{{ application.created | date }}</pk-list-attribute>
-                            <pk-list-attribute name="modified">{{ application.modified | date }}</pk-list-attribute>
-
-                            <pk-floating horizontal top-right>
-                                <!--TODO: Prevent deactivate foreign application with Create & Read permission-->
-                                <ng-container *access="['CreateApplications', 'DeleteApplications']">
-                                    <pk-button
-                                        *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
-                                        rounded
-                                        element--error
-                                        i18n-pkAlert
-                                        pkAlert="Deactivate Application"
-                                        icon="delete"
-                                        (onClick)="deactivateApplicationModal(application)">
-                                    </pk-button>
-                                </ng-container>
-                                <!--TODO: Prevent edit foreign application with Create & Read permission-->
-                                <ng-container *access="['CreateApplications', 'EditApplications']">
-                                    <a
-                                        *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
-                                        routerLink="/applications/{{ application.id }}/edit">
-                                        <pk-button
-                                            rounded
-                                            element--secondary
-                                            i18n-pkAlert
-                                            pkAlert="Edit Application"
-                                            icon="create">
-                                        </pk-button>
-                                    </a>
-                                </ng-container>
-                                <!--TODO: Prevent rescind foreign application with Create & Read permission-->
-                                <ng-container *access="['CreateApplications', 'EditApplications']">
-                                    <pk-button
-                                        *ngIf="['submitted'].indexOf(application.status?.name) !== -1"
-                                        rounded
-                                        element--error
-                                        i18n-pkAlert
-                                        pkAlert="Recind Application"
-                                        icon="undo"
-                                        (onClick)="rescindApplicationModal(application)">
-                                    </pk-button>
-                                </ng-container>
-                                <!--TODO: Prevent submit foreign application with Create & Read permission-->
-                                <ng-container *access="['CreateApplications', 'EditApplications']">
-                                    <pk-button
-                                        *ngIf="application.status?.name === 'created'"
-                                        rounded
-                                        element--secondary
-                                        i18n-pkAlert
-                                        pkAlert="Submit Application"
-                                        icon="send"
-                                        (onClick)="submitApplicationModal(application)">
-                                    </pk-button>
-                                </ng-container>
-                                <!--Assigned-->
-                                <ng-container *ngIf="user && application.assignments">
-                                    <pk-button
-                                        *ngIf="application.status?.name === 'submitted' && application.assignments.indexOf(user.id) !== -1"
-                                        rounded
-                                        element--secondary
-                                        i18n-pkAlert
-                                        pkAlert="Validate Application"
-                                        icon="playlist_add_check"
-                                        (onClick)="validateApplication(application)">
-                                    </pk-button>
-                                </ng-container>
-                            </pk-floating>
-                        </pk-list-element>
-                    </pk-list-content>
-                </pk-list>
-
-                <pk-floating fixed top-right>
-                    <pk-button
-                        *accessCreateApplications
-                        element--secondary
-                        rounded
-                        i18n-pkAlert
-                            pkAlert="Create Application"
-                        icon="add"
-                        (onClick)="createApplicationModal()">
-                    </pk-button>
-                </pk-floating>
+            <!--Assigned Applications-->
+            <ng-container *ngIf="assignedApplications && activeTab === 'assigned'">
+                <ng-container *ngIf="assignedApplications.length">
+                    <h3 i18n>Assigned applications</h3>
+                    <pk-applications-list-assigned [applications]="assignedApplications"></pk-applications-list-assigned>
+                </ng-container>
             </ng-container>
+
+            <!--All Applications-->
+            <ng-container *accessReadApplications>
+                <ng-container *ngIf="applications && activeTab === 'all'">
+                    <ng-container *ngIf="applications.length">
+                        <h3 i18n>All applications</h3>
+                        <pk-applications-list [applications]="applications"></pk-applications-list>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+
         </ng-container>
+
     </div>
 </div>

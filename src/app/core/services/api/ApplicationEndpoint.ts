@@ -3,9 +3,9 @@ import * as _ from 'lodash';
 
 import { Observable, Observer } from 'rxjs/Rx';
 
-import { ApplicationApiMock } from './';
+import { ApplicationApiMock, FormEndpoint } from './';
 
-import { Application } from './../../../swagger';
+import { ApplicationDto, UserDto } from './../../../swagger';
 import { FormApi } from './../../../swagger/api/FormApi';
 import { ConferenceApi } from './../../../swagger/api/ConferenceApi';
 import { UserApi } from './../../../swagger/api/UserApi';
@@ -47,11 +47,12 @@ export class ApplicationEndpoint {
         });
     }
 
-    public createApplication(application?: Application, extraHttpRequestParams?: any): Observable<any> {
+    public createApplication(application?: ApplicationDto, extraHttpRequestParams?: any): Observable<any> {
         console.log('%cMock:' + '%c createApplication', 'color: #F44336', 'color: #fefefe');
 
         if (application.userId) {
-            application.user = this.userApi['_user'](application.userId);
+            const api: { [key: string]: any } = this.userApi;
+            application.user = api['_user'](application.userId);
         }
 
         const newapplication = this._applicationAdd(application);
@@ -68,11 +69,12 @@ export class ApplicationEndpoint {
         });
     }
 
-    public updateApplicationById(applicationId: string, application?: Application, extraHttpRequestParams?: any): Observable<any> {
+    public updateApplicationById(applicationId: string, application?: ApplicationDto, extraHttpRequestParams?: any): Observable<any> {
         console.log('%cMock:' + `%c updateApplicationById ${applicationId}`, 'color: #F44336', 'color: #fefefe');
 
         if (application.conferenceId && !application.conference) {
-            application.conference = this.conferenceApi['_addApplication'](application.conferenceId, application);
+            const api: { [key: string]: any } = this.conferenceApi;
+            application.conference = api['_addApplication'](application.conferenceId, application);
         }
 
         const updatedApplication = this._applicationUpdate(applicationId, application);
@@ -113,29 +115,30 @@ export class ApplicationEndpoint {
      */
 
     // tslint:disable-next-line:member-ordering
-    private _list: Application[] = [
+    private _list: ApplicationDto[] = [
         ApplicationApiMock.APPLICATION
     ];
 
-    private _applications(): Application[] {
+    private _applications(): ApplicationDto[] {
         return JSON.parse(JSON.stringify(this._list));
     }
 
-    private _applicationAdd(application: Application): Application {
+    private _applicationAdd(application: ApplicationDto): ApplicationDto {
         const id = this._list.length === 0 ? 'Q' : this._list[this._list.length - 1].id + 'Q';
         application.id = id;
         application.created = new Date();
         if (application.formId) {
-            application.form = this.formApi['_form'](application.formId);
+            const api: { [key: string]: any } = this.formApi;
+            application.form = api['_form'](application.formId);
         }
         this._list.push(application);
         return JSON.parse(JSON.stringify(this._list[this._list.length - 1]));
     }
 
-    private _application(id?: string): Application {
-        let result: Application;
+    private _application(id?: string): ApplicationDto {
+        let result: ApplicationDto;
         const list = this._list;
-        for (let i = 0, length = list.length; i < length; i++) {
+        for (let i = 0; i < list.length; i++) {
             if (list[i].id === id) {
                 result = list[i];
             }
@@ -144,11 +147,11 @@ export class ApplicationEndpoint {
         return JSON.parse(JSON.stringify(result));
     }
 
-    private _applicationUpdate(id: string, application: Application) {
+    private _applicationUpdate(id: string, application: ApplicationDto) {
         delete application.attributes;
-        if (typeof application.filledForm === 'Object') { application.filledForm = JSON.stringify(application.filledForm); }
+        if (typeof application.filledForm === 'object') { application.filledForm = JSON.stringify(application.filledForm); }
         const list = this._list;
-        for (let i = 0, length = list.length; i < length; i++) {
+        for (let i = 0; i < list.length; i++) {
             if (list[i].id === id) {
                 list[i] = application;
                 return JSON.parse(JSON.stringify(list[i]));

@@ -4,13 +4,33 @@ import { Validators, ValidatorFn, FormControl, FormGroup, AbstractControl } from
 
 import { TranslationService } from './../../../translation';
 
+/**
+ * Service to generate ValidationFn by Keys
+ *
+ * @export
+ * @class InputValidationService
+ */
 @Injectable()
 export class InputValidationService {
 
+    /**
+     * RegExp for Email Validation
+     *
+     * @static
+     * @type {RegExp}
+     * @memberOf InputValidationService
+     */
     // tslint:disable-next-line:max-line-length
     static emailRegex: RegExp = new RegExp(/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i);
 
-    private validationMapping: Object = {
+    /**
+     * Mapping for ValidationFn to Key
+     *
+     * @private
+     * @type {Object<ValidatorFn>}
+     * @memberOf InputValidationService
+     */
+    private validationMapping: { [key: string]: ValidatorFn } = {
         minLength: this.validateMinLength(8),
         maxLength: this.validateMaxLength(15),
         useExternalEmail: this.validateExternalEmail,
@@ -19,13 +39,38 @@ export class InputValidationService {
         time: this.validateTime
     };
 
+    /**
+     * Creates an instance of InputValidationService.
+     *
+     * @param {TranslationService} translationService
+     *
+     * @memberOf InputValidationService
+     */
     constructor(private translationService: TranslationService) { }
 
+    /**
+     * Mapping to TranslationService
+     *
+     * @private
+     * @param {String} key
+     * @param {Array} [interpolations]
+     * @returns {String}
+     *
+     * @memberOf InputValidationService
+     */
     private translate( key: string, interpolations?: (string | number)[]): string {
         return this.translationService.translate(key, interpolations);
     }
 
-    public getErrorMessage(control: FormControl | FormGroup | AbstractControl): string {
+    /**
+     * Get the Error Message from AbstractControl
+     *
+     * @param {AbstractControl} control
+     * @returns {String}
+     *
+     * @memberOf InputValidationService
+     */
+    public getErrorMessage(control: AbstractControl): string {
         if (control.hasError('notTrue')) {
             return this.translate('errorRequired');
 
@@ -65,13 +110,16 @@ export class InputValidationService {
 
     /**
      * Generates an Array of Validation Functions from the given Array of Keys
-     * @param {Array} keyArray all Validation Keys
-     * @return {Array} returns an array with all Validatin functions
+     *
+     * @param {String[]} [keyArray=[]]
+     * @returns {ValidatorFn[]}
+     *
+     * @memberOf InputValidationService
      */
-    public generateValidationsFromKeys(keyArray = []) {
-        const result = [];
+    public generateValidationsFromKeys(keyArray: string[] = []): ValidatorFn[] {
+        const result: ValidatorFn[] = [];
         if (!keyArray) { return result; }
-        for (let i = 0, length = keyArray.length; i < length; i++) {
+        for (let i = 0; i < keyArray.length; i++) {
             const validationName = keyArray[i];
             const validation = this.validationMapping[validationName];
             if (validation) { result.push(validation); }
@@ -81,8 +129,11 @@ export class InputValidationService {
 
     /**
      * Validation for min length
-     * @param {number} length the min Length to be valid
-     * @return {ValidatorFn} return a Validation Function
+     *
+     * @param {Number} length
+     * @returns {ValidatorFn}
+     *
+     * @memberOf InputValidationService
      */
     public validateMinLength(length: number): ValidatorFn {
         return Validators.minLength(length);
@@ -90,8 +141,11 @@ export class InputValidationService {
 
     /**
      * Validation for max length
-     * @param {number} length the max Length to be valid
-     * @return {ValidatorFn} return a Validation Function
+     *
+     * @param {Number} length
+     * @returns {ValidatorFn}
+     *
+     * @memberOf InputValidationService
      */
     public validateMaxLength(length: number): ValidatorFn {
         return Validators.maxLength(length);
@@ -99,8 +153,11 @@ export class InputValidationService {
 
     /**
      * Validatio for external Email
-     * @param {FormControl} control the FormControl to be tested
-     * @return {Object} return a Object with Information if validation fails
+     *
+     * @param {FormControl} control
+     * @returns {Object}
+     *
+     * @memberOf InputValidationService
      */
     public validateExternalEmail(control: FormControl): Object {
         if (!control.value) { return null; }
@@ -111,8 +168,11 @@ export class InputValidationService {
 
     /**
      * Validation for Email
-     * @param {FormControl} control the FormControl to be tested
-     * @return {Object} return a Object with Information if validation fails
+     *
+     * @param {FormControl} control
+     * @returns {Object}
+     *
+     * @memberOf InputValidationService
      */
     public validateEmail(control: FormControl): Object {
         if (!control.value) { return null; }
@@ -123,8 +183,11 @@ export class InputValidationService {
 
     /**
      * Validate to be 'true'
-     * @param {FormControl} control the FormControl to be tested
-     * @return {Object} return a Object with Information if validation fails
+     *
+     * @param {FormControl} control
+     * @returns {Object}
+     *
+     * @memberOf InputValidationService
      */
     public validateToBeTrue(control: FormControl): Object {
         if (control.value !== true) {
@@ -133,7 +196,12 @@ export class InputValidationService {
     }
 
     /**
-     * @description validate time input to (h)h:mm
+     * validate time input to (h)h:mm
+     *
+     * @param {FormControl} control
+     * @returns {Object}
+     *
+     * @memberOf InputValidationService
      */
     public validateTime(control: FormControl): Object {
         if (!control.value) { return null; }
@@ -145,8 +213,14 @@ export class InputValidationService {
     /**
      * Configure a ValidationFn to compare the Controls with the given names
      * Returning an error with the message or uses a custom text
+     *
+     * @param {string[]} names
+     * @param {string} [message]
+     * @returns {ValidatorFn}
+     *
+     * @memberOf InputValidationService
      */
-    public areEqual(names: string[], message?): ValidatorFn {
+    public areEqual(names: string[], message?: string): ValidatorFn {
         message = message ? message : this.translate('errorAreEqual');
         return function(group: FormGroup): { [key: string]: any } {
             const result = {
@@ -154,8 +228,8 @@ export class InputValidationService {
                     message: message
                 }
             };
-            let value;
-            for (let i = 0, length = names.length; i < length; i++) {
+            let value: any;
+            for (let i = 0; i < names.length; i++) {
                 const control = group.controls[names[i]];
                 // fail if control is missing for one of the keys
                 if (!control) {

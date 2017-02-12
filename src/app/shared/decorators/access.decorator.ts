@@ -9,7 +9,7 @@ export function Access(name: string | string[]) {
         const originalMethod = descriptor.value;
 
         descriptor.value = function (...args: any[]) {
-            let result;
+            let result: any;
             if (this.permission instanceof PermissionService) {
                 if ((this.permission as PermissionService).hasPermission(name)) {
                     result = originalMethod.apply(this, args);

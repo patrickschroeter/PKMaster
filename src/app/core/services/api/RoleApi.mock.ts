@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs/Rx';
 
 import { PermissionApiMock } from './PermissionApi.mock';
-import { Role } from './../../../swagger';
+import { RoleDto } from './../../../swagger';
 
 @Injectable()
 export class RoleApiMock {
@@ -24,9 +24,11 @@ export class RoleApiMock {
             PermissionApiMock.PERMISSION.Application.Create,
             PermissionApiMock.PERMISSION.Application.Read,
             PermissionApiMock.PERMISSION.Application.Edit,
-            PermissionApiMock.PERMISSION.Application.Delete,
+            PermissionApiMock.PERMISSION.Application.Deactivate,
             PermissionApiMock.PERMISSION.Application.Comment,
             PermissionApiMock.PERMISSION.Application.Accept,
+            PermissionApiMock.PERMISSION.Application.Submit,
+            PermissionApiMock.PERMISSION.Application.Validate,
             /** Conference */
             PermissionApiMock.PERMISSION.Conference.Read,
             PermissionApiMock.PERMISSION.Conference.Edit,
@@ -46,29 +48,27 @@ export class RoleApiMock {
             PermissionApiMock.PERMISSION.Application.Create,
             PermissionApiMock.PERMISSION.Application.Read,
             PermissionApiMock.PERMISSION.Application.Edit,
-            PermissionApiMock.PERMISSION.Application.Delete,
+            PermissionApiMock.PERMISSION.Application.Deactivate,
             PermissionApiMock.PERMISSION.Application.Comment,
             PermissionApiMock.PERMISSION.Application.Accept,
+            PermissionApiMock.PERMISSION.Application.Validate,
+            PermissionApiMock.PERMISSION.Application.Submit,
             PermissionApiMock.PERMISSION.Conference.Read,
             PermissionApiMock.PERMISSION.Conference.Edit,
             PermissionApiMock.PERMISSION.Forms.Read,
             PermissionApiMock.PERMISSION.Forms.Edit
         ],
         Member: [
-            PermissionApiMock.PERMISSION.Application.Create,
             PermissionApiMock.PERMISSION.Application.Read,
             PermissionApiMock.PERMISSION.Application.Comment,
-            PermissionApiMock.PERMISSION.Conference.Read,
-            PermissionApiMock.PERMISSION.Forms.Read
+            PermissionApiMock.PERMISSION.Application.Validate,
+            PermissionApiMock.PERMISSION.Conference.Read
         ],
         Docent: [
-            PermissionApiMock.PERMISSION.Application.Create,
-            PermissionApiMock.PERMISSION.Conference.Read,
-            PermissionApiMock.PERMISSION.Forms.Read
+            PermissionApiMock.PERMISSION.Application.Create
         ],
         Student: [
-            PermissionApiMock.PERMISSION.Application.Create,
-            PermissionApiMock.PERMISSION.Forms.Read
+            PermissionApiMock.PERMISSION.Application.Create
         ],
 
         Observer: [
@@ -100,7 +100,7 @@ export class RoleApiMock {
                 PermissionApiMock.PERMISSION_OBJECT.Application.Create,
                 PermissionApiMock.PERMISSION_OBJECT.Application.Read,
                 PermissionApiMock.PERMISSION_OBJECT.Application.Edit,
-                PermissionApiMock.PERMISSION_OBJECT.Application.Delete,
+                PermissionApiMock.PERMISSION_OBJECT.Application.Deactivate,
                 PermissionApiMock.PERMISSION_OBJECT.Application.Comment,
                 PermissionApiMock.PERMISSION_OBJECT.Application.Accept,
                 /** Conference */
@@ -130,7 +130,7 @@ export class RoleApiMock {
                 PermissionApiMock.PERMISSION_OBJECT.Application.Create,
                 PermissionApiMock.PERMISSION_OBJECT.Application.Read,
                 PermissionApiMock.PERMISSION_OBJECT.Application.Edit,
-                PermissionApiMock.PERMISSION_OBJECT.Application.Delete,
+                PermissionApiMock.PERMISSION_OBJECT.Application.Deactivate,
                 PermissionApiMock.PERMISSION_OBJECT.Application.Comment,
                 PermissionApiMock.PERMISSION_OBJECT.Application.Accept,
                 PermissionApiMock.PERMISSION_OBJECT.Conference.Read,

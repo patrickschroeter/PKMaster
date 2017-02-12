@@ -3,7 +3,7 @@ import { FormControl, AbstractControl, FormGroup } from '@angular/forms';
 
 import { DynamicFormComponent } from './../../dynamic-form.component';
 
-import { Field } from './../../../../swagger';
+import { FieldDto } from './../../../../swagger';
 
 @Component({
     selector: 'pk-radio',
@@ -14,7 +14,7 @@ export class RadioComponent implements OnInit {
 
     @HostBinding('class.element') element = true;
 
-    @Input() config: Field;
+    @Input() config: FieldDto;
     @Input() disabled: boolean;
     @Input() form: FormGroup;
 

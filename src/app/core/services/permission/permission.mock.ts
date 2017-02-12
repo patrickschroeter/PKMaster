@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 
-import { AppUser } from './../../../swagger';
+import { UserDto } from './../../../swagger';
 
 @Injectable()
 export class PermissionMock {
 
     constructor() {}
 
-    public updateUserPermissions(user?: AppUser): AppUser {
+    public updateUserPermissions(user?: UserDto): UserDto {
         return user;
     }
 
@@ -21,7 +21,7 @@ export class PermissionMock {
     }
 
     public getPermissions(): Observable<any[]> {
-        return new Observable(observer => observer.next([]));
+        return new Observable((observer: Observer<any[]>) => observer.next([]));
     }
 
 }

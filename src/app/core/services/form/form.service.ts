@@ -8,7 +8,7 @@ import { TranslationService } from './../../../modules/translation';
 import { FormApi } from './../../../swagger/api/FormApi';
 
 /** Models */
-import { Field, Form, SingleFormDto } from './../../../swagger';
+import { FieldDto, SingleFormDto, FormCreateDto, FormsDto } from './../../../swagger';
 
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
@@ -17,14 +17,14 @@ import { Loading } from './../../../shared/decorators/loading.decorator';
 export class FormService {
 
     /** The form to edit */
-    private form: Form;
-    private forms: Form[];
+    private form: SingleFormDto;
+    private forms: SingleFormDto[];
     /** Index of editing Element */
     private editingElementIndex: number;
 
     private addingElement: EventEmitter<boolean> = new EventEmitter();
 
-    private editElement: EventEmitter<Field> = new EventEmitter();
+    private editElement: EventEmitter<FieldDto> = new EventEmitter();
 
     constructor(
         private alert: AlertService,
@@ -53,7 +53,7 @@ export class FormService {
      * return the observable for editing an element
      * @return {Observable}
      */
-    public onEditElement(): EventEmitter<Field> {
+    public onEditElement(): EventEmitter<FieldDto> {
         return this.editElement;
     }
 
@@ -61,7 +61,7 @@ export class FormService {
      * Emits the given value if someone subscribed for it
      * @param {Field} [element]
      */
-    private setEditElement(element?: Field): void {
+    private setEditElement(element?: FieldDto): void {
         this.editElement.emit(element);
     }
 
@@ -83,12 +83,12 @@ export class FormService {
      * @param {FormElement} element - the element to edit
      * @return {void}
      */
-    public editElementOfForm(element?: Field): void {
+    public editElementOfForm(element?: FieldDto): void {
         if (!this.form || !this.form.formHasField) { return this.setEditElement(null); }
 
         this.editingElementIndex = -1;
         if (element && this.form) {
-            for (let i = 0, length = this.form.formHasField.length; i < length; i++) {
+            for (let i = 0; i < this.form.formHasField.length; i++) {
                 const formElement = this.form.formHasField[i];
                 if (formElement && formElement.name === element.name) {
                     this.editingElementIndex = i;
@@ -116,7 +116,7 @@ export class FormService {
      * @param {Field} [element] - the element to remove
      * @param {Number} [index] - the index of the element in the form
      */
-    public removeElement(element?: Field, index?: number): boolean {
+    public removeElement(element?: FieldDto, index?: number): boolean {
         if (!this.form || !this.form.formHasField) { return false; }
         if (typeof index !== 'undefined') {
             if (this.form.formHasField[index] && this.form.formHasField[index].name === element.name) {
@@ -127,7 +127,7 @@ export class FormService {
             }
         } else {
             index = -1;
-            for (let i = 0, length = this.form.formHasField.length; i < length; i++) {
+            for (let i = 0; i < this.form.formHasField.length; i++) {
                 const input = this.form.formHasField[i];
                 if (input.name === element.value) {
                     index = i;
@@ -154,13 +154,13 @@ export class FormService {
      * @param {Field} element
      * @param {String} [mode] - the mode to add the element. default, clone or add
      */
-    public addElementToForm(element: Field, mode?: 'clone' | 'add'): boolean {
+    public addElementToForm(element: FieldDto, mode?: 'clone' | 'add'): boolean {
         /** Forms don't have Presets yet */
         // delete element.value;
         if (!this.form || !this.form.formHasField) { return false; }
         /** Check if the element.name is Unique in the current Form */
         let index = -1;
-        for (let i = 0, length = this.form.formHasField.length; i < length; i++) {
+        for (let i = 0; i < this.form.formHasField.length; i++) {
             const input = this.form.formHasField[i];
             if (input.name === element.name) {
                 index = i;
@@ -185,7 +185,6 @@ export class FormService {
             this.setAddingElement(false);
         }
         this.editingElementIndex = -1;
-        this.form.title = 'sparta'
         return true;
     }
 
@@ -208,7 +207,7 @@ export class FormService {
      * @return {Observable}
      */
     @Loading('getEditFormTemplate')
-    public getEditFormTemplate(id?: string): Observable<Field[]> {
+    public getEditFormTemplate(id?: string): Observable<FieldDto[]> {
         const formEdit = [
             {
                 fieldType: 'input',
@@ -216,9 +215,6 @@ export class FormService {
                 label: this.translationService.translate('formName'),
                 value: (id && this.form) ? this.form.title : '',
                 required: true,
-                validations: [
-                    'minLength'
-                ],
                 styles: [
                     'small'
                 ]
@@ -231,6 +227,24 @@ export class FormService {
                 styles: [
                     'small',
                     'aligned'
+                ]
+            },
+            {
+                fieldType: 'checkbox',
+                name: 'requiresValidation',
+                label: this.translationService.translate('requiresValidation'),
+                value: (id && this.form) ? this.form.requiresValidation : false,
+                styles: [
+                    'small'
+                ]
+            },
+            {
+                fieldType: 'checkbox',
+                name: 'isActive',
+                label: this.translationService.translate('isActive'),
+                value: (id && this.form) ? this.form.isActive : false,
+                styles: [
+                    'small'
                 ]
             }
         ];
@@ -249,7 +263,7 @@ export class FormService {
      * @return {Observable}
      */
     @Loading('saveFormAttributes')
-    public saveFormAttributes(submit: Form): Observable<Form> {
+    public saveFormAttributes(submit: SingleFormDto): Observable<SingleFormDto> {
         // TODO: save real data
         const form = _.cloneDeep(this.form);
 
@@ -270,7 +284,7 @@ export class FormService {
      * @return {void}
      */
     @Loading('saveForm')
-    public saveForm(): Observable<Form> {
+    public saveForm(): Observable<SingleFormDto> {
         // TODO: save real data
         this.alert.setLoading('saveForm', this.translationService.translate('saveForm'));
         return this.formApi.updateFormById(this.form.id, this.form).map(form => {
@@ -289,7 +303,7 @@ export class FormService {
      * @return {Observable}
      */
     @Loading('getFormById')
-    public getFormById(id: string): Observable<Form> {
+    public getFormById(id: string): Observable<SingleFormDto> {
         // TODO: load real data
         return this.formApi.getFormById(id).map(form => {
             return this.form = form;
@@ -302,11 +316,11 @@ export class FormService {
      * @return {Observable}
      */
     @Loading('getForms')
-    public getForms(sort?: string): Observable<Form[]> {
+    public getForms(sort?: string): Observable<SingleFormDto[]> {
         const observable = this.formApi.getForms();
         // TODO: sort on Server
         if (sort) {
-            return observable.map(element => {
+            return observable.map((element: FormsDto[]) => {
                 return element.sort(function (a, b) { return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
             });
         }
@@ -322,16 +336,14 @@ export class FormService {
      * @return {Observable}
      */
     @Loading('createNewForm')
-    public createNewForm(submit: Form): Observable<Form> {
-        const newform: Form = {
-            title: submit.id ? 'Copy of ' + submit.title : submit.title,
-            formHasField: submit.id ? submit.formHasField : [],
-            restrictedAccess: submit.restrictedAccess,
-            isPublic: true
-        };
+    public createNewForm(submit: SingleFormDto): Observable<SingleFormDto> {
+        const param = _.cloneDeep(submit);
+        delete param.id;
+        param.title = submit.id ? 'Copy of ' + submit.title : submit.title;
+        param.formHasField = submit.id ? submit.formHasField : [];
 
         // TODO: save real data
-        return this.formApi.addForm(newform).map(form => {
+        return this.formApi.addForm(param).map(form => {
             return this.form = form;
         });
     }

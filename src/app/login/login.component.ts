@@ -7,6 +7,17 @@ import {
     AccessAdmin
 } from './../core';
 
+/** Models */
+import { Credentials } from './../models';
+import { FieldDto } from './../swagger';
+
+/**
+ * The Login Component
+ *
+ * @export
+ * @class LoginComponent
+ * @implements {OnInit}
+ */
 @Component({
     selector: 'pk-login',
     templateUrl: './login.component.html',
@@ -14,10 +25,32 @@ import {
 })
 export class LoginComponent implements OnInit {
 
-    public loginForm: Array<Object>;
+    /**
+     * the form to login
+     *
+     * @type {Array<Field>}
+     * @memberOf LoginComponent
+     */
+    public loginForm: Array<FieldDto>;
 
+    /**
+     * A flag to display an errors
+     *
+     * @type {Boolean}
+     * @memberOf LoginComponent
+     */
     public error: boolean;
 
+    /**
+     * Creates an instance of LoginComponent.
+     *
+     * @param {AuthenticationService} authentication
+     * @param {Router} router
+     * @param {AccessMain} mainRoute
+     * @param {AccessAdmin} adminRoute
+     *
+     * @memberOf LoginComponent
+     */
     constructor(
         private authentication: AuthenticationService,
         private router: Router,
@@ -25,6 +58,11 @@ export class LoginComponent implements OnInit {
         private adminRoute: AccessAdmin
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf LoginComponent
+     */
     ngOnInit() {
 
         this.automaticLogin();
@@ -67,6 +105,10 @@ export class LoginComponent implements OnInit {
 
     /**
      * Redirect the user to the start page if he is logged in
+     *
+     * @private
+     *
+     * @memberOf LoginComponent
      */
     private automaticLogin() {
         const isLoggedIn = this.authentication.isLoggedIn();
@@ -79,9 +121,12 @@ export class LoginComponent implements OnInit {
 
     /**
      * log the user in with the credentials
-     * @param {Object} credentials
+     *
+     * @param {Credentials} credentials
+     *
+     * @memberOf LoginComponent
      */
-    public login(credentials) {
+    public login(credentials: Credentials) {
         this.error = false;
         this.authentication.login(credentials.email, credentials.password).subscribe(user => {
             this.redirect();
@@ -94,6 +139,10 @@ export class LoginComponent implements OnInit {
 
     /**
      * redirect the user depending on his permissions
+     *
+     * @private
+     *
+     * @memberOf LoginComponent
      */
     private redirect() {
         this.mainRoute.canActivate(null, null).subscribe(accessMain => {
@@ -112,7 +161,7 @@ export class LoginComponent implements OnInit {
     }
 
     /** TODO remove for production */
-    public fake(username) {
+    public fake(username: string) {
         this.login({
             email: username,
             password: 'password'
