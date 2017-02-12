@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 
 import { ConferenceService } from './conference.service';
 
@@ -40,7 +40,7 @@ describe('ConferenceService', () => {
         }));
 
         it('should call the api', () => {
-            spyOn(api, 'getConferenceById').and.returnValue(new Observable(obs => obs.next({})));
+            spyOn(api, 'getConferenceById').and.returnValue(new Observable((obs: Observer<any>) => obs.next({})));
             service.getConferenceById('1').subscribe();
             expect(api.getConferenceById).toHaveBeenCalled();
         });
@@ -64,7 +64,7 @@ describe('ConferenceService', () => {
         }));
 
         it('should call the api', () => {
-            spyOn(api, 'getConferences').and.returnValue(new Observable(obs => obs.next('id')));
+            spyOn(api, 'getConferences').and.returnValue(new Observable((obs: Observer<any>) => obs.next('id')));
             service.getConferences().subscribe();
             expect(api.getConferences).toHaveBeenCalled();
         });
@@ -88,7 +88,7 @@ describe('ConferenceService', () => {
         }));
 
         it('should call the api', () => {
-            spyOn(api, 'addConference').and.returnValue(new Observable(obs => obs.next('id')));
+            spyOn(api, 'addConference').and.returnValue(new Observable((obs: Observer<any>) => obs.next('id')));
             service.createNewConference('id').subscribe();
             expect(api.addConference).toHaveBeenCalled();
         });

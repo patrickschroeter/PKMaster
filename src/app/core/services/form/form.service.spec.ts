@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 import * as _ from 'lodash';
 
 import { FormService } from './form.service';
@@ -38,8 +38,8 @@ describe('Service: Form', () => {
     describe('getAddingElement', () => {
         /** getAddingElement + setAddingElement */
         it('should provide the isAddingElement flag using setAddingElement', inject([FormService], (service: FormService) => {
-            let element;
-            service.getAddingElement().subscribe(result => {
+            let element: boolean;
+            service.getAddingElement().subscribe((result: boolean) => {
                 element = result;
             });
             expect(element).toBeUndefined();
@@ -60,7 +60,7 @@ describe('Service: Form', () => {
         }));
 
         it('should request the form with the given id', () => {
-            spyOn(api, 'getFormById').and.returnValue(new Observable(obs => { obs.next('value'); }));
+            spyOn(api, 'getFormById').and.returnValue(new Observable((obs: Observer<any>) => { obs.next('value'); }));
             service.getFormById('someId').subscribe(() => {
                 expect(api.getFormById).toHaveBeenCalledWith('someId');
             });
@@ -77,7 +77,7 @@ describe('Service: Form', () => {
         }));
 
         it('should request all forms', () => {
-            spyOn(api, 'getForms').and.returnValue(new Observable(obs => { obs.next('value'); }));
+            spyOn(api, 'getForms').and.returnValue(new Observable((obs: Observer<any>) => { obs.next('value'); }));
             service.getForms().subscribe(() => {
                 expect(api.getForms).toHaveBeenCalled();
             });
@@ -94,14 +94,14 @@ describe('Service: Form', () => {
         }));
 
         it('should send the new form', () => {
-            spyOn(api, 'addForm').and.returnValue(new Observable(obs => { obs.next('value'); }));
+            spyOn(api, 'addForm').and.returnValue(new Observable((obs: Observer<any>) => { obs.next('value'); }));
             service.createNewForm({}).subscribe(() => {
                 expect(api.addForm).toHaveBeenCalled();
             });
         });
 
         it('should prepare the new form (title restrictedAccess, isPublic, formHasField)', () => {
-            spyOn(api, 'addForm').and.returnValue(new Observable(obs => { obs.next('value'); }));
+            spyOn(api, 'addForm').and.returnValue(new Observable((obs: Observer<any>) => { obs.next('value'); }));
             const submit: SingleFormDto = {
                 title: 'titel des tests',
                 restrictedAccess: true
@@ -116,7 +116,7 @@ describe('Service: Form', () => {
         });
 
         it('should copy the form (title restrictedAccess, formHasField)', () => {
-            spyOn(api, 'addForm').and.returnValue(new Observable(obs => { obs.next('value'); }));
+            spyOn(api, 'addForm').and.returnValue(new Observable((obs: Observer<any>) => { obs.next('value'); }));
             const submit: SingleFormDto = {
                 id: 'id',
                 title: 'titel des tests',
@@ -143,8 +143,8 @@ describe('Service: Form', () => {
         }));
 
         it('should reset isAdding', () => {
-           let isAdding;
-           service.getAddingElement().subscribe(result => {
+           let isAdding: boolean;
+           service.getAddingElement().subscribe((result: boolean) => {
                isAdding = result;
            });
 
@@ -172,8 +172,8 @@ describe('Service: Form', () => {
         }));
 
         it('should emit null if no form is cached', () => {
-            let element;
-            service.onEditElement().subscribe(result => {
+            let element: FieldDto;
+            service.onEditElement().subscribe((result: FieldDto) => {
                 element = result;
             });
             expect(element).toBeUndefined();
@@ -184,8 +184,8 @@ describe('Service: Form', () => {
         });
 
         it('should emit the element if it is in the cached form', () => {
-            let element;
-            service.onEditElement().subscribe(result => {
+            let element: FieldDto;
+            service.onEditElement().subscribe((result: FieldDto) => {
                 element = result;
             });
 
@@ -199,8 +199,8 @@ describe('Service: Form', () => {
         });
 
         it('should emit null if the element is not in the cached form', () => {
-            let element;
-            service.onEditElement().subscribe(result => {
+            let element: FieldDto;
+            service.onEditElement().subscribe((result: FieldDto) => {
                 element = result;
             });
 
@@ -213,8 +213,8 @@ describe('Service: Form', () => {
         });
 
         it('should set isAdding', () => {
-            let isAdding;
-            service.getAddingElement().subscribe(result => {
+            let isAdding: boolean;
+            service.getAddingElement().subscribe((result: boolean) => {
                 isAdding = result;
             });
 
@@ -228,8 +228,8 @@ describe('Service: Form', () => {
         });
 
         it('should emit null if the cached form has no fields', () => {
-            let element;
-            service.onEditElement().subscribe(result => {
+            let element: FieldDto;
+            service.onEditElement().subscribe((result: FieldDto) => {
                 element = result;
             });
             expect(element).toBeUndefined();
@@ -476,8 +476,8 @@ describe('Service: Form', () => {
             }));
 
             it('should reset edit mode', () => {
-                let isAdding;
-                service.getAddingElement().subscribe(result => {
+                let isAdding: boolean;
+                service.getAddingElement().subscribe((result: boolean) => {
                     isAdding = result;
                 });
                 service.getFormById('id').subscribe(form => {

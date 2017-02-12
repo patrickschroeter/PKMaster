@@ -50,7 +50,8 @@ export class ApplicationService {
         /** TODO */
         for (let i = 0; i < application.attributes.length; i++) {
             const field: FieldDto = application.attributes[i];
-            field.value = application.filledForm[field.name];
+            const form: any = application.filledForm;
+            field.value = form[field.name];
         }
     }
 
@@ -70,10 +71,14 @@ export class ApplicationService {
      * @param {String} [sort]
      */
     @Loading('getApplications')
-    public getApplications(sort?: string): Observable<any> {
+    public getApplications(sort?: string): Observable<ApplicationDto[]> {
         return this.applicationApi.getApplications().map(applications => {
             if (sort) {
-                applications.sort(function (a, b) { return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
+                applications.sort(
+                    function (a: { [key: string]: any }, b: { [key: string]: any }) {
+                        return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0);
+                    }
+                );
             }
             return this.applications = applications;
         });
@@ -82,7 +87,7 @@ export class ApplicationService {
     @Loading('getApplications')
     public getOwnApplications(sort?: string, user?: UserDto): Observable<any> {
         return this.applicationApi.getApplications().map(param => {
-            const applications  = param.filter(obj => obj.userId === user.id);
+            const applications = param.filter(obj => obj.userId === user.id);
             return this.applications = applications;
         });
     }
@@ -90,9 +95,9 @@ export class ApplicationService {
     @Loading('getApplications')
     public getAssignedApplications(sort?: string, user?: UserDto): Observable<any> {
         return this.applicationApi.getApplications().map(param => {
-            const applications  = param.filter(obj => {
-               const assignment = _.find(obj.assignments, assign => assign.id === user.id);
-               return !!assignment ;
+            const applications = param.filter(obj => {
+                const assignment = _.find(obj.assignments, assign => assign.id === user.id);
+                return !!assignment;
             });
             return this.applications = applications;
         });
@@ -110,8 +115,8 @@ export class ApplicationService {
         });
 
         return this.applicationApi.createApplication((application as ApplicationCreateDto)).map(result => {
-                return this.application = result;
-            });
+            return this.application = result;
+        });
     }
 
     /**

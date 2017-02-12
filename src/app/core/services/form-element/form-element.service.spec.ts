@@ -62,7 +62,7 @@ describe('Service: FormElement', () => {
     }));
 
     it('should provide the submit flag', inject([FormElementService], (service: FormElementService) => {
-        let submit;
+        let submit: boolean;
 
         service.getElementHasSubmit().subscribe(result => {
             submit = result;
@@ -76,7 +76,7 @@ describe('Service: FormElement', () => {
     }));
 
     it('should provide the preview flag', inject([FormElementService], (service: FormElementService) => {
-        let preview;
+        let preview: boolean;
 
         service.getElementHasPreview().subscribe(result => {
             preview = result;
@@ -90,7 +90,7 @@ describe('Service: FormElement', () => {
     }));
 
     it('should provide the validation flag', inject([FormElementService], (service: FormElementService) => {
-        let validations;
+        let validations: boolean;
 
         service.getElementHasValidations().subscribe(result => {
             validations = result;
@@ -104,7 +104,7 @@ describe('Service: FormElement', () => {
     }));
 
     it('should provide the styles flag', inject([FormElementService], (service: FormElementService) => {
-        let styles;
+        let styles: boolean;
 
         service.getElementHasStyles().subscribe(result => {
             styles = result;
@@ -456,7 +456,7 @@ describe('Service: FormElement', () => {
         }));
 
         it('should provide styles of the fieldType', fakeAsync(() => {
-            let styles;
+            let styles: FieldDto;
             service.getElement().subscribe(result => {
                 styles = _.find(result, obj => { return obj['name'] === 'styles'; });
             });
@@ -470,7 +470,7 @@ describe('Service: FormElement', () => {
         }));
 
         it('should fail if styles already exist', fakeAsync(() => {
-            let styles;
+            let styles: FieldDto;
             service.getElement().subscribe(result => {
                 styles = _.find(result, obj => { return obj['name'] === 'styles'; });
             });
@@ -507,7 +507,7 @@ describe('Service: FormElement', () => {
         }));
 
         it('should provide styles of the fieldType', fakeAsync(() => {
-            let validations;
+            let validations: FieldDto;
             service.getElement().subscribe(result => {
                 validations = _.find(result, obj => { return obj['name'] === 'validations'; });
             });
@@ -521,7 +521,7 @@ describe('Service: FormElement', () => {
         }));
 
         it('should log an error if validations exist', fakeAsync(() => {
-            let validations;
+            let validations: FieldDto;
             service.getElement().subscribe(result => {
                 validations = _.find(result, obj => { return obj['name'] === 'validations'; });
             });
@@ -590,7 +590,7 @@ describe('Service: FormElement', () => {
             }));
 
             it('should reset hasValidation', fakeAsync(() => {
-                let hasValidation;
+                let hasValidation: boolean;
                 service.getElementHasValidations().subscribe(result => {
                     hasValidation = result;
                 });
@@ -602,7 +602,7 @@ describe('Service: FormElement', () => {
             }));
 
             it('should reset hasStyles', fakeAsync(() => {
-                let hasStyles;
+                let hasStyles: boolean;
                 service.getElementHasStyles().subscribe(result => {
                     hasStyles = result;
                 });
@@ -784,7 +784,7 @@ describe('Service: FormElement', () => {
         });
 
         it('should change hasPreview', fakeAsync(() => {
-            let hasPreview;
+            let hasPreview: boolean;
             service.getElementHasPreview().subscribe(result => {
                 hasPreview = result;
             });
@@ -801,7 +801,7 @@ describe('Service: FormElement', () => {
         }));
 
         it('should should not be affected by cancelElement', fakeAsync(() => {
-            let hasPreview;
+            let hasPreview: boolean;
             service.getElementHasPreview().subscribe(result => {
                 hasPreview = result;
             });
@@ -838,7 +838,7 @@ describe('Service: FormElement', () => {
 
         it('should create a new (reset) element when form.onEditElement emits an invalid value',
             fakeAsync(inject([FormElementService], (service: FormElementService) => {
-                let element: FieldDto[], styles, validations, preview;
+                let element: FieldDto[], styles: boolean, validations: boolean, preview: FieldDto[];
                 service.getElement().subscribe(result => { element = result; });
                 service.getElementHasStyles().subscribe(result => { styles = result; });
                 service.getElementHasValidations().subscribe(result => { validations = result; });

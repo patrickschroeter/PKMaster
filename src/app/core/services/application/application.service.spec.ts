@@ -41,7 +41,7 @@ describe('Service: Application', () => {
     describe('createNewApplication', () => {
         it('should provide the new created application',
             fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
-                let element;
+                let element: ApplicationDto;
                 service.createNewApplication({ form: { id: '1' }}).subscribe(result => { element = result; });
                 tick(25);
                 expect(element).toBeDefined();
@@ -61,7 +61,7 @@ describe('Service: Application', () => {
     });
 
     describe('getApplicationById', () => {
-        let element, service: ApplicationService;
+        let element: ApplicationDto, service: ApplicationService;
 
         beforeEach(fakeAsync(inject([ApplicationService], (applicationService: ApplicationService) => {
             service = applicationService;
@@ -71,7 +71,7 @@ describe('Service: Application', () => {
 
         it('should provide the application with the given id',
             fakeAsync(() => {
-                let application;
+                let application: ApplicationDto;
                 service.getApplicationById(element.id).subscribe(result => { application = result; });
                 tick(25);
                 expect(application).toBeDefined();
@@ -80,7 +80,7 @@ describe('Service: Application', () => {
         );
         it('should throw an error if no application with id exists',
             fakeAsync(() => {
-                let response;
+                let response: string;
                 service.getApplicationById(null).subscribe(() => {
                     response = 'success';
                 }, () => {
@@ -99,7 +99,7 @@ describe('Service: Application', () => {
     });
 
     describe('getApplications', () => {
-        let element, service: ApplicationService;
+        let element: ApplicationDto, service: ApplicationService;
 
         beforeEach(fakeAsync(inject([ApplicationService], (applicationService: ApplicationService) => {
             service = applicationService;
@@ -107,7 +107,7 @@ describe('Service: Application', () => {
 
         it('should provide an empty array if there are no applications',
             fakeAsync(() => {
-                let elements;
+                let elements: ApplicationDto[];
                 service.getApplications().subscribe(result => { elements = result; });
                 tick(25);
                 expect(elements).toBeDefined();
@@ -127,7 +127,7 @@ describe('Service: Application', () => {
 
             it('should provide a list of all applications',
                 fakeAsync(() => {
-                    let elements;
+                    let elements: ApplicationDto[];
                     service.getApplications().subscribe(result => { elements = result; });
                 tick(25);
                     expect(elements).toBeDefined();
