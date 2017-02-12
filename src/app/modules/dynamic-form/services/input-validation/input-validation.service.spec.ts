@@ -24,12 +24,12 @@ describe('Service: InputValidation', () => {
     describe('generateValidationsFromKeys', () => {
 
         it('should return an empty array if no array is given', inject([InputValidationService], (service: InputValidationService) => {
-            const keys = null;
+            const keys: any = null;
             expect(service.generateValidationsFromKeys(keys)).toEqual([]);
         }));
 
         it('should return an empty array if no array is given', inject([InputValidationService], (service: InputValidationService) => {
-            const keys = undefined;
+            const keys: any = undefined;
             expect(service.generateValidationsFromKeys(keys)).toEqual([]);
         }));
 
@@ -74,10 +74,11 @@ describe('Service: InputValidation', () => {
                 expect(service.validateExternalEmail(control)).toEqual(jasmine.any(Object));
             }));
 
-        it('should return the error object if the input is no email', inject([InputValidationService], (service: InputValidationService) => {
-            const control = new FormControl('email');
-            expect(service.validateExternalEmail(control)).toEqual(jasmine.any(Object));
-        }));
+        it('should return the error object if the input is no email',
+            inject([InputValidationService], (service: InputValidationService) => {
+                const control = new FormControl('email');
+                expect(service.validateExternalEmail(control)).toEqual(jasmine.any(Object));
+            }));
     });
 
     describe('validateEmail', () => {

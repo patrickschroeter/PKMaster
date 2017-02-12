@@ -19,31 +19,141 @@ import { Fields, Selectable } from './../../../models';
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
 
+/**
+ * A Service taking care of on Form Element
+ *
+ * @export
+ * @class FormElementService
+ */
 @Injectable()
 export class FormElementService {
 
-    /** The current Element as FormElement[] */
+    /**
+     * The current Element as FormElement[]
+     *
+     * @private
+     * @type {FormGroup}
+     * @memberOf FormElementService
+     */
     private elementForm: FormGroup;
+
+    /**
+     * the form to display the element
+     *
+     * @private
+     * @type {FieldDto[]}
+     * @memberOf FormElementService
+     */
     private element: FieldDto[];
-    /** The default view for adding new Element */
+
+    /**
+     * The default view for adding new Element
+     *
+     * @private
+     * @type {FieldDto[]}
+     * @memberOf FormElementService
+     */
     private elementBase: FieldDto[] = [];
 
-    /** The Select Element for the Element Type */
+    /**
+     * The Select Element for the Element Type
+     *
+     * @private
+     * @type {FieldDto}
+     * @memberOf FormElementService
+     */
     private selectTypeFormElement: FieldDto = {};
-    /** The current Selected Element Type */
+
+    /**
+     * The current Selected Element Type
+     *
+     * @private
+     * @type {string}
+     * @memberOf FormElementService
+     */
     private selectedType: string;
 
+    /**
+     * the current selected option table
+     *
+     * @private
+     * @type {string}
+     * @memberOf FormElementService
+     */
     private selectedOptionTable: string;
+
+    /**
+     * the number of the selected options
+     *
+     * @private
+     * @type {number}
+     * @memberOf FormElementService
+     */
     private selectedOptionsLength: number;
 
-    /** BehaviorSubjects */
+    /**
+     * The Element Observable
+     *
+     * @private
+     * @type {BehaviorSubject<Array>}
+     * @memberOf FormElementService
+     */
     private elementRx: BehaviorSubject<FieldDto[]> = new BehaviorSubject(this.element);
+
+    /**
+     * The Element Preview Observable
+     *
+     * @private
+     * @type {BehaviorSubject<Array>}
+     * @memberOf FormElementService
+     */
     private elementPreviewRx: BehaviorSubject<FieldDto[]> = new BehaviorSubject(null);
+
+    /**
+     * The HasSubmit Observable
+     *
+     * @private
+     * @type {BehaviorSubject<boolean>}
+     * @memberOf FormElementService
+     */
     private elementHasSubmitRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+    /**
+     * The HasPreview Observable
+     *
+     * @private
+     * @type {BehaviorSubject<boolean>}
+     * @memberOf FormElementService
+     */
     private elementHasPreviewRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+    /**
+     * The HasValidation Observable
+     *
+     * @private
+     * @type {BehaviorSubject<boolean>}
+     * @memberOf FormElementService
+     */
     private elementHasValidationsRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+    /**
+     * the HasStyles Observable
+     *
+     * @private
+     * @type {BehaviorSubject<boolean>}
+     * @memberOf FormElementService
+     */
     private elementHasStylesRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+    /**
+     * Creates an instance of FormElementService.
+     *
+     * @param {FormService} formService
+     * @param {AlertService} alert
+     * @param {TranslationService} translationService
+     *
+     * @memberOf FormElementService
+     */
     constructor(
         private formService: FormService,
         private alert: AlertService,
@@ -68,6 +178,10 @@ export class FormElementService {
 
     /**
      * Reset all Parameters of the Add Element View
+     *
+     * @private
+     *
+     * @memberOf FormElementService
      */
     private resetElement(): void {
         delete this.selectTypeFormElement.value;
@@ -82,15 +196,23 @@ export class FormElementService {
 
     /**
      * creates an empty view
+     *
+     * @private
+     *
+     * @memberOf FormElementService
      */
     private editNewElement(): void {
         this.resetElement();
     }
 
-
     /**
      * create the Add Attribute View with from a given FormElement
-     * @param {Field} element
+     *
+     * @private
+     * @param {FieldDto} element
+     * @returns {boolean}
+     *
+     * @memberOf FormElementService
      */
     private editExistingElement(element: FieldDto): boolean {
 
@@ -145,10 +267,12 @@ export class FormElementService {
             });
         }
 
-        /** Update the Element if all Observers returned */
-        let update = () => {
+        /**
+         * Update the Element if all Observers returned
+         */
+        const update = () => {
             if (returnedNumberOfRequests >= numberOfRequests) {
-                let generatedFormOfElement = this.element.concat(optionsOfElementType);
+                let generatedFormOfElement: FieldDto[] = this.element.concat(optionsOfElementType);
 
                 /** Show submit button */
                 this.setElementHasSubmit(true);
@@ -170,7 +294,7 @@ export class FormElementService {
                 let optionFormElement: any;
                 let formElementOptions: any;
                 for (let i = 0, length = generatedFormOfElement.length; i < length; i++) {
-                    const input = generatedFormOfElement[i];
+                    const input: FieldDto = generatedFormOfElement[i];
                     if (element[input.name] && input.name !== 'fieldType') {
                         input.value = element[input.name];
                         if (input.name === 'optionTable') {
@@ -199,10 +323,12 @@ export class FormElementService {
         return true;
     }
 
-
     /**
      * DynamicForm Change Event
+     *
      * @param {FormGroup} formGroup
+     *
+     * @memberOf FormElementService
      */
     public updateElement(formGroup: FormGroup): void {
         this.elementForm = formGroup;
@@ -254,6 +380,10 @@ export class FormElementService {
 
     /**
      * Get all Options from the selected TableName and set them as Options
+     *
+     * @private
+     *
+     * @memberOf FormElementService
      */
     private updateOptionsOfTable(): void {
         this.getOptionsOfTable(this.selectedOptionTable).subscribe((options: FieldDto[]) => {
@@ -269,6 +399,8 @@ export class FormElementService {
 
     /**
      * Toggle the visibility of the Preview Element
+     *
+     * @memberOf FormElementService
      */
     public toggleElementPreview(): void {
         this.setElementHasPreview(!this.elementHasPreviewRx.getValue());
@@ -277,6 +409,10 @@ export class FormElementService {
 
     /**
      * enable Validation in Add Element View
+     *
+     * @returns {void}
+     *
+     * @memberOf FormElementService
      */
     public addValidations(): void {
 
@@ -305,6 +441,10 @@ export class FormElementService {
 
     /**
      * enable Styles in Add Element View
+     *
+     * @returns {void}
+     *
+     * @memberOf FormElementService
      */
     public addStyles(): void {
 
@@ -332,6 +472,9 @@ export class FormElementService {
 
     /**
      * remove the current element from the form
+     *
+     *
+     * @memberOf FormElementService
      */
     public removeElement(): void {
         let name: FieldDto;
@@ -346,11 +489,13 @@ export class FormElementService {
         }
     }
 
-
     /**
      * Adds the element to the current Form
-     * @param {FormElement} elmenent - the element to add to the form
-     * @param {Number} mode - the mode of
+     *
+     * @param {FieldDto} element
+     * @param {String} [mode] TODO: make ENUM
+     *
+     * @memberOf FormElementService
      */
     public saveElement(element: FieldDto, mode?: 'clone' | 'add'): void {
         if (this.formService.addElementToForm(element, mode)) {
@@ -363,9 +508,10 @@ export class FormElementService {
         }
     }
 
-
     /**
      * Cancel the Editation or Creation of an Element
+     *
+     * @memberOf FormElementService
      */
     public cancelElement(): void {
         this.resetElement();
@@ -380,6 +526,11 @@ export class FormElementService {
 
     /**
      * cath all available element types from the server
+     *
+     * @private
+     * @returns {Observable<FieldDto>}
+     *
+     * @memberOf FormElementService
      */
     @Loading('getElementTypeOptions')
     private getElementTypeOptions(): Observable<FieldDto> {
@@ -394,7 +545,12 @@ export class FormElementService {
 
     /**
      * get the options of the requested table
-     * @param {String} name - the name of the option table
+     *
+     * @private
+     * @param {String} name
+     * @returns {Observable<Array>}
+     *
+     * @memberOf FormElementService
      */
     @Loading('getOptionsOfTable')
     private getOptionsOfTable(name: string): Observable<Selectable[]> {
@@ -409,7 +565,12 @@ export class FormElementService {
 
     /**
      * cath all available options of the element type from the server
+     *
+     * @private
      * @param {String} fieldType
+     * @returns {Observable<Array>}
+     *
+     * @memberOf FormElementService
      */
     @Loading('getOptionsOfElementType')
     private getOptionsOfElementType(fieldType: string): Observable<FieldDto[]> {
@@ -429,7 +590,12 @@ export class FormElementService {
 
     /**
      * cath all available validations of the element type from the server
+     *
+     * @private
      * @param {String} fieldType
+     * @returns {Observable<Array>}
+     *
+     * @memberOf FormElementService
      */
     @Loading('getValidationsOfInputType')
     private getValidationsOfInputType(fieldType: string): Observable<FieldDto[]> {
@@ -444,7 +610,12 @@ export class FormElementService {
 
     /**
      * cath all available styles of the element type from the server
+     *
+     * @private
      * @param {String} fieldType
+     * @returns {Observable<Array>}
+     *
+     * @memberOf FormElementService
      */
     @Loading('getStylesOfInputType')
     private getStylesOfInputType(fieldType: string): Observable<FieldDto[]> {
@@ -470,66 +641,134 @@ export class FormElementService {
 
     /**
      * BehaviorSubject for the element
+     *
+     * @returns {Observable<Array>}
+     *
+     * @memberOf FormElementService
      */
     public getElement(): Observable<FieldDto[]> {
         return this.elementRx.asObservable();
     }
+
+    /**
+     * Set the current Element
+     * TODO: set element() + get element()
+     *
+     * @param {FieldDto[]} element
+     *
+     * @memberOf FormElementService
+     */
     public setElement(element: FieldDto[]): void {
         this.element = element;
         this.elementRx.next(this.element);
     }
 
-
     /**
      * BehaviorSubject for the preview element
+     *
+     * @returns {Observable<Array>}
+     *
+     * @memberOf FormElementService
      */
     public getElementPreview(): Observable<FieldDto[]> {
         return this.elementPreviewRx.asObservable();
     }
+
+    /**
+     * emit the element preview
+     *
+     * @param {FieldDto[]} element
+     *
+     * @memberOf FormElementService
+     */
     public setElementPreview(element: FieldDto[]): void {
         this.elementPreviewRx.next(element);
     }
 
-
     /**
      * BehaviorSubject for has Submit
+     *
+     * @returns {Observable<boolean>}
+     *
+     * @memberOf FormElementService
      */
     public getElementHasSubmit(): Observable<boolean> {
         return this.elementHasSubmitRx.asObservable();
     }
+
+    /**
+     * emit the hasSubmit Flag
+     *
+     * @param {boolean} hasSubmit
+     *
+     * @memberOf FormElementService
+     */
     public setElementHasSubmit(hasSubmit: boolean): void {
         this.elementHasSubmitRx.next(hasSubmit);
     }
 
-
     /**
      * BehaviorSubject for has preview
+     *
+     * @returns {Observable<boolean>}
+     *
+     * @memberOf FormElementService
      */
     public getElementHasPreview(): Observable<boolean> {
         return this.elementHasPreviewRx.asObservable();
     }
+
+    /**
+     * emit the hasPreview Flag
+     *
+     * @param {boolean} hasPreview
+     *
+     * @memberOf FormElementService
+     */
     public setElementHasPreview(hasPreview: boolean): void {
         this.elementHasPreviewRx.next(hasPreview);
     }
 
-
     /**
      * BehaviorSubject for has validations
+     *
+     * @returns {Observable<boolean>}
+     *
+     * @memberOf FormElementService
      */
     public getElementHasValidations(): Observable<boolean> {
         return this.elementHasValidationsRx.asObservable();
     }
+
+    /**
+     * emit the hasValidations Flag
+     *
+     * @param {boolean} hasValidations
+     *
+     * @memberOf FormElementService
+     */
     public setElementHasValidations(hasValidations: boolean): void {
         this.elementHasValidationsRx.next(hasValidations);
     }
 
-
     /**
      * BehaviorSubject for has styles
+     *
+     * @returns {Observable<boolean>}
+     *
+     * @memberOf FormElementService
      */
     public getElementHasStyles(): Observable<boolean> {
         return this.elementHasStylesRx.asObservable();
     }
+
+    /**
+     * emit the hasStyles Flag
+     *
+     * @param {boolean} hasStyles
+     *
+     * @memberOf FormElementService
+     */
     public setElementHasStyles(hasStyles: boolean): void {
         this.elementHasStylesRx.next(hasStyles);
     }
@@ -538,6 +777,11 @@ export class FormElementService {
 
 
 
+/**
+ * the options object
+ *
+ * @returns {Object}
+ */
 function opts(): { [_: string]: FieldDto[] } {
 
     const opts = {
@@ -613,6 +857,11 @@ function opts(): { [_: string]: FieldDto[] } {
     return opts;
 }
 
+/**
+ * the validation object
+ *
+ * @returns {Object}
+ */
 function validations(): { [_: string]: FieldDto[] } {
     const validations = {
         input: [
@@ -631,6 +880,11 @@ function validations(): { [_: string]: FieldDto[] } {
     return validations;
 }
 
+/**
+ * the styles object
+ *
+ * @returns {FieldDto}
+ */
 function styles(): FieldDto {
     const styles = new Fields.FieldStyles(null, {
         options: [
@@ -642,6 +896,11 @@ function styles(): FieldDto {
 }
 
 
+/**
+ * the option-options object
+ *
+ * @returns {Object}
+ */
 function options(): { [key: string]: Selectable[] } {
     return {
         fakultaet: [

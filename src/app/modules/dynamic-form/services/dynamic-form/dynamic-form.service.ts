@@ -10,7 +10,7 @@ import { FieldDto } from './../../../../swagger';
 @Injectable()
 export class DynamicFormService {
 
-    private validationTime: number = 2000;
+    private validationTime = 2000;
 
     constructor(
         private build: FormBuilder,
@@ -24,7 +24,7 @@ export class DynamicFormService {
      * @return {FormGroup}
      */
     public generateFormFromInput(input?: FieldDto[], config = {}): FormGroup {
-        const options = {};
+        const options: { [key: string]: FormControl } = {};
         for (let i = 0, length = input.length; i < length; i++) {
             const element = input[i];
 
@@ -46,7 +46,7 @@ export class DynamicFormService {
 
         /** get all existing form.controls */
         const unusedElementNames: string[] = [];
-        for (let key in form.controls) {
+        for (const key in form.controls) {
             if (form.controls.hasOwnProperty(key)) {
                 unusedElementNames.push(key);
             }

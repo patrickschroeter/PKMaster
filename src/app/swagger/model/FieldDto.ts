@@ -59,4 +59,6 @@ export interface FieldDto {
     optionsJSON?: string;
 
     disabled?: boolean;
+
+    [key: string]: any;
 }

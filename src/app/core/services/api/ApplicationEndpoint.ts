@@ -5,7 +5,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 
 import { ApplicationApiMock } from './';
 
-import { ApplicationDto } from './../../../swagger';
+import { ApplicationDto, UserDto } from './../../../swagger';
 import { FormApi } from './../../../swagger/api/FormApi';
 import { ConferenceApi } from './../../../swagger/api/ConferenceApi';
 import { UserApi } from './../../../swagger/api/UserApi';
@@ -146,7 +146,7 @@ export class ApplicationEndpoint {
 
     private _applicationUpdate(id: string, application: ApplicationDto) {
         delete application.attributes;
-        if (typeof application.filledForm === 'Object') { application.filledForm = JSON.stringify(application.filledForm); }
+        if (typeof application.filledForm === 'object') { application.filledForm = JSON.stringify(application.filledForm); }
         const list = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id) {

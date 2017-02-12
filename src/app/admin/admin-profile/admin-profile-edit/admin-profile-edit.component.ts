@@ -53,9 +53,9 @@ export class AdminProfileEditComponent implements OnInit {
      */
     public save(user: UserDto) {
         user.id = this.user.id;
-        this.auth.updateUser(user).subscribe(user => {
+        this.auth.updateUser(user).subscribe(result => {
             this.router.navigateByUrl('/admin/profile');
-            this.alert.setSuccessHint('UpdateUser' + user.id, this.translationService.translate('updatedUser'));
+            this.alert.setSuccessHint('UpdateUser' + result.id, this.translationService.translate('updatedUser'));
         });
     }
 

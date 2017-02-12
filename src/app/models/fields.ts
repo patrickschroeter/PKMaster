@@ -1,18 +1,27 @@
 import { FieldDto } from './../swagger';
 
+/**
+ * A Field Element for dynamically create Forms
+ *
+ * @export
+ * @class FieldModel
+ * @implements {FieldDto}
+ */
 export class FieldModel implements FieldDto {
 
     name: string = undefined;
     label: string = undefined;
-    fieldType: string = 'input';
-    required: boolean = false;
-    multipleSelect: boolean = false;
+    fieldType = 'input';
+    required = false;
+    multipleSelect = false;
     value: string | string[] = undefined;
     contentType: string = undefined;
     placeholder: string = undefined;
     options: { value: string, label: string}[] = undefined;
     styles: string[] = ['small'];
-    disabled: boolean = false;
+    disabled = false;
+
+    [key: string]: any;
 
     constructor(value?: string, options?: any) {
         this.update(options);
@@ -21,7 +30,7 @@ export class FieldModel implements FieldDto {
 
     update(options?: any) {
         if (options) {
-            for (let key in options) {
+            for (const key in options) {
                 if (!options.hasOwnProperty(key)) { continue; }
                 this[key] = options[key];
             }

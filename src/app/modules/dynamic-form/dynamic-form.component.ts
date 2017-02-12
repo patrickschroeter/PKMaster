@@ -5,6 +5,14 @@ import { DynamicFormService, InputValidationService } from './services';
 
 import { FieldDto } from './../../swagger';
 
+/**
+ *
+ *
+ * @export
+ * @class DynamicFormComponent
+ * @implements {OnInit}
+ * @implements {OnChanges}
+ */
 @Component({
     selector: 'pk-dynamic-form',
     templateUrl: './dynamic-form.component.html',
@@ -13,40 +21,113 @@ import { FieldDto } from './../../swagger';
 })
 export class DynamicFormComponent implements OnInit, OnChanges {
 
+    /**
+     * Default Layout class
+     *
+     * @memberOf DynamicFormComponent
+     */
     @HostBinding('class.form') formClass = true;
 
+    /**
+     * Input: Array of Fields
+     *
+     * @type {FieldDto[]}
+     * @memberOf DynamicFormComponent
+     */
     @Input() formElements: FieldDto[];
+
+    /**
+     * Input: The FormGroup
+     *
+     * @type {FormGroup}
+     * @memberOf DynamicFormComponent
+     */
     @Input() formGroup: FormGroup;
 
+    /**
+     * Emitter for Changes
+     *
+     * @type {EventEmitter<any>}
+     * @memberOf DynamicFormComponent
+     */
     @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
 
+    /**
+     * the FormGroup
+     *
+     * @private
+     * @type {FormGroup}
+     * @memberOf DynamicFormComponent
+     */
     private _form: FormGroup;
+
+    /**
+     * get FormGroup
+     *
+     * @memberOf DynamicFormComponent
+     */
     get form() { return this._form; }
+
+    /**
+     * set FormGroup
+     *
+     * @memberOf DynamicFormComponent
+     */
     set form(formGroup: FormGroup) { this._form = formGroup; }
-    private _isFormValidationVisible: boolean = false;
+
+    /**
+     * Flag to display the form validation on hover
+     *
+     * @private
+     *
+     * @memberOf DynamicFormComponent
+     */
+    private _isFormValidationVisible = false;
+
+    /**
+     * get isFormValidationVisible
+     *
+     * @memberOf DynamicFormComponent
+     */
     get isFormValidationVisible() { return this._isFormValidationVisible; }
+
+    /**
+     * set isFormValidationVisible
+     *
+     * @memberOf DynamicFormComponent
+     */
     set isFormValidationVisible(isOpen: boolean) { this._isFormValidationVisible = isOpen; }
 
+    /**
+     * Creates an instance of DynamicFormComponent.
+     *
+     * @param {FormBuilder} build
+     * @param {InputValidationService} inputValidation
+     * @param {DynamicFormService} dynamicForm
+     *
+     * @memberOf DynamicFormComponent
+     */
     constructor(
         private build: FormBuilder,
         private inputValidation: InputValidationService,
         private dynamicForm: DynamicFormService) {
     }
 
-
     /**
-     * @description Create Form on Init
-     * @return {void}
+     * implements OnInit
+     *
+     * @memberOf DynamicFormComponent
      */
     ngOnInit(): void {
         // this.generateFormFromInput();
     }
 
-
     /**
-     * @description Recreate Form on Changes
-     * @param {SimpleChanges} changes the Object with changes
-     * @return {void}
+     * Recreate Form on Changes
+     *
+     * @param {SimpleChanges} changes
+     *
+     * @memberOf DynamicFormComponent
      */
     ngOnChanges(changes: SimpleChanges): void {
         if (this.formGroup) {
@@ -56,13 +137,15 @@ export class DynamicFormComponent implements OnInit, OnChanges {
         }
     }
 
-
     /**
-     * @description Generate the Form Object using FormBuilder.
-     * @param {array} input an FormElement[] as alternative Base for the Form creation
-     * @return {void}
+     * Generate the Form Object using FormBuilder.
+     *
+     * @param {FieldDto[]} [input]
+     * @returns {void}
+     *
+     * @memberOf DynamicFormComponent
      */
-    generateFormFromInput(input?): void {
+    generateFormFromInput(input?: FieldDto[]): void {
         /** Use this.formElements if not Input is given */
         if (!this.formElements) { return; }
         if (!input) { input = this.formElements; }
@@ -81,11 +164,12 @@ export class DynamicFormComponent implements OnInit, OnChanges {
         }
     }
 
-
     /**
-     * @description shows the validation of the formgroup
-     * @param {FormGroup} element the formgroup to validate
-     * @return {void}
+     * shows the validation of the formgroup
+     *
+     * @param {FormGroup} form
+     *
+     * @memberOf DynamicFormComponent
      */
     showFormValidation(form: FormGroup) {
         // if (this.disabled) { return; } // TODO
@@ -94,8 +178,9 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     }
 
     /**
-     * @description hides the validation of form
-     * @return {void}
+     * hides the validation of form
+     *
+     * @memberOf DynamicFormComponent
      */
     hideFormValidation() {
         this.isFormValidationVisible = false;

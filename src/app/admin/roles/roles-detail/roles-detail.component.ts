@@ -77,7 +77,7 @@ export class RolesDetailComponent implements OnInit {
                 required: true,
                 value: this.role.name
             }
-        ]
+        ];
     }
 
     /**
@@ -85,7 +85,7 @@ export class RolesDetailComponent implements OnInit {
      * @param {Object} form
      */
     @Access('EditRoles')
-    public saveRoleAttribute(form): void {
+    public saveRoleAttribute(form: RoleDto): void {
         /** TODO */ const role = _.cloneDeep(this.role); role.name = form.name;
         this.roleService.updateRoleById(this.role.id, role).subscribe(result => {
             this.role = result;
@@ -127,7 +127,7 @@ export class RolesDetailComponent implements OnInit {
     @Access('EditRoles')
     private addPermissionToRole(data: Selectable): void {
         const permission = _.find(this.role.rolePermissions, obj => obj.id === data.value);
-        const fn = result => {
+        const fn = (result: RoleDto) => {
             this.role = result;
             this.modalService.updateSelectedValues(result.rolePermissions.map(obj => { return obj.id; }));
         };

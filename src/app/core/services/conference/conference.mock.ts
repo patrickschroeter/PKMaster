@@ -31,6 +31,6 @@ export class ConferenceMock {
 
     public saveConference(conference: ConferenceDto) { }
 
-    public getConferenceForm() { return [] }
+    public getConferenceForm(): any { return []; }
 }
 

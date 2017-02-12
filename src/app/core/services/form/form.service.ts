@@ -8,7 +8,7 @@ import { TranslationService } from './../../../modules/translation';
 import { FormApi } from './../../../swagger/api/FormApi';
 
 /** Models */
-import { FieldDto, SingleFormDto, FormCreateDto } from './../../../swagger';
+import { FieldDto, SingleFormDto, FormCreateDto, FormsDto } from './../../../swagger';
 
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
@@ -320,7 +320,7 @@ export class FormService {
         const observable = this.formApi.getForms();
         // TODO: sort on Server
         if (sort) {
-            return observable.map(element => {
+            return observable.map((element: FormsDto[]) => {
                 return element.sort(function (a, b) { return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
             });
         }

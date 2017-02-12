@@ -13,7 +13,7 @@ export class RoleEndpoint {
 
     constructor(
         private permissionApi: PermissionEndpoint
-    ) {}
+    ) { }
 
     public getRoles(extraHttpRequestParams?: any): Observable<Array<RoleDto>> {
         return this.observe(this._roles());
@@ -34,12 +34,12 @@ export class RoleEndpoint {
         return this.observe(updaterole);
     }
 
-    public deletePermissionOfRole (roleId: string, permissionId: string, extraHttpRequestParams?: any ) : Observable<any> {
+    public deletePermissionOfRole(roleId: string, permissionId: string, extraHttpRequestParams?: any): Observable<any> {
         const updaterole = this._removePermission(roleId, permissionId);
         return this.observe(updaterole);
     }
 
-    public addPermissionToRole (roleId: string, permissionId: string, permissionId2: string, extraHttpRequestParams?: any ) : Observable<any> {
+    public addPermissionToRole(roleId: string, permissionId: string, permissionId2: string, extraHttpRequestParams?: any): Observable<any> {
         const role = this._addPermission(roleId, permissionId);
         return this.observe(role);
     }

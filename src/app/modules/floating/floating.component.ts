@@ -31,9 +31,9 @@ export class FloatingComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        let nativeElement = this.elementRef.nativeElement;
+        const nativeElement = this.elementRef.nativeElement;
         for (let i = 0, length = this.options.length; i < length; i++) {
-            let option = this.options[i];
+            const option = this.options[i];
             if (nativeElement.hasAttribute(option)) {
                 this.renderer.setElementClass(nativeElement, `floating--${option}`, true);
             }

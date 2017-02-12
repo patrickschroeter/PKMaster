@@ -1,10 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
-/** Models */
-import { FieldDto, UserDto } from './../../../swagger';
-import { Fields } from './../../../models';
-
 /** Services */
 import { AuthenticationService } from './../../../core';
 import {
@@ -17,6 +13,17 @@ import { TranslationService } from './../../../modules/translation';
 /** Components */
 import { OverlayComponent } from './../../../modules/overlay';
 
+/** Models */
+import { FieldDto, UserDto } from './../../../swagger';
+import { Fields, ChangePasswordForm } from './../../../models';
+
+/**
+ * Modal to change the users password
+ *
+ * @export
+ * @class ModalChangePasswordComponent
+ * @implements {OnInit}
+ */
 @Component({
     selector: 'pk-modal-change-password',
     templateUrl: './modal-change-password.component.html',
@@ -25,13 +32,50 @@ import { OverlayComponent } from './../../../modules/overlay';
 })
 export class ModalChangePasswordComponent implements OnInit {
 
+    /**
+     * Default Layout Class
+     *
+     * @type {OverlayComponent}
+     * @memberOf ModalChangePasswordComponent
+     */
     @ViewChild('overlay') overlay: OverlayComponent;
 
+    /**
+     * The user object
+     *
+     * @private
+     * @type {UserDto}
+     * @memberOf ModalChangePasswordComponent
+     */
     private user: UserDto;
 
+    /**
+     * the elements for the change password form
+     *
+     * @type {FieldDto[]}
+     * @memberOf ModalChangePasswordComponent
+     */
     public changePasswordElements: FieldDto[];
+
+    /**
+     * the FormGroup to change the password
+     *
+     * @type {FormGroup}
+     * @memberOf ModalChangePasswordComponent
+     */
     public changePasswordForm: FormGroup;
 
+    /**
+     * Creates an instance of ModalChangePasswordComponent.
+     *
+     * @param {AuthenticationService} auth
+     * @param {DynamicFormService} dynamicForm
+     * @param {InputValidationService} inputValidation
+     * @param {AlertService} alert
+     * @param {TranslationService} translationService
+     *
+     * @memberOf ModalChangePasswordComponent
+     */
     constructor(
         private auth: AuthenticationService,
         private dynamicForm: DynamicFormService,
@@ -40,6 +84,11 @@ export class ModalChangePasswordComponent implements OnInit {
         private translationService: TranslationService
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf ModalChangePasswordComponent
+     */
     ngOnInit() {
         this.auth.getUser().subscribe(user => {
             this.user = user;
@@ -50,6 +99,10 @@ export class ModalChangePasswordComponent implements OnInit {
 
     /**
      * Generates the FormGroup for changing the password, including Validation
+     *
+     * @private
+     *
+     * @memberOf ModalChangePasswordComponent
      */
     private initChangePasswordField() {
         this.changePasswordElements = [
@@ -65,8 +118,12 @@ export class ModalChangePasswordComponent implements OnInit {
 
     /**
      * Saves the changes password
+     *
+     * @param {PasswordForm} form
+     *
+     * @memberOf ModalChangePasswordComponent
      */
-    public changePassword(form): void {
+    public changePassword(form: ChangePasswordForm): void {
         this.auth.changePassword(this.user, form.password, form.newpassword).subscribe(
             () => {
                 this.alert.setSuccessHint('password_changed', this.translationService.translate('changedPassword'));

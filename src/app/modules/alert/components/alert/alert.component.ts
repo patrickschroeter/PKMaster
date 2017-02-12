@@ -14,8 +14,6 @@ export class AlertComponent implements OnInit {
     get hintElements() { return this._hintElements; }
     set hintElements(elements: Array<Message>) { this._hintElements = elements; }
 
-    public loadingElements: Array<{ id: string, message: string }>;
-
     constructor(
         private alert: AlertService,
         private modalService: ModalService
@@ -30,9 +28,6 @@ export class AlertComponent implements OnInit {
         });
         this.alert.getHintMessages().subscribe(hints => {
             this.hintElements = hints;
-        });
-        this.alert.getLoading().subscribe(loading => {
-            this.loadingElements = loading;
         });
     }
 

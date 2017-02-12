@@ -4,10 +4,11 @@ import { TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
 import { Observable, Observer } from 'rxjs/Rx';
 import { AlertService } from './alert.service';
 
-import { Message } from './';
+/** Models */
+import { Message, Alert } from './../../../../models';
 
 describe('Service: Alert', () => {
-    let id = 'id', message = 'message', title = 'title';
+    const id = 'id', message = 'message', title = 'title';
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [AlertService]
@@ -22,12 +23,11 @@ describe('Service: Alert', () => {
         it('should create and provide', inject([AlertService], (service: AlertService) => {
             expect(service.getAlert()).toEqual(jasmine.any(Observable));
             expect(service.getHintMessages()).toEqual(jasmine.any(Observable));
-            expect(service.getLoading()).toEqual(jasmine.any(Observable));
         }));
     });
 
     it('should stream the alert to all subscribers', inject([AlertService], (service: AlertService) => {
-        let response;
+        let response: Alert;
         service.getAlert().subscribe(result => {
             response = result;
         });
@@ -41,7 +41,7 @@ describe('Service: Alert', () => {
     }));
 
     it('Function: setErrorHint should add an hint and stream the updated hint', inject([AlertService], (service: AlertService) => {
-        let response;
+        let response: Message[];
         service.getHintMessages().subscribe(result => { response = result; });
         expect(response).toBeUndefined();
 
@@ -55,7 +55,7 @@ describe('Service: Alert', () => {
     }));
 
     it('Function: setLoading should add a loading', inject([AlertService], (service: AlertService) => {
-        let response;
+        let response: Message[];
         service.getHintMessages().subscribe(result => { response = result; });
         expect(response).toBeUndefined();
 
@@ -69,7 +69,7 @@ describe('Service: Alert', () => {
     }));
 
     it('Function: setSuccessHint should add a success hint', inject([AlertService], (service: AlertService) => {
-        let response;
+        let response: Message[];
         service.getHintMessages().subscribe(result => { response = result; });
         expect(response).toBeUndefined();
 
@@ -84,7 +84,7 @@ describe('Service: Alert', () => {
 
     describe('Function: setTooltip', () => {
         it('should add a tooltip', inject([AlertService], (service: AlertService) => {
-            let response;
+            let response: Message[];
             service.getHintMessages().subscribe(result => { response = result; });
             expect(response).toBeUndefined();
 
@@ -97,7 +97,7 @@ describe('Service: Alert', () => {
             expect(response[0].type).toBe('tooltip');
         }));
         it('should replace an existing a tooltip', inject([AlertService], (service: AlertService) => {
-            let response;
+            let response: Message[];
             service.getHintMessages().subscribe(result => { response = result; });
             expect(response).toBeUndefined();
 
@@ -111,7 +111,7 @@ describe('Service: Alert', () => {
             expect(response[0].type).toBe('tooltip');
         }));
         it('should disappear after a default time', fakeAsync(inject([AlertService], (service: AlertService) => {
-            let response;
+            let response: Message[];
             service.getHintMessages().subscribe(result => { response = result; });
             service.setTooltip(message);
 
@@ -125,7 +125,7 @@ describe('Service: Alert', () => {
             expect(response.length).toBe(0);
         })));
         it('should disappear after a given time', fakeAsync(inject([AlertService], (service: AlertService) => {
-            let response;
+            let response: Message[];
             service.getHintMessages().subscribe(result => { response = result; });
             service.setTooltip(message, 1500);
 
@@ -139,7 +139,7 @@ describe('Service: Alert', () => {
             expect(response.length).toBe(0);
         })));
         it('should refresh timeout on new call', fakeAsync(inject([AlertService], (service: AlertService) => {
-            let response;
+            let response: Message[];
             service.getHintMessages().subscribe(result => { response = result; });
             service.setTooltip(message);
 
@@ -163,7 +163,7 @@ describe('Service: Alert', () => {
     describe('Function: removeHint', () => {
 
         it('should do nothing if the given id is invalid', inject([AlertService], (service: AlertService) => {
-            let response;
+            let response: Message[];
             service.getHintMessages().subscribe(result => { response = result; });
 
             service.setErrorHint(id, message);
@@ -175,7 +175,7 @@ describe('Service: Alert', () => {
         }));
 
         it('should remove the hint/loading/error/success with the given id', inject([AlertService], (service: AlertService) => {
-            let response;
+            let response: Message[];
             service.getHintMessages().subscribe(result => { response = result; });
 
             service.setErrorHint(id, message);

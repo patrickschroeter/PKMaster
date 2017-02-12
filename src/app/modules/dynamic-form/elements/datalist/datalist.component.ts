@@ -1,42 +1,134 @@
 import { Component, OnInit, Input, HostBinding, ViewChild } from '@angular/core';
 import { FormControl, AbstractControl, FormGroup } from '@angular/forms';
 
+/** Components */
 import { DynamicFormComponent } from './../../dynamic-form.component';
-
-import { AlertService } from './../../../../modules/alert';
-
-import { FieldDto } from './../../../../swagger';
-
 import { OverlayComponent } from './../../../../modules/overlay';
+
+/** Services */
+import { AlertService } from './../../../../modules/alert';
 import { TranslationService } from './../../../../modules/translation';
 
+/** Models */
+import { FieldDto } from './../../../../swagger';
+import { Selectable } from './../../../../models';
+
+/**
+ * A Datalist Component
+ *
+ * @export
+ * @class DatalistComponent
+ * @implements {OnInit}
+ */
 @Component({
     selector: 'pk-datalist',
     templateUrl: './datalist.component.html'
 })
 export class DatalistComponent implements OnInit {
 
+    /**
+     * Default Layout Class
+     *
+     * @memberOf DatalistComponent
+     */
     @HostBinding('class.element') element = true;
 
+    /**
+     * The OverlayComponent
+     *
+     * @type {OverlayComponent}
+     * @memberOf DatalistComponent
+     */
     @ViewChild('overlay') overlay: OverlayComponent;
 
+    /**
+     * the config Field
+     *
+     * @type {FieldDto}
+     * @memberOf DatalistComponent
+     */
     @Input() config: FieldDto;
+
+    /**
+     * Flag if Field is disabled
+     *
+     * @type {boolean}
+     * @memberOf DatalistComponent
+     */
     @Input() disabled: boolean;
+
+    /**
+     * the parent FormGroup
+     *
+     * @type {FormGroup}
+     * @memberOf DatalistComponent
+     */
     @Input() form: FormGroup;
 
-    private _addOptionForm;
+    /**
+     * the add options form
+     *
+     * @private
+     * @type {FieldDto[]}
+     * @memberOf DatalistComponent
+     */
+    private _addOptionForm: FieldDto[];
+
+    /**
+     * set addOptionForm
+     *
+     * @memberOf DatalistComponent
+     */
     get addOptionForm() { return this._addOptionForm; }
+
+    /**
+     * set addOptionForm
+     *
+     * @memberOf DatalistComponent
+     */
     set addOptionForm(form) { this._addOptionForm = form; }
 
+    /**
+     * the datalist FormControl
+     *
+     * @private
+     * @type {AbstractControl}
+     * @memberOf DatalistComponent
+     */
     private _formControl: AbstractControl;
+
+    /**
+     * get formControl
+     *
+     * @memberOf DatalistComponent
+     */
     get formControl() { return this._formControl; }
+
+    /**
+     * set formControl
+     *
+     * @memberOf DatalistComponent
+     */
     set formControl(control: AbstractControl) { this._formControl = control; }
 
+    /**
+     * Creates an instance of DatalistComponent.
+     *
+     * @param {AlertService} alert
+     * @param {TranslationService} translationService
+     *
+     * @memberOf DatalistComponent
+     */
     constructor(
         private alert: AlertService,
         private translationService: TranslationService
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf DatalistComponent
+     */
     ngOnInit() {
         if (!this.config) {
             this.config = {};
@@ -49,7 +141,12 @@ export class DatalistComponent implements OnInit {
     }
 
     /**
-     * @description extract the Elements FormControl from the Parent, return null if no Parent set
+     * extract the Elements FormControl from the Parent, return null if no Parent set
+     *
+     * @private
+     * @returns {AbstractControl}
+     *
+     * @memberOf DatalistComponent
      */
     private getFormControl(): AbstractControl {
         if (this.form) {
@@ -58,6 +155,13 @@ export class DatalistComponent implements OnInit {
         return null;
     }
 
+    /**
+     * initialize the add optiosn form
+     *
+     * @private
+     *
+     * @memberOf DatalistComponent
+     */
     private initAddOptionsForm() {
         this.addOptionForm = [
             {
@@ -81,17 +185,38 @@ export class DatalistComponent implements OnInit {
         ];
     }
 
-    isDisabled() {
+    /**
+     * check if the datalist is disabled, by config or input
+     *
+     * @private
+     * @returns
+     *
+     * @memberOf DatalistComponent
+     */
+    private isDisabled() {
         return this.disabled || (this.config && this.config.disabled);
     }
 
+    /**
+     * reset the add option form
+     *
+     * @memberOf DatalistComponent
+     */
     public resetAddOptionForm() {
         for (let i = 0, length = this.addOptionForm.length; i < length; i++) {
             this.addOptionForm[i].value = '';
         }
     }
 
-    addOption(element) {
+    /**
+     * add an option to the datalist
+     *
+     * @private
+     * @param {Selectable} element
+     *
+     * @memberOf DatalistComponent
+     */
+    private addOption(element: Selectable) {
         // add value to values
         let values = this.formControl.value;
         if (!values) { values = []; }
@@ -122,10 +247,18 @@ export class DatalistComponent implements OnInit {
         this.overlay.toggle(false);
     }
 
-    removeOption(element) {
+    /**
+     * remove an option from the datalist
+     *
+     * @private
+     * @param {Selectable} element
+     *
+     * @memberOf DatalistComponent
+     */
+    private removeOption(element: Selectable) {
         // remove value from values
-        let values = this.formControl.value;
-        let index = this.indexOf(element, values);
+        const values = this.formControl.value;
+        const index = this.indexOf(element, values);
         if (index !== -1) { values.splice(index, 1); }
         this.formControl.setValue(values);
 
@@ -135,10 +268,20 @@ export class DatalistComponent implements OnInit {
         }
     }
 
-    indexOf(element, array): number {
+    /**
+     * get the index of the given Selectable in the given Array
+     *
+     * @private
+     * @param {Selectable} element
+     * @param {Selectable[]} array
+     * @returns {number}
+     *
+     * @memberOf DatalistComponent
+     */
+    private indexOf(element: Selectable, target: Selectable[]): number {
         let index = -1;
-        for (let i = 0, length = array.length; i < length; i++) {
-            let option = array[i];
+        for (let i = 0, length = target.length; i < length; i++) {
+            const option = target[i];
             if (option.value === element.value) {
                 index = i;
             }

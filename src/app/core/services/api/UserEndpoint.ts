@@ -156,8 +156,8 @@ export class UserEndpoint {
         return JSON.parse(JSON.stringify(this._list));
     }
 
-    private _user(id?: string, token?: string) {
-        const list = this._list;
+    private _user(id?: string, token?: string): UserDto {
+        const list: UserDto[] = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id || 'local ' + list[i]['token'] === token) {
                 return JSON.parse(JSON.stringify(list[i]));
@@ -176,10 +176,10 @@ export class UserEndpoint {
     }
 
     private _userUpdate(id: string, user: UserDto): UserDto {
-        const list = this._list;
+        const list: UserDto[] = this._list;
         for (let i = 0, length = list.length; i < length; i++) {
             if (list[i].id === id) {
-                for (let key in user) {
+                for (const key in user) {
                     if (!user.hasOwnProperty(key)) { continue; }
                     list[i][key] = user[key];
                 }

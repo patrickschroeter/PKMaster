@@ -168,10 +168,30 @@ export class ApplicationsListComponent implements OnInit {
     selector: 'pk-applications-list-owned',
     templateUrl: './applications-list-owned.component.html'
 })
-export class ApplicationsListOwnedComponent extends ApplicationsListComponent { }
+export class ApplicationsListOwnedComponent extends ApplicationsListComponent {
+
+    public validateApplication(application: ApplicationDto): void {
+        super.validateApplication(application);
+    }
+
+}
 
 @Component({
     selector: 'pk-applications-list-assigned',
     templateUrl: './applications-list-assigned.component.html'
 })
-export class ApplicationsListAssignedComponent extends ApplicationsListComponent { }
+export class ApplicationsListAssignedComponent extends ApplicationsListComponent {
+
+    public deactivateApplicationModal(application: ApplicationDto): void {
+        super.deactivateApplicationModal(application);
+    }
+
+    public submitApplicationModal(application: ApplicationDto): void {
+        super.submitApplicationModal(application);
+    }
+
+    public rescindApplicationModal(application: ApplicationDto): void {
+        super.rescindApplicationModal(application);
+    }
+
+}
