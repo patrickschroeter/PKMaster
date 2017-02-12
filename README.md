@@ -141,8 +141,6 @@ app/
     login/                                      #/login
 
     main/                                       #/ ( wrapper template e.g. navbar )
-        main-dashboard/                       - #/ ( removed )
-
         profile/                                #/profile
             profile-edit/                       #/profile/edit
 
@@ -158,16 +156,13 @@ app/
             forms-edit/                         #/forms/{form_id}/edit
 
     admin/                                      #/admin ( wrapper template e.g. admin-navbar )
-        admin-dashboard/                      - #/admin
+        profile/                                #/admin/profile
+            profile-edit                        #/admin/profile/edit
 
         roles/                                  #/admin/roles ( default )
-            roles-new/                          #/admin/roles/new
             roles-detail/                       #/admin/roles/{role_id}
-            roles-edit/                         #/admin/roles/{role_id}/edit
 
         permissions/                            #/admin/permissions
-            permissions-detail/                 #/admin/permissions/{permission_id}
-            permissions-edit/                   #/admin/permissions/{permission_id}/edit
 
         users/                                  #/admin/users
             users-detail/                       #/admin/users/{user_id}                          
@@ -179,7 +174,6 @@ app/
 app/
     /core                       
         /services               : Singletons
-        /components             : Root Components ( not used atm )
     /shared
         /elements               : elements (base)      without dependencies/components
         /components             : elements (advanced)  with dependencies/components
@@ -191,6 +185,8 @@ app/
         /directives
         
         /decorators
+
+        /interfaces
     
     /models
 

@@ -21,8 +21,6 @@ export class FieldModel implements FieldDto {
     styles: string[] = ['small'];
     disabled = false;
 
-    [key: string]: any;
-
     constructor(value?: string, options?: any) {
         this.update(options);
         this.value = value;
@@ -32,7 +30,8 @@ export class FieldModel implements FieldDto {
         if (options) {
             for (const key in options) {
                 if (!options.hasOwnProperty(key)) { continue; }
-                this[key] = options[key];
+                const self: any = this;
+                self[key] = options[key];
             }
         }
     }
