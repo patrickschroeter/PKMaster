@@ -126,7 +126,7 @@ export class RolesDetailComponent implements OnInit {
      */
     @Access('EditRoles')
     private addPermissionToRole(data: Selectable): void {
-        const permission = _.find(this.role.rolePermissions, obj => obj.id === data.value);
+        const permission = _.find(this.role.rolePermissions, (obj: Permission) => obj.id === data.value);
         const fn = (result: RoleDto) => {
             this.role = result;
             this.modalService.updateSelectedValues(result.rolePermissions.map(obj => { return obj.id; }));

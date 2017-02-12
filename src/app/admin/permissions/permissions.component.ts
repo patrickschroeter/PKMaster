@@ -99,7 +99,7 @@ export class PermissionsComponent implements OnInit {
         request.description = form.get('description').value;
 
         this.permission.updatePermission(request.id, request).subscribe(result => {
-            const permission = _.find(this.permissions, obj => obj.id === result.id);
+            const permission = _.find(this.permissions, (obj: Permission) => obj.id === result.id);
             if (permission) {
                 permission.description = result.description;
                 this.overlay.toggle(false);

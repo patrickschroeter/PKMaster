@@ -179,7 +179,7 @@ export class ConferencesEditComponent implements OnInit {
      * @param {ConferenceConfig} element
      */
     public removeElement(element: ConferenceConfig) {
-        const index = _.findIndex(this.conference.config, obj => obj === element);
+        const index = _.findIndex(this.conference.config, (obj: ConferenceConfig) => obj === element);
         if (index !== -1) {
             this.conference.config.splice(index, 1);
         }

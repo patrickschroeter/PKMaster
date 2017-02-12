@@ -265,7 +265,7 @@ export class ConferencesDetailComponent implements OnInit {
     private assignUser(user: Selectable): void {
         const param: ConferenceDto = _.cloneDeep(this.conference);
         if (!param.attendants) { param.attendants = []; }
-        const index = _.findIndex(param.attendants, obj => obj.id === user.value);
+        const index = _.findIndex(param.attendants, (obj: UserDto) => obj.id === user.value);
         if (index === -1) {
             this.userService.getUserById(user.value).subscribe(result => {
                 param.attendants.push(result);

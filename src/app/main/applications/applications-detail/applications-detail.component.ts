@@ -307,7 +307,7 @@ export class ApplicationsDetailComponent implements OnInit {
     public assignUser(user: Selectable): void {
         const param = _.cloneDeep(this.application);
         if (!param.assignments) { param.assignments = []; }
-        const index = _.findIndex(param.assignments, obj => obj.id === user.value);
+        const index = _.findIndex(param.assignments, (obj: UserDto) => obj.id === user.value);
         if (index === -1) {
             this.userService.getUserById(user.value).subscribe(result => {
                 param.assignments.push(result);

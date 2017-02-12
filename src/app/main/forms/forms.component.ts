@@ -65,7 +65,7 @@ export class FormsComponent implements OnInit {
             message: this.translationService.translate('confirmDeleteFormContent'),
             confirm: () => {
                 this.formService.removeForm(form.id).subscribe(result => {
-                    const index = _.findIndex(this.forms, obj => obj.id === form.id);
+                    const index = _.findIndex(this.forms, (obj: SingleFormDto) => obj.id === form.id);
                     if (result && index !== -1) {
                         this.forms.splice(index, 1);
                     }

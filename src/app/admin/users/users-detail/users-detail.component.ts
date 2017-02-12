@@ -185,7 +185,7 @@ export class UsersDetailComponent implements OnInit {
      */
     @Access(['EditUsers', 'EditRoles'])
     private addRoleToUser(data: Selectable): void {
-        const role = _.find(this.user.roles, obj => obj.id === data.value);
+        const role = _.find(this.user.roles, (obj: RoleDto) => obj.id === data.value);
         const fn = (result: UserDto) => {
             this.user = result;
             this.modalService.updateSelectedValues(result.roles.map(obj => { return obj.id; }));

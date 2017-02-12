@@ -79,7 +79,8 @@ export class ConferenceEntryListComponent implements OnInit {
         if (!this.entry.entries || !this.entry.entries.length) {
             this.numberOfListFields = 1;
         } else {
-            this.numberOfListFields = _.cloneDeep(this.entry.entries).sort((a, b) => a > b ? -1 : 1)[0].length;
+            // TODO: test
+            this.numberOfListFields = _.cloneDeep(this.entry.entries).sort((a: any, b: any) => a > b ? -1 : 1)[0].length;
         }
         this.change.emit(this.numberOfListFields);
     }

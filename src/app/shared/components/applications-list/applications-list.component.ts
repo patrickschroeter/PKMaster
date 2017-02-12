@@ -45,7 +45,7 @@ export class ApplicationsListComponent implements OnInit {
      * @param {Application} application
      */
     private updateApplication(application: ApplicationDto): void {
-        const index = _.findIndex(this.applications, obj => obj.id === application.id);
+        const index = _.findIndex(this.applications, (obj: ApplicationDto) => obj.id === application.id);
         if (index !== -1) {
             this.applications[index] = application;
         }

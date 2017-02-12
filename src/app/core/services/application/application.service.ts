@@ -85,18 +85,18 @@ export class ApplicationService {
     }
 
     @Loading('getApplications')
-    public getOwnApplications(sort?: string, user?: UserDto): Observable<any> {
-        return this.applicationApi.getApplications().map(param => {
-            const applications = param.filter(obj => obj.userId === user.id);
+    public getOwnApplications(sort?: string, user?: UserDto): Observable<ApplicationDto[]> {
+        return this.applicationApi.getApplications().map(result => {
+            const applications = result.filter((obj: ApplicationDto) => obj.userId === user.id);
             return this.applications = applications;
         });
     }
 
     @Loading('getApplications')
-    public getAssignedApplications(sort?: string, user?: UserDto): Observable<any> {
-        return this.applicationApi.getApplications().map(param => {
-            const applications = param.filter(obj => {
-                const assignment = _.find(obj.assignments, assign => assign.id === user.id);
+    public getAssignedApplications(sort?: string, user?: UserDto): Observable<ApplicationDto[]> {
+        return this.applicationApi.getApplications().map(result => {
+            const applications = result.filter((obj: ApplicationDto) => {
+                const assignment = _.find(obj.assignments, (assign: UserDto) => assign.id === user.id);
                 return !!assignment;
             });
             return this.applications = applications;

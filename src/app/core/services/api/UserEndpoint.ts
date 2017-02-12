@@ -4,7 +4,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 
 import { UserApiMock, AuthenticationService } from './../';
 
-import { UserDto, RoleApi } from './../../../swagger';
+import { UserDto, RoleApi, RoleDto } from './../../../swagger';
 
 @Injectable()
 export class UserEndpoint {
@@ -123,7 +123,7 @@ export class UserEndpoint {
         const user: UserDto = this._user(userId);
         const api: { [key: string]: any } = this.roleApi;
         const role = api['_role'](roleId);
-        if (_.findIndex(user.roles, obj => obj.id === roleId) === -1) {
+        if (_.findIndex(user.roles, (obj: RoleDto) => obj.id === roleId) === -1) {
             user.roles.push(role);
         }
         return this.observe(this._userUpdate(user.id, this._updatePermissions(user)));

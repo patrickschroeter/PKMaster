@@ -124,7 +124,7 @@ export class ConferencesComponent implements OnInit {
              */
             confirm: () => {
                 this.conferenceService.removeConference(conference.id).subscribe(result => {
-                    const index = _.findIndex(this.conferences, obj => obj.id === conference.id);
+                    const index = _.findIndex(this.conferences, (obj: ConferenceDto) => obj.id === conference.id);
                     if (result && index !== -1) {
                         this.conferences.splice(index, 1);
                     }
