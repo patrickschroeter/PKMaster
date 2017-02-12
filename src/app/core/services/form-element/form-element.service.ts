@@ -227,7 +227,7 @@ export class FormElementService {
         /** Check if the required Element Type exists in Select Options */
         let existing = false;
         const inputTypes = this.selectTypeFormElement.options;
-        for (let i = 0, length = inputTypes ? inputTypes.length : 0; i < length; i++) {
+        for (let i = 0; i < (inputTypes ? inputTypes.length : 0); i++) {
             if (type === inputTypes[i].value) { existing = true; }
         }
 
@@ -293,7 +293,7 @@ export class FormElementService {
                 let useCustomOptions = true;
                 let optionFormElement: any;
                 let formElementOptions: any;
-                for (let i = 0, length = generatedFormOfElement.length; i < length; i++) {
+                for (let i = 0; i < generatedFormOfElement.length; i++) {
                     const input: FieldDto = generatedFormOfElement[i];
                     if (element[input.name] && input.name !== 'fieldType') {
                         input.value = element[input.name];
@@ -346,7 +346,7 @@ export class FormElementService {
                     this.setElementHasStyles(false);
                     this.setElementHasPreview(false);
                     this.setElementPreview([form]);
-                    for (let i = 0, length = this.element.length; i < length; i++) {
+                    for (let i = 0; i < this.element.length; i++) {
                         const element = this.element[i];
                         if (form[element.name]) {
                             element.value = form[element.name];
@@ -417,7 +417,7 @@ export class FormElementService {
     public addValidations(): void {
 
         /** Check if Validation already exists */
-        for (let i = 0, length = this.element.length; i < length; i++) {
+        for (let i = 0; i < this.element.length; i++) {
             if (this.element[i].name === 'validations') {
                 return console.error('form-element.service:addValidations(): validations already exists');
             }
@@ -449,7 +449,7 @@ export class FormElementService {
     public addStyles(): void {
 
         /** Check if Styles already exists */
-        for (let i = 0, length = this.element.length; i < length; i++) {
+        for (let i = 0; i < this.element.length; i++) {
             if (this.element[i].name === 'styles') {
                 return console.error('form-element.service:addStyles(): styles already exists');
             }
@@ -478,7 +478,7 @@ export class FormElementService {
      */
     public removeElement(): void {
         let name: FieldDto;
-        for (let i = 0, length = this.element.length; i < length; i++) {
+        for (let i = 0; i < this.element.length; i++) {
             const formElement = this.element[i];
             if (formElement.name === 'name') {
                 name = formElement;

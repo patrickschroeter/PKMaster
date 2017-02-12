@@ -1,12 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
+/** Models */
+import { FieldDto } from './../../../../swagger';
+
 @Component({
     selector: 'pk-dynamic-form-edit',
     templateUrl: './dynamic-form-edit.component.html'
 })
 export class DynamicFormEditComponent implements OnInit {
 
-    @Input() form;
+    @Input() form: FieldDto[];
     @Output() onEdit: EventEmitter<any> = new EventEmitter();
 
     constructor() { }
@@ -14,7 +17,7 @@ export class DynamicFormEditComponent implements OnInit {
     ngOnInit() {
     }
 
-    edit(element) {
+    edit(element: any) {
         this.onEdit.emit(element);
     }
 

@@ -10,7 +10,7 @@ export class ListElementComponent implements OnInit, AfterViewInit, OnChanges {
     @HostBinding('class.animation') animation = true;
     @HostBinding('class.animation--trigger') animationTrigger = true;
 
-    @Input() name;
+    @Input() name: string;
 
     constructor(private renderer: Renderer, private elementRef: ElementRef) { }
 

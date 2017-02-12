@@ -145,7 +145,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
      *
      * @memberOf DynamicFormComponent
      */
-    generateFormFromInput(input?: FieldDto[]): void {
+    private generateFormFromInput(input?: FieldDto[]): void {
         /** Use this.formElements if not Input is given */
         if (!this.formElements) { return; }
         if (!input) { input = this.formElements; }
@@ -171,7 +171,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
      *
      * @memberOf DynamicFormComponent
      */
-    showFormValidation(form: FormGroup) {
+    public showFormValidation(form: FormGroup) {
         // if (this.disabled) { return; } // TODO
         this.isFormValidationVisible = true;
         this.dynamicForm.showValidation(form);
@@ -182,7 +182,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
      *
      * @memberOf DynamicFormComponent
      */
-    hideFormValidation() {
+    public hideFormValidation() {
         this.isFormValidationVisible = false;
     }
 

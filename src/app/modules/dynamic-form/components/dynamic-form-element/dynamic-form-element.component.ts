@@ -13,7 +13,7 @@ import { DynamicFormComponent } from './../../dynamic-form.component';
 })
 export class DynamicFormElementComponent implements OnInit {
 
-    @Input() element;
+    @Input() element: FieldDto;
     @Input() disabled: boolean;
     @Input() form: FormGroup;
 
@@ -28,11 +28,11 @@ export class DynamicFormElementComponent implements OnInit {
      * @param {FormElement} element the element to validate
      * @return {void}
      */
-    showElementValidation(element: FieldDto): void {
+    public showElementValidation(element: FieldDto): void {
         this.dynamicForm.showElementValidation(this.form.controls[element.name]);
     }
 
-    hideElementValidation(): void {
+    public hideElementValidation(): void {
         this.dynamicForm.hideValidation();
     }
 }

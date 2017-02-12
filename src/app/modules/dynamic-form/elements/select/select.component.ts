@@ -163,7 +163,7 @@ export class SelectComponent implements OnInit {
      *
      * @memberOf SelectComponent
      */
-    private isDisabled() {
+    public isDisabled() {
         return this.disabled || (this.config && this.config.disabled);
     }
 
@@ -176,7 +176,7 @@ export class SelectComponent implements OnInit {
      *
      * @memberOf SelectComponent
      */
-    private select(option: Selectable) {
+    public select(option: Selectable) {
         if (!this.config.multipleSelect) {
             this.formControl.setValue(option.value);
             this.overlay.toggle();
@@ -206,14 +206,14 @@ export class SelectComponent implements OnInit {
      *
      * @memberOf SelectComponent
      */
-    private filterOptions(event: string) {
+    public filterOptions(event: string) {
         if (!this.config.options) { return; }
         if (event === '') {
             this.filteredOptions = undefined;
             return;
         }
         this.filteredOptions = [];
-        for (let i = 0, length = this.config.options.length; i < length; i++) {
+        for (let i = 0; i < this.config.options.length; i++) {
             const element = this.config.options[i];
             if (element.value.includes(event) || element.label.includes(event)) {
                 this.filteredOptions.push(element);
@@ -229,7 +229,7 @@ export class SelectComponent implements OnInit {
      *
      * @memberOf SelectComponent
      */
-    private removeOption(option: Selectable) {
+    public removeOption(option: Selectable) {
         const values = this.formControl.value;
         const value = option.value;
         const index = values.indexOf(value);

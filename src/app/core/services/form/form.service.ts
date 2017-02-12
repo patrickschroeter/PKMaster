@@ -88,7 +88,7 @@ export class FormService {
 
         this.editingElementIndex = -1;
         if (element && this.form) {
-            for (let i = 0, length = this.form.formHasField.length; i < length; i++) {
+            for (let i = 0; i < this.form.formHasField.length; i++) {
                 const formElement = this.form.formHasField[i];
                 if (formElement && formElement.name === element.name) {
                     this.editingElementIndex = i;
@@ -127,7 +127,7 @@ export class FormService {
             }
         } else {
             index = -1;
-            for (let i = 0, length = this.form.formHasField.length; i < length; i++) {
+            for (let i = 0; i < this.form.formHasField.length; i++) {
                 const input = this.form.formHasField[i];
                 if (input.name === element.value) {
                     index = i;
@@ -160,7 +160,7 @@ export class FormService {
         if (!this.form || !this.form.formHasField) { return false; }
         /** Check if the element.name is Unique in the current Form */
         let index = -1;
-        for (let i = 0, length = this.form.formHasField.length; i < length; i++) {
+        for (let i = 0; i < this.form.formHasField.length; i++) {
             const input = this.form.formHasField[i];
             if (input.name === element.name) {
                 index = i;

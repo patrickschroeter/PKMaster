@@ -107,7 +107,7 @@ export class UserEndpoint {
     public removeUserRole(userId: string, roleId?: string, extraHttpRequestParams?: any): Observable<{}> {
         const user: UserDto = this._user(userId);
         let index = -1;
-        for (let i = 0, length = user.roles.length; i < length; i++) {
+        for (let i = 0; i < user.roles.length; i++) {
             const element = user.roles[i];
             if (element.id === roleId) {
                 index = i;
@@ -121,7 +121,8 @@ export class UserEndpoint {
 
     public updateUserRole(userId: string, roleId?: string, extraHttpRequestParams?: any): Observable<{}> {
         const user: UserDto = this._user(userId);
-        const role = this.roleApi['_role'](roleId);
+        const api: { [key: string]: any } = this.roleApi;
+        const role = api['_role'](roleId);
         if (_.findIndex(user.roles, obj => obj.id === roleId) === -1) {
             user.roles.push(role);
         }
@@ -157,9 +158,9 @@ export class UserEndpoint {
     }
 
     private _user(id?: string, token?: string): UserDto {
-        const list: UserDto[] = this._list;
-        for (let i = 0, length = list.length; i < length; i++) {
-            if (list[i].id === id || 'local ' + list[i]['token'] === token) {
+        const list: { [key: string]: any}[] = this._list;
+        for (let i = 0; i < list.length; i++) {
+            if (list[i]['id'] === id || 'local ' + list[i]['token'] === token) {
                 return JSON.parse(JSON.stringify(list[i]));
             }
         }
@@ -175,10 +176,10 @@ export class UserEndpoint {
         return JSON.parse(JSON.stringify(this._list[this._list.length - 1]));
     }
 
-    private _userUpdate(id: string, user: UserDto): UserDto {
-        const list: UserDto[] = this._list;
-        for (let i = 0, length = list.length; i < length; i++) {
-            if (list[i].id === id) {
+    private _userUpdate(id: string, user: { [key: string]: any}): UserDto {
+        const list: { [key: string]: any}[] = this._list;
+        for (let i = 0; i < list.length; i++) {
+            if (list[i]['id'] === id) {
                 for (const key in user) {
                     if (!user.hasOwnProperty(key)) { continue; }
                     list[i][key] = user[key];
@@ -191,10 +192,11 @@ export class UserEndpoint {
 
     private _updatePermissions(user: UserDto): UserDto {
         const permissions: string[] = [];
-        for (let i = 0, length = user.roles.length; i < length; i++) {
-            user.roles[i] = this.roleApi['_role'](user.roles[i].id);
+        for (let i = 0; i < user.roles.length; i++) {
+            const api: { [key: string]: any } = this.roleApi;
+            user.roles[i] = api['_role'](user.roles[i].id);
             const role = user.roles[i];
-            for (let j = 0, l = role.rolePermissions.length; j < l; j++) {
+            for (let j = 0; j < role.rolePermissions.length; j++) {
                 const perm = role.rolePermissions[j];
                 if (permissions.indexOf(perm.name) === -1) {
                     permissions.push(perm.name);
@@ -206,9 +208,9 @@ export class UserEndpoint {
     }
 
     private _login(username: string, password: string) {
-        const list = this._list;
-        for (let i = 0, length = list.length; i < length; i++) {
-            if (list[i].email === username && list[i]['password'] === password) {
+        const list: { [key: string]: any}[] = this._list;
+        for (let i = 0; i < list.length; i++) {
+            if (list[i]['email'] === username && list[i]['password'] === password) {
 
                 return {
                     token_type: 'local',

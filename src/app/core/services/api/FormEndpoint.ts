@@ -59,7 +59,7 @@ export class FormEndpoint {
         });
     }
 
-    public updateFormById(formId: number, form?: SingleFormDto, extraHttpRequestParams?: any): Observable<any> {
+    public updateFormById(formId: string, form?: SingleFormDto, extraHttpRequestParams?: any): Observable<any> {
         console.log('%cMock:' + `%c updateFormById ${formId}`, 'color: #F44336', 'color: #fefefe');
         const updatedForm = this._formUpdate(formId.toString(), form);
         return new Observable((observer: Observer<any>) => {
@@ -121,7 +121,7 @@ export class FormEndpoint {
     private _form(id?: string): SingleFormDto {
         let result: SingleFormDto;
         const list = this._list;
-        for (let i = 0, length = list.length; i < length; i++) {
+        for (let i = 0; i < list.length; i++) {
             if (list[i].id === id) {
                 result = list[i];
             }
@@ -132,7 +132,7 @@ export class FormEndpoint {
 
     private _formUpdate(id: string, form: SingleFormDto) {
         const list = this._list;
-        for (let i = 0, length = list.length; i < length; i++) {
+        for (let i = 0; i < list.length; i++) {
             if (list[i].id === id) {
                 list[i] = form;
                 return JSON.parse(JSON.stringify(list[i]));
@@ -143,7 +143,7 @@ export class FormEndpoint {
 
     private _delete(id: string): boolean {
         let index = -1;
-        for (let i = 0, length = this._list.length; i < length; i++) {
+        for (let i = 0; i < this._list.length; i++) {
             const element = this._list[i];
             if (element.id === id) {
                 index = i;

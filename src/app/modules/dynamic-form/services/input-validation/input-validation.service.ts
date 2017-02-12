@@ -119,7 +119,7 @@ export class InputValidationService {
     public generateValidationsFromKeys(keyArray: string[] = []): ValidatorFn[] {
         const result: ValidatorFn[] = [];
         if (!keyArray) { return result; }
-        for (let i = 0, length = keyArray.length; i < length; i++) {
+        for (let i = 0; i < keyArray.length; i++) {
             const validationName = keyArray[i];
             const validation = this.validationMapping[validationName];
             if (validation) { result.push(validation); }
@@ -228,8 +228,8 @@ export class InputValidationService {
                     message: message
                 }
             };
-            let value;
-            for (let i = 0, length = names.length; i < length; i++) {
+            let value: any;
+            for (let i = 0; i < names.length; i++) {
                 const control = group.controls[names[i]];
                 // fail if control is missing for one of the keys
                 if (!control) {

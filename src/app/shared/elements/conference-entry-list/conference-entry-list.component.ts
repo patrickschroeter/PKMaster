@@ -107,7 +107,7 @@ export class ConferenceEntryListComponent implements OnInit {
      */
     public openEditListEntryModal(element: string[], index: number): void {
         this.listModalService
-        .setModalSave(result => {
+        .setModalSave((result: string[]) => {
             this.updateListEntry(result, index);
         })
         .openModal({

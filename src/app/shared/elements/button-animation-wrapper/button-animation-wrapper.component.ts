@@ -11,9 +11,9 @@ export class ButtonAnimationWrapperComponent implements OnInit {
     public _animationUp: boolean;
     public _animationDown: boolean;
 
-    @Input() set animationRight(i) { this._animationRight = true; }
-    @Input() set animationUp(i) { this._animationUp = true; }
-    @Input() set animationDown(i) { this._animationDown = true; }
+    @Input() set animationRight(i: any) { this._animationRight = true; }
+    @Input() set animationUp(i: any) { this._animationUp = true; }
+    @Input() set animationDown(i: any) { this._animationDown = true; }
 
     constructor() { }
 

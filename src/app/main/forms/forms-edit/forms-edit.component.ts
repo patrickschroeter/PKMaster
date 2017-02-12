@@ -138,7 +138,7 @@ export class FormsEditComponent implements OnInit {
         this.getForm();
 
         /** subscribe to the add element flag */
-        this.formService.getAddingElement().subscribe(addingElement => {
+        this.formService.getAddingElement().subscribe((addingElement: boolean) => {
             this.addingElement = addingElement;
         });
     }

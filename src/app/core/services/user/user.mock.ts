@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 
 import { UserDto, RoleDto } from './../../../swagger';
 
@@ -16,7 +16,7 @@ export class UserMock {
      * @memberOf UserService
      */
     public getUsers(): Observable<Array<UserDto>> {
-        return new Observable(observer => observer.next([]));
+        return new Observable((observer: Observer<any[]>) => observer.next([]));
     }
 
     /**
@@ -27,7 +27,7 @@ export class UserMock {
      * @memberOf UserService
      */
     public getMembers(): Observable<Array<UserDto>> {
-        return new Observable(observer => observer.next([]));
+        return new Observable((observer: Observer<any[]>) => observer.next([]));
     }
 
     /**
@@ -38,7 +38,7 @@ export class UserMock {
      * @memberOf UserService
      */
     public getGuests(): Observable<Array<UserDto>> {
-        return new Observable(observer => observer.next([]));
+        return new Observable((observer: Observer<any[]>) => observer.next([]));
     }
 
 

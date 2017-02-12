@@ -63,5 +63,9 @@
         "tslint": "^4.3.0",
         "typescript": "~2.0.3"
     },
-    "pre-commit": []
+    "pre-commit": [
+        "test",
+        "lint:unused",
+        "build-i18n:en"
+    ]
 }

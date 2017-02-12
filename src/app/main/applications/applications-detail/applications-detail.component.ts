@@ -78,7 +78,7 @@ export class ApplicationsDetailComponent implements OnInit {
         /** get all conferences */
         this.conferenceService.getConferences().subscribe(conferences => {
             this.conferences = [];
-            for (let i = 0, length = conferences.length; i < length; i++) {
+            for (let i = 0; i < conferences.length; i++) {
                 const conference = conferences[i];
                 this.conferences.push({
                     label: conference.description,
@@ -309,7 +309,6 @@ export class ApplicationsDetailComponent implements OnInit {
         if (!param.assignments) { param.assignments = []; }
         const index = _.findIndex(param.assignments, obj => obj.id === user.value);
         if (index === -1) {
-            param.assignments.push(user.value);
             this.userService.getUserById(user.value).subscribe(result => {
                 param.assignments.push(result);
                 this.saveApplication(param);

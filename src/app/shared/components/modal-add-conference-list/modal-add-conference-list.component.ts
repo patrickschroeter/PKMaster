@@ -48,7 +48,7 @@ export class ModalAddConferenceListComponent implements OnInit, Window {
      * @param {Number} number
      */
     private generateInputs(number: number, values: string[]): void {
-        const form = [];
+        const form: FieldDto[] = [];
         for (let i = 0; i < number; i++) {
             form.push({
                 fieldType: 'input',
@@ -75,7 +75,7 @@ export class ModalAddConferenceListComponent implements OnInit, Window {
     /**
      *  adds the new entry to the list
      */
-    public addListEntry(form): void {
+    public addListEntry(form: { [key: string]: string}): void {
         if (this.save) {
             const entry: string[] = this.getValues(form);
             this.save(entry);
@@ -87,9 +87,9 @@ export class ModalAddConferenceListComponent implements OnInit, Window {
      * transforms the object to an array
      * @param {Object} object
      */
-    private getValues(object: Object): string[] {
-        const result = [];
-        for (let i = 0, length = this.newEntry.length; i < length; i++) {
+    private getValues(object: { [key: string]: string}): string[] {
+        const result: string[] = [];
+        for (let i = 0; i < this.newEntry.length; i++) {
             result.push(object[i] || '');
         }
         return result;

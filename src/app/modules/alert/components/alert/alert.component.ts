@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { AlertService, Message } from './../../services';
+import { AlertService } from './../../services';
 import { ModalService } from './../../../../modules/overlay';
+import { Message } from './../../../../models';
 
 @Component({
     selector: 'pk-alert',

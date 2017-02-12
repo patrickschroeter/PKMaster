@@ -28,7 +28,7 @@ export class ButtonComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
         const nativeElement = this.elementRef.nativeElement;
-        for (let i = 0, length = this.options.length; i < length; i++) {
+        for (let i = 0; i < this.options.length; i++) {
             const option = this.options[i];
             if (nativeElement.hasAttribute(option)) {
                 this.renderer.setElementClass(nativeElement, `element--${option}`, true);

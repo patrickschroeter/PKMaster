@@ -34,7 +34,7 @@ export class ConferenceEndpoint {
 
     public deleteApplicationOfConference(conferenceId: number, application?: number, extraHttpRequestParams?: any):
         Observable<ConferenceDto> {
-        return new Observable(observer => { observer.next({ id: conferenceId }); });
+        return new Observable((observer: Observer<any>) => { observer.next({ id: conferenceId }); });
     }
 
     public deleteConferenceById(conferenceId: string, extraHttpRequestParams?: any): Observable<{}> {
@@ -42,7 +42,7 @@ export class ConferenceEndpoint {
     }
 
     public getApplicationsByConference(conferenceId: number, extraHttpRequestParams?: any): Observable<Array<ApplicationDto>> {
-        return new Observable(observer => { observer.next({ id: conferenceId }); });
+        return new Observable((observer: Observer<any>) => { observer.next({ id: conferenceId }); });
     }
 
     public getConferenceById(conferenceId: string, extraHttpRequestParams?: any): Observable<ConferenceDto> {
@@ -121,7 +121,7 @@ export class ConferenceEndpoint {
     private _conference(id?: string): ConferenceDto {
         let result: ConferenceDto;
         const list = this._list;
-        for (let i = 0, length = list.length; i < length; i++) {
+        for (let i = 0; i < list.length; i++) {
             if (list[i].id === id) {
                 result = list[i];
             }
@@ -132,7 +132,7 @@ export class ConferenceEndpoint {
 
     private _conferenceUpdate(id: string, conference: ConferenceDto): ConferenceDto {
         const list = this._list;
-        for (let i = 0, length = list.length; i < length; i++) {
+        for (let i = 0; i < list.length; i++) {
             if (list[i].id === id) {
                 list[i] = conference;
                 return JSON.parse(JSON.stringify(list[i]));
@@ -143,7 +143,7 @@ export class ConferenceEndpoint {
 
     private _delete(id: string): boolean {
         let index = -1;
-        for (let i = 0, length = this._list.length; i < length; i++) {
+        for (let i = 0; i < this._list.length; i++) {
             const element = this._list[i];
             if (element.id === id) {
                 index = i;
@@ -161,7 +161,7 @@ export class ConferenceEndpoint {
         const conference: ConferenceDto = this._conference(id);
         conference.applications = conference.applications || [];
         let index = -1;
-        for (let i = 0, length = conference.applications.length; i < length; i++) {
+        for (let i = 0; i < conference.applications.length; i++) {
             const element = conference.applications[i];
             if (element.id === application.id) {
                 index = i;

@@ -77,7 +77,7 @@ export class PermissionService {
      */
     private hasOneOfPermissions(permissions: string[]): boolean {
         if (!permissions.length) { return true; }
-        for (let i = 0, length = permissions.length; i < length; i++) {
+        for (let i = 0; i < permissions.length; i++) {
             if (this.hasOnePermission(permissions[i])) { return true; }
         }
         return false;

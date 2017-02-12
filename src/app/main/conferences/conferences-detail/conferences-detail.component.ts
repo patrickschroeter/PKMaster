@@ -13,7 +13,7 @@ import { ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { ConferenceConfig, Selectable } from './../../../models';
+import { ConferenceConfig, Selectable, ApplicationsByFormId } from './../../../models';
 import { ConferenceDto, ApplicationDto, CommentDto, UserDto } from './../../../swagger';
 import { OverlayComponent } from './../../../modules/overlay';
 
@@ -155,15 +155,15 @@ export class ConferencesDetailComponent implements OnInit {
     public populateConfigWithApplications() {
         if (!this.conference.applications) { return; }
 
-        const applicationsByForm = {};
-        for (let i = 0, length = this.conference.applications.length; i < length; i++) {
-            const application = this.conference.applications[i];
+        const applicationsByForm: ApplicationsByFormId = {};
+        for (let i = 0; i < this.conference.applications.length; i++) {
+            const application: ApplicationDto = this.conference.applications[i];
             if (typeof application.filledForm === 'string') { application.filledForm = JSON.parse(application.filledForm); }
             applicationsByForm[application.formId] = applicationsByForm[application.formId] || [];
             applicationsByForm[application.formId].push(application);
         }
 
-        for (let i = 0, length = this.conference.config.length; i < length; i++) {
+        for (let i = 0; i < this.conference.config.length; i++) {
             this.setApplication(this.conference.config[i], applicationsByForm);
         }
     }
@@ -177,11 +177,11 @@ export class ConferencesDetailComponent implements OnInit {
      *
      * @memberOf ConferencesDetailComponent
      */
-    private setApplication(config: ConferenceConfig, applications: Object) {
+    private setApplication(config: ConferenceConfig, applications: ApplicationsByFormId) {
         if (config.formId) {
             config.entries = applications[config.formId];
         } else if (config.type === 'config') {
-            for (let i = 0, length = config.entries.length; i < length; i++) {
+            for (let i = 0; i < config.entries.length; i++) {
                 this.setApplication(config.entries[i], applications);
             }
         }

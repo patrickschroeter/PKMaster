@@ -38,7 +38,7 @@ export class ConferenceEntryApplicationComponent implements OnInit {
         this.formService.getFormById(this.entry.formId).subscribe(result => {
             console.log(result);
             const fields: Selectable[] = [];
-            for (let i = 0, length = result.formHasField.length; i < length; i++) {
+            for (let i = 0; i < result.formHasField.length; i++) {
                 const field = result.formHasField[i];
                 fields.push(new Selectable(field.name, field.name));
             }
@@ -63,7 +63,7 @@ export class ConferenceEntryApplicationComponent implements OnInit {
         }
         const fields = this.entry.fields;
         let index = -1;
-        for (let i = 0, length = fields.length; i < length; i++) {
+        for (let i = 0; i < fields.length; i++) {
             const field = fields[i];
             if (field === element.value) {
                 index = i;
@@ -84,7 +84,7 @@ export class ConferenceEntryApplicationComponent implements OnInit {
     public getLabelOfForm(id: string): string {
         if (this.cachedFormLabel && this.cachedFormId === id) { return this.cachedFormLabel; }
         if (!this.forms) { return this.cachedFormLabel; }
-        for (let i = 0, length = this.forms.length; i < length; i++) {
+        for (let i = 0; i < this.forms.length; i++) {
             const form = this.forms[i];
             if (form.value === id) {
                 this.cachedFormId = id;

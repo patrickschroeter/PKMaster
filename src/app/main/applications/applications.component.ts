@@ -57,7 +57,7 @@ export class ApplicationsComponent implements OnInit {
         /** get all forms */
         this.formService.getForms().subscribe(forms => {
             this.applicationTypes = [];
-            for (let i = 0, length = forms.length; i < length; i++) {
+            for (let i = 0; i < forms.length; i++) {
                 const element = forms[i];
                 this.applicationTypes.push(new Selectable(element.id, element.title));
             }

@@ -87,7 +87,7 @@ export class RoleEndpoint {
     private _role(id?: string): RoleDto {
         let result: RoleDto;
         const list = this._list;
-        for (let i = 0, length = list.length; i < length; i++) {
+        for (let i = 0; i < list.length; i++) {
             if (list[i].id === id) {
                 result = list[i];
             }
@@ -98,7 +98,7 @@ export class RoleEndpoint {
 
     private _roleUpdate(id: string, role: RoleDto): RoleDto {
         const list = this._list;
-        for (let i = 0, length = list.length; i < length; i++) {
+        for (let i = 0; i < list.length; i++) {
             if (list[i].id === id) {
                 list[i] = role;
                 return JSON.parse(JSON.stringify(list[i]));
@@ -112,7 +112,7 @@ export class RoleEndpoint {
         if (!role) { return; }
 
         let index = -1;
-        for (let i = 0, length = role.rolePermissions.length; i < length; i++) {
+        for (let i = 0; i < role.rolePermissions.length; i++) {
             if (role.rolePermissions[i].id === permissionId) {
                 index = i;
             }

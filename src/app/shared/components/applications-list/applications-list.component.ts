@@ -170,18 +170,6 @@ export class ApplicationsListComponent implements OnInit {
 })
 export class ApplicationsListOwnedComponent extends ApplicationsListComponent {
 
-    public validateApplication(application: ApplicationDto): void {
-        super.validateApplication(application);
-    }
-
-}
-
-@Component({
-    selector: 'pk-applications-list-assigned',
-    templateUrl: './applications-list-assigned.component.html'
-})
-export class ApplicationsListAssignedComponent extends ApplicationsListComponent {
-
     public deactivateApplicationModal(application: ApplicationDto): void {
         super.deactivateApplicationModal(application);
     }
@@ -192,6 +180,18 @@ export class ApplicationsListAssignedComponent extends ApplicationsListComponent
 
     public rescindApplicationModal(application: ApplicationDto): void {
         super.rescindApplicationModal(application);
+    }
+
+}
+
+@Component({
+    selector: 'pk-applications-list-assigned',
+    templateUrl: './applications-list-assigned.component.html'
+})
+export class ApplicationsListAssignedComponent extends ApplicationsListComponent {
+
+    public validateApplication(application: ApplicationDto): void {
+        super.validateApplication(application);
     }
 
 }

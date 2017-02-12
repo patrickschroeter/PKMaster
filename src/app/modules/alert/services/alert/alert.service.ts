@@ -60,7 +60,7 @@ export class AlertService {
 
     private addMessage(id: string, type: string, message: string): Message {
         let index = -1;
-        for (let i = 0, length = this.hints.length; i < length; i++) {
+        for (let i = 0; i < this.hints.length; i++) {
             const hint = this.hints[i];
             if (hint.id === id) {
                 index = i;
@@ -80,7 +80,7 @@ export class AlertService {
 
     public removeHint(id: string): void {
         let index = -1;
-        for (let i = 0, length = this.hints.length; i < length; i++) {
+        for (let i = 0; i < this.hints.length; i++) {
             const hint = this.hints[i];
             if (hint.id === id) {
                 index = i;

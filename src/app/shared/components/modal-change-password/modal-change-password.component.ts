@@ -69,7 +69,7 @@ export class ModalChangePasswordComponent implements OnInit {
      * Creates an instance of ModalChangePasswordComponent.
      *
      * @param {AuthenticationService} auth
-     * @param {DynamicFormService} dynamicForm
+     * @param {DynamicFormService} dynamicFormService
      * @param {InputValidationService} inputValidation
      * @param {AlertService} alert
      * @param {TranslationService} translationService
@@ -78,7 +78,7 @@ export class ModalChangePasswordComponent implements OnInit {
      */
     constructor(
         private auth: AuthenticationService,
-        private dynamicForm: DynamicFormService,
+        private dynamicFormService: DynamicFormService,
         private inputValidation: InputValidationService,
         private alert: AlertService,
         private translationService: TranslationService
@@ -111,7 +111,7 @@ export class ModalChangePasswordComponent implements OnInit {
             new Fields.Password(null, { name: 'newpasswordconfirm', label: 'New Password (confirm)' })
         ];
 
-        this.changePasswordForm = this.dynamicForm.generateFormFromInput(
+        this.changePasswordForm = this.dynamicFormService.generateFormFromInput(
             this.changePasswordElements,
             { validator: this.inputValidation.areEqual(['newpassword', 'newpasswordconfirm'], 'errorPasswordMatch') });
     }

@@ -193,7 +193,7 @@ export class DatalistComponent implements OnInit {
      *
      * @memberOf DatalistComponent
      */
-    private isDisabled() {
+    public isDisabled() {
         return this.disabled || (this.config && this.config.disabled);
     }
 
@@ -203,7 +203,7 @@ export class DatalistComponent implements OnInit {
      * @memberOf DatalistComponent
      */
     public resetAddOptionForm() {
-        for (let i = 0, length = this.addOptionForm.length; i < length; i++) {
+        for (let i = 0; i < this.addOptionForm.length; i++) {
             this.addOptionForm[i].value = '';
         }
     }
@@ -216,12 +216,12 @@ export class DatalistComponent implements OnInit {
      *
      * @memberOf DatalistComponent
      */
-    private addOption(element: Selectable) {
+    public addOption(element: Selectable) {
         // add value to values
         let values = this.formControl.value;
         if (!values) { values = []; }
 
-        let index = this.indexOf(element, values);
+        const index = this.indexOf(element, values);
         if (index === -1) {
             values.push(element);
         } else {
@@ -235,7 +235,7 @@ export class DatalistComponent implements OnInit {
         if (!this.config.options) {
             this.config.options = [element];
         } else {
-            let override = this.indexOf(element, this.config.options);
+            const override = this.indexOf(element, this.config.options);
 
             if (override === -1) {
                 this.config.options.push(element);
@@ -255,7 +255,7 @@ export class DatalistComponent implements OnInit {
      *
      * @memberOf DatalistComponent
      */
-    private removeOption(element: Selectable) {
+    public removeOption(element: Selectable) {
         // remove value from values
         const values = this.formControl.value;
         const index = this.indexOf(element, values);
@@ -280,7 +280,7 @@ export class DatalistComponent implements OnInit {
      */
     private indexOf(element: Selectable, target: Selectable[]): number {
         let index = -1;
-        for (let i = 0, length = target.length; i < length; i++) {
+        for (let i = 0; i < target.length; i++) {
             const option = target[i];
             if (option.value === element.value) {
                 index = i;

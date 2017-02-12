@@ -48,8 +48,8 @@ export class ApplicationService {
         if (!application.filledForm || typeof application.filledForm !== 'string') { return; }
         application.filledForm = JSON.parse(application.filledForm);
         /** TODO */
-        for (let i = 0, length = application.attributes.length; i < length; i++) {
-            const field = application.attributes[i];
+        for (let i = 0; i < application.attributes.length; i++) {
+            const field: FieldDto = application.attributes[i];
             field.value = application.filledForm[field.name];
         }
     }

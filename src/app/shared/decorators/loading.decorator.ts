@@ -10,7 +10,7 @@ export function Loading(name: string) {
         const originalMethod = descriptor.value;
 
         descriptor.value = function (...args: any[]) {
-            let result;
+            let result: any;
             if (this.alert instanceof AlertService) {
                 let value = 'Loading...';
                 if (this.translationService instanceof TranslationService) {
@@ -32,7 +32,7 @@ export function Loading(name: string) {
 
             if (result && result.map) {
                 if (this.alert instanceof AlertService) {
-                    return result.map(element => {
+                    return result.map((element: any) => {
                         this.alert.removeHint(name);
                         return element;
                     });

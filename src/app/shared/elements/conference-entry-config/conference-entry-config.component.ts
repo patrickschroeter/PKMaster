@@ -34,7 +34,7 @@ export class ConferenceEntryConfigComponent implements OnInit {
     /**
      * ngFor trackByFn
      */
-    public trackByFn(index, item) {
+    public trackByFn(index: number, item: any) {
         return index;
     }
 

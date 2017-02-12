@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 
 import { UserDto } from './../../../swagger';
 
@@ -21,7 +21,7 @@ export class PermissionMock {
     }
 
     public getPermissions(): Observable<any[]> {
-        return new Observable(observer => observer.next([]));
+        return new Observable((observer: Observer<any[]>) => observer.next([]));
     }
 
 }

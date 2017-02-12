@@ -74,7 +74,7 @@ export class ApplicationsEditComponent implements OnInit {
      * Save the current application with content
      * @param {Object} form
      */
-    public saveApplication(form): void {
+    public saveApplication(form: ApplicationDto): void {
         console.log(JSON.stringify(form));
         this.applicationService.saveApplication(form).subscribe(result => {
             this.router.navigate([`/applications/`, result.id]);

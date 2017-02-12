@@ -25,7 +25,7 @@ export class ConferenceEntryDetailComponent implements OnInit {
     /**
      * ngFor trackByFn
      */
-    public trackByFn(index, item) {
+    public trackByFn(index: number, item: any) {
         return index;
     }
 
@@ -33,7 +33,7 @@ export class ConferenceEntryDetailComponent implements OnInit {
      * select the current application
      */
     public updateApplication(application: ApplicationDto) {
-        for (let i = 0, length = this.entry.entries.length; i < length; i++) {
+        for (let i = 0; i < this.entry.entries.length; i++) {
             if (this.entry.entries[i].id === application.id) {
                 this.entry.entries[i] = application;
             }

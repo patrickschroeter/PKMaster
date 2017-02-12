@@ -10,6 +10,7 @@ import {
 
 /** Models */
 import { FieldDto, CommentDto, ApplicationDto } from './../../../swagger';
+import { AcceptApplication } from './../../../models';
 
 /** Decorators */
 import { Access } from './../../../shared/decorators/access.decorator';
@@ -87,7 +88,7 @@ export class ModalAcceptApplicationComponent implements OnInit {
      * @description accepts the application (with condition)
      */
     @Access('EditApplications')
-    public acceptApplication(form) {
+    public acceptApplication(form: AcceptApplication) {
         /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiresChanges, isPrivate: false });
         /** TODO */ const param = _.cloneDeep(this.application);
         /** TODO */ param.status = { name: 'accepted' };
@@ -103,7 +104,7 @@ export class ModalAcceptApplicationComponent implements OnInit {
      * @description declines the application with reasons
      */
     @Access('EditApplications')
-    public declineApplication(form) {
+    public declineApplication(form: AcceptApplication) {
         /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiresChanges, isPrivate: false });
         /** TODO */ const param = _.cloneDeep(this.application);
         /** TODO */ param.status = { name: 'denied' };
