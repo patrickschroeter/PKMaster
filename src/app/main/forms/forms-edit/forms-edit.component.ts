@@ -99,7 +99,7 @@ export class FormsEditComponent implements OnInit {
      * @type {Boolean}
      * @memberOf FormsEditComponent
      */
-    private addingElement: Boolean = false;
+    public addingElement: Boolean = false;
 
     /**
      * Creates an instance of FormsEditComponent.

@@ -55,7 +55,6 @@ export interface ApplicationDto {
     // Custom
 
     form?: models.SingleFormDto;
-    userId?: string;
     conference?: models.ConferenceDto;
     confirmed?: Boolean;
 

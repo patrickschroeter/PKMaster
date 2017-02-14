@@ -44,7 +44,7 @@ export interface ApplicationCreateDto {
 
     formId?: string;
 
-    // Custom
+    // Client Only
 
     assignments?: Array<models.UserDto>;
 }

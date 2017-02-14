@@ -35,7 +35,7 @@
     "@angular/platform-server": "^2.4.4",
     "@angular/router": "^3.3.1",
     "core-js": "^2.4.1",
-    "lodash": "^4.17.2",
+    "lodash": "^4.17.4",
     "material-design-icons": "^3.0.1",
     "ng2-dnd": "^2.2.2",
     "rxjs": "^5.0.1",
@@ -45,7 +45,7 @@
   "devDependencies": {
     "@angular/compiler-cli": "^2.3.1",
     "@types/jasmine": "2.5.38",
-    "@types/lodash": "^4.14.43",
+    "@types/lodash": "^4.14.52",
     "@types/node": "^6.0.42",
     "angular-cli": "1.0.0-beta.26",
     "codelyzer": "~2.0.0-beta.1",
@@ -61,7 +61,7 @@
     "protractor": "~4.0.13",
     "ts-node": "1.2.1",
     "tslint": "^4.3.0",
-    "typescript": "~2.0.3"
+    "typescript": "^2.1.6"
   },
   "pre-commit": [
     "i18n",
