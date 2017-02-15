@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs/Rx';
 
-import { Application } from './../../../swagger';
+import { ApplicationDto } from './../../../swagger';
 
 @Injectable()
 export class ApplicationMock {
@@ -13,7 +13,7 @@ export class ApplicationMock {
      * @param {number} id
      * @return {Observable}
      */
-    getApplicationById(id: number): Observable<Application> {
+    getApplicationById(id: number): Observable<ApplicationDto> {
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 observer.next('');
@@ -27,7 +27,7 @@ export class ApplicationMock {
      * @param {Application} application
      * @return {Observable}
      */
-    createNewApplication(application: Application): Observable<Application> {
+    createNewApplication(application: ApplicationDto): Observable<ApplicationDto> {
 
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
@@ -42,7 +42,7 @@ export class ApplicationMock {
      * @description Saves the changed application
      * @return {void}
      */
-    saveApplication(): Observable<Application> {
+    saveApplication(): Observable<ApplicationDto> {
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 observer.next('');
@@ -52,6 +52,22 @@ export class ApplicationMock {
     }
 
     getApplications(sort?: string): Observable<any> {
+        return new Observable((observer: Observer<any>) => {
+            setTimeout(() => {
+                observer.next('applications');
+                observer.complete();
+            }, 200);
+        });
+    }
+    getOwnApplications(sort?: string): Observable<any> {
+        return new Observable((observer: Observer<any>) => {
+            setTimeout(() => {
+                observer.next('applications');
+                observer.complete();
+            }, 200);
+        });
+    }
+    getAssignedApplications(sort?: string): Observable<any> {
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 observer.next('applications');

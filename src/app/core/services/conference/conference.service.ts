@@ -7,7 +7,7 @@ import { TranslationService } from './../../../modules/translation';
 import { ConferenceApi } from './../../../swagger/api/ConferenceApi';
 
 /** Models */
-import { Conference, Field } from './../../../swagger';
+import { ConferenceDto, ConferenceCreateDto, FieldDto } from './../../../swagger';
 
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
@@ -15,10 +15,8 @@ import { Loading } from './../../../shared/decorators/loading.decorator';
 @Injectable()
 export class ConferenceService {
 
-    static DEFAULT_TOKEN = 17;
-
-    private conference: Conference;
-    private conferences: Conference[];
+    private conference: ConferenceDto;
+    private conferences: ConferenceDto[];
 
     constructor(
         private conferenceApi: ConferenceApi,
@@ -31,8 +29,9 @@ export class ConferenceService {
      * @param {String} id
      */
     @Loading('getConferenceById')
-    public getConferenceById(id: string): Observable<Conference> {
+    public getConferenceById(id: string): Observable<ConferenceDto> {
         return this.conferenceApi.getConferenceById(id).map(conference => {
+            if (!conference.attendants) { conference.attendants = []; }
             return this.conference = conference;
         });
     }
@@ -41,7 +40,7 @@ export class ConferenceService {
      * request all conferences
      */
     @Loading('getConferences')
-    public getConferences(): Observable<Conference[]> {
+    public getConferences(): Observable<ConferenceDto[]> {
         return this.conferenceApi.getConferences().map(conferences => {
             // TODO: sort
             return this.conferences = conferences;
@@ -53,8 +52,8 @@ export class ConferenceService {
      * @param {Conference} conference
      */
     @Loading('createNewConference')
-    public createNewConference(conference: Conference): Observable<Conference> {
-        return this.conferenceApi.addConference(ConferenceService.DEFAULT_TOKEN, conference).map(result => {
+    public createNewConference(conference: ConferenceCreateDto): Observable<ConferenceDto> {
+        return this.conferenceApi.addConference(conference).map(result => {
             return this.conference = result;
         });
     }
@@ -64,8 +63,8 @@ export class ConferenceService {
      * @param {Conference} conference
      */
     @Loading('saveConference')
-    public saveConference(conference: Conference): Observable<Conference> {
-        return this.conferenceApi.updateConferenceById(conference.id, ConferenceService.DEFAULT_TOKEN, conference).map(result => {
+    public saveConference(conference: ConferenceDto): Observable<ConferenceDto> {
+        return this.conferenceApi.updateConferenceById(conference.id, conference).map(result => {
             return this.conference = result;
         });
     }
@@ -85,7 +84,7 @@ export class ConferenceService {
      * create the form for creating/editing conference properties
      * @param {Conference} values
      */
-    public getConferenceForm(values?: Conference): Field[] {
+    public getConferenceForm(values?: ConferenceDto): FieldDto[] {
         return [
             {
                 fieldType: 'input',

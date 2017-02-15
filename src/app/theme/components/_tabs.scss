@@ -1,0 +1,21 @@
+.tab-navigation {
+    @include clearfix();
+    @extend .font_small;
+    position: absolute;
+    left: -50px;
+    top: -50px;
+    padding-top: 50px;
+    height: calc(100% + 70px);
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid $darkwhite;
+    transform: translateX(-100%);
+    text-align: right;
+
+    .tab {
+        float: left;
+        padding: 8px 13px;
+        border-radius: 0;
+        min-width: 100px;
+    }
+}

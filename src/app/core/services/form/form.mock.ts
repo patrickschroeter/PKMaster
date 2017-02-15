@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable, Observer } from 'rxjs/Rx';
 
-import { Field } from './../../../swagger';
+import { FieldDto } from './../../../swagger';
 
 @Injectable()
 export class FormMock {
@@ -39,11 +39,11 @@ export class FormMock {
 
     public setAddingElement(addingElement: boolean) { }
 
-    public removeElement(element?: Field, index?: number): boolean {
+    public removeElement(element?: FieldDto, index?: number): boolean {
         return !!element;
     }
 
-    public addElementToForm(element: Field, mode?: 'clone' | 'add'): boolean {
+    public addElementToForm(element: FieldDto, mode?: 'clone' | 'add'): boolean {
         return !!element;
     }
 }

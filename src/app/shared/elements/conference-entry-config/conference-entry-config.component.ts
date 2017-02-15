@@ -11,7 +11,7 @@ import { ConferenceConfig, Selectable } from './../../../models';
 })
 export class ConferenceEntryConfigComponent implements OnInit {
 
-    @Input() entry: ConferenceConfig<any>;
+    @Input() entry: ConferenceConfig;
     @Input() forms: Selectable[];
     @Input() index: string;
 
@@ -24,8 +24,8 @@ export class ConferenceEntryConfigComponent implements OnInit {
      * remove the given element from the config
      * @param {ConferenceConfig} element
      */
-    public removeElement(element: ConferenceConfig<any>): void {
-        const index = _.findIndex(this.entry.entries, obj => obj === element);
+    public removeElement(element: ConferenceConfig): void {
+        const index = _.findIndex(this.entry.entries, (obj: any) => obj === element);
         if (index !== -1) {
             this.entry.entries.splice(index, 1);
         }
@@ -34,7 +34,7 @@ export class ConferenceEntryConfigComponent implements OnInit {
     /**
      * ngFor trackByFn
      */
-    public trackByFn(index, item) {
+    public trackByFn(index: number, item: any) {
         return index;
     }
 

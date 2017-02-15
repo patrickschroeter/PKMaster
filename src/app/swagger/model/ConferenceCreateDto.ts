@@ -1,6 +1,6 @@
 /**
- * PK-4.0 API
- * API for the PK-4.0
+ * API Schnittstelle für die Prüfungskommision der Hochschule Augsburg
+ * Hier sind alle Routen aufgelistet die zur verfügung stehen. Zuvor muss jedoch ein JWT Token überden Authorize Button hinzugefügt werden
  *
  * OpenAPI spec version: v1
  * 
@@ -31,4 +31,12 @@ export interface ConferenceCreateDto {
     description?: string;
 
     dateOfEvent?: Date;
+
+    startOfEvent?: Date;
+
+    endOfEvent?: Date;
+
+    roomOfEvent?: string;
+
+    numberOfConference?: number;
 }

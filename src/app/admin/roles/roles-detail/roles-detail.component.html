@@ -13,7 +13,20 @@
         </ng-container>
 
         <ng-container *ngIf="role.rolePermissions?.length">
-            <h3 class="element element--spacing-bottom-small" i18n>Permissions:</h3>
+            <div class="animation animation--trigger animation__headline">
+                <h4 i18n>Permissions:</h4>
+                <pk-floating horizontal top-right>
+                    <pk-button
+                        *ngIf="role.rolePermissions?.length"
+                        rounded
+                        i18n-pkAlert
+                        pkAlert="Add Permission to Role"
+                        icon="lock"
+                        element--secondary
+                        (onClick)="addPermissionToRoleModal()">
+                    </pk-button>
+                </pk-floating>
+            </div>
 
             <pk-list>
                 <pk-list-header>
@@ -21,9 +34,9 @@
                     <pk-list-attribute name="description" i18n>Description</pk-list-attribute>
                 </pk-list-header>
                 <pk-list-content>
-                    <pk-list-element *ngFor="let permission of role.rolePermissions">
-                        <pk-list-attribute name="name">{{ permission.name }}</pk-list-attribute>
-                        <pk-list-attribute name="description">{{ permission.description }}</pk-list-attribute>
+                    <pk-list-element *ngFor="let permissionObj of role.rolePermissions">
+                        <pk-list-attribute name="name">{{ permissionObj.name }}</pk-list-attribute>
+                        <pk-list-attribute name="description">{{ permissionObj.description }}</pk-list-attribute>
 
                         <pk-floating top-right horizontal>
                             <pk-button
@@ -32,7 +45,7 @@
                                 i18n-pkAlert
                                 pkAlert="Remove Permission"
                                 icon="delete"
-                                (onClick)="removePermissionOfRole(permission)"
+                                (onClick)="removePermissionOfRole(permissionObj)"
                                 element--error>
                             </pk-button>
                         </pk-floating>

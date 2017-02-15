@@ -1,8 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
-
 import { Observable, Observer } from 'rxjs/Rx';
 
-import { Message } from './';
+/** Models */
+import { Alert, Message } from './../../../../models';
 
 @Injectable()
 export class AlertService {
@@ -11,9 +11,8 @@ export class AlertService {
     private defaultLoadingTime = 2000;
     private defaultSuccessTime = 1500;
 
-    private loading: EventEmitter<any> = new EventEmitter();
-    private hint: EventEmitter<any> = new EventEmitter();
-    private alert: EventEmitter<any> = new EventEmitter();
+    private hint: EventEmitter<Message[]> = new EventEmitter();
+    private alert: EventEmitter<Alert> = new EventEmitter();
 
     private hints: Array<Message> = [];
 
@@ -61,7 +60,7 @@ export class AlertService {
 
     private addMessage(id: string, type: string, message: string): Message {
         let index = -1;
-        for (let i = 0, length = this.hints.length; i < length; i++) {
+        for (let i = 0; i < this.hints.length; i++) {
             const hint = this.hints[i];
             if (hint.id === id) {
                 index = i;
@@ -81,7 +80,7 @@ export class AlertService {
 
     public removeHint(id: string): void {
         let index = -1;
-        for (let i = 0, length = this.hints.length; i < length; i++) {
+        for (let i = 0; i < this.hints.length; i++) {
             const hint = this.hints[i];
             if (hint.id === id) {
                 index = i;
@@ -95,7 +94,7 @@ export class AlertService {
         }
     }
 
-    public getAlert(): Observable<any> {
+    public getAlert(): Observable<Alert> {
         return this.alert;
     }
 
@@ -103,15 +102,7 @@ export class AlertService {
      * @description Returns the Hint Message Observer
      * @return {Observable}
      */
-    public getHintMessages(): Observable<Array<Message>> {
+    public getHintMessages(): Observable<Message[]> {
         return this.hint;
-    }
-
-    /**
-     * @description Returns the Loading Observer
-     * @return {Observable}
-     */
-    public getLoading(): Observable<any> {
-        return this.loading;
     }
 }

@@ -11,7 +11,7 @@ import { UserApiMock, PermissionMock, PermissionService } from './../../../core'
 import { AlertProviderMock } from './../../../modules/alert/alert.module';
 import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
-import { UserApi } from './../../../swagger';
+import { UserApi, UserDto } from './../../../swagger';
 
 
 describe('Service: Authentication', () => {
@@ -173,7 +173,7 @@ describe('Service: Authentication', () => {
 
         it('should throw an error if no user is available', () => {
             const name = 'user';
-            let user;
+            let user: UserDto;
             service.getUser().subscribe(() => {
                 user = name;
             }, error => {
@@ -188,7 +188,7 @@ describe('Service: Authentication', () => {
             service['user'] = new Observable((observer: Observer<any>) => {
                 observer.next(name);
             });
-            let user;
+            let user: UserDto;
             service.getUser().subscribe(result => {
                 user = result;
             });
@@ -241,8 +241,8 @@ describe('Service: Authentication', () => {
         });
 
         it('should save the user on success', () => {
-            let user;
-            expect(service.getUser()).toEqual(Observable.throw('No User'));
+            let user: UserDto;
+            expect(user).toBeUndefined();
 
             service.login('username', 'password');
             service.getUser().subscribe(response => {
@@ -286,7 +286,7 @@ describe('Service: Authentication', () => {
             service.login('username', 'password');
             expect(service.getUser()).toBeTruthy();
             service.logout();
-            expect(service.getUser()).toEqual(Observable.throw('No User'));
+            expect(service.isLoggedIn()).toBeFalsy();
         });
     });
 
@@ -320,9 +320,9 @@ describe('Service: Authentication', () => {
         }));
 
         it('should update the user', () => {
-            expect(service.getUser()).toEqual(Observable.throw('No User'));
+            expect(service.isLoggedIn()).toBeFalsy();
             service.updateUser({ id: 'user' });
-            expect(service.getUser()).not.toEqual(Observable.throw('No User'));
+            expect(service.isLoggedIn()).toBeTruthy();
         });
 
     });

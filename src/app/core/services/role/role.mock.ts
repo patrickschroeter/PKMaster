@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
@@ -15,8 +15,8 @@ export class RoleMock {
      * Get all available roles
      */
     public getRoles(): Observable<any> {
-        return new Observable(observer => {
-            observer.next([])
+        return new Observable((observer: Observer<any>) => {
+            observer.next([]);
         });
     }
 

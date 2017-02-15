@@ -1,38 +1,135 @@
 import { Component, OnInit, Input, HostBinding, ViewChild } from '@angular/core';
 import { FormControl, AbstractControl, FormGroup } from '@angular/forms';
 
+/** Components */
 import { DynamicFormComponent } from './../../dynamic-form.component';
-
-import { Field } from './../../../../swagger';
-
 import { OverlayComponent } from './../../../../modules/overlay';
 
+/** Models */
+import { FieldDto } from './../../../../swagger';
+import { Selectable } from './../../../../models';
+
+/**
+ * A Select Component
+ *
+ * @export
+ * @class SelectComponent
+ * @implements {OnInit}
+ */
 @Component({
     selector: 'pk-select',
     templateUrl: './select.component.html'
 })
 export class SelectComponent implements OnInit {
 
-    @ViewChild('overlay') overlay: OverlayComponent;
-
+    /**
+     * Default Layout Class
+     *
+     * @memberOf SelectComponent
+     */
     @HostBinding('class.element') element = true;
 
-    @Input() config: Field;
+    /**
+     * The OverlayComponent
+     *
+     * @type {OverlayComponent}
+     * @memberOf SelectComponent
+     */
+    @ViewChild('overlay') overlay: OverlayComponent;
+
+    /**
+     * the config Field
+     *
+     * @type {FieldDto}
+     * @memberOf SelectComponent
+     */
+    @Input() config: FieldDto;
+
+    /**
+     * Flag if Field is disabled
+     *
+     * @type {boolean}
+     * @memberOf SelectComponent
+     */
     @Input() disabled: boolean;
+
+    /**
+     * the parent FormGroup
+     *
+     * @type {FormGroup}
+     * @memberOf SelectComponent
+     */
     @Input() form: FormGroup;
 
-    private filteredOptions: Array<{ value?, label? }>;
+    /**
+     *
+     *
+     * @private
+     * @type {Selectable[]}
+     * @memberOf SelectComponent
+     */
+    private filteredOptions: Selectable[];
 
+    /**
+     * A String to filter the Options
+     *
+     * @private
+     * @type {string}
+     * @memberOf SelectComponent
+     */
     private _searchstring: string;
+
+    /**
+     * get searchstring
+     *
+     * @memberOf SelectComponent
+     */
     get searchstring() { return this._searchstring; }
+
+    /**
+     * set searchstring
+     *
+     * @memberOf SelectComponent
+     */
     set searchstring(string: string) { this._searchstring = string; }
 
+    /**
+     * the datalist FormControl
+     *
+     * @private
+     * @type {AbstractControl}
+     * @memberOf SelectComponent
+     */
     private _formControl: AbstractControl;
+
+    /**
+     * get formControl
+     *
+     *
+     * @memberOf SelectComponent
+     */
     get formControl() { return this._formControl; }
+
+    /**
+     * set formControl
+     *
+     * @memberOf SelectComponent
+     */
     set formControl(control: AbstractControl) { this._formControl = control; }
 
+    /**
+     * Creates an instance of SelectComponent.
+     *
+     *
+     * @memberOf SelectComponent
+     */
     constructor( ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf SelectComponent
+     */
     ngOnInit() {
         if (!this.config) {
             this.config = {};
@@ -44,7 +141,12 @@ export class SelectComponent implements OnInit {
     }
 
     /**
-     * @description extract the Elements FormControl from the Parent, return null if no Parent set
+     * extract the Elements FormControl from the Parent, return null if no Parent set
+     *
+     * @private
+     * @returns {AbstractControl}
+     *
+     * @memberOf SelectComponent
      */
     private getFormControl(): AbstractControl {
         if (this.form) {
@@ -53,11 +155,28 @@ export class SelectComponent implements OnInit {
         return null;
     }
 
-    isDisabled() {
+    /**
+     * check if the datalist is disabled, by config or input
+     *
+     * @private
+     * @returns
+     *
+     * @memberOf SelectComponent
+     */
+    public isDisabled() {
         return this.disabled || (this.config && this.config.disabled);
     }
 
-    select(option) {
+    /**
+     * select an option
+     *
+     * @private
+     * @param {Selectable} option
+     * @returns
+     *
+     * @memberOf SelectComponent
+     */
+    public select(option: Selectable) {
         if (!this.config.multipleSelect) {
             this.formControl.setValue(option.value);
             this.overlay.toggle();
@@ -67,8 +186,8 @@ export class SelectComponent implements OnInit {
         let values = this.formControl.value;
         if (!values) { values = []; }
 
-        let value = option.value;
-        let index = values.indexOf(value);
+        const value = option.value;
+        const index = values.indexOf(value);
         if (index === -1) {
             values.push(value);
         } else {
@@ -78,25 +197,42 @@ export class SelectComponent implements OnInit {
         this.formControl.setValue(values);
     }
 
-    filterOptions(event) {
+    /**
+     * filter options by searchstring
+     *
+     * @private
+     * @param {String} event
+     * @returns
+     *
+     * @memberOf SelectComponent
+     */
+    public filterOptions(event: string) {
         if (!this.config.options) { return; }
         if (event === '') {
             this.filteredOptions = undefined;
             return;
         }
         this.filteredOptions = [];
-        for (let i = 0, length = this.config.options.length; i < length; i++) {
-            let element = this.config.options[i];
+        for (let i = 0; i < this.config.options.length; i++) {
+            const element = this.config.options[i];
             if (element.value.includes(event) || element.label.includes(event)) {
                 this.filteredOptions.push(element);
             }
         }
     }
 
-    removeOption(option) {
-        let values = this.formControl.value;
-        let value = option.value;
-        let index = values.indexOf(value);
+    /**
+     * remove an option
+     *
+     * @private
+     * @param {Selectable} option
+     *
+     * @memberOf SelectComponent
+     */
+    public removeOption(option: Selectable) {
+        const values = this.formControl.value;
+        const value = option.value;
+        const index = values.indexOf(value);
         if (index !== -1) { values.splice(index, 1); }
         this.formControl.setValue(values);
     }

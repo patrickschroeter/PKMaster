@@ -40,10 +40,12 @@ export class ModalOutletComponent implements OnInit {
 
     /**
      * create a component of the class
+     * TODO extend + interface
+     *
      * @param {Object} componentData
      * @param {Class} componentClass
      */
-    public createComponent(componentData: Object, componentClass) {
+    public createComponent(componentData: { [key: string]: any }, componentClass: any) {
         // Inputs need to be in the following format to be resolved properly
         const inputProviders = Object.keys(componentData).map(
             (inputName) => { return { provide: inputName, useValue: componentData[inputName] }; }

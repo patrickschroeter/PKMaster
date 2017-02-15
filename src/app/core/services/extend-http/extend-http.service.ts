@@ -11,8 +11,7 @@ import { AuthenticationService } from './..';
 @Injectable()
 export class ExtendHttpService extends Http {
 
-
-    constructor(backend: ConnectionBackend, defaultOptions: RequestOptions, private authentication: AuthenticationService) {
+    constructor(backend: ConnectionBackend, defaultOptions: RequestOptions) {
         super(backend, defaultOptions);
     }
 
@@ -23,9 +22,14 @@ export class ExtendHttpService extends Http {
      */
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
         if (!options) { options = { headers: new Headers() }; };
-        options.headers.set('authentication', this.authentication.token);
+        options.headers.set('Authorization', AuthenticationService.getStaticToken());
         options.headers.set('Accept', 'application/json');
-        options.headers.set('Content-Type', 'application/json');
+        // TODO: hack
+        if (typeof url === 'string' && (url as string).indexOf('/connect/token') !== -1) {
+            options.headers.set('Content-Type', 'application/x-www-form-urlencoded');
+        } else {
+            options.headers.set('Content-Type', 'application/json');
+        }
         return super.request(url, options);
     }
 

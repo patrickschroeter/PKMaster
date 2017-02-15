@@ -17,8 +17,8 @@ import { PermissionApiMock } from './../../core/services/api/PermissionApi.mock'
 class TestService {
     constructor(private permission: PermissionService, private alert: AlertService) {}
 
-    @Access('ReadPermissions') public denied(param) { return param; }
-    @Access('') public granted(param) { return param; }
+    @Access('ReadPermissions') public denied(param: any) { return param; }
+    @Access('') public granted(param: any) { return param; }
 }
 
 describe('Decorator: Access', () => {
@@ -42,13 +42,13 @@ describe('Decorator: Access', () => {
     }));
 
     it('should call the function if the user has the given permissions', inject([TestService], (service: TestService) => {
-        let param = 'test';
+        const param = 'test';
         expect(service.granted(param)).toEqual(param);
     }));
 
     it('should block the function if the user has not the given permissions',
         inject([TestService, AlertService], (service: TestService, alert: AlertService) => {
-            let param = 'test';
+            const param = 'test';
             spyOn(console, 'error');
             spyOn(alert, 'setErrorHint');
             expect(service.denied(param)).toBeUndefined();

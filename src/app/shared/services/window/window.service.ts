@@ -26,7 +26,11 @@ export class WindowService {
      * @param {Function} save
      */
     public setModalSave(save: Function): WindowService {
-        this.modal.save = save;
+        if (this.modal) {
+            this.modal.save = save;
+        } else {
+            console.error('There is no modal to add save callback');
+        }
         return this;
     }
 
@@ -36,6 +40,8 @@ export class WindowService {
     public openModal(options?: Object): WindowService {
         if (this.modal) {
             this.modal.open(options);
+        } else {
+            console.error('There is no modal to open');
         }
         return this;
     }

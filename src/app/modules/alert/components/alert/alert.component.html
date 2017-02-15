@@ -1,5 +1,5 @@
 <div>
-    <div *ngIf="(hintElements && hintElements.length != 0) || (loadingElements && loadingElements.length != 0)" class="hint hint--bottom-right" [class.hint--visible]="hintElements && hintElements.length != 0">
+    <div *ngIf="hintElements && hintElements.length != 0" class="hint hint--bottom-right" [class.hint--visible]="hintElements && hintElements.length != 0">
         <div class="hint-element hint-element--visible" *ngFor="let element of hintElements"
             [class.hint--error]="element.type === 'error'"
             [class.hint--tooltip]="element.type === 'tooltip'"

@@ -27,8 +27,10 @@ export class PermissionApiMock {
             Read: 'ReadApplications',
             Edit: 'EditApplications',
             Comment: 'CommentApplications',
-            Delete: 'DeleteApplications',
-            Accept: 'AcceptApplications'
+            Deactivate: 'DeactivateApplications',
+            Accept: 'AcceptApplications',
+            Submit: 'SubmitApplications',
+            Validate: 'ValidateApplications'
         },
         Conference: {
             Read: 'ReadConferences',
@@ -82,7 +84,7 @@ export class PermissionApiMock {
             Create: {
                 id: '7',
                 name: PermissionApiMock.PERMISSION.Application.Create,
-                description: 'Erlaubt dem Benutzer Anträge zu erstellen und eigene Anträge zu sehen und zu bearbeiten'
+                description: 'Erlaubt dem Benutzer Anträge zu erstellen und eigene Anträge zu sehen und zu bearbeiten, einzureichen, zurückzuziehen und zu deaktivieren'
             },
             Read: {
                 id: '8',
@@ -99,15 +101,25 @@ export class PermissionApiMock {
                 name: PermissionApiMock.PERMISSION.Application.Comment,
                 description: 'Erlaubt dem Benutzer fremde Anträge zu Kommentieren'
             },
-            Delete: {
+            Deactivate: {
                 id: '11',
-                name: PermissionApiMock.PERMISSION.Application.Delete,
+                name: PermissionApiMock.PERMISSION.Application.Deactivate,
                 description: 'Erlaubt dem Benutzer fremde Anträge zu löschen/deaktivieren'
             },
             Accept: {
                 id: '12',
                 name: PermissionApiMock.PERMISSION.Application.Accept,
                 description: 'Erlaubt dem Benutzer Anträge zu akzeptieren oder abzulehnen'
+            },
+            Submit: {
+                id: '17',
+                name: PermissionApiMock.PERMISSION.Application.Submit,
+                description: 'Erlaubt dem Benutzer Anträge einzusehen'
+            },
+            Validate: {
+                id: '18',
+                name: PermissionApiMock.PERMISSION.Application.Validate,
+                description: 'Erlaubt dem Benutzer Anträge zu verifizieren/validieren'
             },
         },
         Conference: {
@@ -150,7 +162,7 @@ export class PermissionApiMock {
         PermissionApiMock.PERMISSION_OBJECT.Application.Create,
         PermissionApiMock.PERMISSION_OBJECT.Application.Read,
         PermissionApiMock.PERMISSION_OBJECT.Application.Edit,
-        PermissionApiMock.PERMISSION_OBJECT.Application.Delete,
+        PermissionApiMock.PERMISSION_OBJECT.Application.Deactivate,
         PermissionApiMock.PERMISSION_OBJECT.Application.Comment,
         PermissionApiMock.PERMISSION_OBJECT.Application.Accept,
         /** Conference */

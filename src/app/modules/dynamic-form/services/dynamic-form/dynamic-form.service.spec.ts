@@ -78,11 +78,11 @@ describe('Service: DynamicForm', () => {
             expect(validation.generateValidationsFromKeys).toHaveBeenCalledWith(['special']);
         });
 
-        it('should set \'\' as Control Value if the Field defines no value', () => {
+        it('should set null as Control Value if the Field defines no value', () => {
             const group: FormGroup = service.generateFormFromInput([
                 { name: 'value' },
             ]);
-            expect(group.get('value').value).toEqual('');
+            expect(group.get('value').value).toEqual(null);
         });
 
         it('should set Null as Control Value if the Field defines no value and it\'s multiselect', () => {

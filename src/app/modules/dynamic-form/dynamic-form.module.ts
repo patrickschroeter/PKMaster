@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
+import { DndModule } from 'ng2-dnd';
 
 import { ButtonModule } from './../button/button.module';
 import { OverlayModule } from './../overlay/overlay.module';
@@ -63,7 +64,9 @@ import {
         ButtonModule,
         DeviderModule,
         FloatingModule,
-        TranslationModule
+        TranslationModule,
+
+        DndModule.forRoot()
     ],
     providers: [
         DynamicFormService,

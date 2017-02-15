@@ -11,7 +11,7 @@ export class InputValidationMock {
      * @param {Array} keyArray all Validation Keys
      * @return {Array} returns an array with all Validatin functions
      */
-    generateValidationsFromKeys(keyArray = []) {
+    generateValidationsFromKeys(keyArray: any[] = []): any[] {
         return [];
     }
 

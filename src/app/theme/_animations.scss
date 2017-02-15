@@ -51,7 +51,7 @@
                 visibility: visible;
                 opacity: 1;
             }
-            @for $i from 1 through 7 {
+            @for $i from 1 through 8 {
                 > *:first-child:nth-last-child(#{$i}),
                 > *:first-child:nth-last-child(#{$i}) ~ * {
                     @for $j from 1 through $i {
@@ -76,7 +76,7 @@
             transform-origin: center;
             transform: scale(0.9);
         }
-        @for $i from 1 through 7 {
+        @for $i from 1 through 8 {
             > *:first-child:nth-last-child(#{$i}),
             > *:first-child:nth-last-child(#{$i}) ~ * {
                 @for $j from 1 through $i {
@@ -99,7 +99,7 @@
                 > * {
                     transform: translateY(15px);
                 }
-                @for $i from 1 through 7 {
+                @for $i from 1 through 8 {
                     > *:first-child:nth-last-child(#{$i}),
                     > *:first-child:nth-last-child(#{$i}) ~ * {
                         @for $j from 1 through $i {
@@ -112,7 +112,7 @@
             }
         }
         .animation--target {
-            @for $i from 1 through 7 {
+            @for $i from 1 through 8 {
                 > *:first-child:nth-last-child(#{$i}),
                 > *:first-child:nth-last-child(#{$i}) ~ * {
                     @for $j from 1 through $i {
@@ -131,7 +131,7 @@
                 > * {
                     transform: translateY(-15px);
                 }
-                @for $i from 1 through 7 {
+                @for $i from 1 through 8 {
                     > *:first-child:nth-last-child(#{$i}),
                     > *:first-child:nth-last-child(#{$i}) ~ * {
                         @for $j from 1 through $i {
@@ -144,7 +144,7 @@
             }
         }
         .animation--target {
-            @for $i from 1 through 7 {
+            @for $i from 1 through 8 {
                 > *:first-child:nth-last-child(#{$i}),
                 > *:first-child:nth-last-child(#{$i}) ~ * {
                     @for $j from 1 through $i {
@@ -163,7 +163,7 @@
                 > * {
                     transform: translateX(15px);
                 }
-                @for $i from 1 through 7 {
+                @for $i from 1 through 8 {
                     > *:first-child:nth-last-child(#{$i}),
                     > *:first-child:nth-last-child(#{$i}) ~ * {
                         @for $j from 1 through $i {
@@ -176,7 +176,7 @@
             }
         }
         .animation--target {
-            @for $i from 1 through 7 {
+            @for $i from 1 through 8 {
                 > *:first-child:nth-last-child(#{$i}),
                 > *:first-child:nth-last-child(#{$i}) ~ * {
                     @for $j from 1 through $i {
@@ -186,6 +186,26 @@
                     }
                 }
             }
+        }
+    }
+
+    &__headline {
+        overflow: hidden;
+        padding: 1rem;
+        margin-left: -1rem;
+        transition: background .3s ease-in-out, border-color .3s ease-in-out;
+        position: relative;
+
+        h4, h3 {
+            margin: 0;
+            transition: color .3s;
+        }
+        .floating {
+            top: 8px;
+        }
+
+        &:hover {
+            background-color: $element-hover-edit;
         }
     }
 }

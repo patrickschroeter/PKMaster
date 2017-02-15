@@ -5,7 +5,7 @@ import { AuthenticationService } from './../../../core';
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 
-import { AppUser } from './../../../swagger';
+import { UserDto } from './../../../swagger';
 import { Fields } from './../../../models';
 
 @Component({
@@ -19,7 +19,7 @@ export class ProfileEditComponent implements OnInit {
     private _form: Array<Object>;
     get form() { return this._form; }
     set form(form) { this._form = form; }
-    private user: AppUser;
+    public user: UserDto;
 
     constructor(
         private router: Router,
@@ -51,11 +51,11 @@ export class ProfileEditComponent implements OnInit {
      * save the user attributes
      * @param {AppUser} user
      */
-    public save(user: AppUser) {
+    public save(user: UserDto) {
         user.id = this.user.id;
-        this.auth.updateUser(user).subscribe(user => {
+        this.auth.updateUser(user).subscribe(result => {
             this.router.navigateByUrl('/profile');
-            this.alert.setSuccessHint('UpdateUser' + user.id, this.translationService.translate('updatedUser'));
+            this.alert.setSuccessHint('UpdateUser' + result.id, this.translationService.translate('updatedUser'));
         });
     }
 

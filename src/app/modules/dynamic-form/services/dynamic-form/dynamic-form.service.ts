@@ -5,12 +5,12 @@ import { AlertService } from './../../../../modules/alert';
 
 import { InputValidationService } from './../input-validation/input-validation.service';
 
-import { Field } from './../../../../swagger';
+import { FieldDto } from './../../../../swagger';
 
 @Injectable()
 export class DynamicFormService {
 
-    private validationTime: number = 2000;
+    private validationTime = 2000;
 
     constructor(
         private build: FormBuilder,
@@ -23,9 +23,9 @@ export class DynamicFormService {
      * @param {FormElement[]} input the input configuration
      * @return {FormGroup}
      */
-    public generateFormFromInput(input?: Field[], config = {}): FormGroup {
-        const options = {};
-        for (let i = 0, length = input.length; i < length; i++) {
+    public generateFormFromInput(input?: FieldDto[], config = {}): FormGroup {
+        const options: { [key: string]: FormControl } = {};
+        for (let i = 0; i < input.length; i++) {
             const element = input[i];
 
             const formControl = this.createFormControl(element);
@@ -42,18 +42,18 @@ export class DynamicFormService {
      * @param {FormGroup} form the form to extend
      * @param {Field[]} input the input configuration
      */
-    public updateFormFromInput(form: FormGroup, input?: Field[]): void {
+    public updateFormFromInput(form: FormGroup, input?: FieldDto[]): void {
 
         /** get all existing form.controls */
         const unusedElementNames: string[] = [];
-        for (let key in form.controls) {
+        for (const key in form.controls) {
             if (form.controls.hasOwnProperty(key)) {
                 unusedElementNames.push(key);
             }
         }
 
         /** add/update the form.controly by input fields */
-        for (let i = 0, length = input.length; i < length; i++) {
+        for (let i = 0; i < input.length; i++) {
             const element = input[i];
             this.removeKeyFromList(unusedElementNames, element.name);
             if (!form.get(element.name)) {
@@ -67,7 +67,7 @@ export class DynamicFormService {
         }
 
         /** Remove all controls which are not in input field */
-        for (let i = 0, length = unusedElementNames.length; i < length; i++) {
+        for (let i = 0; i < unusedElementNames.length; i++) {
             const name = unusedElementNames[i];
             form.removeControl(name);
         }
@@ -87,7 +87,7 @@ export class DynamicFormService {
      * @param {FormElement} element
      * @return {boolean}
      */
-    private createFormControl(element: Field): FormControl {
+    private createFormControl(element: FieldDto): FormControl {
         if (!element || !element.name || element.disabled) { return null; }
 
         /** Create Array of ValidationFn */
@@ -95,7 +95,7 @@ export class DynamicFormService {
         if (element.required) { activeValidations.push(Validators.required); }
 
         /** FIX for multiselect */
-        if (!element.value) { element.value = element.multipleSelect ? null : ''; }
+        if (!element.value && element.multipleSelect) { element.value = null; }
         return new FormControl(element.value, Validators.compose(activeValidations));
     }
 

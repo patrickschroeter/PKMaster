@@ -8,15 +8,15 @@ import { FormBuilder } from '@angular/forms';
 })
 export class StyleguideComponent implements OnInit {
 
-    buttonTypes;
-    buttonStyling;
-    buttonExamples;
-    buttonExamplesClasses;
+    buttonTypes: any;
+    buttonStyling: any;
+    buttonExamples: any;
+    buttonExamplesClasses: any;
 
-    inputElements;
-    checkboxElements;
-    radioElements;
-    selectElements;
+    inputElements: any;
+    checkboxElements: any;
+    radioElements: any;
+    selectElements: any;
 
     constructor(private build: FormBuilder) {
 

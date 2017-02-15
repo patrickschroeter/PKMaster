@@ -5,7 +5,7 @@ import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { Field } from './../../../swagger';
+import { FieldDto } from './../../../swagger';
 import { ConferenceConfig } from './../../../models';
 
 /** Components */
@@ -26,7 +26,7 @@ export class ModalAddConferenceEntryComponent implements OnInit, Window {
 
     public save: Function;
 
-    public newEntry: Field[];
+    public newEntry: FieldDto[];
 
     constructor(
         private alert: AlertService,
@@ -43,7 +43,7 @@ export class ModalAddConferenceEntryComponent implements OnInit, Window {
      * @param {ConferenceConfig} options.[values]
      */
     public open(options: {
-        values: ConferenceConfig<any>
+        values: ConferenceConfig
     }) {
         this.initEntryForm(options ? options.values : null);
         this.overlay.toggle();
@@ -53,7 +53,7 @@ export class ModalAddConferenceEntryComponent implements OnInit, Window {
      * init the new entry form
      * @param {ConferenceConfig} values
      */
-    private initEntryForm(values?: ConferenceConfig<any>) {
+    private initEntryForm(values?: ConferenceConfig) {
         this.newEntry = [
             {
                 fieldType: 'input',
@@ -107,7 +107,7 @@ export class ModalAddConferenceEntryComponent implements OnInit, Window {
      * emit the save event of the component
      * @param {ConferenceConfig} entry
      */
-    public addNewEntry(entry: ConferenceConfig<any>) {
+    public addNewEntry(entry: ConferenceConfig) {
         if (this.save) {
             this.save(entry);
         }

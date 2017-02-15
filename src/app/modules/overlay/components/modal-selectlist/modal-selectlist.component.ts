@@ -64,7 +64,7 @@ export class ModalSelectlistComponent implements OnInit {
             return;
         }
         this.filteredOptions = [];
-        for (let i = 0, length = this.list.length; i < length; i++) {
+        for (let i = 0; i < this.list.length; i++) {
             const element = this.list[i];
             if (element.value.toLowerCase().includes(event.toLowerCase()) ||
                 element.label.toLowerCase().includes(event.toLowerCase())) {

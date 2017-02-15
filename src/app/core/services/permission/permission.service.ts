@@ -8,7 +8,7 @@ import { TranslationService } from './../../../modules/translation';
 import { PermissionEndpoint } from './../api/PermissionEndpoint';
 
 /** Models */
-import { AppUser, Permission } from './../../../swagger';
+import { UserDto, Permission } from './../../../swagger';
 
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
@@ -31,7 +31,7 @@ export class PermissionService {
      * update the permission object in the class with the input user
      * @param {AppUser} [user]
      */
-    public updateUserPermissions(user?: AppUser): AppUser {
+    public updateUserPermissions(user?: UserDto): UserDto {
         this.permissions = (user && user.permissions) ? user.permissions : [];
         return user;
     }
@@ -77,7 +77,7 @@ export class PermissionService {
      */
     private hasOneOfPermissions(permissions: string[]): boolean {
         if (!permissions.length) { return true; }
-        for (let i = 0, length = permissions.length; i < length; i++) {
+        for (let i = 0; i < permissions.length; i++) {
             if (this.hasOnePermission(permissions[i])) { return true; }
         }
         return false;

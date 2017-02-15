@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { AlertService, Message } from './../../services';
+import { AlertService } from './../../services';
 import { ModalService } from './../../../../modules/overlay';
+import { Message } from './../../../../models';
 
 @Component({
     selector: 'pk-alert',
@@ -13,8 +14,6 @@ export class AlertComponent implements OnInit {
     private _hintElements: Array<Message>;
     get hintElements() { return this._hintElements; }
     set hintElements(elements: Array<Message>) { this._hintElements = elements; }
-
-    public loadingElements: Array<{ id: string, message: string }>;
 
     constructor(
         private alert: AlertService,
@@ -30,9 +29,6 @@ export class AlertComponent implements OnInit {
         });
         this.alert.getHintMessages().subscribe(hints => {
             this.hintElements = hints;
-        });
-        this.alert.getLoading().subscribe(loading => {
-            this.loadingElements = loading;
         });
     }
 

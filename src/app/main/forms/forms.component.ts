@@ -8,7 +8,7 @@ import { ModalService } from './../../modules/overlay';
 import { TranslationService } from './../../modules/translation';
 
 /** Models */
-import { Form } from './../../swagger';
+import { SingleFormDto } from './../../swagger';
 
 @Component({
     selector: 'pk-forms',
@@ -18,7 +18,7 @@ import { Form } from './../../swagger';
 export class FormsComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    private forms: Array<Form>;
+    public forms: Array<SingleFormDto>;
     private _newForm: Array<any>;
     get newForm() { return this._newForm; }
     set newForm(form) { this._newForm = form; }
@@ -47,7 +47,7 @@ export class FormsComponent implements OnInit {
      * create a new form
      * @param {Form} form
      */
-    public createNewForm(form: Form) {
+    public createNewForm(form: SingleFormDto) {
         this.formService.createNewForm(form).subscribe(created => {
             if (created['id']) {
                 this.router.navigate([`/forms/`, created['id'], 'edit']);
@@ -59,13 +59,13 @@ export class FormsComponent implements OnInit {
      * Delete the form
      * @param {Form} form
      */
-    public deleteForm(form: Form) {
+    public deleteForm(form: SingleFormDto) {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmDeleteFormHeader'),
             message: this.translationService.translate('confirmDeleteFormContent'),
             confirm: () => {
                 this.formService.removeForm(form.id).subscribe(result => {
-                    const index = _.findIndex(this.forms, obj => obj.id === form.id);
+                    const index = _.findIndex(this.forms, (obj: SingleFormDto) => obj.id === form.id);
                     if (result && index !== -1) {
                         this.forms.splice(index, 1);
                     }

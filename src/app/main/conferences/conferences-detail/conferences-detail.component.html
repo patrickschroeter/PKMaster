@@ -5,41 +5,48 @@
     <h4 class="element element--spacing-bottom-large">{{ conference.dateOfEvent | date }} ({{ conference.startOfEvent }} - {{ conference.endOfEvent }}), {{ conference.roomOfEvent }}</h4>
 
     <h4 i18n>Attendant PK-Members</h4>
-    <ng-container *ngIf="!conference.assignments || !conference.assignments.length">
+    <ng-container *ngIf="!conference.attendants || !conference.attendants.length">
         <div class="empty-wrapper">
             <div class="label" i18n>No attendant members.</div>
             <pk-button
                 class="element--spacing-top-large"
                 element--secondary
                 i18n-value
-                value="Assign User"
+                value="Assign Member"
                 icon="supervisor_account"
-                (onClick)="assignUserModal()">
+                (onClick)="assignMemberModal()">
             </pk-button>
         </div>
     </ng-container>
-    <ng-container *ngIf="conference.assignments && conference.assignments.length">
+    <ng-container *ngIf="conference.attendants && conference.attendants.length">
         <pk-list>
             <pk-list-header>
-                <pk-list-attribute name="name" i18n>Name</pk-list-attribute>
+                <pk-list-attribute name="name" i18n>Members</pk-list-attribute>
+                <pk-list-attribute name="name" i18n>Guests</pk-list-attribute>
             </pk-list-header>
-            <pk-list-content>
-                <pk-list-element *ngFor="let user of conference.assignments">
-                    <pk-list-attribute name="name">
-                        {{ userLabels[user] }}
-                    </pk-list-attribute>
+            <pk-list-content class="attendants">
+                <!--TODO: Better differentiate, two different objects?-->
+                <div *ngFor="let user of conference.attendants" [ngClass]="{ 'attendant--member': user.roles[0].name === 'Member', 'attendant--guest': user.roles[0].name !== 'Member' }">
+                    <pk-list-element>
+                        <pk-list-attribute name="name">
+                            {{ user.firstname }}
+                        </pk-list-attribute>
+                        <pk-list-attribute name="name">
+                            {{ user.lastname }}
+                        </pk-list-attribute>
 
-                    <pk-floating top-right horizontal>
-                        <pk-button
-                            rounded
-                            i18n-pkAlert
-                            pkAlert="Delete Member from Conference"
-                            icon="delete"
-                            element--error
-                            (onClick)="unassignUser(user)">
-                        </pk-button>
-                    </pk-floating>
-                </pk-list-element>
+                        <pk-floating top-right horizontal>
+                            <pk-button
+                                rounded
+                                i18n-pkAlert
+                                pkAlert="Delete Member from Conference"
+                                icon="delete"
+                                element--error
+                                (onClick)="unassignUser(user)">
+                            </pk-button>
+                        </pk-floating>
+                    </pk-list-element>
+                </div>
             </pk-list-content>
         </pk-list>
     </ng-container>
@@ -74,7 +81,16 @@
                 i18n-pkAlert
                 pkAlert="Assign User"
                 icon="supervisor_account"
-                (onClick)="assignUserModal()">
+                (onClick)="assignMemberModal()">
+            </pk-button>
+            <pk-button
+                class="element--spacing-bottom-tiny"
+                rounded
+                element--secondary
+                i18n-pkAlert
+                pkAlert="Assign User"
+                icon="person"
+                (onClick)="assignGuestModal()">
             </pk-button>
             <a routerLink="/conferences/{{ conference.id }}/edit">
                 <pk-button

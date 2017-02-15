@@ -23,7 +23,7 @@ export class TranslationService {
 
             /** TODO: remove for production */
             const errorString = localStorage.getItem('translate');
-            let error;
+            let error: { [key: string]: any };
             if (!errorString) {
                 error = {};
             } else {
@@ -41,7 +41,7 @@ export class TranslationService {
         if (!interpolations) { return result; }
 
         // http://stackoverflow.com/questions/1408289/how-can-i-do-string-interpolation-in-javascript#answer-1408373
-        return result.replace(/{([^{}]*)}/g, function (interpolation, content) {
+        return result.replace(/{([^{}]*)}/g, function (interpolation: string, content: number) {
             const index = +content;
             if (isNaN(index)) { return interpolation; }
             const replacement = interpolations[+content];

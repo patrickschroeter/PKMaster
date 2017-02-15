@@ -1,4 +1,4 @@
-<div *ngIf="element && !element.hidden">
+<ng-container *ngIf="element && !element.hidden">
     <div class="form__element element"
         [ngClass]="{ 'form__element--small': element.styles && element.styles.indexOf('small') !== -1, 'form__element--aligned': element.styles && element.styles.indexOf('aligned') !== -1}"
         (mouseover)="!disabled && showElementValidation(element)"
@@ -33,4 +33,4 @@
         </div>
         <ng-content></ng-content>
     </div>
-</div>
+</ng-container>

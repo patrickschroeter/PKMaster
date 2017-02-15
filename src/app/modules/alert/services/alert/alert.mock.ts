@@ -24,8 +24,4 @@ export class AlertMock {
     public getHintMessages(): Observable<any> {
         return new Observable((observer: Observer<any>) => { observer.next([]); });
     }
-
-    public getLoading(): Observable<any> {
-        return new Observable((observer: Observer<any>) => { observer.next(['loading']); });
-    }
 }

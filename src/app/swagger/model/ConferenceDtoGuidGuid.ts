@@ -1,6 +1,6 @@
 /**
- * PK-4.0 API
- * API for the PK-4.0
+ * API Schnittstelle für die Prüfungskommision der Hochschule Augsburg
+ * Hier sind alle Routen aufgelistet die zur verfügung stehen. Zuvor muss jedoch ein JWT Token überden Authorize Button hinzugefügt werden
  *
  * OpenAPI spec version: v1
  *
@@ -24,40 +24,33 @@
 
 'use strict';
 import * as models from './models';
+import { ConferenceConfig } from './../../models';
 
-export interface AppUser {
+export interface ConferenceDto {
 
 
     id?: string;
 
-    firstname?: string;
+    description?: string;
 
-    lastname?: string;
+    dateOfEvent?: Date;
 
-    email?: string;
+    roomOfEvent?: string;
 
-    password?: string;
+    numberOfConference?: number;
 
-    saltString?: string;
+    application?: Array<string>;
 
-    matNr?: number;
+    attendand?: Array<string>;
 
-    ldapId?: number;
+    // Custom
 
-    active?: boolean;
+    startOfEvent?: string;
+    endOfEvent?: string;
 
-    created?: Date;
+    applications?: Array<models.ApplicationDto>;
+    attendants?: Array<models.UserDto>;
 
-    application?: Array<models.Application>;
-
-    assignment?: Array<models.Assignment>;
-
-    comment?: Array<models.Comment>;
-
-    userHasRole?: Array<models.UserHasRole>;
-
-    /** Custom */
-    token?: string;
-    permissions?: string[];
-    roles?: models.Role[];
+    config?: Array<ConferenceConfig>;
+    configJSON?: string;
 }
