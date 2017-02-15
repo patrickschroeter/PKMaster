@@ -50,11 +50,6 @@ export class ApplicationEndpoint {
     public createApplication(application?: ApplicationDto, extraHttpRequestParams?: any): Observable<any> {
         console.log('%cMock:' + '%c createApplication', 'color: #F44336', 'color: #fefefe');
 
-        if (application.userId) {
-            const api: { [key: string]: any } = this.userApi;
-            application.user = api['_user'](application.userId);
-        }
-
         const newapplication = this._applicationAdd(application);
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {

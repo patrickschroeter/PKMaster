@@ -18,7 +18,7 @@ import { SingleFormDto } from './../../swagger';
 export class FormsComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    private forms: Array<SingleFormDto>;
+    public forms: Array<SingleFormDto>;
     private _newForm: Array<any>;
     get newForm() { return this._newForm; }
     set newForm(form) { this._newForm = form; }

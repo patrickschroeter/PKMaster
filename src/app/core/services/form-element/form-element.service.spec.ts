@@ -123,10 +123,10 @@ describe('Service: FormElement', () => {
         let elementForm: FieldDto[];
 
         const getNameField = (): FieldDto => {
-            return _.find(elementForm, obj => { return obj.name === 'name'; });
+            return _.find(elementForm, (obj: FieldDto) => { return obj.name === 'name'; });
         };
         const getPlaceholderField = (): FieldDto => {
-            return _.find(elementForm, obj => { return obj.name === 'placeholder'; });
+            return _.find(elementForm, (obj: FieldDto) => { return obj.name === 'placeholder'; });
         };
 
         beforeEach(
@@ -148,7 +148,7 @@ describe('Service: FormElement', () => {
         describe('selectedType', () => {
 
             it('should update the ElementForm when a new fieldType is selected', fakeAsync(() => {
-                service.getElement().subscribe(obj => {
+                service.getElement().subscribe((obj: FieldDto[]) => {
                     elementForm = obj;
                 });
                 expect(elementForm.length).toBe(1);
@@ -161,7 +161,7 @@ describe('Service: FormElement', () => {
             }));
 
             it('should update the ElementForm when a different fieldType is selected', fakeAsync(() => {
-                service.getElement().subscribe(obj => {
+                service.getElement().subscribe((obj: FieldDto[]) => {
                     elementForm = obj;
                 });
                 /** select a value */
@@ -180,7 +180,7 @@ describe('Service: FormElement', () => {
 
             it('should NOT update the ElementForm when the same fieldType is selected', fakeAsync(() => {
                 const placeholder = 'somestring';
-                service.getElement().subscribe(obj => {
+                service.getElement().subscribe((obj: FieldDto[]) => {
                     elementForm = obj;
                 });
                 /** select a value */
@@ -197,7 +197,7 @@ describe('Service: FormElement', () => {
             }));
 
             it('should leave the element values undefined when FormGroup has no value', fakeAsync(() => {
-                service.getElement().subscribe(obj => {
+                service.getElement().subscribe((obj: FieldDto[]) => {
                     elementForm = obj;
                 });
                 /** select a value */
@@ -210,7 +210,7 @@ describe('Service: FormElement', () => {
             it('should keep defined values in element if they exist in both types', fakeAsync(() => {
                 const name = 'spec';
 
-                service.getElement().subscribe(obj => {
+                service.getElement().subscribe((obj: FieldDto[]) => {
                     elementForm = obj;
                 });
                 expect(elementForm.length).toBe(1);
@@ -231,7 +231,7 @@ describe('Service: FormElement', () => {
             it('should remove fields from element if they are not more required', fakeAsync(() => {
                 const name = 'spec';
 
-                service.getElement().subscribe(obj => {
+                service.getElement().subscribe((obj: FieldDto[]) => {
                     elementForm = obj;
                 });
                 expect(elementForm.length).toBe(1);
@@ -251,7 +251,7 @@ describe('Service: FormElement', () => {
 
             it('should should create a preview element', fakeAsync(() => {
                 let previewForm: FieldDto[];
-                service.getElementPreview().subscribe(obj => {
+                service.getElementPreview().subscribe((obj: FieldDto[]) => {
                     previewForm = obj;
                 });
                 expect(previewForm.length).toBe(0);
@@ -264,7 +264,7 @@ describe('Service: FormElement', () => {
 
             it('should not update the element if no fieldType is given', fakeAsync(() => {
                 let previewForm: FieldDto[];
-                service.getElementPreview().subscribe(obj => {
+                service.getElementPreview().subscribe((obj: FieldDto[]) => {
                     previewForm = obj;
                 });
                 expect(previewForm.length).toBe(0);
@@ -276,7 +276,7 @@ describe('Service: FormElement', () => {
 
             it('should not update the element if fieldType is invalid', fakeAsync(() => {
                 let previewForm: FieldDto[];
-                service.getElementPreview().subscribe(obj => {
+                service.getElementPreview().subscribe((obj: FieldDto[]) => {
                     previewForm = obj;
                 });
                 expect(previewForm.length).toBe(0);
@@ -457,8 +457,8 @@ describe('Service: FormElement', () => {
 
         it('should provide styles of the fieldType', fakeAsync(() => {
             let styles: FieldDto;
-            service.getElement().subscribe(result => {
-                styles = _.find(result, obj => { return obj['name'] === 'styles'; });
+            service.getElement().subscribe((result: FieldDto[]) => {
+                styles = _.find(result, (obj: FieldDto) => { return obj['name'] === 'styles'; });
             });
             expect(styles).toBeUndefined();
 
@@ -471,8 +471,8 @@ describe('Service: FormElement', () => {
 
         it('should fail if styles already exist', fakeAsync(() => {
             let styles: FieldDto;
-            service.getElement().subscribe(result => {
-                styles = _.find(result, obj => { return obj['name'] === 'styles'; });
+            service.getElement().subscribe((result: FieldDto[]) => {
+                styles = _.find(result, (obj: FieldDto) => { return obj['name'] === 'styles'; });
             });
 
             service.updateElement(new FormGroup({ fieldType: new FormControl('input') })); tick(600);
@@ -508,8 +508,8 @@ describe('Service: FormElement', () => {
 
         it('should provide styles of the fieldType', fakeAsync(() => {
             let validations: FieldDto;
-            service.getElement().subscribe(result => {
-                validations = _.find(result, obj => { return obj['name'] === 'validations'; });
+            service.getElement().subscribe((result: FieldDto[]) => {
+                validations = _.find(result, (obj: FieldDto) => { return obj['name'] === 'validations'; });
             });
             expect(validations).toBeUndefined();
 
@@ -522,8 +522,8 @@ describe('Service: FormElement', () => {
 
         it('should log an error if validations exist', fakeAsync(() => {
             let validations: FieldDto;
-            service.getElement().subscribe(result => {
-                validations = _.find(result, obj => { return obj['name'] === 'validations'; });
+            service.getElement().subscribe((result: FieldDto[]) => {
+                validations = _.find(result, (obj: FieldDto) => { return obj['name'] === 'validations'; });
             });
 
             service.updateElement(new FormGroup({ fieldType: new FormControl('input') })); tick(600);
@@ -651,7 +651,7 @@ describe('Service: FormElement', () => {
 
             service.removeElement(); tick(600);
 
-            expect(form.removeElement).toHaveBeenCalledWith(_.find(element, obj => _.isEqual(obj['name'], 'name')));
+            expect(form.removeElement).toHaveBeenCalledWith(_.find(element, (obj: FieldDto) => _.isEqual(obj['name'], 'name')));
         }));
 
         it('should reset the element on success', fakeAsync(() => {
@@ -928,7 +928,7 @@ describe('Service: FormElement', () => {
                 }); tick(600);
 
                 expect(element.length).toBeGreaterThan(1);
-                expect(_.find(element, obj => obj.name === 'fieldType').value).toEqual('input');
+                expect(_.find(element, (obj: FieldDto) => obj.name === 'fieldType').value).toEqual('input');
             }))
         );
 
@@ -998,7 +998,7 @@ describe('Service: FormElement', () => {
                     styles: ['invalid']
                 }); tick(600);
 
-                expect(_.find(element, obj => obj.name === 'styles').value).toEqual(['invalid']);
+                expect(_.find(element, (obj: FieldDto) => obj.name === 'styles').value).toEqual(['invalid']);
             }))
         );
 
@@ -1015,7 +1015,7 @@ describe('Service: FormElement', () => {
                     validations: ['small']
                 }); tick(600);
 
-                expect(_.find(element, obj => obj.name === 'validations').value).toEqual(['small']);
+                expect(_.find(element, (obj: FieldDto) => obj.name === 'validations').value).toEqual(['small']);
             }))
         );
 
@@ -1032,7 +1032,7 @@ describe('Service: FormElement', () => {
                     options: [{ value: 'a', label: 'b'}]
                 }); tick(600);
 
-                expect(_.find(element, obj => obj.name === 'options').value).toEqual([{ value: 'a', label: 'b'}]);
+                expect(_.find(element, (obj: FieldDto) => obj.name === 'options').value).toEqual([{ value: 'a', label: 'b'}]);
             }))
         );
 
@@ -1050,7 +1050,7 @@ describe('Service: FormElement', () => {
                     options: [{ value: 'a', label: 'b'}]
                 }); tick(1200);
 
-                expect(_.find(element, obj => obj.name === 'options').value).toEqual([{ value: 'a', label: 'b'}]);
+                expect(_.find(element, (obj: FieldDto) => obj.name === 'options').value).toEqual([{ value: 'a', label: 'b'}]);
             }))
         );
     });

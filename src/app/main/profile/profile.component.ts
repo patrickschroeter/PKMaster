@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
     private _form: SingleFormDto;
     get form() { return this._form; }
     set form(form) { this._form = form; }
-    private user: UserDto;
+    public user: UserDto;
 
     constructor(
         private auth: AuthenticationService,

@@ -87,7 +87,7 @@ export class ApplicationService {
     @Loading('getApplications')
     public getOwnApplications(sort?: string, user?: UserDto): Observable<ApplicationDto[]> {
         return this.applicationApi.getApplications().map(result => {
-            const applications = result.filter((obj: ApplicationDto) => obj.userId === user.id);
+            const applications = result.filter((obj: ApplicationDto) => obj.user.id === user.id);
             return this.applications = applications;
         });
     }
@@ -111,7 +111,7 @@ export class ApplicationService {
     public createNewApplication(application: ApplicationDto): Observable<ApplicationDto> {
         /* TODO: wait for token */
         this.auth.getUser().subscribe(user => {
-            application.userId = user.id;
+            application.user = user;
         });
 
         return this.applicationApi.createApplication((application as ApplicationCreateDto)).map(result => {

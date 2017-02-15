@@ -37,11 +37,10 @@ export class RolesComponent implements OnInit {
     /**
      * An Array of all Roles
      *
-     * @private
      * @type {RoleDto[]}
      * @memberOf RolesComponent
      */
-    private roles: RoleDto[];
+    public roles: RoleDto[];
 
     /**
      * the Form for creata a new role

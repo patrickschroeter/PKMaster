@@ -22,11 +22,11 @@ export class ElementEditComponent implements OnInit {
     /** Flag if View has Submit Enabled */
     private elementHasSubmit: Boolean = false;
     /** Flag if View has Preview Enabled */
-    private elementHasPreview: Boolean = false;
+    public elementHasPreview: Boolean = false;
     /** Flag if Element has Validations */
-    private elementHasValidations: Boolean = false;
+    public elementHasValidations: Boolean = false;
     /** Flag if Element has Styles */
-    private elementHasStyles: Boolean = false;
+    public elementHasStyles: Boolean = false;
 
     constructor(private elementService: FormElementService) { }
 
