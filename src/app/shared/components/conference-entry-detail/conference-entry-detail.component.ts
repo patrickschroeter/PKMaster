@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
 /** Models */
 import { ConferenceConfig } from './../../../models';
-import { ApplicationDto } from './../../../swagger';
+import { ApplicationDetailDto } from './../../../swagger';
 import { ModalAcceptApplicationComponent } from './../../';
 
 @Component({
@@ -32,7 +32,7 @@ export class ConferenceEntryDetailComponent implements OnInit {
     /**
      * select the current application
      */
-    public updateApplication(application: ApplicationDto) {
+    public updateApplication(application: ApplicationDetailDto) {
         for (let i = 0; i < this.entry.entries.length; i++) {
             if (this.entry.entries[i].id === application.id) {
                 this.entry.entries[i] = application;

@@ -15,7 +15,7 @@ import { OverlayComponent, ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { ApplicationDto, CommentDto, UserDto } from './../../../swagger';
+import { ApplicationDetailDto, CommentDto, UserDto } from './../../../swagger';
 import { Selectable } from './../../../models';
 
 /** Decorators */
@@ -29,10 +29,10 @@ import { Access } from './../../../shared/decorators/access.decorator';
 export class ApplicationsDetailComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    private _application: ApplicationDto;
+    private _application: ApplicationDetailDto;
 
     get application() { return this._application; }
-    set application(application: ApplicationDto) { this._application = application; }
+    set application(application: ApplicationDetailDto) { this._application = application; }
 
     public addComment: Array<any>;
     public savingComment: Boolean;
@@ -139,7 +139,7 @@ export class ApplicationsDetailComponent implements OnInit {
      * update the application with the given one
      * @param {Application} application
      */
-    public updateApplication(application: ApplicationDto): void {
+    public updateApplication(application: ApplicationDetailDto): void {
         this.application = application;
     }
 
@@ -202,7 +202,7 @@ export class ApplicationsDetailComponent implements OnInit {
      * Creates a confirmation modal to confirm submitting the selected application
      * @param {Application} application - the application to submit
      */
-    public submitApplicationModal(application: ApplicationDto): void {
+    public submitApplicationModal(application: ApplicationDetailDto): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmSubmitApplicationHeader'),
             message: this.translationService.translate('confirmSubmitApplicationContent'),
@@ -216,7 +216,7 @@ export class ApplicationsDetailComponent implements OnInit {
      * Submit the selected application
      * @param {Application} application - the application to submit
      */
-    private submitApplication(application: ApplicationDto): void {
+    private submitApplication(application: ApplicationDetailDto): void {
         this.applicationService.submitApplication(application).subscribe(result => {
             this.alert.setSuccessHint(
                 `submitApplication${application.id}`,
@@ -231,7 +231,7 @@ export class ApplicationsDetailComponent implements OnInit {
      * Creates a confirmation modal to confirm rescinding the selected application
      * @param {Application} application - the application to rescind
      */
-    public rescindApplicationModal(application: ApplicationDto): void {
+    public rescindApplicationModal(application: ApplicationDetailDto): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmRescindApplicationHeader'),
             message: this.translationService.translate('confirmRescindApplicationContent'),
@@ -245,7 +245,7 @@ export class ApplicationsDetailComponent implements OnInit {
      * Rescingd the selected application
      * @param {Application} application - the application to rescind
      */
-    private rescindApplication(application: ApplicationDto): void {
+    private rescindApplication(application: ApplicationDetailDto): void {
         this.applicationService.rescindApplication(application).subscribe(result => {
             this.alert.setSuccessHint(
                 `rescindApplication${application.id}`,
@@ -260,7 +260,7 @@ export class ApplicationsDetailComponent implements OnInit {
      * Creates a confirmation modal to confirm deactivating the selected application
      * @param {Application} application - the application to deactovate
      */
-    public deactivateApplicationModal(application: ApplicationDto): void {
+    public deactivateApplicationModal(application: ApplicationDetailDto): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmDeactivateApplicationHeader'),
             message: this.translationService.translate('confirmDeactivateApplicationContent'),
@@ -274,7 +274,7 @@ export class ApplicationsDetailComponent implements OnInit {
      * Deactivate the selected application
      * @param {Application} application - the application to deactovate
      */
-    private deactivateApplication(application: ApplicationDto): void {
+    private deactivateApplication(application: ApplicationDetailDto): void {
         this.applicationService.deactivateApplication(application).subscribe(result => {
             this.alert.setSuccessHint(
                 `deactivateApplication${application.id}`,
@@ -319,7 +319,7 @@ export class ApplicationsDetailComponent implements OnInit {
         }
     }
 
-    private saveApplication(param: ApplicationDto): void {
+    private saveApplication(param: ApplicationDetailDto): void {
         this.applicationService.updateApplication(param).subscribe(result => {
             this.application = result;
             this.modalService.updateSelectedValues(this.application.assignments.map(obj => obj.id));
@@ -328,10 +328,10 @@ export class ApplicationsDetailComponent implements OnInit {
 
     /**
      * remove user from the application
-     * @param {String} userId
+     * @param {UserDto} user
      */
-    public unassignUser(userId: string) {
-        this.assignUser(new Selectable(userId, userId));
+    public unassignUser(user: UserDto) {
+        this.assignUser(new Selectable(user.id, user.id));
     }
 
     /**

@@ -39,6 +39,8 @@ export interface FieldDto {
 
     multipleSelect?: boolean;
 
+    disabled?: boolean;
+
     contentType?: string;
 
     placeholder?: string;
@@ -53,12 +55,10 @@ export interface FieldDto {
 
     value?: string | string[];
 
-    optionTable?: string;
+    // optionTable?: string; -> enumOptionsTableId
 
     options?: Array<Selectable>;
     optionsJSON?: string;
-
-    disabled?: boolean;
 
     [key: string]: any;
 }

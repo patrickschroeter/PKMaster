@@ -7,7 +7,7 @@ import { TranslationService } from './../../../modules/translation';
 import { ConferenceApi } from './../../../swagger/api/ConferenceApi';
 
 /** Models */
-import { ConferenceDto, ConferenceCreateDto, FieldDto } from './../../../swagger';
+import { ConferenceDetailDto, ConferenceCreateDto, FieldDto } from './../../../swagger';
 
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
@@ -15,8 +15,8 @@ import { Loading } from './../../../shared/decorators/loading.decorator';
 @Injectable()
 export class ConferenceService {
 
-    private conference: ConferenceDto;
-    private conferences: ConferenceDto[];
+    private conference: ConferenceDetailDto;
+    private conferences: ConferenceDetailDto[];
 
     constructor(
         private conferenceApi: ConferenceApi,
@@ -29,7 +29,7 @@ export class ConferenceService {
      * @param {String} id
      */
     @Loading('getConferenceById')
-    public getConferenceById(id: string): Observable<ConferenceDto> {
+    public getConferenceById(id: string): Observable<ConferenceDetailDto> {
         return this.conferenceApi.getConferenceById(id).map(conference => {
             if (!conference.attendants) { conference.attendants = []; }
             return this.conference = conference;
@@ -40,7 +40,7 @@ export class ConferenceService {
      * request all conferences
      */
     @Loading('getConferences')
-    public getConferences(): Observable<ConferenceDto[]> {
+    public getConferences(): Observable<ConferenceDetailDto[]> {
         return this.conferenceApi.getConferences().map(conferences => {
             // TODO: sort
             return this.conferences = conferences;
@@ -52,7 +52,7 @@ export class ConferenceService {
      * @param {Conference} conference
      */
     @Loading('createNewConference')
-    public createNewConference(conference: ConferenceCreateDto): Observable<ConferenceDto> {
+    public createNewConference(conference: ConferenceCreateDto): Observable<ConferenceDetailDto> {
         return this.conferenceApi.addConference(conference).map(result => {
             return this.conference = result;
         });
@@ -63,7 +63,7 @@ export class ConferenceService {
      * @param {Conference} conference
      */
     @Loading('saveConference')
-    public saveConference(conference: ConferenceDto): Observable<ConferenceDto> {
+    public saveConference(conference: ConferenceDetailDto): Observable<ConferenceDetailDto> {
         return this.conferenceApi.updateConferenceById(conference.id, conference).map(result => {
             return this.conference = result;
         });
@@ -84,7 +84,7 @@ export class ConferenceService {
      * create the form for creating/editing conference properties
      * @param {Conference} values
      */
-    public getConferenceForm(values?: ConferenceDto): FieldDto[] {
+    public getConferenceForm(values?: ConferenceDetailDto): FieldDto[] {
         return [
             {
                 fieldType: 'input',
@@ -92,6 +92,14 @@ export class ConferenceService {
                 label: 'Conference Description:',
                 required: true,
                 value: values ? values.description : ''
+            },
+            {
+                fieldType: 'input',
+                name: 'numberOfConference',
+                contentType: 'number',
+                label: 'Number of Conference:',
+                required: true,
+                value: (values && values.numberOfConference) ? values.numberOfConference.toString() : ''
             },
             {
                 fieldType: 'input',
@@ -107,7 +115,6 @@ export class ConferenceService {
             {
                 fieldType: 'input',
                 name: 'startOfEvent',
-                contentType: 'string',
                 label: 'Beginn',
                 required: true,
                 value: (values && values.startOfEvent) ? values.startOfEvent.toString() : '',
@@ -121,7 +128,6 @@ export class ConferenceService {
             {
                 fieldType: 'input',
                 name: 'endOfEvent',
-                contentType: 'string',
                 label: 'Ende',
                 required: true,
                 value: (values && values.endOfEvent) ? values.endOfEvent.toString() : '',
@@ -135,7 +141,6 @@ export class ConferenceService {
             {
                 fieldType: 'input',
                 name: 'roomOfEvent',
-                contentType: 'string',
                 label: 'Raum',
                 required: true,
                 value: values ? values.roomOfEvent : '',

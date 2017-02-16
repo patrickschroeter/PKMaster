@@ -11,7 +11,7 @@ import {
 } from './../form';
 
 import { ApplicationMock } from './';
-import { StatusDto, ApplicationApi, FormApi, ApplicationDto } from './../../../swagger';
+import { StatusDto, ApplicationApi, FormApi, ApplicationDetailDto } from './../../../swagger';
 import { ApplicationApiMock, FormApiMock, AuthenticationService, AuthenticationMock } from './..';
 
 import { AlertProviderMock } from './../../../modules/alert/alert.module';
@@ -41,7 +41,7 @@ describe('Service: Application', () => {
     describe('createNewApplication', () => {
         it('should provide the new created application',
             fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
-                let element: ApplicationDto;
+                let element: ApplicationDetailDto;
                 service.createNewApplication({ form: { id: '1' }}).subscribe(result => { element = result; });
                 tick(25);
                 expect(element).toBeDefined();
@@ -61,7 +61,7 @@ describe('Service: Application', () => {
     });
 
     describe('getApplicationById', () => {
-        let element: ApplicationDto, service: ApplicationService;
+        let element: ApplicationDetailDto, service: ApplicationService;
 
         beforeEach(fakeAsync(inject([ApplicationService], (applicationService: ApplicationService) => {
             service = applicationService;
@@ -71,7 +71,7 @@ describe('Service: Application', () => {
 
         it('should provide the application with the given id',
             fakeAsync(() => {
-                let application: ApplicationDto;
+                let application: ApplicationDetailDto;
                 service.getApplicationById(element.id).subscribe(result => { application = result; });
                 tick(25);
                 expect(application).toBeDefined();
@@ -99,7 +99,7 @@ describe('Service: Application', () => {
     });
 
     describe('getApplications', () => {
-        let element: ApplicationDto, service: ApplicationService;
+        let element: ApplicationDetailDto, service: ApplicationService;
 
         beforeEach(fakeAsync(inject([ApplicationService], (applicationService: ApplicationService) => {
             service = applicationService;
@@ -107,7 +107,7 @@ describe('Service: Application', () => {
 
         it('should provide an empty array if there are no applications',
             fakeAsync(() => {
-                let elements: ApplicationDto[];
+                let elements: ApplicationDetailDto[];
                 service.getApplications().subscribe(result => { elements = result; });
                 tick(25);
                 expect(elements).toBeDefined();
@@ -127,7 +127,7 @@ describe('Service: Application', () => {
 
             it('should provide a list of all applications',
                 fakeAsync(() => {
-                    let elements: ApplicationDto[];
+                    let elements: ApplicationDetailDto[];
                     service.getApplications().subscribe(result => { elements = result; });
                 tick(25);
                     expect(elements).toBeDefined();

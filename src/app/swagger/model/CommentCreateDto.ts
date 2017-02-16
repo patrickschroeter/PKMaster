@@ -28,7 +28,7 @@ import * as models from './models';
 export interface CommentCreateDto {
     
 
-    text?: string;
+    message?: string;
 
     isPrivate?: boolean;
 

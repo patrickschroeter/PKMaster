@@ -13,7 +13,7 @@ import { TranslationService } from './../../../modules/translation';
 import { ModalService } from './../../../modules/overlay';
 
 /** Models */
-import { ApplicationDto, UserDto } from './../../../swagger';
+import { ApplicationDetailDto, UserDto } from './../../../swagger';
 import { Selectable } from './../../../models';
 
 /** Decorators */
@@ -26,7 +26,7 @@ import { Access } from './../../../shared/decorators/access.decorator';
 })
 export class ApplicationsListComponent implements OnInit {
 
-    @Input() applications: ApplicationDto[];
+    @Input() applications: ApplicationDetailDto[];
     @Input() user: UserDto;
 
     constructor(
@@ -44,8 +44,8 @@ export class ApplicationsListComponent implements OnInit {
      * update the application in the applications list
      * @param {Application} application
      */
-    private updateApplication(application: ApplicationDto): void {
-        const index = _.findIndex(this.applications, (obj: ApplicationDto) => obj.id === application.id);
+    private updateApplication(application: ApplicationDetailDto): void {
+        const index = _.findIndex(this.applications, (obj: ApplicationDetailDto) => obj.id === application.id);
         if (index !== -1) {
             this.applications[index] = application;
         }
@@ -56,7 +56,7 @@ export class ApplicationsListComponent implements OnInit {
      * TODO: Prevent deactivate foreign application with Create & Read permission
      */
     @Access(['CreateApplications', 'DeactivateApplications'])
-    public deactivateApplicationModal(application: ApplicationDto): void {
+    public deactivateApplicationModal(application: ApplicationDetailDto): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmDeactivateApplicationHeader'),
             message: this.translationService.translate('confirmDeactivateApplicationContent'),
@@ -71,7 +71,7 @@ export class ApplicationsListComponent implements OnInit {
      * TODO: Prevent deactivate foreign application with Create & Read permission
      */
     @Access(['CreateApplications', 'DeactivateApplications'])
-    private deactivateApplication(application: ApplicationDto): void {
+    private deactivateApplication(application: ApplicationDetailDto): void {
         this.applicationService.deactivateApplication(application).subscribe(result => {
             this.updateApplication(result);
             this.alert.setSuccessHint(`deactivateApplication${application.id}`,
@@ -86,7 +86,7 @@ export class ApplicationsListComponent implements OnInit {
      * TODO: Prevent rescind foreign application with Create & Read permission
      */
     @Access(['CreateApplications', 'EditApplications'])
-    public rescindApplicationModal(application: ApplicationDto): void {
+    public rescindApplicationModal(application: ApplicationDetailDto): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmRescindApplicationHeader'),
             message: this.translationService.translate('confirmRescindApplicationContent'),
@@ -101,7 +101,7 @@ export class ApplicationsListComponent implements OnInit {
      * TODO: Prevent rescind foreign application with Create & Read permission
      */
     @Access(['CreateApplications', 'EditApplications'])
-    private rescindApplication(application: ApplicationDto): void {
+    private rescindApplication(application: ApplicationDetailDto): void {
         this.applicationService.rescindApplication(application).subscribe(result => {
             this.updateApplication(result);
             this.alert.setSuccessHint(`rescindApplication${application.id}`, this.translationService.translate('applicationRescinded'));
@@ -114,7 +114,7 @@ export class ApplicationsListComponent implements OnInit {
      * TODO: Prevent submit foreign application with Create & Read permission
      */
     @Access(['CreateApplications', 'EditApplications'])
-    public submitApplicationModal(application: ApplicationDto): void {
+    public submitApplicationModal(application: ApplicationDetailDto): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmSubmitApplicationHeader'),
             message: this.translationService.translate('confirmSubmitApplicationContent'),
@@ -129,7 +129,7 @@ export class ApplicationsListComponent implements OnInit {
      * TODO: Prevent submit foreign application with Create & Read permission
      */
     @Access(['CreateApplications', 'EditApplications'])
-    private submitApplication(application: ApplicationDto): void {
+    private submitApplication(application: ApplicationDetailDto): void {
         this.applicationService.submitApplication(application).subscribe(result => {
             this.updateApplication(result);
             this.alert.setSuccessHint(`submitApplication${application.id}`, this.translationService.translate('applicationSubmitted'));
@@ -141,7 +141,7 @@ export class ApplicationsListComponent implements OnInit {
      * open the confirm dialog for the validation
      * @param {Application} application
      */
-    public validateApplication(application: ApplicationDto): void {
+    public validateApplication(application: ApplicationDetailDto): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmValidateApplicationHeader'),
             message: this.translationService.translate('confirmValidateApplicationHeader'),
@@ -170,15 +170,15 @@ export class ApplicationsListComponent implements OnInit {
 })
 export class ApplicationsListOwnedComponent extends ApplicationsListComponent {
 
-    public deactivateApplicationModal(application: ApplicationDto): void {
+    public deactivateApplicationModal(application: ApplicationDetailDto): void {
         super.deactivateApplicationModal(application);
     }
 
-    public submitApplicationModal(application: ApplicationDto): void {
+    public submitApplicationModal(application: ApplicationDetailDto): void {
         super.submitApplicationModal(application);
     }
 
-    public rescindApplicationModal(application: ApplicationDto): void {
+    public rescindApplicationModal(application: ApplicationDetailDto): void {
         super.rescindApplicationModal(application);
     }
 
@@ -190,7 +190,7 @@ export class ApplicationsListOwnedComponent extends ApplicationsListComponent {
 })
 export class ApplicationsListAssignedComponent extends ApplicationsListComponent {
 
-    public validateApplication(application: ApplicationDto): void {
+    public validateApplication(application: ApplicationDetailDto): void {
         super.validateApplication(application);
     }
 

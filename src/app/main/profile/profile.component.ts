@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { AuthenticationService } from './../../core';
 
-import { SingleFormDto, UserDto } from './../../swagger';
+import { FormDetailDto, UserDto } from './../../swagger';
 import { Fields } from './../../models';
 
 @Component({
@@ -14,7 +14,7 @@ import { Fields } from './../../models';
 export class ProfileComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    private _form: SingleFormDto;
+    private _form: FormDetailDto;
     get form() { return this._form; }
     set form(form) { this._form = form; }
     public user: UserDto;

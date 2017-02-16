@@ -10,7 +10,7 @@ import { ApplicationApi } from './../../../swagger/api/ApplicationApi';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { ApplicationDto, FieldDto, ApplicationCreateDto, CommentDto, UserDto } from './../../../swagger';
+import { ApplicationDetailDto, ApplicationListDto, FieldDto, ApplicationCreateDto, CommentDto, UserDto } from './../../../swagger';
 
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
@@ -19,13 +19,13 @@ import { Loading } from './../../../shared/decorators/loading.decorator';
 @Injectable()
 export class ApplicationService {
 
-    private _application: ApplicationDto;
+    private _application: ApplicationDetailDto;
     get application() { return this._application; }
     set application(application) {
         this._application = application;
         this.setValues();
     }
-    private applications: ApplicationDto[];
+    private applications: ApplicationListDto[];
 
     constructor(
         /** Modules */
@@ -60,7 +60,7 @@ export class ApplicationService {
      * @param {String} id - the id of the application to get
      */
     @Loading('getApplicationById')
-    public getApplicationById(id: string): Observable<ApplicationDto> {
+    public getApplicationById(id: string): Observable<ApplicationDetailDto> {
         return this.applicationApi.getApplicationById(id).map(application => {
             return this.application = application;
         });
@@ -71,7 +71,7 @@ export class ApplicationService {
      * @param {String} [sort]
      */
     @Loading('getApplications')
-    public getApplications(sort?: string): Observable<ApplicationDto[]> {
+    public getApplications(sort?: string): Observable<ApplicationListDto[]> {
         return this.applicationApi.getApplications().map(applications => {
             if (sort) {
                 applications.sort(
@@ -85,17 +85,17 @@ export class ApplicationService {
     }
 
     @Loading('getApplications')
-    public getOwnApplications(sort?: string, user?: UserDto): Observable<ApplicationDto[]> {
+    public getOwnApplications(sort?: string, user?: UserDto): Observable<ApplicationListDto[]> {
         return this.applicationApi.getApplications().map(result => {
-            const applications = result.filter((obj: ApplicationDto) => obj.user.id === user.id);
+            const applications = result.filter((obj: ApplicationListDto) => obj.user.id === user.id);
             return this.applications = applications;
         });
     }
 
     @Loading('getApplications')
-    public getAssignedApplications(sort?: string, user?: UserDto): Observable<ApplicationDto[]> {
+    public getAssignedApplications(sort?: string, user?: UserDto): Observable<ApplicationListDto[]> {
         return this.applicationApi.getApplications().map(result => {
-            const applications = result.filter((obj: ApplicationDto) => {
+            const applications = result.filter((obj: ApplicationListDto) => {
                 const assignment = _.find(obj.assignments, (assign: UserDto) => assign.id === user.id);
                 return !!assignment;
             });
@@ -108,7 +108,7 @@ export class ApplicationService {
      * @param {Application} application - the new application to create
      */
     @Loading('createNewApplication')
-    public createNewApplication(application: ApplicationDto): Observable<ApplicationDto> {
+    public createNewApplication(application: ApplicationCreateDto): Observable<ApplicationDetailDto> {
         /* TODO: wait for token */
         this.auth.getUser().subscribe(user => {
             application.user = user;
@@ -124,7 +124,7 @@ export class ApplicationService {
      * @param {Comment} comment - the comment to add
      */
     @Loading('addCommentToApplication')
-    public addCommentToApplication(comment: CommentDto): Observable<ApplicationDto> {
+    public addCommentToApplication(comment: CommentDto): Observable<CommentDto[]> {
         if (!this.application) { return Observable.throw('No Application'); }
         return this.applicationApi.addCommentToApplication(this.application.id, comment).map(result => {
             return result;
@@ -151,7 +151,7 @@ export class ApplicationService {
      * submit the selected application
      * @param {Application} application
      */
-    public submitApplication(application: ApplicationDto): Observable<ApplicationDto> {
+    public submitApplication(application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
         const blocked = this.blockedStatusUpdate(application.status.name, ['created']);
         if (blocked) { return blocked; }
         /** TODO: move to server */
@@ -166,7 +166,7 @@ export class ApplicationService {
      * rescind the selected application
      * @param {Application} application
      */
-    public rescindApplication(application: ApplicationDto): Observable<ApplicationDto> {
+    public rescindApplication(application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
         const blocked = this.blockedStatusUpdate(application.status.name, ['submitted']);
         if (blocked) { return blocked; }
         /** TODO: move to server */
@@ -181,7 +181,7 @@ export class ApplicationService {
      * deactivate the selected application
      * @param {Application} application
      */
-    public deactivateApplication(application: ApplicationDto): Observable<ApplicationDto> {
+    public deactivateApplication(application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
         const blocked = this.blockedStatusUpdate(application.status.name, ['created', 'rescinded']);
         if (blocked) { return blocked; }
         /** TODO: move to server */
@@ -196,7 +196,7 @@ export class ApplicationService {
      * Saves the changed application
      * @param {Object} form - the form of the application
      */
-    public saveApplication(form: Object): Observable<ApplicationDto> {
+    public saveApplication(form: Object): Observable<ApplicationDetailDto> {
         if (!this.application) { return; }
         const param = _.cloneDeep(this.application);
         param.filledForm = JSON.stringify(form);
@@ -212,8 +212,16 @@ export class ApplicationService {
      * @param {Application} application
      */
     @Loading('updateApplication')
-    public updateApplication(application: ApplicationDto): Observable<ApplicationDto> {
-        return this.applicationApi.updateApplicationById(application.id, application).map(result => {
+    public updateApplication(application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
+        // TODO; mapping
+        const param: ApplicationCreateDto = (_.cloneDeep(application) as ApplicationCreateDto);
+        param.assignments = application.assignments.map(obj => obj.id);
+        param.userId = application.user.id;
+        param.conferenceId = application.conference.id;
+        param.statusId = application.status.id;
+        param.formId = application.form.id;
+
+        return this.applicationApi.updateApplicationById(application.id, param).map(result => {
             return this.application = result;
         });
     }
@@ -223,7 +231,7 @@ export class ApplicationService {
      * @param {Application} application
      * @param {String} conferenceId
      */
-    public assignConferenceToApplication(application: ApplicationDto, conferenceId: string): Observable<ApplicationDto> {
+    public assignConferenceToApplication(application: ApplicationDetailDto, conferenceId: string): Observable<ApplicationDetailDto> {
         const param = _.cloneDeep(application);
         param.conferenceId = conferenceId;
         param.status = { name: 'pending' };
@@ -238,7 +246,7 @@ export class ApplicationService {
      * @param {Boolean} confirmation
      * @param {Application} application
      */
-    public confirmApplication(confirmation: boolean, application: ApplicationDto): Observable<ApplicationDto> {
+    public confirmApplication(confirmation: boolean, application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
         const param = _.cloneDeep(application);
         param.confirmed = confirmation;
 

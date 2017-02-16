@@ -13,7 +13,7 @@ import { WindowService } from './../../../shared';
 import { ModalService } from './../../../modules/overlay';
 
 /** Models */
-import { ConferenceDto, SingleFormDto, FieldDto } from './../../../swagger';
+import { ConferenceDetailDto, FormDetailDto, FieldDto } from './../../../swagger';
 import { Selectable, ConferenceConfig } from './../../../models';
 import { OverlayComponent } from './../../../modules/overlay';
 import {
@@ -40,7 +40,7 @@ export class ConferencesEditComponent implements OnInit {
     @ViewChild('addEntryModal') addEntryModal: ModalAddConferenceEntryComponent;
     @ViewChild('addListModal') addListModal: ModalAddConferenceListComponent;
 
-    public conference: ConferenceDto;
+    public conference: ConferenceDetailDto;
 
     public forms: Selectable[];
 
@@ -110,8 +110,8 @@ export class ConferencesEditComponent implements OnInit {
      * update the conference attribute
      * @param {Conference} conference
      */
-    public updateConference(conference: ConferenceDto): void {
-        const param: ConferenceDto = _.cloneDeep(this.conference);
+    public updateConference(conference: ConferenceDetailDto): void {
+        const param: ConferenceDetailDto = _.cloneDeep(this.conference);
         param.description = conference.description;
         param.dateOfEvent = conference.dateOfEvent;
         param.endOfEvent = conference.endOfEvent;

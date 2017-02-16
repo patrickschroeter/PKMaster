@@ -8,7 +8,7 @@ import { TranslationService } from './../../../modules/translation';
 import { FormApi } from './../../../swagger/api/FormApi';
 
 /** Models */
-import { FieldDto, SingleFormDto, FormCreateDto, FormsDto } from './../../../swagger';
+import { FieldDto, FormDetailDto, FormCreateDto, FormListDto } from './../../../swagger';
 
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
@@ -17,8 +17,8 @@ import { Loading } from './../../../shared/decorators/loading.decorator';
 export class FormService {
 
     /** The form to edit */
-    private form: SingleFormDto;
-    private forms: SingleFormDto[];
+    private form: FormDetailDto;
+    private forms: FormDetailDto[];
     /** Index of editing Element */
     private editingElementIndex: number;
 
@@ -263,7 +263,7 @@ export class FormService {
      * @return {Observable}
      */
     @Loading('saveFormAttributes')
-    public saveFormAttributes(submit: SingleFormDto): Observable<SingleFormDto> {
+    public saveFormAttributes(submit: FormDetailDto): Observable<FormDetailDto> {
         // TODO: save real data
         const form = _.cloneDeep(this.form);
 
@@ -284,7 +284,7 @@ export class FormService {
      * @return {void}
      */
     @Loading('saveForm')
-    public saveForm(): Observable<SingleFormDto> {
+    public saveForm(): Observable<FormDetailDto> {
         // TODO: save real data
         this.alert.setLoading('saveForm', this.translationService.translate('saveForm'));
         return this.formApi.updateFormById(this.form.id, this.form).map(form => {
@@ -303,7 +303,7 @@ export class FormService {
      * @return {Observable}
      */
     @Loading('getFormById')
-    public getFormById(id: string): Observable<SingleFormDto> {
+    public getFormById(id: string): Observable<FormDetailDto> {
         // TODO: load real data
         return this.formApi.getFormById(id).map(form => {
             return this.form = form;
@@ -316,11 +316,11 @@ export class FormService {
      * @return {Observable}
      */
     @Loading('getForms')
-    public getForms(sort?: string): Observable<SingleFormDto[]> {
+    public getForms(sort?: string): Observable<FormDetailDto[]> {
         const observable = this.formApi.getForms();
         // TODO: sort on Server
         if (sort) {
-            return observable.map((element: FormsDto[]) => {
+            return observable.map((element: FormListDto[]) => {
                 return element.sort(function (a, b) { return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
             });
         }
@@ -336,7 +336,7 @@ export class FormService {
      * @return {Observable}
      */
     @Loading('createNewForm')
-    public createNewForm(submit: SingleFormDto): Observable<SingleFormDto> {
+    public createNewForm(submit: FormDetailDto): Observable<FormDetailDto> {
         const param = _.cloneDeep(submit);
         delete param.id;
         param.title = submit.id ? 'Copy of ' + submit.title : submit.title;

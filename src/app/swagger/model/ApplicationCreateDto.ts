@@ -28,7 +28,7 @@ import * as models from './models';
 export interface ApplicationCreateDto {
 
 
-    filledForm?: string;
+    filledForm: string;
 
     version?: number;
 
@@ -36,15 +36,12 @@ export interface ApplicationCreateDto {
 
     previousVersion?: string;
 
-    userId?: string;
+    userId: string;
 
-    conferenceId?: string;
+    conferenceId: string;
 
-    statusId?: string;
+    statusId: string;
 
-    formId?: string;
+    formId: string;
 
-    // Client Only
-
-    assignments?: Array<models.UserDto>;
 }

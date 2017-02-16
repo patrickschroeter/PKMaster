@@ -14,7 +14,7 @@ import { TranslationService } from './../../../modules/translation';
 
 /** Models */
 import { ConferenceConfig, Selectable, ApplicationsByFormId } from './../../../models';
-import { ConferenceDto, ApplicationDto, CommentDto, UserDto } from './../../../swagger';
+import { ConferenceDetailDto, ApplicationDetailDto, CommentDto, UserDto } from './../../../swagger';
 import { OverlayComponent } from './../../../modules/overlay';
 
 /** Decorators */
@@ -47,7 +47,7 @@ export class ConferencesDetailComponent implements OnInit {
      * @type {ConferenceDto}
      * @memberOf ConferencesDetailComponent
      */
-    public conference: ConferenceDto;
+    public conference: ConferenceDetailDto;
 
     /**
      * the agenda of the conference, calculated from config
@@ -153,11 +153,11 @@ export class ConferencesDetailComponent implements OnInit {
      * @memberOf ConferencesDetailComponent
      */
     public populateConfigWithApplications() {
-        if (!this.conference.applications) { return; }
+        if (!this.conference.applications || !this.conference.config) { return; }
 
         const applicationsByForm: ApplicationsByFormId = {};
         for (let i = 0; i < this.conference.applications.length; i++) {
-            const application: ApplicationDto = this.conference.applications[i];
+            const application: ApplicationDetailDto = this.conference.applications[i];
             if (typeof application.filledForm === 'string') { application.filledForm = JSON.parse(application.filledForm); }
             applicationsByForm[application.formId] = applicationsByForm[application.formId] || [];
             applicationsByForm[application.formId].push(application);
@@ -178,9 +178,11 @@ export class ConferencesDetailComponent implements OnInit {
      * @memberOf ConferencesDetailComponent
      */
     private setApplication(config: ConferenceConfig, applications: ApplicationsByFormId) {
+        if (!config || !applications) { return; }
         if (config.formId) {
             config.entries = applications[config.formId];
         } else if (config.type === 'config') {
+            if (!config.entries) { config.entries = []; }
             for (let i = 0; i < config.entries.length; i++) {
                 this.setApplication(config.entries[i], applications);
             }
@@ -263,7 +265,7 @@ export class ConferencesDetailComponent implements OnInit {
      * @memberOf ConferencesDetailComponent
      */
     private assignUser(user: Selectable): void {
-        const param: ConferenceDto = _.cloneDeep(this.conference);
+        const param: ConferenceDetailDto = _.cloneDeep(this.conference);
         if (!param.attendants) { param.attendants = []; }
         const index = _.findIndex(param.attendants, (obj: UserDto) => obj.id === user.value);
         if (index === -1) {
@@ -286,7 +288,7 @@ export class ConferencesDetailComponent implements OnInit {
      *
      * @memberOf ConferencesDetailComponent
      */
-    private saveConference(param: ConferenceDto): void {
+    private saveConference(param: ConferenceDetailDto): void {
         this.conferenceService.saveConference(param).subscribe(result => {
             this.conference = result;
             this.modalService.updateSelectedValues(this.conference.attendants.map(obj => obj.id));

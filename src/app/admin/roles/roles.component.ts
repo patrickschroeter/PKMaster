@@ -46,7 +46,7 @@ export class RolesComponent implements OnInit {
      * the Form for creata a new role
      *
      * @private
-     * @type {Array<any>}
+     * @type {Array<FieldDto>}
      * @memberOf RolesComponent
      */
     private _newRole: Array<FieldDto>;

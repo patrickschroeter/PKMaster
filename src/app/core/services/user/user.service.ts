@@ -59,8 +59,9 @@ export class UserService {
      */
     public getMembers(): Observable<Array<UserDto>> {
         return this.userApi.getUsers().map(result => {
-            const param = result.filter(obj => obj.roles[0].name === 'Member');
-            return param;
+            // TODO: get special user
+            // const param = result.filter(obj => obj.roles[0].name === 'Member');
+            return result;
         });
     }
 
@@ -73,8 +74,9 @@ export class UserService {
      */
     public getGuests(): Observable<Array<UserDto>> {
         return this.userApi.getUsers().map(result => {
-            const param = result.filter(obj => obj.roles[0].name === 'Docent');
-            return param;
+            // TODO: get special user
+            // const param = result.filter(obj => obj.roles[0].name === 'Docent');
+            return result;
         });
     }
 

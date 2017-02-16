@@ -205,7 +205,7 @@ export class InputValidationService {
      */
     public validateTime(control: FormControl): Object {
         if (!control.value) { return null; }
-        if (!control.value.match(/^([01]?[0-9]|2[0-3])(:|.)[0-5][0-9]$/gm)) {
+        if (!control.value.match(/^([01]?[0-9]|2[0-3])(:)[0-5][0-9]$/gm)) {
             return { invalidTime: true };
         }
     }

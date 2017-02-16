@@ -33,7 +33,7 @@ import 'rxjs/Rx';
 'use strict';
 
 @Injectable()
-export class AuthenticationApi {
+export class CommentApi {
     protected basePath = 'https://pk.multimedia.hs-augsburg.de:8000/';
     public defaultHeaders : Headers = new Headers();
 
@@ -44,20 +44,20 @@ export class AuthenticationApi {
     }
 
     /**
+     * GET one Comment by Id
      * 
-     * 
-     * @param username 
-     * @param password 
+     * @param commentId The ID of the Comment
      */
-    public usersRegisterGet (username?: string, password?: string, extraHttpRequestParams?: any ) : Observable<{}> {
-        const path = this.basePath + '/users/register';
+    public getCommentById (commentId: string, extraHttpRequestParams?: any ) : Observable<models.CommentDto> {
+        const path = this.basePath + '/comments/{commentId}'
+            .replace('{' + 'commentId' + '}', String(commentId));
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-            headerParams.set('username', String(username));
-
-            headerParams.set('password', String(password));
-
+        // verify required parameter 'commentId' is not null or undefined
+        if (commentId === null || commentId === undefined) {
+            throw new Error('Required parameter commentId was null or undefined when calling getCommentById.');
+        }
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
             headers: headerParams,

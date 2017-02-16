@@ -25,7 +25,7 @@
 'use strict';
 import * as models from './models';
 
-export interface FieldTypeDto {
+export interface FieldDefinitionDto {
     
 
     id?: string;
@@ -34,9 +34,9 @@ export interface FieldTypeDto {
 
     name?: string;
 
-    typeHasConfig?: Array<models.TypeHasConfigDto>;
+    configs?: Array<string>;
 
-    typeHasStyle?: Array<models.StyleDto>;
+    styles?: Array<string>;
 
-    typeHasValidation?: Array<models.ValidationDto>;
+    validations?: Array<string>;
 }

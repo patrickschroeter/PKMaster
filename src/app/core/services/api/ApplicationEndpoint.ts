@@ -5,7 +5,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 
 import { ApplicationApiMock, FormEndpoint } from './';
 
-import { ApplicationDto, UserDto } from './../../../swagger';
+import { ApplicationDetailDto, UserDto } from './../../../swagger';
 import { FormApi } from './../../../swagger/api/FormApi';
 import { ConferenceApi } from './../../../swagger/api/ConferenceApi';
 import { UserApi } from './../../../swagger/api/UserApi';
@@ -47,7 +47,7 @@ export class ApplicationEndpoint {
         });
     }
 
-    public createApplication(application?: ApplicationDto, extraHttpRequestParams?: any): Observable<any> {
+    public createApplication(application?: ApplicationDetailDto, extraHttpRequestParams?: any): Observable<any> {
         console.log('%cMock:' + '%c createApplication', 'color: #F44336', 'color: #fefefe');
 
         const newapplication = this._applicationAdd(application);
@@ -64,7 +64,7 @@ export class ApplicationEndpoint {
         });
     }
 
-    public updateApplicationById(applicationId: string, application?: ApplicationDto, extraHttpRequestParams?: any): Observable<any> {
+    public updateApplicationById(applicationId: string, application?: ApplicationDetailDto, extraHttpRequestParams?: any): Observable<any> {
         console.log('%cMock:' + `%c updateApplicationById ${applicationId}`, 'color: #F44336', 'color: #fefefe');
 
         if (application.conferenceId && !application.conference) {
@@ -110,15 +110,15 @@ export class ApplicationEndpoint {
      */
 
     // tslint:disable-next-line:member-ordering
-    private _list: ApplicationDto[] = [
+    private _list: ApplicationDetailDto[] = [
         ApplicationApiMock.APPLICATION
     ];
 
-    private _applications(): ApplicationDto[] {
+    private _applications(): ApplicationDetailDto[] {
         return JSON.parse(JSON.stringify(this._list));
     }
 
-    private _applicationAdd(application: ApplicationDto): ApplicationDto {
+    private _applicationAdd(application: ApplicationDetailDto): ApplicationDetailDto {
         const id = this._list.length === 0 ? 'Q' : this._list[this._list.length - 1].id + 'Q';
         application.id = id;
         application.created = new Date();
@@ -130,8 +130,8 @@ export class ApplicationEndpoint {
         return JSON.parse(JSON.stringify(this._list[this._list.length - 1]));
     }
 
-    private _application(id?: string): ApplicationDto {
-        let result: ApplicationDto;
+    private _application(id?: string): ApplicationDetailDto {
+        let result: ApplicationDetailDto;
         const list = this._list;
         for (let i = 0; i < list.length; i++) {
             if (list[i].id === id) {
@@ -142,7 +142,7 @@ export class ApplicationEndpoint {
         return JSON.parse(JSON.stringify(result));
     }
 
-    private _applicationUpdate(id: string, application: ApplicationDto) {
+    private _applicationUpdate(id: string, application: ApplicationDetailDto) {
         delete application.attributes;
         if (typeof application.filledForm === 'object') { application.filledForm = JSON.stringify(application.filledForm); }
         const list = this._list;

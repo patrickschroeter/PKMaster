@@ -34,5 +34,5 @@ export interface EnumOptionsTable {
 
     referenceTableName?: string;
 
-    field?: Array<models.FieldDto>;
+    // field?: Array<models.Field>;
 }

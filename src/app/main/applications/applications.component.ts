@@ -14,7 +14,7 @@ import { TranslationService } from './../../modules/translation';
 import { ModalService } from './../../modules/overlay';
 
 /** Models */
-import { ApplicationDto, UserDto } from './../../swagger';
+import { ApplicationDetailDto, UserDto } from './../../swagger';
 import { Selectable } from './../../models';
 
 /** Decorators */
@@ -28,9 +28,9 @@ import { Access } from './../../shared/decorators/access.decorator';
 export class ApplicationsComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    public ownApplications: ApplicationDto[];
-    public assignedApplications: ApplicationDto[];
-    public applications: ApplicationDto[];
+    public ownApplications: ApplicationDetailDto[];
+    public assignedApplications: ApplicationDetailDto[];
+    public applications: ApplicationDetailDto[];
 
     public activeTab: string;
 
@@ -121,7 +121,7 @@ export class ApplicationsComponent implements OnInit {
     @Access('CreateApplications')
     private createApplication(listelement: Selectable): void {
         /** TODO */
-        const application: ApplicationDto = {
+        const application: ApplicationDetailDto = {
             formId: listelement.value
         };
         this.applicationService.createNewApplication(application).subscribe((created) => {

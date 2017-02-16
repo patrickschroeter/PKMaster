@@ -32,8 +32,6 @@ export interface RoleDto {
 
     name?: string;
 
-    userHasRole?: Array<string>;
-
     // Custom
 
     rolePermissions?: Array<models.Permission>;

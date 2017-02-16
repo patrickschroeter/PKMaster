@@ -48,7 +48,7 @@ export class FormApi {
      *
      * @param form new Form
      */
-    public addForm (form?: models.FormCreateDto, extraHttpRequestParams?: any ) : Observable<models.FormsDto> {
+    public addForm (form?: models.FormCreateDto, extraHttpRequestParams?: any ) : Observable<models.FormDetailDto> {
         const path = this.basePath + '/forms';
 
         let queryParameters = new URLSearchParams();
@@ -106,7 +106,7 @@ export class FormApi {
      *
      * @param formId ID of the Form
      */
-    public getFormById (formId: string, extraHttpRequestParams?: any ) : Observable<models.SingleFormDto> {
+    public getFormById (formId: string, extraHttpRequestParams?: any ) : Observable<models.FormDetailDto> {
         const path = this.basePath + '/forms/{formId}'
             .replace('{' + 'formId' + '}', String(formId));
 
@@ -136,7 +136,7 @@ export class FormApi {
      * GET all Forms
      * The Forms Endpoint returns all Forms
      */
-    public getForms (extraHttpRequestParams?: any ) : Observable<Array<models.FormsDto>> {
+    public getForms (extraHttpRequestParams?: any ) : Observable<Array<models.FormListDto>> {
         const path = this.basePath + '/forms';
 
         let queryParameters = new URLSearchParams();
@@ -163,7 +163,7 @@ export class FormApi {
      * @param formId ID of the Form
      * @param form Updated Form
      */
-    public updateFormById (formId: string, form?: models.SingleFormDto, extraHttpRequestParams?: any ) : Observable<models.SingleFormDto> {
+    public updateFormById (formId: number, form?: models.FormDetailDto, extraHttpRequestParams?: any ) : Observable<models.FormDetailDto> {
         const path = this.basePath + '/forms/{formId}'
             .replace('{' + 'formId' + '}', String(formId));
 

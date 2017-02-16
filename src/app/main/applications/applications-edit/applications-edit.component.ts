@@ -8,7 +8,7 @@ import { TranslationService } from './../../../modules/translation';
 import { ModalService } from './../../../modules/overlay';
 
 /** Models */
-import { ApplicationDto } from './../../../swagger';
+import { ApplicationDetailDto } from './../../../swagger';
 
 @Component({
     selector: 'pk-applications-edit',
@@ -18,10 +18,10 @@ import { ApplicationDto } from './../../../swagger';
 export class ApplicationsEditComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    private _application: ApplicationDto;
+    private _application: ApplicationDetailDto;
 
     get application() { return this._application; }
-    set application(application: ApplicationDto) { this._application = application; }
+    set application(application: ApplicationDetailDto) { this._application = application; }
 
     constructor(
         private router: Router,
@@ -74,7 +74,7 @@ export class ApplicationsEditComponent implements OnInit {
      * Save the current application with content
      * @param {Object} form
      */
-    public saveApplication(form: ApplicationDto): void {
+    public saveApplication(form: ApplicationDetailDto): void {
         console.log(JSON.stringify(form));
         this.applicationService.saveApplication(form).subscribe(result => {
             this.router.navigate([`/applications/`, result.id]);
@@ -85,7 +85,7 @@ export class ApplicationsEditComponent implements OnInit {
      * Creates a confirmation modal to confirm deactivating the selected application
      * @param {Application} application - the application to deactovate
      */
-    public deactivateApplicationModal(application: ApplicationDto): void {
+    public deactivateApplicationModal(application: ApplicationDetailDto): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmDeactivateApplicationHeader'),
             message: this.translationService.translate('confirmDeactivateApplicationContent'),
@@ -99,7 +99,7 @@ export class ApplicationsEditComponent implements OnInit {
      * Deactivate the selected application
      * @param {Application} application - the application to deactovate
      */
-    private deactivateApplication(application: ApplicationDto): void {
+    private deactivateApplication(application: ApplicationDetailDto): void {
         this.applicationService.deactivateApplication(application).subscribe(result => {
             this.alert.setSuccessHint(
                 `deactivateApplication${application.id}`,

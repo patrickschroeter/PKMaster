@@ -47,7 +47,7 @@ export class ConfigurationApi {
      * GET all Field Definitions
      * The config Endpoint returns all form relevant configs
      */
-    public getFieldDefinitions (extraHttpRequestParams?: any ) : Observable<Array<models.FieldTypeDto>> {
+    public getFieldDefinitions (extraHttpRequestParams?: any ) : Observable<Array<models.FieldDefinitionDto>> {
         const path = this.basePath + '/config/fieldDefinitions';
 
         let queryParameters = new URLSearchParams();

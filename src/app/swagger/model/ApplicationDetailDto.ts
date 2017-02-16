@@ -25,14 +25,36 @@
 'use strict';
 import * as models from './models';
 
-export interface FormHasField {
+export interface ApplicationDetailDto {
 
 
-    formId?: string;
+    id?: string;
 
-    fieldId?: string;
+    created?: Date;
 
-    field?: models.FieldDto;
+    lastModified?: Date;
 
-    form?: models.FormsDto;
+    filledForm?: string;
+
+    version?: number;
+
+    isCurrent?: boolean;
+
+    previousVersion?: string;
+
+    user?: models.UserDto;
+
+    conference?: models.ConferenceListDto;
+
+    status?: models.StatusDto;
+
+    form?: models.FormDetailDto;
+
+    assignments?: Array<models.UserDto>;
+
+    comments?: Array<models.CommentDto>;
+
+    // Client Only
+
+    attributes?: Array<models.FieldDto>;
 }

@@ -40,11 +40,13 @@ export interface UserDto {
 
     ldapId?: number;
 
+    employeeType?: string;
+
     active?: boolean;
 
     created?: Date;
 
-    userHasRole?: Array<string>;
+    userHasRole?: Array<models.RoleDto>;
 
     // Custom
 

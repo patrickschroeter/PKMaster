@@ -43,18 +43,19 @@ export interface FieldCreateDto {
 
     placeholder?: string;
 
+    optionsJson?: string;
+
     enumOptionsTableId?: string;
 
-    fieldHasStyle?: Array<string>;
+    styleIds?: Array<string>;
 
-    fieldHasValidation?: Array<string>;
+    validationIds?: Array<string>;
 
     // Custom
 
     value?: string | string[];
 
-    optionTable?: string;
-
     options?: Array<Selectable>;
-    optionsJSON?: string;
+
+    // optionTable?: string; -> enumOptionsTableId
 }

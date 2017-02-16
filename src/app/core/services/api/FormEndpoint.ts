@@ -4,14 +4,14 @@ import { Observable, Observer } from 'rxjs/Rx';
 
 import { FormApiMock } from './';
 
-import { SingleFormDto } from './../../../swagger';
+import { FormDetailDto } from './../../../swagger';
 
 @Injectable()
 export class FormEndpoint {
 
     constructor() { }
 
-    public addForm(form?: SingleFormDto, extraHttpRequestParams?: any): Observable<SingleFormDto> {
+    public addForm(form?: FormDetailDto, extraHttpRequestParams?: any): Observable<FormDetailDto> {
         console.log('%cMock:' + '%c addForm', 'color: #F44336', 'color: #fefefe');
         const newform = this._formAdd(form);
         return new Observable((observer: Observer<any>) => {
@@ -59,7 +59,7 @@ export class FormEndpoint {
         });
     }
 
-    public updateFormById(formId: string, form?: SingleFormDto, extraHttpRequestParams?: any): Observable<any> {
+    public updateFormById(formId: string, form?: FormDetailDto, extraHttpRequestParams?: any): Observable<any> {
         console.log('%cMock:' + `%c updateFormById ${formId}`, 'color: #F44336', 'color: #fefefe');
         const updatedForm = this._formUpdate(formId.toString(), form);
         return new Observable((observer: Observer<any>) => {
@@ -96,16 +96,16 @@ export class FormEndpoint {
      */
 
     // tslint:disable-next-line:member-ordering
-    private _list: SingleFormDto[] = [
+    private _list: FormDetailDto[] = [
         FormApiMock.FORM,
         FormApiMock.FORM_COMPLEX
     ];
 
-    private _forms(): SingleFormDto[] {
+    private _forms(): FormDetailDto[] {
         return JSON.parse(JSON.stringify(this._list));
     }
 
-    private _formAdd(form: SingleFormDto): SingleFormDto {
+    private _formAdd(form: FormDetailDto): FormDetailDto {
         let id: string;
         if (!this._list.length) {
             id = 'Q';
@@ -118,8 +118,8 @@ export class FormEndpoint {
         return JSON.parse(JSON.stringify(this._list[this._list.length - 1]));
     }
 
-    private _form(id?: string): SingleFormDto {
-        let result: SingleFormDto;
+    private _form(id?: string): FormDetailDto {
+        let result: FormDetailDto;
         const list = this._list;
         for (let i = 0; i < list.length; i++) {
             if (list[i].id === id) {
@@ -130,7 +130,7 @@ export class FormEndpoint {
         return JSON.parse(JSON.stringify(result));
     }
 
-    private _formUpdate(id: string, form: SingleFormDto) {
+    private _formUpdate(id: string, form: FormDetailDto) {
         const list = this._list;
         for (let i = 0; i < list.length; i++) {
             if (list[i].id === id) {

@@ -10,7 +10,7 @@ import {
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { FieldDto, SingleFormDto } from './../../../swagger';
+import { FieldDto, FormDetailDto } from './../../../swagger';
 import { Selectable } from './../../../models';
 
 /**
@@ -52,7 +52,7 @@ export class FormsEditComponent implements OnInit {
      * @type {Form}
      * @memberOf FormsEditComponent
      */
-    private _form: SingleFormDto;
+    private _form: FormDetailDto;
 
     /**
      * getter method for _form
@@ -66,7 +66,7 @@ export class FormsEditComponent implements OnInit {
      *
      * @memberOf FormsEditComponent
      */
-    set form(form: SingleFormDto) { this._form = form; }
+    set form(form: FormDetailDto) { this._form = form; }
 
     /**
      * The form to edit the Form attributes
@@ -259,7 +259,7 @@ export class FormsEditComponent implements OnInit {
      *
      * @memberOf FormsEditComponent
      */
-    public saveFormAttributes(form: SingleFormDto): void {
+    public saveFormAttributes(form: FormDetailDto): void {
         this.formService.saveFormAttributes(form).subscribe(success => {
             this.form = success;
             this.overlayAttributes.toggle(false);
