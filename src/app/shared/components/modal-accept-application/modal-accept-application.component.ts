@@ -9,7 +9,7 @@ import {
 } from './../../../core';
 
 /** Models */
-import { FieldDto, CommentDto, ApplicationDetailDto } from './../../../swagger';
+import { FieldDto, CommentDetailDto, ApplicationDetailDto } from './../../../swagger';
 import { AcceptApplication } from './../../../models';
 
 /** Decorators */
@@ -119,12 +119,11 @@ export class ModalAcceptApplicationComponent implements OnInit {
     /**
      * @description adds the comment to the current application
      */
-    public createNewComment(values: CommentDto) {
-        const comment: CommentDto = values;
+    public createNewComment(values: CommentDetailDto) {
+        const comment: CommentDetailDto = values;
         comment.created = new Date();
         this.auth.getUser().subscribe(user => {
             comment.user = user;
-            comment.userId = user.id;
             // TODO: send to server
             if (!this.application.comments) {
                 this.application.comments = [];

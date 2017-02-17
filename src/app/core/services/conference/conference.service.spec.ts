@@ -7,7 +7,7 @@ import { ConferenceService } from './conference.service';
 
 import { ConferenceApiMock } from './../../../core';
 
-import { ConferenceApi } from './../../../swagger';
+import { ConferenceApi, ConferenceCreateDto } from './../../../swagger';
 
 import { AlertProviderMock } from './../../../modules/alert/alert.module';
 import { TranslationProviderMock } from './../../../modules/translation/translation.module';
@@ -89,12 +89,12 @@ describe('ConferenceService', () => {
 
         it('should call the api', () => {
             spyOn(api, 'addConference').and.returnValue(new Observable((obs: Observer<any>) => obs.next('id')));
-            service.createNewConference('id').subscribe();
+            service.createNewConference(new ConferenceCreateDto()).subscribe();
             expect(api.addConference).toHaveBeenCalled();
         });
 
         it('should create a new conference', () => {
-            service.createNewConference({ }).subscribe(conference => {
+            service.createNewConference(new ConferenceCreateDto({})).subscribe(conference => {
                 expect(conference).toBeDefined();
                 expect(conference.id).toBeDefined();
             });

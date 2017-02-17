@@ -113,7 +113,7 @@ export class FormEndpoint {
             id = this._list[this._list.length - 1].id + 'Q';
         }
         form.id = id;
-        form.created = Date.now();
+        form.created = new Date();
         this._list.push(form);
         return JSON.parse(JSON.stringify(this._list[this._list.length - 1]));
     }

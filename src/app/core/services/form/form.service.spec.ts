@@ -15,7 +15,7 @@ import {
 
 import { Fields } from './../../../models';
 
-import { FormApi, FormDetailDto, FieldDto } from './../../../swagger';
+import { FormApi, FormDetailDto, FieldDto, FormCreateDto } from './../../../swagger';
 
 import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
@@ -107,11 +107,10 @@ describe('Service: Form', () => {
                 restrictedAccess: true
             };
             service.createNewForm(submit).subscribe(() => {
-                expect(api.addForm).toHaveBeenCalledWith({
+                expect(api.addForm).toHaveBeenCalledWith(new FormCreateDto({
                     title: submit.title,
                     restrictedAccess: submit.restrictedAccess,
-                    formHasField: []
-                });
+                }));
             });
         });
 
@@ -124,11 +123,11 @@ describe('Service: Form', () => {
                 formHasField: [new Fields.Email]
             };
             service.createNewForm(submit).subscribe(() => {
-                expect(api.addForm).toHaveBeenCalledWith({
+                expect(api.addForm).toHaveBeenCalledWith(new FormCreateDto({
                     title: 'Copy of ' + submit.title,
                     restrictedAccess: submit.restrictedAccess,
                     formHasField: submit.formHasField
-                });
+                }));
             });
         });
     });

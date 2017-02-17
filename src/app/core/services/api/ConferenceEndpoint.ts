@@ -159,16 +159,16 @@ export class ConferenceEndpoint {
 
     private _addApplication(id: string, application: ApplicationDetailDto): ConferenceDetailDto {
         const conference: ConferenceDetailDto = this._conference(id);
-        conference.applications = conference.applications || [];
+        conference['applications'] = conference['applications'] || [];
         let index = -1;
-        for (let i = 0; i < conference.applications.length; i++) {
-            const element = conference.applications[i];
+        for (let i = 0; i < conference['applications'].length; i++) {
+            const element = conference['applications'][i];
             if (element.id === application.id) {
                 index = i;
             }
         }
         if (index === -1) {
-            conference.applications.push(application);
+            conference['applications'].push(application);
         }
         return this._conferenceUpdate(conference.id, conference);
     }

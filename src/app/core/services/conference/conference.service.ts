@@ -7,7 +7,13 @@ import { TranslationService } from './../../../modules/translation';
 import { ConferenceApi } from './../../../swagger/api/ConferenceApi';
 
 /** Models */
-import { ConferenceDetailDto, ConferenceCreateDto, FieldDto } from './../../../swagger';
+import {
+    ConferenceDetailDto,
+    ConferenceCreateDto,
+    FieldDto,
+    ApplicationListDto,
+    ApplicationDetailDto
+} from './../../../swagger';
 
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
@@ -64,7 +70,8 @@ export class ConferenceService {
      */
     @Loading('saveConference')
     public saveConference(conference: ConferenceDetailDto): Observable<ConferenceDetailDto> {
-        return this.conferenceApi.updateConferenceById(conference.id, conference).map(result => {
+        const param: ConferenceCreateDto = new ConferenceCreateDto(conference);
+        return this.conferenceApi.updateConferenceById(conference.id, param).map((result: ConferenceDetailDto) => {
             return this.conference = result;
         });
     }
@@ -75,9 +82,25 @@ export class ConferenceService {
      */
     @Loading('removeConference')
     public removeConference(conferenceId: string): Observable<any> {
-        return this.conferenceApi.deleteConferenceById(conferenceId).map(result => {
+        return this.conferenceApi.deleteConferenceById(conferenceId).map((result: any) => {
             return result;
         });
+    }
+
+    /**
+     * Get all Applications of the Conference with ID
+     *
+     * @param {string} conferenceId
+     * @param {*} [extraHttpRequestParams]
+     * @returns {Observable<ApplicationDetailDto[]>}
+     *
+     * @memberOf ConferenceService
+     */
+    public getApplicationsByConference(conferenceId: string, extraHttpRequestParams?: any): Observable<ApplicationDetailDto[]> {
+        return this.conferenceApi.getApplicationsByConference(conferenceId, extraHttpRequestParams)
+            .map((result: ApplicationDetailDto[]) => {
+                return result;
+            });
     }
 
     /**

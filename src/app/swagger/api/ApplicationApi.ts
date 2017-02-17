@@ -49,7 +49,7 @@ export class ApplicationApi {
      * @param applicationId ID of the Application
      * @param comment New Comment
      */
-    public addCommentToApplication (applicationId: string, comment?: models.CommentCreateDto, extraHttpRequestParams?: any ) : Observable<Array<models.CommentDto>> {
+    public addCommentToApplication (applicationId: string, comment?: models.CommentCreateDto, extraHttpRequestParams?: any ) : Observable<Array<models.CommentDetailDto>> {
         const path = this.basePath + '/applications/{applicationId}/comments'
             .replace('{' + 'applicationId' + '}', String(applicationId));
 
@@ -237,7 +237,7 @@ export class ApplicationApi {
      * @param applicationId ID of the Application
      * @param application Application to Update
      */
-    public updateApplicationById (applicationId: string, application?: models.ApplicationCreateDto, extraHttpRequestParams?: any ) : Observable<models.ApplicationListDto> {
+    public updateApplicationById (applicationId: string, application?: models.ApplicationCreateDto, extraHttpRequestParams?: any ) : Observable<models.ApplicationDetailDto> {
         const path = this.basePath + '/applications/{applicationId}'
             .replace('{' + 'applicationId' + '}', String(applicationId));
 
@@ -271,7 +271,7 @@ export class ApplicationApi {
      * @param commentId ID of the Comment
      * @param comment Updated Comment
      */
-    public updateApplicationCommentById (applicationId: string, commentId: string, comment?: models.CommentCreateDto, extraHttpRequestParams?: any ) : Observable<models.CommentDto> {
+    public updateApplicationCommentById (applicationId: string, commentId: string, comment?: models.CommentCreateDto, extraHttpRequestParams?: any ) : Observable<models.CommentDetailDto> {
         const path = this.basePath + '/applications/{applicationId}/comments/{commentId}'
             .replace('{' + 'applicationId' + '}', String(applicationId))
             .replace('{' + 'commentId' + '}', String(commentId));

@@ -25,16 +25,16 @@
 'use strict';
 import * as models from './models';
 
-export interface ApplicationCreateDto {
+export class ApplicationCreateDto {
 
 
     filledForm: string;
 
-    version?: number;
+    // version?: number;  -> on server
 
-    isCurrent?: boolean;
+    // isCurrent?: boolean; -> on server
 
-    previousVersion?: string;
+    // previousVersion?: string; -> on server
 
     userId: string;
 
@@ -43,5 +43,15 @@ export interface ApplicationCreateDto {
     statusId: string;
 
     formId: string;
+
+    constructor(object?: models.ApplicationDetailDto) {
+        if (object) {
+            this.filledForm = object.filledForm;
+            this.userId = object.user ? object.user.id: null;
+            this.conferenceId = object.conference ? object.conference.id: null;
+            this.statusId = object.status ? object.status.id: null;
+            this.formId = object.form ? object.form.id: null;
+        }
+    }
 
 }

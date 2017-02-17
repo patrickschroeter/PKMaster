@@ -48,7 +48,7 @@ export class CommentApi {
      * 
      * @param commentId The ID of the Comment
      */
-    public getCommentById (commentId: string, extraHttpRequestParams?: any ) : Observable<models.CommentDto> {
+    public getCommentById (commentId: string, extraHttpRequestParams?: any ) : Observable<models.CommentDetailDto> {
         const path = this.basePath + '/comments/{commentId}'
             .replace('{' + 'commentId' + '}', String(commentId));
 

@@ -67,9 +67,9 @@ export class ApplicationEndpoint {
     public updateApplicationById(applicationId: string, application?: ApplicationDetailDto, extraHttpRequestParams?: any): Observable<any> {
         console.log('%cMock:' + `%c updateApplicationById ${applicationId}`, 'color: #F44336', 'color: #fefefe');
 
-        if (application.conferenceId && !application.conference) {
+        if (application.conference) {
             const api: { [key: string]: any } = this.conferenceApi;
-            application.conference = api['_addApplication'](application.conferenceId, application);
+            application.conference = api['_addApplication'](application.conference.id, application);
         }
 
         const updatedApplication = this._applicationUpdate(applicationId, application);
@@ -122,9 +122,9 @@ export class ApplicationEndpoint {
         const id = this._list.length === 0 ? 'Q' : this._list[this._list.length - 1].id + 'Q';
         application.id = id;
         application.created = new Date();
-        if (application.formId) {
+        if (application.form) {
             const api: { [key: string]: any } = this.formApi;
-            application.form = api['_form'](application.formId);
+            application.form = api['_form'](application.form.id);
         }
         this._list.push(application);
         return JSON.parse(JSON.stringify(this._list[this._list.length - 1]));

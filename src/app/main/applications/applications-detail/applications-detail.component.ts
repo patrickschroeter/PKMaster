@@ -15,7 +15,7 @@ import { OverlayComponent, ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { ApplicationDetailDto, CommentDto, UserDto } from './../../../swagger';
+import { ApplicationDetailDto, CommentDetailDto, UserDto } from './../../../swagger';
 import { Selectable } from './../../../models';
 
 /** Decorators */
@@ -147,12 +147,11 @@ export class ApplicationsDetailComponent implements OnInit {
      * Creates and adds a new comment to the application
      * @param {Comment} values
      */
-    public createNewComment(values: CommentDto): void {
-        const comment: CommentDto = values;
+    public createNewComment(values: CommentDetailDto): void {
+        const comment: CommentDetailDto = values;
         comment.created = new Date();
         this.auth.getUser().subscribe(user => {
             comment.user = user;
-            comment.userId = user.id;
             comment.isPrivate = !!comment.isPrivate;
             comment.requiresChanges = !!comment.requiresChanges;
             // TODO: send to server
@@ -178,7 +177,7 @@ export class ApplicationsDetailComponent implements OnInit {
             click: this.addApplicationToConference.bind(this),
             isFluid: true,
 
-            selectedValue: this.application.conferenceId,
+            selectedValue: this.application.conference ? this.application.conference.id : null,
 
             emptyText: this.translationService.translate('noConferencesAvailable'),
             redirect: this.permission.hasPermission('ReadConferences'),

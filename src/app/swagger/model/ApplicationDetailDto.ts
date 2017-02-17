@@ -52,7 +52,11 @@ export interface ApplicationDetailDto {
 
     assignments?: Array<models.UserDto>;
 
-    comments?: Array<models.CommentDto>;
+    comments?: Array<models.CommentDetailDto>;
+
+    // Custom
+
+    confirmed?: boolean;
 
     // Client Only
 

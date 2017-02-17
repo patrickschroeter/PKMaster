@@ -24,24 +24,33 @@
 
 'use strict';
 import * as models from './models';
+import { ConferenceConfig } from './../../models';
 
-export class CommentCreateDto {
+export class ConferenceDetailDto {
 
+    id?: string;
 
-    message: string;
+    description?: string;
 
-    isPrivate?: boolean;
+    dateOfEvent?: Date;
 
-    requiresChanges?: boolean;
+    startOfEvent?: string;
 
-    userId: string;
+    endOfEvent?: string;
 
-    constructor(obj?: models.CommentDetailDto) {
-        if (obj) {
-            this.message = obj.message;
-            this.userId = obj.user ? obj.user.id : null;
-            this.isPrivate = obj.isPrivate || false;
-            this.requiresChanges = obj.requiresChanges || false;
-        }
-    }
+    roomOfEvent?: string;
+
+    numberOfConference?: number;
+
+    configJson?: string;
+
+    // Custom
+
+    attendants?: models.UserDto[]; // TODO: Guest & Members
+
+    // Client Only
+
+    config?: ConferenceConfig[];
+
+    [key: string]: any;
 }

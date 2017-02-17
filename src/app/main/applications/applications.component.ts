@@ -14,7 +14,11 @@ import { TranslationService } from './../../modules/translation';
 import { ModalService } from './../../modules/overlay';
 
 /** Models */
-import { ApplicationDetailDto, UserDto } from './../../swagger';
+import {
+    ApplicationDetailDto,
+    ApplicationCreateDto,
+    UserDto
+} from './../../swagger';
 import { Selectable } from './../../models';
 
 /** Decorators */
@@ -121,10 +125,9 @@ export class ApplicationsComponent implements OnInit {
     @Access('CreateApplications')
     private createApplication(listelement: Selectable): void {
         /** TODO */
-        const application: ApplicationDetailDto = {
-            formId: listelement.value
-        };
-        this.applicationService.createNewApplication(application).subscribe((created) => {
+        const param: ApplicationCreateDto = new ApplicationCreateDto();
+        param.formId = listelement.value;
+        this.applicationService.createNewApplication(param).subscribe((created: ApplicationDetailDto) => {
             if (created['id']) {
                 this.router.navigate([`/applications/`, created['id'], 'edit']);
             }

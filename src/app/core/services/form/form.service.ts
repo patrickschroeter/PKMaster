@@ -321,7 +321,7 @@ export class FormService {
         // TODO: sort on Server
         if (sort) {
             return observable.map((element: FormListDto[]) => {
-                return element.sort(function (a, b) { return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
+                return element.sort(function (a: any, b: any) { return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
             });
         }
         // TODO: load real data
@@ -337,10 +337,8 @@ export class FormService {
      */
     @Loading('createNewForm')
     public createNewForm(submit: FormDetailDto): Observable<FormDetailDto> {
-        const param = _.cloneDeep(submit);
-        delete param.id;
+        const param: FormCreateDto = new FormCreateDto(submit);
         param.title = submit.id ? 'Copy of ' + submit.title : submit.title;
-        param.formHasField = submit.id ? submit.formHasField : [];
 
         // TODO: save real data
         return this.formApi.addForm(param).map(form => {

@@ -8,17 +8,17 @@ import { FormApiMock } from './FormApi.mock';
 import { ConferenceApiMock } from './ConferenceApi.mock';
 import { UserApiMock } from './UserApi.mock';
 
-import { ApplicationDetailDto, CommentDto } from './../../../swagger';
+import { ApplicationDetailDto, CommentDetailDto } from './../../../swagger';
 import { FormApi } from './../../../swagger/api/FormApi';
 
 @Injectable()
 export class ApplicationApiMock {
 
-    static COMMENT_PRIVATE: CommentDto = { isPrivate: false, message: 'Testkommentar', created: new Date(), user: { lastname: 'Truthy' } };
+    static COMMENT_PRIVATE: CommentDetailDto = { isPrivate: false, message: 'Testkommentar', created: new Date(), user: { lastname: 'Truthy' } };
 
-    static COMMENT_PUBLIC: CommentDto = { isPrivate: true, message: 'privater Testkommentar, der leider etwas länger wurde als anfangs geplant, aber auch nicht gekürzt werden kann, da sonst informationen fehlen', created: new Date(), user: { lastname: 'Falsey' } };
+    static COMMENT_PUBLIC: CommentDetailDto = { isPrivate: true, message: 'privater Testkommentar, der leider etwas länger wurde als anfangs geplant, aber auch nicht gekürzt werden kann, da sonst informationen fehlen', created: new Date(), user: { lastname: 'Falsey' } };
 
-    static APPLICATION: ApplicationDetailDto = { id: '1', status: { name: 'created' }, created: new Date(), form: FormApiMock.FORM, formId: FormApiMock.FORM.id, comments: [ApplicationApiMock.COMMENT_PUBLIC, ApplicationApiMock.COMMENT_PRIVATE], user: UserApiMock.USER, filledForm: '{"header01":"Hochschule für Angewandte Wissenschaften Augsburg","firstname":"Franz","lastname":"Bauer"}' };
+    static APPLICATION: ApplicationDetailDto = { id: '1', status: { name: 'created' }, created: new Date(), form: FormApiMock.FORM, comments: [ApplicationApiMock.COMMENT_PUBLIC, ApplicationApiMock.COMMENT_PRIVATE], user: UserApiMock.USER, filledForm: '{"header01":"Hochschule für Angewandte Wissenschaften Augsburg","firstname":"Franz","lastname":"Bauer"}' };
 
     private list: ApplicationDetailDto[] = [];
 

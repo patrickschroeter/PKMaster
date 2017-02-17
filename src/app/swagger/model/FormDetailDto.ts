@@ -44,7 +44,7 @@ export interface FormDetailDto {
 
     // Custom
 
-    created?: Date | Number;
+    created?: Date;
 
     requiresValidation?: boolean;
 }

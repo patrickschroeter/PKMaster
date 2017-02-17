@@ -10,7 +10,15 @@ import { ApplicationApi } from './../../../swagger/api/ApplicationApi';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { ApplicationDetailDto, ApplicationListDto, FieldDto, ApplicationCreateDto, CommentDto, UserDto } from './../../../swagger';
+import {
+    ApplicationDetailDto,
+    ApplicationListDto,
+    FieldDto,
+    ApplicationCreateDto,
+    CommentDetailDto,
+    CommentCreateDto,
+    UserDto
+} from './../../../swagger';
 
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
@@ -41,7 +49,7 @@ export class ApplicationService {
      * set the attributes property with filled values
      */
     private setValues() {
-        const application = this.application;
+        const application: ApplicationDetailDto = this.application;
         if (application.form && !application.attributes) {
             application.attributes = application.form.formHasField;
         }
@@ -50,7 +58,7 @@ export class ApplicationService {
         /** TODO */
         for (let i = 0; i < application.attributes.length; i++) {
             const field: FieldDto = application.attributes[i];
-            const form: any = application.filledForm;
+            const form: { [key: string]: string } = <any>application.filledForm;
             field.value = form[field.name];
         }
     }
@@ -61,7 +69,7 @@ export class ApplicationService {
      */
     @Loading('getApplicationById')
     public getApplicationById(id: string): Observable<ApplicationDetailDto> {
-        return this.applicationApi.getApplicationById(id).map(application => {
+        return this.applicationApi.getApplicationById(id).map((application: ApplicationDetailDto) => {
             return this.application = application;
         });
     }
@@ -72,7 +80,7 @@ export class ApplicationService {
      */
     @Loading('getApplications')
     public getApplications(sort?: string): Observable<ApplicationListDto[]> {
-        return this.applicationApi.getApplications().map(applications => {
+        return this.applicationApi.getApplications().map((applications: ApplicationListDto[]) => {
             if (sort) {
                 applications.sort(
                     function (a: { [key: string]: any }, b: { [key: string]: any }) {
@@ -86,7 +94,7 @@ export class ApplicationService {
 
     @Loading('getApplications')
     public getOwnApplications(sort?: string, user?: UserDto): Observable<ApplicationListDto[]> {
-        return this.applicationApi.getApplications().map(result => {
+        return this.applicationApi.getApplications().map((result: ApplicationListDto[]) => {
             const applications = result.filter((obj: ApplicationListDto) => obj.user.id === user.id);
             return this.applications = applications;
         });
@@ -94,12 +102,13 @@ export class ApplicationService {
 
     @Loading('getApplications')
     public getAssignedApplications(sort?: string, user?: UserDto): Observable<ApplicationListDto[]> {
-        return this.applicationApi.getApplications().map(result => {
-            const applications = result.filter((obj: ApplicationListDto) => {
-                const assignment = _.find(obj.assignments, (assign: UserDto) => assign.id === user.id);
-                return !!assignment;
-            });
-            return this.applications = applications;
+        return this.applicationApi.getApplications().map((result: ApplicationListDto[]) => {
+            // TODO filter on server
+            // const applications = result.filter((obj: ApplicationListDto) => {
+            //     const assignment = _.find(obj.assignments, (assign: UserDto) => assign.id === user.id);
+            //     return !!assignment;
+            // });
+            return this.applications = result;
         });
     }
 
@@ -110,11 +119,11 @@ export class ApplicationService {
     @Loading('createNewApplication')
     public createNewApplication(application: ApplicationCreateDto): Observable<ApplicationDetailDto> {
         /* TODO: wait for token */
-        this.auth.getUser().subscribe(user => {
-            application.user = user;
+        this.auth.getUser().subscribe((user: UserDto) => {
+            application.userId = user.id;
         });
 
-        return this.applicationApi.createApplication((application as ApplicationCreateDto)).map(result => {
+        return this.applicationApi.createApplication((application as ApplicationCreateDto)).map((result: ApplicationDetailDto) => {
             return this.application = result;
         });
     }
@@ -124,9 +133,10 @@ export class ApplicationService {
      * @param {Comment} comment - the comment to add
      */
     @Loading('addCommentToApplication')
-    public addCommentToApplication(comment: CommentDto): Observable<CommentDto[]> {
+    public addCommentToApplication(comment: CommentDetailDto): Observable<CommentDetailDto[]> {
         if (!this.application) { return Observable.throw('No Application'); }
-        return this.applicationApi.addCommentToApplication(this.application.id, comment).map(result => {
+        const param: CommentCreateDto = new CommentCreateDto(comment);
+        return this.applicationApi.addCommentToApplication(this.application.id, param).map((result: CommentDetailDto[]) => {
             return result;
         });
     }
@@ -157,7 +167,7 @@ export class ApplicationService {
         /** TODO: move to server */
         const param = _.cloneDeep(application);
         param.status = { name: 'submitted' };
-        return this.updateApplication(param).map(result => {
+        return this.updateApplication(param).map((result: ApplicationDetailDto) => {
             return this.application = result;
         });
     }
@@ -172,7 +182,7 @@ export class ApplicationService {
         /** TODO: move to server */
         const param = _.cloneDeep(application);
         param.status = { name: 'rescinded' };
-        return this.updateApplication(param).map(result => {
+        return this.updateApplication(param).map((result: ApplicationDetailDto) => {
             return this.application = result;
         });
     }
@@ -187,7 +197,7 @@ export class ApplicationService {
         /** TODO: move to server */
         const param = _.cloneDeep(application);
         param.status = { name: 'deactivated' };
-        return this.updateApplication(param).map(result => {
+        return this.updateApplication(param).map((result: ApplicationDetailDto) => {
             return this.application = result;
         });
     }
@@ -202,8 +212,8 @@ export class ApplicationService {
         param.filledForm = JSON.stringify(form);
         param.status = { name: 'created' };
         console.log(JSON.stringify(param.filledForm));
-        return this.updateApplication(param).map(application => {
-            return this.application = application;
+        return this.updateApplication(param).map((result: ApplicationDetailDto) => {
+            return this.application = result;
         });
     }
 
@@ -214,14 +224,9 @@ export class ApplicationService {
     @Loading('updateApplication')
     public updateApplication(application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
         // TODO; mapping
-        const param: ApplicationCreateDto = (_.cloneDeep(application) as ApplicationCreateDto);
-        param.assignments = application.assignments.map(obj => obj.id);
-        param.userId = application.user.id;
-        param.conferenceId = application.conference.id;
-        param.statusId = application.status.id;
-        param.formId = application.form.id;
+        const param: ApplicationCreateDto = new ApplicationCreateDto(application);
 
-        return this.applicationApi.updateApplicationById(application.id, param).map(result => {
+        return this.applicationApi.updateApplicationById(application.id, param).map((result: ApplicationDetailDto) => {
             return this.application = result;
         });
     }
@@ -233,10 +238,12 @@ export class ApplicationService {
      */
     public assignConferenceToApplication(application: ApplicationDetailDto, conferenceId: string): Observable<ApplicationDetailDto> {
         const param = _.cloneDeep(application);
-        param.conferenceId = conferenceId;
+        param.conference = {
+            id: conferenceId
+        }
         param.status = { name: 'pending' };
 
-        return this.updateApplication(param).map(result => {
+        return this.updateApplication(param).map((result: ApplicationDetailDto) => {
             return this.application = result;
         });
     }
@@ -250,7 +257,7 @@ export class ApplicationService {
         const param = _.cloneDeep(application);
         param.confirmed = confirmation;
 
-        return this.updateApplication(param).map(result => {
+        return this.updateApplication(param).map((result: ApplicationDetailDto) => {
             return this.application = result;
         });
     }

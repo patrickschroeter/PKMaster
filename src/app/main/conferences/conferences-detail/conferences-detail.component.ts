@@ -14,7 +14,7 @@ import { TranslationService } from './../../../modules/translation';
 
 /** Models */
 import { ConferenceConfig, Selectable, ApplicationsByFormId } from './../../../models';
-import { ConferenceDetailDto, ApplicationDetailDto, CommentDto, UserDto } from './../../../swagger';
+import { ConferenceDetailDto, ApplicationDetailDto, ApplicationListDto, CommentDetailDto, UserDto } from './../../../swagger';
 import { OverlayComponent } from './../../../modules/overlay';
 
 /** Decorators */
@@ -153,19 +153,22 @@ export class ConferencesDetailComponent implements OnInit {
      * @memberOf ConferencesDetailComponent
      */
     public populateConfigWithApplications() {
-        if (!this.conference.applications || !this.conference.config) { return; }
+        if (!this.conference.config) { return; }
+        this.conferenceService.getApplicationsByConference(this.conference.id).subscribe((result: ApplicationDetailDto[]) => {
 
-        const applicationsByForm: ApplicationsByFormId = {};
-        for (let i = 0; i < this.conference.applications.length; i++) {
-            const application: ApplicationDetailDto = this.conference.applications[i];
-            if (typeof application.filledForm === 'string') { application.filledForm = JSON.parse(application.filledForm); }
-            applicationsByForm[application.formId] = applicationsByForm[application.formId] || [];
-            applicationsByForm[application.formId].push(application);
-        }
+            const applicationsByForm: ApplicationsByFormId = {};
+            for (let i = 0; i < result.length; i++) {
+                const application: ApplicationDetailDto = result[i];
+                if (typeof application.filledForm === 'string') { application.filledForm = JSON.parse(application.filledForm); }
+                applicationsByForm[application.form.id] = applicationsByForm[application.form.id] || [];
+                applicationsByForm[application.form.id].push(application);
+            }
 
-        for (let i = 0; i < this.conference.config.length; i++) {
-            this.setApplication(this.conference.config[i], applicationsByForm);
-        }
+            for (let i = 0; i < this.conference.config.length; i++) {
+                this.setApplication(this.conference.config[i], applicationsByForm);
+            }
+
+        });
     }
 
     /**

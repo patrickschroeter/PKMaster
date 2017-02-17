@@ -11,7 +11,7 @@ import {
 } from './../form';
 
 import { ApplicationMock } from './';
-import { StatusDto, ApplicationApi, FormApi, ApplicationDetailDto } from './../../../swagger';
+import { StatusDto, ApplicationApi, FormApi, ApplicationDetailDto, ApplicationCreateDto } from './../../../swagger';
 import { ApplicationApiMock, FormApiMock, AuthenticationService, AuthenticationMock } from './..';
 
 import { AlertProviderMock } from './../../../modules/alert/alert.module';
@@ -42,7 +42,8 @@ describe('Service: Application', () => {
         it('should provide the new created application',
             fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
                 let element: ApplicationDetailDto;
-                service.createNewApplication({ form: { id: '1' }}).subscribe(result => { element = result; });
+                service.createNewApplication(new ApplicationCreateDto({ form: { id: '1' } }))
+                    .subscribe((result: ApplicationDetailDto) => { element = result; });
                 tick(25);
                 expect(element).toBeDefined();
                 expect(element.id).toBeDefined();
@@ -65,7 +66,8 @@ describe('Service: Application', () => {
 
         beforeEach(fakeAsync(inject([ApplicationService], (applicationService: ApplicationService) => {
             service = applicationService;
-            service.createNewApplication({ form: { id: '1' }}).subscribe(result => { element = result; });
+            service.createNewApplication(new ApplicationCreateDto({ form: { id: '1' } }))
+                .subscribe((result: ApplicationDetailDto) => { element = result; });
             tick(25);
         })));
 
@@ -117,11 +119,11 @@ describe('Service: Application', () => {
 
         describe('(with data)', () => {
             beforeEach(fakeAsync(() => {
-                service.createNewApplication({ form: { id: '1' }, version: 2}).subscribe(result => { });
+                service.createNewApplication(new ApplicationCreateDto({ form: { id: '1' } })).subscribe(result => { });
                 tick(25);
-                service.createNewApplication({ form: { id: '2' }, version: 3}).subscribe(result => { });
+                service.createNewApplication(new ApplicationCreateDto({ form: { id: '2' } })).subscribe(result => { });
                 tick(25);
-                service.createNewApplication({ form: { id: '3' }, version: 1}).subscribe(result => { element = result; });
+                service.createNewApplication(new ApplicationCreateDto({ form: { id: '3' } })).subscribe(result => { element = result; });
                 tick(25);
             }));
 
@@ -129,7 +131,7 @@ describe('Service: Application', () => {
                 fakeAsync(() => {
                     let elements: ApplicationDetailDto[];
                     service.getApplications().subscribe(result => { elements = result; });
-                tick(25);
+                    tick(25);
                     expect(elements).toBeDefined();
                     expect(elements.length).toEqual(3);
                     expect(elements[2].id).toEqual(element.id);
@@ -252,7 +254,7 @@ describe('Service: Application', () => {
 
         it('should throw an error if no application is cached',
             inject([ApplicationService], (service: ApplicationService) => {
-                service.addCommentToApplication({}).subscribe(() => {}, error => {
+                service.addCommentToApplication({}).subscribe(() => { }, error => {
                     expect(error).toBeTruthy();
                 });
             })

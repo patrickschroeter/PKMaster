@@ -163,7 +163,7 @@ export class FormApi {
      * @param formId ID of the Form
      * @param form Updated Form
      */
-    public updateFormById (formId: number, form?: models.FormDetailDto, extraHttpRequestParams?: any ) : Observable<models.FormDetailDto> {
+    public updateFormById (formId: string, form?: models.FormDetailDto, extraHttpRequestParams?: any ) : Observable<models.FormDetailDto> {
         const path = this.basePath + '/forms/{formId}'
             .replace('{' + 'formId' + '}', String(formId));
 
