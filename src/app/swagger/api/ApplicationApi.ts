@@ -27,6 +27,7 @@ import {Injectable, Optional} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
+import { Parse } from './../../shared/decorators/Parse.decorator';
 
 /* tslint:disable:no-unused-variable member-ordering */
 
@@ -176,6 +177,7 @@ export class ApplicationApi {
      * 
      * @param applicationId ID of the Application
      */
+    @Parse('ApplicationDetailDto')
     public getApplicationById (applicationId: string, extraHttpRequestParams?: any ) : Observable<models.ApplicationDetailDto> {
         const path = this.basePath + '/applications/{applicationId}'
             .replace('{' + 'applicationId' + '}', String(applicationId));

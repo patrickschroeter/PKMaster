@@ -23,7 +23,6 @@ import {
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
 
-
 @Injectable()
 export class ApplicationService {
 
@@ -47,6 +46,11 @@ export class ApplicationService {
 
     /**
      * set the attributes property with filled values
+     *
+     * @private
+     * @returns
+     *
+     * @memberOf ApplicationService
      */
     private setValues() {
         const application: ApplicationDetailDto = this.application;
