@@ -38,7 +38,7 @@ export interface ApplicationListDto {
 
     version?: number;
 
-    user?: models.UserDto;
+    user?: models.UserDetailDto;
 
     conference?: models.ConferenceListDto;
 

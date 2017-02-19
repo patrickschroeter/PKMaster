@@ -5,7 +5,7 @@ import { AuthenticationService } from './../../../core';
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 
-import { UserDto } from './../../../swagger';
+import { UserDetailDto } from './../../../swagger';
 import { Fields } from './../../../models';
 
 @Component({
@@ -19,7 +19,7 @@ export class AdminProfileEditComponent implements OnInit {
     private _form: Array<Object>;
     get form() { return this._form; }
     set form(form) { this._form = form; }
-    private user: UserDto;
+    private user: UserDetailDto;
 
     constructor(
         private router: Router,
@@ -51,7 +51,7 @@ export class AdminProfileEditComponent implements OnInit {
      * save the user attributes
      * @param {AppUser} user
      */
-    public save(user: UserDto) {
+    public save(user: UserDetailDto) {
         user.id = this.user.id;
         this.auth.updateUser(user).subscribe(result => {
             this.router.navigateByUrl('/admin/profile');

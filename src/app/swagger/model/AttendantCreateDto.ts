@@ -25,17 +25,17 @@
 'use strict';
 import * as models from './models';
 
-export interface Permission {
+export interface AttendantCreateDto {
     
 
-    id?: string;
+    userId?: string;
 
-    name?: string;
+    typeOfAttendance?: AttendantCreateDto.TypeOfAttendanceEnum;
+}
+export namespace AttendantCreateDto {
 
-    rolePermission?: Array<models.RoleDto>;
-
-    // Custom
-
-    description?: string;
-    rolePermissions?: Array<models.RoleDto>;
+    export enum TypeOfAttendanceEnum { 
+        1 = <any> '1',
+        2 = <any> '2',
+    }
 }

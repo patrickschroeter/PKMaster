@@ -14,7 +14,7 @@ import { TranslationService } from './../../../modules/translation';
 import { OverlayComponent } from './../../../modules/overlay';
 
 /** Models */
-import { FieldDto, UserDto } from './../../../swagger';
+import { FieldDto, UserDetailDto } from './../../../swagger';
 import { Fields, ChangePasswordForm } from './../../../models';
 
 /**
@@ -44,10 +44,10 @@ export class ModalChangePasswordComponent implements OnInit {
      * The user object
      *
      * @private
-     * @type {UserDto}
+     * @type {UserDetailDto}
      * @memberOf ModalChangePasswordComponent
      */
-    private user: UserDto;
+    private user: UserDetailDto;
 
     /**
      * the elements for the change password form

@@ -13,7 +13,7 @@ import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { FieldDto, UserDto } from './../../../swagger';
+import { FieldDto, UserDetailDto } from './../../../swagger';
 import { Fields, Selectable } from './../../../models';
 
 /** Decorators */
@@ -907,7 +907,7 @@ function options(): { [key: string]: Selectable[] } {
             { value: 'gestaltung', label: 'Gestaltung' },
             { value: 'informatik', label: 'informatik' }
         ],
-        user: UserApiMock.USERS.map((obj: UserDto) => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`)),
+        user: UserApiMock.USERS.map((obj: UserDetailDto) => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`)),
         language: [
             { value: 'de', label: 'Deutschland' },
             { value: 'fr', label: 'Frankreich' },

@@ -5,7 +5,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 
 import { ApplicationApiMock, FormEndpoint } from './';
 
-import { ApplicationDetailDto, UserDto } from './../../../swagger';
+import { ApplicationDetailDto, UserDetailDto } from './../../../swagger';
 import { FormApi } from './../../../swagger/api/FormApi';
 import { ConferenceApi } from './../../../swagger/api/ConferenceApi';
 import { UserApi } from './../../../swagger/api/UserApi';

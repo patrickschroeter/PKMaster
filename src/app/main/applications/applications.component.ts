@@ -17,7 +17,7 @@ import { ModalService } from './../../modules/overlay';
 import {
     ApplicationDetailDto,
     ApplicationCreateDto,
-    UserDto
+    UserDetailDto
 } from './../../swagger';
 import { Selectable } from './../../models';
 
@@ -40,7 +40,7 @@ export class ApplicationsComponent implements OnInit {
 
     private applicationTypes: Array<Selectable>;
 
-    public user: UserDto;
+    public user: UserDetailDto;
 
     constructor(
         /** Angular */

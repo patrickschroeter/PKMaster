@@ -5,9 +5,9 @@ import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs/Rx';
 
 import { RoleApiMock } from './RoleApi.mock';
-import { UserDto, UserCreateDto } from './../../../swagger';
+import { UserDetailDto, UserCreateDto } from './../../../swagger';
 
-class UserDtoMock implements UserDto, UserCreateDto {
+class UserDetailDtoMock implements UserDetailDto, UserCreateDto {
     id: string;
     token?: string;
     password?: string;
@@ -22,7 +22,7 @@ class UserDtoMock implements UserDto, UserCreateDto {
 @Injectable()
 export class UserApiMock {
 
-    static USERS: UserDtoMock[] = [
+    static USERS: UserDetailDtoMock[] = [
         { id: 'b904cc6e-b3a6-42a9-8880-3096be1b6c61', email: 'patrick.schroeter@hotmail.de', password: 'password', token: 'patrick.schroeter@hotmail.de', firstname: 'Patrick', lastname: 'Schroeter', matNr: 949225, permissions: RoleApiMock.ROLE.All, roles: [RoleApiMock.ROLES_OBJECTS.All] },
         { id: 'ee632373-432e-40f0-9f33-8cc6b684e673', email: 'stephan.reichinger@gmail.de', token: 'stephan.reichinger@gmail.de', password: 'password', firstname: 'Stephan', lastname: 'Reichinger', permissions: RoleApiMock.ROLE.Student, roles: [RoleApiMock.ROLES_OBJECTS.Student] },
         { id: '1', email: 'admin@pk.de', token: 'admin@pk.de', password: 'password', firstname: 'Admin', lastname: 'PK-Admin', permissions: RoleApiMock.ROLE.Admin, roles: [RoleApiMock.ROLES_OBJECTS.Admin] },
@@ -34,14 +34,14 @@ export class UserApiMock {
         { id: '7', email: 'secreteriat@pk.de', token: 'secreteriat@pk.de', password: 'password', firstname: 'Secreteriat', lastname: 'PK-Secreteriat', permissions: RoleApiMock.ROLE.Secreteriat, roles: [RoleApiMock.ROLES_OBJECTS.Secreteriat] },
     ];
 
-    static USER: UserDto = UserApiMock.USERS[1];
+    static USER: UserDetailDto = UserApiMock.USERS[1];
 
 
-    private list: UserDto[] = [];
+    private list: UserDetailDto[] = [];
 
     constructor() { }
 
-    public addUser(user?: UserDto, extraHttpRequestParams?: any): Observable<any> {
+    public addUser(user?: UserDetailDto, extraHttpRequestParams?: any): Observable<any> {
         if (user) {
             user.id = '1';
             this.list.push(user);
@@ -58,7 +58,7 @@ export class UserApiMock {
         return new Observable((observer: Observer<any>) => { observer.next(this.list); observer.complete(); });
     }
 
-    public updateUserById(userId: string, user?: UserDto, extraHttpRequestParams?: any): Observable<UserDto> {
+    public updateUserById(userId: string, user?: UserDetailDto, extraHttpRequestParams?: any): Observable<UserDetailDto> {
         return new Observable((observer: Observer<any>) => { userId === user.id ? observer.next(user) : observer.error('error'); observer.complete(); });
     }
 

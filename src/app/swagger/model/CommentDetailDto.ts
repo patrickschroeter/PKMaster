@@ -38,5 +38,5 @@ export interface CommentDetailDto {
 
     requiresChanges?: boolean;
 
-    user?: models.UserDto;
+    user?: models.UserDetailDto;
 }

@@ -11,7 +11,7 @@ import { UserApiMock, PermissionMock, PermissionService } from './../../../core'
 import { AlertProviderMock } from './../../../modules/alert/alert.module';
 import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
-import { UserApi, UserDto } from './../../../swagger';
+import { UserApi, UserDetailDto } from './../../../swagger';
 
 
 describe('Service: Authentication', () => {
@@ -173,7 +173,7 @@ describe('Service: Authentication', () => {
 
         it('should throw an error if no user is available', () => {
             const name = 'user';
-            let user: UserDto;
+            let user: UserDetailDto;
             service.getUser().subscribe(() => {
                 user = name;
             }, error => {
@@ -188,7 +188,7 @@ describe('Service: Authentication', () => {
             service['user'] = new Observable((observer: Observer<any>) => {
                 observer.next(name);
             });
-            let user: UserDto;
+            let user: UserDetailDto;
             service.getUser().subscribe(result => {
                 user = result;
             });
@@ -241,7 +241,7 @@ describe('Service: Authentication', () => {
         });
 
         it('should save the user on success', () => {
-            let user: UserDto;
+            let user: UserDetailDto;
             expect(user).toBeUndefined();
 
             service.login('username', 'password');

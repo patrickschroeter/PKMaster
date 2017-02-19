@@ -103,6 +103,14 @@ export class ConferenceService {
             });
     }
 
+    public assignUserToApplication (conferenceId: string, attendantCreateDto?: models.AttendantCreateDto, extraHttpRequestParams?: any ) : Observable<CommentDetailDto[]> {
+        // TODO
+    }
+
+    public removeAssignmentFromApplication (conferenceId: string, userId: string, extraHttpRequestParams?: any ) : Observable<any> {
+        // TODO
+    }
+
     /**
      * create the form for creating/editing conference properties
      * @param {Conference} values

@@ -13,7 +13,7 @@ import { TranslationService } from './../../../modules/translation';
 import { ModalService } from './../../../modules/overlay';
 
 /** Models */
-import { ApplicationDetailDto, UserDto } from './../../../swagger';
+import { ApplicationDetailDto, UserDetailDto } from './../../../swagger';
 import { Selectable } from './../../../models';
 
 /** Decorators */
@@ -27,7 +27,7 @@ import { Access } from './../../../shared/decorators/access.decorator';
 export class ApplicationsListComponent implements OnInit {
 
     @Input() applications: ApplicationDetailDto[];
-    @Input() user: UserDto;
+    @Input() user: UserDetailDto;
 
     constructor(
         private modalService: ModalService,

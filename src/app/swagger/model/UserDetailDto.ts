@@ -25,17 +25,30 @@
 'use strict';
 import * as models from './models';
 
-export interface Permission {
+export interface UserDetailDto {
     
 
     id?: string;
 
-    name?: string;
+    firstname?: string;
 
-    rolePermission?: Array<models.RoleDto>;
+    lastname?: string;
+
+    email?: string;
+
+    rzName?: string;
+
+    ldapId?: number;
+
+    employeeType?: string;
+
+    active?: boolean;
+
+    created?: Date;
+
+    roles?: Array<models.RoleDto>;
 
     // Custom
 
-    description?: string;
-    rolePermissions?: Array<models.RoleDto>;
+    permissions?: string[];
 }

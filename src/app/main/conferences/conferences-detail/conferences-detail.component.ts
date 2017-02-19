@@ -14,7 +14,7 @@ import { TranslationService } from './../../../modules/translation';
 
 /** Models */
 import { ConferenceConfig, Selectable, ApplicationsByFormId } from './../../../models';
-import { ConferenceDetailDto, ApplicationDetailDto, ApplicationListDto, CommentDetailDto, UserDto } from './../../../swagger';
+import { ConferenceDetailDto, ApplicationDetailDto, ApplicationListDto, CommentDetailDto, UserDetailDto, UserListDto } from './../../../swagger';
 import { OverlayComponent } from './../../../modules/overlay';
 
 /** Decorators */
@@ -60,18 +60,18 @@ export class ConferencesDetailComponent implements OnInit {
     /**
      * a list of all possible members of the conference
      *
-     * @type {UserDto[]}
+     * @type {UserDetailDto[]}
      * @memberOf ConferencesDetailComponent
      */
-    public members: UserDto[];
+    public members: UserDetailDto[];
 
     /**
      * a list of all possible guests of the conference
      *
-     * @type {UserDto[]}
+     * @type {UserDetailDto[]}
      * @memberOf ConferencesDetailComponent
      */
-    public guests: UserDto[];
+    public guests: UserDetailDto[];
 
     /**
      * Creates an instance of ConferencesDetailComponent.
@@ -222,6 +222,7 @@ export class ConferencesDetailComponent implements OnInit {
     public assignMemberModal(): void {
         this.assignUserModal(
             this.members.map(obj => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`)),
+            this.conference.members.map((obj: UserListDto) => obj.id ),
             'assignMemberHeader'
         );
     }
@@ -234,6 +235,7 @@ export class ConferencesDetailComponent implements OnInit {
     public assignGuestModal(): void {
         this.assignUserModal(
             this.guests.map(obj => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`)),
+            this.conference.guests.map((obj: UserListDto) => obj.id ),
             'assignGuestHeader'
         );
     }
@@ -247,13 +249,13 @@ export class ConferencesDetailComponent implements OnInit {
      *
      * @memberOf ConferencesDetailComponent
      */
-    private assignUserModal(list: Selectable[], title: string): void {
+    private assignUserModal(list: Selectable[], values: string[], title: string): void {
         this.modalService.createListModal({
             title: this.translationService.translate('title'),
             list: list,
             click: this.assignUser.bind(this),
 
-            selectedValues: this.conference.attendants.map(obj => obj.id),
+            selectedValues: values,
 
             emptyText: this.translationService.translate('noUsersAvailable')
         });
@@ -268,9 +270,10 @@ export class ConferencesDetailComponent implements OnInit {
      * @memberOf ConferencesDetailComponent
      */
     private assignUser(user: Selectable): void {
+        // TODO members vs guests
         const param: ConferenceDetailDto = _.cloneDeep(this.conference);
         if (!param.attendants) { param.attendants = []; }
-        const index = _.findIndex(param.attendants, (obj: UserDto) => obj.id === user.value);
+        const index = _.findIndex(param.attendants, (obj: UserDetailDto) => obj.id === user.value);
         if (index === -1) {
             this.userService.getUserById(user.value).subscribe(result => {
                 param.attendants.push(result);
@@ -294,6 +297,7 @@ export class ConferencesDetailComponent implements OnInit {
     private saveConference(param: ConferenceDetailDto): void {
         this.conferenceService.saveConference(param).subscribe(result => {
             this.conference = result;
+            // TODO members vs guests
             this.modalService.updateSelectedValues(this.conference.attendants.map(obj => obj.id));
         });
     }
@@ -301,11 +305,11 @@ export class ConferencesDetailComponent implements OnInit {
     /**
      * remove an assigned user from the conference
      *
-     * @param {UserDto} user
+     * @param {UserDetailDto} user
      *
      * @memberOf ConferencesDetailComponent
      */
-    public unassignUser(user: UserDto) {
+    public unassignUser(user: UserDetailDto) {
         this.assignUser(new Selectable(user.id, user.id));
     }
 

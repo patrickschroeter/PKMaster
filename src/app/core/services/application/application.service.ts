@@ -17,7 +17,7 @@ import {
     ApplicationCreateDto,
     CommentDetailDto,
     CommentCreateDto,
-    UserDto
+    UserDetailDto
 } from './../../../swagger';
 
 /** Decorators */
@@ -93,7 +93,7 @@ export class ApplicationService {
     }
 
     @Loading('getApplications')
-    public getOwnApplications(sort?: string, user?: UserDto): Observable<ApplicationListDto[]> {
+    public getOwnApplications(sort?: string, user?: UserDetailDto): Observable<ApplicationListDto[]> {
         return this.applicationApi.getApplications().map((result: ApplicationListDto[]) => {
             const applications = result.filter((obj: ApplicationListDto) => obj.user.id === user.id);
             return this.applications = applications;
@@ -101,11 +101,11 @@ export class ApplicationService {
     }
 
     @Loading('getApplications')
-    public getAssignedApplications(sort?: string, user?: UserDto): Observable<ApplicationListDto[]> {
+    public getAssignedApplications(sort?: string, user?: UserDetailDto): Observable<ApplicationListDto[]> {
         return this.applicationApi.getApplications().map((result: ApplicationListDto[]) => {
             // TODO filter on server
             // const applications = result.filter((obj: ApplicationListDto) => {
-            //     const assignment = _.find(obj.assignments, (assign: UserDto) => assign.id === user.id);
+            //     const assignment = _.find(obj.assignments, (assign: UserDetailDto) => assign.id === user.id);
             //     return !!assignment;
             // });
             return this.applications = result;
@@ -119,7 +119,7 @@ export class ApplicationService {
     @Loading('createNewApplication')
     public createNewApplication(application: ApplicationCreateDto): Observable<ApplicationDetailDto> {
         /* TODO: wait for token */
-        this.auth.getUser().subscribe((user: UserDto) => {
+        this.auth.getUser().subscribe((user: UserDetailDto) => {
             application.userId = user.id;
         });
 
@@ -260,6 +260,18 @@ export class ApplicationService {
         return this.updateApplication(param).map((result: ApplicationDetailDto) => {
             return this.application = result;
         });
+    }
+
+
+    public assignUserToApplication (applicationId: string, userId: string, extraHttpRequestParams?: any ) : Observable<CommentDetailDto[]> {
+        // TODO
+        return null;
+    }
+
+
+    public removeAssignmentFromApplication (applicationId: string, userId: string, extraHttpRequestParams?: any ) : Observable<{}> {
+        // TODO
+        return null;
     }
 
 }

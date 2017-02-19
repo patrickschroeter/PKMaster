@@ -12,7 +12,7 @@ import { ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { UserDto, FieldDto, RoleDto } from './../../../swagger';
+import { UserDetailDto, FieldDto, RoleDto } from './../../../swagger';
 import { Fields, Selectable } from './../../../models';
 
 /** Decorators */
@@ -42,10 +42,10 @@ export class UsersDetailComponent implements OnInit {
     /**
      * the selected user
      *
-     * @type {UserDto}
+     * @type {UserDetailDto}
      * @memberOf UsersDetailComponent
      */
-    public user: UserDto;
+    public user: UserDetailDto;
 
     /**
      * the user form
@@ -125,18 +125,18 @@ export class UsersDetailComponent implements OnInit {
      * initialize the user form
      *
      * @private
-     * @param {UserDto} user
+     * @param {UserDetailDto} user
      *
      * @memberOf UsersDetailComponent
      */
     @Access('ReadUsers')
-    private initUserForm(user: UserDto) {
+    private initUserForm(user: UserDetailDto) {
         this.form = [
             new Fields.Firstname(user.firstname),
             new Fields.Lastname(user.lastname),
             new Fields.Devider(),
             new Fields.Email(user.email),
-            new Fields.Matrikelnummer(user.matNr ? user.matNr.toString() : '')
+            new Fields.Matrikelnummer(user.ldapId ? user.ldapId.toString() : '')
         ];
     }
 
@@ -186,7 +186,7 @@ export class UsersDetailComponent implements OnInit {
     @Access(['EditUsers', 'EditRoles'])
     private addRoleToUser(data: Selectable): void {
         const role = _.find(this.user.roles, (obj: RoleDto) => obj.id === data.value);
-        const fn = (result: UserDto) => {
+        const fn = (result: UserDetailDto) => {
             this.user = result;
             this.modalService.updateSelectedValues(result.roles.map(obj => { return obj.id; }));
         };

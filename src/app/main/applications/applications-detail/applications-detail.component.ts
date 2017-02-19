@@ -15,7 +15,7 @@ import { OverlayComponent, ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { ApplicationDetailDto, CommentDetailDto, UserDto } from './../../../swagger';
+import { ApplicationDetailDto, CommentDetailDto, UserDetailDto } from './../../../swagger';
 import { Selectable } from './../../../models';
 
 /** Decorators */
@@ -39,7 +39,7 @@ export class ApplicationsDetailComponent implements OnInit {
 
     public conferences: any[];
 
-    public user: UserDto;
+    public user: UserDetailDto;
     public users: Selectable[];
     public userLabels: { [id: string]: string } = {};
 
@@ -306,7 +306,7 @@ export class ApplicationsDetailComponent implements OnInit {
     public assignUser(user: Selectable): void {
         const param = _.cloneDeep(this.application);
         if (!param.assignments) { param.assignments = []; }
-        const index = _.findIndex(param.assignments, (obj: UserDto) => obj.id === user.value);
+        const index = _.findIndex(param.assignments, (obj: UserDetailDto) => obj.id === user.value);
         if (index === -1) {
             this.userService.getUserById(user.value).subscribe(result => {
                 param.assignments.push(result);
@@ -327,9 +327,9 @@ export class ApplicationsDetailComponent implements OnInit {
 
     /**
      * remove user from the application
-     * @param {UserDto} user
+     * @param {UserDetailDto} user
      */
-    public unassignUser(user: UserDto) {
+    public unassignUser(user: UserDetailDto) {
         this.assignUser(new Selectable(user.id, user.id));
     }
 
