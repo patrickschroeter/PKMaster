@@ -8,6 +8,7 @@ import { FormService } from './../form';
 import { AuthenticationService } from './../authentication';
 import { ApplicationApi } from './../../../swagger/api/ApplicationApi';
 import { TranslationService } from './../../../modules/translation';
+import { ConferenceService } from './../conference';
 
 /** Models */
 import {
@@ -23,6 +24,12 @@ import {
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
 
+/**
+ * A Service taking care of applications
+ *
+ * @export
+ * @class ApplicationService
+ */
 @Injectable()
 export class ApplicationService {
 
@@ -34,6 +41,17 @@ export class ApplicationService {
     }
     private applications: ApplicationListDto[];
 
+    /**
+     * Creates an instance of ApplicationService.
+     * @param {AlertService} alert
+     * @param {TranslationService} translationService
+     * @param {AuthenticationService} auth
+     * @param {FormService} formService
+     * @param {ApplicationApi} applicationApi
+     * @param {ConferenceService} conferenceService
+     *
+     * @memberOf ApplicationService
+     */
     constructor(
         /** Modules */
         private alert: AlertService,
@@ -41,7 +59,8 @@ export class ApplicationService {
         /** Services */
         private auth: AuthenticationService,
         private formService: FormService,
-        private applicationApi: ApplicationApi
+        private applicationApi: ApplicationApi,
+        private conferenceService: ConferenceService
     ) { }
 
     /**
@@ -69,7 +88,11 @@ export class ApplicationService {
 
     /**
      * returns the observable to get a applicationn by the given id
-     * @param {String} id - the id of the application to get
+     *
+     * @param {String} id
+     * @returns {Observable<ApplicationDetailDto>}
+     *
+     * @memberOf ApplicationService
      */
     @Loading('getApplicationById')
     public getApplicationById(id: string): Observable<ApplicationDetailDto> {
@@ -80,7 +103,11 @@ export class ApplicationService {
 
     /**
      * return the observable to get a list of all applications the user has (sorted)
+     *
      * @param {String} [sort]
+     * @returns {Observable<ApplicationListDto[]>}
+     *
+     * @memberOf ApplicationService
      */
     @Loading('getApplications')
     public getApplications(sort?: string): Observable<ApplicationListDto[]> {
@@ -96,6 +123,15 @@ export class ApplicationService {
         });
     }
 
+    /**
+     * get all owned applications
+     *
+     * @param {String} [sort]
+     * @param {UserDetailDto} [user]
+     * @returns {Observable<ApplicationListDto[]>}
+     *
+     * @memberOf ApplicationService
+     */
     @Loading('getApplications')
     public getOwnApplications(sort?: string, user?: UserDetailDto): Observable<ApplicationListDto[]> {
         return this.applicationApi.getApplications().map((result: ApplicationListDto[]) => {
@@ -104,6 +140,15 @@ export class ApplicationService {
         });
     }
 
+    /**
+     * get all assignes applications
+     *
+     * @param {String} [sort]
+     * @param {UserDetailDto} [user]
+     * @returns {Observable<ApplicationListDto[]>}
+     *
+     * @memberOf ApplicationService
+     */
     @Loading('getApplications')
     public getAssignedApplications(sort?: string, user?: UserDetailDto): Observable<ApplicationListDto[]> {
         return this.applicationApi.getApplications().map((result: ApplicationListDto[]) => {
@@ -118,7 +163,11 @@ export class ApplicationService {
 
     /**
      * Creates a new application with the given attributes
-     * @param {Application} application - the new application to create
+     *
+     * @param {ApplicationCreateDto} application
+     * @returns {Observable<ApplicationDetailDto>}
+     *
+     * @memberOf ApplicationService
      */
     @Loading('createNewApplication')
     public createNewApplication(application: ApplicationCreateDto): Observable<ApplicationDetailDto> {
@@ -134,7 +183,11 @@ export class ApplicationService {
 
     /**
      * add a comment to the current application
-     * @param {Comment} comment - the comment to add
+     *
+     * @param {CommentDetailDto} comment
+     * @returns {Observable<CommentDetailDto[]>}
+     *
+     * @memberOf ApplicationService
      */
     @Loading('addCommentToApplication')
     public addCommentToApplication(comment: CommentDetailDto): Observable<CommentDetailDto[]> {
@@ -147,8 +200,13 @@ export class ApplicationService {
 
     /**
      * check if the requested Status change is allowed
-     * @param {String} name - the permission name to check
-     * @param {Array} permittedStati - a list of all states to block the request
+     *
+     * @private
+     * @param {String} name
+     * @param {String[]} permittedStati
+     * @returns {Observable<any>}
+     *
+     * @memberOf ApplicationService
      */
     private blockedStatusUpdate(name: string, permittedStati: string[]): Observable<any> {
         if (permittedStati.indexOf(name) === -1) {
@@ -163,7 +221,11 @@ export class ApplicationService {
 
     /**
      * submit the selected application
-     * @param {Application} application
+     *
+     * @param {ApplicationDetailDto} application
+     * @returns {Observable<ApplicationDetailDto>}
+     *
+     * @memberOf ApplicationService
      */
     public submitApplication(application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
         const blocked = this.blockedStatusUpdate(application.status.name, ['created']);
@@ -178,7 +240,11 @@ export class ApplicationService {
 
     /**
      * rescind the selected application
-     * @param {Application} application
+     *
+     * @param {ApplicationDetailDto} application
+     * @returns {Observable<ApplicationDetailDto>}
+     *
+     * @memberOf ApplicationService
      */
     public rescindApplication(application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
         const blocked = this.blockedStatusUpdate(application.status.name, ['submitted']);
@@ -193,7 +259,11 @@ export class ApplicationService {
 
     /**
      * deactivate the selected application
-     * @param {Application} application
+     *
+     * @param {ApplicationDetailDto} application
+     * @returns {Observable<ApplicationDetailDto>}
+     *
+     * @memberOf ApplicationService
      */
     public deactivateApplication(application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
         const blocked = this.blockedStatusUpdate(application.status.name, ['created', 'rescinded']);
@@ -208,7 +278,11 @@ export class ApplicationService {
 
     /**
      * Saves the changed application
-     * @param {Object} form - the form of the application
+     *
+     * @param {Object} form
+     * @returns {Observable<ApplicationDetailDto>}
+     *
+     * @memberOf ApplicationService
      */
     public saveApplication(form: Object): Observable<ApplicationDetailDto> {
         if (!this.application) { return; }
@@ -223,7 +297,11 @@ export class ApplicationService {
 
     /**
      * update the application
-     * @param {Application} application
+     *
+     * @param {ApplicationDetailDto} application
+     * @returns {Observable<ApplicationDetailDto>}
+     *
+     * @memberOf ApplicationService
      */
     @Loading('updateApplication')
     public updateApplication(application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
@@ -237,25 +315,29 @@ export class ApplicationService {
 
     /**
      * add the conference to the application
-     * @param {Application} application
+     *
+     * @param {ApplicationDetailDto} application
      * @param {String} conferenceId
+     * @returns {Observable<ApplicationDetailDto>}
+     *
+     * @memberOf ApplicationService
      */
     public assignConferenceToApplication(application: ApplicationDetailDto, conferenceId: string): Observable<ApplicationDetailDto> {
         const param = _.cloneDeep(application);
-        param.conference = {
-            id: conferenceId
-        }
-        param.status = { name: 'pending' };
-
-        return this.updateApplication(param).map((result: ApplicationDetailDto) => {
-            return this.application = result;
+        this.application = application;
+        return this.conferenceService.addApplicationToConference(param, conferenceId).map(result => {
+            return result;
         });
     }
 
     /**
      * confirm the application by a docent
+     *
      * @param {Boolean} confirmation
-     * @param {Application} application
+     * @param {ApplicationDetailDto} application
+     * @returns {Observable<ApplicationDetailDto>}
+     *
+     * @memberOf ApplicationService
      */
     public confirmApplication(confirmation: boolean, application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
         const param = _.cloneDeep(application);
@@ -266,16 +348,53 @@ export class ApplicationService {
         });
     }
 
-
-    public assignUserToApplication (applicationId: string, userId: string, extraHttpRequestParams?: any ) : Observable<CommentDetailDto[]> {
-        // TODO
-        return null;
+    /**
+     * Assign a user to the Application
+     *
+     * @param {ApplicationDetailDto} application
+     * @param {String} userId
+     * @param {*} [extraHttpRequestParams]
+     * @returns {Observable<UserDetailDto[]>}
+     *
+     * @memberOf ApplicationService
+     */
+    public assignUserToApplication(
+        application: ApplicationDetailDto,
+        userId: string,
+        extraHttpRequestParams?: any
+    ): Observable<UserDetailDto[]> {
+        const applicationId = application.id;
+        this.application = application;
+        return this.applicationApi.assignUserToApplication(applicationId, userId, extraHttpRequestParams).map(result => {
+            this.application.assignments = result;
+            return result;
+        });
     }
 
-
-    public removeAssignmentFromApplication (applicationId: string, userId: string, extraHttpRequestParams?: any ) : Observable<{}> {
-        // TODO
-        return null;
+    /**
+     * Unassign the user to the Application
+     *
+     * @param {ApplicationDetailDto} application
+     * @param {String} userId
+     * @param {*} [extraHttpRequestParams]
+     * @returns {Observable<{}>}
+     *
+     * @memberOf ApplicationService
+     */
+    public removeAssignmentFromApplication(
+        application: ApplicationDetailDto,
+        userId: string,
+        extraHttpRequestParams?: any
+    ): Observable<string> {
+        const applicationId = application.id;
+        this.application = application;
+        return this.applicationApi.removeAssignmentFromApplication(applicationId, userId, extraHttpRequestParams).map(result => {
+            const index = _.findIndex(this.application.assignments, obj => obj.id === userId);
+            if (index !== -1) {
+                this.application.assignments.splice(index, 1);
+            }
+            return result;
+        });
     }
 
 }

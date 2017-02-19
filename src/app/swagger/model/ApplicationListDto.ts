@@ -28,21 +28,34 @@ import * as models from './models';
 export class ApplicationListDto {
 
 
-    id?: string;
+    id: string;
 
-    created?: Date;
+    created: Date;
 
-    lastModified?: Date;
+    lastModified: Date;
 
-    isCurrent?: boolean;
+    isCurrent: boolean;
 
-    version?: number;
+    version: number;
 
-    user?: models.UserDetailDto;
+    user: models.UserDetailDto;
 
     conference?: models.ConferenceListDto;
 
-    status?: models.StatusDto;
+    status: models.StatusDto;
 
-    form?: models.FormListDto;
+    form: models.FormListDto;
+
+    constructor(obj?: models.ApplicationDetailDto) {
+        obj = obj || {};
+        this.id = obj.id;
+        this.created = obj.created;
+        this.lastModified = obj.lastModified;
+        this.isCurrent = obj.isCurrent;
+        this.version = obj.version;
+        this.user = obj.user;
+        this.conference = obj.conference;
+        this.status = obj.status;
+        this.form = obj.form;
+    }
 }

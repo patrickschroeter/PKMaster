@@ -5,53 +5,99 @@
     <h4 class="element element--spacing-bottom-large">{{ conference.dateOfEvent | date }} ({{ conference.startOfEvent }} - {{ conference.endOfEvent }}), {{ conference.roomOfEvent }}</h4>
 
     <h4 i18n>Attendant PK-Members</h4>
-    <ng-container *ngIf="!conference.attendants || !conference.attendants.length">
-        <div class="empty-wrapper">
-            <div class="label" i18n>No attendant members.</div>
-            <pk-button
-                class="element--spacing-top-large"
-                element--secondary
-                i18n-value
-                value="Assign Member"
-                icon="supervisor_account"
-                (onClick)="assignMemberModal()">
-            </pk-button>
-        </div>
-    </ng-container>
-    <ng-container *ngIf="conference.attendants && conference.attendants.length">
-        <pk-list>
-            <pk-list-header>
-                <pk-list-attribute name="name" i18n>Members</pk-list-attribute>
-                <pk-list-attribute name="name" i18n>Guests</pk-list-attribute>
-            </pk-list-header>
-            <pk-list-content class="attendants">
-                <!--TODO: Better differentiate, two different objects?-->
-                <ng-container *ngFor="let user of conference.attendants">
-                    <div *ngIf="user.roles && user.roles.length" [ngClass]="{ 'attendant--member': user.roles[0].name === 'Member', 'attendant--guest': user.roles[0].name !== 'Member' }">
-                        <pk-list-element>
-                            <pk-list-attribute name="name">
-                                {{ user.firstname }}
-                            </pk-list-attribute>
-                            <pk-list-attribute name="name">
-                                {{ user.lastname }}
-                            </pk-list-attribute>
 
-                            <pk-floating top-right horizontal>
-                                <pk-button
-                                    rounded
-                                    i18n-pkAlert
-                                    pkAlert="Delete Member from Conference"
-                                    icon="delete"
-                                    element--error
-                                    (onClick)="unassignUser(user)">
-                                </pk-button>
-                            </pk-floating>
-                        </pk-list-element>
-                    </div>
-                </ng-container>
-            </pk-list-content>
-        </pk-list>
-    </ng-container>
+    <div>
+        <ng-container *ngIf="!conference.members || !conference.members.length">
+            <div class="empty-wrapper">
+                <div class="label" i18n>No attendant members.</div>
+                <pk-button
+                    class="element--spacing-top-large"
+                    element--secondary
+                    i18n-value
+                    value="Assign Member"
+                    icon="supervisor_account"
+                    (onClick)="assignMemberModal()">
+                </pk-button>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="conference.members && conference.members.length">
+            <pk-list>
+                <pk-list-header>
+                    <pk-list-attribute name="name" i18n>Members</pk-list-attribute>
+                </pk-list-header>
+                <pk-list-content class="attendants">
+                    <ng-container *ngFor="let user of conference.members">
+                        <div class="attendant--member">
+                            <pk-list-element>
+                                <pk-list-attribute name="name">
+                                    {{ user.firstname }}
+                                </pk-list-attribute>
+                                <pk-list-attribute name="name">
+                                    {{ user.lastname }}
+                                </pk-list-attribute>
+
+                                <pk-floating top-right horizontal>
+                                    <pk-button
+                                        rounded
+                                        i18n-pkAlert
+                                        pkAlert="Remove Member from Conference"
+                                        icon="delete"
+                                        element--error
+                                        (onClick)="unassignUser(user, 'members')">
+                                    </pk-button>
+                                </pk-floating>
+                            </pk-list-element>
+                        </div>
+                    </ng-container>
+                </pk-list-content>
+            </pk-list>
+        </ng-container>
+        <ng-container *ngIf="!conference.guests || !conference.guests.length">
+            <div class="empty-wrapper">
+                <div class="label" i18n>No attendant guests.</div>
+                <pk-button
+                    class="element--spacing-top-large"
+                    element--secondary
+                    i18n-value
+                    value="Assign Guest"
+                    icon="person"
+                    (onClick)="assignGuestModal()">
+                </pk-button>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="conference.guests && conference.guests.length">
+            <pk-list>
+                <pk-list-header>
+                    <pk-list-attribute name="name" i18n>Guests</pk-list-attribute>
+                </pk-list-header>
+                <pk-list-content class="attendants">
+                    <ng-container *ngFor="let user of conference.guests">
+                        <div class="attendant--guest">
+                            <pk-list-element>
+                                <pk-list-attribute name="name">
+                                    {{ user.firstname }}
+                                </pk-list-attribute>
+                                <pk-list-attribute name="name">
+                                    {{ user.lastname }}
+                                </pk-list-attribute>
+
+                                <pk-floating top-right horizontal>
+                                    <pk-button
+                                        rounded
+                                        i18n-pkAlert
+                                        pkAlert="Remove Guest from Conference"
+                                        icon="delete"
+                                        element--error
+                                        (onClick)="unassignUser(user, 'guests')">
+                                    </pk-button>
+                                </pk-floating>
+                            </pk-list-element>
+                        </div>
+                    </ng-container>
+                </pk-list-content>
+            </pk-list>
+        </ng-container>
+    </div>
 
     <h3 i18n>Agenda</h3>
     <div *ngFor="let item of conference.config; let i = index">
@@ -82,8 +128,8 @@
                 element--secondary
                 i18n-pkAlert
                 pkAlert="Assign User"
-                icon="supervisor_account"
-                (onClick)="assignMemberModal()">
+                icon="person"
+                (onClick)="assignGuestModal()">
             </pk-button>
             <pk-button
                 class="element--spacing-bottom-tiny"
@@ -91,8 +137,8 @@
                 element--secondary
                 i18n-pkAlert
                 pkAlert="Assign User"
-                icon="person"
-                (onClick)="assignGuestModal()">
+                icon="supervisor_account"
+                (onClick)="assignMemberModal()">
             </pk-button>
             <a routerLink="/conferences/{{ conference.id }}/edit">
                 <pk-button

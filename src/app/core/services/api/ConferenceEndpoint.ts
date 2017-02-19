@@ -4,7 +4,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 
 import { ConferenceApiMock } from './';
 
-import { ConferenceDetailDto, ApplicationDetailDto } from './../../../swagger';
+import { ConferenceDetailDto, ApplicationDetailDto, ApplicationListDto } from './../../../swagger';
 
 @Injectable()
 export class ConferenceEndpoint {
@@ -168,7 +168,7 @@ export class ConferenceEndpoint {
             }
         }
         if (index === -1) {
-            conference['applications'].push(application);
+            conference['applications'].push(new ApplicationListDto(application));
         }
         return this._conferenceUpdate(conference.id, conference);
     }

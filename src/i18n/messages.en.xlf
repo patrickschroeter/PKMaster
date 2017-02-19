@@ -398,13 +398,25 @@
         <source>Members</source>
         <target>Members</target>
       </trans-unit>
+      <trans-unit id="d49fbc26ee1308fe5be955636eacc5cb7508d843" datatype="html">
+        <source>Remove Member from Conference</source>
+        <target>Remove Member from Conference</target>
+      </trans-unit>
+      <trans-unit id="525cc60bd4875dcf7115d4ea1fb50db25209f4d4" datatype="html">
+        <source>No attendant guests.</source>
+        <target>No attendant guests.</target>
+      </trans-unit>
+      <trans-unit id="99cc38a2ddd00edb34bb99b36981c28832de8ecb" datatype="html">
+        <source>Assign Guest</source>
+        <target>Assign Guest</target>
+      </trans-unit>
       <trans-unit id="5b1fa5c2021a6df06edc0f58f7acd2ee139142fc" datatype="html">
         <source>Guests</source>
         <target>Guests</target>
       </trans-unit>
-      <trans-unit id="81423bb2453b0754a09030770fbf965b5d6904b0" datatype="html">
-        <source>Delete Member from Conference</source>
-        <target>Delete Member from Conference</target>
+      <trans-unit id="109876e445064595835f0d0498920e164ebc2b1f" datatype="html">
+        <source>Remove Guest from Conference</source>
+        <target>Remove Guest from Conference</target>
       </trans-unit>
       <trans-unit id="d19bf052163bf96dc9856ac2c0c4ed59963a56d3" datatype="html">
         <source>Agenda</source>

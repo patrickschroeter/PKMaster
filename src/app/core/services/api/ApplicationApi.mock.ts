@@ -42,7 +42,7 @@ export class ApplicationApiMock {
     }
 
     public updateApplicationById(applicationId: string, application?: ApplicationDetailDto, extraHttpRequestParams?: any): Observable<any> {
-        return new Observable((observer: Observer<any>) => { applicationId === application.id ? observer.next(application) : observer.error('error'); observer.complete(); });
+        return new Observable((observer: Observer<any>) => { application.id = applicationId; observer.next(application); observer.complete(); });
     }
 
     public addCommentToApplication(applicationId: string, comment?: any, extraHttpRequestParams?: any): Observable<any> {

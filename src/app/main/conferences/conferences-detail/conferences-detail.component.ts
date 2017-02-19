@@ -14,7 +14,15 @@ import { TranslationService } from './../../../modules/translation';
 
 /** Models */
 import { ConferenceConfig, Selectable, ApplicationsByFormId } from './../../../models';
-import { ConferenceDetailDto, ApplicationDetailDto, ApplicationListDto, CommentDetailDto, UserDetailDto, UserListDto } from './../../../swagger';
+import {
+    ConferenceDetailDto,
+    ApplicationDetailDto,
+    ApplicationListDto,
+    CommentDetailDto,
+    UserDetailDto,
+    UserListDto,
+    AttendantCreateDto
+} from './../../../swagger';
 import { OverlayComponent } from './../../../modules/overlay';
 
 /** Decorators */
@@ -72,6 +80,8 @@ export class ConferencesDetailComponent implements OnInit {
      * @memberOf ConferencesDetailComponent
      */
     public guests: UserDetailDto[];
+
+    private modalType: string;
 
     /**
      * Creates an instance of ConferencesDetailComponent.
@@ -220,11 +230,16 @@ export class ConferencesDetailComponent implements OnInit {
      * @memberOf ConferencesDetailComponent
      */
     public assignMemberModal(): void {
-        this.assignUserModal(
-            this.members.map(obj => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`)),
-            this.conference.members.map((obj: UserListDto) => obj.id ),
-            'assignMemberHeader'
-        );
+        this.modalType = 'members';
+        this.modalService.createListModal({
+            title: this.translationService.translate('assignMemberHeader'),
+            list: this.members.map(obj => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`)),
+            click: this.assignUser.bind(this),
+
+            selectedValues: this.conference.members.map((obj: UserListDto) => obj.id),
+
+            emptyText: this.translationService.translate('noUsersAvailable')
+        });
     }
 
     /**
@@ -233,56 +248,59 @@ export class ConferencesDetailComponent implements OnInit {
      * @memberOf ConferencesDetailComponent
      */
     public assignGuestModal(): void {
-        this.assignUserModal(
-            this.guests.map(obj => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`)),
-            this.conference.guests.map((obj: UserListDto) => obj.id ),
-            'assignGuestHeader'
-        );
-    }
-
-    /**
-     * opens the assignment modal for users
-     *
-     * @private
-     * @param {Selectable[]} list
-     * @param {string} title
-     *
-     * @memberOf ConferencesDetailComponent
-     */
-    private assignUserModal(list: Selectable[], values: string[], title: string): void {
+        this.modalType = 'guests';
         this.modalService.createListModal({
-            title: this.translationService.translate('title'),
-            list: list,
+            title: this.translationService.translate('assignGuestHeader'),
+            list: this.guests.map(obj => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`)),
             click: this.assignUser.bind(this),
 
-            selectedValues: values,
+            selectedValues: this.conference.guests.map((obj: UserListDto) => obj.id),
 
             emptyText: this.translationService.translate('noUsersAvailable')
         });
     }
 
     /**
-     * add/remove a user from the conference
+     * assign of unassign the selected user
      *
      * @private
      * @param {Selectable} user
+     * @returns {void}
      *
      * @memberOf ConferencesDetailComponent
      */
     private assignUser(user: Selectable): void {
-        // TODO members vs guests
-        const param: ConferenceDetailDto = _.cloneDeep(this.conference);
-        if (!param.attendants) { param.attendants = []; }
-        const index = _.findIndex(param.attendants, (obj: UserDetailDto) => obj.id === user.value);
-        if (index === -1) {
-            this.userService.getUserById(user.value).subscribe(result => {
-                param.attendants.push(result);
-                console.log(param);
-                this.saveConference(param);
-            });
+        const group: string = this.modalType;
+        if (!group) { return; }
+        const type = group === 'members' ? AttendantCreateDto.TypeOfAttendanceEnum.Member : AttendantCreateDto.TypeOfAttendanceEnum.Guest;
+        const attendant = _.find(this.conference[group], (obj: UserListDto) => obj.id === user.value);
+        if (!attendant) {
+            this.conferenceService.assignAttendantToConference(this.conference, new AttendantCreateDto(user.value, type))
+                .subscribe(result => {
+                    this.updateSelectedUsers();
+                });
         } else {
-            param.attendants.splice(index, 1);
-            this.saveConference(param);
+            this.conferenceService.removeAttendantFromConference(this.conference, new AttendantCreateDto(attendant.id, type))
+                .subscribe(result => {
+                    this.updateSelectedUsers();
+                });
+        }
+    }
+
+    /**
+     * update the Selected Values in the ModalService
+     *
+     * @private
+     *
+     * @memberOf ConferencesDetailComponent
+     */
+    private updateSelectedUsers() {
+        if (this.modalType) {
+            if (this.modalType === 'members') {
+                this.modalService.updateSelectedValues(this.conference.members.map(obj => obj.id));
+            } else {
+                this.modalService.updateSelectedValues(this.conference.members.map(obj => obj.id));
+            }
         }
     }
 
@@ -297,8 +315,6 @@ export class ConferencesDetailComponent implements OnInit {
     private saveConference(param: ConferenceDetailDto): void {
         this.conferenceService.saveConference(param).subscribe(result => {
             this.conference = result;
-            // TODO members vs guests
-            this.modalService.updateSelectedValues(this.conference.attendants.map(obj => obj.id));
         });
     }
 
@@ -309,7 +325,8 @@ export class ConferencesDetailComponent implements OnInit {
      *
      * @memberOf ConferencesDetailComponent
      */
-    public unassignUser(user: UserDetailDto) {
+    public unassignUser(user: UserDetailDto, type: string) {
+        this.modalType = type;
         this.assignUser(new Selectable(user.id, user.id));
     }
 
