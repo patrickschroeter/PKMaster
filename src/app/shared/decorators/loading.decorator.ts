@@ -4,10 +4,15 @@
  */
 import { AlertService } from './../../modules/alert';
 import { TranslationService } from './../../modules/translation';
+import { environment } from './../../../environments/environment';
 
 export function Loading(name: string) {
     return function (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
         const originalMethod = descriptor.value;
+
+        if (environment.test) {
+            return descriptor;
+        }
 
         descriptor.value = function (...args: any[]) {
             let result: any;
