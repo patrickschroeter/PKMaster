@@ -27,7 +27,7 @@ import {Injectable, Optional} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
-import { Parse } from './../../shared/decorators/Parse.decorator';
+import { Parse } from './../../shared/decorators/parse.decorator';
 
 /* tslint:disable:no-unused-variable member-ordering */
 
