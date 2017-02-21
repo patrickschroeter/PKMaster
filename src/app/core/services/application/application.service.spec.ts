@@ -10,6 +10,11 @@ import {
     FormMock,
 } from './../form';
 
+import {
+    ConfigurationService,
+    ConfigurationMock
+} from './../configuration';
+
 import { ApplicationMock } from './';
 import { StatusDto, ApplicationApi, FormApi, ApplicationDetailDto, ApplicationCreateDto } from './../../../swagger';
 import { ApplicationApiMock, FormApiMock, AuthenticationService, AuthenticationMock, ConferenceService, ConferenceMock } from './..';
@@ -29,6 +34,7 @@ describe('Service: Application', () => {
                 { provide: FormApi, useClass: FormApiMock },
                 { provide: AuthenticationService, useClass: AuthenticationMock },
                 { provide: ConferenceService, useClass: ConferenceMock },
+                { provide: ConfigurationService, useClass: ConfigurationMock },
                 ...TranslationProviderMock,
                 ...AlertProviderMock
             ]

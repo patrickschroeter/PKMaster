@@ -44,6 +44,7 @@ const API = !!environment.api;
         services.ConferenceService,
         services.RoleService,
         services.UserService,
+        services.ConfigurationService,
 
         // AuthGuards
 
@@ -117,6 +118,7 @@ export class CoreModule { }
 
 /** Export all Providers with mock */
 export const CoreProviderMock = [
+    { provide: services.ConfigurationService, useClass: services.ConfigurationMock },
     { provide: services.AuthenticationService, useClass: services.AuthenticationMock },
     { provide: services.FormService, useClass: services.FormMock },
     { provide: services.ApplicationService, useClass: services.ApplicationMock },

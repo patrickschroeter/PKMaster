@@ -239,6 +239,7 @@ export class ApplicationsDetailComponent implements OnInit {
     private addApplicationToConference(data: Selectable): void {
         this.applicationService.assignConferenceToApplication(this.application, data.value).subscribe(application => {
             this.application = application;
+            console.log(application);
             this.modalService.destroyModal();
         });
     }

@@ -144,5 +144,14 @@ export const DICTIONARY_EN = {
     'noUsersAvailable': 'noUsersAvailable',
     'confirmValidateApplicationHeader': 'confirmValidateApplicationHeader',
     'confirmValidateApplicationSave': 'confirmValidateApplicationSave',
-    'confirmValidateApplicationCancel': 'confirmValidateApplicationCancel'
+    'confirmValidateApplicationCancel': 'confirmValidateApplicationCancel',
+
+    'loading-addCommentToApplication': 'loading-addCommentToApplication',
+    'loading-saveFormAttributes': 'loading-saveFormAttributes',
+    'loading-updateRoleById': 'loading-updateRoleById',
+    'requiresValidation': 'requiresValidation',
+    'isActive': 'isActive',
+    'loading-changePassword': 'loading-changePassword',
+    'assignMemberHeader': 'assignMemberHeader',
+    'assignGuestHeader': 'assignGuestHeader'
 };

@@ -9,6 +9,7 @@ import * as _ from 'lodash';
 import { FormElementService } from './form-element.service';
 
 import { FormService, FormMock } from './../form';
+import { ConfigurationService, ConfigurationMock } from './../configuration';
 
 import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 import { AlertProviderMock } from './../../../modules/alert/alert.module';
@@ -23,6 +24,7 @@ describe('Service: FormElement', () => {
             providers: [
                 FormElementService,
                 { provide: FormService, useClass: FormMock },
+                { provide: ConfigurationService, useClass: ConfigurationMock },
                 ...AlertProviderMock,
                 ...TranslationProviderMock
             ]

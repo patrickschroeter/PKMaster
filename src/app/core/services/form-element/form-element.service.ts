@@ -9,9 +9,9 @@ import { UserApiMock } from './../../';
 
 /** Services */
 import { FormService } from './../form';
+import { ConfigurationService } from './../configuration';
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
-import { ConfigurationApi } from './../../../swagger';
 
 /** Models */
 import {
@@ -152,10 +152,6 @@ export class FormElementService {
      */
     private elementHasStylesRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-    private fieldDefinitions: Observable<FieldDefinitionDto[]>;
-    private fieldStyles: Observable<StyleDto[]>;
-    private fieldValidations: Observable<ValidationDto[]>;
-
     /**
      * Creates an instance of FormElementService.
      *
@@ -171,7 +167,7 @@ export class FormElementService {
         private alert: AlertService,
         /** Services */
         private formService: FormService,
-        private configurationApi: ConfigurationApi
+        private configurationService: ConfigurationService
     ) {
         this.formService.onEditElement().subscribe((element?: FieldDto) => {
             if (element) {
@@ -538,36 +534,6 @@ export class FormElementService {
      *
      */
 
-    private getFieldDefinitions(): Observable<FieldDefinitionDto[]> {
-        if (!this.fieldDefinitions) {
-            this.fieldDefinitions = this.configurationApi.getFieldDefinitions()
-                .publishReplay(1).refCount();
-        }
-        return this.fieldDefinitions;
-    }
-
-    private getFieldDefinitionByName(name: string): Observable<FieldDefinitionDto> {
-        return this.getFieldDefinitions().map(result => {
-            return _.find(result, obj => obj.name === name);
-        });
-    }
-
-    private getFieldStyles(): Observable<StyleDto[]> {
-        if (!this.fieldStyles) {
-            this.fieldStyles = this.configurationApi.getFieldStyles()
-                .publishReplay(1).refCount();
-        }
-        return this.fieldStyles;
-    }
-
-    private getFieldValidations(): Observable<ValidationDto[]> {
-        if (!this.fieldValidations) {
-            this.fieldValidations = this.configurationApi.getFieldValidations()
-                .publishReplay(1).refCount();
-        }
-        return this.fieldValidations;
-    }
-
     /**
      * cath all available element types from the server
      *
@@ -579,7 +545,7 @@ export class FormElementService {
     @Loading('getElementTypeOptions')
     private getElementTypeOptions(): Observable<FieldDto> {
         const options: FieldModel = new Fields.FieldType();
-        return this.getFieldDefinitions().map(result => {
+        return this.configurationService.getFieldDefinitions().map((result: FieldDefinitionDto[]) => {
             options.options = result.map((obj: FieldDefinitionDto) => new Selectable(obj.name, obj.description));
             options.options.sort((a, b) => a.label < b.label ? 1 : -1);
             return options;
@@ -618,9 +584,9 @@ export class FormElementService {
     @Loading('getOptionsOfElementType')
     private getOptionsOfElementType(fieldType: string): Observable<FieldDto[]> {
         const name: FieldDto = new Fields.FieldName();
-        return this.getFieldDefinitionByName(fieldType).map(result => {
+        return this.configurationService.getFieldDefinitionByName(fieldType).map((result: FieldDefinitionDto) => {
             let options = [].concat(name);
-            const element = result.configs.map(obj => JSON.parse(obj));
+            const element = result.configs.map(obj => typeof obj === 'string' ? JSON.parse(obj) : obj);
             if (element) { options = options.concat(element); }
             options.push(new Fields.Devider());
             return options;
@@ -640,7 +606,7 @@ export class FormElementService {
     private getValidationsOfInputType(fieldType: string): Observable<FieldDto[]> {
         // TODO: filter by type
 
-        return this.getFieldValidations().map(result => {
+        return this.configurationService.getFieldValidations().map((result: ValidationDto[]) => {
             const param = new Fields.FieldValidation(null, {
                 options: result.map(obj => new Selectable(obj.validationString, obj.description))
             });
@@ -661,7 +627,7 @@ export class FormElementService {
     private getStylesOfInputType(fieldType: string): Observable<FieldDto[]> {
         // TODO: filter by type
 
-        return this.getFieldStyles().map(result => {
+        return this.configurationService.getFieldStyles().map((result: StyleDto[]) => {
             const param = new Fields.FieldStyles(null, {
                 options: result.map(obj => new Selectable(obj.styleString, obj.description))
             });

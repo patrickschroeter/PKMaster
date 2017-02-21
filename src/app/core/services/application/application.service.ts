@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 /** Services */
 import { AlertService } from './../../../modules/alert';
 import { FormService } from './../form';
+import { ConfigurationService } from './../configuration';
 import { AuthenticationService } from './../authentication';
 import { ApplicationApi } from './../../../swagger/api/ApplicationApi';
 import { TranslationService } from './../../../modules/translation';
@@ -60,7 +61,8 @@ export class ApplicationService {
         private auth: AuthenticationService,
         private formService: FormService,
         private applicationApi: ApplicationApi,
-        private conferenceService: ConferenceService
+        private conferenceService: ConferenceService,
+        private configurationService: ConfigurationService
     ) { }
 
     /**
@@ -176,6 +178,10 @@ export class ApplicationService {
             application.userId = user.id;
         });
 
+        this.configurationService.getStatusByName('created').subscribe(status => {
+            application.statusId = status.id;
+        });
+
         return this.applicationApi.createApplication((application as ApplicationCreateDto)).map((result: ApplicationDetailDto) => {
             return this.application = result;
         });
@@ -231,8 +237,10 @@ export class ApplicationService {
         const blocked = this.blockedStatusUpdate(application.status.name, ['created']);
         if (blocked) { return blocked; }
         /** TODO: move to server */
-        const param = _.cloneDeep(application);
-        param.status = { name: 'submitted' };
+        const param: ApplicationDetailDto = _.cloneDeep(application);
+        this.configurationService.getStatusByName('submitted').subscribe(status => {
+            param.status = status;
+        });
         return this.updateApplication(param).map((result: ApplicationDetailDto) => {
             return this.application = result;
         });
@@ -250,8 +258,10 @@ export class ApplicationService {
         const blocked = this.blockedStatusUpdate(application.status.name, ['submitted']);
         if (blocked) { return blocked; }
         /** TODO: move to server */
-        const param = _.cloneDeep(application);
-        param.status = { name: 'rescinded' };
+        const param: ApplicationDetailDto = _.cloneDeep(application);
+        this.configurationService.getStatusByName('rescinded').subscribe(status => {
+            param.status = status;
+        });
         return this.updateApplication(param).map((result: ApplicationDetailDto) => {
             return this.application = result;
         });
@@ -269,8 +279,10 @@ export class ApplicationService {
         const blocked = this.blockedStatusUpdate(application.status.name, ['created', 'rescinded']);
         if (blocked) { return blocked; }
         /** TODO: move to server */
-        const param = _.cloneDeep(application);
-        param.status = { name: 'deactivated' };
+        const param: ApplicationDetailDto = _.cloneDeep(application);
+        this.configurationService.getStatusByName('deactivated').subscribe(status => {
+            param.status = status;
+        });
         return this.updateApplication(param).map((result: ApplicationDetailDto) => {
             return this.application = result;
         });
@@ -286,9 +298,11 @@ export class ApplicationService {
      */
     public saveApplication(form: Object): Observable<ApplicationDetailDto> {
         if (!this.application) { return; }
-        const param = _.cloneDeep(this.application);
+        const param: ApplicationDetailDto = _.cloneDeep(this.application);
         param.filledForm = JSON.stringify(form);
-        param.status = { name: 'created' };
+        this.configurationService.getStatusByName('created').subscribe(status => {
+            param.status = status;
+        });
         console.log(JSON.stringify(param.filledForm));
         return this.updateApplication(param).map((result: ApplicationDetailDto) => {
             return this.application = result;

@@ -44,10 +44,10 @@ export class ApplicationsListComponent implements OnInit {
      * update the application in the applications list
      * @param {Application} application
      */
-    private updateApplication(application: ApplicationDetailDto): void {
-        const index = _.findIndex(this.applications, (obj: ApplicationDetailDto) => obj.id === application.id);
+    private updateApplication(newapplication: ApplicationDetailDto, oldapplication: ApplicationDetailDto): void {
+        const index = _.findIndex(this.applications, (obj: ApplicationDetailDto) => obj.id === oldapplication.id);
         if (index !== -1) {
-            this.applications[index] = application;
+            this.applications[index] = newapplication;
         }
     }
 
@@ -73,7 +73,7 @@ export class ApplicationsListComponent implements OnInit {
     @Access(['CreateApplications', 'DeactivateApplications'])
     private deactivateApplication(application: ApplicationDetailDto): void {
         this.applicationService.deactivateApplication(application).subscribe(result => {
-            this.updateApplication(result);
+            this.updateApplication(result, application);
             this.alert.setSuccessHint(`deactivateApplication${application.id}`,
                 this.translationService.translate('applicationDeactivated')
             );
@@ -103,7 +103,7 @@ export class ApplicationsListComponent implements OnInit {
     @Access(['CreateApplications', 'EditApplications'])
     private rescindApplication(application: ApplicationDetailDto): void {
         this.applicationService.rescindApplication(application).subscribe(result => {
-            this.updateApplication(result);
+            this.updateApplication(result, application);
             this.alert.setSuccessHint(`rescindApplication${application.id}`, this.translationService.translate('applicationRescinded'));
             this.modalService.destroyModal();
         });
@@ -131,7 +131,7 @@ export class ApplicationsListComponent implements OnInit {
     @Access(['CreateApplications', 'EditApplications'])
     private submitApplication(application: ApplicationDetailDto): void {
         this.applicationService.submitApplication(application).subscribe(result => {
-            this.updateApplication(result);
+            this.updateApplication(result, application);
             this.alert.setSuccessHint(`submitApplication${application.id}`, this.translationService.translate('applicationSubmitted'));
             this.modalService.destroyModal();
         });
@@ -147,13 +147,13 @@ export class ApplicationsListComponent implements OnInit {
             message: this.translationService.translate('confirmValidateApplicationHeader'),
             confirm: () => {
                 this.applicationService.confirmApplication(true, application).subscribe(result => {
-                    this.updateApplication(result);
+                    this.updateApplication(result, application);
                     this.modalService.destroyModal();
                 });
             },
             cancel: () => {
                 this.applicationService.confirmApplication(false, application).subscribe(result => {
-                    this.updateApplication(result);
+                    this.updateApplication(result, application);
                     this.modalService.destroyModal();
                 });
             },
