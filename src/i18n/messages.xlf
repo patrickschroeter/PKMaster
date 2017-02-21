@@ -382,8 +382,8 @@
         <source>Conference: <x id="INTERPOLATION"/></source>
         <target/>
       </trans-unit>
-      <trans-unit id="7ace8d80635faec093ec894966e2837f4fccae11" datatype="html">
-        <source>Attendant PK-Members</source>
+      <trans-unit id="26bddc6b96050f2f74b8d33027bebde8e5440e2b" datatype="html">
+        <source>Attendants</source>
         <target/>
       </trans-unit>
       <trans-unit id="bc77a5a84148e6ecae15a1afffa6f6313f1c787d" datatype="html">
