@@ -47,4 +47,6 @@ export interface FormDetailDto {
     // Custom
 
     requiresValidation?: boolean;
+
+    [key: string]: any;
 }

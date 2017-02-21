@@ -265,10 +265,13 @@ export class FormService {
     @Loading('saveFormAttributes')
     public saveFormAttributes(submit: FormDetailDto): Observable<FormDetailDto> {
         // TODO: save real data
-        const form = _.cloneDeep(this.form);
+        const form: FormDetailDto = _.cloneDeep(this.form);
 
-        form.title = submit.title;
-        form.restrictedAccess = submit.restrictedAccess;
+        for (const attribute in submit) {
+            if (attribute) {
+                form[attribute] = submit[attribute];
+            }
+        }
 
         this.alert.setLoading('saveFormAttributes', this.translationService.translate('saveForm'));
         return this.formApi.updateFormById(form.id, form).map(result => {
@@ -287,6 +290,11 @@ export class FormService {
     public saveForm(): Observable<FormDetailDto> {
         // TODO: save real data
         this.alert.setLoading('saveForm', this.translationService.translate('saveForm'));
+
+        this.form.formHasField = this.form.formHasField.map(obj => new FieldDto(obj));
+
+        console.log(_.cloneDeep(this.form));
+
         return this.formApi.updateFormById(this.form.id, this.form).map(form => {
             this.alert.removeHint('saveForm');
             if (form) {

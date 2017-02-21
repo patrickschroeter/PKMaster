@@ -114,7 +114,7 @@ export class RolesDetailComponent implements OnInit {
             list: this.permissions,
             click: this.addPermissionToRole.bind(this),
 
-            selectedValues: this.role.rolePermissions.map(obj => { return obj.id; }),
+            selectedValues: this.role.rolePermissions ? this.role.rolePermissions.map(obj => { return obj.id; }) : [],
 
             emptyText: this.translationService.translate('noPermissionsAvailable')
         });

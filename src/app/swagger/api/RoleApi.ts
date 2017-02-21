@@ -51,7 +51,7 @@ export class RoleApi {
      * @param permissionId2
      */
     public addPermissionToRole(roleId: string, permissionId: string, extraHttpRequestParams?: any): Observable<{}> {
-        const path = this.basePath + '/roles/{roleId}/permissions/{permission_id}'
+        const path = this.basePath + '/roles/{roleId}/permissions/{permissionId}'
             .replace('{' + 'roleId' + '}', String(roleId))
             .replace('{' + 'permissionId' + '}', String(permissionId))
 

@@ -26,7 +26,7 @@
 import * as models from './models';
 import { Selectable } from './../../models';
 
-export interface FieldDto {
+export class FieldDto {
 
 
     name?: string;
@@ -62,4 +62,22 @@ export interface FieldDto {
     options?: Array<Selectable>;
 
     [key: string]: any;
+
+    constructor(obj?: FieldDto) {
+        obj = obj || {};
+        this.name = obj.name;
+        this.fieldType = obj.fieldType;
+        this.label = obj.label;
+        this.required = !!obj.required;
+        this.multipleSelect = !!obj.multipleSelect;
+        this.disabled = !!obj.disabled;
+        this.contentType = obj.contentType;
+        this.placeholder = obj.placeholder;
+        this.optionsJson = obj.optionsJson;
+        this.enumOptionsTableId = obj.enumOptionsTableId;
+        this.styles = obj.styles;
+        this.validations = obj.validations;
+        this.value = obj.value;
+        this.options = obj.options;
+    }
 }

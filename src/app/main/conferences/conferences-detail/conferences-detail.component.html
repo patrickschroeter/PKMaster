@@ -4,9 +4,9 @@
     <h2 class="element element--spacing-bottom-small" i18n>Conference: {{ conference.description }}</h2>
     <h4 class="element element--spacing-bottom-large">{{ conference.dateOfEvent | date }} ({{ conference.startOfEvent }} - {{ conference.endOfEvent }}), {{ conference.roomOfEvent }}</h4>
 
-    <h4 i18n>Attendant PK-Members</h4>
+    <h4 i18n>Attendants</h4>
 
-    <div>
+    <div id="attendants">
         <ng-container *ngIf="!conference.members || !conference.members.length">
             <div class="empty-wrapper">
                 <div class="label" i18n>No attendant members.</div>
