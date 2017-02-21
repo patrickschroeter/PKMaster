@@ -81,12 +81,11 @@ export class ApplicationApi {
      * Assing User to Application
      *
      * @param applicationId ID of the Application
-     * @param userId
+     * @param assingnmentCreateDto Object that contains information of the user to assign
      */
-    public assignUserToApplication (applicationId: string, userId: string, extraHttpRequestParams?: any ) : Observable<Array<models.UserDetailDto>> {
-        const path = this.basePath + '/applications/{applicationId}/assignment/{userId}'
-            .replace('{' + 'applicationId' + '}', String(applicationId))
-            .replace('{' + 'userId' + '}', String(userId));
+    public assignUserToApplication (applicationId: string, assingnmentCreateDto?: models.AssignmentCreateDto, extraHttpRequestParams?: any ) : Observable<models.ApplicationDetailDto> {
+        const path = this.basePath + '/applications/{applicationId}/assignments'
+            .replace('{' + 'applicationId' + '}', String(applicationId));
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
@@ -94,15 +93,12 @@ export class ApplicationApi {
         if (applicationId === null || applicationId === undefined) {
             throw new Error('Required parameter applicationId was null or undefined when calling assignUserToApplication.');
         }
-        // verify required parameter 'userId' is not null or undefined
-        if (userId === null || userId === undefined) {
-            throw new Error('Required parameter userId was null or undefined when calling assignUserToApplication.');
-        }
         let requestOptions: RequestOptionsArgs = {
-            method: 'PUT',
+            method: 'POST',
             headers: headerParams,
             search: queryParameters
         };
+        requestOptions.body = JSON.stringify(assingnmentCreateDto);
 
         return this.http.request(path, requestOptions)
             .map((response: Response) => {
@@ -277,7 +273,7 @@ export class ApplicationApi {
      * @param userId
      */
     public removeAssignmentFromApplication (applicationId: string, userId: string, extraHttpRequestParams?: any ) : Observable<string> {
-        const path = this.basePath + '/applications/{applicationId}/assignment/{userId}'
+        const path = this.basePath + '/applications/{applicationId}/assignments/{userId}'
             .replace('{' + 'applicationId' + '}', String(applicationId))
             .replace('{' + 'userId' + '}', String(userId));
 
@@ -329,45 +325,6 @@ export class ApplicationApi {
             search: queryParameters
         };
         requestOptions.body = JSON.stringify(application);
-
-        return this.http.request(path, requestOptions)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return response.json();
-                }
-            });
-    }
-
-    /**
-     * Update a comment with Id
-     *
-     * @param applicationId ID of the Application
-     * @param commentId ID of the Comment
-     * @param comment Updated Comment
-     */
-    public updateApplicationCommentById (applicationId: string, commentId: string, comment?: models.CommentCreateDto, extraHttpRequestParams?: any ) : Observable<models.CommentDetailDto> {
-        const path = this.basePath + '/applications/{applicationId}/comments/{commentId}'
-            .replace('{' + 'applicationId' + '}', String(applicationId))
-            .replace('{' + 'commentId' + '}', String(commentId));
-
-        let queryParameters = new URLSearchParams();
-        let headerParams = this.defaultHeaders;
-        // verify required parameter 'applicationId' is not null or undefined
-        if (applicationId === null || applicationId === undefined) {
-            throw new Error('Required parameter applicationId was null or undefined when calling updateApplicationCommentById.');
-        }
-        // verify required parameter 'commentId' is not null or undefined
-        if (commentId === null || commentId === undefined) {
-            throw new Error('Required parameter commentId was null or undefined when calling updateApplicationCommentById.');
-        }
-        let requestOptions: RequestOptionsArgs = {
-            method: 'PUT',
-            headers: headerParams,
-            search: queryParameters
-        };
-        requestOptions.body = JSON.stringify(comment);
 
         return this.http.request(path, requestOptions)
             .map((response: Response) => {

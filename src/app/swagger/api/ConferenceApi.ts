@@ -81,6 +81,39 @@ export class ConferenceApi {
     }
 
     /**
+     * Assing User to Conference
+     *
+     * @param conferenceId Id of the conference
+     * @param attendantCreateDto
+     */
+    public addAttendadntToConference (conferenceId: string, attendantCreateDto?: models.AttendantCreateDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceDetailDto> {
+        const path = this.basePath + '/conferences/{conferenceId}/attendants'
+            .replace('{' + 'conferenceId' + '}', String(conferenceId));
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+        // verify required parameter 'conferenceId' is not null or undefined
+        if (conferenceId === null || conferenceId === undefined) {
+            throw new Error('Required parameter conferenceId was null or undefined when calling addAttendadntToConference.');
+        }
+        let requestOptions: RequestOptionsArgs = {
+            method: 'POST',
+            headers: headerParams,
+            search: queryParameters
+        };
+        requestOptions.body = JSON.stringify(attendantCreateDto);
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json();
+                }
+            });
+    }
+
+    /**
      * Create new Conference
      *
      * @param conference new Conference Object
@@ -96,39 +129,6 @@ export class ConferenceApi {
             search: queryParameters
         };
         requestOptions.body = JSON.stringify(conference);
-
-        return this.http.request(path, requestOptions)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return response.json();
-                }
-            });
-    }
-
-    /**
-     * Assing User to Conference
-     *
-     * @param conferenceId Id of the conference
-     * @param attendantCreateDto
-     */
-    public assignAttendantToConference (conferenceId: string, attendantCreateDto?: models.AttendantCreateDto, extraHttpRequestParams?: any ) : Observable<Array<models.AttendantCreateDto>> {
-        const path = this.basePath + '/conference/{conferenceId}/attendant'
-            .replace('{' + 'conferenceId' + '}', String(conferenceId));
-
-        let queryParameters = new URLSearchParams();
-        let headerParams = this.defaultHeaders;
-        // verify required parameter 'conferenceId' is not null or undefined
-        if (conferenceId === null || conferenceId === undefined) {
-            throw new Error('Required parameter conferenceId was null or undefined when calling assignUserToApplication.');
-        }
-        let requestOptions: RequestOptionsArgs = {
-            method: 'POST',
-            headers: headerParams,
-            search: queryParameters
-        };
-        requestOptions.body = JSON.stringify(attendantCreateDto);
 
         return this.http.request(path, requestOptions)
             .map((response: Response) => {
@@ -311,8 +311,8 @@ export class ConferenceApi {
      * @param conferenceId Id of the Conference
      * @param userId Id of the user
      */
-    public removeAttendantFromConference (conferenceId: string, userId: string, extraHttpRequestParams?: any ) : Observable<string> {
-        const path = this.basePath + '/conference/{conferenceId}/attendant/{userId}'
+    public removeAttendantFormConference (conferenceId: string, userId: string, extraHttpRequestParams?: any ) : Observable<string> {
+        const path = this.basePath + '/conferences/{conferenceId}/attendants/{userId}'
             .replace('{' + 'conferenceId' + '}', String(conferenceId))
             .replace('{' + 'userId' + '}', String(userId));
 
@@ -320,11 +320,11 @@ export class ConferenceApi {
         let headerParams = this.defaultHeaders;
         // verify required parameter 'conferenceId' is not null or undefined
         if (conferenceId === null || conferenceId === undefined) {
-            throw new Error('Required parameter conferenceId was null or undefined when calling removeAssignmentFromApplication.');
+            throw new Error('Required parameter conferenceId was null or undefined when calling removeAttendantFormConference.');
         }
         // verify required parameter 'userId' is not null or undefined
         if (userId === null || userId === undefined) {
-            throw new Error('Required parameter userId was null or undefined when calling removeAssignmentFromApplication.');
+            throw new Error('Required parameter userId was null or undefined when calling removeAttendantFormConference.');
         }
         let requestOptions: RequestOptionsArgs = {
             method: 'DELETE',
@@ -348,7 +348,7 @@ export class ConferenceApi {
      * @param conferenceId ID of the Conference
      * @param conference Conference to Update
      */
-    public updateConferenceById (conferenceId: string, conference?: models.ConferenceCreateDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceListDto> {
+    public updateConferenceById (conferenceId: string, conference?: models.ConferenceCreateDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceDetailDto> {
         const path = this.basePath + '/conferences/{conferenceId}'
             .replace('{' + 'conferenceId' + '}', String(conferenceId));
 

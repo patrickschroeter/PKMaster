@@ -170,15 +170,12 @@ export class ConferenceService {
         conference: ConferenceDetailDto,
         attendant?: AttendantCreateDto,
         extraHttpRequestParams?: any
-    ): Observable<AttendantCreateDto[]> {
+    ): Observable<ConferenceDetailDto> {
         const conferenceId = conference.id;
         this.conference = conference;
-        return this.conferenceApi.assignAttendantToConference(conferenceId, attendant, extraHttpRequestParams).map(result => {
-            if (attendant.typeOfAttendance === AttendantCreateDto.TypeOfAttendanceEnum.Guest) {
-                this.conference.guests = result;
-            } else if (attendant.typeOfAttendance === AttendantCreateDto.TypeOfAttendanceEnum.Member) {
-                this.conference.members = result;
-            }
+        // tslint:disable-next-line:max-line-length
+        return this.conferenceApi.addAttendadntToConference(conferenceId, attendant, extraHttpRequestParams).map((result: ConferenceDetailDto) => {
+            this.conference = result;
             return result;
         });
     }
@@ -201,7 +198,7 @@ export class ConferenceService {
         const conferenceId = conference.id;
         const userId = attendant.userId;
         this.conference = conference;
-        return this.conferenceApi.removeAttendantFromConference(conferenceId, userId, extraHttpRequestParams).map(result => {
+        return this.conferenceApi.removeAttendantFormConference(conferenceId, userId, extraHttpRequestParams).map(result => {
             if (attendant.typeOfAttendance === AttendantCreateDto.TypeOfAttendanceEnum.Guest) {
                 const index = _.findIndex(this.conference.guests, obj => obj.id === userId);
                 if (index !== -1) {

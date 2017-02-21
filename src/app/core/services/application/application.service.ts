@@ -380,7 +380,7 @@ export class ApplicationService {
         const applicationId = application.id;
         this.application = application;
         return this.applicationApi.assignUserToApplication(applicationId, userId, extraHttpRequestParams).map(result => {
-            this.application.assignments = result;
+            this.application = result;
             return result;
         });
     }

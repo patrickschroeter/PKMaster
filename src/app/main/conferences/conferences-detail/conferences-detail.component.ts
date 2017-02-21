@@ -1,4 +1,5 @@
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
+import { Response } from '@angular/http';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import * as _ from 'lodash';
 
@@ -10,6 +11,7 @@ import {
     UserService
 } from './../../../core';
 import { ModalService } from './../../../modules/overlay';
+import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
@@ -103,6 +105,7 @@ export class ConferencesDetailComponent implements OnInit {
         /** Modules */
         private modalService: ModalService,
         private translationService: TranslationService,
+        private alert: AlertService,
         /** Services */
         private conferenceService: ConferenceService,
         private applicationService: ApplicationService,
@@ -276,12 +279,15 @@ export class ConferencesDetailComponent implements OnInit {
         const attendant = _.find(this.conference[group], (obj: UserListDto) => obj.id === user.value);
         if (!attendant) {
             this.conferenceService.assignAttendantToConference(this.conference, new AttendantCreateDto(user.value, type))
-                .subscribe(result => {
+                .subscribe((result: ConferenceDetailDto) => {
+                    this.conference = result;
                     this.updateSelectedUsers();
+                }, (error: Response) => {
+                    this.alert.setAlert(error.statusText, error.text());
                 });
         } else {
             this.conferenceService.removeAttendantFromConference(this.conference, new AttendantCreateDto(attendant.id, type))
-                .subscribe(result => {
+                .subscribe((result: string) => {
                     this.updateSelectedUsers();
                 });
         }
@@ -299,7 +305,7 @@ export class ConferencesDetailComponent implements OnInit {
             if (this.modalType === 'members') {
                 this.modalService.updateSelectedValues(this.conference.members.map(obj => obj.id));
             } else {
-                this.modalService.updateSelectedValues(this.conference.members.map(obj => obj.id));
+                this.modalService.updateSelectedValues(this.conference.guests.map(obj => obj.id));
             }
         }
     }

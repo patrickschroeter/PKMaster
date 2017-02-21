@@ -1,3 +1,4 @@
+export * from './AssignmentCreateDto';
 export * from './ApplicationCreateDto';
 export * from './ApplicationDetailDto';
 export * from './ApplicationListDto';
