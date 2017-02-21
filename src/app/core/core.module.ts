@@ -14,6 +14,7 @@ import { ApplicationApi } from './../swagger/api/ApplicationApi';
 import { UserApi } from './../swagger/api/UserApi';
 import { ConferenceApi } from './../swagger/api/ConferenceApi';
 import { RoleApi } from './../swagger/api/RoleApi';
+import { ConfigurationApi } from './../swagger/api/ConfigurationApi';
 import {
     PermissionEndpoint,
     FormEndpoint,
@@ -88,6 +89,11 @@ const API = !!environment.api;
             useFactory: extendRoleApi,
             deps: [Http, PermissionEndpoint]
         },
+        {
+            provide: ConfigurationApi,
+            useFactory: extendConfigurationApi,
+            deps: [Http]
+        },
 
         // TODO: wait for permission api
         {
@@ -157,6 +163,9 @@ export function extendUserApi(http: Http, roleApi: RoleApi) {
 
 export function extendRoleApi(http: Http, permissionApi: PermissionEndpoint) {
     return API ? new RoleApi(http, BASEPATH) : new RoleEndpoint(permissionApi);
+}
+export function extendConfigurationApi(http: Http) {
+    return new ConfigurationApi(http, BASEPATH);
 }
 
 export function extendPermissionApi(http: Http) {

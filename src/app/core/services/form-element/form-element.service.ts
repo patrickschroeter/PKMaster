@@ -11,10 +11,17 @@ import { UserApiMock } from './../../';
 import { FormService } from './../form';
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
+import { ConfigurationApi } from './../../../swagger';
 
 /** Models */
-import { FieldDto, UserDetailDto } from './../../../swagger';
-import { Fields, Selectable } from './../../../models';
+import {
+    FieldDto,
+    UserDetailDto,
+    FieldDefinitionDto,
+    ValidationDto,
+    StyleDto
+} from './../../../swagger';
+import { Fields, Selectable, FieldModel } from './../../../models';
 
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
@@ -145,6 +152,10 @@ export class FormElementService {
      */
     private elementHasStylesRx: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+    private fieldDefinitions: Observable<FieldDefinitionDto[]>;
+    private fieldStyles: Observable<StyleDto[]>;
+    private fieldValidations: Observable<ValidationDto[]>;
+
     /**
      * Creates an instance of FormElementService.
      *
@@ -155,9 +166,12 @@ export class FormElementService {
      * @memberOf FormElementService
      */
     constructor(
-        private formService: FormService,
+        /** Modules */
+        private translationService: TranslationService,
         private alert: AlertService,
-        private translationService: TranslationService
+        /** Services */
+        private formService: FormService,
+        private configurationApi: ConfigurationApi
     ) {
         this.formService.onEditElement().subscribe((element?: FieldDto) => {
             if (element) {
@@ -216,57 +230,6 @@ export class FormElementService {
      */
     private editExistingElement(element: FieldDto): boolean {
 
-        this.resetElement();
-
-        if (!this.selectTypeFormElement.options) {
-            return !!console.error('No FieldTypes Options loaded');
-        }
-
-        const type = element['fieldType'];
-
-        /** Check if the required Element Type exists in Select Options */
-        let existing = false;
-        const inputTypes = this.selectTypeFormElement.options;
-        for (let i = 0; i < (inputTypes ? inputTypes.length : 0); i++) {
-            if (type === inputTypes[i].value) { existing = true; }
-        }
-
-        /** Set type as Select Value */
-        this.selectTypeFormElement.value = type;
-        this.selectedType = type;
-
-        /** Reset if type not exists */
-        if (!existing) {
-            return false;
-        }
-
-        /** Request all Options of the selected Type */
-        let returnedNumberOfRequests = 0;
-        let optionsOfElementType: FieldDto[], validationsOfElementType: FieldDto[], stylesOfElementType: FieldDto[];
-
-        let numberOfRequests = 1; // always get options
-        this.getOptionsOfElementType(type).subscribe((opt) => {
-            returnedNumberOfRequests++;
-            optionsOfElementType = opt;
-            update();
-        });
-
-        /** get Validation Options if required */
-        if (element.validations && element.validations.length !== 0) {
-            numberOfRequests++;
-            this.getValidationsOfInputType(type).subscribe((opt) => {
-                returnedNumberOfRequests++; validationsOfElementType = opt; update();
-            });
-        }
-
-        /** get Styles Options if required */
-        if (element.styles && element.styles.length !== 0) {
-            numberOfRequests++;
-            this.getStylesOfInputType(type).subscribe((opt) => {
-                returnedNumberOfRequests++; stylesOfElementType = opt; update();
-            });
-        }
-
         /**
          * Update the Element if all Observers returned
          */
@@ -319,6 +282,57 @@ export class FormElementService {
                 this.setElementPreview([element]);
             }
         };
+
+        this.resetElement();
+
+        if (!this.selectTypeFormElement.options) {
+            return !!console.error('No FieldTypes Options loaded');
+        }
+
+        const type = element['fieldType'];
+
+        /** Check if the required Element Type exists in Select Options */
+        let existing = false;
+        const inputTypes = this.selectTypeFormElement.options;
+        for (let i = 0; i < (inputTypes ? inputTypes.length : 0); i++) {
+            if (type === inputTypes[i].value) { existing = true; }
+        }
+
+        /** Set type as Select Value */
+        this.selectTypeFormElement.value = type;
+        this.selectedType = type;
+
+        /** Reset if type not exists */
+        if (!existing) {
+            return false;
+        }
+
+        /** Request all Options of the selected Type */
+        let returnedNumberOfRequests = 0;
+        let optionsOfElementType: FieldDto[], validationsOfElementType: FieldDto[], stylesOfElementType: FieldDto[];
+
+        let numberOfRequests = 1; // always get options
+        this.getOptionsOfElementType(type).subscribe((opt) => {
+            returnedNumberOfRequests++;
+            optionsOfElementType = opt;
+            update();
+        });
+
+        /** get Validation Options if required */
+        if (element.validations && element.validations.length !== 0) {
+            numberOfRequests++;
+            this.getValidationsOfInputType(type).subscribe((opt) => {
+                returnedNumberOfRequests++; validationsOfElementType = opt; update();
+            });
+        }
+
+        /** get Styles Options if required */
+        if (element.styles && element.styles.length !== 0) {
+            numberOfRequests++;
+            this.getStylesOfInputType(type).subscribe((opt) => {
+                returnedNumberOfRequests++; stylesOfElementType = opt; update();
+            });
+        }
 
         return true;
     }
@@ -524,6 +538,36 @@ export class FormElementService {
      *
      */
 
+    private getFieldDefinitions(): Observable<FieldDefinitionDto[]> {
+        if (!this.fieldDefinitions) {
+            this.fieldDefinitions = this.configurationApi.getFieldDefinitions()
+                .publishReplay(1).refCount();
+        }
+        return this.fieldDefinitions;
+    }
+
+    private getFieldDefinitionByName(name: string): Observable<FieldDefinitionDto> {
+        return this.getFieldDefinitions().map(result => {
+            return _.find(result, obj => obj.name === name);
+        });
+    }
+
+    private getFieldStyles(): Observable<StyleDto[]> {
+        if (!this.fieldStyles) {
+            this.fieldStyles = this.configurationApi.getFieldStyles()
+                .publishReplay(1).refCount();
+        }
+        return this.fieldStyles;
+    }
+
+    private getFieldValidations(): Observable<ValidationDto[]> {
+        if (!this.fieldValidations) {
+            this.fieldValidations = this.configurationApi.getFieldValidations()
+                .publishReplay(1).refCount();
+        }
+        return this.fieldValidations;
+    }
+
     /**
      * cath all available element types from the server
      *
@@ -534,12 +578,11 @@ export class FormElementService {
      */
     @Loading('getElementTypeOptions')
     private getElementTypeOptions(): Observable<FieldDto> {
-        const result: FieldDto = new Fields.FieldType();
-        return new Observable((observer: Observer<FieldDto>) => {
-            setTimeout(() => {
-                observer.next(result);
-                observer.complete();
-            }, 500);
+        const options: FieldModel = new Fields.FieldType();
+        return this.getFieldDefinitions().map(result => {
+            options.options = result.map((obj: FieldDefinitionDto) => new Selectable(obj.name, obj.description));
+            options.options.sort((a, b) => a.label < b.label ? 1 : -1);
+            return options;
         });
     }
 
@@ -575,16 +618,12 @@ export class FormElementService {
     @Loading('getOptionsOfElementType')
     private getOptionsOfElementType(fieldType: string): Observable<FieldDto[]> {
         const name: FieldDto = new Fields.FieldName();
-        const options: FieldDto = opts()[fieldType];
-        return new Observable((observer: Observer<FieldDto[]>) => {
-            setTimeout(() => {
-                let result = [].concat(name);
-                const element = _.cloneDeep(options);
-                if (element) { result = result.concat(element); }
-                result.push(new Fields.Devider());
-                observer.next(result);
-                observer.complete();
-            }, 500);
+        return this.getFieldDefinitionByName(fieldType).map(result => {
+            let options = [].concat(name);
+            const element = result.configs.map(obj => JSON.parse(obj));
+            if (element) { options = options.concat(element); }
+            options.push(new Fields.Devider());
+            return options;
         });
     }
 
@@ -599,12 +638,13 @@ export class FormElementService {
      */
     @Loading('getValidationsOfInputType')
     private getValidationsOfInputType(fieldType: string): Observable<FieldDto[]> {
-        const options = validations();
-        return new Observable((observer: Observer<FieldDto[]>) => {
-            setTimeout(() => {
-                observer.next(options[fieldType]);
-                observer.complete();
-            }, 500);
+        // TODO: filter by type
+
+        return this.getFieldValidations().map(result => {
+            const param = new Fields.FieldValidation(null, {
+                options: result.map(obj => new Selectable(obj.validationString, obj.description))
+            });
+            return [param];
         });
     }
 
@@ -619,17 +659,13 @@ export class FormElementService {
      */
     @Loading('getStylesOfInputType')
     private getStylesOfInputType(fieldType: string): Observable<FieldDto[]> {
-        const options = styles();
-        return new Observable((observer: Observer<FieldDto[]>) => {
-            setTimeout(() => {
-                /** TODO */
-                if (options) {
-                    observer.next([options]);
-                } else {
-                    observer.next(undefined);
-                }
-                observer.complete();
-            }, 500);
+        // TODO: filter by type
+
+        return this.getFieldStyles().map(result => {
+            const param = new Fields.FieldStyles(null, {
+                options: result.map(obj => new Selectable(obj.styleString, obj.description))
+            });
+            return [param];
         });
     }
 
@@ -772,127 +808,6 @@ export class FormElementService {
     public setElementHasStyles(hasStyles: boolean): void {
         this.elementHasStylesRx.next(hasStyles);
     }
-}
-
-
-
-
-/**
- * the options object
- *
- * @returns {Object}
- */
-function opts(): { [_: string]: FieldDto[] } {
-
-    const opts = {
-        input: [
-            new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
-            new Fields.FieldLabel(),
-            new Fields.FieldContentType('text'),
-            new Fields.FieldPlaceholder()
-        ],
-        textarea: [
-            new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
-            new Fields.FieldLabel(),
-            new Fields.FieldPlaceholder()
-        ],
-        checkbox: [
-            new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
-            new Fields.FieldLabel(),
-        ],
-        radio: [
-            new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
-            new Fields.FieldLabel(null, { required: true }),
-            new Fields.Devider(),
-            new Fields.H4('Create a custom List or use an existing one.', { styles: [] }),
-            new Fields.FieldOptionTable(null, {
-                /** TODO: load real data */
-                options: [
-                    { value: 'fakultaet', label: 'Fakultaeten' },
-                    { value: 'user', label: 'Users' },
-                    { value: 'language', label: 'Languages' }
-                ]
-            }),
-            new Fields.FieldOptions()
-        ],
-        select: [
-            new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
-            new Fields.FieldLabel(),
-            new Fields.FieldPlaceholder(),
-            new Fields.FieldMultipleSelect(),
-            new Fields.Devider(),
-            new Fields.H4('Create a custom List or use an existing one.', { styles: [] }),
-            new Fields.FieldOptionTable(null, {
-                /** TODO: load real data */
-                options: [
-                    { value: 'fakultaet', label: 'Fakultaeten' },
-                    { value: 'user', label: 'Users' },
-                    { value: 'language', label: 'Languages' }
-                ]
-            }),
-            new Fields.FieldOptions()
-        ],
-        info: [
-            new Fields.FieldValue(null, { fieldType: 'textarea' })
-        ],
-        h1: [
-            new Fields.FieldValue()
-        ],
-        h2: [
-            new Fields.FieldValue()
-        ],
-        h3: [
-            new Fields.FieldValue()
-        ],
-        h4: [
-            new Fields.FieldValue()
-        ],
-        // devider: [
-
-        // ],
-        // hiddenDevider: [
-
-        // ]
-    };
-    return opts;
-}
-
-/**
- * the validation object
- *
- * @returns {Object}
- */
-function validations(): { [_: string]: FieldDto[] } {
-    const validations = {
-        input: [
-            new Fields.FieldValidation(null, {
-                /** TODO: load real data */
-                options: [
-                    { value: 'isEmail', label: 'Email Validation' },
-                    { value: 'useExternalEmail', label: 'External Email Validation' },
-                    { value: 'minLength', label: 'min Length of 8' },
-                    { value: 'maxLength', label: 'max Length of 15' },
-                    { value: 'toBeTrue', label: 'Required' }
-                ]
-            })
-        ]
-    };
-    return validations;
-}
-
-/**
- * the styles object
- *
- * @returns {FieldDto}
- */
-function styles(): FieldDto {
-    const styles = new Fields.FieldStyles(null, {
-        options: [
-            { value: 'small', label: 'Small' },
-            { value: 'aligned', label: 'Aligned ( + 1 rem at top)' }
-        ]
-    });
-    return styles;
 }
 
 

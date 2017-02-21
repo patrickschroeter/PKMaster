@@ -195,6 +195,9 @@ export class SelectComponent implements OnInit {
         }
 
         this.formControl.setValue(values);
+        if (!this.config.multipleSelect) {
+            this.filterOptions('');
+        }
     }
 
     /**
