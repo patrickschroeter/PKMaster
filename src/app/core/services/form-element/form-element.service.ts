@@ -308,11 +308,6 @@ export class FormElementService {
         let optionsOfElementType: FieldDto[], validationsOfElementType: FieldDto[], stylesOfElementType: FieldDto[];
 
         let numberOfRequests = 1; // always get options
-        this.getOptionsOfElementType(type).subscribe((opt) => {
-            returnedNumberOfRequests++;
-            optionsOfElementType = opt;
-            update();
-        });
 
         /** get Validation Options if required */
         if (element.validations && element.validations.length !== 0) {
@@ -329,6 +324,12 @@ export class FormElementService {
                 returnedNumberOfRequests++; stylesOfElementType = opt; update();
             });
         }
+
+        this.getOptionsOfElementType(type).subscribe((opt) => {
+            returnedNumberOfRequests++;
+            optionsOfElementType = opt;
+            update();
+        });
 
         return true;
     }
@@ -546,7 +547,7 @@ export class FormElementService {
     private getElementTypeOptions(): Observable<FieldDto> {
         const options: FieldModel = new Fields.FieldType();
         return this.configurationService.getFieldDefinitions().map((result: FieldDefinitionDto[]) => {
-            options.options = result.map((obj: FieldDefinitionDto) => new Selectable(obj.name, obj.description));
+            options.options = result.map((obj: FieldDefinitionDto) => new Selectable(obj.id, obj.description));
             options.options.sort((a, b) => a.label < b.label ? 1 : -1);
             return options;
         });
@@ -582,9 +583,9 @@ export class FormElementService {
      * @memberOf FormElementService
      */
     @Loading('getOptionsOfElementType')
-    private getOptionsOfElementType(fieldType: string): Observable<FieldDto[]> {
+    private getOptionsOfElementType(id: string): Observable<FieldDto[]> {
         const name: FieldDto = new Fields.FieldName();
-        return this.configurationService.getFieldDefinitionByName(fieldType).map((result: FieldDefinitionDto) => {
+        return this.configurationService.getFieldDefinitionById(id).map((result: FieldDefinitionDto) => {
             let options = [].concat(name);
             const element = result.configs.map(obj => typeof obj === 'string' ? JSON.parse(obj) : obj);
             if (element) { options = options.concat(element); }
@@ -603,12 +604,12 @@ export class FormElementService {
      * @memberOf FormElementService
      */
     @Loading('getValidationsOfInputType')
-    private getValidationsOfInputType(fieldType: string): Observable<FieldDto[]> {
+    private getValidationsOfInputType(id: string): Observable<FieldDto[]> {
         // TODO: filter by type
 
         return this.configurationService.getFieldValidations().map((result: ValidationDto[]) => {
             const param = new Fields.FieldValidation(null, {
-                options: result.map(obj => new Selectable(obj.validationString, obj.description))
+                options: result.map(obj => new Selectable(obj.id, obj.description))
             });
             return [param];
         });
@@ -624,12 +625,12 @@ export class FormElementService {
      * @memberOf FormElementService
      */
     @Loading('getStylesOfInputType')
-    private getStylesOfInputType(fieldType: string): Observable<FieldDto[]> {
+    private getStylesOfInputType(id: string): Observable<FieldDto[]> {
         // TODO: filter by type
 
         return this.configurationService.getFieldStyles().map((result: StyleDto[]) => {
             const param = new Fields.FieldStyles(null, {
-                options: result.map(obj => new Selectable(obj.styleString, obj.description))
+                options: result.map(obj => new Selectable(obj.id, obj.description))
             });
             return [param];
         });

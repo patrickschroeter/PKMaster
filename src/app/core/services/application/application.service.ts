@@ -182,9 +182,10 @@ export class ApplicationService {
             application.statusId = status.id;
         });
 
-        return this.applicationApi.createApplication((application as ApplicationCreateDto)).map((result: ApplicationDetailDto) => {
-            return this.application = result;
-        });
+        return this.applicationApi.createApplication((application as ApplicationCreateDto))
+            .map((result: ApplicationDetailDto) => {
+                return this.application = result;
+            });
     }
 
     /**

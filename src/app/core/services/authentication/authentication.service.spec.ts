@@ -7,7 +7,7 @@ import { Observer, Observable } from 'rxjs/Rx';
 
 import { AuthenticationService } from './authentication.service';
 
-import { UserApiMock, PermissionMock, PermissionService } from './../../../core';
+import { UserApiMock, PermissionMock, PermissionService, ConfigurationService, ConfigurationMock } from './../../../core';
 import { AlertProviderMock } from './../../../modules/alert/alert.module';
 import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
@@ -25,7 +25,8 @@ describe('Service: Authentication', () => {
                 ...AlertProviderMock,
                 ...TranslationProviderMock,
                 { provide: PermissionService, useClass: PermissionMock },
-                { provide: UserApi, useClass: UserApiMock }
+                { provide: UserApi, useClass: UserApiMock },
+                { provide: ConfigurationService, useClass: ConfigurationMock },
             ],
             imports: [
                 RouterTestingModule.withRoutes([

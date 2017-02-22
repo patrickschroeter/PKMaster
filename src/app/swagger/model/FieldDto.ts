@@ -54,6 +54,12 @@ export class FieldDto {
 
     validations?: Array<string>;
 
+    stylesId?: Array<string>;
+
+    styleIds?: Array<string>;
+
+    validationIds?: Array<string>;
+
     // Custom
 
     value?: string | string[];
@@ -66,7 +72,7 @@ export class FieldDto {
 
     constructor(obj?: FieldDto) {
         obj = obj || {};
-        this.id = obj.id || null;
+        this.id = obj.id;
         this.name = obj.name || null;
         this.fieldType = obj.fieldType || null;
         this.label = obj.label || null;
@@ -81,5 +87,8 @@ export class FieldDto {
         this.validations = obj.validations || [];
         this.value = obj.value || null;
         this.options = obj.options || [];
+
+        this.styleIds = this.styles;
+        this.validationIds = this.validations;
     }
 }

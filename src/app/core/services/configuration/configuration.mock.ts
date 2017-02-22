@@ -42,10 +42,36 @@ export class ConfigurationMock {
      *
      * @memberOf ConfigurationService
      */
-    public getFieldDefinitionByName(name: string): Observable<FieldDefinitionDto> {
+    public getFieldDefinitionById(id: string): Observable<FieldDefinitionDto> {
         return this.getFieldDefinitions().map(result => {
-            return _.find(result, obj => obj.name === name);
+            return _.find(result, obj => obj.id === id);
         });
+    }
+
+    /**
+     * Check if the given name matches the Field Definition with the id
+     * return true if name and id are the same strings
+     *
+     * @param {String} name
+     * @param {String} id
+     * @returns {Boolean}
+     *
+     * @memberOf ConfigurationService
+     */
+    public isFieldDefinition(name: string, id: string): boolean {
+        return true;
+    }
+
+    /**
+     * Get the name of the FieldDefinitionDto with the id
+     *
+     * @param {String} id
+     * @returns {String}
+     *
+     * @memberOf ConfigurationService
+     */
+    public getFieldDefinitionName(id: string): string {
+        return id;
     }
 
     /**
@@ -63,6 +89,20 @@ export class ConfigurationMock {
     }
 
     /**
+     * Check if the name matches the StyleDto with the id
+     * return true if name and id are the same strings
+     *
+     * @param {String} name
+     * @param {String} id
+     * @returns {Boolean}
+     *
+     * @memberOf ConfigurationService
+     */
+    public isStyle(name: string, id: string): boolean {
+        return name === id;
+    }
+
+    /**
      * get all field validations
      *
      * @returns {Observable<ValidationDto[]>}
@@ -74,6 +114,20 @@ export class ConfigurationMock {
             // tslint:disable-next-line:max-line-length
             observer.next([{ 'id': '55f37c8b-56aa-4b4f-8f14-b500854e11a9', 'description': 'Email Validation', 'validationString': 'max-lenght-20' }, { 'id': '640dae4d-8cfe-4aec-a98c-9ec23dc842d6', 'description': 'External Email Validation', 'validationString': 'min-length-8' }, { 'id': '5655ef15-f9f8-4ada-8ccb-4cc363e0deab', 'description': 'min Length of 8', 'validationString': 'minLength' }, { 'id': 'c38e9b47-7a60-4ddc-8367-d33f17e39e78', 'description': 'max Length of 15', 'validationString': 'maxLength' }, { 'id': 'ee4e7f9a-9d38-484a-97e9-91ac8e40bd94', 'description': 'Required', 'validationString': 'toBeTrue' }]);
         });
+    }
+
+    /**
+     * Check if the name matches the ValidationDto with the id
+     * return true if name and id are the same strings
+     *
+     * @param {string} name
+     * @param {string} id
+     * @returns {boolean}
+     *
+     * @memberOf ConfigurationService
+     */
+    public isValidation(name: string, id: string): boolean {
+        return name === id;
     }
 
     /**

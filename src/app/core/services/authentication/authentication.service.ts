@@ -7,6 +7,7 @@ import { PermissionService } from './../permission/permission.service';
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 import { UserApi } from './../../../swagger/api/UserApi';
+import { ConfigurationService } from './../';
 
 /** TODO */
 import { UserApiMock } from './../../../core';
@@ -94,6 +95,7 @@ export class AuthenticationService {
         /** Services */
         private userApi: UserApi,
         private permission: PermissionService,
+        private configurationService: ConfigurationService
     ) {
         if (this.token) {
             this.login().subscribe(() => { }, error => {
@@ -237,6 +239,12 @@ export class AuthenticationService {
             observer.error(error);
             observer.complete();
         });
+
+        // TODO: load config
+        this.configurationService.getFieldDefinitions().subscribe();
+        this.configurationService.getFieldValidations().subscribe();
+        this.configurationService.getFieldStyles().subscribe();
+        this.configurationService.getStatusValues().subscribe();
     }
 
     /**

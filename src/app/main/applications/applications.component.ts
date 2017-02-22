@@ -134,6 +134,12 @@ export class ApplicationsComponent implements OnInit {
                 this.router.navigate([`/applications/`, created['id'], 'edit']);
             }
             this.modalService.destroyModal();
+        }, error => {
+            this.modalService.destroyModal();
+            this.alert.setAlert(
+                this.translationService.translate('Error'),
+                this.translationService.translate('couldntCreateApplication')
+            );
         });
     }
 }
