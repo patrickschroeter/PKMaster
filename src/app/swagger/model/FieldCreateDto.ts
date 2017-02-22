@@ -68,15 +68,15 @@ export class FieldCreateDto {
         this.multipleSelect = obj.multipleSelect;
         this.contentType = obj.contentType;
         this.placeholder = obj.placeholder;
-        this.optionsJson = obj.optionsJson;
         this.enumOptionsTableId = obj.enumOptionsTableId;
         this.styleIds = [];
         this.validationIds = [];
+        // TODO get styleIds & validationIds
         // this.styleIds = obj.styles ? obj.styles.map(obj => obj.id): [];
         // this.validationIds = obj.validations ? obj.validations.map(obj => obj.id) : [];
         this.value = obj.value;
-        if (obj.optionsJson && typeof obj.optionsJson === 'string') {
-            this.options = JSON.parse(obj.optionsJson);
-        }
+
+        this.options = obj.options || [];
+        this.optionsJson = obj.options ? JSON.stringify(obj.options) : obj.optionsJson;
     }
 }

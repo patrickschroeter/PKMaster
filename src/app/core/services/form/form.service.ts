@@ -291,11 +291,11 @@ export class FormService {
         // TODO: save real data
         this.alert.setLoading('saveForm', this.translationService.translate('saveForm'));
 
-        this.form.formHasField = this.form.formHasField.map(obj => new FieldDto(obj));
+        // this.form.formHasField = this.form.formHasField.map(obj => new FieldDto(obj));
 
-        console.log(_.cloneDeep(this.form));
+        const param = new FormDetailDto(this.form);
 
-        return this.formApi.updateFormById(this.form.id, this.form).map(form => {
+        return this.formApi.updateFormById(param.id, param).map(form => {
             this.alert.removeHint('saveForm');
             if (form) {
                 return this.form = form;

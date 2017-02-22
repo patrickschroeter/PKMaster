@@ -88,8 +88,10 @@ export class ApplicationsComponent implements OnInit {
 
     @Access('ReadApplications')
     private getAllApplications(): void {
-        this.activeTab = 'all';
         this.applicationService.getApplications().subscribe(result => {
+            if (result && result.length) {
+                this.activeTab = 'all';
+            }
             this.applications = result;
         });
     }

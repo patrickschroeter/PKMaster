@@ -39,8 +39,8 @@ export class FormCreateDto {
     constructor(obj?: models.FormDetailDto) {
         obj = obj || {};
         this.title = obj.title;
-        this.restrictedAccess = obj.restrictedAccess || false;
-        this.isPublic = obj.isPublic || false;
+        this.restrictedAccess = !!obj.restrictedAccess;
+        this.isPublic = !!obj.isPublic;
         this.formHasField = obj.formHasField ? obj.formHasField.map((obj: models.FieldDto) => new models.FieldCreateDto(obj)): [];
     }
 }

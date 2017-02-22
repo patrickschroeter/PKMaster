@@ -50,6 +50,7 @@ export class ApplicationApi {
      * @param applicationId ID of the Application
      * @param comment New Comment
      */
+    @Parse('CommentDetailDto')
     public addCommentToApplication (applicationId: string, comment?: models.CommentCreateDto, extraHttpRequestParams?: any ) : Observable<Array<models.CommentDetailDto>> {
         const path = this.basePath + '/applications/{applicationId}/comments'
             .replace('{' + 'applicationId' + '}', String(applicationId));
@@ -83,6 +84,7 @@ export class ApplicationApi {
      * @param applicationId ID of the Application
      * @param assingnmentCreateDto Object that contains information of the user to assign
      */
+    @Parse('ApplicationDetailDto')
     public assignUserToApplication (applicationId: string, assingnmentCreateDto?: models.AssignmentCreateDto, extraHttpRequestParams?: any ) : Observable<models.ApplicationDetailDto> {
         const path = this.basePath + '/applications/{applicationId}/assignments'
             .replace('{' + 'applicationId' + '}', String(applicationId));
@@ -115,6 +117,7 @@ export class ApplicationApi {
      *
      * @param application The new Application Object
      */
+    @Parse('ApplicationDetailDto')
     public createApplication (application?: models.ApplicationCreateDto, extraHttpRequestParams?: any ) : Observable<models.ApplicationDetailDto> {
         const path = this.basePath + '/applications';
 
@@ -206,6 +209,7 @@ export class ApplicationApi {
      * @param filter Filter the Result
      * @param sort Sort the Result
      */
+    @Parse('ApplicationListDto')
     public getApplications (filter?: string, sort?: string, extraHttpRequestParams?: any ) : Observable<Array<models.ApplicationListDto>> {
         const path = this.basePath + '/applications';
 
@@ -240,6 +244,7 @@ export class ApplicationApi {
      * The Applications Endpoint returns the History of a application
      * @param applicationId
      */
+    @Parse('ApplicationDetailDto')
     public getHistoryOfApplication (applicationId: string, extraHttpRequestParams?: any ) : Observable<Array<models.ApplicationDetailDto>> {
         const path = this.basePath + '/applications/{applicationId}/history'
             .replace('{' + 'applicationId' + '}', String(applicationId));
@@ -309,6 +314,7 @@ export class ApplicationApi {
      * @param applicationId ID of the Application
      * @param application Application to Update
      */
+    @Parse('ApplicationDetailDto')
     public updateApplicationById (applicationId: string, application?: models.ApplicationCreateDto, extraHttpRequestParams?: any ) : Observable<models.ApplicationDetailDto> {
         const path = this.basePath + '/applications/{applicationId}'
             .replace('{' + 'applicationId' + '}', String(applicationId));

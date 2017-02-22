@@ -52,8 +52,7 @@ export class ConferenceCreateDto {
         this.endOfEvent = obj.endOfEvent;
         this.roomOfEvent = obj.roomOfEvent;
         this.numberOfConference = obj.numberOfConference;
-        if (obj.config) {
-            this.configJson = JSON.stringify(obj.config);
-        }
+
+        this.configJson = obj.config ? JSON.stringify(obj.config) : '';
     }
 }

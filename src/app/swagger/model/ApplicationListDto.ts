@@ -51,11 +51,12 @@ export class ApplicationListDto {
         this.id = obj.id;
         this.created = obj.created;
         this.lastModified = obj.lastModified;
-        this.isCurrent = obj.isCurrent;
+        this.isCurrent = !!obj.isCurrent;
         this.version = obj.version;
-        this.user = obj.user;
-        this.conference = obj.conference;
-        this.status = obj.status;
-        this.form = obj.form;
+
+        this.user = obj.user ? new models.UserDetailDto(obj.user): undefined;
+        this.conference = obj.conference ? new models.ConferenceListDto(obj.conference): undefined;
+        this.status = obj.status ? new models.StatusDto(obj.status): undefined;
+        this.form = obj.form ? new models.FormDetailDto(obj.form): undefined;
     }
 }

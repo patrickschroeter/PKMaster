@@ -27,6 +27,7 @@ import {Injectable, Optional} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
+import { Parse } from './../../shared/decorators/parse.decorator';
 
 /* tslint:disable:no-unused-variable member-ordering */
 
@@ -86,6 +87,7 @@ export class ConferenceApi {
      * @param conferenceId Id of the conference
      * @param attendantCreateDto
      */
+    @Parse('ConferenceDetailDto')
     public addAttendadntToConference (conferenceId: string, attendantCreateDto?: models.AttendantCreateDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceDetailDto> {
         const path = this.basePath + '/conferences/{conferenceId}/attendants'
             .replace('{' + 'conferenceId' + '}', String(conferenceId));
@@ -118,6 +120,7 @@ export class ConferenceApi {
      *
      * @param conference new Conference Object
      */
+    @Parse('ConferenceDetailDto')
     public addConference (conference?: models.ConferenceCreateDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceCreateDto> {
         const path = this.basePath + '/conferences';
 
@@ -213,6 +216,7 @@ export class ConferenceApi {
      *
      * @param conferenceId ID of the Conference
      */
+    @Parse('ApplicationDetailDto')
     public getApplicationsByConference (conferenceId: string, extraHttpRequestParams?: any ) : Observable<Array<models.ApplicationDetailDto>> {
         const path = this.basePath + '/conferences/{conferenceId}/applications'
             .replace('{' + 'conferenceId' + '}', String(conferenceId));
@@ -244,6 +248,7 @@ export class ConferenceApi {
      *
      * @param conferenceId ID of the Conference
      */
+    @Parse('ConferenceDetailDto')
     public getConferenceById (conferenceId: string, extraHttpRequestParams?: any ) : Observable<models.ConferenceDetailDto> {
         const path = this.basePath + '/conferences/{conferenceId}'
             .replace('{' + 'conferenceId' + '}', String(conferenceId));
@@ -276,6 +281,7 @@ export class ConferenceApi {
      * @param filter Filter the Result
      * @param sort Sort the Result
      */
+    @Parse('ConferenceListDto')
     public getConferences (filter?: string, sort?: string, extraHttpRequestParams?: any ) : Observable<Array<models.ConferenceListDto>> {
         const path = this.basePath + '/conferences';
 
@@ -348,6 +354,7 @@ export class ConferenceApi {
      * @param conferenceId ID of the Conference
      * @param conference Conference to Update
      */
+    @Parse('ConferenceDetailDto')
     public updateConferenceById (conferenceId: string, conference?: models.ConferenceCreateDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceDetailDto> {
         const path = this.basePath + '/conferences/{conferenceId}'
             .replace('{' + 'conferenceId' + '}', String(conferenceId));

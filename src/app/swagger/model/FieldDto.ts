@@ -28,6 +28,7 @@ import { Selectable } from './../../models';
 
 export class FieldDto {
 
+    id?: string;
 
     name?: string;
 
@@ -65,19 +66,20 @@ export class FieldDto {
 
     constructor(obj?: FieldDto) {
         obj = obj || {};
-        this.name = obj.name;
-        this.fieldType = obj.fieldType;
-        this.label = obj.label;
+        this.id = obj.id || null;
+        this.name = obj.name || null;
+        this.fieldType = obj.fieldType || null;
+        this.label = obj.label || null;
         this.required = !!obj.required;
         this.multipleSelect = !!obj.multipleSelect;
         this.disabled = !!obj.disabled;
-        this.contentType = obj.contentType;
-        this.placeholder = obj.placeholder;
-        this.optionsJson = obj.optionsJson;
-        this.enumOptionsTableId = obj.enumOptionsTableId;
-        this.styles = obj.styles;
-        this.validations = obj.validations;
-        this.value = obj.value;
-        this.options = obj.options;
+        this.contentType = obj.contentType || null;
+        this.placeholder = obj.placeholder || null;
+        this.optionsJson = obj.optionsJson || null;
+        this.enumOptionsTableId = obj.enumOptionsTableId || null;
+        this.styles = obj.styles || [];
+        this.validations = obj.validations || [];
+        this.value = obj.value || null;
+        this.options = obj.options || [];
     }
 }

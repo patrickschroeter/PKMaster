@@ -1,6 +1,6 @@
 /**
  */
-import * as swagger from './../../swagger';
+import * as swagger from './../../swagger/model/models';
 
 export function Parse(name: string) {
     return function (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
@@ -23,10 +23,13 @@ export function Parse(name: string) {
                         for (let i = 0; i < element.length; i++) {
                             array.push(parseObject(fn, element[i], name));
                         }
+                        console.log(array);
                         return array;
                     } else {
                         // console.log(parseObject(fn, element, name));
-                        return parseObject(fn, element, name);
+                        const object = parseObject(fn, element, name);
+                        console.log(object);
+                        return object;
                     }
                 });
             } else {
@@ -41,11 +44,14 @@ export function Parse(name: string) {
 }
 
 export function parseObject(fn: any, element: any, name: string) {
-    const object = Object.create(fn[name].prototype);
-    for (const key in element) {
-        if (key) {
-            object[key] = element[key];
-        }
-    }
+    // const object = Object.create(fn[name].prototype);
+    //
+    // for (const key in element) {
+    //     if (key) {
+    //         object[key] = element[key];
+    //     }
+    // }
+
+    const object = new fn[name](element);
     return object;
 }

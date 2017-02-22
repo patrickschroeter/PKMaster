@@ -60,4 +60,26 @@ export class ApplicationDetailDto {
     // Client Only
 
     attributes?: Array<models.FieldDto>;
+
+    constructor(obj?: ApplicationDetailDto) {
+        obj = obj || {};
+
+        this.id = obj.id;
+        this.created = obj.created;
+        this.lastModified = obj.lastModified;
+        this.filledForm = obj.filledForm;
+        this.version = obj.version;
+        this.isCurrent = !!obj.isCurrent;
+        this.previousVersion = obj.previousVersion;
+        this.confirmed = !!obj.confirmed;
+
+        this.user = obj.user ? new models.UserDetailDto(obj.user): undefined;
+        this.conference = obj.conference ? new models.ConferenceListDto(obj.conference): undefined;
+        this.status = obj.status ? new models.StatusDto(obj.status): undefined;
+        this.form = obj.form ? new models.FormDetailDto(obj.form): undefined;
+
+        this.assignments = obj.assignments ? obj.assignments.map((model: models.UserDetailDto) => new models.UserDetailDto(model)): [];
+        this.comments = obj.comments ? obj.comments.map((model: models.CommentDetailDto) => new models.CommentDetailDto(model)): [];
+        this.attributes = obj.attributes ? obj.attributes.map((model: models.FieldDto) => new models.FieldDto(model)): [];
+    }
 }

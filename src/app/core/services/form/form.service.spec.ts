@@ -570,8 +570,9 @@ describe('Service: Form', () => {
         it('should call api.updateFormById', () => {
             spyOn(api, 'updateFormById').and.callThrough();
             service.getFormById('id').subscribe(form => {
+                const param = new FormDetailDto(form);
                 service.saveForm().subscribe(result => {
-                    expect(api.updateFormById).toHaveBeenCalledWith(form.id, form);
+                    expect(api.updateFormById).toHaveBeenCalledWith(param.id, param);
                 });
             });
         });

@@ -25,8 +25,7 @@
 'use strict';
 import * as models from './models';
 
-export interface CommentDetailDto {
-
+export class CommentDetailDto {
 
     id?: string;
 
@@ -39,4 +38,17 @@ export interface CommentDetailDto {
     requiresChanges?: boolean;
 
     user?: models.UserDetailDto;
+
+    constructor(obj?: CommentDetailDto) {
+        obj = obj || {};
+
+        this.id = obj.id;
+        this.message = obj.message;
+        this.created = obj.created;
+        this.isPrivate = !!obj.isPrivate;
+        this.requiresChanges = !!obj.requiresChanges;
+
+        this.user = obj.user ? new models.UserDetailDto(obj.user) : undefined;
+
+    }
 }

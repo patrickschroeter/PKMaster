@@ -25,8 +25,7 @@
 'use strict';
 import * as models from './models';
 
-export interface FormDetailDto {
-
+export class FormDetailDto {
 
     id?: string;
 
@@ -49,4 +48,19 @@ export interface FormDetailDto {
     requiresValidation?: boolean;
 
     [key: string]: any;
+
+    constructor(obj?: FormDetailDto) {
+        obj = obj || {};
+
+        this.id = obj.id || null;
+        this.title = obj.title || null;
+        this.deprecated = !!obj.deprecated;
+        this.created = obj.created || null;
+        this.restrictedAccess = !!obj.restrictedAccess;
+        this.isPublic = !!obj.isPublic;
+        this.isActive = !!obj.isActive;
+        this.requiresValidation = !!obj.requiresValidation;
+
+        this.formHasField = obj.formHasField ? obj.formHasField.map((model: models.FieldDto) => new models.FieldDto(model)): [];
+    }
 }

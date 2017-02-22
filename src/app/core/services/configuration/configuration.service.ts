@@ -23,11 +23,7 @@ export class ConfigurationService {
 
     constructor(
         private configurationApi: ConfigurationApi
-    ) {
-        this.getStatusValues().subscribe(result => {
-            console.log(result);
-        });
-    }
+    ) { }
 
     /**
      * load all field definitions
