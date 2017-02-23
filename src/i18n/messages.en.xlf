@@ -78,9 +78,9 @@
         <source>Created</source>
         <target>Created</target>
       </trans-unit>
-      <trans-unit id="6986e0df8092d822ac2c076520d83994c78834fc" datatype="html">
-        <source>Modified</source>
-        <target>Modified</target>
+      <trans-unit id="8fe73a4787b8068b2ba61f54ab7e0f9af2ea1fc9" datatype="html">
+        <source>Version</source>
+        <target>Version</target>
       </trans-unit>
       <trans-unit id="b023615c8da9157b65a8fb97eadde3cce09a7b13" datatype="html">
         <source>No Form to get Title from.</source>
@@ -105,6 +105,10 @@
       <trans-unit id="e225a597fb81f209bfcd5da807003b90f1e357cf" datatype="html">
         <source>Validate Application</source>
         <target>Validate Application</target>
+      </trans-unit>
+      <trans-unit id="6986e0df8092d822ac2c076520d83994c78834fc" datatype="html">
+        <source>Modified</source>
+        <target>Modified</target>
       </trans-unit>
       <trans-unit id="e4f88639dbc1934cf5dfc00faa42a0bf1bddb82a" datatype="html">
         <source>No Title</source>
@@ -384,7 +388,7 @@
       </trans-unit>
       <trans-unit id="26bddc6b96050f2f74b8d33027bebde8e5440e2b" datatype="html">
         <source>Attendants</source>
-        <target>Attendant PK-Members</target>
+        <target>Attendants</target>
       </trans-unit>
       <trans-unit id="bc77a5a84148e6ecae15a1afffa6f6313f1c787d" datatype="html">
         <source>No attendant members.</source>

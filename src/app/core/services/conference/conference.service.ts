@@ -120,6 +120,9 @@ export class ConferenceService {
     @Loading('saveConference')
     public saveConference(conference: ConferenceDetailDto): Observable<ConferenceDetailDto> {
         const param: ConferenceCreateDto = new ConferenceCreateDto(conference);
+        console.log(param);
+        console.log(conference);
+
         return this.conferenceApi.updateConferenceById(conference.id, param).map((result: ConferenceDetailDto) => {
             return this.conference = result;
         });

@@ -37,7 +37,7 @@ export class FormApiMock {
     }
 
     public updateFormById(formId: string, form?: FormDetailDto, extraHttpRequestParams?: any): Observable<any> {
-        return new Observable((observer: Observer<any>) => { formId === form.id ? observer.next(form) : observer.error('error'); observer.complete(); });
+        return new Observable((observer: Observer<any>) => { true ? observer.next(form) : observer.error('error'); observer.complete(); });
     }
 }
 

@@ -296,6 +296,24 @@ formService als !singleton into element-edit.component?
 - ~~Fläche? -> Statusmeldung, Passpartout~~
 
 
+## 23.Januar (Rothaug)
+
+- PK4.0 ohne leerzeichen, in bold(700)
+- logo klickbar
+- open sans da mehr zwischenschnitte für zb labels
+- zuordnung content-buttonbereich: heller - dunkler + rötlich
+- unterschiedliche linientypen zur abgrenzung (länge, dicke farbe) oder hintergründe
+- liste: sortierung
+- liste: trennlinie, auch zwischen spalten
+- liste: fläche weiß + abstände statt trennlinie
+- liste: icons für orientierung/klassifizierung
+- liste: buttons weisverlauf/weistransparenz
+- conferenz: trennlinie zur abgrenzung
+- tabs: nicht bis ganz oben, trennlinie evtl wie abgrenzung
+- bearbeitungsrahmen dicker/farbe
+- Systeminfos vs eingegebene Werte + icons?
+
+
 ### known Bugs
 
 - changing roles does not update user permissione (requires update role of user) [Data Mock]

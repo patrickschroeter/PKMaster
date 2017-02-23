@@ -67,12 +67,13 @@ export class ConferenceDetailDto {
         this.endOfEvent = obj.endOfEvent;
         this.roomOfEvent = obj.roomOfEvent;
         this.numberOfConference = obj.numberOfConference;
-        this.configJson = (obj.config) ? JSON.stringify(obj.config) : (obj.configJson || '[]');
-        this.config = obj.config || JSON.parse(this.configJson);
 
 
         this.applications = obj.applications ? obj.applications.map((model: models.ApplicationListDto) => new models.ApplicationListDto(model)): [];
         this.guests = obj.guests ? obj.guests.map((model: models.UserListDto) => new models.UserListDto(model)): [];
         this.members = obj.members ? obj.members.map((model: models.UserListDto) => new models.UserListDto(model)): [];
+
+        this.config = (!obj.config && obj.configJson) ? JSON.parse(obj.configJson) : obj.config;
+        this.configJson = obj.config ? JSON.stringify(obj.config) : obj.configJson;
     }
 }

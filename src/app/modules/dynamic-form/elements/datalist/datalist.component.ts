@@ -158,11 +158,9 @@ export class DatalistComponent implements OnInit {
     /**
      * initialize the add optiosn form
      *
-     * @private
-     *
      * @memberOf DatalistComponent
      */
-    private initAddOptionsForm() {
+    public initAddOptionsForm() {
         this.addOptionForm = [
             {
                 fieldType: 'input',

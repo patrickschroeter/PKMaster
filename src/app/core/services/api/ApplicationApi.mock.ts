@@ -29,7 +29,7 @@ export class ApplicationApiMock {
         return new Observable((observer: Observer<any>) => { applicationId ? observer.next(application) : observer.error('error'); observer.complete(); });
     }
 
-    public getApplications(filter?: string, sort?: string, extraHttpRequestParams?: any): Observable<any> {
+    public getApplicationsOfUser(filter?: string, sort?: string, extraHttpRequestParams?: any): Observable<any> {
         return new Observable((observer: Observer<any>) => { observer.next(this.list); observer.complete(); });
     }
 

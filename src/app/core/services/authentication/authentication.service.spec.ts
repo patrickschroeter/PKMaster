@@ -173,15 +173,15 @@ describe('Service: Authentication', () => {
         });
 
         it('should throw an error if no user is available', () => {
-            const name = 'user';
+            const param = new UserDetailDto();
             let user: UserDetailDto;
             service.getUser().subscribe(() => {
-                user = name;
+                user = param;
             }, error => {
                 user = error;
             });
 
-            expect(user).not.toBe(name);
+            expect(user).not.toBe(param);
         });
 
         it('shoud return the user if available', () => {

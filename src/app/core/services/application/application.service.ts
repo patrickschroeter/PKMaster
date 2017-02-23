@@ -19,7 +19,8 @@ import {
     ApplicationCreateDto,
     CommentDto,
     CommentCreateDto,
-    UserDetailDto
+    UserDetailDto,
+    StatusDto
 } from './../../../swagger';
 
 /** Decorators */
@@ -206,15 +207,16 @@ export class ApplicationService {
      *
      * @memberOf ApplicationService
      */
+    @Loading('submitApplication')
     public submitApplication(application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
         const blocked = this.blockedStatusUpdate(application.status.name, ['created']);
         if (blocked) { return blocked; }
         /** TODO: move to server */
-        const param: ApplicationDetailDto = _.cloneDeep(application);
-        this.configurationService.getStatusByName('submitted').subscribe(status => {
-            param.status = status;
+        let status: StatusDto;
+        this.configurationService.getStatusByName('submitted').subscribe(result => {
+            status = result;
         });
-        return this.updateApplication(param).map((result: ApplicationDetailDto) => {
+        return this.applicationApi.updateStatusOfApplication(application.id, status).map((result: ApplicationDetailDto) => {
             return this.application = result;
         });
     }
@@ -227,15 +229,16 @@ export class ApplicationService {
      *
      * @memberOf ApplicationService
      */
+    @Loading('rescindApplication')
     public rescindApplication(application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
         const blocked = this.blockedStatusUpdate(application.status.name, ['submitted']);
         if (blocked) { return blocked; }
         /** TODO: move to server */
-        const param: ApplicationDetailDto = _.cloneDeep(application);
-        this.configurationService.getStatusByName('rescinded').subscribe(status => {
-            param.status = status;
+        let status: StatusDto;
+        this.configurationService.getStatusByName('rescinded').subscribe(result => {
+            status = result;
         });
-        return this.updateApplication(param).map((result: ApplicationDetailDto) => {
+        return this.applicationApi.updateStatusOfApplication(application.id, status).map((result: ApplicationDetailDto) => {
             return this.application = result;
         });
     }
@@ -248,15 +251,16 @@ export class ApplicationService {
      *
      * @memberOf ApplicationService
      */
+    @Loading('deactivateApplication')
     public deactivateApplication(application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
         const blocked = this.blockedStatusUpdate(application.status.name, ['created', 'rescinded']);
         if (blocked) { return blocked; }
         /** TODO: move to server */
-        const param: ApplicationDetailDto = _.cloneDeep(application);
-        this.configurationService.getStatusByName('deactivated').subscribe(status => {
-            param.status = status;
+        let status: StatusDto;
+        this.configurationService.getStatusByName('deactivated').subscribe(result => {
+            status = result;
         });
-        return this.updateApplication(param).map((result: ApplicationDetailDto) => {
+        return this.applicationApi.updateStatusOfApplication(application.id, status).map((result: ApplicationDetailDto) => {
             return this.application = result;
         });
     }

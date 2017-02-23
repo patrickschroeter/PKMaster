@@ -31,7 +31,7 @@ export class ApplicationEndpoint {
         });
     }
 
-    public getApplications(filter?: string, sort?: string, extraHttpRequestParams?: any): Observable<any> {
+    public getApplicationsOfUser(filter?: string, sort?: string, extraHttpRequestParams?: any): Observable<any> {
         console.log('%cMock:' + '%c getApplications', 'color: #F44336', 'color: #fefefe');
         const applications = this._applications();
         return new Observable((observer: Observer<any>) => {

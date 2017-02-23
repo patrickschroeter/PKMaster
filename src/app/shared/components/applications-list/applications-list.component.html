@@ -6,7 +6,7 @@
         <pk-list-attribute name="author" *accessEditApplications i18n>Author</pk-list-attribute>
         <pk-list-attribute name="conference" i18n>Conference</pk-list-attribute>
         <pk-list-attribute name="date" i18n>Created</pk-list-attribute>
-        <pk-list-attribute name="modified" i18n>Modified</pk-list-attribute>
+        <pk-list-attribute name="modified" i18n>Version</pk-list-attribute>
     </pk-list-header>
     <pk-list-content>
         <pk-list-element *ngFor="let application of applications" [name]="application.status?.name">
@@ -30,7 +30,7 @@
                 </ng-container>
             </pk-list-attribute>
             <pk-list-attribute name="date">{{ application.created | date }}</pk-list-attribute>
-            <pk-list-attribute name="modified">{{ application.modified | date }}</pk-list-attribute>
+            <pk-list-attribute name="modified">{{ application.version }}</pk-list-attribute>
 
             <pk-floating horizontal top-right>
 
