@@ -310,7 +310,7 @@ export class FormElementService {
         let numberOfRequests = 1; // always get options
 
         /** get Validation Options if required */
-        if (element.validations && element.validations.length !== 0) {
+        if (element.validationIds && element.validationIds.length !== 0) {
             numberOfRequests++;
             this.getValidationsOfInputType(type).subscribe((opt) => {
                 returnedNumberOfRequests++; validationsOfElementType = opt; update();
@@ -318,7 +318,7 @@ export class FormElementService {
         }
 
         /** get Styles Options if required */
-        if (element.styles && element.styles.length !== 0) {
+        if (element.styleIds && element.styleIds.length !== 0) {
             numberOfRequests++;
             this.getStylesOfInputType(type).subscribe((opt) => {
                 returnedNumberOfRequests++; stylesOfElementType = opt; update();
@@ -429,7 +429,7 @@ export class FormElementService {
 
         /** Check if Validation already exists */
         for (let i = 0; i < this.element.length; i++) {
-            if (this.element[i].name === 'validations') {
+            if (this.element[i].name === 'validationIds') {
                 return console.error('form-element.service:addValidations(): validations already exists');
             }
         }
@@ -461,7 +461,7 @@ export class FormElementService {
 
         /** Check if Styles already exists */
         for (let i = 0; i < this.element.length; i++) {
-            if (this.element[i].name === 'styles') {
+            if (this.element[i].name === 'styleIds') {
                 return console.error('form-element.service:addStyles(): styles already exists');
             }
         }

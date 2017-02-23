@@ -75,12 +75,12 @@ export class LoginComponent implements OnInit {
                 required: true,
                 placeholder: 'E-Mail',
 
-                validations: [
+                validationIds: [
                     'useExternalEmail',
                     'isEmail'
                 ],
 
-                styles: [
+                styleIds: [
                     'small'
                 ]
             },
@@ -91,12 +91,12 @@ export class LoginComponent implements OnInit {
                 required: true,
                 placeholder: 'Password',
 
-                validations: [
+                validationIds: [
                     'minLength',
                     'maxLength'
                 ],
 
-                styles: [
+                styleIds: [
                     'small'
                 ]
             }

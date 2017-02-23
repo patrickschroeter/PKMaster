@@ -136,7 +136,7 @@ export class ApplicationsDetailComponent implements OnInit {
                 fieldType: 'checkbox',
                 name: 'isPrivate',
                 label: 'Privat',
-                styles: [
+                styleIds: [
                     'small'
                 ]
             },
@@ -144,7 +144,7 @@ export class ApplicationsDetailComponent implements OnInit {
                 fieldType: 'checkbox',
                 name: 'requiresChanges',
                 label: 'Requires Changes',
-                styles: [
+                styleIds: [
                     'small'
                 ]
             }

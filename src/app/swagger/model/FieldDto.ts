@@ -50,12 +50,6 @@ export class FieldDto {
 
     enumOptionsTableId?: string;
 
-    styles?: Array<string>;
-
-    validations?: Array<string>;
-
-    stylesId?: Array<string>;
-
     styleIds?: Array<string>;
 
     validationIds?: Array<string>;
@@ -83,12 +77,10 @@ export class FieldDto {
         this.placeholder = obj.placeholder || null;
         this.optionsJson = obj.optionsJson || null;
         this.enumOptionsTableId = obj.enumOptionsTableId || null;
-        this.styles = obj.styles || [];
-        this.validations = obj.validations || [];
-        this.value = obj.value || null;
-        this.options = obj.options || [];
 
-        this.styleIds = this.styles;
-        this.validationIds = this.validations;
+        this.value = obj.value || null;
+
+        this.styleIds = obj.styleIds || [];
+        this.validationIds = obj.validationIds || [];
     }
 }

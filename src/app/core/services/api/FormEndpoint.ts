@@ -179,11 +179,11 @@ const secondform = [
         contentType: 'input',
         required: true,
         placeholder: 'E-Mail',
-        validations: [
+        validationIds: [
             'useExternalEmail',
             'isEmail'
         ],
-        styles: [
+        styleIds: [
             'small'
         ]
     },
@@ -193,11 +193,11 @@ const secondform = [
         contentType: 'password',
         required: true,
         placeholder: 'Password',
-        validations: [
+        validationIds: [
             'minLength',
             'maxLength'
         ],
-        styles: [
+        styleIds: [
             'small'
         ]
     },
@@ -214,7 +214,7 @@ const secondform = [
         fieldType: 'checkbox',
         name: 'privacy',
         label: 'Sell your Soul?',
-        validations: [
+        validationIds: [
             'toBeTrue',
         ]
     },
@@ -330,7 +330,7 @@ const secondform = [
         label: 'Info',
         required: true,
         placeholder: 'Something',
-        styles: [
+        styleIds: [
             'small'
         ]
     }

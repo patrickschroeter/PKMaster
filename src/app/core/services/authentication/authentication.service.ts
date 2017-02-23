@@ -239,12 +239,6 @@ export class AuthenticationService {
             observer.error(error);
             observer.complete();
         });
-
-        // TODO: load config
-        this.configurationService.getFieldDefinitions().subscribe();
-        this.configurationService.getFieldValidations().subscribe();
-        this.configurationService.getFieldStyles().subscribe();
-        this.configurationService.getStatusValues().subscribe();
     }
 
     /**

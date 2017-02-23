@@ -215,7 +215,7 @@ export class FormService {
                 label: this.translationService.translate('formName'),
                 value: (id && this.form) ? this.form.title : '',
                 required: true,
-                styles: [
+                styleIds: [
                     'small'
                 ]
             },
@@ -224,7 +224,7 @@ export class FormService {
                 name: 'restrictedAccess',
                 label: this.translationService.translate('restricted'),
                 value: (id && this.form) ? this.form.restrictedAccess : false,
-                styles: [
+                styleIds: [
                     'small',
                     'aligned'
                 ]
@@ -234,7 +234,7 @@ export class FormService {
                 name: 'requiresValidation',
                 label: this.translationService.translate('requiresValidation'),
                 value: (id && this.form) ? this.form.requiresValidation : false,
-                styles: [
+                styleIds: [
                     'small'
                 ]
             },
@@ -243,7 +243,7 @@ export class FormService {
                 name: 'isActive',
                 label: this.translationService.translate('isActive'),
                 value: (id && this.form) ? this.form.isActive : false,
-                styles: [
+                styleIds: [
                     'small'
                 ]
             }

@@ -169,7 +169,7 @@ export class DatalistComponent implements OnInit {
                 name: 'value',
                 required: true,
                 placeholder: 'Value (unique Id)',
-                styles: [
+                styleIds: [
                     'small'
                 ]
             },
@@ -178,7 +178,7 @@ export class DatalistComponent implements OnInit {
                 name: 'label',
                 required: true,
                 placeholder: 'Display Name',
-                styles: [
+                styleIds: [
                     'small'
                 ]
             }

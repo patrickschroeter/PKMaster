@@ -27,7 +27,18 @@ export class ConfigurationService {
 
     constructor(
         private configurationApi: ConfigurationApi
-    ) { }
+    ) {
+        this.getFieldDefinitions().subscribe((result: FieldDefinitionDto[]) => {
+            this.fieldDefinitionValues = result;
+        });
+        this.getFieldValidations().subscribe((result: ValidationDto[]) => {
+            this.fieldValidationValues = result;
+        });
+        this.getFieldStyles().subscribe((result: StyleDto[]) => {
+            this.fieldStyleValues = result;
+        });
+        this.getStatusValues().subscribe();
+    }
 
     /**
      * load all field definitions
@@ -39,10 +50,6 @@ export class ConfigurationService {
     public getFieldDefinitions(): Observable<FieldDefinitionDto[]> {
         if (!this.fieldDefinitions) {
             this.fieldDefinitions = this.configurationApi.getFieldDefinitions()
-                .map((result: FieldDefinitionDto[]) => {
-                    this.fieldDefinitionValues = result;
-                    return result;
-                })
                 .publishReplay(1).refCount();
         }
         return this.fieldDefinitions;
@@ -106,10 +113,6 @@ export class ConfigurationService {
     public getFieldStyles(): Observable<StyleDto[]> {
         if (!this.fieldStyles) {
             this.fieldStyles = this.configurationApi.getFieldStyles()
-                .map((result: StyleDto[]) => {
-                    this.fieldStyleValues = result;
-                    return result;
-                })
                 .publishReplay(1).refCount();
         }
         return this.fieldStyles;
@@ -142,10 +145,6 @@ export class ConfigurationService {
     public getFieldValidations(): Observable<ValidationDto[]> {
         if (!this.fieldValidations) {
             this.fieldValidations = this.configurationApi.getFieldValidations()
-                .map((result: ValidationDto[]) => {
-                    this.fieldValidationValues = result;
-                    return result;
-                })
                 .publishReplay(1).refCount();
         }
         return this.fieldValidations;

@@ -77,42 +77,46 @@
                     </pk-dynamic-form>
                 </div>
                 <div class="comment-wrapper">
-                    <div class="comment" *ngFor="let comment of application.comments" [ngClass]="{ 'comment--private': comment.isPrivate }">
-                        <div *ngIf="comment.requiresChanges">
-                            <div class="comment__header">
-                                <div *ngIf="!comment.user" class="comment__author" i18n>No Author</div>
-                                <div *ngIf="comment.user" class="comment__author">{{ comment.user.lastname }}</div>
+                    <ng-container *ngFor="let comment of application.comments">
+                        <ng-container *ngIf="comment.requiresChanges">
+                            <div class="comment" [ngClass]="{ 'comment--private': comment.isPrivate }">
+                                <div class="comment__header">
+                                    <div *ngIf="!comment.user" class="comment__author" i18n>No Author</div>
+                                    <div *ngIf="comment.user" class="comment__author">{{ comment.user.lastname }}</div>
 
-                                <div class="comment__date">
-                                    {{ comment.created | date }}
+                                    <div class="comment__date">
+                                        {{ comment.created | date }}
+                                    </div>
+
+                                    <div *ngIf="comment.isPrivate" class="comment__state" i18n>private</div>
+                                    <div *ngIf="!comment.isPrivate" class="comment__state" i18n>public</div>
                                 </div>
-
-                                <div *ngIf="comment.isPrivate" class="comment__state" i18n>private</div>
-                                <div *ngIf="!comment.isPrivate" class="comment__state" i18n>public</div>
-                            </div>
-                            <div class="comment__content">
-                                {{ comment.message }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="comment" *ngFor="let comment of application.comments" [ngClass]="{ 'comment--private': comment.isPrivate }">
-                        <div *ngIf="!comment.requiresChanges">
-                            <div class="comment__header">
-                                <div *ngIf="!comment.user" class="comment__author" i18n>No Author</div>
-                                <div *ngIf="comment.user" class="comment__author">{{ comment.user.lastname }}</div>
-
-                                <div class="comment__date">
-                                    {{ comment.created | date }}
+                                <div class="comment__content">
+                                    {{ comment.message }}
                                 </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                    <ng-container *ngFor="let comment of application.comments">
+                        <ng-container *ngIf="!comment.requiresChanges">
+                            <div class="comment" [ngClass]="{ 'comment--private': comment.isPrivate }">
+                                <div class="comment__header">
+                                    <div *ngIf="!comment.user" class="comment__author" i18n>No Author</div>
+                                    <div *ngIf="comment.user" class="comment__author">{{ comment.user.lastname }}</div>
 
-                                <div *ngIf="comment.isPrivate" class="comment__state" i18n>private</div>
-                                <div *ngIf="!comment.isPrivate" class="comment__state" i18n>public</div>
+                                    <div class="comment__date">
+                                        {{ comment.created | date }}
+                                    </div>
+
+                                    <div *ngIf="comment.isPrivate" class="comment__state" i18n>private</div>
+                                    <div *ngIf="!comment.isPrivate" class="comment__state" i18n>public</div>
+                                </div>
+                                <div class="comment__content">
+                                    {{ comment.message }}
+                                </div>
                             </div>
-                            <div class="comment__content">
-                                {{ comment.message }}
-                            </div>
-                        </div>
-                    </div>
+                        </ng-container>
+                    </ng-container>
                 </div>
             </div>
         </div>

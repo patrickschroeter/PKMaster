@@ -36,9 +36,9 @@ export class FieldDefinitionDto {
 
     configs?: Array<string>;
 
-    styles?: Array<string>;
+    styleIds?: Array<string>;
 
-    validations?: Array<string>;
+    validationIds?: Array<string>;
 
     constructor(obj?: FieldDefinitionDto) {
         obj = obj || {};
@@ -47,7 +47,7 @@ export class FieldDefinitionDto {
         this.description = obj.description;
         this.name = obj.name;
         this.configs = obj.configs || [];
-        this.styles = obj.styles || [];
-        this.validations = obj.validations || [];
+        this.styleIds = obj.styleIds || [];
+        this.validationIds = obj.validationIds || [];
     }
 }

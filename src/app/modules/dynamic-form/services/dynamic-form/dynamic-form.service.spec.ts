@@ -73,7 +73,7 @@ describe('Service: DynamicForm', () => {
         it('should request special validations from the service', () => {
             spyOn(validation, 'generateValidationsFromKeys');
             service.generateFormFromInput([
-                { name: 'validations', validations: ['special'] }
+                { name: 'validations', validationIds: ['special'] }
             ]);
             expect(validation.generateValidationsFromKeys).toHaveBeenCalledWith(['special']);
         });

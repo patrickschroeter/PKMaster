@@ -34,12 +34,7 @@ import { Loading } from './../../../shared/decorators/loading.decorator';
 @Injectable()
 export class ApplicationService {
 
-    private _application: ApplicationDetailDto;
-    get application() { return this._application; }
-    set application(application) {
-        this._application = application;
-        this.setValues();
-    }
+    private application: ApplicationDetailDto;
     private applications: ApplicationListDto[];
 
     /**
@@ -64,29 +59,6 @@ export class ApplicationService {
         private conferenceService: ConferenceService,
         private configurationService: ConfigurationService
     ) { }
-
-    /**
-     * set the attributes property with filled values
-     *
-     * @private
-     * @returns
-     *
-     * @memberOf ApplicationService
-     */
-    private setValues() {
-        const application: ApplicationDetailDto = this.application;
-        if (application.form && !application.attributes) {
-            application.attributes = application.form.formHasField;
-        }
-        if (!application.filledForm || typeof application.filledForm !== 'string') { return; }
-        application.filledForm = JSON.parse(application.filledForm);
-        /** TODO */
-        for (let i = 0; i < application.attributes.length; i++) {
-            const field: FieldDto = application.attributes[i];
-            const form: { [key: string]: string } = <any>application.filledForm;
-            field.value = form[field.name];
-        }
-    }
 
     /**
      * returns the observable to get a applicationn by the given id

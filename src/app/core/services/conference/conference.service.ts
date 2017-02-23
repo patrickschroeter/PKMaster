@@ -299,7 +299,7 @@ export class ConferenceService {
                 label: 'Datum',
                 required: true,
                 value: (values && values.dateOfEvent) ? values.dateOfEvent.toString() : '',
-                styles: [
+                styleIds: [
                     'small'
                 ]
             },
@@ -309,10 +309,10 @@ export class ConferenceService {
                 label: 'Beginn',
                 required: true,
                 value: (values && values.startOfEvent) ? values.startOfEvent.toString() : '',
-                styles: [
+                styleIds: [
                     'small'
                 ],
-                validations: [
+                validationIds: [
                     'time'
                 ]
             },
@@ -322,10 +322,10 @@ export class ConferenceService {
                 label: 'Ende',
                 required: true,
                 value: (values && values.endOfEvent) ? values.endOfEvent.toString() : '',
-                styles: [
+                styleIds: [
                     'small'
                 ],
-                validations: [
+                validationIds: [
                     'time'
                 ]
             },
@@ -335,7 +335,7 @@ export class ConferenceService {
                 label: 'Raum',
                 required: true,
                 value: values ? values.roomOfEvent : '',
-                styles: [
+                styleIds: [
                     'small'
                 ]
             }

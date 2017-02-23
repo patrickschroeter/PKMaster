@@ -93,7 +93,7 @@ export class DynamicFormService {
         if (!element || !element.name || element.disabled) { return null; }
 
         /** Create Array of ValidationFn */
-        const activeValidations = this.inputValidation.generateValidationsFromKeys(element.validations);
+        const activeValidations = this.inputValidation.generateValidationsFromKeys(element.validationIds);
         if (element.required) { activeValidations.push(Validators.required); }
 
         /** FIX for multiselect */

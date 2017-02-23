@@ -106,7 +106,7 @@ export class ModalChangePasswordComponent implements OnInit {
      */
     private initChangePasswordField() {
         this.changePasswordElements = [
-            new Fields.Password(null, { name: 'password', label: 'Current Password', styles: [] }),
+            new Fields.Password(null, { name: 'password', label: 'Current Password', styleIds: [] }),
             new Fields.Password(null, { name: 'newpassword', label: 'New Password' }),
             new Fields.Password(null, { name: 'newpasswordconfirm', label: 'New Password (confirm)' })
         ];

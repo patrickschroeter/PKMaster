@@ -77,7 +77,7 @@ export class ModalAcceptApplicationComponent implements OnInit {
                 fieldType: 'checkbox',
                 name: 'accept_requiresChanges',
                 label: 'Requires Changes',
-                styles: [
+                styleIds: [
                     'small'
                 ]
             }

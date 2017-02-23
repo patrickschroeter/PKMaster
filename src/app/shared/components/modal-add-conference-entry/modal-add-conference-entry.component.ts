@@ -67,7 +67,7 @@ export class ModalAddConferenceEntryComponent implements OnInit, Window {
                 name: 'description',
                 label: this.translationService.translate('description'),
                 value: values ? values.description : '',
-                styles: [
+                styleIds: [
                     'small'
                 ]
             },
@@ -76,7 +76,7 @@ export class ModalAddConferenceEntryComponent implements OnInit, Window {
                 name: 'footer',
                 label: this.translationService.translate('footer'),
                 value: values ? values.footer : '',
-                styles: [
+                styleIds: [
                     'small'
                 ]
             },

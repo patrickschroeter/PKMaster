@@ -18,7 +18,7 @@ export class FieldModel implements FieldDto {
     contentType: string = undefined;
     placeholder: string = undefined;
     options: { value: string, label: string}[] = undefined;
-    styles: string[] = ['small'];
+    styleIds: string[] = ['small'];
     disabled = false;
 
     constructor(value?: string, options?: any) {
@@ -96,7 +96,7 @@ export class FieldType extends Select {
         { value: 'devider',         label: 'Devider' },
         { value: 'hiddenDevider',   label: 'hidden Devider' }
     ];
-    styles: string[] = [];
+    styleIds: string[] = [];
 }
 
 export class FieldName extends FieldModel {
@@ -158,13 +158,13 @@ export class FieldValue extends FieldModel {
 /** Form Additions */
 
 export class FieldValidation extends Select {
-    name = 'validations';
+    name = 'validationIds';
     label = 'Validation Options';
     multipleSelect = true;
 }
 
 export class FieldStyles extends Select {
-    name = 'styles';
+    name = 'styleIds';
     label = 'Style Options';
     multipleSelect = true;
 }
@@ -187,7 +187,7 @@ export class Email extends FieldModel {
     name = 'email';
     label = 'E-Mail';
     contentType = 'email';
-    validations = [
+    validationIds = [
         'isEmail',
         'useExternalEmail'
     ];
@@ -206,7 +206,7 @@ export class Matrikelnummer extends FieldModel {
 
 export class Devider extends FieldModel {
     fieldType = 'devider';
-    styles: string[] = undefined;
+    styleIds: string[] = undefined;
 }
 
 const Fields = {

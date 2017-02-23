@@ -80,6 +80,13 @@ export class ApplicationDetailDto {
 
         this.assignments = obj.assignments ? obj.assignments.map((model: models.UserDetailDto) => new models.UserDetailDto(model)): [];
         this.comments = obj.comments ? obj.comments.map((model: models.CommentDetailDto) => new models.CommentDetailDto(model)): [];
-        this.attributes = obj.attributes ? obj.attributes.map((model: models.FieldDto) => new models.FieldDto(model)): [];
+        if (obj.attributes) {
+            this.attributes = obj.attributes.map((model: models.FieldDto) => new models.FieldDto(model));
+        } else {
+            if (this.form) {
+                const form = (this.filledForm && typeof this.filledForm === 'string') ? JSON.parse(this.filledForm) : {};
+                this.attributes = this.form.formHasField.map((model: models.FieldDto) =>{ model.value = form[model.name]; return new models.FieldDto(model); });
+            }
+        }
     }
 }

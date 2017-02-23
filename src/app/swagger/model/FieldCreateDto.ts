@@ -51,10 +51,6 @@ export class FieldCreateDto {
 
     validationIds?: Array<string>;
 
-    styles?: Array<string>;
-
-    validations?: Array<string>;
-
     // Custom
 
     value?: string | string[];
@@ -73,13 +69,8 @@ export class FieldCreateDto {
         this.contentType = obj.contentType;
         this.placeholder = obj.placeholder;
         this.enumOptionsTableId = obj.enumOptionsTableId;
-        this.styles = obj.styles || [];
-        this.validations = obj.validations || [];
-        this.styleIds = [];
-        this.validationIds = [];
-        // TODO get styleIds & validationIds
-        // this.styleIds = obj.styles ? obj.styles.map(obj => obj.id): [];
-        // this.validationIds = obj.validations ? obj.validations.map(obj => obj.id) : [];
+        this.styleIds = obj.styleIds || [];
+        this.validationIds = obj.validationIds || [];
         this.value = obj.value;
 
         this.options = obj.options || [];

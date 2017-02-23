@@ -460,7 +460,7 @@ describe('Service: FormElement', () => {
         it('should provide styles of the fieldType', fakeAsync(() => {
             let styles: FieldDto;
             service.getElement().subscribe((result: FieldDto[]) => {
-                styles = _.find(result, (obj: FieldDto) => { return obj['name'] === 'styles'; });
+                styles = _.find(result, (obj: FieldDto) => { return obj['name'] === 'styleIds'; });
             });
             expect(styles).toBeUndefined();
 
@@ -474,7 +474,7 @@ describe('Service: FormElement', () => {
         it('should fail if styles already exist', fakeAsync(() => {
             let styles: FieldDto;
             service.getElement().subscribe((result: FieldDto[]) => {
-                styles = _.find(result, (obj: FieldDto) => { return obj['name'] === 'styles'; });
+                styles = _.find(result, (obj: FieldDto) => { return obj['name'] === 'styleIds'; });
             });
 
             service.updateElement(new FormGroup({ fieldType: new FormControl('5c3914e9-a1ea-4c21-914a-39c2b5faa90c') })); tick(600);
@@ -511,7 +511,7 @@ describe('Service: FormElement', () => {
         it('should provide styles of the fieldType', fakeAsync(() => {
             let validations: FieldDto;
             service.getElement().subscribe((result: FieldDto[]) => {
-                validations = _.find(result, (obj: FieldDto) => { return obj['name'] === 'validations'; });
+                validations = _.find(result, (obj: FieldDto) => { return obj['name'] === 'validationIds'; });
             });
             expect(validations).toBeUndefined();
 
@@ -525,7 +525,7 @@ describe('Service: FormElement', () => {
         it('should log an error if validations exist', fakeAsync(() => {
             let validations: FieldDto;
             service.getElement().subscribe((result: FieldDto[]) => {
-                validations = _.find(result, (obj: FieldDto) => { return obj['name'] === 'validations'; });
+                validations = _.find(result, (obj: FieldDto) => { return obj['name'] === 'validationIds'; });
             });
 
             service.updateElement(new FormGroup({ fieldType: new FormControl('5c3914e9-a1ea-4c21-914a-39c2b5faa90c') })); tick(600);
@@ -966,7 +966,7 @@ describe('Service: FormElement', () => {
 
                 observer.emit({
                     fieldType: '5c3914e9-a1ea-4c21-914a-39c2b5faa90c',
-                    styles: ['small']
+                    styleIds: ['small']
                 }); tick(600);
 
                 expect(styles).toBe(true);
@@ -984,7 +984,7 @@ describe('Service: FormElement', () => {
 
                 observer.emit({
                     fieldType: '5c3914e9-a1ea-4c21-914a-39c2b5faa90c',
-                    validations: ['small']
+                    validationIds: ['small']
                 }); tick(600);
 
                 expect(validation).toBe(true);
@@ -1001,10 +1001,10 @@ describe('Service: FormElement', () => {
 
                 observer.emit({
                     fieldType: '5c3914e9-a1ea-4c21-914a-39c2b5faa90c',
-                    styles: ['invalid']
+                    styleIds: ['invalid']
                 }); tick(600);
 
-                expect(_.find(element, (obj: FieldDto) => obj.name === 'styles').value).toEqual(['invalid']);
+                expect(_.find(element, (obj: FieldDto) => obj.name === 'styleIds').value).toEqual(['invalid']);
             }))
         );
 
@@ -1018,10 +1018,10 @@ describe('Service: FormElement', () => {
 
                 observer.emit({
                     fieldType: '5c3914e9-a1ea-4c21-914a-39c2b5faa90c',
-                    validations: ['small']
+                    validationIds: ['small']
                 }); tick(600);
 
-                expect(_.find(element, (obj: FieldDto) => obj.name === 'validations').value).toEqual(['small']);
+                expect(_.find(element, (obj: FieldDto) => obj.name === 'validationIds').value).toEqual(['small']);
             }))
         );
 

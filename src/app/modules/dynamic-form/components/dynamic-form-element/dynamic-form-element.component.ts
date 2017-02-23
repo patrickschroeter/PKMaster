@@ -67,9 +67,9 @@ export class DynamicFormElementComponent implements OnInit {
      * @memberOf DynamicFormElementComponent
      */
     public hasStyle(name: string): boolean {
-        for (const style in this.element.styles) {
+        for (const style in this.element.styleIds) {
             if (style) {
-                if (this.configurationService.isStyle(name, this.element.styles[style])) {
+                if (this.configurationService.isStyle(name, this.element.styleIds[style])) {
                     return true;
                 }
             }
