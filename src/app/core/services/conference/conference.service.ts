@@ -174,7 +174,7 @@ export class ConferenceService {
         const conferenceId = conference.id;
         this.conference = conference;
         // tslint:disable-next-line:max-line-length
-        return this.conferenceApi.addAttendadntToConference(conferenceId, attendant, extraHttpRequestParams).map((result: ConferenceDetailDto) => {
+        return this.conferenceApi.addAttendantToConference(conferenceId, attendant, extraHttpRequestParams).map((result: ConferenceDetailDto) => {
             this.conference = result;
             return result;
         });

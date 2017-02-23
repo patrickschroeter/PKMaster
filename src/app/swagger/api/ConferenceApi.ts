@@ -50,7 +50,7 @@ export class ConferenceApi {
      * @param conferenceId ID of the Conference
      * @param applicationId The Application ID
      */
-    public addApplicationToConference (conferenceId: string, applicationId: string, extraHttpRequestParams?: any ) : Observable<string> {
+    public addApplicationToConference (conferenceId: string, applicationId: string, extraHttpRequestParams?: any ) : Observable<{}> {
         const path = this.basePath + '/conferences/{conferenceId}/applications/{applicationId}'
             .replace('{' + 'conferenceId' + '}', String(conferenceId))
             .replace('{' + 'applicationId' + '}', String(applicationId));
@@ -88,7 +88,7 @@ export class ConferenceApi {
      * @param attendantCreateDto
      */
     @Parse('ConferenceDetailDto')
-    public addAttendadntToConference (conferenceId: string, attendantCreateDto?: models.AttendantCreateDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceDetailDto> {
+    public addAttendantToConference (conferenceId: string, attendantCreateDto?: models.AttendantCreateDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceDetailDto> {
         const path = this.basePath + '/conferences/{conferenceId}/attendants'
             .replace('{' + 'conferenceId' + '}', String(conferenceId));
 
@@ -96,7 +96,7 @@ export class ConferenceApi {
         let headerParams = this.defaultHeaders;
         // verify required parameter 'conferenceId' is not null or undefined
         if (conferenceId === null || conferenceId === undefined) {
-            throw new Error('Required parameter conferenceId was null or undefined when calling addAttendadntToConference.');
+            throw new Error('Required parameter conferenceId was null or undefined when calling addAttendantToConference.');
         }
         let requestOptions: RequestOptionsArgs = {
             method: 'POST',
@@ -149,7 +149,7 @@ export class ConferenceApi {
      * @param conferenceId ID of the Conference
      * @param applicationId The Application ID
      */
-    public deleteApplicationOfConference (conferenceId: string, applicationId: string, extraHttpRequestParams?: any ) : Observable<string> {
+    public deleteApplicationOfConference (conferenceId: string, applicationId: string, extraHttpRequestParams?: any ) : Observable<{}> {
         const path = this.basePath + '/conferences/{conferenceId}/applications/{applicationId}'
             .replace('{' + 'conferenceId' + '}', String(conferenceId))
             .replace('{' + 'applicationId' + '}', String(applicationId));
@@ -317,7 +317,7 @@ export class ConferenceApi {
      * @param conferenceId Id of the Conference
      * @param userId Id of the user
      */
-    public removeAttendantFormConference (conferenceId: string, userId: string, extraHttpRequestParams?: any ) : Observable<string> {
+    public removeAttendantFormConference (conferenceId: string, userId: string, extraHttpRequestParams?: any ) : Observable<{}> {
         const path = this.basePath + '/conferences/{conferenceId}/attendants/{userId}'
             .replace('{' + 'conferenceId' + '}', String(conferenceId))
             .replace('{' + 'userId' + '}', String(userId));

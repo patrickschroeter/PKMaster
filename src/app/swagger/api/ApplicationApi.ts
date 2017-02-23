@@ -50,8 +50,8 @@ export class ApplicationApi {
      * @param applicationId ID of the Application
      * @param comment New Comment
      */
-    @Parse('CommentDetailDto')
-    public addCommentToApplication (applicationId: string, comment?: models.CommentCreateDto, extraHttpRequestParams?: any ) : Observable<Array<models.CommentDetailDto>> {
+    @Parse('CommentDto')
+    public addCommentToApplication (applicationId: string, comment?: models.CommentCreateDto, extraHttpRequestParams?: any ) : Observable<Array<models.CommentDto>> {
         const path = this.basePath + '/applications/{applicationId}/comments'
             .replace('{' + 'applicationId' + '}', String(applicationId));
 
@@ -206,21 +206,16 @@ export class ApplicationApi {
     /**
      * GET all Applications
      * The Applications Endpoint returns all Applications
-     * @param filter Filter the Result
-     * @param sort Sort the Result
+     * @param userId
      */
     @Parse('ApplicationListDto')
-    public getApplications (filter?: string, sort?: string, extraHttpRequestParams?: any ) : Observable<Array<models.ApplicationListDto>> {
+    public getApplicationsOfUser (userId?: string, extraHttpRequestParams?: any ) : Observable<Array<models.ApplicationListDto>> {
         const path = this.basePath + '/applications';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-        if (filter !== undefined) {
-            queryParameters.set('filter', String(filter));
-        }
-
-        if (sort !== undefined) {
-            queryParameters.set('sort', String(sort));
+        if (userId !== undefined) {
+            queryParameters.set('userId', String(userId));
         }
 
         let requestOptions: RequestOptionsArgs = {
@@ -277,7 +272,7 @@ export class ApplicationApi {
      * @param applicationId ID of the Application
      * @param userId
      */
-    public removeAssignmentFromApplication (applicationId: string, userId: string, extraHttpRequestParams?: any ) : Observable<string> {
+    public removeAssignmentFromApplication (applicationId: string, userId: string, extraHttpRequestParams?: any ) : Observable<{}> {
         const path = this.basePath + '/applications/{applicationId}/assignments/{userId}'
             .replace('{' + 'applicationId' + '}', String(applicationId))
             .replace('{' + 'userId' + '}', String(userId));
@@ -331,6 +326,40 @@ export class ApplicationApi {
             search: queryParameters
         };
         requestOptions.body = JSON.stringify(application);
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json();
+                }
+            });
+    }
+
+    /**
+     * Update Status of Application
+     *
+     * @param applicationId ID of the Application
+     * @param statusDto The new Status of the Application
+     */
+    @Parse('ApplicationDetailDto')
+    public updateStatusOfApplication (applicationId: string, statusDto?: models.StatusDto, extraHttpRequestParams?: any ) : Observable<models.ApplicationDetailDto> {
+        const path = this.basePath + '/applications/{applicationId}/status'
+            .replace('{' + 'applicationId' + '}', String(applicationId));
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+        // verify required parameter 'applicationId' is not null or undefined
+        if (applicationId === null || applicationId === undefined) {
+            throw new Error('Required parameter applicationId was null or undefined when calling updateStatusOfApplication.');
+        }
+        let requestOptions: RequestOptionsArgs = {
+            method: 'PUT',
+            headers: headerParams,
+            search: queryParameters
+        };
+        requestOptions.body = JSON.stringify(statusDto);
 
         return this.http.request(path, requestOptions)
             .map((response: Response) => {

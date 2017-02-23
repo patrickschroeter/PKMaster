@@ -15,7 +15,7 @@ import { OverlayComponent, ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { ApplicationDetailDto, CommentDetailDto, UserDetailDto } from './../../../swagger';
+import { ApplicationDetailDto, CommentDto, UserDetailDto } from './../../../swagger';
 import { Selectable } from './../../../models';
 
 /** Decorators */
@@ -184,12 +184,12 @@ export class ApplicationsDetailComponent implements OnInit {
     /**
      * Creates and adds a new comment to the application
      *
-     * @param {CommentDetailDto} values
+     * @param {CommentDto} values
      *
      * @memberOf ApplicationsDetailComponent
      */
-    public createNewComment(values: CommentDetailDto): void {
-        const comment: CommentDetailDto = values;
+    public createNewComment(values: CommentDto): void {
+        const comment: CommentDto = values;
         comment.created = new Date();
         this.auth.getUser().subscribe(user => {
             comment.user = user;

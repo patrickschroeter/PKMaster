@@ -28,6 +28,7 @@ import { Selectable } from './../../models';
 
 export class FieldCreateDto {
 
+    id?: string;
 
     name: string;
 
@@ -61,6 +62,7 @@ export class FieldCreateDto {
 
     constructor(obj?: models.FieldDto) {
         obj = obj || {};
+        this.id = obj.id;
         this.name = obj.name;
         this.fieldType = obj.fieldType;
         this.label = obj.label;
@@ -73,7 +75,7 @@ export class FieldCreateDto {
         this.validationIds = obj.validationIds || [];
         this.value = obj.value;
 
-        this.options = obj.options || [];
+        this.options = (!obj.options && obj.optionsJson) ? JSON.parse(obj.optionsJson) : obj.options;
         this.optionsJson = obj.options ? JSON.stringify(obj.options) : obj.optionsJson;
     }
 }

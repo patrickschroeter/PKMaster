@@ -25,7 +25,7 @@
 'use strict';
 import * as models from './models';
 
-export class CommentDetailDto {
+export class CommentDto {
 
     id?: string;
 
@@ -39,7 +39,7 @@ export class CommentDetailDto {
 
     user?: models.UserDetailDto;
 
-    constructor(obj?: CommentDetailDto) {
+    constructor(obj?: CommentDto) {
         obj = obj || {};
 
         this.id = obj.id;

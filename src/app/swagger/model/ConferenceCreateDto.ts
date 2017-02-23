@@ -40,8 +40,6 @@ export class ConferenceCreateDto {
 
     numberOfConference: number;
 
-    // Custom
-
     configJson?: string;
 
     constructor(obj?: models.ConferenceDetailDto) {

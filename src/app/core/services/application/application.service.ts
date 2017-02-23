@@ -17,7 +17,7 @@ import {
     ApplicationListDto,
     FieldDto,
     ApplicationCreateDto,
-    CommentDetailDto,
+    CommentDto,
     CommentCreateDto,
     UserDetailDto
 } from './../../../swagger';
@@ -85,7 +85,7 @@ export class ApplicationService {
      */
     @Loading('getApplications')
     public getApplications(sort?: string): Observable<ApplicationListDto[]> {
-        return this.applicationApi.getApplications().map((applications: ApplicationListDto[]) => {
+        return this.applicationApi.getApplicationsOfUser().map((applications: ApplicationListDto[]) => {
             if (sort) {
                 applications.sort(
                     function (a: { [key: string]: any }, b: { [key: string]: any }) {
@@ -108,7 +108,7 @@ export class ApplicationService {
      */
     @Loading('getApplications')
     public getOwnApplications(sort?: string, user?: UserDetailDto): Observable<ApplicationListDto[]> {
-        return this.applicationApi.getApplications().map((result: ApplicationListDto[]) => {
+        return this.applicationApi.getApplicationsOfUser(user.id).map((result: ApplicationListDto[]) => {
             const applications = result.filter((obj: ApplicationListDto) => obj.user.id === user.id);
             return this.applications = applications;
         });
@@ -125,7 +125,7 @@ export class ApplicationService {
      */
     @Loading('getApplications')
     public getAssignedApplications(sort?: string, user?: UserDetailDto): Observable<ApplicationListDto[]> {
-        return this.applicationApi.getApplications().map((result: ApplicationListDto[]) => {
+        return this.applicationApi.getApplicationsOfUser().map((result: ApplicationListDto[]) => {
             // TODO filter on server
             // const applications = result.filter((obj: ApplicationListDto) => {
             //     const assignment = _.find(obj.assignments, (assign: UserDetailDto) => assign.id === user.id);
@@ -163,16 +163,16 @@ export class ApplicationService {
     /**
      * add a comment to the current application
      *
-     * @param {CommentDetailDto} comment
-     * @returns {Observable<CommentDetailDto[]>}
+     * @param {CommentDto} comment
+     * @returns {Observable<CommentDto[]>}
      *
      * @memberOf ApplicationService
      */
     @Loading('addCommentToApplication')
-    public addCommentToApplication(comment: CommentDetailDto): Observable<CommentDetailDto[]> {
+    public addCommentToApplication(comment: CommentDto): Observable<CommentDto[]> {
         if (!this.application) { return Observable.throw('No Application'); }
         const param: CommentCreateDto = new CommentCreateDto(comment);
-        return this.applicationApi.addCommentToApplication(this.application.id, param).map((result: CommentDetailDto[]) => {
+        return this.applicationApi.addCommentToApplication(this.application.id, param).map((result: CommentDto[]) => {
             return result;
         });
     }

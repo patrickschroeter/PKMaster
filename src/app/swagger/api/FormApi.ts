@@ -165,10 +165,10 @@ export class FormApi {
      * Update Form with Id
      *
      * @param formId ID of the Form
-     * @param form Updated Form
+     * @param formCreateDto The updated form
      */
     @Parse('FormDetailDto')
-    public updateFormById (formId: string, form?: models.FormDetailDto, extraHttpRequestParams?: any ) : Observable<models.FormDetailDto> {
+    public updateFormById (formId: string, formCreateDto?: models.FormCreateDto, extraHttpRequestParams?: any ) : Observable<models.FormDetailDto> {
         const path = this.basePath + '/forms/{formId}'
             .replace('{' + 'formId' + '}', String(formId));
 
@@ -183,9 +183,7 @@ export class FormApi {
             headers: headerParams,
             search: queryParameters
         };
-        console.log(form);
-
-        requestOptions.body = JSON.stringify(form);
+        requestOptions.body = JSON.stringify(formCreateDto);
 
         return this.http.request(path, requestOptions)
             .map((response: Response) => {

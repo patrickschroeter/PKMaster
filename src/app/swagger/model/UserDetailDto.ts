@@ -29,6 +29,8 @@ export class UserDetailDto {
 
     id?: string;
 
+    sub?: string;
+
     firstname?: string;
 
     lastname?: string;
@@ -54,7 +56,7 @@ export class UserDetailDto {
     constructor(obj?: UserDetailDto) {
         obj = obj || {};
 
-        this.id = obj.id;
+        this.id = obj.id || obj.sub;
         this.firstname = obj.firstname;
         this.lastname = obj.lastname;
         this.email = obj.email;

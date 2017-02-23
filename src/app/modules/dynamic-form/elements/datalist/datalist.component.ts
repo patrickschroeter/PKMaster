@@ -169,6 +169,7 @@ export class DatalistComponent implements OnInit {
                 name: 'value',
                 required: true,
                 placeholder: 'Value (unique Id)',
+                value: '',
                 styleIds: [
                     'small'
                 ]
@@ -178,6 +179,7 @@ export class DatalistComponent implements OnInit {
                 name: 'label',
                 required: true,
                 placeholder: 'Display Name',
+                value: '',
                 styleIds: [
                     'small'
                 ]
@@ -195,17 +197,6 @@ export class DatalistComponent implements OnInit {
      */
     public isDisabled() {
         return this.disabled || (this.config && this.config.disabled);
-    }
-
-    /**
-     * reset the add option form
-     *
-     * @memberOf DatalistComponent
-     */
-    public resetAddOptionForm() {
-        for (let i = 0; i < this.addOptionForm.length; i++) {
-            this.addOptionForm[i].value = '';
-        }
     }
 
     /**
@@ -244,6 +235,7 @@ export class DatalistComponent implements OnInit {
                 this.config.options[override].label = element.label;
             }
         }
+        this.initAddOptionsForm();
         this.overlay.toggle(false);
     }
 

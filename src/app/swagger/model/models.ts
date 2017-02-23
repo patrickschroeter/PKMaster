@@ -4,7 +4,7 @@ export * from './ApplicationDetailDto';
 export * from './ApplicationListDto';
 export * from './AttendantCreateDto';
 export * from './CommentCreateDto';
-export * from './CommentDetailDto';
+export * from './CommentDto';
 export * from './ConferenceCreateDto';
 export * from './ConferenceDetailDto';
 export * from './ConferenceListDto';

@@ -51,7 +51,7 @@ export class ApplicationDetailDto {
 
     assignments?: Array<models.UserDetailDto>;
 
-    comments?: Array<models.CommentDetailDto>;
+    comments?: Array<models.CommentDto>;
 
     // Custom
 
@@ -79,7 +79,7 @@ export class ApplicationDetailDto {
         this.form = obj.form ? new models.FormDetailDto(obj.form): undefined;
 
         this.assignments = obj.assignments ? obj.assignments.map((model: models.UserDetailDto) => new models.UserDetailDto(model)): [];
-        this.comments = obj.comments ? obj.comments.map((model: models.CommentDetailDto) => new models.CommentDetailDto(model)): [];
+        this.comments = obj.comments ? obj.comments.map((model: models.CommentDto) => new models.CommentDto(model)): [];
         if (obj.attributes) {
             this.attributes = obj.attributes.map((model: models.FieldDto) => new models.FieldDto(model));
         } else {

@@ -20,7 +20,7 @@ import {
     ConferenceDetailDto,
     ApplicationDetailDto,
     ApplicationListDto,
-    CommentDetailDto,
+    CommentDto,
     UserDetailDto,
     UserListDto,
     AttendantCreateDto

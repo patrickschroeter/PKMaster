@@ -43,15 +43,13 @@ export class ConferenceDetailDto {
 
     numberOfConference?: number;
 
+    configJson?: string;
+
     applications?: Array<models.ApplicationListDto>;
 
     guests?: Array<models.UserListDto>;
 
     members?: Array<models.UserListDto>;
-
-    // Custom
-
-    configJson?: string;
 
     // Client Only
 

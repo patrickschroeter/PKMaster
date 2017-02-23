@@ -198,7 +198,8 @@ export class AuthenticationService {
             })
                 // update the permissions
                 .map(result => {
-                    const user = result.permissions ? result : UserApiMock.USERS[0];
+                    const user = result;
+                    user.permissions = user.permissions.length ? user.permissions : UserApiMock.USERS[0].permissions;
                     return this.permission.updateUserPermissions(user);
                 })
                 // cache user
@@ -213,7 +214,8 @@ export class AuthenticationService {
             })
                 // update the permissions
                 .map(result => {
-                    const user = result.permissions ? result : UserApiMock.USERS[0];
+                    const user = result;
+                    user.permissions = user.permissions.length ? user.permissions : UserApiMock.USERS[0].permissions;
                     return this.permission.updateUserPermissions(user);
                 })
                 // cache user

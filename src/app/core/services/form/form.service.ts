@@ -274,7 +274,7 @@ export class FormService {
         }
 
         this.alert.setLoading('saveFormAttributes', this.translationService.translate('saveForm'));
-        return this.formApi.updateFormById(form.id, form).map(result => {
+        return this.formApi.updateFormById(form.id, new FormCreateDto(form)).map((result: FormDetailDto) => {
             this.alert.removeHint('saveFormAttributes');
             this.alert.setSuccessHint('saveFormAttributes', this.translationService.translate('savedForm'));
             return this.form = result;
@@ -293,9 +293,9 @@ export class FormService {
 
         // this.form.formHasField = this.form.formHasField.map(obj => new FieldDto(obj));
 
-        const param = new FormDetailDto(this.form);
+        const param = new FormCreateDto(this.form);
 
-        return this.formApi.updateFormById(param.id, param).map(form => {
+        return this.formApi.updateFormById(this.form.id, param).map((form: FormDetailDto) => {
             this.alert.removeHint('saveForm');
             if (form) {
                 return this.form = form;

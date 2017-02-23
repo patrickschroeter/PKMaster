@@ -45,16 +45,56 @@ export class UserApi {
     }
 
     /**
+     * Add Role to User
+     *
+     * @param userId ID of the User
+     * @param roleDto
+     */
+    @Parse('UserDetailDto')
+    public addRoleToUser (userId: string, roleDto?: models.RoleDto, extraHttpRequestParams?: any ) : Observable<models.UserDetailDto> {
+        const path = this.basePath + '/user/{userId}/role'
+            .replace('{' + 'userId' + '}', String(userId));
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+        // verify required parameter 'userId' is not null or undefined
+        if (userId === null || userId === undefined) {
+            throw new Error('Required parameter userId was null or undefined when calling addRoleToUser.');
+        }
+        let requestOptions: RequestOptionsArgs = {
+            method: 'POST',
+            headers: headerParams,
+            search: queryParameters
+        };
+        requestOptions.body = JSON.stringify(roleDto);
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json();
+                }
+            });
+    }
+
+    /**
      * Create new AppUser from LDAP
      *
+     * @param rzName The users rz name base 64 encoded
+     * @param rzPassword The users rz password base 64 encoded
      * @param user The AppUser credentials
      */
     @Parse('UserDetailDto')
-    public addUser (user?: models.UserCreateDto, extraHttpRequestParams?: any ) : Observable<models.UserDetailDto> {
+    public addUser (rzName?: string, rzPassword?: string, user?: models.UserCreateDto, extraHttpRequestParams?: any ) : Observable<models.UserDetailDto> {
         const path = this.basePath + '/users';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+            headerParams.set('rzName', String(rzName));
+
+            headerParams.set('rzPassword', String(rzPassword));
+
         let requestOptions: RequestOptionsArgs = {
             method: 'POST',
             headers: headerParams,
@@ -107,7 +147,6 @@ export class UserApi {
     /**
      * GET all AppUser
      * The Users Endpoint returns all Users
-     * @param token Accesstoken to authenticate with the API
      */
     @Parse('UserListDto')
     public getUsers (extraHttpRequestParams?: any ) : Observable<Array<models.UserListDto>> {
@@ -115,7 +154,6 @@ export class UserApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
             headers: headerParams,
@@ -133,61 +171,31 @@ export class UserApi {
     }
 
     /**
-     * Update AppUser with Id
+     * Remove Role from User
      *
-     * @param userId ID of AppUser
-     * @param user Updated AppUser
+     * @param userId ID of the Application
+     * @param roleId ID of the Role
      */
-    @Parse('UserDetailDto')
-    public updateUserById (userId: String, user?: models.UserDetailDto, extraHttpRequestParams?: any ) : Observable<models.UserDetailDto> {
-        const path = this.basePath + '/users/{userId}'
-            .replace('{' + 'userId' + '}', String(userId));
+    public removeRoleFromUser (userId: string, roleId: string, extraHttpRequestParams?: any ) : Observable<{}> {
+        const path = this.basePath + '/user/{userId}/role/{roleId}'
+            .replace('{' + 'userId' + '}', String(userId))
+            .replace('{' + 'roleId' + '}', String(roleId));
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
         // verify required parameter 'userId' is not null or undefined
         if (userId === null || userId === undefined) {
-            throw new Error('Required parameter userId was null or undefined when calling updateUserById.');
+            throw new Error('Required parameter userId was null or undefined when calling removeRoleFromUser.');
+        }
+        // verify required parameter 'roleId' is not null or undefined
+        if (roleId === null || roleId === undefined) {
+            throw new Error('Required parameter roleId was null or undefined when calling removeRoleFromUser.');
         }
         let requestOptions: RequestOptionsArgs = {
-            method: 'PUT',
+            method: 'DELETE',
             headers: headerParams,
             search: queryParameters
         };
-        requestOptions.body = JSON.stringify(user);
-
-        return this.http.request(path, requestOptions)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return response.json();
-                }
-            });
-    }
-
-    /**
-     * Update the AppUser&#39;s Role
-     *
-     * @param userId ID of AppUser
-     * @param role The AppUser&#39;s new Role
-     */
-    public updateUserRole (userId: string, role?: string, extraHttpRequestParams?: any ) : Observable<{}> {
-        const path = this.basePath + '/users/{userId}/role'
-            .replace('{' + 'userId' + '}', String(userId));
-
-        let queryParameters = new URLSearchParams();
-        let headerParams = this.defaultHeaders;
-        // verify required parameter 'userId' is not null or undefined
-        if (userId === null || userId === undefined) {
-            throw new Error('Required parameter userId was null or undefined when calling updateUserRole.');
-        }
-        let requestOptions: RequestOptionsArgs = {
-            method: 'PUT',
-            headers: headerParams,
-            search: queryParameters
-        };
-        requestOptions.body = JSON.stringify(role);
 
         return this.http.request(path, requestOptions)
             .map((response: Response) => {
@@ -229,7 +237,8 @@ export class UserApi {
             });
     }
 
-    public getCurrentUser(): Observable<any> {
+    @Parse('UserDetailDto')
+    public getCurrentUser(): Observable<models.UserDetailDto> {
         const path = this.basePath + '/connect/userinfo';
 
         let queryParameters = new URLSearchParams();
@@ -255,8 +264,12 @@ export class UserApi {
         return null;
     }
 
-    public removeUserRole(userId: string, roleId?: string, extraHttpRequestParams?: any ) : Observable<{}> {
-        return null;
+    @Parse('UserDetailDto')
+    public updateUserById (userId: String, user?: models.UserDetailDto, extraHttpRequestParams?: any ) : Observable<models.UserDetailDto> {
+        return new Observable(observer => {
+            observer.next(user);
+            observer.complete();
+        });
     }
 
 }

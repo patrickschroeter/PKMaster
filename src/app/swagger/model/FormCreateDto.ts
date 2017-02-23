@@ -36,11 +36,16 @@ export class FormCreateDto {
 
     formHasField?: Array<models.FieldCreateDto>;
 
+    // Custom
+
+    requiresValidation?: boolean;
+
     constructor(obj?: models.FormDetailDto) {
         obj = obj || {};
         this.title = obj.title;
         this.restrictedAccess = !!obj.restrictedAccess;
         this.isPublic = !!obj.isPublic;
+        this.requiresValidation = !!obj.requiresValidation;
         this.formHasField = obj.formHasField ? obj.formHasField.map((obj: models.FieldDto) => new models.FieldCreateDto(obj)): [];
     }
 }

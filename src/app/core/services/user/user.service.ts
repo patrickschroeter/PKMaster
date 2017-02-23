@@ -121,7 +121,7 @@ export class UserService {
      */
     @Loading('removeRoleFromUser')
     public removeRoleFromUser(user: UserDetailDto, role: RoleDto): Observable<UserDetailDto> {
-        return this.userApi.removeUserRole(user.id, role.id).map(result => {
+        return this.userApi.removeRoleFromUser(user.id, role.id).map(result => {
             return result;
         });
     }
@@ -137,7 +137,7 @@ export class UserService {
      */
     @Loading('addRoleToUser')
     public addRoleToUser(userId: string, roleId: string): Observable<UserDetailDto> {
-        return this.userApi.updateUserRole(userId, roleId).map(result => {
+        return this.userApi.addRoleToUser(userId, roleId).map(result => {
             return result;
         });
     }

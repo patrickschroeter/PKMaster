@@ -36,7 +36,7 @@ export class CommentCreateDto {
 
     userId: string;
 
-    constructor(obj?: models.CommentDetailDto) {
+    constructor(obj?: models.CommentDto) {
         obj = obj || {};
         this.message = obj.message;
         this.userId = obj.user ? obj.user.id : null;
