@@ -42,7 +42,7 @@ $lightgray: #777;
 
 $darkwhite: #ddd;
 
-$mediumwhite: #efefef;
+$mediumwhite: #f1efef;
 
 $white: #fefefe;
 
@@ -64,6 +64,16 @@ $element-border-hover: lighten($accent-color, 25%);
 $element-border-invalid: $error;
 
 $element-hover-edit: rgba($guidance-color, 0.2);
+
+// Background
+
+$background-body: lighten($mediumwhite, 4%);
+
+$background-content: lighten($mediumwhite, 2%);
+
+$background-list-element: lighten($mediumwhite, 3%);
+
+$background-list-element-hover: lighten($mediumwhite, 5%);
 
 // Mapping to Array
 

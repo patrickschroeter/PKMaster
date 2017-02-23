@@ -6,7 +6,7 @@
     .list__header {
         .list-element {
             .list-element__attribute {
-                font-weight: 700;
+                font-weight: 600;
                 text-transform: capitalize;
                 cursor: pointer;
                 &:hover {
@@ -26,7 +26,7 @@
 }
 
 .list-element {
-    @extend .devider;
+    // @extend .devider;
     @include clearfix();
     position: relative;
     display: flex;
@@ -171,12 +171,32 @@
 }
 
 .list {
-    :not(.list__header) {
-        transition: background .3s ease-in-out, border-color .3s ease-in-out;
+     > :not(.list__header) {
+        transition: background .3s ease-in-out, border-color .3s ease-in-out, opacity .3s ease-in-out;
 
-        .list-element:hover {
-            background: $white;
-            // background-color: $element-hover-edit;
+        $border: 2px;
+
+        .list-element {
+            margin: $border 0;
+
+            &:hover {
+                background: $background-list-element-hover;
+
+                .list-element__attribute {
+                    background: $background-list-element-hover;
+                    opacity: 0.7;
+                }
+            }
+        }
+
+        .list-element__attribute {
+            border-right: $border solid $background-content;
+            &:last-child {
+                border-right: 0px;
+            }
+            opacity: 1;
+            background: $background-list-element;
+            transition: background .3s ease-in-out, opacity .3s ease-in-out;
         }
     }
 }

@@ -1,0 +1,21 @@
+.block {
+    border-bottom: 1px solid lighten($lightgray, 25%);
+
+    margin: 0;
+    padding: 2rem 0;
+
+    &:last-child {
+        border-bottom: 0;
+    }
+
+
+    // @for $i from 1 through 8 {
+    //     &:nth-child(#{$i}) {
+    //         @if ($i % 2 == 0) {
+    //             background-color: lighten($mediumwhite, 3%);
+    //         } @else {
+    //             background-color: lighten($mediumwhite, 1%);
+    //         }
+    //     }
+    // }
+}

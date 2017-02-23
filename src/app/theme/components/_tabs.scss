@@ -3,9 +3,9 @@
     @extend .font_small;
     position: absolute;
     left: -50px;
-    top: -50px;
-    padding-top: 50px;
-    height: calc(100% + 70px);
+    top: 0;
+    padding: 15px 0;
+    // height: calc(100% + 70px);
     display: flex;
     flex-direction: column;
     border-right: 1px solid $darkwhite;

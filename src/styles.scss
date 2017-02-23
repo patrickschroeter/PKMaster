@@ -18,7 +18,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: lighten($mediumwhite, 5%);
+    background-color: $background-body;
     color: $black;
 }
 
@@ -33,11 +33,6 @@ li {
 a {
     text-decoration: none;
     color: $black;
-}
-
-input, textarea {
-    /*font-family: 'Noto Sans', sans-serif;*/
-    /*font-weight: 400;*/
 }
 
 button {

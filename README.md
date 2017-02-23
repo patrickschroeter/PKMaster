@@ -298,10 +298,10 @@ formService als !singleton into element-edit.component?
 
 ## 23.Januar (Rothaug)
 
-- PK4.0 ohne leerzeichen, in bold(700)
+- ~~PK4.0 ohne leerzeichen, in bold(700)~~
 - logo klickbar
-- open sans da mehr zwischenschnitte für zb labels
-- zuordnung content-buttonbereich: heller - dunkler + rötlich
+- ~~open sans da mehr zwischenschnitte für zb labels~~
+- ~~zuordnung content-buttonbereich: heller - dunkler + rötlich~~
 - unterschiedliche linientypen zur abgrenzung (länge, dicke farbe) oder hintergründe
 - liste: sortierung
 - liste: trennlinie, auch zwischen spalten
