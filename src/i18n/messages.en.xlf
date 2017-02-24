@@ -90,6 +90,10 @@
         <source>Deactivate Application</source>
         <target>Deactivate Application</target>
       </trans-unit>
+      <trans-unit id="a3b2bc58a6f26e8000adc5c249bd84a6086ee41b" datatype="html">
+        <source>Update Application</source>
+        <target>Update Application</target>
+      </trans-unit>
       <trans-unit id="d950b50abcc3b49118b3c7c04103c90a87e02456" datatype="html">
         <source>Edit Application</source>
         <target>Edit Application</target>

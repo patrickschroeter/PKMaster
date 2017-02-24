@@ -43,11 +43,14 @@ export class ApplicationListDto {
 
     form: models.FormListDto;
 
+    filledForm?: string;
+
     constructor(obj: models.ApplicationDetailDto = new models.ApplicationDetailDto()) {
         this.id = obj.id;
         this.created = obj.created;
         this.isCurrent = !!obj.isCurrent;
         this.version = obj.version;
+        this.filledForm = obj.filledForm;
 
         this.user = obj.user ? new models.UserDetailDto(obj.user): undefined;
         this.conference = obj.conference ? new models.ConferenceListDto(obj.conference): undefined;

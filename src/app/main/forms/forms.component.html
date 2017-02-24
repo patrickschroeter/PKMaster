@@ -38,14 +38,14 @@
 
                             <pk-list-attribute name="version">{{ form.version }}</pk-list-attribute>
 
-                            <pk-list-attribute>
-                                <ng-container *ngIf="form.requiresValidation">Required</ng-container>
-                                <ng-container *ngIf="!form.requiresValidation">Optional</ng-container>
-                            </pk-list-attribute>
-
                             <pk-list-attribute name="secure">
                                 <ng-container i18n *ngIf="form.restrictedAccess">Restricted</ng-container>
                                 <ng-container i18n *ngIf="!form.restrictedAccess">Public</ng-container>
+                            </pk-list-attribute>
+
+                            <pk-list-attribute>
+                                <ng-container *ngIf="form.requiresValidation">Required</ng-container>
+                                <ng-container *ngIf="!form.requiresValidation">Optional</ng-container>
                             </pk-list-attribute>
 
                             <pk-floating top-right horizontal>
