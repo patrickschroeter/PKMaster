@@ -46,6 +46,7 @@ html {
 
     // border-left: 1px solid $mediumwhite;
     border-right: 1px solid $darkwhite;
+    overflow-x: hidden;
 
     .content--default {
         display: block;

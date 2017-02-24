@@ -379,7 +379,8 @@ export class ApplicationsDetailComponent implements OnInit {
     public assignUser(user: Selectable): void {
         const index = _.findIndex(this.application.assignments, (obj: UserDetailDto) => obj.id === user.value);
         if (index === -1) {
-            this.applicationService.assignUserToApplication(this.application, user.value).subscribe(result => {
+            this.applicationService.assignUserToApplication(this.application, user.value).subscribe((result: ApplicationDetailDto) => {
+                this.application = result;
                 this.modalService.updateSelectedValues(this.application.assignments.map(obj => obj.id));
             });
         } else {

@@ -20,7 +20,8 @@ import {
     CommentDto,
     CommentCreateDto,
     UserDetailDto,
-    StatusDto
+    StatusDto,
+    AssignmentCreateDto
 } from './../../../swagger';
 
 /** Decorators */
@@ -353,10 +354,14 @@ export class ApplicationService {
         application: ApplicationDetailDto,
         userId: string,
         extraHttpRequestParams?: any
-    ): Observable<UserDetailDto[]> {
+    ): Observable<ApplicationDetailDto> {
         const applicationId = application.id;
         this.application = application;
-        return this.applicationApi.assignUserToApplication(applicationId, userId, extraHttpRequestParams).map(result => {
+        return this.applicationApi.assignUserToApplication(
+            applicationId,
+            new AssignmentCreateDto({ userId: userId }),
+            extraHttpRequestParams
+        ).map((result: ApplicationDetailDto) => {
             this.application = result;
             return result;
         });
