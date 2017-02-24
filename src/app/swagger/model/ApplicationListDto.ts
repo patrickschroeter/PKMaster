@@ -27,16 +27,13 @@ import * as models from './models';
 
 export class ApplicationListDto {
 
-
     id: string;
 
-    created: Date;
+    created?: Date;
 
-    lastModified: Date;
+    isCurrent?: boolean;
 
-    isCurrent: boolean;
-
-    version: number;
+    version?: number;
 
     user: models.UserDetailDto;
 
@@ -46,11 +43,9 @@ export class ApplicationListDto {
 
     form: models.FormListDto;
 
-    constructor(obj?: models.ApplicationDetailDto) {
-        obj = obj || {};
+    constructor(obj: models.ApplicationDetailDto = new models.ApplicationDetailDto()) {
         this.id = obj.id;
         this.created = obj.created;
-        this.lastModified = obj.lastModified;
         this.isCurrent = !!obj.isCurrent;
         this.version = obj.version;
 

@@ -23,16 +23,16 @@
         <ng-container *ngIf="conference.members && conference.members.length">
             <pk-list>
                 <pk-list-header>
-                    <pk-list-attribute name="name" i18n>Members</pk-list-attribute>
+                    <pk-list-attribute i18n>Members</pk-list-attribute>
                 </pk-list-header>
                 <pk-list-content class="attendants">
                     <ng-container *ngFor="let user of conference.members">
                         <div class="attendant--member">
                             <pk-list-element>
-                                <pk-list-attribute name="name">
+                                <pk-list-attribute>
                                     {{ user.firstname }}
                                 </pk-list-attribute>
-                                <pk-list-attribute name="name">
+                                <pk-list-attribute>
                                     {{ user.lastname }}
                                 </pk-list-attribute>
 
@@ -68,16 +68,16 @@
         <ng-container *ngIf="conference.guests && conference.guests.length">
             <pk-list>
                 <pk-list-header>
-                    <pk-list-attribute name="name" i18n>Guests</pk-list-attribute>
+                    <pk-list-attribute i18n>Guests</pk-list-attribute>
                 </pk-list-header>
                 <pk-list-content class="attendants">
                     <ng-container *ngFor="let user of conference.guests">
                         <div class="attendant--guest">
                             <pk-list-element>
-                                <pk-list-attribute name="name">
+                                <pk-list-attribute>
                                     {{ user.firstname }}
                                 </pk-list-attribute>
-                                <pk-list-attribute name="name">
+                                <pk-list-attribute>
                                     {{ user.lastname }}
                                 </pk-list-attribute>
 

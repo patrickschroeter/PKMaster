@@ -27,11 +27,9 @@ import * as models from './models';
 
 export class AssignmentCreateDto {
 
+    userId: string;
 
-    userId?: string;
-
-    constructor(obj?: AssignmentCreateDto) {
-        obj = obj || {};
+    constructor(obj: AssignmentCreateDto = new AssignmentCreateDto()) {
 
         this.userId = obj.userId;
     }

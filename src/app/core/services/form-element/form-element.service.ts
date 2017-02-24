@@ -69,7 +69,7 @@ export class FormElementService {
      * @type {FieldDto}
      * @memberOf FormElementService
      */
-    private selectTypeFormElement: FieldDto = {};
+    private selectTypeFormElement: FieldDto = new FieldDto();
 
     /**
      * The current Selected Element Type
@@ -397,7 +397,7 @@ export class FormElementService {
      * @memberOf FormElementService
      */
     private updateOptionsOfTable(): void {
-        this.getOptionsOfTable(this.selectedOptionTable).subscribe((options: FieldDto[]) => {
+        this.getOptionsOfTable(this.selectedOptionTable).subscribe((options: Selectable[]) => {
             if (!options) {
                 this.selectedOptionsLength = 0;
                 if (this.elementForm) { this.elementForm.controls['options'].setValue([]); }

@@ -44,7 +44,7 @@ describe('Service: FormElement', () => {
 
         expect(element).toEqual([]);
 
-        service.setElement([{ name: 'element' }]);
+        service.setElement([{ name: 'element' }] as any);
 
         expect(element[0]['name']).toBe('element');
     }));
@@ -58,7 +58,7 @@ describe('Service: FormElement', () => {
 
         expect(preview).toEqual([]);
 
-        service.setElementPreview([{ name: 'preview' }]);
+        service.setElementPreview([{ name: 'preview' }] as any);
 
         expect(preview[0]['name']).toBe('preview');
     }));
@@ -875,7 +875,7 @@ describe('Service: FormElement', () => {
                 spyOn(service, 'editExistingElement').and.returnValue(false);
                 spyOn(form, 'editElementError');
 
-                observer.emit({});
+                observer.emit({} as any);
 
                 expect(form.editElementError).toHaveBeenCalled();
             }));
@@ -883,21 +883,21 @@ describe('Service: FormElement', () => {
         it('should log an error when trying to edit an element if no types are loaded',
             inject([FormElementService], (service: FormElementService) => {
                 spyOn(console, 'error');
-                observer.emit({});
+                observer.emit({} as any);
                 expect(console.error).toHaveBeenCalled();
             }));
 
         it('should fail editing an element when recieving an empty array',
             fakeAsync(inject([FormElementService], (service: FormElementService) => {
                 spyOn(form, 'editElementError'); tick(600);
-                observer.emit([]);
+                observer.emit([] as any);
                 expect(form.editElementError).toHaveBeenCalled();
             })));
 
         it('should fail editing an element when recieving an empty object',
             fakeAsync(inject([FormElementService], (service: FormElementService) => {
                 spyOn(form, 'editElementError'); tick(600);
-                observer.emit({});
+                observer.emit({} as any);
                 expect(form.editElementError).toHaveBeenCalled();
             })));
 
@@ -906,7 +906,7 @@ describe('Service: FormElement', () => {
                 spyOn(form, 'editElementError'); tick(600);
                 observer.emit({
                     fieldType: '0'
-                });
+                } as any);
                 expect(form.editElementError).toHaveBeenCalled();
             })));
 
@@ -915,7 +915,7 @@ describe('Service: FormElement', () => {
                 spyOn(form, 'editElementError'); tick(600);
                 observer.emit({
                     fieldType: '5c3914e9-a1ea-4c21-914a-39c2b5faa90c'
-                }); tick(600);
+                } as any); tick(600);
                 expect(form.editElementError).not.toHaveBeenCalled();
             })));
 
@@ -931,7 +931,7 @@ describe('Service: FormElement', () => {
 
                 observer.emit({
                     fieldType: '5c3914e9-a1ea-4c21-914a-39c2b5faa90c'
-                }); tick(600);
+                } as any); tick(600);
 
                 expect(element.length).toBeGreaterThan(1);
                 expect(_.find(element, (obj: FieldDto) => obj.name === 'fieldType').value).toEqual('5c3914e9-a1ea-4c21-914a-39c2b5faa90c');
@@ -949,7 +949,7 @@ describe('Service: FormElement', () => {
 
                 observer.emit({
                     fieldType: '5c3914e9-a1ea-4c21-914a-39c2b5faa90c'
-                }); tick(600);
+                } as any); tick(600);
 
                 expect(hasSubmit).toBe(true);
             }))
@@ -967,7 +967,7 @@ describe('Service: FormElement', () => {
                 observer.emit({
                     fieldType: '5c3914e9-a1ea-4c21-914a-39c2b5faa90c',
                     styleIds: ['small']
-                }); tick(600);
+                } as any); tick(600);
 
                 expect(styles).toBe(true);
             }))
@@ -985,7 +985,7 @@ describe('Service: FormElement', () => {
                 observer.emit({
                     fieldType: '5c3914e9-a1ea-4c21-914a-39c2b5faa90c',
                     validationIds: ['small']
-                }); tick(600);
+                } as any); tick(600);
 
                 expect(validation).toBe(true);
             }))
@@ -1002,7 +1002,7 @@ describe('Service: FormElement', () => {
                 observer.emit({
                     fieldType: '5c3914e9-a1ea-4c21-914a-39c2b5faa90c',
                     styleIds: ['invalid']
-                }); tick(600);
+                } as any); tick(600);
 
                 expect(_.find(element, (obj: FieldDto) => obj.name === 'styleIds').value).toEqual(['invalid']);
             }))
@@ -1019,7 +1019,7 @@ describe('Service: FormElement', () => {
                 observer.emit({
                     fieldType: '5c3914e9-a1ea-4c21-914a-39c2b5faa90c',
                     validationIds: ['small']
-                }); tick(600);
+                } as any); tick(600);
 
                 expect(_.find(element, (obj: FieldDto) => obj.name === 'validationIds').value).toEqual(['small']);
             }))
@@ -1036,7 +1036,7 @@ describe('Service: FormElement', () => {
                 observer.emit({
                     fieldType: '7b13ce45-6bbc-4b65-ae9e-0b82a30e7e7f',
                     options: [{ value: 'a', label: 'b' }]
-                }); tick(600);
+                } as any); tick(600);
 
                 expect(_.find(element, (obj: FieldDto) => obj.name === 'options').value).toEqual([{ value: 'a', label: 'b' }]);
             }))
@@ -1054,7 +1054,7 @@ describe('Service: FormElement', () => {
                     fieldType: '7b13ce45-6bbc-4b65-ae9e-0b82a30e7e7f',
                     optionTable: 'fakultaet',
                     options: [{ value: 'a', label: 'b' }]
-                }); tick(1200);
+                } as any); tick(1200);
 
                 expect(_.find(element, (obj: FieldDto) => obj.name === 'options').value).toEqual([{ value: 'a', label: 'b' }]);
             }))

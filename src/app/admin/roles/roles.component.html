@@ -16,15 +16,15 @@
 
                 <pk-list>
                     <pk-list-header>
-                        <pk-list-attribute name="name" i18n>Name</pk-list-attribute>
-                        <pk-list-attribute name="state" i18n>Number of Permissions</pk-list-attribute>
+                        <pk-list-attribute i18n>Name</pk-list-attribute>
+                        <pk-list-attribute i18n>Number of Permissions</pk-list-attribute>
                     </pk-list-header>
                     <pk-list-content>
                         <pk-list-element *ngFor="let role of roles">
-                            <pk-list-attribute name="name">
+                            <pk-list-attribute>
                                 <a routerLink="{{ role.id }}">{{ role.name }}</a>
                             </pk-list-attribute>
-                            <pk-list-attribute name="state">{{ role.rolePermissions ? role.rolePermissions.length : 0 }}</pk-list-attribute>
+                            <pk-list-attribute>{{ role.rolePermissions ? role.rolePermissions.length : 0 }}</pk-list-attribute>
 
                             <pk-floating top-right horizontal>
                                 <!--<a *accessEditRoles routerLink="{{ role.id }}">

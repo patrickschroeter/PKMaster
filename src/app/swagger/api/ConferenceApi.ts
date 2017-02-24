@@ -50,7 +50,7 @@ export class ConferenceApi {
      * @param conferenceId ID of the Conference
      * @param applicationId The Application ID
      */
-    public addApplicationToConference (conferenceId: string, applicationId: string, extraHttpRequestParams?: any ) : Observable<{}> {
+    public addApplicationToConference (conferenceId: string, applicationId: string, extraHttpRequestParams?: any ) : Observable<models.ConferenceDetailDto> {
         const path = this.basePath + '/conferences/{conferenceId}/applications/{applicationId}'
             .replace('{' + 'conferenceId' + '}', String(conferenceId))
             .replace('{' + 'applicationId' + '}', String(applicationId));
@@ -76,7 +76,7 @@ export class ConferenceApi {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return response.toString();
+                    return response.json();
                 }
             });
     }
@@ -121,7 +121,7 @@ export class ConferenceApi {
      * @param conference new Conference Object
      */
     @Parse('ConferenceDetailDto')
-    public addConference (conference?: models.ConferenceCreateDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceCreateDto> {
+    public addConference (conference?: models.ConferenceCreateDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceDetailDto> {
         const path = this.basePath + '/conferences';
 
         let queryParameters = new URLSearchParams();

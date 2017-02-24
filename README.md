@@ -304,10 +304,10 @@ formService als !singleton into element-edit.component?
 - ~~zuordnung content-buttonbereich: heller - dunkler + rötlich~~
 - unterschiedliche linientypen zur abgrenzung (länge, dicke farbe) oder hintergründe
 - liste: sortierung
-- liste: trennlinie, auch zwischen spalten
-- liste: fläche weiß + abstände statt trennlinie
+- ~~liste: trennlinie, auch zwischen spalten~~
+- ~~liste: fläche weiß + abstände statt trennlinie~~
 - liste: icons für orientierung/klassifizierung
-- liste: buttons weisverlauf/weistransparenz
+- ~~liste: buttons weisverlauf/weistransparenz~~
 - conferenz: trennlinie zur abgrenzung
 - tabs: nicht bis ganz oben, trennlinie evtl wie abgrenzung
 - bearbeitungsrahmen dicker/farbe

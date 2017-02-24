@@ -27,11 +27,9 @@ import * as models from './models';
 
 export class ApplicationDetailDto {
 
-    id?: string;
+    id: string;
 
     created?: Date;
-
-    lastModified?: Date;
 
     filledForm?: string;
 
@@ -41,13 +39,13 @@ export class ApplicationDetailDto {
 
     previousVersion?: string;
 
-    user?: models.UserDetailDto;
+    user: models.UserDetailDto;
 
     conference?: models.ConferenceListDto;
 
-    status?: models.StatusDto;
+    status: models.StatusDto;
 
-    form?: models.FormDetailDto;
+    form: models.FormDetailDto;
 
     assignments?: Array<models.UserDetailDto>;
 
@@ -62,11 +60,9 @@ export class ApplicationDetailDto {
     attributes?: Array<models.FieldDto>;
 
     constructor(obj?: ApplicationDetailDto) {
-        obj = obj || {};
-
+        obj = obj || ({} as any);
         this.id = obj.id;
         this.created = obj.created;
-        this.lastModified = obj.lastModified;
         this.filledForm = obj.filledForm;
         this.version = obj.version;
         this.isCurrent = !!obj.isCurrent;
@@ -85,7 +81,7 @@ export class ApplicationDetailDto {
         } else {
             if (this.form) {
                 const form = (this.filledForm && typeof this.filledForm === 'string') ? JSON.parse(this.filledForm) : {};
-                this.attributes = this.form.formHasField.map((model: models.FieldDto) =>{ model.value = form[model.name]; return new models.FieldDto(model); });
+                this.attributes = this.form.formHasField.map((model: models.FieldDto) =>{ model.value = form[model.name] ? form[model.name] : model.value; return new models.FieldDto(model); });
             }
         }
     }

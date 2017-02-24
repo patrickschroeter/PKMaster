@@ -27,9 +27,9 @@ import * as models from './models';
 
 export class FormDetailDto {
 
-    id?: string;
+    id: string;
 
-    title?: string;
+    title: string;
 
     deprecated?: boolean;
 
@@ -50,7 +50,7 @@ export class FormDetailDto {
     [key: string]: any;
 
     constructor(obj?: FormDetailDto) {
-        obj = obj || {};
+        obj = obj || ({} as any);
 
         this.id = obj.id || null;
         this.title = obj.title || null;

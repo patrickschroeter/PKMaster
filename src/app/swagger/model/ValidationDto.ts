@@ -27,14 +27,14 @@ import * as models from './models';
 
 export class ValidationDto {
 
-    id?: string;
+    id: string;
 
-    description?: string;
+    description: string;
 
-    validationString?: string;
+    validationString: string;
 
     constructor(obj?: ValidationDto) {
-        obj = obj || {};
+        obj = obj || ({} as any);
         this.id = obj.id;
         this.description = obj.description;
         this.validationString = obj.validationString;

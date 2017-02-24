@@ -51,7 +51,7 @@ export class ApplicationApi {
      * @param comment New Comment
      */
     @Parse('CommentDto')
-    public addCommentToApplication (applicationId: string, comment?: models.CommentCreateDto, extraHttpRequestParams?: any ) : Observable<Array<models.CommentDto>> {
+    public addCommentToApplication (applicationId: string, comment?: models.CommentCreateDto, extraHttpRequestParams?: any ) : Observable<models.CommentDto> {
         const path = this.basePath + '/applications/{applicationId}/comments'
             .replace('{' + 'applicationId' + '}', String(applicationId));
 

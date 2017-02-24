@@ -30,13 +30,13 @@
 
             <pk-list>
                 <pk-list-header>
-                    <pk-list-attribute name="name" i18n>Title</pk-list-attribute>
-                    <pk-list-attribute name="description" i18n>Description</pk-list-attribute>
+                    <pk-list-attribute i18n>Title</pk-list-attribute>
+                    <pk-list-attribute  i18n>Description</pk-list-attribute>
                 </pk-list-header>
                 <pk-list-content>
                     <pk-list-element *ngFor="let permissionObj of role.rolePermissions">
-                        <pk-list-attribute name="name">{{ permissionObj.name }}</pk-list-attribute>
-                        <pk-list-attribute name="description">{{ permissionObj.description }}</pk-list-attribute>
+                        <pk-list-attribute>{{ permissionObj.name }}</pk-list-attribute>
+                        <pk-list-attribute>{{ permissionObj.description }}</pk-list-attribute>
 
                         <pk-floating top-right horizontal>
                             <pk-button

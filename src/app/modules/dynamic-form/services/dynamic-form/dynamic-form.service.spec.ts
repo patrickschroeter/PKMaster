@@ -57,7 +57,7 @@ describe('Service: DynamicForm', () => {
         it('should not create a control for a disabled Field', () => {
             const group: FormGroup = service.generateFormFromInput([
                 { name: 'test', disabled: true }
-            ]);
+            ] as any);
             expect(group.get('test')).toBeFalsy();
         });
 
@@ -65,7 +65,7 @@ describe('Service: DynamicForm', () => {
             const group: FormGroup = service.generateFormFromInput([
                 { name: 'test', required: false },
                 { name: 'required', required: true }
-            ]);
+            ] as any);
             expect(group.get('test').valid).toBeTruthy();
             expect(group.get('required').valid).toBeFalsy();
         });
@@ -74,28 +74,28 @@ describe('Service: DynamicForm', () => {
             spyOn(validation, 'generateValidationsFromKeys');
             service.generateFormFromInput([
                 { name: 'validations', validationIds: ['special'] }
-            ]);
+            ] as any);
             expect(validation.generateValidationsFromKeys).toHaveBeenCalledWith(['special']);
         });
 
         it('should set null as Control Value if the Field defines no value', () => {
             const group: FormGroup = service.generateFormFromInput([
                 { name: 'value' },
-            ]);
+            ] as any);
             expect(group.get('value').value).toEqual(null);
         });
 
         it('should set Null as Control Value if the Field defines no value and it\'s multiselect', () => {
             const group: FormGroup = service.generateFormFromInput([
                 { name: 'value', multipleSelect: true },
-            ]);
+            ] as any);
             expect(group.get('value').value).toBeNull();
         });
 
         it('should set the Field Value as Control Value', () => {
             const group: FormGroup = service.generateFormFromInput([
                 { name: 'value', value: 'Value' },
-            ]);
+            ] as any);
             expect(group.get('value').value).toEqual('Value');
         });
     });
@@ -121,13 +121,13 @@ describe('Service: DynamicForm', () => {
 
             service.updateFormFromInput(group, [
                 { name: 'field' }
-            ]);
+            ] as any);
 
             expect(group.get('field')).toBeDefined();
 
             service.updateFormFromInput(group, [
                 { name: 'field2' }
-            ]);
+            ] as any);
 
             expect(group.get('field2')).toBeDefined();
         });
@@ -135,7 +135,7 @@ describe('Service: DynamicForm', () => {
         it('should remove all missing fields from the FormGroup', () => {
             const group: FormGroup = service.generateFormFromInput([
                 { name: 'field' }
-            ]);
+            ] as any);
             expect(group.get('field')).toBeDefined();
 
             service.updateFormFromInput(group, []);
@@ -146,13 +146,13 @@ describe('Service: DynamicForm', () => {
         it('should update the value of all existing Controls', () => {
             const group: FormGroup = service.generateFormFromInput([
                 { name: 'field', value: 'no-value' }
-            ]);
+            ] as any);
 
             expect(group.get('field').value).toEqual('no-value');
 
             service.updateFormFromInput(group, [
                 { name: 'field', value: 'value' }
-            ]);
+            ] as any);
 
             expect(group.get('field').value).toEqual('value');
         });

@@ -60,8 +60,7 @@ export class FieldCreateDto {
 
     // optionTable?: string; -> enumOptionsTableId
 
-    constructor(obj?: models.FieldDto) {
-        obj = obj || {};
+    constructor(obj: models.FieldDto = new models.FieldDto()) {
         this.id = obj.id;
         this.name = obj.name;
         this.fieldType = obj.fieldType;

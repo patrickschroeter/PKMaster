@@ -318,10 +318,6 @@
         <source>Login</source>
         <target/>
       </trans-unit>
-      <trans-unit id="7d6dd27552a855029558c6fb4dec26249802e47e" datatype="html">
-        <source>Application: <x id="INTERPOLATION"/></source>
-        <target/>
-      </trans-unit>
       <trans-unit id="814efcc244d182cabfdcdf7754097cdd023514d9" datatype="html">
         <source>Verified</source>
         <target/>

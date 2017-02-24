@@ -302,7 +302,7 @@ describe('Service: Authentication', () => {
         }));
 
         it('should call the UserApi with the user and the password', () => {
-            const user = { id: 'user' };
+            const user: any = { id: 'user' };
             const password = 'password';
             const newpassword = 'newpassword';
             spyOn(api, 'updateUserById').and.callThrough();
@@ -322,7 +322,7 @@ describe('Service: Authentication', () => {
 
         it('should update the user', () => {
             expect(service.isLoggedIn()).toBeFalsy();
-            service.updateUser({ id: 'user' });
+            service.updateUser(({ id: 'user' } as any));
             expect(service.isLoggedIn()).toBeTruthy();
         });
 

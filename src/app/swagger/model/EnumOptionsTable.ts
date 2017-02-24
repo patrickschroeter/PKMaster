@@ -28,17 +28,16 @@ import * as models from './models';
 export class EnumOptionsTable {
 
 
-    id?: string;
+    id: string;
 
-    value?: string;
+    value: string;
 
-    referenceTableName?: string;
+    referenceTableName: string;
 
     // field?: Array<models.Field>;
 
     constructor(obj?: models.EnumOptionsTable) {
-        obj = obj || {};
-
+        obj = obj || ({} as any);
         this.id = obj.id;
         this.value = obj.value;
         this.referenceTableName = obj.referenceTableName;

@@ -94,7 +94,7 @@ describe('ConferenceService', () => {
         });
 
         it('should create a new conference', () => {
-            service.createNewConference(new ConferenceCreateDto({})).subscribe(conference => {
+            service.createNewConference(new ConferenceCreateDto(({} as any))).subscribe(conference => {
                 expect(conference).toBeDefined();
                 expect(conference.id).toBeDefined();
             });
@@ -110,7 +110,7 @@ describe('ConferenceService', () => {
         }));
 
         it('should ...', () => {
-            service.saveConference({ id: 'id' });
+            service.saveConference({ id: 'id' } as any);
         });
 
     });

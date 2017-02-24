@@ -28,9 +28,9 @@ import * as models from './models';
 export class AttendantCreateDto {
 
 
-    userId?: string;
+    userId: string;
 
-    typeOfAttendance?: AttendantCreateDto.TypeOfAttendanceEnum;
+    typeOfAttendance: AttendantCreateDto.TypeOfAttendanceEnum;
 
     constructor(userId: string, typeOfAttendance: AttendantCreateDto.TypeOfAttendanceEnum) {
         this.userId = userId;

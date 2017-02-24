@@ -27,22 +27,21 @@ import * as models from './models';
 
 export class ConferenceListDto {
 
-    id?: string;
+    id: string;
 
-    description?: string;
+    description: string;
 
-    dateOfEvent?: Date;
+    dateOfEvent: Date;
 
-    startOfEvent?: string;
+    startOfEvent: string;
 
-    endOfEvent?: string;
+    endOfEvent: string;
 
-    roomOfEvent?: string;
+    roomOfEvent: string;
 
-    numberOfConference?: number;
+    numberOfConference: number;
 
-    constructor(obj?: models.ConferenceDetailDto) {
-        obj = obj || {};
+    constructor(obj: models.ConferenceDetailDto = new models.ConferenceDetailDto()) {
         this.id = obj.id;
         this.description = obj.description;
         this.dateOfEvent = obj.dateOfEvent;

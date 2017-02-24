@@ -27,14 +27,14 @@ import * as models from './models';
 
 export class StyleDto {
 
-    id?: string;
+    id: string;
 
-    description?: string;
+    description: string;
 
-    styleString?: string;
+    styleString: string;
 
     constructor(obj?: StyleDto) {
-        obj = obj || {};
+        obj = obj || ({} as any);
         this.id = obj.id;
         this.description = obj.description;
         this.styleString = obj.styleString;

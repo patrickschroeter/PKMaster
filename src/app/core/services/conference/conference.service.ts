@@ -231,14 +231,15 @@ export class ConferenceService {
         application: ApplicationDetailDto,
         conferenceId: string,
         extraHttpRequestParams?: any
-    ): Observable<ApplicationDetailDto> {
+    ): Observable<ConferenceDetailDto> {
         const applicationId = application.id;
-        return this.conferenceApi.addApplicationToConference(conferenceId, applicationId, extraHttpRequestParams).map(result => {
-            application.conference = {
-                id: conferenceId
-            };
-            application.status = { name: 'pending' };
-            return application;
+        return this.conferenceApi.addApplicationToConference(
+            conferenceId,
+            applicationId,
+            extraHttpRequestParams
+        ).map((result: ConferenceDetailDto) => {
+            this.conference = result;
+            return result;
         });
     }
 

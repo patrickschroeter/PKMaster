@@ -9,6 +9,7 @@ import { ApplicationDetailDto, UserDetailDto } from './../../../swagger';
 import { FormApi } from './../../../swagger/api/FormApi';
 import { ConferenceApi } from './../../../swagger/api/ConferenceApi';
 import { UserApi } from './../../../swagger/api/UserApi';
+import { CommentDto, CommentCreateDto } from './../../../swagger';
 
 @Injectable()
 export class ApplicationEndpoint {
@@ -88,8 +89,8 @@ export class ApplicationEndpoint {
     }
 
 
-    public addCommentToApplication(applicationId: string, comment?: Comment, extraHttpRequestParams?: any):
-        Observable<Comment> {
+    public addCommentToApplication(applicationId: string, comment?: CommentCreateDto, extraHttpRequestParams?: any):
+        Observable<CommentDto> {
         const application = this._application(applicationId);
         application.comments ? application.comments.push(comment) : application.comments = [comment];
         return new Observable((observer: Observer<any>) => {

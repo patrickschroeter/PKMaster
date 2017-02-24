@@ -21,7 +21,8 @@ import {
     CommentCreateDto,
     UserDetailDto,
     StatusDto,
-    AssignmentCreateDto
+    AssignmentCreateDto,
+    ConferenceDetailDto
 } from './../../../swagger';
 
 /** Decorators */
@@ -171,10 +172,10 @@ export class ApplicationService {
      * @memberOf ApplicationService
      */
     @Loading('addCommentToApplication')
-    public addCommentToApplication(comment: CommentDto): Observable<CommentDto[]> {
+    public addCommentToApplication(comment: CommentDto): Observable<CommentDto> {
         if (!this.application) { return Observable.throw('No Application'); }
         const param: CommentCreateDto = new CommentCreateDto(comment);
-        return this.applicationApi.addCommentToApplication(this.application.id, param).map((result: CommentDto[]) => {
+        return this.applicationApi.addCommentToApplication(this.application.id, param).map((result: CommentDto) => {
             return result;
         });
     }
@@ -297,9 +298,7 @@ export class ApplicationService {
      */
     @Loading('updateApplication')
     public updateApplication(application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
-        // TODO; mapping
         const param: ApplicationCreateDto = new ApplicationCreateDto(application);
-
         return this.applicationApi.updateApplicationById(application.id, param).map((result: ApplicationDetailDto) => {
             return this.application = result;
         });
@@ -315,10 +314,13 @@ export class ApplicationService {
      * @memberOf ApplicationService
      */
     public assignConferenceToApplication(application: ApplicationDetailDto, conferenceId: string): Observable<ApplicationDetailDto> {
-        const param = _.cloneDeep(application);
         this.application = application;
-        return this.conferenceService.addApplicationToConference(param, conferenceId).map(result => {
-            return result;
+        return this.conferenceService.addApplicationToConference(application, conferenceId).map((result: ConferenceDetailDto) => {
+            this.configurationService.getStatusByName('submitted').subscribe((status: StatusDto) => {
+                this.application.status = status;
+            });
+            this.application.conference = result;
+            return this.application;
         });
     }
 

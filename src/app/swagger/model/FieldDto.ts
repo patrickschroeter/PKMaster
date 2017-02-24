@@ -30,9 +30,9 @@ export class FieldDto {
 
     id?: string;
 
-    name?: string;
+    name: string;
 
-    fieldType?: string;
+    fieldType: string;
 
     label?: string;
 
@@ -65,7 +65,7 @@ export class FieldDto {
     [key: string]: any;
 
     constructor(obj?: FieldDto) {
-        obj = obj || {};
+        obj = obj || ({} as any);
         this.id = obj.id;
         this.name = obj.name || null;
         this.fieldType = obj.fieldType || null;

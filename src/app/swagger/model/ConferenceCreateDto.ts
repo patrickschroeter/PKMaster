@@ -42,8 +42,7 @@ export class ConferenceCreateDto {
 
     configJson?: string;
 
-    constructor(obj?: models.ConferenceDetailDto) {
-        obj = obj || {};
+    constructor(obj: models.ConferenceDetailDto = new models.ConferenceDetailDto()) {
         this.description = obj.description;
         this.dateOfEvent = obj.dateOfEvent;
         this.startOfEvent = obj.startOfEvent;

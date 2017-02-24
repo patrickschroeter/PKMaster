@@ -29,10 +29,10 @@ export class StatusDto {
 
     id?: string;
 
-    name?: string;
+    name: string;
 
     constructor(obj?: StatusDto) {
-        obj = obj || {};
+        obj = obj || ({} as any);
         this.id = obj.id;
         this.name = obj.name;
     }

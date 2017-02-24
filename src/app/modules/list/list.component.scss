@@ -36,7 +36,6 @@
     }
 
     .list-element__attribute {
-        @extend .font_small;
         display: block;
         float: left;
         // margin: 17px 10px;
@@ -62,60 +61,18 @@
         //     float: left;
         // }
 
-        &.list-element__attribute--name {
+        flex: 1;
+        @extend .font_smaller;
+
+
+        &.list-element__attribute--primary {
             flex: 2;
             transition: color .3s ease-in-out;
-        }
-
-        &.list-element__attribute--state,
-        &.list-element__attribute--author,
-        &.list-element__attribute--conference,
-        &.list-element__attribute--date,
-        &.list-element__attribute--modified,
-        &.list-element__attribute--description,
-        &.list-element__attribute--version {
-            @extend .font_smaller;
-            // line-height: 23px;
-            flex: 1;
-        }
-        &.list-element__attribute--conference,
-        &.list-element__attribute--date,
-        &.list-element__attribute--modified,
-        &.list-element__attribute--version {
-            width: 12%;
-            min-width: 70px;
+            @extend .font_small;
         }
 
         &.list-element__attribute--state {
-            width: 10%;
-            min-width: 100px;
             text-transform: uppercase;
-            @media (max-width: 700px) {
-                display: none;
-            }
-        }
-
-        &.list-element__attribute--author {
-            min-width: 50px;
-        }
-
-        &.list-element__attribute--conference {
-            @media (max-width: 600px) {
-                display: none;
-            }
-        }
-
-        &.list-element__attribute--date {
-            @media (max-width: 600px) {
-                display: none;
-            }
-        }
-
-        &.list-element__attribute--description,
-        &.list-element__attribute--modified {
-            @media (max-width: 500px) {
-                display: none;
-            }
         }
     }
 
@@ -150,13 +107,11 @@
         $current-color: $success;
         .list-element__attribute--state-icon { border-color: $current-color; background: $current-color }
         .list-element__attribute--state { color: $current-color }
-        .list-element__attribute--modified { color: $current-color }
     }
     &.list-element--denied {
         $current-color: $error;
         .list-element__attribute--state-icon { border-color: $current-color; background: $current-color }
         .list-element__attribute--state { color: $current-color }
-        .list-element__attribute--modified { color: $current-color }
     }
     &.list-element--restricted {
         $current-color: $error;

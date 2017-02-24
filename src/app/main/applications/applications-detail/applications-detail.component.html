@@ -2,12 +2,14 @@
 
 <ng-container *ngIf="application">
     <div id="application-detail" class="rel">
-        <div class="block">
-            <h2 class="element element--spacing-bottom-small" i18n>Application: {{ application.title }}</h2>
+        <div class="block" *ngIf="application.confirmed || application.conference">
+            <!--<h2 class="element element--spacing-bottom-small" i18n>Application: {{ application.title }}</h2>-->
             <div class="label label--verified" *ngIf="application.confirmed" i18n>Verified</div>
-            <h4 class="element element--spacing-bottom-small">
-                <a class="anchor anchor--hover" routerLink="/conferences/{{ application.conference.id }}" *ngIf="application.conference" i18n>Conference: {{ application.conference.dateOfEvent | date }}</a>
+            <h4 class="element element--spacing-bottom-small" *ngIf="application.conference">
+                <a class="anchor anchor--hover" routerLink="/conferences/{{ application.conference.id }}" i18n>Conference: {{ application.conference.dateOfEvent | date }}</a>
             </h4>
+        </div>
+        <div class="block">
             <pk-dynamic-form-disabled *ngIf="application.attributes?.length > 0" [form]="application.attributes"></pk-dynamic-form-disabled>
         </div>
 
@@ -29,12 +31,16 @@
                 </div>
                 <pk-list>
                     <pk-list-header>
-                        <pk-list-attribute name="name" i18n>Name</pk-list-attribute>
+                        <pk-list-attribute name="primary" i18n>Name</pk-list-attribute>
+                        <pk-list-attribute i18n>E-Mail</pk-list-attribute>
                     </pk-list-header>
                     <pk-list-content>
                         <pk-list-element *ngFor="let user of application.assignments">
-                            <pk-list-attribute name="name">
+                            <pk-list-attribute name="primary">
                                 {{ user.firstname }}
+                            </pk-list-attribute>
+                            <pk-list-attribute>
+                                {{ user.email}}
                             </pk-list-attribute>
 
                             <pk-floating top-right horizontal>
@@ -163,7 +169,7 @@
                 </ng-container>
 
                 <pk-button
-                    *ngIf="application.status?.name === 'created'"
+                    *ngIf="application.status?.name === 'created' && application.filledForm"
                     class="element--spacing-bottom-tiny"
                     rounded
                     element--secondary

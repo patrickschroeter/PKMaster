@@ -197,7 +197,7 @@ export class AuthenticationService {
                 });
             })
                 // update the permissions
-                .map(result => {
+                .map((result: UserDetailDto) => {
                     const user = result;
                     user.permissions = user.permissions.length ? user.permissions : UserApiMock.USERS[0].permissions;
                     return this.permission.updateUserPermissions(user);
@@ -213,7 +213,7 @@ export class AuthenticationService {
                 this.publishCurrentUser(observer);
             })
                 // update the permissions
-                .map(result => {
+                .map((result: UserDetailDto) => {
                     const user = result;
                     user.permissions = user.permissions.length ? user.permissions : UserApiMock.USERS[0].permissions;
                     return this.permission.updateUserPermissions(user);
@@ -251,8 +251,12 @@ export class AuthenticationService {
      */
     public logout(): void {
         this.token = null;
-        this.user = null;
-        this.permission.updateUserPermissions(this.user);
+        if (this.user) {
+            this.user.subscribe((result: UserDetailDto) => {
+                this.permission.updateUserPermissions(result);
+                this.user = null;
+            });
+        }
         this.router.navigate(['/login']);
     }
 

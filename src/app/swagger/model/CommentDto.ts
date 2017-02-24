@@ -29,7 +29,7 @@ export class CommentDto {
 
     id?: string;
 
-    message?: string;
+    message: string;
 
     created?: Date;
 
@@ -39,9 +39,7 @@ export class CommentDto {
 
     user?: models.UserDetailDto;
 
-    constructor(obj?: CommentDto) {
-        obj = obj || {};
-
+    constructor(obj: CommentDto = new CommentDto()) {
         this.id = obj.id;
         this.message = obj.message;
         this.created = obj.created;

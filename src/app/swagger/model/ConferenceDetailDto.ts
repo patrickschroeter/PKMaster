@@ -29,19 +29,19 @@ import { ConferenceConfig } from './../../models';
 export class ConferenceDetailDto {
 
 
-    id?: string;
+    id: string;
 
-    description?: string;
+    description: string;
 
-    dateOfEvent?: Date;
+    dateOfEvent: Date;
 
-    startOfEvent?: string;
+    startOfEvent: string;
 
-    endOfEvent?: string;
+    endOfEvent: string;
 
-    roomOfEvent?: string;
+    roomOfEvent: string;
 
-    numberOfConference?: number;
+    numberOfConference: number;
 
     configJson?: string;
 
@@ -58,8 +58,7 @@ export class ConferenceDetailDto {
     [key: string]: any;
 
     constructor(obj?: models.ConferenceDetailDto) {
-        obj = obj || {};
-
+        obj = obj || ({} as any);
         this.id = obj.id;
         this.description = obj.description;
         this.dateOfEvent = obj.dateOfEvent;

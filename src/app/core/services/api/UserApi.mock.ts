@@ -11,7 +11,8 @@ class UserDetailDtoMock implements UserDetailDto, UserCreateDto {
     id: string;
     token?: string;
     password?: string;
-    email?: string;
+    email: string;
+    ldapId?: number;
     firstname?: string;
     lastname?: string;
     matNr?: number;

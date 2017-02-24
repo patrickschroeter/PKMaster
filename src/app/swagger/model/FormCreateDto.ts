@@ -41,7 +41,7 @@ export class FormCreateDto {
     requiresValidation?: boolean;
 
     constructor(obj?: models.FormDetailDto) {
-        obj = obj || {};
+        obj = obj || ({} as any);
         this.title = obj.title;
         this.restrictedAccess = !!obj.restrictedAccess;
         this.isPublic = !!obj.isPublic;

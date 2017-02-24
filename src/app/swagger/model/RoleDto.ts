@@ -27,16 +27,16 @@ import * as models from './models';
 
 export class RoleDto {
 
-    id?: string;
+    id: string;
 
-    name?: string;
+    name: string;
 
     // Custom
 
     rolePermissions?: Array<models.Permission>;
 
     constructor(obj?: models.RoleDto) {
-        obj = obj || {};
+        obj = obj || ({} as any);
 
         this.id = obj.id;
         this.name = obj.name;

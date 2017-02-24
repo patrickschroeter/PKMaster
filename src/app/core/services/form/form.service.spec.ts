@@ -95,7 +95,7 @@ describe('Service: Form', () => {
 
         it('should send the new form', () => {
             spyOn(api, 'addForm').and.returnValue(new Observable((obs: Observer<any>) => { obs.next('value'); }));
-            service.createNewForm({}).subscribe(() => {
+            service.createNewForm({} as any).subscribe(() => {
                 expect(api.addForm).toHaveBeenCalled();
             });
         });
@@ -105,12 +105,12 @@ describe('Service: Form', () => {
             const submit: FormDetailDto = {
                 title: 'titel des tests',
                 restrictedAccess: true
-            };
+            } as any;
             service.createNewForm(submit).subscribe(() => {
                 expect(api.addForm).toHaveBeenCalledWith(new FormCreateDto({
                     title: submit.title,
                     restrictedAccess: submit.restrictedAccess,
-                }));
+                } as any));
             });
         });
 
@@ -127,7 +127,7 @@ describe('Service: Form', () => {
                     title: 'Copy of ' + submit.title,
                     restrictedAccess: submit.restrictedAccess,
                     formHasField: submit.formHasField
-                }));
+                } as any));
             });
         });
     });
@@ -191,7 +191,7 @@ describe('Service: Form', () => {
             service.getFormById('id').subscribe(result => {
                 const field: FieldDto = {
                     name: 'firstname'
-                };
+                } as any;
                 service.editElementOfForm(field);
                 expect(element).toEqual(field);
             });
@@ -206,7 +206,7 @@ describe('Service: Form', () => {
             service.getFormById('id').subscribe(result => {
                 service.editElementOfForm({
                     name: 'header02'
-                });
+                } as any);
                 expect(element).toBeNull();
             });
         });
@@ -252,25 +252,25 @@ describe('Service: Form', () => {
 
             it('should return false if the element is in the form but no index is given (by value)', () => {
                 service.getFormById('id').subscribe(result => {
-                    expect(service.removeElement({ value: 'firstname' })).toBe(false);
+                    expect(service.removeElement({ value: 'firstname' } as any)).toBe(false);
                 });
             });
 
             it('should return false if the element is in the form but no index is given (by name)', () => {
                 service.getFormById('id').subscribe(result => {
-                    expect(service.removeElement({ name: 'firstname' })).toBe(false);
+                    expect(service.removeElement({ name: 'firstname' } as any)).toBe(false);
                 });
             });
 
             it('should return false if the element is in the form and a wrong index is given', () => {
                 service.getFormById('id').subscribe(result => {
-                    expect(service.removeElement({ name: 'firstname' }, 2)).toBe(false);
+                    expect(service.removeElement({ name: 'firstname' } as any, 2)).toBe(false);
                 });
             });
 
             it('should return true if the element is in the form and a right index is given', () => {
                 service.getFormById('id').subscribe(result => {
-                    expect(service.removeElement({ name: 'firstname' }, 1)).toBe(true);
+                    expect(service.removeElement({ name: 'firstname' } as any, 1)).toBe(true);
                 });
             });
 
@@ -285,29 +285,29 @@ describe('Service: Form', () => {
 
             it('should return true if the element is in the form but no index is given (by value)', () => {
                 service.getFormById('id').subscribe(result => {
-                    service.editElementOfForm({ name: 'firstname'});
-                    expect(service.removeElement({ value: 'firstname' })).toBe(true);
+                    service.editElementOfForm({ name: 'firstname'} as any);
+                    expect(service.removeElement({ value: 'firstname' } as any)).toBe(true);
                 });
             });
 
             it('should return false if the element is in the form but no index is given (by name)', () => {
                 service.getFormById('id').subscribe(result => {
-                    service.editElementOfForm({ name: 'firstname'});
-                    expect(service.removeElement({ name: 'firstname' })).toBe(false);
+                    service.editElementOfForm({ name: 'firstname'} as any);
+                    expect(service.removeElement({ name: 'firstname' } as any)).toBe(false);
                 });
             });
 
             it('should return false if the element is in the form and a wrong index is given', () => {
                 service.getFormById('id').subscribe(result => {
-                    service.editElementOfForm({ name: 'firstname'});
-                    expect(service.removeElement({ name: 'firstname' }, 2)).toBe(false);
+                    service.editElementOfForm({ name: 'firstname'} as any);
+                    expect(service.removeElement({ name: 'firstname' } as any, 2)).toBe(false);
                 });
             });
 
             it('should return true if the element is in the form and a right index is given', () => {
                 service.getFormById('id').subscribe(result => {
-                    service.editElementOfForm({ name: 'firstname'});
-                    expect(service.removeElement({ name: 'firstname' }, 1)).toBe(true);
+                    service.editElementOfForm({ name: 'firstname'} as any);
+                    expect(service.removeElement({ name: 'firstname' } as any, 1)).toBe(true);
                 });
             });
 
@@ -331,7 +331,7 @@ describe('Service: Form', () => {
                 service.getFormById('id').subscribe(form => {
                     expect(service.addElementToForm({
                         name: 'unique_name'
-                    })).toBe(true);
+                    } as any)).toBe(true);
                 });
             });
 
@@ -340,7 +340,7 @@ describe('Service: Form', () => {
                     const elements = form.formHasField.length;
                     service.addElementToForm({
                         name: 'unique_name'
-                    });
+                    } as any);
                     expect(form.formHasField.length).toEqual(elements + 1);
                 });
             });
@@ -361,7 +361,7 @@ describe('Service: Form', () => {
                 service.getFormById('id').subscribe(form => {
                     expect(service.addElementToForm({
                         name: 'firstname'
-                    })).toBe(false);
+                    } as any)).toBe(false);
                 });
             });
         });
@@ -381,10 +381,10 @@ describe('Service: Form', () => {
                 service.getFormById('id').subscribe(form => {
                     service.editElementOfForm({
                         name: 'firstname'
-                    });
+                    } as any);
                     expect(service.addElementToForm({
                         name: 'unique_name'
-                    })).toBe(true);
+                    } as any)).toBe(true);
                 });
             });
 
@@ -393,11 +393,11 @@ describe('Service: Form', () => {
                     const index = _.findIndex(form.formHasField, obj => obj.name === 'firstname');
                     service.editElementOfForm({
                         name: 'firstname'
-                    });
+                    } as any);
                     expect(form.formHasField[index].name).toEqual('firstname');
                     service.addElementToForm({
                         name: 'unique_name'
-                    });
+                    } as any);
                     expect(form.formHasField[index].name).toEqual('unique_name');
                 });
             });
@@ -418,10 +418,10 @@ describe('Service: Form', () => {
                 service.getFormById('id').subscribe(form => {
                     service.editElementOfForm({
                         name: 'firstname'
-                    });
+                    } as any);
                     expect(service.addElementToForm({
                         name: 'firstname'
-                    })).toBe(true);
+                    } as any)).toBe(true);
                 });
             });
 
@@ -430,7 +430,7 @@ describe('Service: Form', () => {
                     const index = _.findIndex(form.formHasField, obj => obj.name === 'firstname');
                     service.editElementOfForm({
                         name: 'firstname'
-                    });
+                    } as any);
                     expect(form.formHasField[index].fieldType).toEqual('input');
                     service.addElementToForm({
                         name: 'firstname',
@@ -456,10 +456,10 @@ describe('Service: Form', () => {
                 service.getFormById('id').subscribe(form => {
                     service.editElementOfForm({
                         name: 'firstname'
-                    });
+                    } as any);
                     expect(service.addElementToForm({
                         name: 'lastname'
-                    })).toBe(false);
+                    } as any)).toBe(false);
                 });
             });
         });
@@ -482,7 +482,7 @@ describe('Service: Form', () => {
                 service.getFormById('id').subscribe(form => {
                     service.addElementToForm({
                         name: 'unique_name'
-                    });
+                    } as any);
                     expect(isAdding).toBe(false);
                 });
             });
@@ -549,7 +549,7 @@ describe('Service: Form', () => {
                 const created = form.created;
                 service.saveFormAttributes({
                     title: 'New Title'
-                }).subscribe(result => {
+                } as any).subscribe(result => {
                     expect(created).toBe(result.created);
                     expect(result.title).toEqual('New Title');
                 });

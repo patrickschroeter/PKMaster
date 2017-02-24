@@ -1,27 +1,27 @@
 <pk-list>
     <pk-list-header>
         <!--<pk-list-attribute name="state-icon" (click)="sortBy('status')"></pk-list-attribute>-->
-        <pk-list-attribute name="state" i18n>Status</pk-list-attribute>
-        <pk-list-attribute name="name" i18n>Title</pk-list-attribute>
-        <pk-list-attribute name="author" *accessEditApplications i18n>Author</pk-list-attribute>
-        <pk-list-attribute name="conference" i18n>Conference</pk-list-attribute>
-        <pk-list-attribute name="date" i18n>Created</pk-list-attribute>
-        <pk-list-attribute name="modified" i18n>Version</pk-list-attribute>
+        <pk-list-attribute i18n>Status</pk-list-attribute>
+        <pk-list-attribute name="primary" i18n>Title</pk-list-attribute>
+        <pk-list-attribute *accessEditApplications i18n>Author</pk-list-attribute>
+        <pk-list-attribute i18n>Conference</pk-list-attribute>
+        <pk-list-attribute i18n>Created</pk-list-attribute>
+        <pk-list-attribute i18n>Version</pk-list-attribute>
     </pk-list-header>
     <pk-list-content>
         <pk-list-element *ngFor="let application of applications" [name]="application.status?.name">
 
             <pk-list-attribute name="state">{{ application.status?.name }}</pk-list-attribute>
 
-            <pk-list-attribute name="name" *ngIf="application.form">
+            <pk-list-attribute name="primary" *ngIf="application.form">
                 <a routerLink="/applications/{{ application.id }}">{{ application.form.title }}</a>
             </pk-list-attribute>
-            <pk-list-attribute name="name" *ngIf="!application.form">
+            <pk-list-attribute name="primary" *ngIf="!application.form">
                 <a routerLink="/applications/{{ application.id }}" i18n>No Form to get Title from.</a>
             </pk-list-attribute>
 
-            <pk-list-attribute name="author">{{ application.user ? application.user.lastname : '' }}</pk-list-attribute>
-            <pk-list-attribute name="conference">
+            <pk-list-attribute>{{ application.user ? application.user.lastname : '' }}</pk-list-attribute>
+            <pk-list-attribute>
                 <ng-container *accessReadConferences="1">
                     {{ application.conference ? (application.conference.dateOfEvent | date) : ''}}
                 </ng-container>
@@ -29,8 +29,8 @@
                     <a *ngIf="application.conference" routerLink="/conferences/{{ application.conference.id }}">{{ application.conference.dateOfEvent | date  }}</a>
                 </ng-container>
             </pk-list-attribute>
-            <pk-list-attribute name="date">{{ application.created | date }}</pk-list-attribute>
-            <pk-list-attribute name="modified">{{ application.version }}</pk-list-attribute>
+            <pk-list-attribute>{{ application.created | date }}</pk-list-attribute>
+            <pk-list-attribute>{{ application.version }}</pk-list-attribute>
 
             <pk-floating horizontal top-right>
 
@@ -74,7 +74,7 @@
 
                 <ng-container *accessSubmitApplications>
                     <pk-button
-                        *ngIf="application.status?.name === 'created'"
+                        *ngIf="application.status?.name === 'created' && application.filledForm"
                         rounded
                         element--secondary
                         i18n-pkAlert

@@ -132,7 +132,7 @@ export class SelectComponent implements OnInit {
      */
     ngOnInit() {
         if (!this.config) {
-            this.config = {};
+            this.config = new FieldDto();
         }
         this.formControl = this.getFormControl();
         if (!this.formControl) {

@@ -33,10 +33,9 @@ export class UserListDto {
 
     lastname?: string;
 
-    email?: string;
+    email: string;
 
-    constructor(obj?: models.UserDetailDto) {
-        obj = obj || {};
+    constructor(obj: models.UserDetailDto = new models.UserDetailDto()) {
         this.id = obj.id;
         this.firstname = obj.firstname;
         this.lastname = obj.lastname;

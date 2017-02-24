@@ -49,7 +49,7 @@ describe('Service: Application', () => {
         it('should provide the new created application',
             fakeAsync(inject([ApplicationService], (service: ApplicationService) => {
                 let element: ApplicationDetailDto;
-                service.createNewApplication(new ApplicationCreateDto({ form: { id: '1' } }))
+                service.createNewApplication(new ApplicationCreateDto(({ form: { id: '1' } } as any)))
                     .subscribe((result: ApplicationDetailDto) => { element = result; });
                 tick(25);
                 expect(element).toBeDefined();
@@ -73,7 +73,7 @@ describe('Service: Application', () => {
 
         beforeEach(fakeAsync(inject([ApplicationService], (applicationService: ApplicationService) => {
             service = applicationService;
-            service.createNewApplication(new ApplicationCreateDto({ form: { id: '1' } }))
+            service.createNewApplication(new ApplicationCreateDto(({ form: { id: '1' } } as any)))
                 .subscribe((result: ApplicationDetailDto) => { element = result; });
             tick(25);
         })));
@@ -126,11 +126,13 @@ describe('Service: Application', () => {
 
         describe('(with data)', () => {
             beforeEach(fakeAsync(() => {
-                service.createNewApplication(new ApplicationCreateDto({ form: { id: '1' } })).subscribe(result => { });
+                service.createNewApplication(new ApplicationCreateDto(({ form: { id: '1' } } as any))).subscribe(result => { });
                 tick(25);
-                service.createNewApplication(new ApplicationCreateDto({ form: { id: '2' } })).subscribe(result => { });
+                service.createNewApplication(new ApplicationCreateDto(({ form: { id: '2' } } as any))).subscribe(result => { });
                 tick(25);
-                service.createNewApplication(new ApplicationCreateDto({ form: { id: '3' } })).subscribe(result => { element = result; });
+                service.createNewApplication(
+                    new ApplicationCreateDto(({ form: { id: '3' } } as any))
+                ).subscribe(result => { element = result; });
                 tick(25);
             }));
 
@@ -266,7 +268,7 @@ describe('Service: Application', () => {
 
         it('should throw an error if no application is cached',
             inject([ApplicationService], (service: ApplicationService) => {
-                service.addCommentToApplication({}).subscribe(() => { }, error => {
+                service.addCommentToApplication(({} as any)).subscribe(() => { }, error => {
                     expect(error).toBeTruthy();
                 });
             })
@@ -276,7 +278,7 @@ describe('Service: Application', () => {
             inject([ApplicationService, ApplicationApi], (service: ApplicationService, api: ApplicationApi) => {
                 service.getApplicationById('id').subscribe(application => {
                     spyOn(api, 'addCommentToApplication').and.callThrough();
-                    service.addCommentToApplication({});
+                    service.addCommentToApplication(({} as any));
                     expect(api.addCommentToApplication).toHaveBeenCalled();
                 });
             })
@@ -289,7 +291,7 @@ describe('Service: Application', () => {
         it('should call the api',
             inject([ApplicationService, ApplicationApi], (service: ApplicationService, api: ApplicationApi) => {
                 spyOn(api, 'updateApplicationById').and.callThrough();
-                service.updateApplication({});
+                service.updateApplication(({} as any));
                 expect(api.updateApplicationById).toHaveBeenCalled();
             })
         );

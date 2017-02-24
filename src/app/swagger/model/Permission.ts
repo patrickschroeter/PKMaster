@@ -27,16 +27,16 @@ import * as models from './models';
 
 export class Permission {
 
-    id?: string;
+    id: string;
 
-    name?: string;
+    name: string;
 
     // Custom
 
     description?: string;
 
     constructor(obj?: Permission) {
-        obj = obj || {};
+        obj = obj || ({} as any);
 
         this.id = obj.id;
         this.name = obj.name;

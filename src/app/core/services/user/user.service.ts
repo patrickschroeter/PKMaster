@@ -137,7 +137,8 @@ export class UserService {
      */
     @Loading('addRoleToUser')
     public addRoleToUser(userId: string, roleId: string): Observable<UserDetailDto> {
-        return this.userApi.addRoleToUser(userId, roleId).map(result => {
+        const role: RoleDto = new RoleDto(({ id: roleId } as any));
+        return this.userApi.addRoleToUser(userId, role).map((result: UserDetailDto) => {
             return result;
         });
     }

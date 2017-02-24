@@ -29,13 +29,11 @@ export class UserDetailDto {
 
     id?: string;
 
-    sub?: string;
-
     firstname?: string;
 
     lastname?: string;
 
-    email?: string;
+    email: string;
 
     rzName?: string;
 
@@ -54,9 +52,16 @@ export class UserDetailDto {
     permissions?: string[];
 
     constructor(obj?: UserDetailDto) {
-        obj = obj || {};
+        obj = obj || ({} as any);
 
-        this.id = obj.id || obj.sub;
+        // map ldap
+        obj.firstname = (obj as any).first_name || obj.firstname;
+        obj.employeeType = (obj as any).employee_type || obj.employeeType;
+        obj.rzName = (obj as any).rz_name || obj.rzName;
+        obj.id = (obj as any).sub || obj.id;
+        // map end
+
+        this.id = obj.id;
         this.firstname = obj.firstname;
         this.lastname = obj.lastname;
         this.email = obj.email;

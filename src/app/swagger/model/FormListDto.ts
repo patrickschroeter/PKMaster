@@ -27,9 +27,9 @@ import * as models from './models';
 
 export class FormListDto {
 
-    id?: string;
+    id: string;
 
-    title?: string;
+    title: string;
 
     deprecated?: boolean;
 
@@ -41,9 +41,7 @@ export class FormListDto {
 
     isActive?: boolean;
 
-    constructor(obj?: models.FormDetailDto) {
-        obj = obj || {};
-
+    constructor(obj: models.FormDetailDto = new models.FormDetailDto()) {
         this.id = obj.id;
         this.title = obj.title;
         this.deprecated = !!obj.deprecated;

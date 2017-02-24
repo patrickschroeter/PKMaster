@@ -28,20 +28,20 @@ import * as models from './models';
 export class FieldDefinitionDto {
 
 
-    id?: string;
+    id: string;
 
     description?: string;
 
-    name?: string;
+    name: string;
 
-    configs?: Array<string>;
+    configs: Array<string>;
 
     styleIds?: Array<string>;
 
     validationIds?: Array<string>;
 
     constructor(obj?: FieldDefinitionDto) {
-        obj = obj || {};
+        obj = obj || ({} as any);
 
         this.id = obj.id;
         this.description = obj.description;
