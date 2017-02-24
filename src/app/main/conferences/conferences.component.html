@@ -16,7 +16,7 @@
 
                 <pk-list>
                     <pk-list-header>
-                        <pk-list-attribute name="primary" i18n>Description</pk-list-attribute>
+                        <pk-list-attribute primary i18n>Description</pk-list-attribute>
                         <pk-list-attribute i18n>Date</pk-list-attribute>
                         <pk-list-attribute i18n>Start</pk-list-attribute>
                         <pk-list-attribute i18n>End</pk-list-attribute>
@@ -24,13 +24,13 @@
                     </pk-list-header>
                     <pk-list-content>
                         <pk-list-element *ngFor="let conference of conferences">
-                            <pk-list-attribute name="primary">
+                            <pk-list-attribute primary name="conference">
                                 <a routerLink="/conferences/{{ conference.id }}">{{ conference.description }}</a>
                             </pk-list-attribute>
-                            <pk-list-attribute>{{ conference.dateOfEvent | date }}</pk-list-attribute>
-                            <pk-list-attribute>{{ conference.startOfEvent }}</pk-list-attribute>
-                            <pk-list-attribute>{{ conference.endOfEvent }}</pk-list-attribute>
-                            <pk-list-attribute>{{ conference.roomOfEvent }}</pk-list-attribute>
+                            <pk-list-attribute name="date">{{ conference.dateOfEvent | date }}</pk-list-attribute>
+                            <pk-list-attribute name="time">{{ conference.startOfEvent }}</pk-list-attribute>
+                            <pk-list-attribute name="time">{{ conference.endOfEvent }}</pk-list-attribute>
+                            <pk-list-attribute name="room">{{ conference.roomOfEvent }}</pk-list-attribute>
 
                             <pk-floating horizontal top-right>
                                 <pk-button

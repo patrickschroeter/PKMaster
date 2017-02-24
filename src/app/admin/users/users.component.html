@@ -18,18 +18,18 @@
                     <pk-list-header>
                         <pk-list-attribute i18n>Lastname</pk-list-attribute>
                         <pk-list-attribute i18n>Firstname</pk-list-attribute>
-                        <pk-list-attribute name="primary" i18n>E-Mail</pk-list-attribute>
+                        <pk-list-attribute primary i18n>E-Mail</pk-list-attribute>
                         <pk-list-attribute i18n>Roles</pk-list-attribute>
                     </pk-list-header>
                     <pk-list-content>
                         <pk-list-element *ngFor="let user of users">
-                            <pk-list-attribute>
+                            <pk-list-attribute name="person">
                                 <a routerLink="{{ user.id }}">
                                     {{ user.lastname }}
                                 </a>
                             </pk-list-attribute>
-                            <pk-list-attribute name="primary">{{ user.firstname }}</pk-list-attribute>
-                            <pk-list-attribute>{{ user.email }}</pk-list-attribute>
+                            <pk-list-attribute>{{ user.firstname }}</pk-list-attribute>
+                            <pk-list-attribute name="email" primary>{{ user.email }}</pk-list-attribute>
                             <pk-list-attribute>{{ user.roles ? user.roles.length : 0 }}</pk-list-attribute>
 
                             <pk-floating top-right horizontal>

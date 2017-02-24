@@ -306,7 +306,7 @@ formService als !singleton into element-edit.component?
 - liste: sortierung
 - ~~liste: trennlinie, auch zwischen spalten~~
 - ~~liste: fläche weiß + abstände statt trennlinie~~
-- liste: icons für orientierung/klassifizierung
+- ~~liste: icons für orientierung/klassifizierung~~
 - ~~liste: buttons weisverlauf/weistransparenz~~
 - conferenz: trennlinie zur abgrenzung
 - tabs: nicht bis ganz oben, trennlinie evtl wie abgrenzung

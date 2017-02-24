@@ -74,9 +74,9 @@
         <source>Conference</source>
         <target>Conference</target>
       </trans-unit>
-      <trans-unit id="1b051734b0ee9021991c91b3ed4e81c244322462" datatype="html">
-        <source>Created</source>
-        <target>Created</target>
+      <trans-unit id="6986e0df8092d822ac2c076520d83994c78834fc" datatype="html">
+        <source>Modified</source>
+        <target>Modified</target>
       </trans-unit>
       <trans-unit id="8fe73a4787b8068b2ba61f54ab7e0f9af2ea1fc9" datatype="html">
         <source>Version</source>
@@ -106,9 +106,9 @@
         <source>Validate Application</source>
         <target>Validate Application</target>
       </trans-unit>
-      <trans-unit id="6986e0df8092d822ac2c076520d83994c78834fc" datatype="html">
-        <source>Modified</source>
-        <target>Modified</target>
+      <trans-unit id="1b051734b0ee9021991c91b3ed4e81c244322462" datatype="html">
+        <source>Created</source>
+        <target>Created</target>
       </trans-unit>
       <trans-unit id="e4f88639dbc1934cf5dfc00faa42a0bf1bddb82a" datatype="html">
         <source>No Title</source>
@@ -318,10 +318,6 @@
         <source>Login</source>
         <target>Login</target>
       </trans-unit>
-      <trans-unit id="7d6dd27552a855029558c6fb4dec26249802e47e" datatype="html">
-        <source>Application: <x id="INTERPOLATION"/></source>
-        <target>Application: <x id="INTERPOLATION"/></target>
-      </trans-unit>
       <trans-unit id="814efcc244d182cabfdcdf7754097cdd023514d9" datatype="html">
         <source>Verified</source>
         <target>Verified</target>
@@ -337,6 +333,10 @@
       <trans-unit id="3f341a5e1fba3c8ba7d9bf1897ceb88df4f190f0" datatype="html">
         <source>Assign User</source>
         <target>Assign User</target>
+      </trans-unit>
+      <trans-unit id="d6507e7b5ae51f1734f3e169ef4cf6ef56f0001f" datatype="html">
+        <source>Vorname</source>
+        <target>Vorname</target>
       </trans-unit>
       <trans-unit id="d3e6c0a6dc3d117cad4cfb7175d33035075a2d47" datatype="html">
         <source>Delete assignment from application</source>

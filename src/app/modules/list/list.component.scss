@@ -1,6 +1,16 @@
 @import './../../config.scss';
 @import './../../theme/_typescale.scss';
+@import './../../theme/_material.scss';
 @import './../../theme/elements/_devider.scss';
+
+@mixin list-element__icon($arg) {
+    &:before {
+        @extend .material-icons;
+        content: $arg;
+        font-size: 1em;
+        margin-right: 0.5em;
+    }
+}
 
 .list {
     .list__header {
@@ -64,8 +74,7 @@
         flex: 1;
         @extend .font_smaller;
 
-
-        &.list-element__attribute--primary {
+        &[primary] {
             flex: 2;
             transition: color .3s ease-in-out;
             @extend .font_small;
@@ -73,6 +82,41 @@
 
         &.list-element__attribute--state {
             text-transform: uppercase;
+        }
+
+
+        &.list-element__attribute--application {
+            @include list-element__icon('description')
+        }
+        &.list-element__attribute--form {
+            @include list-element__icon('library_books')
+        }
+        &.list-element__attribute--conference {
+            @include list-element__icon('forum')
+        }
+        &.list-element__attribute--date {
+            @include list-element__icon('date_range')
+        }
+        &.list-element__attribute--time {
+            @include list-element__icon('access_time')
+        }
+        &.list-element__attribute--person {
+            @include list-element__icon('person')
+        }
+        &.list-element__attribute--version {
+            @include list-element__icon('replay')
+        }
+        &.list-element__attribute--secure {
+            @include list-element__icon('security')
+        }
+        &.list-element__attribute--email {
+            @include list-element__icon('email')
+        }
+        &.list-element__attribute--room {
+            @include list-element__icon('room')
+        }
+        &.list-element__attribute--info {
+            @include list-element__icon('info_outline')
         }
     }
 

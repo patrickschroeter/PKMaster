@@ -74,8 +74,8 @@
         <source>Conference</source>
         <target/>
       </trans-unit>
-      <trans-unit id="1b051734b0ee9021991c91b3ed4e81c244322462" datatype="html">
-        <source>Created</source>
+      <trans-unit id="6986e0df8092d822ac2c076520d83994c78834fc" datatype="html">
+        <source>Modified</source>
         <target/>
       </trans-unit>
       <trans-unit id="8fe73a4787b8068b2ba61f54ab7e0f9af2ea1fc9" datatype="html">
@@ -106,8 +106,8 @@
         <source>Validate Application</source>
         <target/>
       </trans-unit>
-      <trans-unit id="6986e0df8092d822ac2c076520d83994c78834fc" datatype="html">
-        <source>Modified</source>
+      <trans-unit id="1b051734b0ee9021991c91b3ed4e81c244322462" datatype="html">
+        <source>Created</source>
         <target/>
       </trans-unit>
       <trans-unit id="e4f88639dbc1934cf5dfc00faa42a0bf1bddb82a" datatype="html">
@@ -332,6 +332,10 @@
       </trans-unit>
       <trans-unit id="3f341a5e1fba3c8ba7d9bf1897ceb88df4f190f0" datatype="html">
         <source>Assign User</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="d6507e7b5ae51f1734f3e169ef4cf6ef56f0001f" datatype="html">
+        <source>Vorname</source>
         <target/>
       </trans-unit>
       <trans-unit id="d3e6c0a6dc3d117cad4cfb7175d33035075a2d47" datatype="html">

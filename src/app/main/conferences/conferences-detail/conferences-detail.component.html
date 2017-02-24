@@ -29,11 +29,11 @@
                     <ng-container *ngFor="let user of conference.members">
                         <div class="attendant--member">
                             <pk-list-element>
-                                <pk-list-attribute>
-                                    {{ user.firstname }}
+                                <pk-list-attribute name="person">
+                                    {{ user.lastname }}
                                 </pk-list-attribute>
                                 <pk-list-attribute>
-                                    {{ user.lastname }}
+                                    {{ user.firstname }}
                                 </pk-list-attribute>
 
                                 <pk-floating top-right horizontal>
@@ -74,11 +74,11 @@
                     <ng-container *ngFor="let user of conference.guests">
                         <div class="attendant--guest">
                             <pk-list-element>
-                                <pk-list-attribute>
-                                    {{ user.firstname }}
+                                <pk-list-attribute name="person">
+                                    {{ user.lastname }}
                                 </pk-list-attribute>
                                 <pk-list-attribute>
-                                    {{ user.lastname }}
+                                    {{ user.firstname }}
                                 </pk-list-attribute>
 
                                 <pk-floating top-right horizontal>

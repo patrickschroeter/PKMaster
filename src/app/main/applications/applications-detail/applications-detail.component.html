@@ -31,15 +31,19 @@
                 </div>
                 <pk-list>
                     <pk-list-header>
-                        <pk-list-attribute name="primary" i18n>Name</pk-list-attribute>
-                        <pk-list-attribute i18n>E-Mail</pk-list-attribute>
+                        <pk-list-attribute i18n>Name</pk-list-attribute>
+                        <pk-list-attribute i18n>Vorname</pk-list-attribute>
+                        <pk-list-attribute primary i18n>E-Mail</pk-list-attribute>
                     </pk-list-header>
                     <pk-list-content>
                         <pk-list-element *ngFor="let user of application.assignments">
-                            <pk-list-attribute name="primary">
-                                {{ user.firstname }}
+                            <pk-list-attribute name="person">
+                                {{ user.lastname }}
                             </pk-list-attribute>
                             <pk-list-attribute>
+                                {{ user.firstname }}
+                            </pk-list-attribute>
+                            <pk-list-attribute primary name="email">
                                 {{ user.email}}
                             </pk-list-attribute>
 

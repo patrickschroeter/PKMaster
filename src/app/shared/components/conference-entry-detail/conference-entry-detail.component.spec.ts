@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { ConferenceEntryDetailComponent } from './conference-entry-detail.component';
+import { AccessDirective } from './../../';
 
 describe('ConferenceEntryDetailComponent', () => {
     let component: ConferenceEntryDetailComponent;
@@ -12,7 +13,9 @@ describe('ConferenceEntryDetailComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                ConferenceEntryDetailComponent
+                ConferenceEntryDetailComponent,
+
+                AccessDirective
             ], schemas: [NO_ERRORS_SCHEMA]
         })
             .compileComponents();

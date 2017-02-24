@@ -28,7 +28,7 @@
                             <pk-list>
                                 <pk-list-header>
                                     <pk-list-attribute i18n>Status</pk-list-attribute>
-                                    <pk-list-attribute name="primary" i18n>Author</pk-list-attribute>
+                                    <pk-list-attribute primary i18n>Author</pk-list-attribute>
                                     <ng-container *ngFor="let field of entry.fields">
                                         <pk-list-attribute>{{ field }}</pk-list-attribute>
                                     </ng-container>
@@ -39,11 +39,20 @@
 
                                         <pk-list-element [name]="application.status?.name">
 
-                                            <pk-list-attribute name="status">{{ application.status?.name }}</pk-list-attribute>
-                                            <pk-list-attribute name="primary" *accessEditApplications>{{ application.user ? application.user.lastname : '' }}</pk-list-attribute>
+                                            <pk-list-attribute name="state">{{ application.status?.name }}</pk-list-attribute>
+                                            <pk-list-attribute primary name="person">
+                                                <a *accessEditApplications routerLink="/applications/{{ application.id }}">
+                                                    {{ !application.user || application.user.lastname }}
+                                                </a>
+                                                <ng-container *accessEditApplications="1">
+                                                    {{ !application.user || application.user.lastname }}
+                                                </ng-container>
+                                            </pk-list-attribute>
 
                                             <ng-container *ngFor="let field of entry.fields">
-                                                <pk-list-attribute>{{ application.filledForm[field] }}</pk-list-attribute>
+                                                <pk-list-attribute>
+                                                    {{ application.filledForm ? application.filledForm[field] : '' }}
+                                                </pk-list-attribute>
                                             </ng-container>
 
                                             <pk-floating horizontal top-right>
