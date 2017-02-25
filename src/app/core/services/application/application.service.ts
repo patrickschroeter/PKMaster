@@ -175,6 +175,9 @@ export class ApplicationService {
     public addCommentToApplication(comment: CommentDto): Observable<CommentDto> {
         if (!this.application) { return Observable.throw('No Application'); }
         const param: CommentCreateDto = new CommentCreateDto(comment);
+        this.auth.getUser().subscribe(user => {
+            param.userId = user.id;
+        });
         return this.applicationApi.addCommentToApplication(this.application.id, param).map((result: CommentDto) => {
             return result;
         });
@@ -305,6 +308,27 @@ export class ApplicationService {
     }
 
     /**
+     * updaet status of the application by status name
+     *
+     * @param {String} [name]
+     * @param {*} [extraHttpRequestParams]
+     * @returns {Observable<ApplicationDetailDto>}
+     *
+     * @memberOf ApplicationService
+     */
+    @Loading('updateStatusOfApplication')
+    public updateStatusOfApplication( name?: string, extraHttpRequestParams?: any ): Observable<ApplicationDetailDto> {
+        let status;
+        this.configurationService.getStatusByName(name).subscribe(result => {
+            status = result;
+        });
+        if (!status) {
+            return Observable.throw(`No Status with name ${name}`);
+        }
+        return this.applicationApi.updateStatusOfApplication(this.application.id, status, extraHttpRequestParams);
+    }
+
+    /**
      * add the conference to the application
      *
      * @param {ApplicationDetailDto} application
@@ -316,9 +340,12 @@ export class ApplicationService {
     public assignConferenceToApplication(application: ApplicationDetailDto, conferenceId: string): Observable<ApplicationDetailDto> {
         this.application = application;
         return this.conferenceService.addApplicationToConference(application, conferenceId).map((result: ConferenceDetailDto) => {
-            this.configurationService.getStatusByName('submitted').subscribe((status: StatusDto) => {
+            // TODO: move to server;
+            this.updateStatusOfApplication('pending').subscribe();
+            this.configurationService.getStatusByName('pending').subscribe((status: StatusDto) => {
                 this.application.status = status;
             });
+            //
             this.application.conference = result;
             return this.application;
         });

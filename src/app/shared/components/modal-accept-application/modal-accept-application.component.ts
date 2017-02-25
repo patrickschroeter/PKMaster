@@ -90,9 +90,7 @@ export class ModalAcceptApplicationComponent implements OnInit {
     @Access('EditApplications')
     public acceptApplication(form: AcceptApplication) {
         /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiresChanges, isPrivate: false });
-        /** TODO */ const param = _.cloneDeep(this.application);
-        /** TODO */ param.status = { name: 'accepted' };
-        this.applicationService.updateApplication(param).subscribe(result => {
+        this.applicationService.updateStatusOfApplication('accepted').subscribe(result => {
             this.application = result;
             this.change.emit(result);
             this.overlay.toggle(false);
@@ -106,9 +104,7 @@ export class ModalAcceptApplicationComponent implements OnInit {
     @Access('EditApplications')
     public declineApplication(form: AcceptApplication) {
         /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiresChanges, isPrivate: false });
-        /** TODO */ const param = _.cloneDeep(this.application);
-        /** TODO */ param.status = { name: 'denied' };
-        this.applicationService.updateApplication(param).subscribe(result => {
+        this.applicationService.updateStatusOfApplication('denied').subscribe(result => {
             this.application = result;
             this.change.emit(result);
             this.overlay.toggle(false);
@@ -121,17 +117,9 @@ export class ModalAcceptApplicationComponent implements OnInit {
      */
     public createNewComment(values: CommentDto) {
         const comment: CommentDto = values;
-        comment.created = new Date();
-        this.auth.getUser().subscribe(user => {
-            comment.user = user;
-            // TODO: send to server
-            if (!this.application.comments) {
-                this.application.comments = [];
-            }
-            setTimeout(() => {
-                this.application.comments.push(comment);
-            }, 500);
-        });
+        if (comment.message) {
+            this.applicationService.addCommentToApplication(comment).subscribe();
+        }
     }
 
 }

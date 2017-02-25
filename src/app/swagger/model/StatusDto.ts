@@ -27,7 +27,7 @@ import * as models from './models';
 
 export class StatusDto {
 
-    id?: string;
+    id: string;
 
     name: string;
 

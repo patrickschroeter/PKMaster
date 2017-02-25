@@ -106,7 +106,9 @@
 
     <ng-container *ngIf="conference.config && conference.config.length">
         <ng-container *ngFor="let entry of conference.config; let index = index">
-            <pk-conference-entry-detail [index]="index + 1" [entry]="entry"></pk-conference-entry-detail>
+            <div class="block">
+                <pk-conference-entry-detail [index]="index + 1" [entry]="entry"></pk-conference-entry-detail>
+            </div>
         </ng-container>
     </ng-container>
 

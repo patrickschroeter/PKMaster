@@ -1,13 +1,13 @@
 .block {
     position: relative;
 
-
-    margin: 0;
-    padding: 2rem 0;
+    padding-bottom: 2rem;
+    margin-top: 3rem;
 
     border-bottom: 1px solid lighten($lightgray, 25%);
     &:last-child {
         border-bottom: 0;
+        padding: 0;
     }
 
 

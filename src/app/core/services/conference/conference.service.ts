@@ -318,7 +318,8 @@ export class ConferenceService {
                 ],
                 validationIds: [
                     'time'
-                ]
+                ],
+                placeholder: 'hh:mm'
             },
             {
                 fieldType: 'input',
@@ -331,7 +332,8 @@ export class ConferenceService {
                 ],
                 validationIds: [
                     'time'
-                ]
+                ],
+                placeholder: 'hh:mm'
             },
             {
                 fieldType: 'input',

@@ -15,7 +15,7 @@ import { OverlayComponent, ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { ApplicationDetailDto, CommentDto, UserDetailDto } from './../../../swagger';
+import { ApplicationDetailDto, CommentCreateDto, UserDetailDto } from './../../../swagger';
 import { Selectable } from './../../../models';
 
 /** Decorators */
@@ -171,6 +171,40 @@ export class ApplicationsDetailComponent implements OnInit {
     }
 
     /**
+     * check if the current user is assigned to the application
+     *
+     * @returns {Boolean}
+     *
+     * @memberOf ApplicationsDetailComponent
+     */
+    public isAssigned(): boolean {
+        return this.application &&
+            this.application.assignments &&
+            this.user &&
+            this.application.assignments.map(obj => obj.id).indexOf(this.user.id) !== -1;
+    }
+
+    /**
+     * check if the application has the status by name
+     *
+     * @param {String} name
+     * @returns {Boolean}
+     *
+     * @memberOf ApplicationsDetailComponent
+     */
+    public hasStatus(): boolean {
+        if (!this.application || !this.application.status) { return false; }
+        const name = this.application.status.name;
+        const length = arguments.length;
+        for (let i = 0; i < length; i++) {
+            if (arguments[i] === name) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * update the application with the given one
      *
      * @param {ApplicationDetailDto} application
@@ -188,22 +222,15 @@ export class ApplicationsDetailComponent implements OnInit {
      *
      * @memberOf ApplicationsDetailComponent
      */
-    public createNewComment(values: CommentDto): void {
-        const comment: CommentDto = values;
-        comment.created = new Date();
-        this.auth.getUser().subscribe(user => {
-            comment.user = user;
-            comment.isPrivate = !!comment.isPrivate;
-            comment.requiresChanges = !!comment.requiresChanges;
-            // TODO: send to server
-            this.savingComment = true;
+    public createNewComment(values: CommentCreateDto): void {
+        const comment: CommentCreateDto = new CommentCreateDto(values);
 
-            this.applicationService.addCommentToApplication(comment).subscribe(result => {
-                this.application.comments = this.application.comments || [];
-                this.application.comments.push(result);
-                this.savingComment = false;
-                this.initAddCommentForm();
-            });
+        this.savingComment = true;
+        this.applicationService.addCommentToApplication(comment).subscribe(result => {
+            this.application.comments = this.application.comments || [];
+            this.application.comments.push(result);
+            this.savingComment = false;
+            this.initAddCommentForm();
         });
     }
 
@@ -239,7 +266,6 @@ export class ApplicationsDetailComponent implements OnInit {
     private addApplicationToConference(data: Selectable): void {
         this.applicationService.assignConferenceToApplication(this.application, data.value).subscribe(application => {
             this.application = application;
-            console.log(application);
             this.modalService.destroyModal();
         });
     }

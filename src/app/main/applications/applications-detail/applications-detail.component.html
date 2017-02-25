@@ -63,11 +63,11 @@
             </div>
         </ng-container>
 
-        <div class="block">
+        <div class="block" *ngIf="!(hasStatus('deactivated', 'accepted', 'denied') && !application.comments.length)">
             <div class="comment-block">
                 <h4 i18n>Comments</h4>
                 <div class="comment-flex">
-                    <div class="comment-add" *ngIf="application && application.status && ['deactivated', 'accepted', 'denied'].indexOf(application.status.name) === -1">
+                    <div class="comment-add" *ngIf="!hasStatus('deactivated', 'accepted', 'denied')">
                         <pk-loading *ngIf="savingComment"></pk-loading>
                         <pk-dynamic-form *ngIf="!savingComment" [formElements]="addComment" #dynamicForm>
                             <pk-dynamic-form-content>
@@ -148,7 +148,7 @@
 
                 <ng-container *accessEditApplications>
                     <pk-button
-                        *ngIf="application.status?.name === 'pending'"
+                        *ngIf="hasStatus('pending')"
                         class="element--spacing-bottom-tiny"
                         rounded
                         element--secondary
@@ -161,7 +161,7 @@
 
                 <ng-container *accessEditConferences>
                     <pk-button
-                        *ngIf="application.status?.name === 'pending' || application.status?.name === 'submitted'"
+                        *ngIf="hasStatus('pending', 'submitted')"
                         class="element--spacing-bottom-tiny"
                         rounded
                         element--secondary
@@ -173,7 +173,7 @@
                 </ng-container>
 
                 <pk-button
-                    *ngIf="application.status?.name === 'created' && application.filledForm"
+                    *ngIf="hasStatus('created') && application.filledForm"
                     class="element--spacing-bottom-tiny"
                     rounded
                     element--secondary
@@ -184,7 +184,7 @@
                 </pk-button>
 
                 <pk-button
-                    *ngIf="['submitted'].indexOf(application.status?.name) !== -1"
+                    *ngIf="hasStatus('submitted')"
                     class="element--spacing-bottom-tiny"
                     rounded
                     element--error
@@ -194,7 +194,7 @@
                     (onClick)="rescindApplicationModal(application)">
                 </pk-button>
 
-                <a  *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
+                <a  *ngIf="hasStatus('created', 'rescinded')"
                     routerLink="/applications/{{ application.id }}/edit">
                     <pk-button
                         class="element--spacing-bottom-tiny"
@@ -218,7 +218,7 @@
                 <!--Assigned-->
                 <ng-container *ngIf="user && application.assignments">
                     <pk-button
-                        *ngIf="application.status?.name === 'submitted' && application.assignments.indexOf(user.id) !== -1"
+                        *ngIf="hasStatus('submitted') && isAssigned()"
                         class="element--spacing-bottom-tiny"
                         rounded
                         element--secondary
@@ -229,7 +229,7 @@
                     </pk-button>
                 </ng-container>
                 <pk-button
-                    *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
+                    *ngIf="hasStatus('created', 'rescinded')"
                     class="element--spacing-bottom-tiny"
                     rounded
                     element--error

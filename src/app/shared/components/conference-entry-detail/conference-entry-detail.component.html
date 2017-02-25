@@ -1,4 +1,4 @@
-<div class="entry element element--spacing-bottom-small">
+<div class="entry">
     <ng-container *ngIf="entry">
         <div class="rel">
             <div class="content">
@@ -14,7 +14,9 @@
                     <ng-container *ngSwitchCase="'config'">
                         <ng-container *ngIf="entry.entries">
                             <ng-container *ngFor="let entry of entry.entries; trackBy: trackByFn; let i = index">
-                                <pk-conference-entry-detail [index]="index + '.' + (i + 1)" [entry]="entry"></pk-conference-entry-detail>
+                                <div class="block">
+                                    <pk-conference-entry-detail [index]="index + '.' + (i + 1)" [entry]="entry"></pk-conference-entry-detail>
+                                </div>
                             </ng-container>
                         </ng-container>
                     </ng-container>
