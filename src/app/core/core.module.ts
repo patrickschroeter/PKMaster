@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Http, XHRBackend, RequestOptions, HttpModule } from '@angular/http';
+import { Router } from '@angular/router';
 
 import { environment } from './../../environments/environment';
 
@@ -107,7 +108,7 @@ const API = !!environment.api;
         {
             provide: Http,
             useFactory: extendHttp,
-            deps: [XHRBackend, RequestOptions]
+            deps: [XHRBackend, RequestOptions, Router]
         }
     ],
     exports: [
@@ -140,8 +141,8 @@ export const CoreProviderMock = [
 /**
  * Factory Functions
  */
-export function extendHttp(xhrBackend: XHRBackend, requestOptions: RequestOptions) {
-    return new ExtendHttpService(xhrBackend, requestOptions);
+export function extendHttp(xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) {
+    return new ExtendHttpService(xhrBackend, requestOptions, router);
 }
 
 /**

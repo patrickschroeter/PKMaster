@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Request, RequestOptionsArgs, ConnectionBackend, RequestOptions, Headers, Response } from '@angular/http';
+import { Router } from '@angular/router';
 
 import { Observable, Observer } from 'rxjs/Rx';
 import { AuthenticationService } from './..';
@@ -11,7 +12,11 @@ import { AuthenticationService } from './..';
 @Injectable()
 export class ExtendHttpService extends Http {
 
-    constructor(backend: ConnectionBackend, defaultOptions: RequestOptions) {
+    constructor(
+        backend: ConnectionBackend,
+        defaultOptions: RequestOptions,
+        private router: Router
+    ) {
         super(backend, defaultOptions);
     }
 
@@ -30,7 +35,13 @@ export class ExtendHttpService extends Http {
         } else {
             options.headers.set('Content-Type', 'application/json');
         }
-        return super.request(url, options);
+        return super.request(url, options).map((response: Response) => {
+            if (response.status === 401) {
+                this.router.navigate(['login']);
+                return Observable.throw('401 Unauthorized');
+            }
+            return response;
+        });
     }
 
 }
