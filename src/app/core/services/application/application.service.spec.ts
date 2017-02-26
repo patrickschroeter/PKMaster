@@ -1,6 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import * as _ from 'lodash';
 
 import { ApplicationService } from './application.service';
@@ -16,7 +17,7 @@ import {
 } from './../configuration';
 
 import { ApplicationMock } from './';
-import { StatusDto, ApplicationApi, FormApi, ApplicationDetailDto, ApplicationCreateDto } from './../../../swagger';
+import { StatusDto, ApplicationApi, FormApi, ApplicationDetailDto, ApplicationCreateDto, ApplicationListDto } from './../../../swagger';
 import { ApplicationApiMock, FormApiMock, AuthenticationService, AuthenticationMock, ConferenceService, ConferenceMock } from './..';
 
 import { AlertProviderMock } from './../../../modules/alert/alert.module';
@@ -28,6 +29,8 @@ describe('Service: Application', () => {
         TestBed.configureTestingModule({
             providers: [
                 ApplicationService,
+
+                { provide: Router, useClass: class { navigate() { }; } },
 
                 { provide: FormService, useClass: FormMock },
                 { provide: ApplicationApi, useClass: ApplicationApiMock },
@@ -116,7 +119,7 @@ describe('Service: Application', () => {
 
         it('should provide an empty array if there are no applications',
             fakeAsync(() => {
-                let elements: ApplicationDetailDto[];
+                let elements: ApplicationListDto[];
                 service.getApplications().subscribe(result => { elements = result; });
                 tick(25);
                 expect(elements).toBeDefined();
@@ -138,7 +141,7 @@ describe('Service: Application', () => {
 
             it('should provide a list of all applications',
                 fakeAsync(() => {
-                    let elements: ApplicationDetailDto[];
+                    let elements: ApplicationListDto[];
                     service.getApplications().subscribe(result => { elements = result; });
                     tick(25);
                     expect(elements).toBeDefined();

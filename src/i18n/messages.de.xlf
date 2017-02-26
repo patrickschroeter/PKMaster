@@ -322,13 +322,25 @@
         <source>Login</source>
         <target>Login</target>
       </trans-unit>
+      <trans-unit id="da73894dd15700c04aeb5e99b7b9ce3c254cd25a" datatype="html">
+        <source>Application Status:</source>
+        <target>Application Status:</target>
+      </trans-unit>
+      <trans-unit id="6b0266f99586d17a1a372503a0e5abd35e979e0b" datatype="html">
+        <source>Application Conference:</source>
+        <target>Application Conference:</target>
+      </trans-unit>
+      <trans-unit id="5cef05de0938525d57ae7d9d349943700933ee21" datatype="html">
+        <source><x id="INTERPOLATION"/> on <x id="INTERPOLATION_1"/></source>
+        <target><x id="INTERPOLATION"/> on <x id="INTERPOLATION_1"/></target>
+      </trans-unit>
+      <trans-unit id="4fa90bb7cbc460d7d3095d82b81e3acbcf697dba" datatype="html">
+        <source>Application Appraisal:</source>
+        <target>Application Appraisal:</target>
+      </trans-unit>
       <trans-unit id="814efcc244d182cabfdcdf7754097cdd023514d9" datatype="html">
         <source>Verified</source>
         <target>Verified</target>
-      </trans-unit>
-      <trans-unit id="8314878a3dabd1db7060f440bc25d06056288c50" datatype="html">
-        <source>Conference: <x id="INTERPOLATION"/></source>
-        <target>Conference: <x id="INTERPOLATION"/></target>
       </trans-unit>
       <trans-unit id="77e5a7a9d2c918ed617d5a9d7b42f07533939f49" datatype="html">
         <source>Assigned Docents:</source>

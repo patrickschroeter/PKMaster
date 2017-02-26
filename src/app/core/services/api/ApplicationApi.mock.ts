@@ -18,7 +18,7 @@ export class ApplicationApiMock {
 
     static COMMENT_PUBLIC: CommentDto = { isPrivate: true, message: 'privater Testkommentar, der leider etwas länger wurde als anfangs geplant, aber auch nicht gekürzt werden kann, da sonst informationen fehlen', created: new Date(), user: new UserDetailDto((<any>{ firstname: 'Schneider'})) };
 
-    static APPLICATION: ApplicationDetailDto = { id: '1', status: (<any>{ name: 'created' }), created: new Date(), form: FormApiMock.FORM, comments: [ApplicationApiMock.COMMENT_PUBLIC, ApplicationApiMock.COMMENT_PRIVATE], user: UserApiMock.USER, filledForm: '{"header01":"Hochschule für Angewandte Wissenschaften Augsburg","firstname":"Franz","lastname":"Bauer"}' };
+    static APPLICATION: ApplicationDetailDto = new ApplicationDetailDto({ id: '1', status: (<any>{ name: 'created' }), created: new Date(), form: FormApiMock.FORM, comments: [ApplicationApiMock.COMMENT_PUBLIC, ApplicationApiMock.COMMENT_PRIVATE], user: UserApiMock.USER, filledForm: '{"header01":"Hochschule für Angewandte Wissenschaften Augsburg","firstname":"Franz","lastname":"Bauer"}' } as any);
 
     private list: ApplicationDetailDto[] = [];
 

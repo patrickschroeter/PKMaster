@@ -124,6 +124,13 @@ export const DICTIONARY_EN = {
     'loading-removeConference': 'loading-removeConference',
     'loading-removeForm': 'loading-removeForm',
     'loading-getOptionsOfTable': 'loading-getOptionsOfTable',
+    'loading-updatePermission': 'loading-updatePermission',
+    'loading-submitApplication': 'loading-submitApplication',
+    'loading-deactivateApplication': 'loading-deactivateApplication',
+    'loading-updateStatusOfApplication': 'loading-updateStatusOfApplication',
+    'loading-addCommentToApplication': 'loading-addCommentToApplication',
+    'loading-saveFormAttributes': 'loading-saveFormAttributes',
+    'loading-updateRoleById': 'loading-updateRoleById',
 
     'conferenceElementList': 'conferenceElementList',
     'addRoleToUser': 'addRoleToUser',
@@ -146,12 +153,15 @@ export const DICTIONARY_EN = {
     'confirmValidateApplicationSave': 'confirmValidateApplicationSave',
     'confirmValidateApplicationCancel': 'confirmValidateApplicationCancel',
 
-    'loading-addCommentToApplication': 'loading-addCommentToApplication',
-    'loading-saveFormAttributes': 'loading-saveFormAttributes',
-    'loading-updateRoleById': 'loading-updateRoleById',
     'requiresValidation': 'requiresValidation',
     'isActive': 'isActive',
     'loading-changePassword': 'loading-changePassword',
     'assignMemberHeader': 'assignMemberHeader',
-    'assignGuestHeader': 'assignGuestHeader'
+    'assignGuestHeader': 'assignGuestHeader',
+    'Error': 'Error',
+    'cantCreateApplication': 'cantCreateApplication',
+
+    'updateRequiredHeader': 'update required',
+    'updateRequiredContent': 'the application is invalid. Please update the form.',
+    'updateRequiredProgress': 'the form of this application has been updated. It\'s possible that some values have been lost.'
 };

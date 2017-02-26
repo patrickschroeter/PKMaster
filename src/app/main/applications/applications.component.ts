@@ -16,6 +16,7 @@ import { ModalService } from './../../modules/overlay';
 /** Models */
 import {
     ApplicationDetailDto,
+    ApplicationListDto,
     ApplicationCreateDto,
     UserDetailDto
 } from './../../swagger';
@@ -32,9 +33,9 @@ import { Access } from './../../shared/decorators/access.decorator';
 export class ApplicationsComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    public ownApplications: ApplicationDetailDto[];
-    public assignedApplications: ApplicationDetailDto[];
-    public applications: ApplicationDetailDto[];
+    public ownApplications: ApplicationListDto[];
+    public assignedApplications: ApplicationListDto[];
+    public applications: ApplicationListDto[];
 
     public activeTab: string;
 

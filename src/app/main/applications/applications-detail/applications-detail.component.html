@@ -2,12 +2,26 @@
 
 <ng-container *ngIf="application">
     <div id="application-detail" class="rel">
-        <div class="block" *ngIf="application.confirmed || application.conference">
+        <div class="block">
             <!--<h2 class="element element--spacing-bottom-small" i18n>Application: {{ application.title }}</h2>-->
-            <div class="label label--verified" *ngIf="application.confirmed" i18n>Verified</div>
-            <h4 class="element element--spacing-bottom-small" *ngIf="application.conference">
-                <a class="anchor anchor--hover" routerLink="/conferences/{{ application.conference.id }}" i18n>Conference: {{ application.conference.dateOfEvent | date }}</a>
-            </h4>
+            <h5>
+                <span i18n>Application Status:</span>
+                <span class="label">
+                    <span class="label__status label--{{ application.status.name }}">
+                        {{ application.status.name }}
+                    </span>
+                </span>
+            </h5>
+            <h5>
+                <span i18n>Application Conference:</span>
+                <a *ngIf="application.conference" class="anchor anchor--hover" routerLink="/conferences/{{ application.conference.id }}" i18n>{{ application.conference.description }} on {{ application.conference.dateOfEvent | date }}</a>
+            </h5>
+            <h5 *ngIf="application.confirmed">
+                <span i18n>Application Appraisal:</span>
+                <span class="label">
+                    <span class="label--verified" i18n>Verified</span>
+                </span>
+            </h5>
         </div>
         <div class="block">
             <pk-dynamic-form-disabled *ngIf="application.attributes?.length > 0" [form]="application.attributes"></pk-dynamic-form-disabled>
@@ -63,11 +77,11 @@
             </div>
         </ng-container>
 
-        <div class="block" *ngIf="!(hasStatus('deactivated', 'accepted', 'denied') && !application.comments.length)">
+        <div class="block" *ngIf="!(application.hasStatus('deactivated', 'accepted', 'denied') && !application.comments.length)">
             <div class="comment-block">
                 <h4 i18n>Comments</h4>
                 <div class="comment-flex">
-                    <div class="comment-add" *ngIf="!hasStatus('deactivated', 'accepted', 'denied')">
+                    <div class="comment-add" *ngIf="!application.hasStatus('deactivated', 'accepted', 'denied')">
                         <pk-loading *ngIf="savingComment"></pk-loading>
                         <pk-dynamic-form *ngIf="!savingComment" [formElements]="addComment" #dynamicForm>
                             <pk-dynamic-form-content>
@@ -144,11 +158,22 @@
                     icon="arrow_back">
                 </pk-button>
             </a>
+            <a  *ngIf="application.hasStatus('created', 'rescinded') && application.form.deprecated"
+                routerLink="/applications/{{ application.id }}/edit">
+                <pk-button
+                    class="element--spacing-bottom-tiny"
+                    rounded
+                    element--secondary
+                    i18n-pkAlert
+                    pkAlert="Update Application"
+                    icon="refresh">
+                </pk-button>
+            </a>
             <pk-button-animation-wrapper>
 
                 <ng-container *accessEditApplications>
                     <pk-button
-                        *ngIf="hasStatus('pending')"
+                        *ngIf="application.hasStatus('pending')"
                         class="element--spacing-bottom-tiny"
                         rounded
                         element--secondary
@@ -161,7 +186,7 @@
 
                 <ng-container *accessEditConferences>
                     <pk-button
-                        *ngIf="hasStatus('pending', 'submitted')"
+                        *ngIf="application.hasStatus('pending', 'submitted')"
                         class="element--spacing-bottom-tiny"
                         rounded
                         element--secondary
@@ -173,7 +198,7 @@
                 </ng-container>
 
                 <pk-button
-                    *ngIf="hasStatus('created') && application.filledForm"
+                    *ngIf="application.hasStatus('created') && application.filledForm && !application.form.deprecated"
                     class="element--spacing-bottom-tiny"
                     rounded
                     element--secondary
@@ -184,7 +209,7 @@
                 </pk-button>
 
                 <pk-button
-                    *ngIf="hasStatus('submitted')"
+                    *ngIf="application.hasStatus('submitted')"
                     class="element--spacing-bottom-tiny"
                     rounded
                     element--error
@@ -194,7 +219,7 @@
                     (onClick)="rescindApplicationModal(application)">
                 </pk-button>
 
-                <a  *ngIf="hasStatus('created', 'rescinded')"
+                <a  *ngIf="application.hasStatus('created', 'rescinded') && !application.form.deprecated"
                     routerLink="/applications/{{ application.id }}/edit">
                     <pk-button
                         class="element--spacing-bottom-tiny"
@@ -218,7 +243,7 @@
                 <!--Assigned-->
                 <ng-container *ngIf="user && application.assignments">
                     <pk-button
-                        *ngIf="hasStatus('submitted') && isAssigned()"
+                        *ngIf="application.hasStatus('submitted') && isAssigned()"
                         class="element--spacing-bottom-tiny"
                         rounded
                         element--secondary
@@ -229,7 +254,7 @@
                     </pk-button>
                 </ng-container>
                 <pk-button
-                    *ngIf="hasStatus('created', 'rescinded')"
+                    *ngIf="application.hasStatus('created', 'rescinded')"
                     class="element--spacing-bottom-tiny"
                     rounded
                     element--error

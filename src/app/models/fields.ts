@@ -101,7 +101,7 @@ export class FieldType extends Select {
 
 export class FieldName extends FieldModel {
     name = 'name';
-    label = 'Unique Name (ID)';
+    label = 'Display Name';
     required = true;
 }
 

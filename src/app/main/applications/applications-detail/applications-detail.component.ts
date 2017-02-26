@@ -89,20 +89,54 @@ export class ApplicationsDetailComponent implements OnInit {
     ngOnInit() {
 
         /** Read Route Param and GET Application with param ID */
-        this.activatedRoute.params.forEach((params: Params) => {
-            this.applicationService.getApplicationById(params['id']).subscribe((application) => {
-                if (!application) { return this.router.navigate(['/applications']); }
-                this.application = application;
-            }, error => {
-                console.error(error);
-                this.router.navigate(['/applications']);
-            });
-        });
+        this.getApplicationByRouteParam();
 
         /** init the form */
         this.initAddCommentForm();
 
         /** get all conferences */
+        this.getConferenceList();
+
+        /** get users for assignment */
+        this.getUsers();
+    }
+
+    /**
+     * Read Route Param and GET Application with param ID
+     *
+     * @private
+     *
+     * @memberOf ApplicationsDetailComponent
+     */
+    private getApplicationByRouteParam(): void {
+        this.activatedRoute.params.forEach((params: Params) => {
+            this.applicationService.getApplicationById(params['id']).subscribe((application) => {
+                if (!application) { return this.router.navigate(['/applications']); }
+                this.application = application;
+
+                if (this.application.form.deprecated) {
+                    this.alert.setAlert(
+                        this.translationService.translate('updateRequiredHeader'),
+                        this.translationService.translate('updateRequiredContent')
+                    );
+                }
+
+
+            }, error => {
+                console.error(error);
+                this.router.navigate(['/applications']);
+            });
+        });
+    }
+
+    /**
+     * get all conferences as list
+     *
+     * @private
+     *
+     * @memberOf ApplicationsDetailComponent
+     */
+    private getConferenceList(): void {
         this.conferenceService.getConferences().subscribe(conferences => {
             this.conferences = [];
             for (let i = 0; i < conferences.length; i++) {
@@ -113,8 +147,6 @@ export class ApplicationsDetailComponent implements OnInit {
                 });
             }
         });
-
-        this.getUsers();
     }
 
     /**
@@ -182,26 +214,6 @@ export class ApplicationsDetailComponent implements OnInit {
             this.application.assignments &&
             this.user &&
             this.application.assignments.map(obj => obj.id).indexOf(this.user.id) !== -1;
-    }
-
-    /**
-     * check if the application has the status by name
-     *
-     * @param {String} name
-     * @returns {Boolean}
-     *
-     * @memberOf ApplicationsDetailComponent
-     */
-    public hasStatus(): boolean {
-        if (!this.application || !this.application.status) { return false; }
-        const name = this.application.status.name;
-        const length = arguments.length;
-        for (let i = 0; i < length; i++) {
-            if (arguments[i] === name) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**

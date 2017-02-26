@@ -12,7 +12,7 @@
 
             <pk-list-attribute name="state">{{ application.status?.name }}</pk-list-attribute>
 
-            <pk-list-attribute primary>
+            <pk-list-attribute primary name="application">
                 <a *ngIf="application.form" routerLink="/applications/{{ application.id }}">{{ application.form.title }}</a>
                 <a *ngIf="!application.form" routerLink="/applications/{{ application.id }}" i18n>No Title</a>
             </pk-list-attribute>

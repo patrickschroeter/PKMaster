@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, Observer } from 'rxjs/Rx';
 import * as _ from 'lodash';
 
@@ -52,6 +53,8 @@ export class ApplicationService {
      * @memberOf ApplicationService
      */
     constructor(
+        /** Angular */
+        private router: Router,
         /** Modules */
         private alert: AlertService,
         private translationService: TranslationService,
@@ -73,9 +76,19 @@ export class ApplicationService {
      */
     @Loading('getApplicationById')
     public getApplicationById(id: string): Observable<ApplicationDetailDto> {
-        return this.applicationApi.getApplicationById(id).map((application: ApplicationDetailDto) => {
-            return this.application = application;
-        });
+        return this.applicationApi.getApplicationById(id)
+            .catch((error, cought) => {
+                this.router.navigate(['/applications']);
+                this.alert.setErrorHint(
+                    'no-application-found',
+                    this.translationService.translate('errorNoApplicationWithId', [id]),
+                    2000
+                );
+                return Observable.throw(this.translationService.translate('errorNoApplicationWithId', [id]));
+            })
+            .map((application: ApplicationDetailDto) => {
+                return this.application = application;
+            });
     }
 
     /**
@@ -317,7 +330,7 @@ export class ApplicationService {
      * @memberOf ApplicationService
      */
     @Loading('updateStatusOfApplication')
-    public updateStatusOfApplication( name?: string, extraHttpRequestParams?: any ): Observable<ApplicationDetailDto> {
+    public updateStatusOfApplication(name?: string, extraHttpRequestParams?: any): Observable<ApplicationDetailDto> {
         let status;
         this.configurationService.getStatusByName(name).subscribe(result => {
             status = result;

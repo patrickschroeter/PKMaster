@@ -68,7 +68,7 @@ export class ConferenceDetailDto {
         this.numberOfConference = obj.numberOfConference;
 
 
-        this.applications = obj.applications ? obj.applications.map((model: models.ApplicationListDto) => new models.ApplicationListDto(model)): [];
+        this.applications = obj.applications ? obj.applications.map((model: models.ApplicationListDto) => new models.ApplicationListDto(model as models.ApplicationDetailDto)): [];
         this.guests = obj.guests ? obj.guests.map((model: models.UserListDto) => new models.UserListDto(model)): [];
         this.members = obj.members ? obj.members.map((model: models.UserListDto) => new models.UserListDto(model)): [];
 
