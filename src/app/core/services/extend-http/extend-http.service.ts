@@ -35,13 +35,7 @@ export class ExtendHttpService extends Http {
         } else {
             options.headers.set('Content-Type', 'application/json');
         }
-        return super.request(url, options).map((response: Response) => {
-            if (response.status === 401) {
-                this.router.navigate(['login']);
-                return Observable.throw('401 Unauthorized');
-            }
-            return response;
-        });
+        return super.request(url, options);
     }
 
 }

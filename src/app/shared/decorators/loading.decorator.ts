@@ -5,6 +5,7 @@
 import { AlertService } from './../../modules/alert';
 import { TranslationService } from './../../modules/translation';
 import { environment } from './../../../environments/environment';
+import { Observable } from 'rxjs/Rx';
 
 export function Loading(name: string) {
     return function (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
@@ -35,9 +36,14 @@ export function Loading(name: string) {
 
             result = originalMethod.apply(this, args);
 
-            if (result && result.map) {
+            if (result && result.map && result instanceof Observable) {
                 if (this.alert instanceof AlertService) {
-                    return result.map((element: any) => {
+                    return (result as Observable<any>)
+                    .catch((error: any) => {
+                        this.alert.removeHint(name);
+                        return Observable.throw(error);
+                    })
+                    .map((element: any) => {
                         this.alert.removeHint(name);
                         return element;
                     });

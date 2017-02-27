@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostListener } from '@angular/core';
 
 @Component({
     selector: 'pk-button-animation-wrapper',
@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ButtonAnimationWrapperComponent implements OnInit {
 
+    public isOpen: boolean;
     public _animationRight: boolean;
     public _animationUp: boolean;
     public _animationDown: boolean;
@@ -18,6 +19,11 @@ export class ButtonAnimationWrapperComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
+    }
+
+    @HostListener('click', ['$event']) onClick(e: Event) {
+        console.log(e);
+        this.isOpen = !this.isOpen;
     }
 
 }

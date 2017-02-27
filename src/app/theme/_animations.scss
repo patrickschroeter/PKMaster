@@ -42,22 +42,77 @@
 // http://lea.verou.me/2011/01/styling-children-based-on-their-number-with-css3/
 .animation {
     $delta-t: 0.1;
-    &.animation--trigger:hover {
-        .animation--target {
-            visibility: visible;
-            transition-delay: 0s;
-            > * {
-                transform: translateX(-15px);
+    &.animation--trigger {
+        &:hover, &.animation--triggered {
+            .animation--target {
                 visibility: visible;
-                opacity: 1;
+                transition-delay: 0s;
+                > * {
+                    transform: translateX(-15px);
+                    visibility: visible;
+                    opacity: 1;
+                }
+                @for $i from 1 through 8 {
+                    > *:first-child:nth-last-child(#{$i}),
+                    > *:first-child:nth-last-child(#{$i}) ~ * {
+                        @for $j from 1 through $i {
+                            &:nth-child(#{$j}) {
+                                transform: scale(1) translateX(-12px);
+                                transition-delay: #{$delta-t * ($i + 1 - $j) + 0.1}s;
+                            }
+                        }
+                    }
+                }
             }
-            @for $i from 1 through 8 {
-                > *:first-child:nth-last-child(#{$i}),
-                > *:first-child:nth-last-child(#{$i}) ~ * {
-                    @for $j from 1 through $i {
-                        &:nth-child(#{$j}) {
-                            transform: scale(1) translateX(-12px);
-                            transition-delay: #{$delta-t * ($i + 1 - $j) + 0.1}s;
+
+
+            &.animation--down {
+                .animation--target {
+                    > * {
+                        transform: translateY(15px);
+                    }
+                    @for $i from 1 through 8 {
+                        > *:first-child:nth-last-child(#{$i}),
+                        > *:first-child:nth-last-child(#{$i}) ~ * {
+                            @for $j from 1 through $i {
+                                &:nth-child(#{$j}) {
+                                    transform: scale(1) translateY(12px);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            &.animation--up {
+                .animation--target {
+                    > * {
+                        transform: translateY(-15px);
+                    }
+                    @for $i from 1 through 8 {
+                        > *:first-child:nth-last-child(#{$i}),
+                        > *:first-child:nth-last-child(#{$i}) ~ * {
+                            @for $j from 1 through $i {
+                                &:nth-child(#{$j}) {
+                                    transform: scale(1) translateY(-12px);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            &.animation--right {
+                .animation--target {
+                    > * {
+                        transform: translateX(15px);
+                    }
+                    @for $i from 1 through 8 {
+                        > *:first-child:nth-last-child(#{$i}),
+                        > *:first-child:nth-last-child(#{$i}) ~ * {
+                            @for $j from 1 through $i {
+                                &:nth-child(#{$j}) {
+                                    transform: scale(1) translateX(12px);
+                                }
+                            }
                         }
                     }
                 }
@@ -94,23 +149,6 @@
 
     // default animation--left
     &.animation--down {
-        &.animation--trigger:hover {
-            .animation--target {
-                > * {
-                    transform: translateY(15px);
-                }
-                @for $i from 1 through 8 {
-                    > *:first-child:nth-last-child(#{$i}),
-                    > *:first-child:nth-last-child(#{$i}) ~ * {
-                        @for $j from 1 through $i {
-                            &:nth-child(#{$j}) {
-                                transform: scale(1) translateY(12px);
-                            }
-                        }
-                    }
-                }
-            }
-        }
         .animation--target {
             @for $i from 1 through 8 {
                 > *:first-child:nth-last-child(#{$i}),
@@ -126,23 +164,6 @@
         }
     }
     &.animation--up {
-        &.animation--trigger:hover {
-            .animation--target {
-                > * {
-                    transform: translateY(-15px);
-                }
-                @for $i from 1 through 8 {
-                    > *:first-child:nth-last-child(#{$i}),
-                    > *:first-child:nth-last-child(#{$i}) ~ * {
-                        @for $j from 1 through $i {
-                            &:nth-child(#{$j}) {
-                                transform: scale(1) translateY(-12px);
-                            }
-                        }
-                    }
-                }
-            }
-        }
         .animation--target {
             @for $i from 1 through 8 {
                 > *:first-child:nth-last-child(#{$i}),
@@ -158,23 +179,6 @@
         }
     }
     &.animation--right {
-        &.animation--trigger:hover {
-            .animation--target {
-                > * {
-                    transform: translateX(15px);
-                }
-                @for $i from 1 through 8 {
-                    > *:first-child:nth-last-child(#{$i}),
-                    > *:first-child:nth-last-child(#{$i}) ~ * {
-                        @for $j from 1 through $i {
-                            &:nth-child(#{$j}) {
-                                transform: scale(1) translateX(12px);
-                            }
-                        }
-                    }
-                }
-            }
-        }
         .animation--target {
             @for $i from 1 through 8 {
                 > *:first-child:nth-last-child(#{$i}),

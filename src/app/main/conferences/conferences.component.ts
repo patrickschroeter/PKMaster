@@ -103,7 +103,7 @@ export class ConferencesComponent implements OnInit {
      * @memberOf ConferencesComponent
      */
     public cloneConference(conference: ConferenceCreateDto) {
-        const param = _.cloneDeep(conference);
+        const param: ConferenceCreateDto = new ConferenceCreateDto(conference as ConferenceDetailDto);
         param.description = 'Copy of ' + param.description;
         this.createConference(param);
     }
