@@ -6,13 +6,10 @@ import { TranslationService } from './../../../modules/translation';
 
 /** Models */
 import { FieldDto } from './../../../swagger';
-import { ConferenceConfig } from './../../../models';
+import { ConferenceConfig, Window } from './../../../models';
 
 /** Components */
 import { OverlayComponent } from './../../../modules/overlay';
-
-/** Interfaces */
-import { Window } from './../../';
 
 @Component({
   selector: 'pk-modal-add-conference-entry',
