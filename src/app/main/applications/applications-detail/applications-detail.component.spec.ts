@@ -11,6 +11,7 @@ import { AlertProviderMock } from './../../../modules/alert/alert.module';
 import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
 import { OverlayModule, ModalProviderMock } from './../../../modules/overlay/overlay.module';
+import { StatusPipe } from './../../../shared';
 
 describe('ApplicationsDetailComponent', () => {
     let component: ApplicationsDetailComponent;
@@ -19,7 +20,8 @@ describe('ApplicationsDetailComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                ApplicationsDetailComponent
+                ApplicationsDetailComponent,
+                StatusPipe
             ],
             imports: [
                 OverlayModule,

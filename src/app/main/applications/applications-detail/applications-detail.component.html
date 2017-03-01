@@ -7,8 +7,8 @@
             <h5>
                 <span i18n>Application Status:</span>
                 <span class="label">
-                    <span class="label__status label--{{ application.status.name }}">
-                        {{ application.status.name }}
+                    <span class="label__status label--{{ application.statusId | status }}">
+                        {{ application.statusId | status }}
                     </span>
                 </span>
             </h5>

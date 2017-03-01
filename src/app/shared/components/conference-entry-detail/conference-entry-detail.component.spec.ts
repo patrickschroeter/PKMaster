@@ -5,6 +5,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { ConferenceEntryDetailComponent } from './conference-entry-detail.component';
 import { AccessDirective } from './../../';
+import { StatusPipe } from './../../../shared';
 
 describe('ConferenceEntryDetailComponent', () => {
     let component: ConferenceEntryDetailComponent;
@@ -15,7 +16,8 @@ describe('ConferenceEntryDetailComponent', () => {
             declarations: [
                 ConferenceEntryDetailComponent,
 
-                AccessDirective
+                AccessDirective,
+                StatusPipe
             ], schemas: [NO_ERRORS_SCHEMA]
         })
             .compileComponents();

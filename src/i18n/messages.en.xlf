@@ -14,9 +14,9 @@
         <source>Cancel</source>
         <target>Cancel</target>
       </trans-unit>
-      <trans-unit id="4b17f4f6a66c877a264d2a24f74e37310eb593fc" datatype="html">
-        <source>PK 4.0</source>
-        <target>PK 4.0</target>
+      <trans-unit id="32a98b3a980357f58fc8f622071e17088f56b553" datatype="html">
+        <source>PK4.0</source>
+        <target>PK4.0</target>
       </trans-unit>
       <trans-unit id="f1abafaeb40ce52355ddcc24686e3cd17b64e08a" datatype="html">
         <source>Applications</source>
@@ -41,6 +41,10 @@
       <trans-unit id="bb694b49d408265c91c62799c2b3a7e3151c824d" datatype="html">
         <source>Logout</source>
         <target>Logout</target>
+      </trans-unit>
+      <trans-unit id="4b17f4f6a66c877a264d2a24f74e37310eb593fc" datatype="html">
+        <source>PK 4.0</source>
+        <target>PK 4.0</target>
       </trans-unit>
       <trans-unit id="82421c3e46a0453a70c42900eab51d58d79e6599" datatype="html">
         <source>Main</source>

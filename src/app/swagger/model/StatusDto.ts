@@ -47,13 +47,3 @@ export enum Status {
     ACCEPTED = 6,
     DENIED = 7,
 }
-
-export enum StatusName {
-    CREATED = <any>'created',
-    SUBMITTED = <any>'submitted',
-    RESCINDED = <any>'rescinded',
-    PENDING = <any>'pending',
-    DEACTIVATED = <any>'deactivated',
-    ACCEPTED = <any>'accepted',
-    DENIED = <any>'denied',
-}
