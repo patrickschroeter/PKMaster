@@ -130,32 +130,4 @@ export class ConfigurationMock {
         return name === id;
     }
 
-    /**
-     * get all status values
-     *
-     * @returns {Observable<StatusDto[]>}
-     *
-     * @memberOf ConfigurationService
-     */
-    public getStatusValues(): Observable<StatusDto[]> {
-        return new Observable(observer => {
-            // tslint:disable-next-line:max-line-length
-            observer.next([{ 'id': 'e3c1f89f-d9d5-4d76-a05a-2b3745d72c80', 'name': 'created' }, { 'id': 'ba72b0fb-9969-4942-801e-685b86059421', 'name': 'submitted' }, { 'id': 'b5232108-49c8-4842-9f8c-050ed49d7445', 'name': 'rescinded' }, { 'id': 'ceb2df91-8d32-40b1-8eb1-1e6e6cc82c4d', 'name': 'pending' }, { 'id': 'bc2a6772-3010-49bc-be5a-c3e872c408f1', 'name': 'deactivated' }, { 'id': '974ad622-2936-43f9-9778-bc228b99691c', 'name': 'accepted' }, { 'id': '51189e95-c48d-4440-9eba-a27f735535ed', 'name': 'denied' }]);
-        });
-    }
-
-    /**
-     * get a status value by name
-     *
-     * @param {string} name
-     * @returns {Observable<StatusDto>}
-     *
-     * @memberOf ConfigurationService
-     */
-    public getStatusByName(name: string): Observable<StatusDto> {
-        return this.getStatusValues().map(result => {
-            return _.find(result, obj => obj.name === name);
-        });
-    }
-
 }

@@ -9,7 +9,12 @@ import {
 } from './../../../core';
 
 /** Models */
-import { FieldDto, CommentDto, ApplicationDetailDto } from './../../../swagger';
+import {
+    FieldDto,
+    CommentDto,
+    ApplicationDetailDto,
+    Status
+} from './../../../swagger';
 import { AcceptApplication } from './../../../models';
 
 /** Decorators */
@@ -90,7 +95,7 @@ export class ModalAcceptApplicationComponent implements OnInit {
     @Access('EditApplications')
     public acceptApplication(form: AcceptApplication) {
         /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiresChanges, isPrivate: false });
-        this.applicationService.updateStatusOfApplication('accepted').subscribe(result => {
+        this.applicationService.updateStatusOfApplication(Status.ACCEPTED).subscribe(result => {
             this.application = result;
             this.change.emit(result);
             this.overlay.toggle(false);
@@ -104,7 +109,7 @@ export class ModalAcceptApplicationComponent implements OnInit {
     @Access('EditApplications')
     public declineApplication(form: AcceptApplication) {
         /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiresChanges, isPrivate: false });
-        this.applicationService.updateStatusOfApplication('denied').subscribe(result => {
+        this.applicationService.updateStatusOfApplication(Status.DENIED).subscribe(result => {
             this.application = result;
             this.change.emit(result);
             this.overlay.toggle(false);

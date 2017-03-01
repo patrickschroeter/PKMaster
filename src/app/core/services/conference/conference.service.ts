@@ -261,7 +261,7 @@ export class ConferenceService {
         const conferenceId = conference.id;
         const applicationId = application.id;
         this.conference = conference;
-        return this.conferenceApi.deleteApplicationOfConference(conferenceId, applicationId, extraHttpRequestParams).map(result => {
+        return this.conferenceApi.removeApplicationFromConference(conferenceId, applicationId, extraHttpRequestParams).map(result => {
             const index = _.findIndex(this.conference.applications, obj => obj.id === application.id);
             if (index !== -1) {
                 this.conference.applications.splice(index, 1);

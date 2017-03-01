@@ -61,4 +61,16 @@ export class ApplicationListDto {
         this.statusId = obj.statusId;
         this.form = obj.form ? new models.FormDetailDto(obj.form): undefined;
     }
+
+    /**
+     * check if the application has on of the given stati
+     *
+     * @returns {boolean}
+     *
+     * @memberOf ApplicationDetailDto
+     */
+    public hasStatus(...stati: models.Status[]): boolean {
+        if (!this.statusId) { return false; }
+        return stati.indexOf(this.statusId) !== -1;
+    }
 }

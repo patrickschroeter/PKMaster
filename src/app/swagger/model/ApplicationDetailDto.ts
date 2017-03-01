@@ -46,7 +46,7 @@ export class ApplicationDetailDto {
 
     conference?: models.ConferenceListDto;
 
-    statusId?: models.Status;
+    statusId: models.Status;
 
     form: models.FormDetailDto;
 
@@ -100,9 +100,9 @@ export class ApplicationDetailDto {
      *
      * @memberOf ApplicationDetailDto
      */
-    public hasStatus(...stati: string[]): boolean {
-        if (!this.status) { return false; }
-        return stati.indexOf(this.status.name) !== -1;
+    public hasStatus(...stati: models.Status[]): boolean {
+        if (!this.statusId) { return false; }
+        return stati.indexOf(this.statusId) !== -1;
     }
 
     /**

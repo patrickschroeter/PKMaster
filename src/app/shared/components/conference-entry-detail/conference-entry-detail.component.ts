@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
 /** Models */
 import { ConferenceConfig } from './../../../models';
-import { ApplicationDetailDto } from './../../../swagger';
+import { ApplicationDetailDto, Status } from './../../../swagger';
 import { ModalAcceptApplicationComponent } from './../../';
 
 @Component({
@@ -16,6 +16,8 @@ export class ConferenceEntryDetailComponent implements OnInit {
 
     @Input() index: string;
     @Input() entry: ConferenceConfig;
+
+    public status = Status;
 
     constructor() { }
 

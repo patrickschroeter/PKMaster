@@ -9,8 +9,7 @@ import { ConfigurationApi } from './../../../swagger';
 import {
     FieldDefinitionDto,
     ValidationDto,
-    StyleDto,
-    StatusDto
+    StyleDto
 } from './../../../swagger';
 
 @Injectable()
@@ -19,7 +18,6 @@ export class ConfigurationService {
     private fieldDefinitions: Observable<FieldDefinitionDto[]>;
     private fieldStyles: Observable<StyleDto[]>;
     private fieldValidations: Observable<ValidationDto[]>;
-    private statusValues: Observable<StatusDto[]>;
 
     private fieldDefinitionValues: FieldDefinitionDto[];
     private fieldStyleValues: StyleDto[];
@@ -37,7 +35,6 @@ export class ConfigurationService {
         this.getFieldStyles().subscribe((result: StyleDto[]) => {
             this.fieldStyleValues = result;
         });
-        this.getStatusValues().subscribe();
     }
 
     /**
@@ -165,35 +162,6 @@ export class ConfigurationService {
         if (!this.fieldValidationValues) { return; }
         const index = _.findIndex(this.fieldValidationValues, obj => (obj.id === id && obj.validationString === name));
         return index !== -1;
-    }
-
-    /**
-     * get all status values
-     *
-     * @returns {Observable<StatusDto[]>}
-     *
-     * @memberOf ConfigurationService
-     */
-    public getStatusValues(): Observable<StatusDto[]> {
-        if (!this.statusValues) {
-            this.statusValues = this.configurationApi.getStatusValues()
-                .publishReplay(1).refCount();
-        }
-        return this.statusValues;
-    }
-
-    /**
-     * get a status value by name
-     *
-     * @param {string} name
-     * @returns {Observable<StatusDto>}
-     *
-     * @memberOf ConfigurationService
-     */
-    public getStatusByName(name: string): Observable<StatusDto> {
-        return this.getStatusValues().map(result => {
-            return _.find(result, obj => obj.name === name);
-        });
     }
 
 }

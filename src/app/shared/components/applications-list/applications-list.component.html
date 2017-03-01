@@ -34,7 +34,7 @@
 
                 <ng-container *accessDeactivateApplications>
                     <pk-button
-                        *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
+                        *ngIf="application.hasStatus(status.CREATED, status.RESCINDED)"
                         rounded
                         element--error
                         i18n-pkAlert
@@ -46,7 +46,7 @@
 
                 <ng-container *accessEditApplications>
                     <a
-                        *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
+                        *ngIf="application.hasStatus(status.CREATED, status.RESCINDED)"
                         routerLink="/applications/{{ application.id }}/edit">
                         <pk-button
                             *ngIf="application.form.deprecated"
@@ -69,7 +69,7 @@
 
                 <ng-container *accessEditApplications>
                     <pk-button
-                        *ngIf="['submitted'].indexOf(application.status?.name) !== -1"
+                        *ngIf="application.hasStatus(status.SUBMITTED)"
                         rounded
                         element--error
                         i18n-pkAlert
@@ -81,7 +81,7 @@
 
                 <ng-container *accessSubmitApplications>
                     <pk-button
-                        *ngIf="application.status?.name === 'created' && application.filledForm"
+                        *ngIf="application.hasStatus(status.CREATED) && application.filledForm"
                         rounded
                         element--secondary
                         i18n-pkAlert
@@ -93,7 +93,7 @@
 
                 <ng-container *accessValidateApplications>
                     <pk-button
-                        *ngIf="application.status?.name === 'submitted'"
+                        *ngIf="application.hasStatus(status.SUBMITTED)"
                         rounded
                         element--secondary
                         i18n-pkAlert

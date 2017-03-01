@@ -121,7 +121,7 @@ export class ConferenceApi {
      * @param conference new Conference Object
      */
     @Parse('ConferenceDetailDto')
-    public addConference (conference?: models.ConferenceCreateDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceCreateDto> {
+    public addConference (conference?: models.ConferenceCreateDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceDetailDto> {
         const path = this.basePath + '/conferences';
 
         let queryParameters = new URLSearchParams();

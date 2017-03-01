@@ -15,7 +15,13 @@ import { OverlayComponent, ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { ApplicationDetailDto, CommentCreateDto, UserDetailDto } from './../../../swagger';
+import {
+    ApplicationDetailDto,
+    CommentCreateDto,
+    UserDetailDto,
+    CommentDto,
+    Status
+} from './../../../swagger';
 import { Selectable } from './../../../models';
 
 /** Decorators */
@@ -49,6 +55,8 @@ export class ApplicationsDetailComponent implements OnInit {
     public user: UserDetailDto;
     public users: Selectable[];
     public userLabels: { [id: string]: string } = {};
+
+    public status = Status;
 
     /**
      * Creates an instance of ApplicationsDetailComponent.
@@ -238,9 +246,8 @@ export class ApplicationsDetailComponent implements OnInit {
         const comment: CommentCreateDto = new CommentCreateDto(values);
 
         this.savingComment = true;
-        this.applicationService.addCommentToApplication(comment).subscribe(result => {
-            this.application.comments = this.application.comments || [];
-            this.application.comments.push(result);
+        this.applicationService.addCommentToApplication(comment).subscribe((result: CommentDto[]) => {
+            this.application.comments = result || [];
             this.savingComment = false;
             this.initAddCommentForm();
         });

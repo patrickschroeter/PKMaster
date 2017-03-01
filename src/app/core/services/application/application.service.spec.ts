@@ -17,7 +17,15 @@ import {
 } from './../configuration';
 
 import { ApplicationMock } from './';
-import { StatusDto, ApplicationApi, FormApi, ApplicationDetailDto, ApplicationCreateDto, ApplicationListDto } from './../../../swagger';
+import {
+    StatusDto,
+    ApplicationApi,
+    FormApi,
+    ApplicationDetailDto,
+    ApplicationCreateDto,
+    ApplicationListDto,
+    Status
+} from './../../../swagger';
 import { ApplicationApiMock, FormApiMock, AuthenticationService, AuthenticationMock, ConferenceService, ConferenceMock } from './..';
 
 import { AlertProviderMock } from './../../../modules/alert/alert.module';
@@ -158,17 +166,17 @@ describe('Service: Application', () => {
         xit('should update the status to <submit> if the operation is allowed (created)',
             inject([ApplicationService], (service: ApplicationService) => {
                 const application = ApplicationApiMock.APPLICATION;
-                application.status.name = 'created';
+                application.statusId = Status.CREATED;
                 service.submitApplication(application).subscribe(result => {
                     expect(result.id).toEqual(application.id);
-                    expect(result.status.name).toEqual('submitted');
+                    expect(result.statusId).toEqual(Status.SUBMITTED);
                 });
             })
         );
         it('should throw an error if the operation is not allowed',
             inject([ApplicationService], (service: ApplicationService) => {
                 const application = ApplicationApiMock.APPLICATION;
-                application.status.name = 'accepted';
+                application.statusId = Status.ACCEPTED;
                 service.submitApplication(application).subscribe(result => {
                     expect(result).toBeFalsy();
                 }, error => {
@@ -183,17 +191,17 @@ describe('Service: Application', () => {
         xit('should update the status to <rescinded> if the operation is allowed (submitted)',
             inject([ApplicationService], (service: ApplicationService) => {
                 const application = ApplicationApiMock.APPLICATION;
-                application.status.name = 'submitted';
+                application.statusId = Status.SUBMITTED;
                 service.rescindApplication(application).subscribe(result => {
                     expect(result.id).toEqual(application.id);
-                    expect(result.status.name).toEqual('rescinded');
+                    expect(result.statusId).toEqual(Status.RESCINDED);
                 });
             })
         );
         it('should throw an error if the operation is not allowed',
             inject([ApplicationService], (service: ApplicationService) => {
                 const application = ApplicationApiMock.APPLICATION;
-                application.status.name = 'accepted';
+                application.statusId = Status.ACCEPTED;
                 service.rescindApplication(application).subscribe(result => {
                     expect(result).toBeFalsy();
                 }, error => {
@@ -208,10 +216,10 @@ describe('Service: Application', () => {
         xit('should update the status to <deactivated> if the operation is allowed (rescinded)',
             inject([ApplicationService], (service: ApplicationService) => {
                 const application = ApplicationApiMock.APPLICATION;
-                application.status.name = 'rescinded';
+                application.statusId = Status.RESCINDED;
                 service.deactivateApplication(application).subscribe(result => {
                     expect(result.id).toEqual(application.id);
-                    expect(result.status.name).toEqual('deactivated');
+                    expect(result.statusId).toEqual(Status.DEACTIVATED);
                 });
             })
         );
@@ -219,17 +227,17 @@ describe('Service: Application', () => {
         xit('should update the status to <deactivated> if the operation is allowed (created)',
             inject([ApplicationService], (service: ApplicationService) => {
                 const application = ApplicationApiMock.APPLICATION;
-                application.status.name = 'created';
+                application.statusId = Status.CREATED;
                 service.deactivateApplication(application).subscribe(result => {
                     expect(result.id).toEqual(application.id);
-                    expect(result.status.name).toEqual('deactivated');
+                    expect(result.statusId).toEqual(Status.DEACTIVATED);
                 });
             })
         );
         it('should throw an error if the operation is not allowed',
             inject([ApplicationService], (service: ApplicationService) => {
                 const application = ApplicationApiMock.APPLICATION;
-                application.status.name = 'accepted';
+                application.statusId = Status.ACCEPTED;
                 service.deactivateApplication(application).subscribe(result => {
                     expect(result).toBeFalsy();
                 }, error => {

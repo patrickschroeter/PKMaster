@@ -34,7 +34,7 @@ export class ApplicationCreateDto {
 
     conferenceId: string;
 
-    statusId: string;
+    statusId: models.Status;
 
     formId: string;
 

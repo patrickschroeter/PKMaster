@@ -8,7 +8,10 @@ import { TranslationService } from './../../../modules/translation';
 import { ModalService } from './../../../modules/overlay';
 
 /** Models */
-import { ApplicationDetailDto } from './../../../swagger';
+import {
+    ApplicationDetailDto,
+    Status
+} from './../../../swagger';
 
 @Component({
     selector: 'pk-applications-edit',
@@ -22,6 +25,8 @@ export class ApplicationsEditComponent implements OnInit {
 
     get application() { return this._application; }
     set application(application: ApplicationDetailDto) { this._application = application; }
+
+    public status = Status;
 
     /**
      * Creates an instance of ApplicationsEditComponent.
@@ -80,7 +85,7 @@ export class ApplicationsEditComponent implements OnInit {
      * @memberOf ApplicationsEditComponent
      */
     private checkStatusForEdit(): void {
-        if (!this.application.hasStatus('rescinded', 'created')) {
+        if (!this.application.hasStatus(Status.RESCINDED, Status.CREATED)) {
             this.router.navigate(['/applications']);
             this.alert.setErrorHint(
                 'no-application-edit',

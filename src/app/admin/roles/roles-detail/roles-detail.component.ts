@@ -8,7 +8,7 @@ import { OverlayComponent, ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { RoleDto, FieldDto, Permission } from './../../../swagger';
+import { RoleDto, FieldDto, PermissionDto } from './../../../swagger';
 import { Selectable } from './../../../models';
 
 /** Decorator */
@@ -98,7 +98,7 @@ export class RolesDetailComponent implements OnInit {
      * @param {Permission} permission
      */
     @Access('EditRoles')
-    public removePermissionOfRole(permission: Permission): void {
+    public removePermissionOfRole(permission: PermissionDto): void {
         this.roleService.removePermissionOfRole(this.role.id, permission.id).subscribe(result => {
             this.role = result;
         });
@@ -126,7 +126,7 @@ export class RolesDetailComponent implements OnInit {
      */
     @Access('EditRoles')
     private addPermissionToRole(data: Selectable): void {
-        const permission = _.find(this.role.rolePermissions, (obj: Permission) => obj.id === data.value);
+        const permission = _.find(this.role.rolePermissions, (obj: PermissionDto) => obj.id === data.value);
         const fn = (result: RoleDto) => {
             this.role = result;
             this.modalService.updateSelectedValues(result.rolePermissions.map(obj => { return obj.id; }));

@@ -59,7 +59,7 @@
 
                                             <pk-floating horizontal top-right>
                                                 <pk-button
-                                                    *ngIf="application.status?.name === 'pending'"
+                                                    *ngIf="application.hasStatus(status.PENDING)"
                                                     class="application--spacing-bottom-tiny"
                                                     rounded
                                                     element--success

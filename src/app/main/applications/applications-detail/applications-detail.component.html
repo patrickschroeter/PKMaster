@@ -77,11 +77,11 @@
             </div>
         </ng-container>
 
-        <div class="block" *ngIf="!(application.hasStatus('deactivated', 'accepted', 'denied') && !application.comments.length)">
+        <div class="block" *ngIf="!(application.hasStatus(status.DEACTIVATED, status.ACCEPTED, status.DENIED) && !application.comments.length)">
             <div class="comment-block">
                 <h4 i18n>Comments</h4>
                 <div class="comment-flex">
-                    <div class="comment-add" *ngIf="!application.hasStatus('deactivated', 'accepted', 'denied')">
+                    <div class="comment-add" *ngIf="!application.hasStatus(status.DEACTIVATED, status.ACCEPTED, status.DENIED)">
                         <pk-loading *ngIf="savingComment"></pk-loading>
                         <pk-dynamic-form *ngIf="!savingComment" [formElements]="addComment" #dynamicForm>
                             <pk-dynamic-form-content>
@@ -158,7 +158,7 @@
                     icon="arrow_back">
                 </pk-button>
             </a>
-            <a  *ngIf="application.hasStatus('created', 'rescinded') && application.form.deprecated"
+            <a  *ngIf="application.hasStatus(status.CREATED, status.RESCINDED) && application.form.deprecated"
                 routerLink="/applications/{{ application.id }}/edit">
                 <pk-button
                     class="element--spacing-bottom-tiny"
@@ -173,7 +173,7 @@
 
                 <ng-container *accessEditApplications>
                     <pk-button
-                        *ngIf="application.hasStatus('pending')"
+                        *ngIf="application.hasStatus(status.PENDING)"
                         class="element--spacing-bottom-tiny"
                         rounded
                         element--secondary
@@ -186,7 +186,7 @@
 
                 <ng-container *accessEditConferences>
                     <pk-button
-                        *ngIf="application.hasStatus('pending', 'submitted')"
+                        *ngIf="application.hasStatus(status.PENDING, status.SUBMITTED)"
                         class="element--spacing-bottom-tiny"
                         rounded
                         element--secondary
@@ -198,7 +198,7 @@
                 </ng-container>
 
                 <pk-button
-                    *ngIf="application.hasStatus('created') && application.filledForm && !application.form.deprecated"
+                    *ngIf="application.hasStatus(status.CREATED) && application.filledForm && !application.form.deprecated"
                     class="element--spacing-bottom-tiny"
                     rounded
                     element--secondary
@@ -209,7 +209,7 @@
                 </pk-button>
 
                 <pk-button
-                    *ngIf="application.hasStatus('submitted')"
+                    *ngIf="application.hasStatus(status.SUBMITTED)"
                     class="element--spacing-bottom-tiny"
                     rounded
                     element--error
@@ -219,7 +219,7 @@
                     (onClick)="rescindApplicationModal(application)">
                 </pk-button>
 
-                <a  *ngIf="application.hasStatus('created', 'rescinded') && !application.form.deprecated"
+                <a  *ngIf="application.hasStatus(status.CREATED, status.RESCINDED) && !application.form.deprecated"
                     routerLink="/applications/{{ application.id }}/edit">
                     <pk-button
                         class="element--spacing-bottom-tiny"
@@ -243,7 +243,7 @@
                 <!--Assigned-->
                 <ng-container *ngIf="user && application.assignments">
                     <pk-button
-                        *ngIf="application.hasStatus('submitted') && isAssigned()"
+                        *ngIf="application.hasStatus(status.SUBMITTED) && isAssigned()"
                         class="element--spacing-bottom-tiny"
                         rounded
                         element--secondary
@@ -254,7 +254,7 @@
                     </pk-button>
                 </ng-container>
                 <pk-button
-                    *ngIf="application.hasStatus('created', 'rescinded')"
+                    *ngIf="application.hasStatus(status.CREATED, status.RESCINDED)"
                     class="element--spacing-bottom-tiny"
                     rounded
                     element--error

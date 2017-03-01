@@ -23,7 +23,8 @@ import {
     UserDetailDto,
     StatusDto,
     AssignmentCreateDto,
-    ConferenceDetailDto
+    ConferenceDetailDto,
+    Status
 } from './../../../swagger';
 
 /** Decorators */
@@ -166,9 +167,7 @@ export class ApplicationService {
             application.userId = user.id;
         });
 
-        this.configurationService.getStatusByName('created').subscribe(status => {
-            application.statusId = status.id;
-        });
+        application.statusId = Status.CREATED;
 
         return this.applicationApi.createApplication((application as ApplicationCreateDto))
             .map((result: ApplicationDetailDto) => {
@@ -185,13 +184,13 @@ export class ApplicationService {
      * @memberOf ApplicationService
      */
     @Loading('addCommentToApplication')
-    public addCommentToApplication(comment: CommentDto): Observable<CommentDto> {
+    public addCommentToApplication(comment: CommentDto): Observable<CommentDto[]> {
         if (!this.application) { return Observable.throw('No Application'); }
         const param: CommentCreateDto = new CommentCreateDto(comment);
         this.auth.getUser().subscribe(user => {
             param.userId = user.id;
         });
-        return this.applicationApi.addCommentToApplication(this.application.id, param).map((result: CommentDto) => {
+        return this.applicationApi.addCommentToApplication(this.application.id, param).map((result: CommentDto[]) => {
             return result;
         });
     }
@@ -206,7 +205,7 @@ export class ApplicationService {
      *
      * @memberOf ApplicationService
      */
-    private blockedStatusUpdate(name: string, permittedStati: string[]): Observable<any> {
+    private blockedStatusUpdate(name: Status, permittedStati: Status[]): Observable<any> {
         if (permittedStati.indexOf(name) === -1) {
             this.alert.setAlert(
                 this.translationService.translate('headerNotAllowed'),
@@ -227,14 +226,10 @@ export class ApplicationService {
      */
     @Loading('submitApplication')
     public submitApplication(application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
-        const blocked = this.blockedStatusUpdate(application.status.name, ['created']);
+        const blocked = this.blockedStatusUpdate(application.statusId, [Status.CREATED]);
         if (blocked) { return blocked; }
-        /** TODO: move to server */
-        let status: StatusDto;
-        this.configurationService.getStatusByName('submitted').subscribe(result => {
-            status = result;
-        });
-        return this.applicationApi.updateStatusOfApplication(application.id, status).map((result: ApplicationDetailDto) => {
+
+        return this.applicationApi.updateStatusOfApplication(application.id, Status.SUBMITTED).map((result: ApplicationDetailDto) => {
             return this.application = result;
         });
     }
@@ -249,14 +244,10 @@ export class ApplicationService {
      */
     @Loading('rescindApplication')
     public rescindApplication(application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
-        const blocked = this.blockedStatusUpdate(application.status.name, ['submitted']);
+        const blocked = this.blockedStatusUpdate(application.statusId, [Status.SUBMITTED]);
         if (blocked) { return blocked; }
-        /** TODO: move to server */
-        let status: StatusDto;
-        this.configurationService.getStatusByName('rescinded').subscribe(result => {
-            status = result;
-        });
-        return this.applicationApi.updateStatusOfApplication(application.id, status).map((result: ApplicationDetailDto) => {
+
+        return this.applicationApi.updateStatusOfApplication(application.id, Status.RESCINDED).map((result: ApplicationDetailDto) => {
             return this.application = result;
         });
     }
@@ -271,14 +262,10 @@ export class ApplicationService {
      */
     @Loading('deactivateApplication')
     public deactivateApplication(application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
-        const blocked = this.blockedStatusUpdate(application.status.name, ['created', 'rescinded']);
+        const blocked = this.blockedStatusUpdate(application.statusId, [Status.CREATED, Status.RESCINDED]);
         if (blocked) { return blocked; }
-        /** TODO: move to server */
-        let status: StatusDto;
-        this.configurationService.getStatusByName('deactivated').subscribe(result => {
-            status = result;
-        });
-        return this.applicationApi.updateStatusOfApplication(application.id, status).map((result: ApplicationDetailDto) => {
+
+        return this.applicationApi.updateStatusOfApplication(application.id, Status.DEACTIVATED).map((result: ApplicationDetailDto) => {
             return this.application = result;
         });
     }
@@ -295,9 +282,7 @@ export class ApplicationService {
         if (!this.application) { return; }
         const param: ApplicationDetailDto = _.cloneDeep(this.application);
         param.filledForm = JSON.stringify(form);
-        this.configurationService.getStatusByName('created').subscribe(status => {
-            param.status = status;
-        });
+        param.statusId = Status.CREATED;
         console.log(JSON.stringify(param.filledForm));
         return this.updateApplication(param).map((result: ApplicationDetailDto) => {
             return this.application = result;
@@ -330,14 +315,7 @@ export class ApplicationService {
      * @memberOf ApplicationService
      */
     @Loading('updateStatusOfApplication')
-    public updateStatusOfApplication(name?: string, extraHttpRequestParams?: any): Observable<ApplicationDetailDto> {
-        let status;
-        this.configurationService.getStatusByName(name).subscribe(result => {
-            status = result;
-        });
-        if (!status) {
-            return Observable.throw(`No Status with name ${name}`);
-        }
+    public updateStatusOfApplication(status: Status, extraHttpRequestParams?: any): Observable<ApplicationDetailDto> {
         return this.applicationApi.updateStatusOfApplication(this.application.id, status, extraHttpRequestParams);
     }
 
@@ -353,12 +331,6 @@ export class ApplicationService {
     public assignConferenceToApplication(application: ApplicationDetailDto, conferenceId: string): Observable<ApplicationDetailDto> {
         this.application = application;
         return this.conferenceService.addApplicationToConference(application, conferenceId).map((result: ConferenceDetailDto) => {
-            // TODO: move to server;
-            this.updateStatusOfApplication('pending').subscribe();
-            this.configurationService.getStatusByName('pending').subscribe((status: StatusDto) => {
-                this.application.status = status;
-            });
-            //
             this.application.conference = result;
             return this.application;
         });

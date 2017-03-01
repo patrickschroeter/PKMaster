@@ -39,13 +39,13 @@ export class StatusDto {
 }
 
 export enum Status {
-    CREATED = <any>'1',
-    SUBMITTED = <any>'2',
-    RESCINDED = <any>'3',
-    PENDING = <any>'4',
-    DEACTIVATED = <any>'5',
-    ACCEPTED = <any>'6',
-    DENIED = <any>'7',
+    CREATED = 1,
+    SUBMITTED = 2,
+    RESCINDED = 3,
+    PENDING = 4,
+    DEACTIVATED = 5,
+    ACCEPTED = 6,
+    DENIED = 7,
 }
 
 export enum StatusName {

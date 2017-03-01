@@ -6,14 +6,18 @@ import {
     ApplicationService,
     FormService,
     PermissionService,
-    AuthenticationService
+    AuthenticationService,
 } from './../../../core';
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 import { ModalService } from './../../../modules/overlay';
 
 /** Models */
-import { ApplicationDetailDto, UserDetailDto } from './../../../swagger';
+import {
+    ApplicationDetailDto,
+    UserDetailDto,
+    Status
+} from './../../../swagger';
 import { Selectable } from './../../../models';
 
 /** Decorators */
@@ -28,6 +32,8 @@ export class ApplicationsListComponent implements OnInit {
 
     @Input() applications: ApplicationDetailDto[];
     @Input() user: UserDetailDto;
+
+    private status = Status;
 
     constructor(
         private modalService: ModalService,

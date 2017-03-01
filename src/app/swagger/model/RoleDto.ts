@@ -33,7 +33,7 @@ export class RoleDto {
 
     // Custom
 
-    rolePermissions?: Array<models.Permission>;
+    rolePermissions?: Array<models.PermissionDto>;
 
     constructor(obj?: models.RoleDto) {
         obj = obj || ({} as any);
@@ -41,6 +41,8 @@ export class RoleDto {
         this.id = obj.id;
         this.name = obj.name;
 
-        this.rolePermissions = obj.rolePermissions ? obj.rolePermissions.map((model: models.Permission) => new models.Permission(model)): [];
+        this.rolePermissions = obj.rolePermissions ? obj.rolePermissions.map(
+            (model: models.PermissionDto) => new models.PermissionDto(model)
+        ) : [];
     }
 }

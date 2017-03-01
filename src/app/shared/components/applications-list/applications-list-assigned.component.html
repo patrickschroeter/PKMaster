@@ -34,7 +34,7 @@
 
             <pk-floating horizontal top-right>
                 <a
-                    *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
+                    *ngIf="application.hasStatus(status.CREATED, status.RESCINDED)"
                     routerLink="/applications/{{ application.id }}/edit">
                     <pk-button
                         *ngIf="application.form.deprecated"
@@ -55,7 +55,7 @@
                 </a>
                 <!--Assigned-->
                 <pk-button
-                    *ngIf="application.status?.name === 'submitted'"
+                    *ngIf="application.hasStatus(status.SUBMITTED)"
                     rounded
                     element--secondary
                     i18n-pkAlert

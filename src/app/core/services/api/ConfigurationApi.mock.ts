@@ -32,12 +32,4 @@ export class ConfigurationApiMock {
         return new Observable(observer => observer.next([]));
     }
 
-    /**
-     * GET all possible Status
-     *
-     */
-    public getStatusValues(extraHttpRequestParams?: any): Observable<Array<StatusDto>> {
-        return new Observable(observer => observer.next([]));
-    }
-
 }
