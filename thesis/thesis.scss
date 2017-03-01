@@ -1,0 +1,115 @@
+/** BEM Block */
+
+.block {
+    /** Styling */
+}
+.special-block {
+    /** Styling */
+}
+
+
+/** !BEM Rule */
+
+.relative {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+
+/** BEM Element */
+
+.block__element {
+    /** Styling */
+}
+
+
+/** BEM Modifier */
+
+.block--modifier {
+    /** Styling */
+}
+.block__element--modifier {
+    /** Styling */
+}
+
+
+/** structural Directivesk */
+
+@each $i in 12, 14, 16 {
+    .size-#{$i} {
+        font-size: #{$i}px;
+    }
+}
+
+
+/** Array + Lightness */
+
+$colors:  ('primary', #3F51B5),
+          ('secondary', #009688),
+          ('success', #4CAF50),
+          ('error', #F44336),
+          ('white', #FEFEFE);
+
+
+@each $selector, $color in $colors {
+  .element--#{$selector} {
+
+    .element__button {
+      &:hover, &:active {
+        @if ($color == #FEFEFE) {
+          border-color: darken($color, 5%);
+        }
+      }
+
+      @if (lightness($color) > 70) {
+        color:  #212121;
+      } @else {
+        color:  #FEFEFE;
+      }
+    }
+  }
+}
+
+
+/** nth-child */
+
+
+$delta-t: 0.1;
+@for $i from 1 through 8 {
+    > *:first-child:nth-last-child(#{$i}),
+    > *:first-child:nth-last-child(#{$i}) ~ * {
+        @for $j from 1 through $i {
+            &:nth-child(#{$j}) {
+                transform: scale(1) translateX(-12px);
+                transition-delay: #{$delta-t * ($i + 1 - $j) + 0.1}s;
+            }
+        }
+    }
+}
+
+
+/** Keyframes */
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+
+/** Shadow Piercing */
+
+#id /deep/ .class {
+    /** Styling */
+}
+
+
+/** View Encapsulation */
+
+#attendants[_ngcontent-qka-58] {
+    /** Styling */
+}
