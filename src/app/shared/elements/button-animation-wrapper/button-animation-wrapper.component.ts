@@ -22,7 +22,6 @@ export class ButtonAnimationWrapperComponent implements OnInit {
     }
 
     @HostListener('click', ['$event']) onClick(e: Event) {
-        console.log(e);
         this.isOpen = !this.isOpen;
     }
 

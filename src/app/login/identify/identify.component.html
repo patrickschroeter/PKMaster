@@ -1,0 +1,17 @@
+<div class="login-wrapper">
+    <h1 i18n>Identify</h1>
+
+    <pk-dynamic-form [formElements]="identifyForm" #dynamicForm>
+        <pk-dynamic-form-content>
+
+            <pk-dynamic-form-element *ngFor="let element of identifyForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
+
+        </pk-dynamic-form-content>
+
+        <pk-dynamic-form-submit>
+            <pk-button (onClick)="identify(dynamicForm.form.value)" i18n-value value="Identify" icon="security" [class]="(dynamicForm.form && dynamicForm.form.valid) ? 'element--success' : 'element--disabled'"></pk-button>
+        </pk-dynamic-form-submit>
+
+    </pk-dynamic-form>
+
+</div>

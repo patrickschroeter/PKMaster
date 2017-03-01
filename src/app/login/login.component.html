@@ -13,12 +13,16 @@
         </pk-dynamic-form-content>
 
         <pk-dynamic-form-submit>
-            <pk-button (onClick)="login(dynamicForm.form.value)" i18n-value value="Login" icon="security" [class]="(dynamicForm.form && dynamicForm.form.valid) ? 'element--success' : 'element--disabled'"
-                [type]="'submit'"></pk-button>
+            <pk-button (onClick)="login(dynamicForm.form.value)" i18n-value value="Login" icon="security" [class]="(dynamicForm.form && dynamicForm.form.valid) ? 'element--success' : 'element--disabled'"></pk-button>
         </pk-dynamic-form-submit>
 
     </pk-dynamic-form>
 
+</div>
+
+<div class="login-actions">
+    <a routerLink="/login/identify">Passwort vergessen</a>
+    <a routerLink="/login/register">Registrieren</a>
 </div>
 
 <!--TODO remove for production-->

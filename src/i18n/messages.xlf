@@ -314,12 +314,28 @@
         <source>Remove Role from User</source>
         <target/>
       </trans-unit>
+      <trans-unit id="b1b381321d4cef04605d3e6e8847ea2b72a03799" datatype="html">
+        <source>Identify</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="f261dce7aeb8ea3369a29227ff846efb409ccf6e" datatype="html">
         <source>Username or Password is wrong</source>
         <target/>
       </trans-unit>
       <trans-unit id="6765b4c916060f6bc42d9bb69e80377dbcb5e4e9" datatype="html">
         <source>Login</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="def96c6a5d7fc151bc3ff5165bbfee9fba0652a7" datatype="html">
+        <source>Registrierung</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="ed096a3ecc6e3691a3352e8f84d99dcaeb0d6418" datatype="html">
+        <source>RZ-Name or Password is wrong</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9adf7f973ff81475f3622c2a38a1e69a7dd433af" datatype="html">
+        <source>Registrieren</source>
         <target/>
       </trans-unit>
       <trans-unit id="da73894dd15700c04aeb5e99b7b9ce3c254cd25a" datatype="html">

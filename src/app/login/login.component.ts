@@ -67,6 +67,10 @@ export class LoginComponent implements OnInit {
 
         this.automaticLogin();
 
+        this.initLoginForm();
+    }
+
+    private initLoginForm(): void {
         this.loginForm = [
             {
                 fieldType: 'input',
