@@ -34,7 +34,7 @@ import { Parse } from './../../shared/decorators/parse.decorator';
 'use strict';
 
 @Injectable()
-export class ConfigurationApi {
+export class PermissionApi {
     protected basePath = 'https://pk.multimedia.hs-augsburg.de:8000/';
     public defaultHeaders : Headers = new Headers();
 
@@ -45,67 +45,20 @@ export class ConfigurationApi {
     }
 
     /**
-     * GET all Field Definitions
-     * The config Endpoint returns all form relevant configs
+     * GET all Applications
+     * The Permission Endpoint returns all possible Permissions
+     * @param userId
      */
-    @Parse('FieldDefinitionDto')
-    public getFieldDefinitions (extraHttpRequestParams?: any ) : Observable<Array<models.FieldDefinitionDto>> {
-        const path = this.basePath + '/config/fieldDefinitions';
+    @Parse('PermissionDto')
+    public getAllPermissions (userId?: string, extraHttpRequestParams?: any ) : Observable<Array<models.PermissionDto>> {
+        const path = this.basePath + '/permissions';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-        let requestOptions: RequestOptionsArgs = {
-            method: 'GET',
-            headers: headerParams,
-            search: queryParameters
-        };
+        if (userId !== undefined) {
+            queryParameters.set('userId', String(userId));
+        }
 
-        return this.http.request(path, requestOptions)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return response.json();
-                }
-            });
-    }
-
-    /**
-     * GET all possible Styles
-     *
-     */
-    @Parse('StyleDto')
-    public getFieldStyles (extraHttpRequestParams?: any ) : Observable<Array<models.StyleDto>> {
-        const path = this.basePath + '/config/styles';
-
-        let queryParameters = new URLSearchParams();
-        let headerParams = this.defaultHeaders;
-        let requestOptions: RequestOptionsArgs = {
-            method: 'GET',
-            headers: headerParams,
-            search: queryParameters
-        };
-
-        return this.http.request(path, requestOptions)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return response.json();
-                }
-            });
-    }
-
-    /**
-     * GET all possible Validations
-     *
-     */
-    @Parse('ValidationDto')
-    public getFieldValidations (extraHttpRequestParams?: any ) : Observable<Array<models.ValidationDto>> {
-        const path = this.basePath + '/config/validations';
-
-        let queryParameters = new URLSearchParams();
-        let headerParams = this.defaultHeaders;
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
             headers: headerParams,

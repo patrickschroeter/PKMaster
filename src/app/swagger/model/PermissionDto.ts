@@ -25,7 +25,7 @@
 'use strict';
 import * as models from './models';
 
-export class Permission {
+export class PermissionDto {
 
     id: string;
 
@@ -35,7 +35,7 @@ export class Permission {
 
     description?: string;
 
-    constructor(obj?: Permission) {
+    constructor(obj?: PermissionDto) {
         obj = obj || ({} as any);
 
         this.id = obj.id;

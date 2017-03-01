@@ -27,31 +27,34 @@ import * as models from './models';
 
 export class ApplicationDetailDto {
 
-    assignments?: Array<models.UserDetailDto>;
 
-    comments?: Array<models.CommentDto>;
-
-    conference?: models.ConferenceListDto;
+    id: string;
 
     created?: Date;
 
-    currentForm?: models.FormDetailDto;
+    lastModified?: Date;
 
     filledForm?: string;
 
-    form: models.FormDetailDto;
-
-    id: string;
+    version?: number;
 
     isCurrent?: boolean;
 
     previousVersion?: string;
 
-    status: models.StatusDto;
-
     user: models.UserDetailDto;
 
-    version?: number;
+    conference?: models.ConferenceListDto;
+
+    statusId?: models.Status;
+
+    form: models.FormDetailDto;
+
+    currentForm?: models.FormDetailDto;
+
+    assignments?: Array<models.UserDetailDto>;
+
+    comments?: Array<models.CommentDto>;
 
     // Custom
 
@@ -71,14 +74,15 @@ export class ApplicationDetailDto {
         this.previousVersion = obj.previousVersion;
         this.confirmed = !!obj.confirmed;
 
-        this.user = obj.user ? new models.UserDetailDto(obj.user): undefined;
-        this.conference = obj.conference ? new models.ConferenceListDto(obj.conference): undefined;
-        this.status = obj.status ? new models.StatusDto(obj.status): undefined;
-        this.form = obj.form ? new models.FormDetailDto(obj.form): undefined;
-        this.currentForm = obj.currentForm ? new models.FormDetailDto(obj.currentForm): undefined;
+        this.user = obj.user ? new models.UserDetailDto(obj.user) : undefined;
+        this.conference = obj.conference ? new models.ConferenceListDto(obj.conference) : undefined;
+        // this.status = obj.status ? new models.StatusDto(obj.status) : undefined;
+        this.statusId = obj.statusId;
+        this.form = obj.form ? new models.FormDetailDto(obj.form) : undefined;
+        this.currentForm = obj.currentForm ? new models.FormDetailDto(obj.currentForm) : undefined;
 
-        this.assignments = obj.assignments ? obj.assignments.map((model: models.UserDetailDto) => new models.UserDetailDto(model)): [];
-        this.comments = obj.comments ? obj.comments.map((model: models.CommentDto) => new models.CommentDto(model)): [];
+        this.assignments = obj.assignments ? obj.assignments.map((model: models.UserDetailDto) => new models.UserDetailDto(model)) : [];
+        this.comments = obj.comments ? obj.comments.map((model: models.CommentDto) => new models.CommentDto(model)) : [];
 
         if (obj.attributes) {
             this.attributes = obj.attributes.map((model: models.FieldDto) => new models.FieldDto(model));
@@ -111,6 +115,9 @@ export class ApplicationDetailDto {
     public updateAttributes(form: models.FormDetailDto = this.form): void {
         this.form = form;
         const values = (this.filledForm && typeof this.filledForm === 'string') ? JSON.parse(this.filledForm) : {};
-        this.attributes = form.formHasField.map((model: models.FieldDto) =>{ model.value = values[model.name] ? values[model.name] : model.value; return new models.FieldDto(model); });
+        this.attributes = form.formHasField.map((model: models.FieldDto) => {
+            model.value = values[model.name] ? values[model.name] : model.value;
+            return new models.FieldDto(model);
+        });
     }
 }

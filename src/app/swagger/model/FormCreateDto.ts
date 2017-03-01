@@ -32,8 +32,6 @@ export class FormCreateDto {
 
     restrictedAccess: boolean;
 
-    isPublic: boolean;
-
     isActive: boolean;
 
     formHasField?: Array<models.FieldCreateDto>;
@@ -46,7 +44,6 @@ export class FormCreateDto {
         obj = obj || ({} as any);
         this.title = obj.title;
         this.restrictedAccess = !!obj.restrictedAccess;
-        this.isPublic = !!obj.isPublic;
         this.isActive = !!obj.isActive;
         this.requiresValidation = !!obj.requiresValidation;
         this.formHasField = obj.formHasField ? obj.formHasField.map((obj: models.FieldDto) => new models.FieldCreateDto(obj)): [];

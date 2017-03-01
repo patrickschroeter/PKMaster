@@ -37,6 +37,8 @@ export class FormDetailDto {
 
     restrictedAccess?: boolean;
 
+    previousVersion?: string;
+
     isPublic?: boolean;
 
     isActive?: boolean;
@@ -57,6 +59,7 @@ export class FormDetailDto {
         this.deprecated = !!obj.deprecated;
         this.created = obj.created || null;
         this.restrictedAccess = !!obj.restrictedAccess;
+        this.previousVersion = obj.previousVersion;
         this.isPublic = !!obj.isPublic;
         this.isActive = !!obj.isActive;
         this.requiresValidation = !!obj.requiresValidation;

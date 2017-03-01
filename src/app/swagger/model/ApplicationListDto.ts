@@ -27,9 +27,14 @@ import * as models from './models';
 
 export class ApplicationListDto {
 
+
     id: string;
 
     created?: Date;
+
+    lastModified?: Date;
+
+    filledForm?: string;
 
     isCurrent?: boolean;
 
@@ -39,11 +44,9 @@ export class ApplicationListDto {
 
     conference?: models.ConferenceListDto;
 
-    status: models.StatusDto;
+    statusId?: models.Status;
 
     form: models.FormListDto;
-
-    filledForm?: string;
 
     constructor(obj: models.ApplicationDetailDto = new models.ApplicationDetailDto()) {
         this.id = obj.id;
@@ -54,7 +57,8 @@ export class ApplicationListDto {
 
         this.user = obj.user ? new models.UserDetailDto(obj.user): undefined;
         this.conference = obj.conference ? new models.ConferenceListDto(obj.conference): undefined;
-        this.status = obj.status ? new models.StatusDto(obj.status): undefined;
+        // this.status = obj.status ? new models.StatusDto(obj.status): undefined;
+        this.statusId = obj.statusId;
         this.form = obj.form ? new models.FormDetailDto(obj.form): undefined;
     }
 }

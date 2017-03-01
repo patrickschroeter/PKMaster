@@ -121,7 +121,7 @@ export class ConferenceApi {
      * @param conference new Conference Object
      */
     @Parse('ConferenceDetailDto')
-    public addConference (conference?: models.ConferenceCreateDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceDetailDto> {
+    public addConference (conference?: models.ConferenceCreateDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceCreateDto> {
         const path = this.basePath + '/conferences';
 
         let queryParameters = new URLSearchParams();
@@ -139,43 +139,6 @@ export class ConferenceApi {
                     return undefined;
                 } else {
                     return response.json();
-                }
-            });
-    }
-
-    /**
-     * Delete Application of Conference
-     *
-     * @param conferenceId ID of the Conference
-     * @param applicationId The Application ID
-     */
-    public deleteApplicationOfConference (conferenceId: string, applicationId: string, extraHttpRequestParams?: any ) : Observable<{}> {
-        const path = this.basePath + '/conferences/{conferenceId}/applications/{applicationId}'
-            .replace('{' + 'conferenceId' + '}', String(conferenceId))
-            .replace('{' + 'applicationId' + '}', String(applicationId));
-
-        let queryParameters = new URLSearchParams();
-        let headerParams = this.defaultHeaders;
-        // verify required parameter 'conferenceId' is not null or undefined
-        if (conferenceId === null || conferenceId === undefined) {
-            throw new Error('Required parameter conferenceId was null or undefined when calling deleteApplicationOfConference.');
-        }
-        // verify required parameter 'applicationId' is not null or undefined
-        if (applicationId === null || applicationId === undefined) {
-            throw new Error('Required parameter applicationId was null or undefined when calling deleteApplicationOfConference.');
-        }
-        let requestOptions: RequestOptionsArgs = {
-            method: 'DELETE',
-            headers: headerParams,
-            search: queryParameters
-        };
-
-        return this.http.request(path, requestOptions)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return response.toString();
                 }
             });
     }
@@ -297,6 +260,43 @@ export class ConferenceApi {
 
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
+            headers: headerParams,
+            search: queryParameters
+        };
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json();
+                }
+            });
+    }
+
+    /**
+     * Remove Application From Conference
+     *
+     * @param conferenceId ID of the Conference
+     * @param applicationId The Application ID
+     */
+    public removeApplicationFromConference (conferenceId: string, applicationId: string, extraHttpRequestParams?: any ) : Observable<{}> {
+        const path = this.basePath + '/conferences/{conferenceId}/applications/{applicationId}'
+            .replace('{' + 'conferenceId' + '}', String(conferenceId))
+            .replace('{' + 'applicationId' + '}', String(applicationId));
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+        // verify required parameter 'conferenceId' is not null or undefined
+        if (conferenceId === null || conferenceId === undefined) {
+            throw new Error('Required parameter conferenceId was null or undefined when calling removeApplicationFromConference.');
+        }
+        // verify required parameter 'applicationId' is not null or undefined
+        if (applicationId === null || applicationId === undefined) {
+            throw new Error('Required parameter applicationId was null or undefined when calling removeApplicationFromConference.');
+        }
+        let requestOptions: RequestOptionsArgs = {
+            method: 'DELETE',
             headers: headerParams,
             search: queryParameters
         };

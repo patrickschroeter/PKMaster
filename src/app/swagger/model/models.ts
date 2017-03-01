@@ -1,7 +1,7 @@
-export * from './AssignmentCreateDto';
 export * from './ApplicationCreateDto';
 export * from './ApplicationDetailDto';
 export * from './ApplicationListDto';
+export * from './AssignmentCreateDto';
 export * from './AttendantCreateDto';
 export * from './CommentCreateDto';
 export * from './CommentDto';
@@ -15,7 +15,7 @@ export * from './FieldDto';
 export * from './FormCreateDto';
 export * from './FormDetailDto';
 export * from './FormListDto';
-export * from './Permission';
+export * from './PermissionDto';
 export * from './RoleDto';
 export * from './StatusDto';
 export * from './StyleDto';

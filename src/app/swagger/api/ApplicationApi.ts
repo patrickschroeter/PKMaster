@@ -51,7 +51,7 @@ export class ApplicationApi {
      * @param comment New Comment
      */
     @Parse('CommentDto')
-    public addCommentToApplication (applicationId: string, comment?: models.CommentCreateDto, extraHttpRequestParams?: any ) : Observable<models.CommentDto> {
+    public addCommentToApplication (applicationId: string, comment?: models.CommentCreateDto, extraHttpRequestParams?: any ) : Observable<Array<models.CommentDto>> {
         const path = this.basePath + '/applications/{applicationId}/comments'
             .replace('{' + 'applicationId' + '}', String(applicationId));
 
@@ -118,7 +118,7 @@ export class ApplicationApi {
      * @param application The new Application Object
      */
     @Parse('ApplicationDetailDto')
-    public createApplication (application?: models.ApplicationCreateDto, extraHttpRequestParams?: any ) : Observable<models.ApplicationDetailDto> {
+    public createApplication (application?: models.ApplicationCreateDto, extraHttpRequestParams?: any ) : Observable<{}> {
         const path = this.basePath + '/applications';
 
         let queryParameters = new URLSearchParams();
@@ -341,10 +341,10 @@ export class ApplicationApi {
      * Update Status of Application
      *
      * @param applicationId ID of the Application
-     * @param statusDto The new Status of the Application
+     * @param statusId
      */
     @Parse('ApplicationDetailDto')
-    public updateStatusOfApplication (applicationId: string, statusDto?: models.StatusDto, extraHttpRequestParams?: any ) : Observable<models.ApplicationDetailDto> {
+    public updateStatusOfApplication (applicationId: string, statusId?: number, extraHttpRequestParams?: any ) : Observable<models.ApplicationDetailDto> {
         const path = this.basePath + '/applications/{applicationId}/status'
             .replace('{' + 'applicationId' + '}', String(applicationId));
 
@@ -359,7 +359,7 @@ export class ApplicationApi {
             headers: headerParams,
             search: queryParameters
         };
-        requestOptions.body = JSON.stringify(statusDto);
+        requestOptions.body = JSON.stringify(statusId);
 
         return this.http.request(path, requestOptions)
             .map((response: Response) => {

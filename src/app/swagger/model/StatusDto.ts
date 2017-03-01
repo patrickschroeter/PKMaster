@@ -37,3 +37,23 @@ export class StatusDto {
         this.name = obj.name;
     }
 }
+
+export enum Status {
+    CREATED = <any>'1',
+    SUBMITTED = <any>'2',
+    RESCINDED = <any>'3',
+    PENDING = <any>'4',
+    DEACTIVATED = <any>'5',
+    ACCEPTED = <any>'6',
+    DENIED = <any>'7',
+}
+
+export enum StatusName {
+    CREATED = <any>'created',
+    SUBMITTED = <any>'submitted',
+    RESCINDED = <any>'rescinded',
+    PENDING = <any>'pending',
+    DEACTIVATED = <any>'deactivated',
+    ACCEPTED = <any>'accepted',
+    DENIED = <any>'denied',
+}

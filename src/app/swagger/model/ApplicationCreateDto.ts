@@ -40,9 +40,10 @@ export class ApplicationCreateDto {
 
     constructor(obj: models.ApplicationDetailDto = new models.ApplicationDetailDto()) {
         this.filledForm = obj.filledForm;
-        this.userId = obj.user ? obj.user.id: null;
-        this.conferenceId = obj.conference ? obj.conference.id: null;
-        this.statusId = obj.status ? obj.status.id: null;
-        this.formId = obj.form ? obj.form.id: null;
+        this.userId = obj.user ? obj.user.id : null;
+        this.conferenceId = obj.conference ? obj.conference.id : null;
+        // this.statusId = obj.status ? obj.status.id : null;
+        this.statusId = obj.statusId;
+        this.formId = obj.form ? obj.form.id : null;
     }
 }

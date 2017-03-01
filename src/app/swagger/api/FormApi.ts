@@ -45,6 +45,38 @@ export class FormApi {
     }
 
     /**
+     * Activate Form
+     *
+     * @param formId ID of the Form
+     */
+    @Parse('FormDetailDto')
+    public activateForm (formId: string, extraHttpRequestParams?: any ) : Observable<models.FormDetailDto> {
+        const path = this.basePath + '/forms/{formId}/activate'
+            .replace('{' + 'formId' + '}', String(formId));
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+        // verify required parameter 'formId' is not null or undefined
+        if (formId === null || formId === undefined) {
+            throw new Error('Required parameter formId was null or undefined when calling activateForm.');
+        }
+        let requestOptions: RequestOptionsArgs = {
+            method: 'PUT',
+            headers: headerParams,
+            search: queryParameters
+        };
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json();
+                }
+            });
+    }
+
+    /**
      * Create new Form
      *
      * @param form new Form
