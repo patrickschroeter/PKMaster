@@ -618,6 +618,10 @@
         <source>Public</source>
         <target/>
       </trans-unit>
+      <trans-unit id="33eea7f0dc97e73d9d97081e239e24f1b88b398c" datatype="html">
+        <source>Activate Form</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="ab7ff5bffe2e374b2b1dc3b4f95219190d8c625b" datatype="html">
         <source>Edit Form</source>
         <target/>

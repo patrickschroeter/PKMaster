@@ -119,6 +119,27 @@
         &.list-element__attribute--info {
             @include list-element__icon('info_outline')
         }
+
+        &.list-element--restricted {
+            $current-color: $error;
+            color: $current-color;
+        }
+        &.list-element--no-restricted {
+            $current-color: $success;
+            color: $current-color;
+        }
+        &.list-element--active {
+            $current-color: $success;
+            color: $current-color;
+        }
+        &.list-element--inactive {
+            $current-color: $error;
+            color: $current-color;
+        }
+        &.list-element--validation {
+            $current-color: $error;
+            color: $current-color;
+        }
     }
 
     // States
@@ -156,16 +177,6 @@
     &.list-element--denied {
         $current-color: $error;
         .list-element__attribute--state-icon { border-color: $current-color; background: $current-color }
-        .list-element__attribute--state { color: $current-color }
-    }
-    &.list-element--restricted {
-        $current-color: $error;
-        .list-element__attribute--state-icon { border-color: $current-color; background: transparent }
-        .list-element__attribute--state { color: $current-color }
-    }
-    &.list-element--no-restricted {
-        $current-color: $success;
-        .list-element__attribute--state-icon { border-color: $current-color; background: transparent }
         .list-element__attribute--state { color: $current-color }
     }
 }

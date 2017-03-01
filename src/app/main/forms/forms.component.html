@@ -25,7 +25,10 @@
                     </pk-list-header>
                     <pk-list-content>
                         <pk-list-element *ngFor="let form of forms" [name]="form.isActive ? 'active' : 'inactive'">
-                            <pk-list-attribute state>
+                            <pk-list-attribute state
+                                [class.list-element--active]="form.isActive"
+                                [class.list-element--inactive]="!form.isActive"
+                                >
                                 <ng-container i18n *ngIf="form.isActive">Active</ng-container>
                                 <ng-container i18n *ngIf="!form.isActive">Inactive</ng-container>
                             </pk-list-attribute>
@@ -38,12 +41,15 @@
 
                             <pk-list-attribute name="version">{{ form.version }}</pk-list-attribute>
 
-                            <pk-list-attribute name="secure">
+                            <pk-list-attribute name="secure"
+                                [class.list-element--restricted]="form.restrictedAccess"
+                                [class.list-element--no-restricted]="!form.restrictedAccess"
+                                >
                                 <ng-container i18n *ngIf="form.restrictedAccess">Restricted</ng-container>
                                 <ng-container i18n *ngIf="!form.restrictedAccess">Public</ng-container>
                             </pk-list-attribute>
 
-                            <pk-list-attribute>
+                            <pk-list-attribute [class.list-element--validation]="form.requiresValidation">
                                 <ng-container *ngIf="form.requiresValidation">Required</ng-container>
                                 <ng-container *ngIf="!form.requiresValidation">Optional</ng-container>
                             </pk-list-attribute>
@@ -56,6 +62,15 @@
                                         pkAlert="Delete Form"
                                     icon="delete"
                                     (onClick)="deleteForm(form)">
+                                </pk-button>
+                                <pk-button
+                                    *ngIf="!form.isActive"
+                                    rounded
+                                    element--secondary
+                                    i18n-pkAlert
+                                        pkAlert="Activate Form"
+                                    icon="publish"
+                                    (onClick)="activateForm(form)">
                                 </pk-button>
                                 <a routerLink="/forms/{{ form.id }}/edit">
                                     <pk-button

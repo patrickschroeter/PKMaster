@@ -296,6 +296,12 @@ export class FormsEditComponent implements OnInit {
                 this.formService.removeForm(this.form.id).subscribe(result => {
                     this.router.navigate(['forms']);
                     this.modalService.destroyModal();
+                }, error => {
+                    this.modalService.destroyModal();
+                    this.alert.setAlert(
+                        this.translationService.translate('deleteFormErrorHeader'),
+                        this.translationService.translate('deleteFormErrorContent')
+                    );
                 });
             }
         });
