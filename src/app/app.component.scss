@@ -10,12 +10,17 @@ html {
     height: 100%;
 
     &.admin {
-        #nav {
+        .navbar {
             background-color: $darkgray;
             color: $white;
 
             .selectable {
                 color: $white;
+            }
+
+            .element__button.element--icon {
+                color: $white;
+                border-color: $white;
             }
         }
     }
