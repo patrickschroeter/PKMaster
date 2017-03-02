@@ -18,7 +18,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: lighten($mediumwhite, 5%);
+    background-color: $background-body;
     color: $black;
 }
 
@@ -33,11 +33,6 @@ li {
 a {
     text-decoration: none;
     color: $black;
-}
-
-input, textarea {
-    /*font-family: 'Noto Sans', sans-serif;*/
-    /*font-weight: 400;*/
 }
 
 button {
@@ -120,19 +115,6 @@ button {
     visibility: hidden !important;
     opacity: 0 !important;
 }
-
-
-/**
-*   MD Icons
-*/
-
-.material-icons.md-12 { font-size: 12px; }
-.material-icons.md-16 { font-size: 16px; }
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-20 { font-size: 20px; }
-.material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
 
 /**
 * CSS Loading https://codepen.io/magnus16/pen/BKoRNw

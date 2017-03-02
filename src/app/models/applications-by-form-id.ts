@@ -1,5 +1,5 @@
 /** Models */
-import { ApplicationDto } from './../swagger';
+import { ApplicationDetailDto } from './../swagger';
 
 /**
  * Object of Applications by Form ID
@@ -8,5 +8,5 @@ import { ApplicationDto } from './../swagger';
  * @interface ApplicationsById
  */
 export interface ApplicationsByFormId {
-    [key: string]: ApplicationDto[];
+    [key: string]: ApplicationDetailDto[];
 }

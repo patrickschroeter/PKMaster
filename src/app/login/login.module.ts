@@ -8,10 +8,14 @@ import { SharedModule } from './../shared/shared.module';
 import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module';
 import { ButtonModule } from './../modules/button/button.module';
 import { FloatingModule } from './../modules/floating/floating.module';
+import { RegisterComponent } from './register/register.component';
+import { IdentifyComponent } from './identify/identify.component';
 
 @NgModule({
     declarations: [
         LoginComponent,
+        RegisterComponent,
+        IdentifyComponent,
     ],
     imports: [
         LoginRouting,

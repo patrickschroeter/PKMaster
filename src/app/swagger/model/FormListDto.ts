@@ -1,6 +1,6 @@
 /**
  * API Schnittstelle für die Prüfungskommision der Hochschule Augsburg
- * Hier sind alle Routen aufgelistet die zur verfügung stehen. Zuvor muss jedoch ein JWT Token überden Authorize Button hinzufügen
+ * Hier sind alle Routen aufgelistet die zur verfügung stehen. Zuvor muss jedoch ein JWT Token überden Authorize Button hinzugefügt werden
  *
  * OpenAPI spec version: v1
  *
@@ -25,16 +25,29 @@
 'use strict';
 import * as models from './models';
 
-export interface Permission {
+export class FormListDto {
 
+    id: string;
 
-    id?: string;
+    title: string;
 
-    name?: string;
+    deprecated?: boolean;
 
-    rolePermission?: Array<models.RoleDto>;
+    created?: Date;
 
-    // Custom
+    restrictedAccess?: boolean;
 
-    description?: string;
+    isPublic?: boolean;
+
+    isActive?: boolean;
+
+    constructor(obj: models.FormDetailDto = new models.FormDetailDto()) {
+        this.id = obj.id;
+        this.title = obj.title;
+        this.deprecated = !!obj.deprecated;
+        this.created = obj.created;
+        this.restrictedAccess = !!obj.restrictedAccess;
+        this.isPublic = !!obj.isPublic;
+        this.isActive = !!obj.isActive;
+    }
 }

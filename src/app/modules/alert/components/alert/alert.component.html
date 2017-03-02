@@ -8,6 +8,7 @@
             <span [ngSwitch]="element.type">
                 <i *ngSwitchCase="'loading'" class="material-icons md-18" aria-hidden="true">sync</i>
                 <i *ngSwitchCase="'tooltip'" class="material-icons md-18" aria-hidden="true">help</i>
+                <i *ngSwitchCase="'error'" class="material-icons md-18" aria-hidden="true">error</i>
             </span>
             {{ element.message }}
         </div>

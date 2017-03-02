@@ -25,26 +25,20 @@
 'use strict';
 import * as models from './models';
 
-export interface FormsDto {
-
+export class UserListDto {
 
     id?: string;
 
-    name?: string;
+    firstname?: string;
 
-    deprecated?: boolean;
+    lastname?: string;
 
-    created?: Date;
+    email: string;
 
-    restrictedAccess?: boolean;
-
-    isPublic?: boolean;
-
-    application?: Array<string>;
-
-    // Custom
-
-    formHasField?: Array<models.FieldDto>;
-
-    [key: string]: any;
+    constructor(obj: models.UserDetailDto = new models.UserDetailDto()) {
+        this.id = obj.id;
+        this.firstname = obj.firstname;
+        this.lastname = obj.lastname;
+        this.email = obj.email;
+    }
 }

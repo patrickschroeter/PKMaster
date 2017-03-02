@@ -9,7 +9,12 @@ import {
 } from './../../../core';
 
 /** Models */
-import { FieldDto, CommentDto, ApplicationDto } from './../../../swagger';
+import {
+    FieldDto,
+    CommentDto,
+    ApplicationDetailDto,
+    Status
+} from './../../../swagger';
 import { AcceptApplication } from './../../../models';
 
 /** Decorators */
@@ -28,11 +33,11 @@ export class ModalAcceptApplicationComponent implements OnInit {
 
     @ViewChild('overlay') overlay: OverlayComponent;
 
-    @Output() change: EventEmitter<ApplicationDto> = new EventEmitter();
+    @Output() change: EventEmitter<ApplicationDetailDto> = new EventEmitter();
 
     public acceptForm: FieldDto[];
 
-    public application: ApplicationDto;
+    public application: ApplicationDetailDto;
 
     constructor(
         private auth: AuthenticationService,
@@ -48,7 +53,7 @@ export class ModalAcceptApplicationComponent implements OnInit {
     /**
      * Opens the Modal and sets the given application
      */
-    public openModal(application: ApplicationDto): void {
+    public openModal(application: ApplicationDetailDto): void {
         this.application = application;
         setTimeout(() => {
             this.overlay.toggle(true);
@@ -77,7 +82,7 @@ export class ModalAcceptApplicationComponent implements OnInit {
                 fieldType: 'checkbox',
                 name: 'accept_requiresChanges',
                 label: 'Requires Changes',
-                styles: [
+                styleIds: [
                     'small'
                 ]
             }
@@ -90,9 +95,7 @@ export class ModalAcceptApplicationComponent implements OnInit {
     @Access('EditApplications')
     public acceptApplication(form: AcceptApplication) {
         /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiresChanges, isPrivate: false });
-        /** TODO */ const param = _.cloneDeep(this.application);
-        /** TODO */ param.status = { name: 'accepted' };
-        this.applicationService.updateApplication(param).subscribe(result => {
+        this.applicationService.updateStatusOfApplication(Status.ACCEPTED).subscribe(result => {
             this.application = result;
             this.change.emit(result);
             this.overlay.toggle(false);
@@ -106,9 +109,7 @@ export class ModalAcceptApplicationComponent implements OnInit {
     @Access('EditApplications')
     public declineApplication(form: AcceptApplication) {
         /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiresChanges, isPrivate: false });
-        /** TODO */ const param = _.cloneDeep(this.application);
-        /** TODO */ param.status = { name: 'denied' };
-        this.applicationService.updateApplication(param).subscribe(result => {
+        this.applicationService.updateStatusOfApplication(Status.DENIED).subscribe(result => {
             this.application = result;
             this.change.emit(result);
             this.overlay.toggle(false);
@@ -121,18 +122,9 @@ export class ModalAcceptApplicationComponent implements OnInit {
      */
     public createNewComment(values: CommentDto) {
         const comment: CommentDto = values;
-        comment.created = new Date();
-        this.auth.getUser().subscribe(user => {
-            comment.user = user;
-            comment.userId = user.id;
-            // TODO: send to server
-            if (!this.application.comments) {
-                this.application.comments = [];
-            }
-            setTimeout(() => {
-                this.application.comments.push(comment);
-            }, 500);
-        });
+        if (comment.message) {
+            this.applicationService.addCommentToApplication(comment).subscribe();
+        }
     }
 
 }

@@ -1,14 +1,10 @@
 @import './../../../theme.scss';
 
-.attendants {
+#attendants {
     @include clearfix();
-
-    .attendant--member {
+    > * {
+        width: 50%;
         float: left;
-        width: 45%;
-    }
-    .attendant--guest {
-        float: right;
-        width: 45%;
+        padding: 8px;
     }
 }

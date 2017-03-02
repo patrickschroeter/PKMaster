@@ -5,10 +5,11 @@ import * as _ from 'lodash';
 /** Services */
 import { FormService } from './../../core';
 import { ModalService } from './../../modules/overlay';
+import { AlertService } from './../../modules/alert';
 import { TranslationService } from './../../modules/translation';
 
 /** Models */
-import { SingleFormDto } from './../../swagger';
+import { FormDetailDto, FormListDto } from './../../swagger';
 
 @Component({
     selector: 'pk-forms',
@@ -18,7 +19,7 @@ import { SingleFormDto } from './../../swagger';
 export class FormsComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    public forms: Array<SingleFormDto>;
+    public forms: FormListDto[];
     private _newForm: Array<any>;
     get newForm() { return this._newForm; }
     set newForm(form) { this._newForm = form; }
@@ -31,6 +32,7 @@ export class FormsComponent implements OnInit {
         private translationService: TranslationService,
         /** Services */
         private formService: FormService,
+        private alert: AlertService
     ) { }
 
     ngOnInit() {
@@ -45,9 +47,12 @@ export class FormsComponent implements OnInit {
 
     /**
      * create a new form
-     * @param {Form} form
+     *
+     * @param {FormDetailDto} form
+     *
+     * @memberOf FormsComponent
      */
-    public createNewForm(form: SingleFormDto) {
+    public createNewForm(form: FormDetailDto): void {
         this.formService.createNewForm(form).subscribe(created => {
             if (created['id']) {
                 this.router.navigate([`/forms/`, created['id'], 'edit']);
@@ -57,20 +62,45 @@ export class FormsComponent implements OnInit {
 
     /**
      * Delete the form
-     * @param {Form} form
+     *
+     * @param {FormDetailDto} form
+     *
+     * @memberOf FormsComponent
      */
-    public deleteForm(form: SingleFormDto) {
+    public deleteForm(form: FormDetailDto): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmDeleteFormHeader'),
             message: this.translationService.translate('confirmDeleteFormContent'),
             confirm: () => {
                 this.formService.removeForm(form.id).subscribe(result => {
-                    const index = _.findIndex(this.forms, (obj: SingleFormDto) => obj.id === form.id);
+                    const index = _.findIndex(this.forms, (obj: FormDetailDto) => obj.id === form.id);
                     if (result && index !== -1) {
                         this.forms.splice(index, 1);
                     }
                     this.modalService.destroyModal();
+                }, error => {
+                    this.modalService.destroyModal();
+                    this.alert.setAlert(
+                        this.translationService.translate('deleteFormErrorHeader'),
+                        this.translationService.translate('deleteFormErrorContent')
+                    );
                 });
+            }
+        });
+    }
+
+    /**
+     * activate the given form
+     *
+     * @param {FormDetailDto} form
+     *
+     * @memberOf FormsComponent
+     */
+    public activateForm(form: FormDetailDto): void {
+        this.formService.activateForm(form.id).subscribe((result: FormDetailDto) => {
+            const index = _.findIndex(this.forms, obj => obj.id === form.id);
+            if (index > -1) {
+                this.forms[index] = result;
             }
         });
     }

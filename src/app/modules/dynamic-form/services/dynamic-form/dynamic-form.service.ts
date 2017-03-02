@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Validators, FormControl, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
+import * as _ from 'lodash';
 
 import { AlertService } from './../../../../modules/alert';
 
@@ -56,13 +57,14 @@ export class DynamicFormService {
         for (let i = 0; i < input.length; i++) {
             const element = input[i];
             this.removeKeyFromList(unusedElementNames, element.name);
-            if (!form.get(element.name)) {
+            const control: AbstractControl = form.get(element.name);
+            if (!control) {
                 const formControl = this.createFormControl(element);
                 if (formControl) {
                     form.addControl(element.name, formControl);
                 }
             } else {
-                form.get(element.name).setValue(element.value);
+                control.setValue(element.value || control.value);
             }
         }
 
@@ -91,7 +93,7 @@ export class DynamicFormService {
         if (!element || !element.name || element.disabled) { return null; }
 
         /** Create Array of ValidationFn */
-        const activeValidations = this.inputValidation.generateValidationsFromKeys(element.validations);
+        const activeValidations = this.inputValidation.generateValidationsFromKeys(element.validationIds);
         if (element.required) { activeValidations.push(Validators.required); }
 
         /** FIX for multiselect */

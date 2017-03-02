@@ -8,7 +8,7 @@ import { TranslationService } from './../../../modules/translation';
 import { FormApi } from './../../../swagger/api/FormApi';
 
 /** Models */
-import { FieldDto, SingleFormDto, FormCreateDto, FormsDto } from './../../../swagger';
+import { FieldDto, FormDetailDto, FormCreateDto, FormListDto } from './../../../swagger';
 
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
@@ -17,8 +17,8 @@ import { Loading } from './../../../shared/decorators/loading.decorator';
 export class FormService {
 
     /** The form to edit */
-    private form: SingleFormDto;
-    private forms: SingleFormDto[];
+    private form: FormDetailDto;
+    private forms: FormListDto[];
     /** Index of editing Element */
     private editingElementIndex: number;
 
@@ -34,7 +34,10 @@ export class FormService {
 
     /**
      * return the observable for the adding element status
-     * @return {Observable}
+     *
+     * @returns {EventEmitter<Boolean>}
+     *
+     * @memberOf FormService
      */
     public getAddingElement(): EventEmitter<boolean> {
         return this.addingElement;
@@ -42,8 +45,10 @@ export class FormService {
 
     /**
      * emits the adding element observable
+     *
      * @param {Boolean} addingElement
-     * @return {void}
+     *
+     * @memberOf FormService
      */
     public setAddingElement(addingElement: boolean) {
         this.addingElement.emit(addingElement);
@@ -51,7 +56,10 @@ export class FormService {
 
     /**
      * return the observable for editing an element
-     * @return {Observable}
+     *
+     * @returns {EventEmitter<FieldDto>}
+     *
+     * @memberOf FormService
      */
     public onEditElement(): EventEmitter<FieldDto> {
         return this.editElement;
@@ -59,7 +67,11 @@ export class FormService {
 
     /**
      * Emits the given value if someone subscribed for it
-     * @param {Field} [element]
+     *
+     * @private
+     * @param {FieldDto} [element]
+     *
+     * @memberOf FormService
      */
     private setEditElement(element?: FieldDto): void {
         this.editElement.emit(element);
@@ -67,8 +79,10 @@ export class FormService {
 
     /**
      * alert invlid type error
-     * @param {String} type - the invalid type
-     * @return {void}
+     *
+     * @param {String} type
+     *
+     * @memberOf FormService
      */
     public editElementError(type: string): void {
         this.setAddingElement(false);
@@ -80,8 +94,11 @@ export class FormService {
 
     /**
      * Open the Add Element View with the Element Values set
-     * @param {FormElement} element - the element to edit
-     * @return {void}
+     *
+     * @param {FieldDto} [element]
+     * @returns {void}
+     *
+     * @memberOf FormService
      */
     public editElementOfForm(element?: FieldDto): void {
         if (!this.form || !this.form.formHasField) { return this.setEditElement(null); }
@@ -113,8 +130,11 @@ export class FormService {
      * returns true if element was found and removed from form
      * returns false if element was not found or index didn't match the element
      *
-     * @param {Field} [element] - the element to remove
-     * @param {Number} [index] - the index of the element in the form
+     * @param {FieldDto} [element]
+     * @param {Number} [index]
+     * @returns {Boolean}
+     *
+     * @memberOf FormService
      */
     public removeElement(element?: FieldDto, index?: number): boolean {
         if (!this.form || !this.form.formHasField) { return false; }
@@ -151,8 +171,12 @@ export class FormService {
 
     /**
      * Adds a new Element to the Form or updates an existing one
-     * @param {Field} element
-     * @param {String} [mode] - the mode to add the element. default, clone or add
+     *
+     * @param {FieldDto} element
+     * @param {('clone' | 'add')} [mode]
+     * @returns {Boolean}
+     *
+     * @memberOf FormService
      */
     public addElementToForm(element: FieldDto, mode?: 'clone' | 'add'): boolean {
         /** Forms don't have Presets yet */
@@ -190,21 +214,26 @@ export class FormService {
 
     /**
      * adds a preset to the current form
-     * @param {String} name - the key/id/name of the preset
-     * @return {void}
+     *
+     * @param {String} name
+     * @returns {Boolean}
+     *
+     * @memberOf FormService
      */
     public addPresetToForm(name: string): boolean {
         this.editingElementIndex = -1;
         // TODO: load real data
         // tslint:disable-next-line:max-line-length
-        return this.addElementToForm({ 'fieldType': 'input', 'name': 'matnr', 'required': true, 'label': 'Matrikelnummer', 'contentType': 'number', 'placeholder': '', 'styles': ['small'], 'value': '' }, 'clone');
+        return this.addElementToForm({ 'fieldType': 'input', 'name': 'matnr', 'required': true, 'label': 'Matrikelnummer', 'contentType': 'number', 'placeholder': '', 'styleIds': ['small'], 'value': '' }, 'clone');
     }
-
 
     /**
      * returns the template to edit form attributes
-     * @param {String} id
-     * @return {Observable}
+     *
+     * @param {String} [id]
+     * @returns {Observable<FieldDto[]>}
+     *
+     * @memberOf FormService
      */
     @Loading('getEditFormTemplate')
     public getEditFormTemplate(id?: string): Observable<FieldDto[]> {
@@ -215,7 +244,7 @@ export class FormService {
                 label: this.translationService.translate('formName'),
                 value: (id && this.form) ? this.form.title : '',
                 required: true,
-                styles: [
+                styleIds: [
                     'small'
                 ]
             },
@@ -224,7 +253,7 @@ export class FormService {
                 name: 'restrictedAccess',
                 label: this.translationService.translate('restricted'),
                 value: (id && this.form) ? this.form.restrictedAccess : false,
-                styles: [
+                styleIds: [
                     'small',
                     'aligned'
                 ]
@@ -234,16 +263,7 @@ export class FormService {
                 name: 'requiresValidation',
                 label: this.translationService.translate('requiresValidation'),
                 value: (id && this.form) ? this.form.requiresValidation : false,
-                styles: [
-                    'small'
-                ]
-            },
-            {
-                fieldType: 'checkbox',
-                name: 'isActive',
-                label: this.translationService.translate('isActive'),
-                value: (id && this.form) ? this.form.isActive : false,
-                styles: [
+                styleIds: [
                     'small'
                 ]
             }
@@ -259,35 +279,49 @@ export class FormService {
 
     /**
      * save the attributes (title, etc) of the form
-     * @param {Form} form - the edit-form with the data to save
-     * @return {Observable}
+     *
+     * @param {FormDetailDto} submit
+     * @returns {Observable<FormDetailDto>}
+     *
+     * @memberOf FormService
      */
     @Loading('saveFormAttributes')
-    public saveFormAttributes(submit: SingleFormDto): Observable<SingleFormDto> {
+    public saveFormAttributes(submit: FormDetailDto): Observable<FormDetailDto> {
         // TODO: save real data
-        const form = _.cloneDeep(this.form);
+        const form: FormDetailDto = new FormDetailDto(this.form);
 
-        form.title = submit.title;
-        form.restrictedAccess = submit.restrictedAccess;
+        form.update(submit);
+        // for (const attribute in submit) {
+        //     if (attribute) {
+        //         form[attribute] = submit[attribute];
+        //     }
+        // }
 
         this.alert.setLoading('saveFormAttributes', this.translationService.translate('saveForm'));
-        return this.formApi.updateFormById(form.id, form).map(result => {
+        return this.formApi.updateFormById(form.id, new FormCreateDto(form)).map((result: FormDetailDto) => {
             this.alert.removeHint('saveFormAttributes');
             this.alert.setSuccessHint('saveFormAttributes', this.translationService.translate('savedForm'));
             return this.form = result;
         });
     }
 
-
     /**
      * Saves the changed Form
-     * @return {void}
+     *
+     * @returns {Observable<FormDetailDto>}
+     *
+     * @memberOf FormService
      */
     @Loading('saveForm')
-    public saveForm(): Observable<SingleFormDto> {
+    public saveForm(): Observable<FormDetailDto> {
         // TODO: save real data
         this.alert.setLoading('saveForm', this.translationService.translate('saveForm'));
-        return this.formApi.updateFormById(this.form.id, this.form).map(form => {
+
+        // this.form.formHasField = this.form.formHasField.map(obj => new FieldDto(obj));
+
+        const param = new FormCreateDto(this.form);
+
+        return this.formApi.updateFormById(this.form.id, param).map((form: FormDetailDto) => {
             this.alert.removeHint('saveForm');
             if (form) {
                 return this.form = form;
@@ -299,11 +333,14 @@ export class FormService {
 
     /**
      * returns the observable to get a form by the given id
+     *
      * @param {String} id
-     * @return {Observable}
+     * @returns {Observable<FormDetailDto>}
+     *
+     * @memberOf FormService
      */
     @Loading('getFormById')
-    public getFormById(id: string): Observable<SingleFormDto> {
+    public getFormById(id: string): Observable<FormDetailDto> {
         // TODO: load real data
         return this.formApi.getFormById(id).map(form => {
             return this.form = form;
@@ -312,16 +349,19 @@ export class FormService {
 
     /**
      * get the form with the given id with optional sorting
-     * @param {String} sort - key to sort the result
-     * @return {Observable}
+     *
+     * @param {String} [sort]
+     * @returns {Observable<FormDetailDto[]>}
+     *
+     * @memberOf FormService
      */
     @Loading('getForms')
-    public getForms(sort?: string): Observable<SingleFormDto[]> {
+    public getForms(sort?: string): Observable<FormListDto[]> {
         const observable = this.formApi.getForms();
         // TODO: sort on Server
         if (sort) {
-            return observable.map((element: FormsDto[]) => {
-                return element.sort(function (a, b) { return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
+            return observable.map((element: FormListDto[]) => {
+                return element.sort(function (a: any, b: any) { return (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0); });
             });
         }
         // TODO: load real data
@@ -332,17 +372,17 @@ export class FormService {
 
     /**
      * returns the observable to get the new created form
-     * @param {Form} submit - to copy or new form
-     * @return {Observable}
+     *
+     * @param {FormDetailDto} submit
+     * @returns {Observable<FormDetailDto>}
+     *
+     * @memberOf FormService
      */
     @Loading('createNewForm')
-    public createNewForm(submit: SingleFormDto): Observable<SingleFormDto> {
-        const param = _.cloneDeep(submit);
-        delete param.id;
+    public createNewForm(submit: FormDetailDto): Observable<FormDetailDto> {
+        const param: FormCreateDto = new FormCreateDto(submit);
         param.title = submit.id ? 'Copy of ' + submit.title : submit.title;
-        param.formHasField = submit.id ? submit.formHasField : [];
 
-        // TODO: save real data
         return this.formApi.addForm(param).map(form => {
             return this.form = form;
         });
@@ -350,11 +390,31 @@ export class FormService {
 
     /**
      * delete the selected form
+     *
      * @param {String} formId
+     * @returns {Observable<boolean>}
+     *
+     * @memberOf FormService
      */
     @Loading('removeForm')
-    public removeForm(formId: string): Observable<boolean> {
+    public removeForm(formId: string): Observable<any> {
         return this.formApi.deleteFormById(formId).map(result => {
+            return result;
+        });
+    }
+
+    /**
+     * activate the form with id
+     *
+     * @param {String} formId
+     * @param {*} [extraHttpRequestParams]
+     * @returns {Observable<FormDetailDto>}
+     *
+     * @memberOf FormService
+     */
+    public activateForm(formId: string, extraHttpRequestParams?: any): Observable<FormDetailDto> {
+        return this.formApi.activateForm(formId, extraHttpRequestParams).map((result: FormDetailDto) => {
+            this.form = result;
             return result;
         });
     }

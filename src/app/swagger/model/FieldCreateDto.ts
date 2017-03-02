@@ -26,12 +26,13 @@
 import * as models from './models';
 import { Selectable } from './../../models';
 
-export interface FieldCreateDto {
+export class FieldCreateDto {
 
+    id?: string;
 
-    name?: string;
+    name: string;
 
-    fieldType?: string;
+    fieldType: string;
 
     label?: string;
 
@@ -43,18 +44,37 @@ export interface FieldCreateDto {
 
     placeholder?: string;
 
+    optionsJson?: string;
+
     enumOptionsTableId?: string;
 
-    fieldHasStyle?: Array<string>;
+    styleIds?: Array<string>;
 
-    fieldHasValidation?: Array<string>;
+    validationIds?: Array<string>;
 
     // Custom
 
     value?: string | string[];
 
-    optionTable?: string;
-
     options?: Array<Selectable>;
-    optionsJSON?: string;
+
+    // optionTable?: string; -> enumOptionsTableId
+
+    constructor(obj: models.FieldDto = new models.FieldDto()) {
+        this.id = obj.id;
+        this.name = obj.name;
+        this.fieldType = obj.fieldType;
+        this.label = obj.label;
+        this.required = obj.required;
+        this.multipleSelect = obj.multipleSelect;
+        this.contentType = obj.contentType;
+        this.placeholder = obj.placeholder;
+        this.enumOptionsTableId = obj.enumOptionsTableId;
+        this.styleIds = obj.styleIds || [];
+        this.validationIds = obj.validationIds || [];
+        this.value = obj.value;
+
+        this.options = (!obj.options && obj.optionsJson) ? JSON.parse(obj.optionsJson) : obj.options;
+        this.optionsJson = obj.options ? JSON.stringify(obj.options) : obj.optionsJson;
+    }
 }

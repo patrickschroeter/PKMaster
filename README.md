@@ -1,4 +1,4 @@
-# PK 4.0
+# PK4.0
 
 [![Build Status](https://travis-ci.com/patrickschroeter/PKMaster.svg?token=kSqxpzF4oZkoFhFMv5U7&branch=master)](https://travis-ci.com/patrickschroeter/PKMaster)
 
@@ -294,6 +294,24 @@ formService als !singleton into element-edit.component?
 - ~~Notifications unten rechts: loadig & error & success~~
 - ~~content linksseitig -> notifications rechts -> vgl. kirby; was bei formen overview?~~
 - ~~Fläche? -> Statusmeldung, Passpartout~~
+
+
+## 23.Januar (Rothaug)
+
+- ~~PK4.0 ohne leerzeichen, in bold(700)~~
+- logo klickbar
+- ~~open sans da mehr zwischenschnitte für zb labels~~
+- ~~zuordnung content-buttonbereich: heller - dunkler + rötlich~~
+- unterschiedliche linientypen zur abgrenzung (länge, dicke farbe) oder hintergründe
+- liste: sortierung
+- ~~liste: trennlinie, auch zwischen spalten~~
+- ~~liste: fläche weiß + abstände statt trennlinie~~
+- ~~liste: icons für orientierung/klassifizierung~~
+- ~~liste: buttons weisverlauf/weistransparenz~~
+- conferenz: trennlinie zur abgrenzung
+- tabs: nicht bis ganz oben, trennlinie evtl wie abgrenzung
+- bearbeitungsrahmen dicker/farbe
+- Systeminfos vs eingegebene Werte + icons?
 
 
 ### known Bugs

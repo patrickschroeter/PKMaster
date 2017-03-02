@@ -1,12 +1,23 @@
 @import './../../config.scss';
 @import './../../theme/_typescale.scss';
+@import './../../theme/_material.scss';
 @import './../../theme/elements/_devider.scss';
 
+@mixin list-element__icon($arg) {
+    &:before {
+        @extend .material-icons;
+        content: $arg;
+        font-size: 1em;
+        margin-right: 0.5em;
+    }
+}
+
 .list {
+    margin: 12px 0;
     .list__header {
         .list-element {
             .list-element__attribute {
-                font-weight: 700;
+                font-weight: 600;
                 text-transform: capitalize;
                 cursor: pointer;
                 &:hover {
@@ -26,17 +37,17 @@
 }
 
 .list-element {
-    @extend .devider;
+    // @extend .devider;
     @include clearfix();
     position: relative;
     display: flex;
 
     .floating.floating--top-right {
         top: 8px;
+        right: 1rem;
     }
 
     .list-element__attribute {
-        @extend .font_small;
         display: block;
         float: left;
         // margin: 17px 10px;
@@ -62,60 +73,73 @@
         //     float: left;
         // }
 
-        &.list-element__attribute--name {
+        flex: 1;
+        @extend .font_smaller;
+
+        &[primary] {
             flex: 2;
             transition: color .3s ease-in-out;
-        }
-
-        &.list-element__attribute--state,
-        &.list-element__attribute--author,
-        &.list-element__attribute--conference,
-        &.list-element__attribute--date,
-        &.list-element__attribute--modified,
-        &.list-element__attribute--description,
-        &.list-element__attribute--version {
-            @extend .font_smaller;
-            // line-height: 23px;
-            flex: 1;
-        }
-        &.list-element__attribute--conference,
-        &.list-element__attribute--date,
-        &.list-element__attribute--modified,
-        &.list-element__attribute--version {
-            width: 12%;
-            min-width: 70px;
+            @extend .font_small;
         }
 
         &.list-element__attribute--state {
-            width: 10%;
-            min-width: 100px;
             text-transform: uppercase;
-            @media (max-width: 700px) {
-                display: none;
-            }
         }
 
-        &.list-element__attribute--author {
-            min-width: 50px;
-        }
 
+        &.list-element__attribute--application {
+            @include list-element__icon('description')
+        }
+        &.list-element__attribute--form {
+            @include list-element__icon('library_books')
+        }
         &.list-element__attribute--conference {
-            @media (max-width: 600px) {
-                display: none;
-            }
+            @include list-element__icon('forum')
         }
-
         &.list-element__attribute--date {
-            @media (max-width: 600px) {
-                display: none;
-            }
+            @include list-element__icon('date_range')
+        }
+        &.list-element__attribute--time {
+            @include list-element__icon('access_time')
+        }
+        &.list-element__attribute--person {
+            @include list-element__icon('person')
+        }
+        &.list-element__attribute--version {
+            @include list-element__icon('replay')
+        }
+        &.list-element__attribute--secure {
+            @include list-element__icon('security')
+        }
+        &.list-element__attribute--email {
+            @include list-element__icon('email')
+        }
+        &.list-element__attribute--room {
+            @include list-element__icon('room')
+        }
+        &.list-element__attribute--info {
+            @include list-element__icon('info_outline')
         }
 
-        &.list-element__attribute--description,
-        &.list-element__attribute--modified {
-            @media (max-width: 500px) {
-                display: none;
-            }
+        &.list-element--restricted {
+            $current-color: $error;
+            color: $current-color;
+        }
+        &.list-element--no-restricted {
+            $current-color: $success;
+            color: $current-color;
+        }
+        &.list-element--active {
+            $current-color: $success;
+            color: $current-color;
+        }
+        &.list-element--inactive {
+            $current-color: $error;
+            color: $current-color;
+        }
+        &.list-element--validation {
+            $current-color: $error;
+            color: $current-color;
         }
     }
 
@@ -150,33 +174,41 @@
         $current-color: $success;
         .list-element__attribute--state-icon { border-color: $current-color; background: $current-color }
         .list-element__attribute--state { color: $current-color }
-        .list-element__attribute--modified { color: $current-color }
     }
     &.list-element--denied {
         $current-color: $error;
         .list-element__attribute--state-icon { border-color: $current-color; background: $current-color }
         .list-element__attribute--state { color: $current-color }
-        .list-element__attribute--modified { color: $current-color }
-    }
-    &.list-element--restricted {
-        $current-color: $error;
-        .list-element__attribute--state-icon { border-color: $current-color; background: transparent }
-        .list-element__attribute--state { color: $current-color }
-    }
-    &.list-element--no-restricted {
-        $current-color: $success;
-        .list-element__attribute--state-icon { border-color: $current-color; background: transparent }
-        .list-element__attribute--state { color: $current-color }
     }
 }
 
 .list {
-    :not(.list__header) {
-        transition: background .3s ease-in-out, border-color .3s ease-in-out;
+     > :not(.list__header) {
+        transition: background .3s ease-in-out, border-color .3s ease-in-out, opacity .3s ease-in-out;
 
-        .list-element:hover {
-            background: $white;
-            // background-color: $element-hover-edit;
+        $border: 2px;
+
+        .list-element {
+            margin: $border 0;
+
+            &:hover {
+                background: $background-list-element-hover;
+
+                .list-element__attribute {
+                    background: $background-list-element-hover;
+                    opacity: 0.7;
+                }
+            }
+        }
+
+        .list-element__attribute {
+            border-right: $border solid $background-content;
+            &:last-child {
+                border-right: 0px;
+            }
+            opacity: 1;
+            background: $background-list-element;
+            transition: background .3s ease-in-out, opacity .3s ease-in-out;
         }
     }
 }

@@ -8,7 +8,7 @@ import {
     PermissionApiMock
 } from './';
 
-import { Permission } from './../../../swagger';
+import { PermissionDto } from './../../../swagger';
 
 @Injectable()
 export class PermissionEndpoint {
@@ -24,7 +24,7 @@ export class PermissionEndpoint {
         });
     }
 
-    public updatePermission(id: string, permission: Permission): Observable<any> {
+    public updatePermission(id: string, permission: PermissionDto): Observable<any> {
         const perm = this._permissionUpdate(id, permission);
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
@@ -39,21 +39,21 @@ export class PermissionEndpoint {
      */
 
     // tslint:disable-next-line:member-ordering
-    private _list: Permission[] = PermissionApiMock.PERMISSIONS;
+    private _list: PermissionDto[] = PermissionApiMock.PERMISSIONS;
 
-    private _permissions(): Permission[] {
+    private _permissions(): PermissionDto[] {
         return JSON.parse(JSON.stringify(this._list));
     }
 
-    private _permissionAdd(permission: Permission): Permission {
+    private _permissionAdd(permission: PermissionDto): PermissionDto {
         const id = this._list.length === 0 ? 'Q' : this._list[this._list.length - 1].id + 'Q';
         permission.id = id;
         this._list.push(permission);
         return JSON.parse(JSON.stringify(this._list[this._list.length - 1]));
     }
 
-    private _permission(id?: string): Permission {
-        let result: Permission;
+    private _permission(id?: string): PermissionDto {
+        let result: PermissionDto;
         const list = this._list;
         for (let i = 0; i < list.length; i++) {
             if (list[i].id === id) {
@@ -64,7 +64,7 @@ export class PermissionEndpoint {
         return JSON.parse(JSON.stringify(result));
     }
 
-    private _permissionUpdate(id: string, permission: Permission) {
+    private _permissionUpdate(id: string, permission: PermissionDto) {
         const list = this._list;
         for (let i = 0; i < list.length; i++) {
             if (list[i].id === id) {

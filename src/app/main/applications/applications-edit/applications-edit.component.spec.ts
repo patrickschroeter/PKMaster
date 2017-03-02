@@ -12,6 +12,7 @@ import { CoreProviderMock } from './../../../core/core.module';
 import { AlertProviderMock } from './../../../modules/alert/alert.module';
 import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 import { ModalProviderMock } from './../../../modules/overlay/overlay.module';
+import { StatusPipe } from './../../../shared';
 
 describe('ApplicationsEditComponent', () => {
     let component: ApplicationsEditComponent;
@@ -20,7 +21,8 @@ describe('ApplicationsEditComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                ApplicationsEditComponent
+                ApplicationsEditComponent,
+                StatusPipe
             ],
             imports: [
                 RouterTestingModule.withRoutes([

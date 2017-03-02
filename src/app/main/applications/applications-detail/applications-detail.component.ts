@@ -15,12 +15,25 @@ import { OverlayComponent, ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { ApplicationDto, CommentDto, UserDto } from './../../../swagger';
+import {
+    ApplicationDetailDto,
+    CommentCreateDto,
+    UserDetailDto,
+    CommentDto,
+    Status
+} from './../../../swagger';
 import { Selectable } from './../../../models';
 
 /** Decorators */
 import { Access } from './../../../shared/decorators/access.decorator';
 
+/**
+ * The ApplicationsDetailComponent
+ *
+ * @export
+ * @class ApplicationsDetailComponent
+ * @implements {OnInit}
+ */
 @Component({
     selector: 'pk-applications-detail',
     templateUrl: './applications-detail.component.html',
@@ -29,20 +42,37 @@ import { Access } from './../../../shared/decorators/access.decorator';
 export class ApplicationsDetailComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    private _application: ApplicationDto;
+    private _application: ApplicationDetailDto;
 
     get application() { return this._application; }
-    set application(application: ApplicationDto) { this._application = application; }
+    set application(application: ApplicationDetailDto) { this._application = application; }
 
     public addComment: Array<any>;
     public savingComment: Boolean;
 
     public conferences: any[];
 
-    public user: UserDto;
+    public user: UserDetailDto;
     public users: Selectable[];
     public userLabels: { [id: string]: string } = {};
 
+    public status = Status;
+
+    /**
+     * Creates an instance of ApplicationsDetailComponent.
+     * @param {Router} router
+     * @param {ActivatedRoute} activatedRoute
+     * @param {AlertService} alert
+     * @param {TranslationService} translationService
+     * @param {ModalService} modalService
+     * @param {ApplicationService} applicationService
+     * @param {AuthenticationService} auth
+     * @param {PermissionService} permission
+     * @param {ConferenceService} conferenceService
+     * @param {UserService} userService
+     *
+     * @memberOf ApplicationsDetailComponent
+     */
     constructor(
         /** Angular */
         private router: Router,
@@ -59,23 +89,62 @@ export class ApplicationsDetailComponent implements OnInit {
         private userService: UserService
     ) { }
 
+    /**
+     * Implements OnInit
+     *
+     * @memberOf ApplicationsDetailComponent
+     */
     ngOnInit() {
 
         /** Read Route Param and GET Application with param ID */
-        this.activatedRoute.params.forEach((params: Params) => {
-            this.applicationService.getApplicationById(params['id']).subscribe((application) => {
-                if (!application) { return this.router.navigate(['/applications']); }
-                this.application = application;
-            }, error => {
-                console.error(error);
-                this.router.navigate(['/applications']);
-            });
-        });
+        this.getApplicationByRouteParam();
 
         /** init the form */
         this.initAddCommentForm();
 
         /** get all conferences */
+        this.getConferenceList();
+
+        /** get users for assignment */
+        this.getUsers();
+    }
+
+    /**
+     * Read Route Param and GET Application with param ID
+     *
+     * @private
+     *
+     * @memberOf ApplicationsDetailComponent
+     */
+    private getApplicationByRouteParam(): void {
+        this.activatedRoute.params.forEach((params: Params) => {
+            this.applicationService.getApplicationById(params['id']).subscribe((application) => {
+                if (!application) { return this.router.navigate(['/applications']); }
+                this.application = application;
+
+                if (this.application.form.deprecated) {
+                    this.alert.setAlert(
+                        this.translationService.translate('updateRequiredHeader'),
+                        this.translationService.translate('updateRequiredContent')
+                    );
+                }
+
+
+            }, error => {
+                console.error(error);
+                this.router.navigate(['/applications']);
+            });
+        });
+    }
+
+    /**
+     * get all conferences as list
+     *
+     * @private
+     *
+     * @memberOf ApplicationsDetailComponent
+     */
+    private getConferenceList(): void {
         this.conferenceService.getConferences().subscribe(conferences => {
             this.conferences = [];
             for (let i = 0; i < conferences.length; i++) {
@@ -86,12 +155,14 @@ export class ApplicationsDetailComponent implements OnInit {
                 });
             }
         });
-
-        this.getUsers();
     }
 
     /**
      * initializes or resets the add comment form
+     *
+     * @private
+     *
+     * @memberOf ApplicationsDetailComponent
      */
     private initAddCommentForm(): void {
         this.addComment = [
@@ -105,7 +176,7 @@ export class ApplicationsDetailComponent implements OnInit {
                 fieldType: 'checkbox',
                 name: 'isPrivate',
                 label: 'Privat',
-                styles: [
+                styleIds: [
                     'small'
                 ]
             },
@@ -113,7 +184,7 @@ export class ApplicationsDetailComponent implements OnInit {
                 fieldType: 'checkbox',
                 name: 'requiresChanges',
                 label: 'Requires Changes',
-                styles: [
+                styleIds: [
                     'small'
                 ]
             }
@@ -122,6 +193,10 @@ export class ApplicationsDetailComponent implements OnInit {
 
     /**
      * get users as Selectable[]
+     *
+     * @private
+     *
+     * @memberOf ApplicationsDetailComponent
      */
     private getUsers(): void {
         this.userService.getUsers().subscribe(users => {
@@ -136,40 +211,52 @@ export class ApplicationsDetailComponent implements OnInit {
     }
 
     /**
-     * update the application with the given one
-     * @param {Application} application
+     * check if the current user is assigned to the application
+     *
+     * @returns {Boolean}
+     *
+     * @memberOf ApplicationsDetailComponent
      */
-    public updateApplication(application: ApplicationDto): void {
+    public isAssigned(): boolean {
+        return this.application &&
+            this.application.assignments &&
+            this.user &&
+            this.application.assignments.map(obj => obj.id).indexOf(this.user.id) !== -1;
+    }
+
+    /**
+     * update the application with the given one
+     *
+     * @param {ApplicationDetailDto} application
+     *
+     * @memberOf ApplicationsDetailComponent
+     */
+    public updateApplication(application: ApplicationDetailDto): void {
         this.application = application;
     }
 
     /**
      * Creates and adds a new comment to the application
-     * @param {Comment} values
+     *
+     * @param {CommentDto} values
+     *
+     * @memberOf ApplicationsDetailComponent
      */
-    public createNewComment(values: CommentDto): void {
-        const comment: CommentDto = values;
-        comment.created = new Date();
-        this.auth.getUser().subscribe(user => {
-            comment.user = user;
-            comment.userId = user.id;
-            comment.isPrivate = !!comment.isPrivate;
-            comment.requiresChanges = !!comment.requiresChanges;
-            // TODO: send to server
-            this.savingComment = true;
+    public createNewComment(values: CommentCreateDto): void {
+        const comment: CommentCreateDto = new CommentCreateDto(values);
 
-            this.applicationService.addCommentToApplication(comment).subscribe(result => {
-                this.application.comments = this.application.comments || [];
-                this.application.comments.push(result);
-                this.savingComment = false;
-                this.initAddCommentForm();
-            });
+        this.savingComment = true;
+        this.applicationService.addCommentToApplication(comment).subscribe((result: CommentDto[]) => {
+            this.application.comments = result || [];
+            this.savingComment = false;
+            this.initAddCommentForm();
         });
     }
 
-
     /**
      * Opens the modal to add an application to a conference
+     *
+     * @memberOf ApplicationsDetailComponent
      */
     public addApplicationToConferenceModal(): void {
         this.modalService.createListModal({
@@ -178,7 +265,7 @@ export class ApplicationsDetailComponent implements OnInit {
             click: this.addApplicationToConference.bind(this),
             isFluid: true,
 
-            selectedValue: this.application.conferenceId,
+            selectedValue: this.application.conference ? this.application.conference.id : null,
 
             emptyText: this.translationService.translate('noConferencesAvailable'),
             redirect: this.permission.hasPermission('ReadConferences'),
@@ -189,7 +276,11 @@ export class ApplicationsDetailComponent implements OnInit {
 
     /**
      * Add the application to the conference
-     * @param {Selectable} data - the selected element
+     *
+     * @private
+     * @param {Selectable} data
+     *
+     * @memberOf ApplicationsDetailComponent
      */
     private addApplicationToConference(data: Selectable): void {
         this.applicationService.assignConferenceToApplication(this.application, data.value).subscribe(application => {
@@ -200,9 +291,12 @@ export class ApplicationsDetailComponent implements OnInit {
 
     /**
      * Creates a confirmation modal to confirm submitting the selected application
-     * @param {Application} application - the application to submit
+     *
+     * @param {ApplicationDetailDto} application
+     *
+     * @memberOf ApplicationsDetailComponent
      */
-    public submitApplicationModal(application: ApplicationDto): void {
+    public submitApplicationModal(application: ApplicationDetailDto): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmSubmitApplicationHeader'),
             message: this.translationService.translate('confirmSubmitApplicationContent'),
@@ -214,9 +308,13 @@ export class ApplicationsDetailComponent implements OnInit {
 
     /**
      * Submit the selected application
-     * @param {Application} application - the application to submit
+     *
+     * @private
+     * @param {ApplicationDetailDto} application
+     *
+     * @memberOf ApplicationsDetailComponent
      */
-    private submitApplication(application: ApplicationDto): void {
+    private submitApplication(application: ApplicationDetailDto): void {
         this.applicationService.submitApplication(application).subscribe(result => {
             this.alert.setSuccessHint(
                 `submitApplication${application.id}`,
@@ -229,9 +327,12 @@ export class ApplicationsDetailComponent implements OnInit {
 
     /**
      * Creates a confirmation modal to confirm rescinding the selected application
-     * @param {Application} application - the application to rescind
+     *
+     * @param {ApplicationDetailDto} application
+     *
+     * @memberOf ApplicationsDetailComponent
      */
-    public rescindApplicationModal(application: ApplicationDto): void {
+    public rescindApplicationModal(application: ApplicationDetailDto): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmRescindApplicationHeader'),
             message: this.translationService.translate('confirmRescindApplicationContent'),
@@ -243,9 +344,13 @@ export class ApplicationsDetailComponent implements OnInit {
 
     /**
      * Rescingd the selected application
-     * @param {Application} application - the application to rescind
+     *
+     * @private
+     * @param {ApplicationDetailDto} application
+     *
+     * @memberOf ApplicationsDetailComponent
      */
-    private rescindApplication(application: ApplicationDto): void {
+    private rescindApplication(application: ApplicationDetailDto): void {
         this.applicationService.rescindApplication(application).subscribe(result => {
             this.alert.setSuccessHint(
                 `rescindApplication${application.id}`,
@@ -258,9 +363,12 @@ export class ApplicationsDetailComponent implements OnInit {
 
     /**
      * Creates a confirmation modal to confirm deactivating the selected application
-     * @param {Application} application - the application to deactovate
+     *
+     * @param {ApplicationDetailDto} application
+     *
+     * @memberOf ApplicationsDetailComponent
      */
-    public deactivateApplicationModal(application: ApplicationDto): void {
+    public deactivateApplicationModal(application: ApplicationDetailDto): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmDeactivateApplicationHeader'),
             message: this.translationService.translate('confirmDeactivateApplicationContent'),
@@ -272,9 +380,13 @@ export class ApplicationsDetailComponent implements OnInit {
 
     /**
      * Deactivate the selected application
-     * @param {Application} application - the application to deactovate
+     *
+     * @private
+     * @param {ApplicationDetailDto} application
+     *
+     * @memberOf ApplicationsDetailComponent
      */
-    private deactivateApplication(application: ApplicationDto): void {
+    private deactivateApplication(application: ApplicationDetailDto): void {
         this.applicationService.deactivateApplication(application).subscribe(result => {
             this.alert.setSuccessHint(
                 `deactivateApplication${application.id}`,
@@ -287,6 +399,8 @@ export class ApplicationsDetailComponent implements OnInit {
 
     /**
      * opens the assignment modal for users
+     *
+     * @memberOf ApplicationsDetailComponent
      */
     public assignUserModal() {
         this.modalService.createListModal({
@@ -302,41 +416,54 @@ export class ApplicationsDetailComponent implements OnInit {
 
     /**
      * add/remove a user from the application
+     *
      * @param {Selectable} user
+     *
+     * @memberOf ApplicationsDetailComponent
      */
     public assignUser(user: Selectable): void {
-        const param = _.cloneDeep(this.application);
-        if (!param.assignments) { param.assignments = []; }
-        const index = _.findIndex(param.assignments, (obj: UserDto) => obj.id === user.value);
+        const index = _.findIndex(this.application.assignments, (obj: UserDetailDto) => obj.id === user.value);
         if (index === -1) {
-            this.userService.getUserById(user.value).subscribe(result => {
-                param.assignments.push(result);
-                this.saveApplication(param);
+            this.applicationService.assignUserToApplication(this.application, user.value).subscribe((result: ApplicationDetailDto) => {
+                this.application = result;
+                this.modalService.updateSelectedValues(this.application.assignments.map(obj => obj.id));
             });
         } else {
-            param.assignments.splice(index, 1);
-            this.saveApplication(param);
+            this.applicationService.removeAssignmentFromApplication(this.application, user.value).subscribe(result => {
+                this.modalService.updateSelectedValues(this.application.assignments.map(obj => obj.id));
+            });
         }
     }
 
-    private saveApplication(param: ApplicationDto): void {
+    /**
+     * save the application on server
+     *
+     * @private
+     * @param {ApplicationDetailDto} param
+     *
+     * @memberOf ApplicationsDetailComponent
+     */
+    private saveApplication(param: ApplicationDetailDto): void {
         this.applicationService.updateApplication(param).subscribe(result => {
             this.application = result;
-            this.modalService.updateSelectedValues(this.application.assignments.map(obj => obj.id));
         });
     }
 
     /**
      * remove user from the application
-     * @param {String} userId
+     *
+     * @param {UserDetailDto} user
+     *
+     * @memberOf ApplicationsDetailComponent
      */
-    public unassignUser(userId: string) {
-        this.assignUser(new Selectable(userId, userId));
+    public unassignUser(user: UserDetailDto) {
+        this.assignUser(new Selectable(user.id, user.id));
     }
 
     /**
      * open the confirm dialog for the validation
-     * @param {Application} application
+     *
+     * @memberOf ApplicationsDetailComponent
      */
     public validateApplication(): void {
         this.modalService.createConfirmationModal({

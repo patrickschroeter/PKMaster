@@ -18,7 +18,7 @@
     }
 
     &:not(.element--no-wrap) {
-        font-weight: 700;
+        font-weight: 600;
         height: $element-grid-base;
         overflow: hidden;
         white-space: nowrap;
@@ -41,6 +41,39 @@
 
 .label {
     @extend .font_smaller;
+
+    &__status {
+        text-transform: capitalize;
+
+        &.label--created {
+            $current-color: $accent-color;
+            color: $current-color;
+        }
+        &.label--submitted {
+            $current-color: $guidance-color;
+            color: $current-color;
+        }
+        &.label--rescinded {
+            $current-color: $lightgray;
+            color: $current-color;
+        }
+        &.label--deactivated {
+            $current-color: $darkwhite;
+            color: $current-color;
+        }
+        &.label--pending {
+            $current-color: $guidance-color;
+            color: $current-color;
+        }
+        &.label--accepted {
+            $current-color: $success;
+            color: $current-color;
+        }
+        &.label--denied {
+            $current-color: $error;
+            color: $current-color;
+        }
+    }
 }
 .caption {
     @extend .font_smallest;

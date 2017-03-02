@@ -7,7 +7,7 @@ import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { UserDto, RoleDto } from './../../../swagger';
+import { UserDetailDto, RoleDto } from './../../../swagger';
 
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
@@ -44,7 +44,7 @@ export class UserService {
      * @memberOf UserService
      */
     @Loading('getUsers')
-    public getUsers(): Observable<Array<UserDto>> {
+    public getUsers(): Observable<Array<UserDetailDto>> {
         return this.userApi.getUsers().map(result => {
             return result;
         });
@@ -57,10 +57,11 @@ export class UserService {
      *
      * @memberOf UserService
      */
-    public getMembers(): Observable<Array<UserDto>> {
+    public getMembers(): Observable<Array<UserDetailDto>> {
         return this.userApi.getUsers().map(result => {
-            const param = result.filter(obj => obj.roles[0].name === 'Member');
-            return param;
+            // TODO: get special user
+            // const param = result.filter(obj => obj.roles[0].name === 'Member');
+            return result;
         });
     }
 
@@ -71,10 +72,11 @@ export class UserService {
      *
      * @memberOf UserService
      */
-    public getGuests(): Observable<Array<UserDto>> {
+    public getGuests(): Observable<Array<UserDetailDto>> {
         return this.userApi.getUsers().map(result => {
-            const param = result.filter(obj => obj.roles[0].name === 'Docent');
-            return param;
+            // TODO: get special user
+            // const param = result.filter(obj => obj.roles[0].name === 'Docent');
+            return result;
         });
     }
 
@@ -82,12 +84,12 @@ export class UserService {
      * get user by id
      *
      * @param {string} id
-     * @returns {Observable<UserDto>}
+     * @returns {Observable<UserDetailDto>}
      *
      * @memberOf UserService
      */
     @Loading('getUserById')
-    public getUserById(id: string): Observable<UserDto> {
+    public getUserById(id: string): Observable<UserDetailDto> {
         return this.userApi.getUserById(id).map(result => {
             return result;
         });
@@ -96,13 +98,13 @@ export class UserService {
     /**
      * update the user
      *
-     * @param {UserDto} user
-     * @returns {Observable<UserDto>}
+     * @param {UserDetailDto} user
+     * @returns {Observable<UserDetailDto>}
      *
      * @memberOf UserService
      */
     @Loading('updateUser')
-    public updateUser(user: UserDto): Observable<UserDto> {
+    public updateUser(user: UserDetailDto): Observable<UserDetailDto> {
         return this.userApi.updateUserById(user.id, user).map(result => {
             return result;
         });
@@ -111,15 +113,15 @@ export class UserService {
     /**
      * remove role from user
      *
-     * @param {UserDto} user
+     * @param {UserDetailDto} user
      * @param {RoleDto} role
-     * @returns {Observable<UserDto>}
+     * @returns {Observable<UserDetailDto>}
      *
      * @memberOf UserService
      */
     @Loading('removeRoleFromUser')
-    public removeRoleFromUser(user: UserDto, role: RoleDto): Observable<UserDto> {
-        return this.userApi.removeUserRole(user.id, role.id).map(result => {
+    public removeRoleFromUser(user: UserDetailDto, role: RoleDto): Observable<UserDetailDto> {
+        return this.userApi.removeRoleFromUser(user.id, role.id).map(result => {
             return result;
         });
     }
@@ -129,13 +131,14 @@ export class UserService {
      *
      * @param {string} userId
      * @param {string} roleId
-     * @returns {Observable<UserDto>}
+     * @returns {Observable<UserDetailDto>}
      *
      * @memberOf UserService
      */
     @Loading('addRoleToUser')
-    public addRoleToUser(userId: string, roleId: string): Observable<UserDto> {
-        return this.userApi.updateUserRole(userId, roleId).map(result => {
+    public addRoleToUser(userId: string, roleId: string): Observable<UserDetailDto> {
+        const role: RoleDto = new RoleDto(({ id: roleId } as any));
+        return this.userApi.addRoleToUser(userId, role).map((result: UserDetailDto) => {
             return result;
         });
     }

@@ -6,6 +6,7 @@ import { StyleguideRouting } from './styleguide.routing';
 
 import { SharedModule } from './../shared/shared.module';
 import { ButtonModule } from './../modules/button/button.module';
+import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module';
 
 @NgModule({
     declarations: [
@@ -15,7 +16,8 @@ import { ButtonModule } from './../modules/button/button.module';
         CommonModule,
         StyleguideRouting,
         SharedModule,
-        ButtonModule
+        ButtonModule,
+        DynamicFormModule
     ],
     providers: [],
     exports: []

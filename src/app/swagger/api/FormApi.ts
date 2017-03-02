@@ -27,6 +27,7 @@ import {Injectable, Optional} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
+import { Parse } from './../../shared/decorators/parse.decorator';
 
 /* tslint:disable:no-unused-variable member-ordering */
 
@@ -44,11 +45,44 @@ export class FormApi {
     }
 
     /**
+     * Activate Form
+     *
+     * @param formId ID of the Form
+     */
+    @Parse('FormDetailDto')
+    public activateForm (formId: string, extraHttpRequestParams?: any ) : Observable<models.FormDetailDto> {
+        const path = this.basePath + '/forms/{formId}/activate'
+            .replace('{' + 'formId' + '}', String(formId));
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+        // verify required parameter 'formId' is not null or undefined
+        if (formId === null || formId === undefined) {
+            throw new Error('Required parameter formId was null or undefined when calling activateForm.');
+        }
+        let requestOptions: RequestOptionsArgs = {
+            method: 'PUT',
+            headers: headerParams,
+            search: queryParameters
+        };
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json();
+                }
+            });
+    }
+
+    /**
      * Create new Form
      *
      * @param form new Form
      */
-    public addForm (form?: models.FormCreateDto, extraHttpRequestParams?: any ) : Observable<models.FormsDto> {
+    @Parse('FormDetailDto')
+    public addForm (form?: models.FormCreateDto, extraHttpRequestParams?: any ) : Observable<models.FormDetailDto> {
         const path = this.basePath + '/forms';
 
         let queryParameters = new URLSearchParams();
@@ -106,7 +140,8 @@ export class FormApi {
      *
      * @param formId ID of the Form
      */
-    public getFormById (formId: string, extraHttpRequestParams?: any ) : Observable<models.SingleFormDto> {
+    @Parse('FormDetailDto')
+    public getFormById (formId: string, extraHttpRequestParams?: any ) : Observable<models.FormDetailDto> {
         const path = this.basePath + '/forms/{formId}'
             .replace('{' + 'formId' + '}', String(formId));
 
@@ -136,7 +171,8 @@ export class FormApi {
      * GET all Forms
      * The Forms Endpoint returns all Forms
      */
-    public getForms (extraHttpRequestParams?: any ) : Observable<Array<models.FormsDto>> {
+    @Parse('FormListDto')
+    public getForms (extraHttpRequestParams?: any ) : Observable<Array<models.FormListDto>> {
         const path = this.basePath + '/forms';
 
         let queryParameters = new URLSearchParams();
@@ -161,9 +197,10 @@ export class FormApi {
      * Update Form with Id
      *
      * @param formId ID of the Form
-     * @param form Updated Form
+     * @param formCreateDto The updated form
      */
-    public updateFormById (formId: string, form?: models.SingleFormDto, extraHttpRequestParams?: any ) : Observable<models.SingleFormDto> {
+    @Parse('FormDetailDto')
+    public updateFormById (formId: string, formCreateDto?: models.FormCreateDto, extraHttpRequestParams?: any ) : Observable<models.FormDetailDto> {
         const path = this.basePath + '/forms/{formId}'
             .replace('{' + 'formId' + '}', String(formId));
 
@@ -178,7 +215,7 @@ export class FormApi {
             headers: headerParams,
             search: queryParameters
         };
-        requestOptions.body = JSON.stringify(form);
+        requestOptions.body = JSON.stringify(formCreateDto);
 
         return this.http.request(path, requestOptions)
             .map((response: Response) => {

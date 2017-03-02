@@ -12,6 +12,7 @@ import { TranslationProviderMock } from './../../../modules/translation/translat
 import { ModalProviderMock } from './../../../modules/overlay/overlay.module';
 
 import { AccessDirective } from './../../';
+import { StatusPipe } from './../../../shared';
 
 describe('ApplicationsListComponent', () => {
     let component: ApplicationsListComponent;
@@ -21,7 +22,8 @@ describe('ApplicationsListComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 ApplicationsListComponent,
-                AccessDirective
+                AccessDirective,
+                StatusPipe
             ],
             imports: [
                 RouterTestingModule.withRoutes([

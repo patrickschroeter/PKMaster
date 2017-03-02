@@ -27,6 +27,7 @@ import {Injectable, Optional} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
+import { Parse } from './../../shared/decorators/parse.decorator';
 
 /* tslint:disable:no-unused-variable member-ordering */
 
@@ -49,7 +50,7 @@ export class ConferenceApi {
      * @param conferenceId ID of the Conference
      * @param applicationId The Application ID
      */
-    public addApplicationToConference (conferenceId: string, applicationId: string, extraHttpRequestParams?: any ) : Observable<{}> {
+    public addApplicationToConference (conferenceId: string, applicationId: string, extraHttpRequestParams?: any ) : Observable<models.ConferenceDetailDto> {
         const path = this.basePath + '/conferences/{conferenceId}/applications/{applicationId}'
             .replace('{' + 'conferenceId' + '}', String(conferenceId))
             .replace('{' + 'applicationId' + '}', String(applicationId));
@@ -81,21 +82,28 @@ export class ConferenceApi {
     }
 
     /**
-     * Create new Conference
+     * Assing User to Conference
      *
-     * @param conference new Conference Object
+     * @param conferenceId Id of the conference
+     * @param attendantCreateDto
      */
-    public addConference (conference?: models.ConferenceCreateDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceDto> {
-        const path = this.basePath + '/conferences';
+    @Parse('ConferenceDetailDto')
+    public addAttendantToConference (conferenceId: string, attendantCreateDto?: models.AttendantCreateDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceDetailDto> {
+        const path = this.basePath + '/conferences/{conferenceId}/attendants'
+            .replace('{' + 'conferenceId' + '}', String(conferenceId));
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+        // verify required parameter 'conferenceId' is not null or undefined
+        if (conferenceId === null || conferenceId === undefined) {
+            throw new Error('Required parameter conferenceId was null or undefined when calling addAttendantToConference.');
+        }
         let requestOptions: RequestOptionsArgs = {
             method: 'POST',
             headers: headerParams,
             search: queryParameters
         };
-        requestOptions.body = JSON.stringify(conference);
+        requestOptions.body = JSON.stringify(attendantCreateDto);
 
         return this.http.request(path, requestOptions)
             .map((response: Response) => {
@@ -108,31 +116,22 @@ export class ConferenceApi {
     }
 
     /**
-     * Delete Application of Conference
+     * Create new Conference
      *
-     * @param conferenceId ID of the Conference
-     * @param applicationId The Application ID
+     * @param conference new Conference Object
      */
-    public deleteApplicationOfConference (conferenceId: string, applicationId: string, extraHttpRequestParams?: any ) : Observable<{}> {
-        const path = this.basePath + '/conferences/{conferenceId}/applications/{applicationId}'
-            .replace('{' + 'conferenceId' + '}', String(conferenceId))
-            .replace('{' + 'applicationId' + '}', String(applicationId));
+    @Parse('ConferenceDetailDto')
+    public addConference (conference?: models.ConferenceCreateDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceDetailDto> {
+        const path = this.basePath + '/conferences';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-        // verify required parameter 'conferenceId' is not null or undefined
-        if (conferenceId === null || conferenceId === undefined) {
-            throw new Error('Required parameter conferenceId was null or undefined when calling deleteApplicationOfConference.');
-        }
-        // verify required parameter 'applicationId' is not null or undefined
-        if (applicationId === null || applicationId === undefined) {
-            throw new Error('Required parameter applicationId was null or undefined when calling deleteApplicationOfConference.');
-        }
         let requestOptions: RequestOptionsArgs = {
-            method: 'DELETE',
+            method: 'POST',
             headers: headerParams,
             search: queryParameters
         };
+        requestOptions.body = JSON.stringify(conference);
 
         return this.http.request(path, requestOptions)
             .map((response: Response) => {
@@ -180,7 +179,8 @@ export class ConferenceApi {
      *
      * @param conferenceId ID of the Conference
      */
-    public getApplicationsByConference (conferenceId: string, extraHttpRequestParams?: any ) : Observable<Array<models.ApplicationDto>> {
+    @Parse('ApplicationDetailDto')
+    public getApplicationsByConference (conferenceId: string, extraHttpRequestParams?: any ) : Observable<Array<models.ApplicationDetailDto>> {
         const path = this.basePath + '/conferences/{conferenceId}/applications'
             .replace('{' + 'conferenceId' + '}', String(conferenceId));
 
@@ -211,7 +211,8 @@ export class ConferenceApi {
      *
      * @param conferenceId ID of the Conference
      */
-    public getConferenceById (conferenceId: string, extraHttpRequestParams?: any ) : Observable<models.ConferenceDto> {
+    @Parse('ConferenceDetailDto')
+    public getConferenceById (conferenceId: string, extraHttpRequestParams?: any ) : Observable<models.ConferenceDetailDto> {
         const path = this.basePath + '/conferences/{conferenceId}'
             .replace('{' + 'conferenceId' + '}', String(conferenceId));
 
@@ -243,7 +244,8 @@ export class ConferenceApi {
      * @param filter Filter the Result
      * @param sort Sort the Result
      */
-    public getConferences (filter?: string, sort?: string, extraHttpRequestParams?: any ) : Observable<Array<models.ConferenceDto>> {
+    @Parse('ConferenceListDto')
+    public getConferences (filter?: string, sort?: string, extraHttpRequestParams?: any ) : Observable<Array<models.ConferenceListDto>> {
         const path = this.basePath + '/conferences';
 
         let queryParameters = new URLSearchParams();
@@ -273,12 +275,87 @@ export class ConferenceApi {
     }
 
     /**
+     * Remove Application From Conference
+     *
+     * @param conferenceId ID of the Conference
+     * @param applicationId The Application ID
+     */
+    public removeApplicationFromConference (conferenceId: string, applicationId: string, extraHttpRequestParams?: any ) : Observable<{}> {
+        const path = this.basePath + '/conferences/{conferenceId}/applications/{applicationId}'
+            .replace('{' + 'conferenceId' + '}', String(conferenceId))
+            .replace('{' + 'applicationId' + '}', String(applicationId));
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+        // verify required parameter 'conferenceId' is not null or undefined
+        if (conferenceId === null || conferenceId === undefined) {
+            throw new Error('Required parameter conferenceId was null or undefined when calling removeApplicationFromConference.');
+        }
+        // verify required parameter 'applicationId' is not null or undefined
+        if (applicationId === null || applicationId === undefined) {
+            throw new Error('Required parameter applicationId was null or undefined when calling removeApplicationFromConference.');
+        }
+        let requestOptions: RequestOptionsArgs = {
+            method: 'DELETE',
+            headers: headerParams,
+            search: queryParameters
+        };
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json();
+                }
+            });
+    }
+
+    /**
+     * Unassign User from Conference
+     *
+     * @param conferenceId Id of the Conference
+     * @param userId Id of the user
+     */
+    public removeAttendantFormConference (conferenceId: string, userId: string, extraHttpRequestParams?: any ) : Observable<{}> {
+        const path = this.basePath + '/conferences/{conferenceId}/attendants/{userId}'
+            .replace('{' + 'conferenceId' + '}', String(conferenceId))
+            .replace('{' + 'userId' + '}', String(userId));
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+        // verify required parameter 'conferenceId' is not null or undefined
+        if (conferenceId === null || conferenceId === undefined) {
+            throw new Error('Required parameter conferenceId was null or undefined when calling removeAttendantFormConference.');
+        }
+        // verify required parameter 'userId' is not null or undefined
+        if (userId === null || userId === undefined) {
+            throw new Error('Required parameter userId was null or undefined when calling removeAttendantFormConference.');
+        }
+        let requestOptions: RequestOptionsArgs = {
+            method: 'DELETE',
+            headers: headerParams,
+            search: queryParameters
+        };
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.toString();
+                }
+            });
+    }
+
+    /**
      * Update Conference with Id
      *
      * @param conferenceId ID of the Conference
      * @param conference Conference to Update
      */
-    public updateConferenceById (conferenceId: string, conference?: models.ConferenceDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceDto> {
+    @Parse('ConferenceDetailDto')
+    public updateConferenceById (conferenceId: string, conference?: models.ConferenceCreateDto, extraHttpRequestParams?: any ) : Observable<models.ConferenceDetailDto> {
         const path = this.basePath + '/conferences/{conferenceId}'
             .replace('{' + 'conferenceId' + '}', String(conferenceId));
 

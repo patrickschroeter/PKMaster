@@ -6,13 +6,10 @@ import { TranslationService } from './../../../modules/translation';
 
 /** Models */
 import { FieldDto } from './../../../swagger';
-import { ConferenceConfig } from './../../../models';
+import { ConferenceConfig, Window } from './../../../models';
 
 /** Components */
 import { OverlayComponent } from './../../../modules/overlay';
-
-/** Interfaces */
-import { Window } from './../../';
 
 @Component({
   selector: 'pk-modal-add-conference-entry',
@@ -67,7 +64,7 @@ export class ModalAddConferenceEntryComponent implements OnInit, Window {
                 name: 'description',
                 label: this.translationService.translate('description'),
                 value: values ? values.description : '',
-                styles: [
+                styleIds: [
                     'small'
                 ]
             },
@@ -76,7 +73,7 @@ export class ModalAddConferenceEntryComponent implements OnInit, Window {
                 name: 'footer',
                 label: this.translationService.translate('footer'),
                 value: values ? values.footer : '',
-                styles: [
+                styleIds: [
                     'small'
                 ]
             },

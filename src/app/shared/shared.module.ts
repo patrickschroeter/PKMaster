@@ -16,6 +16,7 @@ import { OverlayModule } from './../modules/overlay/overlay.module';
 import { ListModule } from './../modules/list/list.module';
 import { AlertDirectiveModule } from './../modules/alert/alert.module';
 import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module';
+import { StatusPipe } from './pipes';
 
 @NgModule({
     declarations: [
@@ -42,7 +43,9 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
         elements.LoadingComponent,
         elements.ButtonAnimationWrapperComponent,
 
-        directives.AccessDirective
+        directives.AccessDirective,
+
+        StatusPipe
     ],
     imports: [
         CommonModule,
@@ -85,7 +88,8 @@ import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module
 
         directives.AccessDirective,
 
-        DndModule
+        DndModule,
+        StatusPipe
     ]
 })
 export class SharedModule { }

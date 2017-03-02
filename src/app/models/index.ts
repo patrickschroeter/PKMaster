@@ -7,3 +7,4 @@ export * from './change-password-form';
 export * from './applications-by-form-id';
 export * from './credentials';
 export * from './accept-application';
+export * from './window';

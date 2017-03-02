@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, OnChanges, HostBinding } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import * as _ from 'lodash';
 
 import { DynamicFormService, InputValidationService } from './services';
 

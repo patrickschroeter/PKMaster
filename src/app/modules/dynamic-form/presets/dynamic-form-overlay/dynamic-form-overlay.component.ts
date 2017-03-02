@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 /** Models */
-import { FieldDto, ConferenceDto } from './../../../../swagger';
+import { FieldDto, ConferenceDetailDto } from './../../../../swagger';
 
 /**
  * A wrapper for an Dynamic Form in Overlay

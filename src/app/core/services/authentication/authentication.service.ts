@@ -7,12 +7,13 @@ import { PermissionService } from './../permission/permission.service';
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 import { UserApi } from './../../../swagger/api/UserApi';
+import { ConfigurationService } from './../';
 
 /** TODO */
 import { UserApiMock } from './../../../core';
 
 /** Models */
-import { UserDto, UserCreateDto } from './../../../swagger';
+import { UserDetailDto, UserCreateDto } from './../../../swagger';
 
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
@@ -60,7 +61,7 @@ export class AuthenticationService {
      * @type {Observable<AppUser>}
      * @memberOf AuthenticationService
      */
-    private user: Observable<UserDto>;
+    private user: Observable<UserDetailDto>;
 
     /**
      * static function to get the token from localStorage
@@ -94,6 +95,7 @@ export class AuthenticationService {
         /** Services */
         private userApi: UserApi,
         private permission: PermissionService,
+        private configurationService: ConfigurationService
     ) {
         if (this.token) {
             this.login().subscribe(() => { }, error => {
@@ -176,11 +178,11 @@ export class AuthenticationService {
      * @memberOf AuthenticationService
      */
     @Loading('login')
-    public login(username?: string, password?: string): Observable<UserDto> {
+    public login(username?: string, password?: string): Observable<UserDetailDto> {
         if (username && password) {
-            let observer: Observer<UserDto>;
+            let observer: Observer<UserDetailDto>;
             // the returned user observable
-            this.user = new Observable<UserDto>((obs: Observer<any>) => {
+            this.user = new Observable<UserDetailDto>((obs: Observer<any>) => {
                 observer = obs;
 
                 // log the user in and save token
@@ -195,8 +197,9 @@ export class AuthenticationService {
                 });
             })
                 // update the permissions
-                .map(result => {
-                    const user = result.permissions ? result : UserApiMock.USERS[0];
+                .map((result: UserDetailDto) => {
+                    const user = result;
+                    user.permissions = user.permissions.length ? user.permissions : UserApiMock.USERS[0].permissions;
                     return this.permission.updateUserPermissions(user);
                 })
                 // cache user
@@ -205,13 +208,14 @@ export class AuthenticationService {
             return this.user;
         } else {
             // the returned user observable
-            this.user = new Observable<UserDto>((observer: Observer<any>) => {
+            this.user = new Observable<UserDetailDto>((observer: Observer<any>) => {
                 // get the user object
                 this.publishCurrentUser(observer);
             })
                 // update the permissions
-                .map(result => {
-                    const user = result.permissions ? result : UserApiMock.USERS[0];
+                .map((result: UserDetailDto) => {
+                    const user = result;
+                    user.permissions = user.permissions.length ? user.permissions : UserApiMock.USERS[0].permissions;
                     return this.permission.updateUserPermissions(user);
                 })
                 // cache user
@@ -247,8 +251,12 @@ export class AuthenticationService {
      */
     public logout(): void {
         this.token = null;
-        this.user = null;
-        this.permission.updateUserPermissions(this.user);
+        if (this.user) {
+            this.user.subscribe((result: UserDetailDto) => {
+                this.permission.updateUserPermissions(result);
+                this.user = null;
+            });
+        }
         this.router.navigate(['/login']);
     }
 
@@ -263,7 +271,7 @@ export class AuthenticationService {
      * @memberOf AuthenticationService
      */
     @Loading('changePassword')
-    public changePassword(user: UserDto, oldpassword: string, newpassword: string): Observable<UserDto> {
+    public changePassword(user: UserDetailDto, oldpassword: string, newpassword: string): Observable<UserDetailDto> {
         /** TODO */
         (user as UserCreateDto).password = newpassword;
         return this.userApi.updateUserById(user.id, user);
@@ -278,7 +286,7 @@ export class AuthenticationService {
      * @memberOf AuthenticationService
      */
     @Loading('updateUser')
-    public updateUser(user: UserDto): Observable<UserDto> {
+    public updateUser(user: UserDetailDto): Observable<UserDetailDto> {
         this.user = this.userApi.updateUserById(user.id, user).map(result => {
             return this.permission.updateUserPermissions(result);
         }).publishReplay(1).refCount();

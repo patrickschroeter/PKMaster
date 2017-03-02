@@ -13,7 +13,7 @@
 
     <!-- All selected Elements when multiselect -->
     <div class="element__select element__options"
-        *ngIf="formControl.value?.length !== 0"
+        *ngIf="formControl.value && formControl.value.length !== 0"
         [class.element--disabled]="isDisabled()">
 
         <div *ngIf="!isDisabled()" class="element__option option--default" (click)="overlay.toggle()">
@@ -39,7 +39,7 @@
 
     <!-- Default Element if nothing is selected -->
     <div class="element__select element__options"
-        *ngIf="!formControl.value || formControl.value?.length === 0"
+        *ngIf="!formControl.value || formControl.value.length === 0"
         [class.element--disabled]="isDisabled()">
         <div *ngIf="!isDisabled()" class="element__option option--default" (click)="overlay.toggle()">
             <div class="element__value" *ngIf="config.placeholder">{{ config.placeholder }}</div>
@@ -51,14 +51,14 @@
         </div>
     </div>
 
-    <pk-overlay #overlay *ngIf="!isDisabled()" (close)="resetAddOptionForm()">
+    <pk-overlay #overlay *ngIf="!isDisabled()" (close)="initAddOptionsForm()">
         <pk-overlay-header>
             <span *ngIf="config.placeholder">{{ config.placeholder }}</span>
             <span *ngIf="!config.placeholder" i18n>Add Option</span>
         </pk-overlay-header>
         <pk-overlay-content>
 
-            <pk-dynamic-form [formElements]="addOptionForm" #dynamicForm>
+            <pk-dynamic-form *ngIf="overlay.isOpen" [formElements]="addOptionForm" #dynamicForm>
                 <pk-dynamic-form-content>
 
                     <pk-dynamic-form-element *ngFor="let element of addOptionForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
@@ -71,7 +71,6 @@
                         i18n-value value="Add"
                         icon="playlist_add"
                         [class]="dynamicForm.form.valid ? 'element--success' : 'element--disabled'"
-                        [type]="'submit'"
                         (onClick)="addOption(dynamicForm.form.value)"></pk-button>
                 </pk-dynamic-form-submit>
 

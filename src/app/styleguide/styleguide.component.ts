@@ -194,7 +194,7 @@ export class StyleguideComponent implements OnInit {
 
                 fieldType: 'input',
                 name: 'input-validation',
-                validations: [
+                validationIds: [
                     'useExternalEmail',
                     'isEmail',
                     'minLength',
@@ -206,7 +206,7 @@ export class StyleguideComponent implements OnInit {
 
                 fieldType: 'input',
                 name: 'input-small',
-                styles: [
+                styleIds: [
                     'small'
                 ]
             },
@@ -217,10 +217,10 @@ export class StyleguideComponent implements OnInit {
                 name: 'input-textarea',
                 placeholder: 'Some text will be here...',
                 required: true,
-                styles: [
+                styleIds: [
                     'small'
                 ],
-                validations: [
+                validationIds: [
                     'isEmail',
                     'minLength'
                 ]
@@ -241,7 +241,7 @@ export class StyleguideComponent implements OnInit {
                 fieldType: 'checkbox',
                 name: 'student',
                 label: 'This is Sparta!',
-                validations: [
+                validationIds: [
                     'toBeTrue'
                 ]
             }
@@ -345,7 +345,7 @@ export class StyleguideComponent implements OnInit {
                 name: 'country',
                 label: 'Land',
                 multipleSelect: true,
-                styles: [
+                styleIds: [
                     'small'
                 ],
                 options: [

@@ -10,3 +10,4 @@ export * from './ConferenceEndpoint';
 export * from './ConferenceApi.mock';
 export * from './RoleEndpoint';
 export * from './RoleApi.mock';
+export * from './ConfigurationApi.mock';

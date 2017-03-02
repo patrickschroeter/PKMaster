@@ -1,25 +1,23 @@
 <pk-list>
     <pk-list-header>
         <!--<pk-list-attribute name="state-icon" (click)="sortBy('status')"></pk-list-attribute>-->
-        <pk-list-attribute name="state" i18n>Status</pk-list-attribute>
-        <pk-list-attribute name="name" i18n>Title</pk-list-attribute>
-        <pk-list-attribute name="conference" i18n>Conference</pk-list-attribute>
-        <pk-list-attribute name="date" i18n>Created</pk-list-attribute>
-        <pk-list-attribute name="modified" i18n>Modified</pk-list-attribute>
+        <pk-list-attribute i18n>Status</pk-list-attribute>
+        <pk-list-attribute primary i18n>Title</pk-list-attribute>
+        <pk-list-attribute i18n>Conference</pk-list-attribute>
+        <pk-list-attribute i18n>Created</pk-list-attribute>
+        <pk-list-attribute i18n>Version</pk-list-attribute>
     </pk-list-header>
     <pk-list-content>
-        <pk-list-element *ngFor="let application of applications" [name]="application.status?.name">
+        <pk-list-element *ngFor="let application of applications" [name]="application.statusId | status">
 
-            <pk-list-attribute name="state">{{ application.status?.name }}</pk-list-attribute>
+            <pk-list-attribute name="state">{{ application.statusId | status }}</pk-list-attribute>
 
-            <pk-list-attribute name="name" *ngIf="application.form">
-                <a routerLink="/applications/{{ application.id }}">{{ application.form.title }}</a>
-            </pk-list-attribute>
-            <pk-list-attribute name="name" *ngIf="!application.form">
-                <a routerLink="/applications/{{ application.id }}" i18n>No Title</a>
+            <pk-list-attribute primary name="application">
+                <a *ngIf="application.form" routerLink="/applications/{{ application.id }}">{{ application.form.title }}</a>
+                <a *ngIf="!application.form" routerLink="/applications/{{ application.id }}" i18n>No Title</a>
             </pk-list-attribute>
 
-            <pk-list-attribute name="conference">
+            <pk-list-attribute name="date">
                 <ng-container *accessReadConferences="1">
                     {{ application.conference ? (application.conference.dateOfEvent | date) : ''}}
                 </ng-container>
@@ -27,13 +25,14 @@
                     <a *ngIf="application.conference" routerLink="/conferences/{{ application.conference.id }}">{{ application.conference.dateOfEvent | date  }}</a>
                 </ng-container>
             </pk-list-attribute>
+
             <pk-list-attribute name="date">{{ application.created | date }}</pk-list-attribute>
-            <pk-list-attribute name="modified">{{ application.modified | date }}</pk-list-attribute>
+            <pk-list-attribute name="version">{{ application.version }}</pk-list-attribute>
 
             <pk-floating horizontal top-right>
                 <ng-container>
                     <pk-button
-                        *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
+                        *ngIf="application.hasStatus(status.CREATED, status.RESCINDED)"
                         rounded
                         element--error
                         i18n-pkAlert
@@ -43,9 +42,18 @@
                     </pk-button>
                 </ng-container>
                 <a
-                    *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
+                    *ngIf="application.hasStatus(status.CREATED, status.RESCINDED)"
                     routerLink="/applications/{{ application.id }}/edit">
                     <pk-button
+                        *ngIf="application.form.deprecated"
+                        rounded
+                        element--secondary
+                        i18n-pkAlert
+                        pkAlert="Update Application"
+                        icon="refresh">
+                    </pk-button>
+                    <pk-button
+                        *ngIf="!application.form.deprecated"
                         rounded
                         element--secondary
                         i18n-pkAlert
@@ -54,7 +62,7 @@
                     </pk-button>
                 </a>
                 <pk-button
-                    *ngIf="['submitted'].indexOf(application.status?.name) !== -1"
+                    *ngIf="application.hasStatus(status.SUBMITTED)"
                     rounded
                     element--error
                     i18n-pkAlert
@@ -63,7 +71,7 @@
                     (onClick)="rescindApplicationModal(application)">
                 </pk-button>
                 <pk-button
-                    *ngIf="application.status?.name === 'created'"
+                    *ngIf="application.hasStatus(status.CREATED) && application.filledForm"
                     rounded
                     element--secondary
                     i18n-pkAlert

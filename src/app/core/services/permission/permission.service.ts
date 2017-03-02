@@ -8,7 +8,7 @@ import { TranslationService } from './../../../modules/translation';
 import { PermissionEndpoint } from './../api/PermissionEndpoint';
 
 /** Models */
-import { UserDto, Permission } from './../../../swagger';
+import { UserDetailDto, PermissionDto } from './../../../swagger';
 
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
@@ -31,7 +31,7 @@ export class PermissionService {
      * update the permission object in the class with the input user
      * @param {AppUser} [user]
      */
-    public updateUserPermissions(user?: UserDto): UserDto {
+    public updateUserPermissions(user?: UserDetailDto): UserDetailDto {
         this.permissions = (user && user.permissions) ? user.permissions : [];
         return user;
     }
@@ -87,7 +87,7 @@ export class PermissionService {
      * get all permissions
      */
     @Loading('getPermissions')
-    public getPermissions(): Observable<Permission[]> {
+    public getPermissions(): Observable<PermissionDto[]> {
         return this.permissionApi.getPermissions();
     }
 
@@ -97,7 +97,7 @@ export class PermissionService {
      * @param {Permission} permission
      */
     @Loading('updatePermission')
-    public updatePermission(id: string, permission: Permission): Observable<Permission> {
+    public updatePermission(id: string, permission: PermissionDto): Observable<PermissionDto> {
         return this.permissionApi.updatePermission(id, permission).map(result => {
             return result;
         });

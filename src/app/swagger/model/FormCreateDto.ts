@@ -25,18 +25,27 @@
 'use strict';
 import * as models from './models';
 
-export interface FormCreateDto {
+export class FormCreateDto {
 
 
-    name?: string;
+    title: string;
 
-    restrictedAccess?: boolean;
+    restrictedAccess: boolean;
 
-    isPublic?: boolean;
+    isActive: boolean;
 
     formHasField?: Array<models.FieldCreateDto>;
 
     // Custom
 
-    title?: string;
+    requiresValidation?: boolean;
+
+    constructor(obj?: models.FormDetailDto) {
+        obj = obj || ({} as any);
+        this.title = obj.title;
+        this.restrictedAccess = !!obj.restrictedAccess;
+        this.isActive = !!obj.isActive;
+        this.requiresValidation = !!obj.requiresValidation;
+        this.formHasField = obj.formHasField ? obj.formHasField.map((obj: models.FieldDto) => new models.FieldCreateDto(obj)): [];
+    }
 }

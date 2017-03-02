@@ -25,14 +25,22 @@
 'use strict';
 import * as models from './models';
 
-export interface TypeHasStyle {
+export class AttendantCreateDto {
 
 
-    fieldTypeId?: string;
+    userId: string;
 
-    styleId?: string;
+    typeOfAttendance: AttendantCreateDto.TypeOfAttendanceEnum;
 
-    fieldType?: models.FieldTypeDto;
+    constructor(userId: string, typeOfAttendance: AttendantCreateDto.TypeOfAttendanceEnum) {
+        this.userId = userId;
+        this.typeOfAttendance = typeOfAttendance;
+    }
+}
+export namespace AttendantCreateDto {
 
-    style?: models.StyleDto;
+    export enum TypeOfAttendanceEnum {
+        Guest = <any> '1',
+        Member = <any> '2',
+    }
 }

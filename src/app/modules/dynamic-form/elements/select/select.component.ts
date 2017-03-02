@@ -132,7 +132,7 @@ export class SelectComponent implements OnInit {
      */
     ngOnInit() {
         if (!this.config) {
-            this.config = {};
+            this.config = new FieldDto();
         }
         this.formControl = this.getFormControl();
         if (!this.formControl) {
@@ -195,6 +195,9 @@ export class SelectComponent implements OnInit {
         }
 
         this.formControl.setValue(values);
+        if (!this.config.multipleSelect) {
+            this.filterOptions('');
+        }
     }
 
     /**

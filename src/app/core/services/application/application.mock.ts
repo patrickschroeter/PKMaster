@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs/Rx';
 
-import { ApplicationDto } from './../../../swagger';
+import { ApplicationDetailDto } from './../../../swagger';
 
 @Injectable()
 export class ApplicationMock {
@@ -13,7 +13,7 @@ export class ApplicationMock {
      * @param {number} id
      * @return {Observable}
      */
-    getApplicationById(id: number): Observable<ApplicationDto> {
+    getApplicationById(id: number): Observable<ApplicationDetailDto> {
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 observer.next('');
@@ -27,7 +27,7 @@ export class ApplicationMock {
      * @param {Application} application
      * @return {Observable}
      */
-    createNewApplication(application: ApplicationDto): Observable<ApplicationDto> {
+    createNewApplication(application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
 
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
@@ -42,7 +42,7 @@ export class ApplicationMock {
      * @description Saves the changed application
      * @return {void}
      */
-    saveApplication(): Observable<ApplicationDto> {
+    saveApplication(): Observable<ApplicationDetailDto> {
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
                 observer.next('');

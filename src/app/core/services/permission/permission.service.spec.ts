@@ -42,7 +42,7 @@ describe('PermissionService', () => {
             expect(service.updateUserPermissions(USER.USER)).toEqual(USER.USER);
             expect(service.updateUserPermissions(USER.USER)).toBe(USER.USER);
 
-            expect(service.updateUserPermissions({})).toEqual({});
+            expect(service.updateUserPermissions({} as any)).toEqual({});
             expect(service.updateUserPermissions(null)).toEqual(null);
             expect(service.updateUserPermissions(undefined)).toEqual(undefined);
         });
@@ -65,7 +65,7 @@ describe('PermissionService', () => {
         });
 
         it('should set the permission to [] if the user has no rights', () => {
-            service.updateUserPermissions({});
+            service.updateUserPermissions({} as any);
             expect(service.permissions).toEqual([]);
         });
     });

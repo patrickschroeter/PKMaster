@@ -27,6 +27,7 @@ import { Injectable, Optional } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
+import { Parse } from './../../shared/decorators/parse.decorator';
 
 /* tslint:disable:no-unused-variable member-ordering */
 
@@ -51,7 +52,7 @@ export class RoleApi {
      * @param permissionId2
      */
     public addPermissionToRole(roleId: string, permissionId: string, extraHttpRequestParams?: any): Observable<{}> {
-        const path = this.basePath + '/roles/{roleId}/permissions/{permission_id}'
+        const path = this.basePath + '/roles/{roleId}/permissions/{permissionId}'
             .replace('{' + 'roleId' + '}', String(roleId))
             .replace('{' + 'permissionId' + '}', String(permissionId))
 
@@ -86,6 +87,7 @@ export class RoleApi {
      *
      * @param role The new Role Object
      */
+    @Parse('RoleDto')
     public addRole(role?: models.RoleDto, extraHttpRequestParams?: any): Observable<models.RoleDto> {
         const path = this.basePath + '/roles';
 
@@ -182,6 +184,7 @@ export class RoleApi {
      *
      * @param roleId ID of Role
      */
+    @Parse('RoleDto')
     public getRoleById(roleId: string, extraHttpRequestParams?: any): Observable<models.RoleDto> {
         const path = this.basePath + '/roles/{roleId}'
             .replace('{' + 'roleId' + '}', String(roleId));
@@ -212,6 +215,7 @@ export class RoleApi {
      * GET all Roles
      * The Roles Endpoint returns all Roles
      */
+    @Parse('RoleDto')
     public getRoles(extraHttpRequestParams?: any): Observable<Array<models.RoleDto>> {
         const path = this.basePath + '/roles';
 
@@ -239,6 +243,7 @@ export class RoleApi {
      * @param roleId ID of Role
      * @param role Updated Role
      */
+    @Parse('RoleDto')
     public updateRoleById(roleId: string, role?: models.RoleDto, extraHttpRequestParams?: any): Observable<models.RoleDto> {
         const path = this.basePath + '/roles/{roleId}'
             .replace('{' + 'roleId' + '}', String(roleId));

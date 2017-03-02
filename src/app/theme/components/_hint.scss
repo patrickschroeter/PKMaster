@@ -74,7 +74,7 @@
             color: $white;
         }
 
-        &.hint--rotating-icon, &.hint--tooltip {
+        &.hint--rotating-icon, &.hint--tooltip, &.hint--error {
             padding-left: 28px;
             i {
                 position: absolute;

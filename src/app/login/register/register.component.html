@@ -1,0 +1,22 @@
+<div class="login-wrapper">
+    <div class="login-block">
+        <h1 i18n>Registrierung</h1>
+
+        <ng-container *ngIf="error">
+            <div class="invalid-wrapper" i18n>RZ-Name or Password is wrong</div>
+        </ng-container>
+
+        <pk-dynamic-form [formElements]="registerForm" #dynamicForm>
+            <pk-dynamic-form-content>
+
+                <pk-dynamic-form-element *ngFor="let element of registerForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
+
+            </pk-dynamic-form-content>
+
+            <pk-dynamic-form-submit>
+                <pk-button (onClick)="register(dynamicForm.form.value)" i18n-value value="Registrieren" icon="security" [class]="(dynamicForm.form && dynamicForm.form.valid) ? 'element--success' : 'element--disabled'"></pk-button>
+            </pk-dynamic-form-submit>
+
+        </pk-dynamic-form>
+    </div>
+</div>

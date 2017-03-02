@@ -1,4 +1,4 @@
-<div class="entry element element--spacing-bottom-small">
+<div class="entry">
     <ng-container *ngIf="entry">
         <div class="rel">
             <div class="content">
@@ -14,7 +14,9 @@
                     <ng-container *ngSwitchCase="'config'">
                         <ng-container *ngIf="entry.entries">
                             <ng-container *ngFor="let entry of entry.entries; trackBy: trackByFn; let i = index">
-                                <pk-conference-entry-detail [index]="index + '.' + (i + 1)" [entry]="entry"></pk-conference-entry-detail>
+                                <div class="block">
+                                    <pk-conference-entry-detail [index]="index + '.' + (i + 1)" [entry]="entry"></pk-conference-entry-detail>
+                                </div>
                             </ng-container>
                         </ng-container>
                     </ng-container>
@@ -27,28 +29,37 @@
                         <ng-container *ngIf="entry.entries && entry.fields">
                             <pk-list>
                                 <pk-list-header>
-                                    <pk-list-attribute name="state" i18n>Status</pk-list-attribute>
-                                    <pk-list-attribute name="author" i18n>Author</pk-list-attribute>
+                                    <pk-list-attribute i18n>Status</pk-list-attribute>
+                                    <pk-list-attribute primary i18n>Author</pk-list-attribute>
                                     <ng-container *ngFor="let field of entry.fields">
-                                        <pk-list-attribute [name]="field">{{ field }}</pk-list-attribute>
+                                        <pk-list-attribute>{{ field }}</pk-list-attribute>
                                     </ng-container>
                                 </pk-list-header>
                                 <pk-list-content>
 
                                     <ng-container *ngFor="let application of entry.entries">
 
-                                        <pk-list-element [name]="application.status?.name">
+                                        <pk-list-element [name]="application.statusId | status">
 
-                                            <pk-list-attribute name="state">{{ application.status?.name }}</pk-list-attribute>
-                                            <pk-list-attribute name="author" *accessEditApplications>{{ application.user ? application.user.lastname : '' }}</pk-list-attribute>
+                                            <pk-list-attribute name="state">{{ application.statusId | status }}</pk-list-attribute>
+                                            <pk-list-attribute primary name="person">
+                                                <a *accessEditApplications routerLink="/applications/{{ application.id }}">
+                                                    {{ !application.user || application.user.lastname }}
+                                                </a>
+                                                <ng-container *accessEditApplications="1">
+                                                    {{ !application.user || application.user.lastname }}
+                                                </ng-container>
+                                            </pk-list-attribute>
 
                                             <ng-container *ngFor="let field of entry.fields">
-                                                <pk-list-attribute [name]="field">{{ application.filledForm[field] }}</pk-list-attribute>
+                                                <pk-list-attribute>
+                                                    {{ application.filledForm ? application.filledForm[field] : '' }}
+                                                </pk-list-attribute>
                                             </ng-container>
 
                                             <pk-floating horizontal top-right>
                                                 <pk-button
-                                                    *ngIf="application.status?.name === 'pending'"
+                                                    *ngIf="application.hasStatus(status.PENDING)"
                                                     class="application--spacing-bottom-tiny"
                                                     rounded
                                                     element--success

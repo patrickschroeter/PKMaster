@@ -25,14 +25,21 @@
 'use strict';
 import * as models from './models';
 
-export interface FormHasField {
+export class PermissionDto {
 
+    id: string;
 
-    formId?: string;
+    name: string;
 
-    fieldId?: string;
+    // Custom
 
-    field?: models.FieldDto;
+    description?: string;
 
-    form?: models.FormsDto;
+    constructor(obj?: PermissionDto) {
+        obj = obj || ({} as any);
+
+        this.id = obj.id;
+        this.name = obj.name;
+        this.description = obj.description;
+    }
 }

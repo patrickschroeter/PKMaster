@@ -25,12 +25,11 @@
 'use strict';
 import * as models from './models';
 
-export interface CommentDto {
-
+export class CommentDto {
 
     id?: string;
 
-    text?: string;
+    message: string;
 
     created?: Date;
 
@@ -38,12 +37,16 @@ export interface CommentDto {
 
     requiresChanges?: boolean;
 
-    userId?: string;
+    user?: models.UserDetailDto;
 
-    applicationId?: string;
+    constructor(obj: CommentDto = new CommentDto()) {
+        this.id = obj.id;
+        this.message = obj.message;
+        this.created = obj.created;
+        this.isPrivate = !!obj.isPrivate;
+        this.requiresChanges = !!obj.requiresChanges;
 
-    // Custom
+        this.user = obj.user ? new models.UserDetailDto(obj.user) : undefined;
 
-    user?: models.UserDto;
-    message?: string;
+    }
 }

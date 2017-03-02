@@ -25,16 +25,24 @@
 'use strict';
 import * as models from './models';
 
-export interface RoleDto {
+export class RoleDto {
 
+    id: string;
 
-    id?: string;
-
-    name?: string;
-
-    userHasRole?: Array<string>;
+    name: string;
 
     // Custom
 
-    rolePermissions?: Array<models.Permission>;
+    rolePermissions?: Array<models.PermissionDto>;
+
+    constructor(obj?: models.RoleDto) {
+        obj = obj || ({} as any);
+
+        this.id = obj.id;
+        this.name = obj.name;
+
+        this.rolePermissions = obj.rolePermissions ? obj.rolePermissions.map(
+            (model: models.PermissionDto) => new models.PermissionDto(model)
+        ) : [];
+    }
 }

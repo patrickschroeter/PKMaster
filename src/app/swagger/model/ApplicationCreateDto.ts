@@ -25,26 +25,25 @@
 'use strict';
 import * as models from './models';
 
-export interface ApplicationCreateDto {
+export class ApplicationCreateDto {
 
 
-    filledForm?: string;
+    filledForm: string;
 
-    version?: number;
+    userId: string;
 
-    isCurrent?: boolean;
+    conferenceId: string;
 
-    previousVersion?: string;
+    statusId: models.Status;
 
-    userId?: string;
+    formId: string;
 
-    conferenceId?: string;
-
-    statusId?: string;
-
-    formId?: string;
-
-    // Client Only
-
-    assignments?: Array<models.UserDto>;
+    constructor(obj: models.ApplicationDetailDto = new models.ApplicationDetailDto()) {
+        this.filledForm = obj.filledForm;
+        this.userId = obj.user ? obj.user.id : null;
+        this.conferenceId = obj.conference ? obj.conference.id : null;
+        // this.statusId = obj.status ? obj.status.id : null;
+        this.statusId = obj.statusId;
+        this.formId = obj.form ? obj.form.id : null;
+    }
 }

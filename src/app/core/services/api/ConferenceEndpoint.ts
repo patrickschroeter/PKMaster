@@ -4,7 +4,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 
 import { ConferenceApiMock } from './';
 
-import { ConferenceDto, ApplicationDto } from './../../../swagger';
+import { ConferenceDetailDto, ApplicationDetailDto, ApplicationListDto } from './../../../swagger';
 
 @Injectable()
 export class ConferenceEndpoint {
@@ -12,12 +12,12 @@ export class ConferenceEndpoint {
     constructor() { }
 
 
-    public addApplicationToConference(conferenceId: string, application?: ApplicationDto, extraHttpRequestParams?: any):
-        Observable<ConferenceDto> {
+    public addApplicationToConference(conferenceId: string, application?: ApplicationDetailDto, extraHttpRequestParams?: any):
+        Observable<ConferenceDetailDto> {
         return this.observe(this._addApplication(conferenceId, application));
     }
 
-    public addConference(conference?: ConferenceDto, extraHttpRequestParams?: any): Observable<ConferenceDto> {
+    public addConference(conference?: ConferenceDetailDto, extraHttpRequestParams?: any): Observable<ConferenceDetailDto> {
         const value = this._conferenceAdd(conference);
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
@@ -33,7 +33,7 @@ export class ConferenceEndpoint {
     }
 
     public deleteApplicationOfConference(conferenceId: number, application?: number, extraHttpRequestParams?: any):
-        Observable<ConferenceDto> {
+        Observable<ConferenceDetailDto> {
         return new Observable((observer: Observer<any>) => { observer.next({ id: conferenceId }); });
     }
 
@@ -41,11 +41,11 @@ export class ConferenceEndpoint {
         return this.observe(this._delete(conferenceId));
     }
 
-    public getApplicationsByConference(conferenceId: number, extraHttpRequestParams?: any): Observable<Array<ApplicationDto>> {
+    public getApplicationsByConference(conferenceId: number, extraHttpRequestParams?: any): Observable<Array<ApplicationDetailDto>> {
         return new Observable((observer: Observer<any>) => { observer.next({ id: conferenceId }); });
     }
 
-    public getConferenceById(conferenceId: string, extraHttpRequestParams?: any): Observable<ConferenceDto> {
+    public getConferenceById(conferenceId: string, extraHttpRequestParams?: any): Observable<ConferenceDetailDto> {
         const conference = this._conference(conferenceId);
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
@@ -60,7 +60,7 @@ export class ConferenceEndpoint {
         });
     }
 
-    public getConferences(filter?: string, sort?: string, extraHttpRequestParams?: any): Observable<Array<ConferenceDto>> {
+    public getConferences(filter?: string, sort?: string, extraHttpRequestParams?: any): Observable<Array<ConferenceDetailDto>> {
         const conferences = this._conferences();
         return new Observable((observer: Observer<any>) => {
             setTimeout(() => {
@@ -75,8 +75,8 @@ export class ConferenceEndpoint {
         });
     }
 
-    public updateConferenceById(conferenceId: string, conference?: ConferenceDto, extraHttpRequestParams?: any):
-        Observable<ConferenceDto> {
+    public updateConferenceById(conferenceId: string, conference?: ConferenceDetailDto, extraHttpRequestParams?: any):
+        Observable<ConferenceDetailDto> {
         const param = this._conferenceUpdate(conferenceId, conference);
         return this.observe(param);
     }
@@ -98,15 +98,15 @@ export class ConferenceEndpoint {
      */
 
     // tslint:disable-next-line:member-ordering
-    private _list: ConferenceDto[] = [
+    private _list: ConferenceDetailDto[] = [
         ConferenceApiMock.CONFERENCE
     ];
 
-    private _conferences(): ConferenceDto[] {
+    private _conferences(): ConferenceDetailDto[] {
         return JSON.parse(JSON.stringify(this._list));
     }
 
-    private _conferenceAdd(conference: ConferenceDto): ConferenceDto {
+    private _conferenceAdd(conference: ConferenceDetailDto): ConferenceDetailDto {
         let id: string;
         if (!this._list.length) {
             id = 'Q';
@@ -118,8 +118,8 @@ export class ConferenceEndpoint {
         return JSON.parse(JSON.stringify(this._list[this._list.length - 1]));
     }
 
-    private _conference(id?: string): ConferenceDto {
-        let result: ConferenceDto;
+    private _conference(id?: string): ConferenceDetailDto {
+        let result: ConferenceDetailDto;
         const list = this._list;
         for (let i = 0; i < list.length; i++) {
             if (list[i].id === id) {
@@ -130,7 +130,7 @@ export class ConferenceEndpoint {
         return JSON.parse(JSON.stringify(result));
     }
 
-    private _conferenceUpdate(id: string, conference: ConferenceDto): ConferenceDto {
+    private _conferenceUpdate(id: string, conference: ConferenceDetailDto): ConferenceDetailDto {
         const list = this._list;
         for (let i = 0; i < list.length; i++) {
             if (list[i].id === id) {
@@ -157,18 +157,18 @@ export class ConferenceEndpoint {
         }
     }
 
-    private _addApplication(id: string, application: ApplicationDto): ConferenceDto {
-        const conference: ConferenceDto = this._conference(id);
-        conference.applications = conference.applications || [];
+    private _addApplication(id: string, application: ApplicationDetailDto): ConferenceDetailDto {
+        const conference: ConferenceDetailDto = this._conference(id);
+        conference['applications'] = conference['applications'] || [];
         let index = -1;
-        for (let i = 0; i < conference.applications.length; i++) {
-            const element = conference.applications[i];
+        for (let i = 0; i < conference['applications'].length; i++) {
+            const element = conference['applications'][i];
             if (element.id === application.id) {
                 index = i;
             }
         }
         if (index === -1) {
-            conference.applications.push(application);
+            conference['applications'].push(new ApplicationListDto(application));
         }
         return this._conferenceUpdate(conference.id, conference);
     }

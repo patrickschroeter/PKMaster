@@ -1,4 +1,5 @@
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
+import { Response } from '@angular/http';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import * as _ from 'lodash';
 
@@ -10,11 +11,20 @@ import {
     UserService
 } from './../../../core';
 import { ModalService } from './../../../modules/overlay';
+import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
 import { ConferenceConfig, Selectable, ApplicationsByFormId } from './../../../models';
-import { ConferenceDto, ApplicationDto, CommentDto, UserDto } from './../../../swagger';
+import {
+    ConferenceDetailDto,
+    ApplicationDetailDto,
+    ApplicationListDto,
+    CommentDto,
+    UserDetailDto,
+    UserListDto,
+    AttendantCreateDto
+} from './../../../swagger';
 import { OverlayComponent } from './../../../modules/overlay';
 
 /** Decorators */
@@ -47,7 +57,7 @@ export class ConferencesDetailComponent implements OnInit {
      * @type {ConferenceDto}
      * @memberOf ConferencesDetailComponent
      */
-    public conference: ConferenceDto;
+    public conference: ConferenceDetailDto;
 
     /**
      * the agenda of the conference, calculated from config
@@ -60,18 +70,20 @@ export class ConferencesDetailComponent implements OnInit {
     /**
      * a list of all possible members of the conference
      *
-     * @type {UserDto[]}
+     * @type {UserDetailDto[]}
      * @memberOf ConferencesDetailComponent
      */
-    public members: UserDto[];
+    public members: UserDetailDto[];
 
     /**
      * a list of all possible guests of the conference
      *
-     * @type {UserDto[]}
+     * @type {UserDetailDto[]}
      * @memberOf ConferencesDetailComponent
      */
-    public guests: UserDto[];
+    public guests: UserDetailDto[];
+
+    private modalType: string;
 
     /**
      * Creates an instance of ConferencesDetailComponent.
@@ -93,6 +105,7 @@ export class ConferencesDetailComponent implements OnInit {
         /** Modules */
         private modalService: ModalService,
         private translationService: TranslationService,
+        private alert: AlertService,
         /** Services */
         private conferenceService: ConferenceService,
         private applicationService: ApplicationService,
@@ -153,19 +166,22 @@ export class ConferencesDetailComponent implements OnInit {
      * @memberOf ConferencesDetailComponent
      */
     public populateConfigWithApplications() {
-        if (!this.conference.applications) { return; }
+        if (!this.conference.config) { return; }
+        this.conferenceService.getApplicationsByConference(this.conference.id).subscribe((result: ApplicationDetailDto[]) => {
 
-        const applicationsByForm: ApplicationsByFormId = {};
-        for (let i = 0; i < this.conference.applications.length; i++) {
-            const application: ApplicationDto = this.conference.applications[i];
-            if (typeof application.filledForm === 'string') { application.filledForm = JSON.parse(application.filledForm); }
-            applicationsByForm[application.formId] = applicationsByForm[application.formId] || [];
-            applicationsByForm[application.formId].push(application);
-        }
+            const applicationsByForm: ApplicationsByFormId = {};
+            for (let i = 0; i < result.length; i++) {
+                const application: ApplicationDetailDto = result[i];
+                if (typeof application.filledForm === 'string') { application.filledForm = JSON.parse(application.filledForm); }
+                applicationsByForm[application.form.id] = applicationsByForm[application.form.id] || [];
+                applicationsByForm[application.form.id].push(application);
+            }
 
-        for (let i = 0; i < this.conference.config.length; i++) {
-            this.setApplication(this.conference.config[i], applicationsByForm);
-        }
+            for (let i = 0; i < this.conference.config.length; i++) {
+                this.setApplication(this.conference.config[i], applicationsByForm);
+            }
+
+        });
     }
 
     /**
@@ -178,9 +194,11 @@ export class ConferencesDetailComponent implements OnInit {
      * @memberOf ConferencesDetailComponent
      */
     private setApplication(config: ConferenceConfig, applications: ApplicationsByFormId) {
+        if (!config || !applications) { return; }
         if (config.formId) {
             config.entries = applications[config.formId];
         } else if (config.type === 'config') {
+            if (!config.entries) { config.entries = []; }
             for (let i = 0; i < config.entries.length; i++) {
                 this.setApplication(config.entries[i], applications);
             }
@@ -215,10 +233,16 @@ export class ConferencesDetailComponent implements OnInit {
      * @memberOf ConferencesDetailComponent
      */
     public assignMemberModal(): void {
-        this.assignUserModal(
-            this.members.map(obj => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`)),
-            'assignMemberHeader'
-        );
+        this.modalType = 'members';
+        this.modalService.createListModal({
+            title: this.translationService.translate('assignMemberHeader'),
+            list: this.members.map(obj => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`)),
+            click: this.assignUser.bind(this),
+
+            selectedValues: this.conference.members.map((obj: UserListDto) => obj.id),
+
+            emptyText: this.translationService.translate('noUsersAvailable')
+        });
     }
 
     /**
@@ -227,54 +251,66 @@ export class ConferencesDetailComponent implements OnInit {
      * @memberOf ConferencesDetailComponent
      */
     public assignGuestModal(): void {
-        this.assignUserModal(
-            this.guests.map(obj => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`)),
-            'assignGuestHeader'
-        );
-    }
-
-    /**
-     * opens the assignment modal for users
-     *
-     * @private
-     * @param {Selectable[]} list
-     * @param {string} title
-     *
-     * @memberOf ConferencesDetailComponent
-     */
-    private assignUserModal(list: Selectable[], title: string): void {
+        this.modalType = 'guests';
         this.modalService.createListModal({
-            title: this.translationService.translate('title'),
-            list: list,
+            title: this.translationService.translate('assignGuestHeader'),
+            list: this.guests.map(obj => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`)),
             click: this.assignUser.bind(this),
 
-            selectedValues: this.conference.attendants.map(obj => obj.id),
+            selectedValues: this.conference.guests.map((obj: UserListDto) => obj.id),
 
             emptyText: this.translationService.translate('noUsersAvailable')
         });
     }
 
     /**
-     * add/remove a user from the conference
+     * assign of unassign the selected user
      *
      * @private
      * @param {Selectable} user
+     * @returns {void}
      *
      * @memberOf ConferencesDetailComponent
      */
     private assignUser(user: Selectable): void {
-        const param: ConferenceDto = _.cloneDeep(this.conference);
-        if (!param.attendants) { param.attendants = []; }
-        const index = _.findIndex(param.attendants, (obj: UserDto) => obj.id === user.value);
-        if (index === -1) {
-            this.userService.getUserById(user.value).subscribe(result => {
-                param.attendants.push(result);
-                console.log(param);
-                this.saveConference(param);
-            });
+        const group: string = this.modalType;
+        const isMember: boolean = group === 'members';
+        if (!group) { return; }
+        const type = isMember ? AttendantCreateDto.TypeOfAttendanceEnum.Member : AttendantCreateDto.TypeOfAttendanceEnum.Guest;
+        const attendant = _.find(
+            isMember ? this.conference.members : this.conference.guests,
+            (obj: UserListDto) => obj.id === user.value
+        );
+        if (!attendant) {
+            this.conferenceService.assignAttendantToConference(this.conference, new AttendantCreateDto(user.value, type))
+                .subscribe((result: ConferenceDetailDto) => {
+                    this.conference = result;
+                    this.updateSelectedUsers();
+                }, (error: Response) => {
+                    this.alert.setAlert(error.statusText, error.text());
+                });
         } else {
-            param.attendants.splice(index, 1);
-            this.saveConference(param);
+            this.conferenceService.removeAttendantFromConference(this.conference, new AttendantCreateDto(attendant.id, type))
+                .subscribe((result: string) => {
+                    this.updateSelectedUsers();
+                });
+        }
+    }
+
+    /**
+     * update the Selected Values in the ModalService
+     *
+     * @private
+     *
+     * @memberOf ConferencesDetailComponent
+     */
+    private updateSelectedUsers() {
+        if (this.modalType) {
+            if (this.modalType === 'members') {
+                this.modalService.updateSelectedValues(this.conference.members.map(obj => obj.id));
+            } else {
+                this.modalService.updateSelectedValues(this.conference.guests.map(obj => obj.id));
+            }
         }
     }
 
@@ -286,21 +322,21 @@ export class ConferencesDetailComponent implements OnInit {
      *
      * @memberOf ConferencesDetailComponent
      */
-    private saveConference(param: ConferenceDto): void {
+    private saveConference(param: ConferenceDetailDto): void {
         this.conferenceService.saveConference(param).subscribe(result => {
             this.conference = result;
-            this.modalService.updateSelectedValues(this.conference.attendants.map(obj => obj.id));
         });
     }
 
     /**
      * remove an assigned user from the conference
      *
-     * @param {UserDto} user
+     * @param {UserDetailDto} user
      *
      * @memberOf ConferencesDetailComponent
      */
-    public unassignUser(user: UserDto) {
+    public unassignUser(user: UserDetailDto, type: string) {
+        this.modalType = type;
         this.assignUser(new Selectable(user.id, user.id));
     }
 

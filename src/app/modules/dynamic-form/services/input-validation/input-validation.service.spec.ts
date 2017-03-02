@@ -111,27 +111,28 @@ describe('Service: InputValidation', () => {
 
     describe('validateTime', () => {
 
-        it('shold return undefined if the input is true',
+        it('shold return undefined if the input is valid',
             inject([InputValidationService], (service: InputValidationService) => {
-                expect(service.validateTime(new FormControl('0.00'))).toBeUndefined();
+                expect(service.validateTime(new FormControl('0:00'))).toBeUndefined();
                 expect(service.validateTime(new FormControl('02:55'))).toBeUndefined();
-                expect(service.validateTime(new FormControl('15.01'))).toBeUndefined();
+                expect(service.validateTime(new FormControl('15:01'))).toBeUndefined();
                 expect(service.validateTime(new FormControl('23:59'))).toBeUndefined();
-                expect(service.validateTime(new FormControl('19.40'))).toBeUndefined();
+                expect(service.validateTime(new FormControl('19:40'))).toBeUndefined();
             })
         );
 
         it('should return the error object if the input is not a valid time',
             inject([InputValidationService], (service: InputValidationService) => {
                 const result = { invalidTime: true };
-                expect(service.validateTime(new FormControl('-0.00'))).toEqual(result);
+                expect(service.validateTime(new FormControl('-0:00'))).toEqual(result);
+                expect(service.validateTime(new FormControl('13.25'))).toEqual(result);
                 expect(service.validateTime(new FormControl('30.00'))).toEqual(result);
                 expect(service.validateTime(new FormControl('25:00'))).toEqual(result);
-                expect(service.validateTime(new FormControl('19.60'))).toEqual(result);
-                expect(service.validateTime(new FormControl('19.65'))).toEqual(result);
-                expect(service.validateTime(new FormControl('19.150'))).toEqual(result);
+                expect(service.validateTime(new FormControl('19:60'))).toEqual(result);
+                expect(service.validateTime(new FormControl('19:65'))).toEqual(result);
+                expect(service.validateTime(new FormControl('19:150'))).toEqual(result);
                 expect(service.validateTime(new FormControl('190:50'))).toEqual(result);
-                expect(service.validateTime(new FormControl('119.250'))).toEqual(result);
+                expect(service.validateTime(new FormControl('119:250'))).toEqual(result);
                 expect(service.validateTime(new FormControl('15'))).toEqual(result);
                 expect(service.validateTime(new FormControl('2:5'))).toEqual(result);
                 expect(service.validateTime(new FormControl('1'))).toEqual(result);

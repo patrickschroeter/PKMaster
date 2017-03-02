@@ -24,33 +24,30 @@
 
 'use strict';
 import * as models from './models';
-import { ConferenceConfig } from './../../models';
 
-export interface ConferenceDto {
+export class FieldDefinitionDto {
 
 
-    id?: string;
+    id: string;
 
     description?: string;
 
-    dateOfEvent?: Date;
+    name: string;
 
-    roomOfEvent?: string;
+    configs: Array<string>;
 
-    numberOfConference?: number;
+    styleIds?: Array<string>;
 
-    application?: Array<string>;
+    validationIds?: Array<string>;
 
-    attendand?: Array<string>;
+    constructor(obj?: FieldDefinitionDto) {
+        obj = obj || ({} as any);
 
-    // Custom
-
-    startOfEvent?: string;
-    endOfEvent?: string;
-
-    applications?: Array<models.ApplicationDto>;
-    attendants?: Array<models.UserDto>;
-
-    config?: Array<ConferenceConfig>;
-    configJSON?: string;
+        this.id = obj.id;
+        this.description = obj.description;
+        this.name = obj.name;
+        this.configs = obj.configs || [];
+        this.styleIds = obj.styleIds || [];
+        this.validationIds = obj.validationIds || [];
+    }
 }

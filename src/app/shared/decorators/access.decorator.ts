@@ -3,10 +3,15 @@
  */
 import { PermissionService } from './../../core';
 import { AlertService } from './../../modules/alert';
+import { environment } from './../../../environments/environment';
 
 export function Access(name: string | string[]) {
     return function (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
         const originalMethod = descriptor.value;
+
+        if (environment.test) {
+            return descriptor;
+        }
 
         descriptor.value = function (...args: any[]) {
             let result: any;

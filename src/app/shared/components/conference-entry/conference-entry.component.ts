@@ -239,6 +239,7 @@ export class ConferenceEntryComponent implements OnInit {
     private addListEntry(entry: string[]): void {
         this.entry.entries = this.entry.entries || [];
         this.entry.entries.push(entry);
+        this.updateNumberOfInputs(entry.length);
     }
 
     /**
@@ -249,7 +250,7 @@ export class ConferenceEntryComponent implements OnInit {
      * @memberOf ConferenceEntryComponent
      */
     public updateNumberOfInputs(number: Number): void {
-        this.numberOfInputs = number;
+        this.numberOfInputs = !this.numberOfInputs || number > this.numberOfInputs ? number : this.numberOfInputs;
     }
 
 }

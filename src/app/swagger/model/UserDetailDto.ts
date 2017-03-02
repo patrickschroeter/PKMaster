@@ -25,8 +25,7 @@
 'use strict';
 import * as models from './models';
 
-export interface UserDto {
-
+export class UserDetailDto {
 
     id?: string;
 
@@ -34,22 +33,46 @@ export interface UserDto {
 
     lastname?: string;
 
-    email?: string;
+    email: string;
 
     rzName?: string;
 
     ldapId?: number;
 
+    employeeType?: string;
+
     active?: boolean;
 
     created?: Date;
 
-    userHasRole?: Array<string>;
+    roles?: Array<models.RoleDto>;
 
     // Custom
 
-    matNr?: number;
-
     permissions?: string[];
-    roles?: Array<models.RoleDto>;
+
+    constructor(obj?: UserDetailDto) {
+        obj = obj || ({} as any);
+
+        // map ldap
+        obj.firstname = (obj as any).first_name || obj.firstname;
+        obj.employeeType = (obj as any).employee_type || obj.employeeType;
+        obj.rzName = (obj as any).rz_name || obj.rzName;
+        obj.id = (obj as any).sub || obj.id;
+        // map end
+
+        this.id = obj.id;
+        this.firstname = obj.firstname;
+        this.lastname = obj.lastname;
+        this.email = obj.email;
+        this.rzName = obj.rzName;
+        this.ldapId = obj.ldapId;
+        this.employeeType = obj.employeeType;
+        this.active = !!obj.active;
+        this.created = obj.created;
+
+        this.permissions = obj.permissions || [];
+
+        this.roles = obj.roles ? obj.roles.map((model: models.RoleDto) => new models.RoleDto(model)): [];
+    }
 }

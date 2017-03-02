@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Request, RequestOptionsArgs, ConnectionBackend, RequestOptions, Headers, Response } from '@angular/http';
+import { Router } from '@angular/router';
 
 import { Observable, Observer } from 'rxjs/Rx';
 import { AuthenticationService } from './..';
@@ -11,7 +12,11 @@ import { AuthenticationService } from './..';
 @Injectable()
 export class ExtendHttpService extends Http {
 
-    constructor(backend: ConnectionBackend, defaultOptions: RequestOptions) {
+    constructor(
+        backend: ConnectionBackend,
+        defaultOptions: RequestOptions,
+        private router: Router
+    ) {
         super(backend, defaultOptions);
     }
 

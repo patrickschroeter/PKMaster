@@ -8,7 +8,7 @@ import { ModalService } from './../../modules/overlay';
 import { TranslationService } from './../../modules/translation';
 
 /** Models */
-import { ConferenceDto, ConferenceCreateDto, FieldDto } from './../../swagger';
+import { ConferenceDetailDto, ConferenceCreateDto, FieldDto } from './../../swagger';
 
 /**
  * A Component to list all conferences
@@ -37,7 +37,7 @@ export class ConferencesComponent implements OnInit {
      * @type {ConferenceDto[]}
      * @memberOf ConferencesComponent
      */
-    public conferences: ConferenceDto[];
+    public conferences: ConferenceDetailDto[];
 
     /**
      * Form config for creating a new conference
@@ -103,7 +103,7 @@ export class ConferencesComponent implements OnInit {
      * @memberOf ConferencesComponent
      */
     public cloneConference(conference: ConferenceCreateDto) {
-        const param = _.cloneDeep(conference);
+        const param: ConferenceCreateDto = new ConferenceCreateDto(conference as ConferenceDetailDto);
         param.description = 'Copy of ' + param.description;
         this.createConference(param);
     }
@@ -115,7 +115,7 @@ export class ConferencesComponent implements OnInit {
      *
      * @memberOf ConferencesComponent
      */
-    public deleteConference(conference: ConferenceDto) {
+    public deleteConference(conference: ConferenceDetailDto) {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmDeleteConferenceHeader'),
             message: this.translationService.translate('confirmDeleteConferenceContent'),
@@ -124,7 +124,7 @@ export class ConferencesComponent implements OnInit {
              */
             confirm: () => {
                 this.conferenceService.removeConference(conference.id).subscribe(result => {
-                    const index = _.findIndex(this.conferences, (obj: ConferenceDto) => obj.id === conference.id);
+                    const index = _.findIndex(this.conferences, (obj: ConferenceDetailDto) => obj.id === conference.id);
                     if (result && index !== -1) {
                         this.conferences.splice(index, 1);
                     }

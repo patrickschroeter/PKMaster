@@ -67,6 +67,10 @@ export class LoginComponent implements OnInit {
 
         this.automaticLogin();
 
+        this.initLoginForm();
+    }
+
+    private initLoginForm(): void {
         this.loginForm = [
             {
                 fieldType: 'input',
@@ -75,12 +79,12 @@ export class LoginComponent implements OnInit {
                 required: true,
                 placeholder: 'E-Mail',
 
-                validations: [
+                validationIds: [
                     'useExternalEmail',
                     'isEmail'
                 ],
 
-                styles: [
+                styleIds: [
                     'small'
                 ]
             },
@@ -91,12 +95,12 @@ export class LoginComponent implements OnInit {
                 required: true,
                 placeholder: 'Password',
 
-                validations: [
+                validationIds: [
                     'minLength',
                     'maxLength'
                 ],
 
-                styles: [
+                styleIds: [
                     'small'
                 ]
             }
@@ -164,7 +168,7 @@ export class LoginComponent implements OnInit {
     public fake(username: string) {
         this.login({
             email: username,
-            password: 'password'
+            password: 'dev'
         });
     }
 }

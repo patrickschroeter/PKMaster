@@ -26,7 +26,7 @@
             <pk-button rounded i18n-pkAlert pkAlert="Cancel" class="element--spacing-bottom-tiny" icon="clear" element--error></pk-button>
         </a>
         <pk-button
-            *ngIf="['created', 'rescinded'].indexOf(application.status?.name) !== -1"
+            *ngIf="application.hasStatus(status.CREATED, status.RESCINDED)"
             rounded
             element--error
             i18n-pkAlert

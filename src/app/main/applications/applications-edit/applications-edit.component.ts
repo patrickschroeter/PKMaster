@@ -8,7 +8,10 @@ import { TranslationService } from './../../../modules/translation';
 import { ModalService } from './../../../modules/overlay';
 
 /** Models */
-import { ApplicationDto } from './../../../swagger';
+import {
+    ApplicationDetailDto,
+    Status
+} from './../../../swagger';
 
 @Component({
     selector: 'pk-applications-edit',
@@ -18,11 +21,24 @@ import { ApplicationDto } from './../../../swagger';
 export class ApplicationsEditComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    private _application: ApplicationDto;
+    private _application: ApplicationDetailDto;
 
     get application() { return this._application; }
-    set application(application: ApplicationDto) { this._application = application; }
+    set application(application: ApplicationDetailDto) { this._application = application; }
 
+    public status = Status;
+
+    /**
+     * Creates an instance of ApplicationsEditComponent.
+     * @param {Router} router
+     * @param {ActivatedRoute} activatedRoute
+     * @param {ApplicationService} applicationService
+     * @param {AlertService} alert
+     * @param {TranslationService} translationService
+     * @param {ModalService} modalService
+     *
+     * @memberOf ApplicationsEditComponent
+     */
     constructor(
         private router: Router,
         private activatedRoute: ActivatedRoute,
@@ -35,46 +51,76 @@ export class ApplicationsEditComponent implements OnInit {
     ngOnInit() {
 
         /** Read Route Param and GET Application with param ID */
+        this.getApplicationByRouteParam();
+    }
+
+    /**
+     * Read Route Param and GET Application with param ID
+     *
+     * @private
+     *
+     * @memberOf ApplicationsEditComponent
+     */
+    private getApplicationByRouteParam(): void {
         this.activatedRoute.params.forEach((params: Params) => {
             this.applicationService.getApplicationById(params['id']).subscribe((application) => {
-                // TODO catch in service
-                if (!application) {
-                    return this.onError(params['id']);
-                } else if (application.status && ['rescinded', 'created'].indexOf(application.status.name) === -1) {
-                    this.router.navigate(['/applications']);
-                    this.alert.setErrorHint(
-                        'no-application-edit',
-                        this.translationService.translate('errorApplicationEditPermitted'),
-                        2000
-                    );
-                    return;
-                }
                 this.application = application;
+
+                this.checkStatusForEdit();
+
+                this.updateDeprecatedForm();
+
             }, error => {
                 console.error(error);
-                return this.onError(params['id']);
             });
         });
     }
 
     /**
-     * Handle error
-     * @param {String} id - the id of the failed application
+     * check if the application has the status to be edited
+     *
+     * @private
+     * @returns {void}
+     *
+     * @memberOf ApplicationsEditComponent
      */
-    private onError(id: string): void {
-        this.router.navigate(['/applications']);
-        this.alert.setErrorHint(
-            'no-application-found',
-            this.translationService.translate('errorNoApplicationWithId', [id]),
-            2000
-        );
+    private checkStatusForEdit(): void {
+        if (!this.application.hasStatus(Status.RESCINDED, Status.CREATED)) {
+            this.router.navigate(['/applications']);
+            this.alert.setErrorHint(
+                'no-application-edit',
+                this.translationService.translate('errorApplicationEditPermitted'),
+                2000
+            );
+            return;
+        }
+    }
+
+    /**
+     * check and refresh the form if it's deprecated
+     *
+     * @private
+     *
+     * @memberOf ApplicationsEditComponent
+     */
+    private updateDeprecatedForm(): void {
+        if (this.application.form.deprecated && this.application.currentForm) {
+            this.alert.setAlert(
+                this.translationService.translate('updateRequiredHeader'),
+                this.translationService.translate('updateRequiredProgress')
+            );
+            this.application.updateAttributes(this.application.currentForm);
+        }
     }
 
     /**
      * Save the current application with content
-     * @param {Object} form
+     *
+     * @param {ApplicationDetailDto} form
+     *
+     * @memberOf ApplicationsEditComponent
      */
-    public saveApplication(form: ApplicationDto): void {
+    public saveApplication(form: ApplicationDetailDto): void {
         console.log(JSON.stringify(form));
         this.applicationService.saveApplication(form).subscribe(result => {
             this.router.navigate([`/applications/`, result.id]);
@@ -83,9 +129,12 @@ export class ApplicationsEditComponent implements OnInit {
 
     /**
      * Creates a confirmation modal to confirm deactivating the selected application
-     * @param {Application} application - the application to deactovate
+     *
+     * @param {ApplicationDetailDto} application
+     *
+     * @memberOf ApplicationsEditComponent
      */
-    public deactivateApplicationModal(application: ApplicationDto): void {
+    public deactivateApplicationModal(application: ApplicationDetailDto): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmDeactivateApplicationHeader'),
             message: this.translationService.translate('confirmDeactivateApplicationContent'),
@@ -97,15 +146,20 @@ export class ApplicationsEditComponent implements OnInit {
 
     /**
      * Deactivate the selected application
-     * @param {Application} application - the application to deactovate
+     *
+     * @private
+     * @param {ApplicationDetailDto} application
+     *
+     * @memberOf ApplicationsEditComponent
      */
-    private deactivateApplication(application: ApplicationDto): void {
+    private deactivateApplication(application: ApplicationDetailDto): void {
         this.applicationService.deactivateApplication(application).subscribe(result => {
             this.alert.setSuccessHint(
                 `deactivateApplication${application.id}`,
                 this.translationService.translate('applicationDeactivated')
             );
             this.modalService.destroyModal();
+            this.router.navigate(['applications']);
         });
     }
 

@@ -7,11 +7,11 @@ import { Observer, Observable } from 'rxjs/Rx';
 
 import { AuthenticationService } from './authentication.service';
 
-import { UserApiMock, PermissionMock, PermissionService } from './../../../core';
+import { UserApiMock, PermissionMock, PermissionService, ConfigurationService, ConfigurationMock } from './../../../core';
 import { AlertProviderMock } from './../../../modules/alert/alert.module';
 import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
-import { UserApi, UserDto } from './../../../swagger';
+import { UserApi, UserDetailDto } from './../../../swagger';
 
 
 describe('Service: Authentication', () => {
@@ -25,7 +25,8 @@ describe('Service: Authentication', () => {
                 ...AlertProviderMock,
                 ...TranslationProviderMock,
                 { provide: PermissionService, useClass: PermissionMock },
-                { provide: UserApi, useClass: UserApiMock }
+                { provide: UserApi, useClass: UserApiMock },
+                { provide: ConfigurationService, useClass: ConfigurationMock },
             ],
             imports: [
                 RouterTestingModule.withRoutes([
@@ -172,15 +173,15 @@ describe('Service: Authentication', () => {
         });
 
         it('should throw an error if no user is available', () => {
-            const name = 'user';
-            let user: UserDto;
+            const param = new UserDetailDto();
+            let user: UserDetailDto;
             service.getUser().subscribe(() => {
-                user = name;
+                user = param;
             }, error => {
                 user = error;
             });
 
-            expect(user).not.toBe(name);
+            expect(user).not.toBe(param);
         });
 
         it('shoud return the user if available', () => {
@@ -188,7 +189,7 @@ describe('Service: Authentication', () => {
             service['user'] = new Observable((observer: Observer<any>) => {
                 observer.next(name);
             });
-            let user: UserDto;
+            let user: UserDetailDto;
             service.getUser().subscribe(result => {
                 user = result;
             });
@@ -241,7 +242,7 @@ describe('Service: Authentication', () => {
         });
 
         it('should save the user on success', () => {
-            let user: UserDto;
+            let user: UserDetailDto;
             expect(user).toBeUndefined();
 
             service.login('username', 'password');
@@ -301,7 +302,7 @@ describe('Service: Authentication', () => {
         }));
 
         it('should call the UserApi with the user and the password', () => {
-            const user = { id: 'user' };
+            const user: any = { id: 'user' };
             const password = 'password';
             const newpassword = 'newpassword';
             spyOn(api, 'updateUserById').and.callThrough();
@@ -321,7 +322,7 @@ describe('Service: Authentication', () => {
 
         it('should update the user', () => {
             expect(service.isLoggedIn()).toBeFalsy();
-            service.updateUser({ id: 'user' });
+            service.updateUser(({ id: 'user' } as any));
             expect(service.isLoggedIn()).toBeTruthy();
         });
 

@@ -8,7 +8,7 @@ import { AlertService } from './../../modules/alert';
 import { TranslationService } from './../../modules/translation';
 
 /** Models */
-import { Permission, FieldDto } from './../../swagger';
+import { PermissionDto, FieldDto } from './../../swagger';
 import { OverlayComponent } from './../../modules/overlay';
 
 /** Decorators */
@@ -24,10 +24,10 @@ export class PermissionsComponent implements OnInit {
 
     @ViewChild('overlay') overlay: OverlayComponent;
 
-    public permissions: Permission[];
+    public permissions: PermissionDto[];
     public editPermissionForm: FieldDto[];
 
-    public editingPermission: Permission;
+    public editingPermission: PermissionDto;
 
     constructor(
         private permission: PermissionService,
@@ -54,7 +54,7 @@ export class PermissionsComponent implements OnInit {
      * @param {Permission} permission
      */
     @Access('EditPermissions')
-    public editPermission(permission: Permission) {
+    public editPermission(permission: PermissionDto) {
         this.editPermissionForm = [
             {
                 fieldType: 'input',
@@ -95,11 +95,11 @@ export class PermissionsComponent implements OnInit {
         if (!this.editingPermission) {
             return onError();
         }
-        const request: Permission = _.cloneDeep(this.editingPermission);
+        const request: PermissionDto = new PermissionDto(this.editingPermission);
         request.description = form.get('description').value;
 
         this.permission.updatePermission(request.id, request).subscribe(result => {
-            const permission = _.find(this.permissions, (obj: Permission) => obj.id === result.id);
+            const permission = _.find(this.permissions, (obj: PermissionDto) => obj.id === result.id);
             if (permission) {
                 permission.description = result.description;
                 this.overlay.toggle(false);

@@ -1,6 +1,8 @@
 export * from './api';
 export * from './extend-http';
 
+export * from './configuration';
+
 export * from './authentication';
 export * from './access';
 export * from './permission';

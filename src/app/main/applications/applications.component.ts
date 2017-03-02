@@ -14,7 +14,12 @@ import { TranslationService } from './../../modules/translation';
 import { ModalService } from './../../modules/overlay';
 
 /** Models */
-import { ApplicationDto, UserDto } from './../../swagger';
+import {
+    ApplicationDetailDto,
+    ApplicationListDto,
+    ApplicationCreateDto,
+    UserDetailDto
+} from './../../swagger';
 import { Selectable } from './../../models';
 
 /** Decorators */
@@ -28,15 +33,15 @@ import { Access } from './../../shared/decorators/access.decorator';
 export class ApplicationsComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    public ownApplications: ApplicationDto[];
-    public assignedApplications: ApplicationDto[];
-    public applications: ApplicationDto[];
+    public ownApplications: ApplicationListDto[];
+    public assignedApplications: ApplicationListDto[];
+    public applications: ApplicationListDto[];
 
     public activeTab: string;
 
     private applicationTypes: Array<Selectable>;
 
-    public user: UserDto;
+    public user: UserDetailDto;
 
     constructor(
         /** Angular */
@@ -84,8 +89,10 @@ export class ApplicationsComponent implements OnInit {
 
     @Access('ReadApplications')
     private getAllApplications(): void {
-        this.activeTab = 'all';
         this.applicationService.getApplications().subscribe(result => {
+            if (result && result.length) {
+                this.activeTab = 'all';
+            }
             this.applications = result;
         });
     }
@@ -121,14 +128,19 @@ export class ApplicationsComponent implements OnInit {
     @Access('CreateApplications')
     private createApplication(listelement: Selectable): void {
         /** TODO */
-        const application: ApplicationDto = {
-            formId: listelement.value
-        };
-        this.applicationService.createNewApplication(application).subscribe((created) => {
+        const param: ApplicationCreateDto = new ApplicationCreateDto();
+        param.formId = listelement.value;
+        this.applicationService.createNewApplication(param).subscribe((created: ApplicationDetailDto) => {
             if (created['id']) {
                 this.router.navigate([`/applications/`, created['id'], 'edit']);
             }
             this.modalService.destroyModal();
+        }, error => {
+            this.modalService.destroyModal();
+            this.alert.setAlert(
+                this.translationService.translate('Error'),
+                this.translationService.translate('couldntCreateApplication')
+            );
         });
     }
 }

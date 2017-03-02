@@ -9,12 +9,19 @@ import { UserApiMock } from './../../';
 
 /** Services */
 import { FormService } from './../form';
+import { ConfigurationService } from './../configuration';
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { FieldDto, UserDto } from './../../../swagger';
-import { Fields, Selectable } from './../../../models';
+import {
+    FieldDto,
+    UserDetailDto,
+    FieldDefinitionDto,
+    ValidationDto,
+    StyleDto
+} from './../../../swagger';
+import { Fields, Selectable, FieldModel } from './../../../models';
 
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
@@ -62,7 +69,7 @@ export class FormElementService {
      * @type {FieldDto}
      * @memberOf FormElementService
      */
-    private selectTypeFormElement: FieldDto = {};
+    private selectTypeFormElement: FieldDto = new FieldDto();
 
     /**
      * The current Selected Element Type
@@ -155,9 +162,12 @@ export class FormElementService {
      * @memberOf FormElementService
      */
     constructor(
-        private formService: FormService,
+        /** Modules */
+        private translationService: TranslationService,
         private alert: AlertService,
-        private translationService: TranslationService
+        /** Services */
+        private formService: FormService,
+        private configurationService: ConfigurationService
     ) {
         this.formService.onEditElement().subscribe((element?: FieldDto) => {
             if (element) {
@@ -216,6 +226,60 @@ export class FormElementService {
      */
     private editExistingElement(element: FieldDto): boolean {
 
+        /**
+         * Update the Element if all Observers returned
+         */
+        const update = () => {
+            if (returnedNumberOfRequests >= numberOfRequests) {
+                let generatedFormOfElement: FieldDto[] = this.element.concat(optionsOfElementType);
+
+                /** Show submit button */
+                this.setElementHasSubmit(true);
+
+                /** Show Validation if existing */
+                if (validationsOfElementType) {
+                    generatedFormOfElement = generatedFormOfElement.concat(validationsOfElementType);
+                    this.setElementHasValidations(true);
+                }
+
+                /** Show Styles if existing */
+                if (stylesOfElementType) {
+                    generatedFormOfElement = generatedFormOfElement.concat(stylesOfElementType);
+                    this.setElementHasStyles(true);
+                }
+
+                /** Add Options to Form (radio, select) */
+                let useCustomOptions = true;
+                let optionFormElement: any;
+                let formElementOptions: any;
+                for (let i = 0; i < generatedFormOfElement.length; i++) {
+                    const input: FieldDto = generatedFormOfElement[i];
+                    const elementValues: any = element;
+                    if (elementValues[input.name] && input.name !== 'fieldType') {
+                        input.value = elementValues[input.name];
+                        if (input.name === 'optionTable') {
+                            useCustomOptions = false;
+                            this.selectedOptionTable = elementValues[input.name];
+                            this.updateOptionsOfTable();
+                        } else if (input.name === 'options') {
+                            formElementOptions = element[input.name];
+                            optionFormElement = input;
+                        }
+                    }
+                }
+
+                /** Add values if no optionTable is set */
+                if (useCustomOptions && formElementOptions && optionFormElement) {
+                    optionFormElement.options = formElementOptions;
+                    optionFormElement.value = formElementOptions;
+                }
+
+                /** Set Element and generate View */
+                this.setElement(generatedFormOfElement);
+                this.setElementPreview([element]);
+            }
+        };
+
         this.resetElement();
 
         if (!this.selectTypeFormElement.options) {
@@ -245,14 +309,9 @@ export class FormElementService {
         let optionsOfElementType: FieldDto[], validationsOfElementType: FieldDto[], stylesOfElementType: FieldDto[];
 
         let numberOfRequests = 1; // always get options
-        this.getOptionsOfElementType(type).subscribe((opt) => {
-            returnedNumberOfRequests++;
-            optionsOfElementType = opt;
-            update();
-        });
 
         /** get Validation Options if required */
-        if (element.validations && element.validations.length !== 0) {
+        if (element.validationIds && element.validationIds.length !== 0) {
             numberOfRequests++;
             this.getValidationsOfInputType(type).subscribe((opt) => {
                 returnedNumberOfRequests++; validationsOfElementType = opt; update();
@@ -260,65 +319,18 @@ export class FormElementService {
         }
 
         /** get Styles Options if required */
-        if (element.styles && element.styles.length !== 0) {
+        if (element.styleIds && element.styleIds.length !== 0) {
             numberOfRequests++;
             this.getStylesOfInputType(type).subscribe((opt) => {
                 returnedNumberOfRequests++; stylesOfElementType = opt; update();
             });
         }
 
-        /**
-         * Update the Element if all Observers returned
-         */
-        const update = () => {
-            if (returnedNumberOfRequests >= numberOfRequests) {
-                let generatedFormOfElement: FieldDto[] = this.element.concat(optionsOfElementType);
-
-                /** Show submit button */
-                this.setElementHasSubmit(true);
-
-                /** Show Validation if existing */
-                if (validationsOfElementType) {
-                    generatedFormOfElement = generatedFormOfElement.concat(validationsOfElementType);
-                    this.setElementHasValidations(true);
-                }
-
-                /** Show Styles if existing */
-                if (stylesOfElementType) {
-                    generatedFormOfElement = generatedFormOfElement.concat(stylesOfElementType);
-                    this.setElementHasStyles(true);
-                }
-
-                /** Add Options to Form (radio, select) */
-                let useCustomOptions = true;
-                let optionFormElement: any;
-                let formElementOptions: any;
-                for (let i = 0; i < generatedFormOfElement.length; i++) {
-                    const input: FieldDto = generatedFormOfElement[i];
-                    if (element[input.name] && input.name !== 'fieldType') {
-                        input.value = element[input.name];
-                        if (input.name === 'optionTable') {
-                            useCustomOptions = false;
-                            this.selectedOptionTable = element[input.name];
-                            this.updateOptionsOfTable();
-                        } else if (input.name === 'options') {
-                            formElementOptions = element[input.name];
-                            optionFormElement = input;
-                        }
-                    }
-                }
-
-                /** Add values if no optionTable is set */
-                if (useCustomOptions && formElementOptions && optionFormElement) {
-                    optionFormElement.options = formElementOptions;
-                    optionFormElement.value = formElementOptions;
-                }
-
-                /** Set Element and generate View */
-                this.setElement(generatedFormOfElement);
-                this.setElementPreview([element]);
-            }
-        };
+        this.getOptionsOfElementType(type).subscribe((opt) => {
+            returnedNumberOfRequests++;
+            optionsOfElementType = opt;
+            update();
+        });
 
         return true;
     }
@@ -386,7 +398,7 @@ export class FormElementService {
      * @memberOf FormElementService
      */
     private updateOptionsOfTable(): void {
-        this.getOptionsOfTable(this.selectedOptionTable).subscribe((options: FieldDto[]) => {
+        this.getOptionsOfTable(this.selectedOptionTable).subscribe((options: Selectable[]) => {
             if (!options) {
                 this.selectedOptionsLength = 0;
                 if (this.elementForm) { this.elementForm.controls['options'].setValue([]); }
@@ -418,7 +430,7 @@ export class FormElementService {
 
         /** Check if Validation already exists */
         for (let i = 0; i < this.element.length; i++) {
-            if (this.element[i].name === 'validations') {
+            if (this.element[i].name === 'validationIds') {
                 return console.error('form-element.service:addValidations(): validations already exists');
             }
         }
@@ -450,7 +462,7 @@ export class FormElementService {
 
         /** Check if Styles already exists */
         for (let i = 0; i < this.element.length; i++) {
-            if (this.element[i].name === 'styles') {
+            if (this.element[i].name === 'styleIds') {
                 return console.error('form-element.service:addStyles(): styles already exists');
             }
         }
@@ -534,12 +546,11 @@ export class FormElementService {
      */
     @Loading('getElementTypeOptions')
     private getElementTypeOptions(): Observable<FieldDto> {
-        const result: FieldDto = new Fields.FieldType();
-        return new Observable((observer: Observer<FieldDto>) => {
-            setTimeout(() => {
-                observer.next(result);
-                observer.complete();
-            }, 500);
+        const options: FieldModel = new Fields.FieldType();
+        return this.configurationService.getFieldDefinitions().map((result: FieldDefinitionDto[]) => {
+            options.options = result.map((obj: FieldDefinitionDto) => new Selectable(obj.id, obj.description));
+            options.options.sort((a, b) => a.label < b.label ? 1 : -1);
+            return options;
         });
     }
 
@@ -573,18 +584,14 @@ export class FormElementService {
      * @memberOf FormElementService
      */
     @Loading('getOptionsOfElementType')
-    private getOptionsOfElementType(fieldType: string): Observable<FieldDto[]> {
+    private getOptionsOfElementType(id: string): Observable<FieldDto[]> {
         const name: FieldDto = new Fields.FieldName();
-        const options: FieldDto = opts()[fieldType];
-        return new Observable((observer: Observer<FieldDto[]>) => {
-            setTimeout(() => {
-                let result = [].concat(name);
-                const element = _.cloneDeep(options);
-                if (element) { result = result.concat(element); }
-                result.push(new Fields.Devider());
-                observer.next(result);
-                observer.complete();
-            }, 500);
+        return this.configurationService.getFieldDefinitionById(id).map((result: FieldDefinitionDto) => {
+            let options = [].concat(name);
+            const element = result.configs.map(obj => typeof obj === 'string' ? JSON.parse(obj) : obj);
+            if (element) { options = options.concat(element); }
+            options.push(new Fields.Devider());
+            return options;
         });
     }
 
@@ -598,13 +605,14 @@ export class FormElementService {
      * @memberOf FormElementService
      */
     @Loading('getValidationsOfInputType')
-    private getValidationsOfInputType(fieldType: string): Observable<FieldDto[]> {
-        const options = validations();
-        return new Observable((observer: Observer<FieldDto[]>) => {
-            setTimeout(() => {
-                observer.next(options[fieldType]);
-                observer.complete();
-            }, 500);
+    private getValidationsOfInputType(id: string): Observable<FieldDto[]> {
+        // TODO: filter by type
+
+        return this.configurationService.getFieldValidations().map((result: ValidationDto[]) => {
+            const param = new Fields.FieldValidation(null, {
+                options: result.map(obj => new Selectable(obj.id, obj.description))
+            });
+            return [param];
         });
     }
 
@@ -618,18 +626,14 @@ export class FormElementService {
      * @memberOf FormElementService
      */
     @Loading('getStylesOfInputType')
-    private getStylesOfInputType(fieldType: string): Observable<FieldDto[]> {
-        const options = styles();
-        return new Observable((observer: Observer<FieldDto[]>) => {
-            setTimeout(() => {
-                /** TODO */
-                if (options) {
-                    observer.next([options]);
-                } else {
-                    observer.next(undefined);
-                }
-                observer.complete();
-            }, 500);
+    private getStylesOfInputType(id: string): Observable<FieldDto[]> {
+        // TODO: filter by type
+
+        return this.configurationService.getFieldStyles().map((result: StyleDto[]) => {
+            const param = new Fields.FieldStyles(null, {
+                options: result.map(obj => new Selectable(obj.id, obj.description))
+            });
+            return [param];
         });
     }
 
@@ -775,127 +779,6 @@ export class FormElementService {
 }
 
 
-
-
-/**
- * the options object
- *
- * @returns {Object}
- */
-function opts(): { [_: string]: FieldDto[] } {
-
-    const opts = {
-        input: [
-            new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
-            new Fields.FieldLabel(),
-            new Fields.FieldContentType('text'),
-            new Fields.FieldPlaceholder()
-        ],
-        textarea: [
-            new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
-            new Fields.FieldLabel(),
-            new Fields.FieldPlaceholder()
-        ],
-        checkbox: [
-            new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
-            new Fields.FieldLabel(),
-        ],
-        radio: [
-            new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
-            new Fields.FieldLabel(null, { required: true }),
-            new Fields.Devider(),
-            new Fields.H4('Create a custom List or use an existing one.', { styles: [] }),
-            new Fields.FieldOptionTable(null, {
-                /** TODO: load real data */
-                options: [
-                    { value: 'fakultaet', label: 'Fakultaeten' },
-                    { value: 'user', label: 'Users' },
-                    { value: 'language', label: 'Languages' }
-                ]
-            }),
-            new Fields.FieldOptions()
-        ],
-        select: [
-            new Fields.FieldRequired(null, { styles: ['small', 'aligned'] }),
-            new Fields.FieldLabel(),
-            new Fields.FieldPlaceholder(),
-            new Fields.FieldMultipleSelect(),
-            new Fields.Devider(),
-            new Fields.H4('Create a custom List or use an existing one.', { styles: [] }),
-            new Fields.FieldOptionTable(null, {
-                /** TODO: load real data */
-                options: [
-                    { value: 'fakultaet', label: 'Fakultaeten' },
-                    { value: 'user', label: 'Users' },
-                    { value: 'language', label: 'Languages' }
-                ]
-            }),
-            new Fields.FieldOptions()
-        ],
-        info: [
-            new Fields.FieldValue(null, { fieldType: 'textarea' })
-        ],
-        h1: [
-            new Fields.FieldValue()
-        ],
-        h2: [
-            new Fields.FieldValue()
-        ],
-        h3: [
-            new Fields.FieldValue()
-        ],
-        h4: [
-            new Fields.FieldValue()
-        ],
-        // devider: [
-
-        // ],
-        // hiddenDevider: [
-
-        // ]
-    };
-    return opts;
-}
-
-/**
- * the validation object
- *
- * @returns {Object}
- */
-function validations(): { [_: string]: FieldDto[] } {
-    const validations = {
-        input: [
-            new Fields.FieldValidation(null, {
-                /** TODO: load real data */
-                options: [
-                    { value: 'isEmail', label: 'Email Validation' },
-                    { value: 'useExternalEmail', label: 'External Email Validation' },
-                    { value: 'minLength', label: 'min Length of 8' },
-                    { value: 'maxLength', label: 'max Length of 15' },
-                    { value: 'toBeTrue', label: 'Required' }
-                ]
-            })
-        ]
-    };
-    return validations;
-}
-
-/**
- * the styles object
- *
- * @returns {FieldDto}
- */
-function styles(): FieldDto {
-    const styles = new Fields.FieldStyles(null, {
-        options: [
-            { value: 'small', label: 'Small' },
-            { value: 'aligned', label: 'Aligned ( + 1 rem at top)' }
-        ]
-    });
-    return styles;
-}
-
-
 /**
  * the option-options object
  *
@@ -907,7 +790,7 @@ function options(): { [key: string]: Selectable[] } {
             { value: 'gestaltung', label: 'Gestaltung' },
             { value: 'informatik', label: 'informatik' }
         ],
-        user: UserApiMock.USERS.map((obj: UserDto) => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`)),
+        user: UserApiMock.USERS.map((obj: UserDetailDto) => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`)),
         language: [
             { value: 'de', label: 'Deutschland' },
             { value: 'fr', label: 'Frankreich' },

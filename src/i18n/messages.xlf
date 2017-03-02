@@ -14,8 +14,8 @@
         <source>Cancel</source>
         <target/>
       </trans-unit>
-      <trans-unit id="4b17f4f6a66c877a264d2a24f74e37310eb593fc" datatype="html">
-        <source>PK 4.0</source>
+      <trans-unit id="32a98b3a980357f58fc8f622071e17088f56b553" datatype="html">
+        <source>PK4.0</source>
         <target/>
       </trans-unit>
       <trans-unit id="f1abafaeb40ce52355ddcc24686e3cd17b64e08a" datatype="html">
@@ -74,12 +74,12 @@
         <source>Conference</source>
         <target/>
       </trans-unit>
-      <trans-unit id="1b051734b0ee9021991c91b3ed4e81c244322462" datatype="html">
-        <source>Created</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="6986e0df8092d822ac2c076520d83994c78834fc" datatype="html">
         <source>Modified</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8fe73a4787b8068b2ba61f54ab7e0f9af2ea1fc9" datatype="html">
+        <source>Version</source>
         <target/>
       </trans-unit>
       <trans-unit id="b023615c8da9157b65a8fb97eadde3cce09a7b13" datatype="html">
@@ -88,6 +88,10 @@
       </trans-unit>
       <trans-unit id="9e2ef06d7ac84404c77610732f10d7ff0942c96e" datatype="html">
         <source>Deactivate Application</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="a3b2bc58a6f26e8000adc5c249bd84a6086ee41b" datatype="html">
+        <source>Update Application</source>
         <target/>
       </trans-unit>
       <trans-unit id="d950b50abcc3b49118b3c7c04103c90a87e02456" datatype="html">
@@ -104,6 +108,10 @@
       </trans-unit>
       <trans-unit id="e225a597fb81f209bfcd5da807003b90f1e357cf" datatype="html">
         <source>Validate Application</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1b051734b0ee9021991c91b3ed4e81c244322462" datatype="html">
+        <source>Created</source>
         <target/>
       </trans-unit>
       <trans-unit id="e4f88639dbc1934cf5dfc00faa42a0bf1bddb82a" datatype="html">
@@ -306,6 +314,10 @@
         <source>Remove Role from User</source>
         <target/>
       </trans-unit>
+      <trans-unit id="b1b381321d4cef04605d3e6e8847ea2b72a03799" datatype="html">
+        <source>Identify</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="f261dce7aeb8ea3369a29227ff846efb409ccf6e" datatype="html">
         <source>Username or Password is wrong</source>
         <target/>
@@ -314,16 +326,36 @@
         <source>Login</source>
         <target/>
       </trans-unit>
-      <trans-unit id="7d6dd27552a855029558c6fb4dec26249802e47e" datatype="html">
-        <source>Application: <x id="INTERPOLATION"/></source>
+      <trans-unit id="def96c6a5d7fc151bc3ff5165bbfee9fba0652a7" datatype="html">
+        <source>Registrierung</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="ed096a3ecc6e3691a3352e8f84d99dcaeb0d6418" datatype="html">
+        <source>RZ-Name or Password is wrong</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9adf7f973ff81475f3622c2a38a1e69a7dd433af" datatype="html">
+        <source>Registrieren</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="da73894dd15700c04aeb5e99b7b9ce3c254cd25a" datatype="html">
+        <source>Application Status:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6b0266f99586d17a1a372503a0e5abd35e979e0b" datatype="html">
+        <source>Application Conference:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5cef05de0938525d57ae7d9d349943700933ee21" datatype="html">
+        <source><x id="INTERPOLATION"/> on <x id="INTERPOLATION_1"/></source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="4fa90bb7cbc460d7d3095d82b81e3acbcf697dba" datatype="html">
+        <source>Application Appraisal:</source>
         <target/>
       </trans-unit>
       <trans-unit id="814efcc244d182cabfdcdf7754097cdd023514d9" datatype="html">
         <source>Verified</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="8314878a3dabd1db7060f440bc25d06056288c50" datatype="html">
-        <source>Conference: <x id="INTERPOLATION"/></source>
         <target/>
       </trans-unit>
       <trans-unit id="77e5a7a9d2c918ed617d5a9d7b42f07533939f49" datatype="html">
@@ -332,6 +364,10 @@
       </trans-unit>
       <trans-unit id="3f341a5e1fba3c8ba7d9bf1897ceb88df4f190f0" datatype="html">
         <source>Assign User</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="d6507e7b5ae51f1734f3e169ef4cf6ef56f0001f" datatype="html">
+        <source>Vorname</source>
         <target/>
       </trans-unit>
       <trans-unit id="d3e6c0a6dc3d117cad4cfb7175d33035075a2d47" datatype="html">
@@ -382,8 +418,8 @@
         <source>Conference: <x id="INTERPOLATION"/></source>
         <target/>
       </trans-unit>
-      <trans-unit id="7ace8d80635faec093ec894966e2837f4fccae11" datatype="html">
-        <source>Attendant PK-Members</source>
+      <trans-unit id="26bddc6b96050f2f74b8d33027bebde8e5440e2b" datatype="html">
+        <source>Attendants</source>
         <target/>
       </trans-unit>
       <trans-unit id="bc77a5a84148e6ecae15a1afffa6f6313f1c787d" datatype="html">
@@ -398,12 +434,24 @@
         <source>Members</source>
         <target/>
       </trans-unit>
+      <trans-unit id="d49fbc26ee1308fe5be955636eacc5cb7508d843" datatype="html">
+        <source>Remove Member from Conference</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="525cc60bd4875dcf7115d4ea1fb50db25209f4d4" datatype="html">
+        <source>No attendant guests.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="99cc38a2ddd00edb34bb99b36981c28832de8ecb" datatype="html">
+        <source>Assign Guest</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="5b1fa5c2021a6df06edc0f58f7acd2ee139142fc" datatype="html">
         <source>Guests</source>
         <target/>
       </trans-unit>
-      <trans-unit id="81423bb2453b0754a09030770fbf965b5d6904b0" datatype="html">
-        <source>Delete Member from Conference</source>
+      <trans-unit id="109876e445064595835f0d0498920e164ebc2b1f" datatype="html">
+        <source>Remove Guest from Conference</source>
         <target/>
       </trans-unit>
       <trans-unit id="d19bf052163bf96dc9856ac2c0c4ed59963a56d3" datatype="html">
@@ -564,6 +612,10 @@
       </trans-unit>
       <trans-unit id="3c4c080864b313cfdff5fdea6aae5da276246d99" datatype="html">
         <source>Public</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="33eea7f0dc97e73d9d97081e239e24f1b88b398c" datatype="html">
+        <source>Activate Form</source>
         <target/>
       </trans-unit>
       <trans-unit id="ab7ff5bffe2e374b2b1dc3b4f95219190d8c625b" datatype="html">

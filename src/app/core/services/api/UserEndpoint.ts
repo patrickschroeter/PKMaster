@@ -4,7 +4,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 
 import { UserApiMock, AuthenticationService } from './../';
 
-import { UserDto, RoleApi, RoleDto } from './../../../swagger';
+import { UserDetailDto, RoleApi, RoleDto } from './../../../swagger';
 
 @Injectable()
 export class UserEndpoint {
@@ -14,7 +14,7 @@ export class UserEndpoint {
         private roleApi: RoleApi
     ) { }
 
-    public addUser(user?: UserDto, extraHttpRequestParams?: any): Observable<any> {
+    public addUser(user?: UserDetailDto, extraHttpRequestParams?: any): Observable<any> {
         console.log('%cMock:' + `%c getUserById ${user.email}`, 'color: #F44336', 'color: #fefefe');
         const newUser = this._user(user.id);
         return new Observable((observer: Observer<any>) => {
@@ -62,7 +62,7 @@ export class UserEndpoint {
         });
     }
 
-    public updateUserById(userId: string, user?: UserDto, extraHttpRequestParams?: any): Observable<UserDto> {
+    public updateUserById(userId: string, user?: UserDetailDto, extraHttpRequestParams?: any): Observable<UserDetailDto> {
         console.log('%cMock:' + `%c updateUserById`, 'color: #F44336', 'color: #fefefe');
         const updatedUser = this._userUpdate(userId, user);
         return new Observable((observer: Observer<any>) => {
@@ -105,7 +105,7 @@ export class UserEndpoint {
     }
 
     public removeUserRole(userId: string, roleId?: string, extraHttpRequestParams?: any): Observable<{}> {
-        const user: UserDto = this._user(userId);
+        const user: UserDetailDto = this._user(userId);
         let index = -1;
         for (let i = 0; i < user.roles.length; i++) {
             const element = user.roles[i];
@@ -120,7 +120,7 @@ export class UserEndpoint {
     }
 
     public updateUserRole(userId: string, roleId?: string, extraHttpRequestParams?: any): Observable<{}> {
-        const user: UserDto = this._user(userId);
+        const user: UserDetailDto = this._user(userId);
         const api: { [key: string]: any } = this.roleApi;
         const role = api['_role'](roleId);
         if (_.findIndex(user.roles, (obj: RoleDto) => obj.id === roleId) === -1) {
@@ -151,13 +151,13 @@ export class UserEndpoint {
     }
 
     // tslint:disable-next-line:member-ordering
-    private _list: UserDto[] = UserApiMock.USERS;
+    private _list: UserDetailDto[] = UserApiMock.USERS;
 
     private _users() {
         return JSON.parse(JSON.stringify(this._list));
     }
 
-    private _user(id?: string, token?: string): UserDto {
+    private _user(id?: string, token?: string): UserDetailDto {
         const list: { [key: string]: any}[] = this._list;
         for (let i = 0; i < list.length; i++) {
             if (list[i]['id'] === id || 'local ' + list[i]['token'] === token) {
@@ -168,7 +168,7 @@ export class UserEndpoint {
     }
 
     // tslint:disable-next-line:no-unused-variable
-    private _userAdd(user: UserDto): UserDto {
+    private _userAdd(user: UserDetailDto): UserDetailDto {
         const id = this._list.length === 0 ? 'W' : this._list[this._list.length - 1].id + 'W';
         user.id = id;
         user.created = new Date();
@@ -176,7 +176,7 @@ export class UserEndpoint {
         return JSON.parse(JSON.stringify(this._list[this._list.length - 1]));
     }
 
-    private _userUpdate(id: string, user: { [key: string]: any}): UserDto {
+    private _userUpdate(id: string, user: { [key: string]: any}): UserDetailDto {
         const list: { [key: string]: any}[] = this._list;
         for (let i = 0; i < list.length; i++) {
             if (list[i]['id'] === id) {
@@ -190,7 +190,7 @@ export class UserEndpoint {
         return null;
     }
 
-    private _updatePermissions(user: UserDto): UserDto {
+    private _updatePermissions(user: UserDetailDto): UserDetailDto {
         const permissions: string[] = [];
         for (let i = 0; i < user.roles.length; i++) {
             const api: { [key: string]: any } = this.roleApi;

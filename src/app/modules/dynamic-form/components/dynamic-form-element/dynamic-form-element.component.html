@@ -1,9 +1,10 @@
 <ng-container *ngIf="element && !element.hidden">
     <div class="form__element element"
-        [ngClass]="{ 'form__element--small': element.styles && element.styles.indexOf('small') !== -1, 'form__element--aligned': element.styles && element.styles.indexOf('aligned') !== -1}"
+        [class.form__element--small]="hasStyle('small')"
+        [class.form__element--aligned]="hasStyle('aligned')"
         (mouseover)="!disabled && showElementValidation(element)"
         (mouseout)="!disabled && hideElementValidation()">
-        <div class="rel" [ngSwitch]="element.fieldType">
+        <div class="rel" [ngSwitch]="getFieldType()">
             <pk-input       *ngSwitchCase="'input'"     ngDefaultControl [config]="element" [disabled]="disabled" [form]="form"></pk-input>
 
             <pk-checkbox    *ngSwitchCase="'checkbox'"  ngDefaultControl [config]="element" [disabled]="disabled" [form]="form"></pk-checkbox>
