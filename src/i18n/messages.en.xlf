@@ -42,10 +42,6 @@
         <source>Logout</source>
         <target>Logout</target>
       </trans-unit>
-      <trans-unit id="4b17f4f6a66c877a264d2a24f74e37310eb593fc" datatype="html">
-        <source>PK 4.0</source>
-        <target>PK 4.0</target>
-      </trans-unit>
       <trans-unit id="82421c3e46a0453a70c42900eab51d58d79e6599" datatype="html">
         <source>Main</source>
         <target>Main</target>
@@ -617,6 +613,10 @@
       <trans-unit id="3c4c080864b313cfdff5fdea6aae5da276246d99" datatype="html">
         <source>Public</source>
         <target>Public</target>
+      </trans-unit>
+      <trans-unit id="33eea7f0dc97e73d9d97081e239e24f1b88b398c" datatype="html">
+        <source>Activate Form</source>
+        <target>Activate Form</target>
       </trans-unit>
       <trans-unit id="ab7ff5bffe2e374b2b1dc3b4f95219190d8c625b" datatype="html">
         <source>Edit Form</source>

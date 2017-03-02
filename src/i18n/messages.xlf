@@ -42,10 +42,6 @@
         <source>Logout</source>
         <target/>
       </trans-unit>
-      <trans-unit id="4b17f4f6a66c877a264d2a24f74e37310eb593fc" datatype="html">
-        <source>PK 4.0</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="82421c3e46a0453a70c42900eab51d58d79e6599" datatype="html">
         <source>Main</source>
         <target/>
