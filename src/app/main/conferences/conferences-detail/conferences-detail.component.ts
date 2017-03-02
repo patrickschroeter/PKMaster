@@ -274,9 +274,13 @@ export class ConferencesDetailComponent implements OnInit {
      */
     private assignUser(user: Selectable): void {
         const group: string = this.modalType;
+        const isMember: boolean = group === 'members';
         if (!group) { return; }
-        const type = group === 'members' ? AttendantCreateDto.TypeOfAttendanceEnum.Member : AttendantCreateDto.TypeOfAttendanceEnum.Guest;
-        const attendant = _.find(this.conference[group], (obj: UserListDto) => obj.id === user.value);
+        const type = isMember ? AttendantCreateDto.TypeOfAttendanceEnum.Member : AttendantCreateDto.TypeOfAttendanceEnum.Guest;
+        const attendant = _.find(
+            isMember ? this.conference.members : this.conference.guests,
+            (obj: UserListDto) => obj.id === user.value
+        );
         if (!attendant) {
             this.conferenceService.assignAttendantToConference(this.conference, new AttendantCreateDto(user.value, type))
                 .subscribe((result: ConferenceDetailDto) => {

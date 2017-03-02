@@ -49,11 +49,31 @@ export class FormDetailDto {
 
     requiresValidation?: boolean;
 
-    [key: string]: any;
-
     constructor(obj?: FormDetailDto) {
         obj = obj || ({} as any);
+        this.update(obj);
 
+        // this.id = obj.id || null;
+        // this.title = obj.title || null;
+        // this.deprecated = !!obj.deprecated;
+        // this.created = obj.created || null;
+        // this.restrictedAccess = !!obj.restrictedAccess;
+        // this.previousVersion = obj.previousVersion;
+        // this.isPublic = !!obj.isPublic;
+        // this.isActive = !!obj.isActive;
+        // this.requiresValidation = !!obj.requiresValidation;
+
+        // this.formHasField = obj.formHasField ? obj.formHasField.map((model: models.FieldDto) => new models.FieldDto(model)): [];
+    }
+
+    /**
+     * copy values into the FormDetailDto
+     *
+     * @param {FormDetailDto} obj
+     *
+     * @memberOf FormDetailDto
+     */
+    public update(obj: FormDetailDto): void {
         this.id = obj.id || null;
         this.title = obj.title || null;
         this.deprecated = !!obj.deprecated;

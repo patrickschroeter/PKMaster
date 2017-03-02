@@ -62,8 +62,6 @@ export class FieldDto {
 
     options?: Array<Selectable>;
 
-    [key: string]: any;
-
     constructor(obj?: FieldDto) {
         obj = obj || ({} as any);
         this.id = obj.id;

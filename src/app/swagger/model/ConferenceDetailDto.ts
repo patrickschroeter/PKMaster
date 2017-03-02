@@ -55,8 +55,6 @@ export class ConferenceDetailDto {
 
     config?: ConferenceConfig[];
 
-    [key: string]: any;
-
     constructor(obj?: models.ConferenceDetailDto) {
         obj = obj || ({} as any);
         this.id = obj.id;

@@ -18,7 +18,7 @@ export class FormService {
 
     /** The form to edit */
     private form: FormDetailDto;
-    private forms: FormDetailDto[];
+    private forms: FormListDto[];
     /** Index of editing Element */
     private editingElementIndex: number;
 
@@ -224,7 +224,7 @@ export class FormService {
         this.editingElementIndex = -1;
         // TODO: load real data
         // tslint:disable-next-line:max-line-length
-        return this.addElementToForm({ 'fieldType': 'input', 'name': 'matnr', 'required': true, 'label': 'Matrikelnummer', 'contentType': 'number', 'placeholder': '', 'styles': ['small'], 'value': '' }, 'clone');
+        return this.addElementToForm({ 'fieldType': 'input', 'name': 'matnr', 'required': true, 'label': 'Matrikelnummer', 'contentType': 'number', 'placeholder': '', 'styleIds': ['small'], 'value': '' }, 'clone');
     }
 
     /**
@@ -288,13 +288,14 @@ export class FormService {
     @Loading('saveFormAttributes')
     public saveFormAttributes(submit: FormDetailDto): Observable<FormDetailDto> {
         // TODO: save real data
-        const form: FormDetailDto = _.cloneDeep(this.form);
+        const form: FormDetailDto = new FormDetailDto(this.form);
 
-        for (const attribute in submit) {
-            if (attribute) {
-                form[attribute] = submit[attribute];
-            }
-        }
+        form.update(submit);
+        // for (const attribute in submit) {
+        //     if (attribute) {
+        //         form[attribute] = submit[attribute];
+        //     }
+        // }
 
         this.alert.setLoading('saveFormAttributes', this.translationService.translate('saveForm'));
         return this.formApi.updateFormById(form.id, new FormCreateDto(form)).map((result: FormDetailDto) => {
@@ -355,7 +356,7 @@ export class FormService {
      * @memberOf FormService
      */
     @Loading('getForms')
-    public getForms(sort?: string): Observable<FormDetailDto[]> {
+    public getForms(sort?: string): Observable<FormListDto[]> {
         const observable = this.formApi.getForms();
         // TODO: sort on Server
         if (sort) {

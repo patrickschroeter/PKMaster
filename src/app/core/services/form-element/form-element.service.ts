@@ -254,11 +254,12 @@ export class FormElementService {
                 let formElementOptions: any;
                 for (let i = 0; i < generatedFormOfElement.length; i++) {
                     const input: FieldDto = generatedFormOfElement[i];
-                    if (element[input.name] && input.name !== 'fieldType') {
-                        input.value = element[input.name];
+                    const elementValues: any = element;
+                    if (elementValues[input.name] && input.name !== 'fieldType') {
+                        input.value = elementValues[input.name];
                         if (input.name === 'optionTable') {
                             useCustomOptions = false;
-                            this.selectedOptionTable = element[input.name];
+                            this.selectedOptionTable = elementValues[input.name];
                             this.updateOptionsOfTable();
                         } else if (input.name === 'options') {
                             formElementOptions = element[input.name];

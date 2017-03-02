@@ -9,7 +9,7 @@ import { AlertService } from './../../modules/alert';
 import { TranslationService } from './../../modules/translation';
 
 /** Models */
-import { FormDetailDto } from './../../swagger';
+import { FormDetailDto, FormListDto } from './../../swagger';
 
 @Component({
     selector: 'pk-forms',
@@ -19,7 +19,7 @@ import { FormDetailDto } from './../../swagger';
 export class FormsComponent implements OnInit {
     @HostBinding('class') classes = 'content--default';
 
-    public forms: Array<FormDetailDto>;
+    public forms: FormListDto[];
     private _newForm: Array<any>;
     get newForm() { return this._newForm; }
     set newForm(form) { this._newForm = form; }
