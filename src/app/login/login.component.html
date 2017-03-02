@@ -1,28 +1,29 @@
 <div class="login-wrapper">
-    <h1 class="">PK 4.0</h1>
+    <div class="login-block">
+        <h1 class="">PK4.0</h1>
 
-    <ng-container *ngIf="error">
-        <div class="invalid-wrapper" i18n>Username or Password is wrong</div>
-    </ng-container>
+        <ng-container *ngIf="error">
+            <div class="invalid-wrapper" i18n>Username or Password is wrong</div>
+        </ng-container>
 
-    <pk-dynamic-form [formElements]="loginForm" #dynamicForm>
-        <pk-dynamic-form-content>
+        <pk-dynamic-form [formElements]="loginForm" #dynamicForm>
+            <pk-dynamic-form-content>
 
-            <pk-dynamic-form-element *ngFor="let element of loginForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
+                <pk-dynamic-form-element *ngFor="let element of loginForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
 
-        </pk-dynamic-form-content>
+            </pk-dynamic-form-content>
 
-        <pk-dynamic-form-submit>
-            <pk-button (onClick)="login(dynamicForm.form.value)" i18n-value value="Login" icon="security" [class]="(dynamicForm.form && dynamicForm.form.valid) ? 'element--success' : 'element--disabled'"></pk-button>
-        </pk-dynamic-form-submit>
+            <pk-dynamic-form-submit>
+                <pk-button (onClick)="login(dynamicForm.form.value)" i18n-value value="Login" icon="security" [class]="(dynamicForm.form && dynamicForm.form.valid) ? 'element--success' : 'element--disabled'"></pk-button>
+            </pk-dynamic-form-submit>
 
-    </pk-dynamic-form>
+        </pk-dynamic-form>
+    </div>
 
-</div>
-
-<div class="login-actions">
-    <a routerLink="/login/identify">Passwort vergessen</a>
-    <a routerLink="/login/register">Registrieren</a>
+    <div class="login-actions">
+        <a routerLink="/login/identify">Passwort vergessen</a>
+        <a routerLink="/login/register">Registrieren</a>
+    </div>
 </div>
 
 <!--TODO remove for production-->
