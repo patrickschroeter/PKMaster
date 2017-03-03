@@ -12,14 +12,14 @@ import { PermissionDto, FieldDto } from './../../swagger';
 import { OverlayComponent } from './../../modules/overlay';
 
 /** Decorators */
-import { Access } from './../../shared/decorators/access.decorator';
+import { Access, OnAccess } from './../../shared/decorators/access.decorator';
 
 @Component({
     selector: 'pk-permissions',
     templateUrl: './permissions.component.html',
     styleUrls: ['./permissions.component.scss']
 })
-export class PermissionsComponent implements OnInit {
+export class PermissionsComponent implements OnInit, OnAccess {
     @HostBinding('class') classes = 'content--default';
 
     @ViewChild('overlay') overlay: OverlayComponent;
@@ -30,8 +30,8 @@ export class PermissionsComponent implements OnInit {
     public editingPermission: PermissionDto;
 
     constructor(
-        private permission: PermissionService,
-        private alertService: AlertService,
+        public permission: PermissionService,
+        public alert: AlertService,
         private translationService: TranslationService
     ) { }
 
@@ -87,7 +87,7 @@ export class PermissionsComponent implements OnInit {
     public updatePermission(form: FormGroup): void {
         const onError = () => {
             this.overlay.toggle(false);
-            this.alertService.setAlert(
+            this.alert.setAlert(
                 this.translationService.translate('headerError'),
                 this.translationService.translate('errorUpdatePermission')
             );

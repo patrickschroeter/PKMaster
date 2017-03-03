@@ -6,6 +6,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { UsersComponent } from './users.component';
 
 import { CoreProviderMock } from './../../core/core.module';
+import { AlertProviderMock } from './../../modules/alert/alert.module';
 
 describe('UsersComponent', () => {
     let component: UsersComponent;
@@ -17,7 +18,8 @@ describe('UsersComponent', () => {
                 UsersComponent
             ],
             providers: [
-                ...CoreProviderMock
+                ...CoreProviderMock,
+                ...AlertProviderMock
             ],
             schemas: [NO_ERRORS_SCHEMA]
         })

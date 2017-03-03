@@ -86,22 +86,6 @@
         <source>No Form to get Title from.</source>
         <target>No Form to get Title from.</target>
       </trans-unit>
-      <trans-unit id="9e2ef06d7ac84404c77610732f10d7ff0942c96e" datatype="html">
-        <source>Deactivate Application</source>
-        <target>Deactivate Application</target>
-      </trans-unit>
-      <trans-unit id="a3b2bc58a6f26e8000adc5c249bd84a6086ee41b" datatype="html">
-        <source>Update Application</source>
-        <target>Update Application</target>
-      </trans-unit>
-      <trans-unit id="d950b50abcc3b49118b3c7c04103c90a87e02456" datatype="html">
-        <source>Edit Application</source>
-        <target>Edit Application</target>
-      </trans-unit>
-      <trans-unit id="5187db9568dde464812fe052bb1a548a3298f726" datatype="html">
-        <source>Recind Application</source>
-        <target>Recind Application</target>
-      </trans-unit>
       <trans-unit id="fa0d6b330917208a29c51f09ed33815922b9fcbc" datatype="html">
         <source>Submit Application</source>
         <target>Submit Application</target>
@@ -145,6 +129,22 @@
       <trans-unit id="234fa6f6c7a6a2f1a3182ef6b0b2171c1d34b3c6" datatype="html">
         <source>Edit Element</source>
         <target>Edit Element</target>
+      </trans-unit>
+      <trans-unit id="d950b50abcc3b49118b3c7c04103c90a87e02456" datatype="html">
+        <source>Edit Application</source>
+        <target>Edit Application</target>
+      </trans-unit>
+      <trans-unit id="a3b2bc58a6f26e8000adc5c249bd84a6086ee41b" datatype="html">
+        <source>Update Application</source>
+        <target>Update Application</target>
+      </trans-unit>
+      <trans-unit id="d1f4b8dcf1445939d04f9b0a404ae05ff517e0dc" datatype="html">
+        <source>Rescind Application</source>
+        <target>Rescind Application</target>
+      </trans-unit>
+      <trans-unit id="9e2ef06d7ac84404c77610732f10d7ff0942c96e" datatype="html">
+        <source>Deactivate Application</source>
+        <target>Deactivate Application</target>
       </trans-unit>
       <trans-unit id="e7477d42bec84a827f129e794bf5fb5b8ec0b20a" datatype="html">
         <source>Remove Element</source>

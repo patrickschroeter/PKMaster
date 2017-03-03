@@ -4,7 +4,7 @@ import { ApplicationDetailDto, ApplicationListDto, Status } from './../../../swa
 
 export class Button {
 
-    @Input() application: ApplicationDetailDto | ApplicationListDto;
+    @Input() public application: ApplicationDetailDto | ApplicationListDto;
 
     public status = Status;
 

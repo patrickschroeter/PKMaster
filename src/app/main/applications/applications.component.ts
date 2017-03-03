@@ -23,14 +23,14 @@ import {
 import { Selectable } from './../../models';
 
 /** Decorators */
-import { Access } from './../../shared/decorators/access.decorator';
+import { Access, OnAccess } from './../../shared/decorators/access.decorator';
 
 @Component({
     selector: 'pk-applications',
     templateUrl: './applications.component.html',
     styleUrls: ['./applications.component.scss']
 })
-export class ApplicationsComponent implements OnInit {
+export class ApplicationsComponent implements OnInit, OnAccess {
     @HostBinding('class') classes = 'content--default';
 
     public ownApplications: ApplicationListDto[];
@@ -47,13 +47,13 @@ export class ApplicationsComponent implements OnInit {
         /** Angular */
         private router: Router,
         /** Modules */
-        private alert: AlertService,
+        public alert: AlertService,
         private translationService: TranslationService,
         private modalService: ModalService,
         /** Services */
         private applicationService: ApplicationService,
         private formService: FormService,
-        private permission: PermissionService,
+        public permission: PermissionService,
         private auth: AuthenticationService
     ) { }
 

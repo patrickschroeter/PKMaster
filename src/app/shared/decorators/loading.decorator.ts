@@ -7,6 +7,11 @@ import { TranslationService } from './../../modules/translation';
 import { environment } from './../../../environments/environment';
 import { Observable } from 'rxjs/Rx';
 
+export interface OnLoading {
+    alert: AlertService;
+    translationService: TranslationService;
+}
+
 export function Loading(name: string) {
     return function (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
         const originalMethod = descriptor.value;

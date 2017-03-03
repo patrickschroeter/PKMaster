@@ -7,6 +7,7 @@ import {
     AuthenticationService,
     PermissionService
 } from './../../../core';
+import { AlertService } from './../../../modules/alert';
 
 /** Models */
 import {
@@ -18,7 +19,7 @@ import {
 import { AcceptApplication } from './../../../models';
 
 /** Decorators */
-import { Access } from './../../../shared/decorators/access.decorator';
+import { Access, OnAccess } from './../../../shared/decorators/access.decorator';
 
 /** Components */
 import { OverlayComponent } from './../../../modules/overlay';
@@ -29,7 +30,7 @@ import { OverlayComponent } from './../../../modules/overlay';
     styleUrls: ['./modal-accept-application.component.scss'],
     exportAs: 'acceptModal'
 })
-export class ModalAcceptApplicationComponent implements OnInit {
+export class ModalAcceptApplicationComponent implements OnInit, OnAccess {
 
     @ViewChild('overlay') overlay: OverlayComponent;
 
@@ -42,7 +43,8 @@ export class ModalAcceptApplicationComponent implements OnInit {
     constructor(
         private auth: AuthenticationService,
         private applicationService: ApplicationService,
-        private permission: PermissionService
+        public permission: PermissionService,
+        public alert: AlertService
     ) { }
 
     ngOnInit() {

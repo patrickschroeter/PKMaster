@@ -50,6 +50,10 @@ export class ApplicationListDto {
 
     constructor(obj: models.ApplicationDetailDto = new models.ApplicationDetailDto()) {
         this.id = obj.id;
+        this.update(obj);
+    }
+
+    public update(obj: models.ApplicationDetailDto): void {
         this.created = obj.created;
         this.isCurrent = !!obj.isCurrent;
         this.version = obj.version;

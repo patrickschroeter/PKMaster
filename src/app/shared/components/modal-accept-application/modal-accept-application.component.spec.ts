@@ -7,6 +7,7 @@ import { ModalAcceptApplicationComponent } from './modal-accept-application.comp
 
 /** Services */
 import { CoreProviderMock } from './../../../core/core.module';
+import { AlertProviderMock } from './../../../modules/alert/alert.module';
 
 /** Components */
 import { OverlayComponent } from './../../../modules/overlay';
@@ -23,7 +24,8 @@ describe('ModalAcceptApplicationComponent', () => {
                 OverlayComponent
             ],
             providers: [
-                ...CoreProviderMock
+                ...CoreProviderMock,
+                ...AlertProviderMock
             ],
             schemas: [NO_ERRORS_SCHEMA]
         })

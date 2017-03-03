@@ -12,9 +12,6 @@ import { WindowService } from './../../';
 /** Models */
 import { ConferenceConfig, Selectable } from './../../../models';
 
-/** Decorators */
-import { Access } from './../../decorators/access.decorator';
-
 /**
  * An configuration element of a conference
  *

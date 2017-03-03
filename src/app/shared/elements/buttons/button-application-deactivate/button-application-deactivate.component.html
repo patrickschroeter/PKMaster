@@ -1,4 +1,4 @@
-<ng-container *ngIf="application.hasStatus(status.CREATED, status.RESCINDED)">
+<ng-container *ngIf="application && application.hasStatus(status.CREATED, status.RESCINDED)">
     <pk-button
         class="element--spacing-bottom-tiny"
         rounded

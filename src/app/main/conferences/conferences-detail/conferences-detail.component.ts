@@ -27,9 +27,6 @@ import {
 } from './../../../swagger';
 import { OverlayComponent } from './../../../modules/overlay';
 
-/** Decorators */
-import { Access } from './../../../shared/decorators/access.decorator';
-
 /**
  * Component to display the details of a conference
  *

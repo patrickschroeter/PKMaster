@@ -19,6 +19,8 @@ import { ApplicationDetailDto } from './../../../../swagger';
 })
 export class ButtonApplicationRescindComponent extends Button {
 
+    public application: ApplicationDetailDto;
+
     constructor(
         private modalService: ModalService,
         private translationService: TranslationService,

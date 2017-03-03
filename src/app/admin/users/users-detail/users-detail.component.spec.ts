@@ -10,6 +10,7 @@ import { UsersDetailComponent } from './users-detail.component';
 import { CoreProviderMock } from './../../../core/core.module';
 import { ModalProviderMock } from './../../../modules/overlay/overlay.module';
 import { TranslationProviderMock } from './../../../modules/translation/translation.module';
+import { AlertProviderMock } from './../../../modules/alert/alert.module';
 
 describe('UsersDetailComponent', () => {
     let component: UsersDetailComponent;
@@ -23,7 +24,8 @@ describe('UsersDetailComponent', () => {
             providers: [
                 ...CoreProviderMock,
                 ...ModalProviderMock,
-                ...TranslationProviderMock
+                ...TranslationProviderMock,
+                ...AlertProviderMock
             ],
             imports: [
                 RouterTestingModule.withRoutes([

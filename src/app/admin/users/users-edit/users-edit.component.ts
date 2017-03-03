@@ -6,20 +6,21 @@ import {
     UserService,
     PermissionService
 } from './../../../core';
+import { AlertService } from './../../../modules/alert';
 
 /** Models */
 import { UserDetailDto, FieldDto } from './../../../swagger';
 import { Fields } from './../../../models';
 
 /** Decorators */
-import { Access } from './../../../shared/decorators/access.decorator';
+import { Access, OnAccess } from './../../../shared/decorators/access.decorator';
 
 @Component({
     selector: 'pk-users-edit',
     templateUrl: './users-edit.component.html',
     styleUrls: ['./users-edit.component.scss']
 })
-export class UsersEditComponent implements OnInit {
+export class UsersEditComponent implements OnInit, OnAccess {
     @HostBinding('class') classes = 'content--default';
 
     public user: UserDetailDto;
@@ -29,7 +30,8 @@ export class UsersEditComponent implements OnInit {
         private userService: UserService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private permission: PermissionService
+        public permission: PermissionService,
+        public alert: AlertService
     ) { }
 
     ngOnInit() {

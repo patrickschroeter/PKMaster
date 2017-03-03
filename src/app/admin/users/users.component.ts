@@ -5,26 +5,28 @@ import {
     PermissionService,
     UserService
  } from './../../core';
+ import { AlertService } from './../../modules/alert';
 
 /** Models */
 import { UserDetailDto } from './../../swagger';
 
 /** Decorators */
-import { Access } from './../../shared/decorators/access.decorator';
+import { Access, OnAccess } from './../../shared/decorators/access.decorator';
 
 @Component({
     selector: 'pk-users',
     templateUrl: './users.component.html',
     styleUrls: ['./users.component.scss']
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnAccess {
     @HostBinding('class') classes = 'content--default';
 
     public users: UserDetailDto[];
 
     constructor(
         private userService: UserService,
-        private permission: PermissionService
+        public permission: PermissionService,
+        public alert: AlertService
     ) { }
 
     ngOnInit() {

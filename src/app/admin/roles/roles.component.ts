@@ -6,12 +6,13 @@ import {
     RoleService,
     PermissionService
 } from './../../core';
+import { AlertService } from './../../modules/alert';
 
 /** Models */
 import { RoleDto, FieldDto } from './../../swagger';
 
 /** Decorators */
-import { Access } from './../../shared/decorators/access.decorator';
+import { Access, OnAccess } from './../../shared/decorators/access.decorator';
 
 /**
  * Displays a list of all roles
@@ -25,7 +26,7 @@ import { Access } from './../../shared/decorators/access.decorator';
     templateUrl: './roles.component.html',
     styleUrls: ['./roles.component.scss']
 })
-export class RolesComponent implements OnInit {
+export class RolesComponent implements OnInit, OnAccess {
 
     /**
      * Default Layout Class
@@ -76,7 +77,8 @@ export class RolesComponent implements OnInit {
      */
     constructor(
         private roleService: RoleService,
-        private permission: PermissionService,
+        public permission: PermissionService,
+        public alert: AlertService,
         private router: Router
     ) { }
 

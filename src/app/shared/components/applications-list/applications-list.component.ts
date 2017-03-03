@@ -21,14 +21,14 @@ import {
 import { Selectable } from './../../../models';
 
 /** Decorators */
-import { Access } from './../../../shared/decorators/access.decorator';
+import { Access, OnAccess } from './../../../shared/decorators/access.decorator';
 
 @Component({
     selector: 'pk-applications-list',
     templateUrl: './applications-list.component.html',
     styleUrls: ['./applications-list.component.scss']
 })
-export class ApplicationsListComponent implements OnInit {
+export class ApplicationsListComponent implements OnInit, OnAccess {
 
     @Input() applications: ApplicationDetailDto[];
     @Input() user: UserDetailDto;
@@ -39,8 +39,8 @@ export class ApplicationsListComponent implements OnInit {
         private modalService: ModalService,
         private translationService: TranslationService,
         private applicationService: ApplicationService,
-        private alert: AlertService,
-        private permission: PermissionService
+        public alert: AlertService,
+        public permission: PermissionService
     ) { }
 
     ngOnInit() {

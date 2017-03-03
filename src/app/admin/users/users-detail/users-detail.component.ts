@@ -10,13 +10,14 @@ import {
 } from './../../../core';
 import { ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
+import { AlertService } from './../../../modules/alert';
 
 /** Models */
 import { UserDetailDto, FieldDto, RoleDto } from './../../../swagger';
 import { Fields, Selectable } from './../../../models';
 
 /** Decorators */
-import { Access } from './../../../shared/decorators/access.decorator';
+import { Access, OnAccess } from './../../../shared/decorators/access.decorator';
 
 /**
  *
@@ -30,7 +31,7 @@ import { Access } from './../../../shared/decorators/access.decorator';
     templateUrl: './users-detail.component.html',
     styleUrls: ['./users-detail.component.scss']
 })
-export class UsersDetailComponent implements OnInit {
+export class UsersDetailComponent implements OnInit, OnAccess {
 
     /**
      * Default Layout class
@@ -81,7 +82,8 @@ export class UsersDetailComponent implements OnInit {
         private userService: UserService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private permission: PermissionService,
+        public permission: PermissionService,
+        public alert: AlertService,
         private modalService: ModalService,
         private translationService: TranslationService,
         private roleService: RoleService

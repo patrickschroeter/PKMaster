@@ -27,11 +27,13 @@ export class ButtonApplicationDeactivateComponent extends Button implements OnAc
 
     @Output() success: EventEmitter<ApplicationDetailDto> = new EventEmitter<ApplicationDetailDto>();
 
+    public application: ApplicationDetailDto;
+
     constructor(
         private modalService: ModalService,
         private translationService: TranslationService,
         private applicationService: ApplicationService,
-        private alert: AlertService,
+        public alert: AlertService,
         public permission: PermissionService
     ) {
         super();

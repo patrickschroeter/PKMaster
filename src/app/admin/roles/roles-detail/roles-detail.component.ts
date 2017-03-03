@@ -6,20 +6,21 @@ import * as _ from 'lodash';
 import { RoleService, PermissionService } from './../../../core';
 import { OverlayComponent, ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
+import { AlertService } from './../../../modules/alert';
 
 /** Models */
 import { RoleDto, FieldDto, PermissionDto } from './../../../swagger';
 import { Selectable } from './../../../models';
 
 /** Decorator */
-import { Access } from './../../../shared/decorators/access.decorator';
+import { Access, OnAccess } from './../../../shared/decorators/access.decorator';
 
 @Component({
     selector: 'pk-roles-detail',
     templateUrl: './roles-detail.component.html',
     styleUrls: ['./roles-detail.component.scss']
 })
-export class RolesDetailComponent implements OnInit {
+export class RolesDetailComponent implements OnInit, OnAccess {
     @HostBinding('class') classes = 'content--default';
 
     @ViewChild('overlay') overlay: OverlayComponent;
@@ -35,7 +36,8 @@ export class RolesDetailComponent implements OnInit {
         private roleService: RoleService,
         private modalService: ModalService,
         private translationService: TranslationService,
-        private permission: PermissionService
+        public permission: PermissionService,
+        public alert: AlertService
     ) { }
 
     ngOnInit() {

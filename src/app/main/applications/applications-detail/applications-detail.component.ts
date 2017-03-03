@@ -25,7 +25,7 @@ import {
 import { Selectable } from './../../../models';
 
 /** Decorators */
-import { Access } from './../../../shared/decorators/access.decorator';
+import { Access, OnAccess } from './../../../shared/decorators/access.decorator';
 
 /**
  * The ApplicationsDetailComponent
@@ -39,7 +39,7 @@ import { Access } from './../../../shared/decorators/access.decorator';
     templateUrl: './applications-detail.component.html',
     styleUrls: ['./applications-detail.component.scss']
 })
-export class ApplicationsDetailComponent implements OnInit {
+export class ApplicationsDetailComponent implements OnInit, OnAccess {
     @HostBinding('class') classes = 'content--default';
 
     private _application: ApplicationDetailDto;
@@ -78,13 +78,13 @@ export class ApplicationsDetailComponent implements OnInit {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         /** Modules */
-        private alert: AlertService,
+        public alert: AlertService,
         private translationService: TranslationService,
         private modalService: ModalService,
         /** Services */
         private applicationService: ApplicationService,
         private auth: AuthenticationService,
-        private permission: PermissionService,
+        public permission: PermissionService,
         private conferenceService: ConferenceService,
         private userService: UserService
     ) { }

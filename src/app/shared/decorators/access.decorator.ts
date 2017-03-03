@@ -5,6 +5,11 @@ import { PermissionService } from './../../core';
 import { AlertService } from './../../modules/alert';
 import { environment } from './../../../environments/environment';
 
+export interface OnAccess {
+    permission: PermissionService;
+    alert: AlertService;
+}
+
 export function Access(name: string | string[]) {
     return function (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
         const originalMethod = descriptor.value;
@@ -32,8 +37,4 @@ export function Access(name: string | string[]) {
 
         return descriptor;
     };
-}
-
-export interface OnAccess {
-    permission: PermissionService;
 }
