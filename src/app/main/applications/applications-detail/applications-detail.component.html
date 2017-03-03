@@ -189,16 +189,7 @@
                     </pk-button>
                 </ng-container>
 
-                <pk-button
-                    *ngIf="application.hasStatus(status.CREATED) && application.filledForm && !application.form.deprecated"
-                    class="element--spacing-bottom-tiny"
-                    rounded
-                    element--secondary
-                    i18n-pkAlert
-                        pkAlert="Submit Application"
-                    icon="send"
-                    (onClick)="submitApplicationModal(application)">
-                </pk-button>
+                <pk-button-application-submit [application]="application"></pk-button-application-submit>
 
                 <pk-button-application-rescind [application]="application"></pk-button-application-rescind>
 

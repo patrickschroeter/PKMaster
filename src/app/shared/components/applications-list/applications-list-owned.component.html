@@ -34,15 +34,7 @@
                 <pk-button-application-update [application]="application"></pk-button-application-update>
                 <pk-button-application-edit [application]="application"></pk-button-application-edit>
                 <pk-button-application-rescind [application]="application"></pk-button-application-rescind>
-                <pk-button
-                    *ngIf="application.hasStatus(status.CREATED) && application.filledForm"
-                    rounded
-                    element--secondary
-                    i18n-pkAlert
-                    pkAlert="Submit Application"
-                    icon="send"
-                    (onClick)="submitApplicationModal(application)">
-                </pk-button>
+                <pk-button-application-submit [application]="application"></pk-button-application-submit>
             </pk-floating>
         </pk-list-element>
     </pk-list-content>

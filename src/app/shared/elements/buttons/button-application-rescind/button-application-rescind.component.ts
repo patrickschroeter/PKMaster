@@ -14,8 +14,7 @@ import { ApplicationDetailDto } from './../../../../swagger';
 
 @Component({
   selector: 'pk-button-application-rescind',
-  templateUrl: './button-application-rescind.component.html',
-  styleUrls: ['./button-application-rescind.component.scss']
+  templateUrl: './button-application-rescind.component.html'
 })
 export class ButtonApplicationRescindComponent extends Button {
 

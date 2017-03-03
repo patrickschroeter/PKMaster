@@ -46,15 +46,7 @@
                 </ng-container>
 
                 <ng-container *accessSubmitApplications>
-                    <pk-button
-                        *ngIf="application.hasStatus(status.CREATED) && application.filledForm"
-                        rounded
-                        element--secondary
-                        i18n-pkAlert
-                        pkAlert="Submit Application"
-                        icon="send"
-                        (onClick)="submitApplicationModal(application)">
-                    </pk-button>
+                    <pk-button-application-submit [application]="application"></pk-button-application-submit>
                 </ng-container>
 
                 <ng-container *accessValidateApplications>

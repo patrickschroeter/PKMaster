@@ -20,8 +20,7 @@ import { Access, OnAccess } from './../../../decorators/access.decorator';
 
 @Component({
     selector: 'pk-button-application-deactivate',
-    templateUrl: './button-application-deactivate.component.html',
-    styleUrls: ['./button-application-deactivate.component.scss']
+    templateUrl: './button-application-deactivate.component.html'
 })
 export class ButtonApplicationDeactivateComponent extends Button implements OnAccess {
 

@@ -25,6 +25,5 @@
         <a routerLink="/applications/{{ application.id }}">
             <pk-button rounded i18n-pkAlert pkAlert="Cancel" class="element--spacing-bottom-tiny" icon="clear" element--error></pk-button>
         </a>
-        <pk-button-application-deactivate [application]="application" (success)="onDeactivateSuccess($event)"></pk-button-application-deactivate>
     </pk-floating>
 </div>

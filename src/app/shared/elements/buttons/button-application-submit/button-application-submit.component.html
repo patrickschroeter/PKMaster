@@ -1,0 +1,11 @@
+<ng-container *ngIf="application && !application.form.deprecated && application.hasStatus(status.CREATED) && application.filledForm">
+    <pk-button
+        class="element--spacing-bottom-tiny"
+        rounded
+        element--secondary
+        i18n-pkAlert
+             pkAlert="Submit Application"
+        icon="send"
+        (onClick)="submitApplicationModal(application)">
+    </pk-button>
+</ng-container>

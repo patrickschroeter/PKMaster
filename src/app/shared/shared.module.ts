@@ -51,12 +51,13 @@ import { StatusPipe } from './pipes';
         elements.ButtonApplicationUpdateComponent,
         elements.ButtonApplicationRescindComponent,
         elements.ButtonApplicationDeactivateComponent,
+        elements.ButtonApplicationSubmitComponent,
 
         /** Directives */
         directives.AccessDirective,
 
         /** Pipes */
-        StatusPipe
+        StatusPipe,
     ],
     imports: [
         CommonModule,
@@ -106,6 +107,7 @@ import { StatusPipe } from './pipes';
         elements.ButtonApplicationUpdateComponent,
         elements.ButtonApplicationRescindComponent,
         elements.ButtonApplicationDeactivateComponent,
+        elements.ButtonApplicationSubmitComponent,
 
         /** Directives */
         directives.AccessDirective,
