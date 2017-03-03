@@ -1,0 +1,11 @@
+<ng-container *ngIf="application.hasStatus(status.SUBMITTED)">
+    <pk-button
+        class="element--spacing-bottom-tiny"
+        rounded
+        element--error
+        i18n-pkAlert
+             pkAlert="Rescind Application"
+        icon="undo"
+        (onClick)="rescindApplicationModal(application)">
+    </pk-button>
+</ng-container>

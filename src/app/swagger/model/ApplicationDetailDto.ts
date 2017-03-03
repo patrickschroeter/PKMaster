@@ -66,6 +66,10 @@ export class ApplicationDetailDto {
 
     constructor(obj?: ApplicationDetailDto) {
         obj = obj || ({} as any);
+        this.update(obj);
+    }
+
+    public update(obj: ApplicationDetailDto): void {
         this.id = obj.id;
         this.created = obj.created;
         this.filledForm = obj.filledForm;

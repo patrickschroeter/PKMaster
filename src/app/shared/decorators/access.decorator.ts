@@ -33,3 +33,7 @@ export function Access(name: string | string[]) {
         return descriptor;
     };
 }
+
+export interface OnAccess {
+    permission: PermissionService;
+}

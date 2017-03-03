@@ -163,4 +163,8 @@ export class ApplicationsEditComponent implements OnInit {
         });
     }
 
+    private onDeactivateSuccess(application: ApplicationDetailDto) {
+        this.router.navigate(['applications']);
+    }
+
 }

@@ -33,15 +33,7 @@
             <pk-floating horizontal top-right>
 
                 <ng-container *accessDeactivateApplications>
-                    <pk-button
-                        *ngIf="application.hasStatus(status.CREATED, status.RESCINDED)"
-                        rounded
-                        element--error
-                        i18n-pkAlert
-                        pkAlert="Deactivate Application"
-                        icon="delete"
-                        (onClick)="deactivateApplicationModal(application)">
-                    </pk-button>
+                    <pk-button-application-deactivate [application]="application"></pk-button-application-deactivate>
                 </ng-container>
 
                 <ng-container *accessEditApplications>
@@ -50,15 +42,7 @@
                 </ng-container>
 
                 <ng-container *accessEditApplications>
-                    <pk-button
-                        *ngIf="application.hasStatus(status.SUBMITTED)"
-                        rounded
-                        element--error
-                        i18n-pkAlert
-                        pkAlert="Recind Application"
-                        icon="undo"
-                        (onClick)="rescindApplicationModal(application)">
-                    </pk-button>
+                    <pk-button-application-rescind [application]="application"></pk-button-application-rescind>
                 </ng-container>
 
                 <ng-container *accessSubmitApplications>

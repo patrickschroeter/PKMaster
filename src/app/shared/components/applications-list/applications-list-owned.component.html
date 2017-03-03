@@ -30,30 +30,10 @@
             <pk-list-attribute name="version">{{ application.version }}</pk-list-attribute>
 
             <pk-floating horizontal top-right>
-                <ng-container>
-                    <pk-button
-                        *ngIf="application.hasStatus(status.CREATED, status.RESCINDED)"
-                        rounded
-                        element--error
-                        i18n-pkAlert
-                        pkAlert="Deactivate Application"
-                        icon="delete"
-                        (onClick)="deactivateApplicationModal(application)">
-                    </pk-button>
-                </ng-container>
-
+                <pk-button-application-deactivate [application]="application"></pk-button-application-deactivate>
                 <pk-button-application-update [application]="application"></pk-button-application-update>
                 <pk-button-application-edit [application]="application"></pk-button-application-edit>
-
-                <pk-button
-                    *ngIf="application.hasStatus(status.SUBMITTED)"
-                    rounded
-                    element--error
-                    i18n-pkAlert
-                    pkAlert="Recind Application"
-                    icon="undo"
-                    (onClick)="rescindApplicationModal(application)">
-                </pk-button>
+                <pk-button-application-rescind [application]="application"></pk-button-application-rescind>
                 <pk-button
                     *ngIf="application.hasStatus(status.CREATED) && application.filledForm"
                     rounded

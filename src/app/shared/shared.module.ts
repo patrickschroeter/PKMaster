@@ -49,6 +49,8 @@ import { StatusPipe } from './pipes';
         /** Buttons */
         elements.ButtonApplicationEditComponent,
         elements.ButtonApplicationUpdateComponent,
+        elements.ButtonApplicationRescindComponent,
+        elements.ButtonApplicationDeactivateComponent,
 
         /** Directives */
         directives.AccessDirective,
@@ -102,6 +104,8 @@ import { StatusPipe } from './pipes';
         /** Buttons */
         elements.ButtonApplicationEditComponent,
         elements.ButtonApplicationUpdateComponent,
+        elements.ButtonApplicationRescindComponent,
+        elements.ButtonApplicationDeactivateComponent,
 
         /** Directives */
         directives.AccessDirective,

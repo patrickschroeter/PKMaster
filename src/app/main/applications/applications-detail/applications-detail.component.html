@@ -200,16 +200,7 @@
                     (onClick)="submitApplicationModal(application)">
                 </pk-button>
 
-                <pk-button
-                    *ngIf="application.hasStatus(status.SUBMITTED)"
-                    class="element--spacing-bottom-tiny"
-                    rounded
-                    element--error
-                    i18n-pkAlert
-                        pkAlert="Recind Application"
-                    icon="undo"
-                    (onClick)="rescindApplicationModal(application)">
-                </pk-button>
+                <pk-button-application-rescind [application]="application"></pk-button-application-rescind>
 
                 <pk-button-application-edit [application]="application"></pk-button-application-edit>
 
@@ -236,16 +227,7 @@
                         (onClick)="validateApplication(application)">
                     </pk-button>
                 </ng-container>
-                <pk-button
-                    *ngIf="application.hasStatus(status.CREATED, status.RESCINDED)"
-                    class="element--spacing-bottom-tiny"
-                    rounded
-                    element--error
-                    i18n-pkAlert
-                        pkAlert="Deactivate Application"
-                    icon="delete"
-                    (onClick)="deactivateApplicationModal(application)">
-                </pk-button>
+                <pk-button-application-deactivate [application]="application"></pk-button-application-deactivate>
             </pk-button-animation-wrapper>
         </pk-floating>
 
