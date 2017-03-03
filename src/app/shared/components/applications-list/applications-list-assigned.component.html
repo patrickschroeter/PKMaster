@@ -37,15 +37,8 @@
                 <pk-button-application-edit [application]="application"></pk-button-application-edit>
 
                 <!--Assigned-->
-                <pk-button
-                    *ngIf="application.hasStatus(status.SUBMITTED)"
-                    rounded
-                    element--secondary
-                    i18n-pkAlert
-                    pkAlert="Validate Application"
-                    icon="playlist_add_check"
-                    (onClick)="validateApplication(application)">
-                </pk-button>
+                <pk-button-application-validate [application]="application"></pk-button-application-validate>
+
             </pk-floating>
         </pk-list-element>
     </pk-list-content>

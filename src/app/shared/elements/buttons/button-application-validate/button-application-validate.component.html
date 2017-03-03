@@ -1,0 +1,11 @@
+<ng-container *ngIf="application && application.hasStatus(status.SUBMITTED) && application.form.requiresValidation">
+    <pk-button
+        class="element--spacing-bottom-tiny"
+        rounded
+        element--secondary
+        i18n-pkAlert
+             pkAlert="Validate Application"
+        icon="playlist_add_check"
+        (onClick)="validateApplication(application)">
+    </pk-button>
+</ng-container>

@@ -24,6 +24,8 @@ import { Access, OnAccess } from './../../../decorators/access.decorator';
 })
 export class ButtonApplicationSubmitComponent extends Button implements OnAccess {
 
+    public application: ApplicationDetailDto;
+
     constructor(
         public permission: PermissionService,
         public alert: AlertService,

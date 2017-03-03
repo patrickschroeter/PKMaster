@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
     selector: 'pk-button-animation-wrapper',
@@ -21,7 +21,7 @@ export class ButtonAnimationWrapperComponent implements OnInit {
     ngOnInit() {
     }
 
-    @HostListener('click', ['$event']) onClick(e: Event) {
+    public toggle(): void {
         this.isOpen = !this.isOpen;
     }
 

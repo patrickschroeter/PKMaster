@@ -346,7 +346,7 @@ export class ApplicationService {
      * @memberOf ApplicationService
      */
     public confirmApplication(confirmation: boolean, application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
-        const param = _.cloneDeep(application);
+        const param: ApplicationDetailDto = new ApplicationDetailDto(application);
         param.confirmed = confirmation;
 
         return this.updateApplication(param).map((result: ApplicationDetailDto) => {

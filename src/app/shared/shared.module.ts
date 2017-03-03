@@ -52,6 +52,7 @@ import { StatusPipe } from './pipes';
         elements.ButtonApplicationRescindComponent,
         elements.ButtonApplicationDeactivateComponent,
         elements.ButtonApplicationSubmitComponent,
+        elements.ButtonApplicationValidateComponent,
 
         /** Directives */
         directives.AccessDirective,
@@ -108,6 +109,7 @@ import { StatusPipe } from './pipes';
         elements.ButtonApplicationRescindComponent,
         elements.ButtonApplicationDeactivateComponent,
         elements.ButtonApplicationSubmitComponent,
+        elements.ButtonApplicationValidateComponent,
 
         /** Directives */
         directives.AccessDirective,

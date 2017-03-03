@@ -50,15 +50,7 @@
                 </ng-container>
 
                 <ng-container *accessValidateApplications>
-                    <pk-button
-                        *ngIf="application.hasStatus(status.SUBMITTED)"
-                        rounded
-                        element--secondary
-                        i18n-pkAlert
-                        pkAlert="Validate Application"
-                        icon="playlist_add_check"
-                        (onClick)="validateApplication(application)">
-                    </pk-button>
+                    <pk-button-application-validate [application]="application"></pk-button-application-validate>
                 </ng-container>
             </pk-floating>
         </pk-list-element>

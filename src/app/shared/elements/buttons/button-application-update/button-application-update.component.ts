@@ -7,8 +7,7 @@ import { ApplicationDetailDto } from './../../../../swagger';
 
 @Component({
     selector: 'pk-button-application-update',
-    templateUrl: './button-application-update.component.html',
-    styleUrls: ['./button-application-update.component.scss']
+    templateUrl: './button-application-update.component.html'
 })
 export class ButtonApplicationUpdateComponent extends Button {
 

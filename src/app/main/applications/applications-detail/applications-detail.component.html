@@ -205,20 +205,17 @@
                     icon="supervisor_account"
                     (onClick)="assignUserModal(application)">
                 </pk-button>
-                <!--Assigned-->
-                <ng-container *ngIf="user && application.assignments">
-                    <pk-button
-                        *ngIf="application.hasStatus(status.SUBMITTED) && isAssigned()"
-                        class="element--spacing-bottom-tiny"
-                        rounded
-                        element--secondary
-                        i18n-pkAlert
-                        pkAlert="Validate Application"
-                        icon="playlist_add_check"
-                        (onClick)="validateApplication(application)">
-                    </pk-button>
+                <!--Validate as assigned-->
+                <ng-container *ngIf="user && application.assignments && isAssigned()">
+                    <pk-button-application-validate [application]="application"></pk-button-application-validate>
                 </ng-container>
+                <!--Validate with permission-->
+                <ng-container *accessValidateApplications>
+                    <pk-button-application-validate [application]="application"></pk-button-application-validate>
+                </ng-container>
+
                 <pk-button-application-deactivate [application]="application"></pk-button-application-deactivate>
+
             </pk-button-animation-wrapper>
         </pk-floating>
 
