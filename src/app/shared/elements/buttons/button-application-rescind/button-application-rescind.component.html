@@ -1,4 +1,4 @@
-<ng-container *ngIf="application && application.hasStatus(status.SUBMITTED)">
+<ng-container *ngIf="application && application.hasStatus(status.SUBMITTED) && !application.confirmed">
     <pk-button
         class="element--spacing-bottom-tiny"
         rounded

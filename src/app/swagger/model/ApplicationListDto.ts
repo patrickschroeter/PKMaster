@@ -48,6 +48,10 @@ export class ApplicationListDto {
 
     form: models.FormListDto;
 
+    // Custom
+
+    confirmed?: boolean;
+
     constructor(obj: models.ApplicationDetailDto = new models.ApplicationDetailDto()) {
         this.id = obj.id;
         this.update(obj);
@@ -58,6 +62,7 @@ export class ApplicationListDto {
         this.isCurrent = !!obj.isCurrent;
         this.version = obj.version;
         this.filledForm = obj.filledForm;
+        this.confirmed = !!obj.confirmed;
 
         this.user = obj.user ? new models.UserDetailDto(obj.user): undefined;
         this.conference = obj.conference ? new models.ConferenceListDto(obj.conference): undefined;
