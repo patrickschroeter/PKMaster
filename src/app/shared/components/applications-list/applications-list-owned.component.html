@@ -41,26 +41,10 @@
                         (onClick)="deactivateApplicationModal(application)">
                     </pk-button>
                 </ng-container>
-                <a
-                    *ngIf="application.hasStatus(status.CREATED, status.RESCINDED)"
-                    routerLink="/applications/{{ application.id }}/edit">
-                    <pk-button
-                        *ngIf="application.form.deprecated"
-                        rounded
-                        element--secondary
-                        i18n-pkAlert
-                        pkAlert="Update Application"
-                        icon="refresh">
-                    </pk-button>
-                    <pk-button
-                        *ngIf="!application.form.deprecated"
-                        rounded
-                        element--secondary
-                        i18n-pkAlert
-                        pkAlert="Edit Application"
-                        icon="create">
-                    </pk-button>
-                </a>
+
+                <pk-button-application-update [application]="application"></pk-button-application-update>
+                <pk-button-application-edit [application]="application"></pk-button-application-edit>
+
                 <pk-button
                     *ngIf="application.hasStatus(status.SUBMITTED)"
                     rounded

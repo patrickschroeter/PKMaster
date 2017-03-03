@@ -158,17 +158,9 @@
                     icon="arrow_back">
                 </pk-button>
             </a>
-            <a  *ngIf="application.hasStatus(status.CREATED, status.RESCINDED) && application.form.deprecated"
-                routerLink="/applications/{{ application.id }}/edit">
-                <pk-button
-                    class="element--spacing-bottom-tiny"
-                    rounded
-                    element--secondary
-                    i18n-pkAlert
-                    pkAlert="Update Application"
-                    icon="refresh">
-                </pk-button>
-            </a>
+
+            <pk-button-application-update [application]="application"></pk-button-application-update>
+
             <pk-button-animation-wrapper>
 
                 <ng-container *accessEditApplications>
@@ -219,17 +211,8 @@
                     (onClick)="rescindApplicationModal(application)">
                 </pk-button>
 
-                <a  *ngIf="application.hasStatus(status.CREATED, status.RESCINDED) && !application.form.deprecated"
-                    routerLink="/applications/{{ application.id }}/edit">
-                    <pk-button
-                        class="element--spacing-bottom-tiny"
-                        rounded
-                        element--secondary
-                        i18n-pkAlert
-                            pkAlert="Edit Application"
-                        icon="create">
-                    </pk-button>
-                </a>
+                <pk-button-application-edit [application]="application"></pk-button-application-edit>
+
                 <!--assign-->
                 <pk-button
                     class="element--spacing-bottom-tiny"

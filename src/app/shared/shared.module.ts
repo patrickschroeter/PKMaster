@@ -20,31 +20,40 @@ import { StatusPipe } from './pipes';
 
 @NgModule({
     declarations: [
+        /** Navbar */
         components.NavbarComponent,
         components.NavbarAdminComponent,
 
+        /** Modal */
         components.ModalChangePasswordComponent,
         components.ModalAcceptApplicationComponent,
+        components.ModalAddConferenceEntryComponent,
+        components.ModalAddConferenceListComponent,
 
+        /** Application Lists */
         components.ApplicationsListComponent,
         components.ApplicationsListOwnedComponent,
         components.ApplicationsListAssignedComponent,
 
+        /** Conference */
         components.ConferenceEntryComponent,
         components.ConferenceEntryDetailComponent,
-
         elements.ConferenceEntryConfigComponent,
         elements.ConferenceEntryApplicationComponent,
         elements.ConferenceEntryListComponent,
 
-        components.ModalAddConferenceEntryComponent,
-        components.ModalAddConferenceListComponent,
-
+        /** Elements */
         elements.LoadingComponent,
         elements.ButtonAnimationWrapperComponent,
 
+        /** Buttons */
+        elements.ButtonApplicationEditComponent,
+        elements.ButtonApplicationUpdateComponent,
+
+        /** Directives */
         directives.AccessDirective,
 
+        /** Pipes */
         StatusPipe
     ],
     imports: [
@@ -67,29 +76,41 @@ import { StatusPipe } from './pipes';
         services.WindowService
     ],
     exports: [
+        /** Navbar */
         components.NavbarComponent,
         components.NavbarAdminComponent,
 
+        /** Modal */
         components.ModalChangePasswordComponent,
         components.ModalAcceptApplicationComponent,
+        components.ModalAddConferenceEntryComponent,
+        components.ModalAddConferenceListComponent,
 
+        /** Application Lists */
         components.ApplicationsListComponent,
         components.ApplicationsListOwnedComponent,
         components.ApplicationsListAssignedComponent,
 
+        /** Conference */
         components.ConferenceEntryComponent,
         components.ConferenceEntryDetailComponent,
 
-        components.ModalAddConferenceEntryComponent,
-        components.ModalAddConferenceListComponent,
-
+        /** Elements */
         elements.LoadingComponent,
         elements.ButtonAnimationWrapperComponent,
 
+        /** Buttons */
+        elements.ButtonApplicationEditComponent,
+        elements.ButtonApplicationUpdateComponent,
+
+        /** Directives */
         directives.AccessDirective,
 
-        DndModule,
-        StatusPipe
+        /** Pipes */
+        StatusPipe,
+
+        /** 3rd Party */
+        DndModule
     ]
 })
 export class SharedModule { }

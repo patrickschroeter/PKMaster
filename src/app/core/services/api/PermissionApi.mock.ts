@@ -165,6 +165,8 @@ export class PermissionApiMock {
         PermissionApiMock.PERMISSION_OBJECT.Application.Deactivate,
         PermissionApiMock.PERMISSION_OBJECT.Application.Comment,
         PermissionApiMock.PERMISSION_OBJECT.Application.Accept,
+        PermissionApiMock.PERMISSION_OBJECT.Application.Submit,
+        PermissionApiMock.PERMISSION_OBJECT.Application.Validate,
         /** Conference */
         PermissionApiMock.PERMISSION_OBJECT.Conference.Read,
         PermissionApiMock.PERMISSION_OBJECT.Conference.Edit,

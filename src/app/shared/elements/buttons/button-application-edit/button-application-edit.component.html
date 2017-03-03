@@ -1,0 +1,11 @@
+<ng-container *ngIf="application.hasStatus(status.CREATED, status.RESCINDED) && !application.form.deprecated">
+    <a routerLink="/applications/{{ application.id }}/edit">
+        <pk-button
+            rounded
+            element--secondary
+            i18n-pkAlert
+            pkAlert="Edit Application"
+            icon="create">
+        </pk-button>
+    </a>
+</ng-container>

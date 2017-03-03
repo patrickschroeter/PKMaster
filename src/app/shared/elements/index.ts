@@ -5,3 +5,5 @@ export * from './conference-entry-application';
 export * from './conference-entry-list';
 
 export * from './button-animation-wrapper';
+
+export * from './buttons';
