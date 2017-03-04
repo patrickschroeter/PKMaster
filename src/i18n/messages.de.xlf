@@ -330,13 +330,29 @@
         <source>Registrierung</source>
         <target>Registrierung</target>
       </trans-unit>
-      <trans-unit id="ed096a3ecc6e3691a3352e8f84d99dcaeb0d6418" datatype="html">
-        <source>RZ-Name or Password is wrong</source>
-        <target>RZ-Name or Password is wrong</target>
+      <trans-unit id="6709300fb7d34a76014220f2578b69cc1c74fd09" datatype="html">
+        <source>Weiter</source>
+        <target>Weiter</target>
+      </trans-unit>
+      <trans-unit id="c47252d6cffe14a672e7ef04b2cc30e761f240ae" datatype="html">
+        <source>Zurück</source>
+        <target>Zurück</target>
       </trans-unit>
       <trans-unit id="9adf7f973ff81475f3622c2a38a1e69a7dd433af" datatype="html">
         <source>Registrieren</source>
         <target>Registrieren</target>
+      </trans-unit>
+      <trans-unit id="ed096a3ecc6e3691a3352e8f84d99dcaeb0d6418" datatype="html">
+        <source>RZ-Name or Password is wrong</source>
+        <target>RZ-Name or Password is wrong</target>
+      </trans-unit>
+      <trans-unit id="8e0e3d7ca9965169167adafde945f102e2181dd1" datatype="html">
+        <source>Registrierung erfolgreich</source>
+        <target>Registrierung erfolgreich</target>
+      </trans-unit>
+      <trans-unit id="b5d8b6a8e3a1154cc9a219153bcaf61cd4fcaa32" datatype="html">
+        <source>zum Login</source>
+        <target>zum Login</target>
       </trans-unit>
       <trans-unit id="da73894dd15700c04aeb5e99b7b9ce3c254cd25a" datatype="html">
         <source>Application Status:</source>

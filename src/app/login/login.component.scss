@@ -3,8 +3,8 @@
 
 h1 {
   text-align: center;
-  padding-bottom: 0.3em;
   color: $black;
+  margin-bottom: 2rem;
   margin-top: 0;
 }
 
@@ -34,6 +34,7 @@ h1 {
     background-color: $white;
     border-radius: $border-radius;
     border: 1px solid lighten($guidance-color, 5%);
+    min-height: 265px;
 }
 
 .login-actions {
@@ -63,4 +64,8 @@ h1 {
     border: 1px solid $error;
     position: relative;
     text-align: center;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 }

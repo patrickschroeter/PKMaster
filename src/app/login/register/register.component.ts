@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+
+import { UserService } from './../../core';
+import {
+    DynamicFormService,
+    InputValidationService
+} from './../../modules/dynamic-form';
 
 /** Models */
-import { FieldDto } from './../../swagger';
+import { FieldDto, UserDetailDto, UserCreateDto } from './../../swagger';
 
 @Component({
     selector: 'pk-register',
@@ -10,20 +17,69 @@ import { FieldDto } from './../../swagger';
 })
 export class RegisterComponent implements OnInit {
 
-    public registerForm: FieldDto[];
+    public ldapForm: FieldDto[];
+    public emailForm: FieldDto[];
+    public passwordForm: FieldDto[];
+    public passwordFormGroup: FormGroup;
+
+    public step: number;
 
     public error: boolean;
 
-    constructor() { }
+    private user: UserCreateDto;
+    private rzName: string;
+    private rzPassword: string;
+
+    constructor(
+        private userService: UserService,
+        private dynamicFormService: DynamicFormService,
+        private inputValidation: InputValidationService,
+    ) { }
 
     ngOnInit() {
-
-        this.initLoginForm();
-
+        this.step = 0;
+        this.user = new UserCreateDto();
+        this.initForms();
     }
 
-    public register(event: any): void {
-        console.log(event);
+    public next(event?: any) {
+        switch (this.step) {
+            case 0:
+                this.rzName = event.rzName;
+                this.rzPassword = btoa(event.rzPassword);
+                break;
+            case 1:
+                this.user.email = event.email;
+                break;
+            case 2:
+                this.user.password = event.password;
+                this.register();
+                break;
+        }
+        this.step += 1;
+    }
+
+    public back() {
+        switch (this.step) {
+            case 1:
+                this.user.email = undefined;
+                break;
+            case 2:
+                this.user.password = undefined;
+                break;
+        }
+        this.step -= 1;
+    }
+
+    private register(): void {
+        this.userService.addUser(this.rzName, this.rzPassword, this.user).subscribe((result: UserDetailDto) => {
+            console.log(result);
+            this.next();
+        }, error => {
+            console.error(error);
+            this.error = true;
+            this.next();
+        });
     }
 
     /**
@@ -33,14 +89,15 @@ export class RegisterComponent implements OnInit {
      *
      * @memberOf RegisterComponent
      */
-    private initLoginForm(): void {
-        this.registerForm = [
+    private initForms(): void {
+
+        this.ldapForm = [
             {
                 fieldType: 'input',
-                name: 'ldap',
+                name: 'rzName',
                 contentType: 'text',
                 required: true,
-                placeholder: 'LDAP',
+                placeholder: 'RZ Name',
 
                 validationIds: [],
 
@@ -48,6 +105,36 @@ export class RegisterComponent implements OnInit {
                     'small'
                 ]
             },
+            {
+                fieldType: 'input',
+                name: 'rzPassword',
+                contentType: 'password',
+                required: true,
+                placeholder: 'RZ Password',
+
+                validationIds: [],
+
+                styleIds: [
+                    'small'
+                ]
+            }
+        ];
+
+        this.emailForm = [
+            {
+                fieldType: 'input',
+                name: 'email',
+                contentType: 'email',
+                required: true,
+                placeholder: 'hochschulexterne E-Mail',
+
+                validationIds: [
+                    'useExternalEmail'
+                ],
+            }
+        ];
+
+        this.passwordForm = [
             {
                 fieldType: 'input',
                 name: 'password',
@@ -60,7 +147,24 @@ export class RegisterComponent implements OnInit {
                 styleIds: [
                     'small'
                 ]
+            },
+            {
+                fieldType: 'input',
+                name: 'passwordconfirm',
+                contentType: 'password',
+                required: true,
+                placeholder: 'Confirm Password',
+
+                validationIds: [],
+
+                styleIds: [
+                    'small'
+                ]
             }
         ];
+
+        this.passwordFormGroup = this.dynamicFormService.generateFormFromInput(
+            this.passwordForm,
+            { validator: this.inputValidation.areEqual(['password', 'passwordconfirm'], 'errorPasswordMatch') });
     }
 }

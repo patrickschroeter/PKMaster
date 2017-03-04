@@ -10,7 +10,7 @@ import { UserDetailDto, UserCreateDto } from './../../../swagger';
 class UserDetailDtoMock implements UserDetailDto, UserCreateDto {
     id: string;
     token?: string;
-    password?: string;
+    password: string;
     email: string;
     ldapId?: number;
     firstname?: string;

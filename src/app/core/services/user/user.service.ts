@@ -7,7 +7,7 @@ import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 
 /** Models */
-import { UserDetailDto, RoleDto } from './../../../swagger';
+import { UserDetailDto, RoleDto, UserCreateDto } from './../../../swagger';
 
 /** Decorators */
 import { Loading } from './../../../shared/decorators/loading.decorator';
@@ -141,6 +141,29 @@ export class UserService {
         return this.userApi.addRoleToUser(userId, role).map((result: UserDetailDto) => {
             return result;
         });
+    }
+
+    /**
+     * Create a new user
+     *
+     * @param {String} [rzName]
+     * @param {String} [rzPassword]
+     * @param {UserCreateDto} [user]
+     * @param {*} [extraHttpRequestParams]
+     * @returns {Observable<UserDetailDto>}
+     *
+     * @memberOf UserService
+     */
+    public addUser(rzName?: string, rzPassword?: string, user?: UserCreateDto): Observable<UserDetailDto> {
+        return this.userApi.addUser(rzName, btoa(rzPassword), user)
+            .catch(error => {
+                this.alert.setAlert(
+                    this.translationService.translate('registerErrorHeader'),
+                    this.translationService.translate('registerErrorContent')
+                );
+
+                return Observable.throw('Wrong LDAP Credentials');
+            });
     }
 
 }

@@ -32,9 +32,9 @@ export class UserCreateDto {
 
     lastname?: string;
 
-    email?: string;
+    email: string;
 
-    password?: string;
+    password: string;
 
     rzName?: string;
 
@@ -43,7 +43,7 @@ export class UserCreateDto {
     active?: boolean;
 
     constructor(obj?: models.UserDetailDto | models.UserCreateDto) {
-        obj = obj || {};
+        obj = obj || ({} as any);
         this.firstname = obj.firstname;
         this.lastname = obj.lastname;
         this.email = obj.email;

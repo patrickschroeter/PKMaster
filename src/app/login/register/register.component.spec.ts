@@ -5,6 +5,9 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { RegisterComponent } from './register.component';
 
+import { CoreProviderMock } from './../../core/core.module';
+import { DynamicFormProviderMock } from './../../modules/dynamic-form/dynamic-form.module';
+
 describe('RegisterComponent', () => {
     let component: RegisterComponent;
     let fixture: ComponentFixture<RegisterComponent>;
@@ -12,7 +15,11 @@ describe('RegisterComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [RegisterComponent],
-            schemas: [NO_ERRORS_SCHEMA]
+            schemas: [NO_ERRORS_SCHEMA],
+            providers: [
+                ...CoreProviderMock,
+                ...DynamicFormProviderMock
+            ]
         })
             .compileComponents();
     }));
