@@ -101,20 +101,6 @@ export class ConferencesComponent implements OnInit {
     }
 
     /**
-     * clone conference
-     *
-     * @param {ConferenceCreateDto} conference
-     *
-     * @memberOf ConferencesComponent
-     */
-    public cloneConference(conference: ConferenceListDto) {
-        this.conferenceService.getConferenceById(conference.id).subscribe((result: ConferenceDetailDto) => {
-            result.description = 'Copy of ' + result.description;
-            this.createConference(result);
-        });
-    }
-
-    /**
      * Remove conference from conferences
      *
      * @param {ConferenceDetailDto} conference

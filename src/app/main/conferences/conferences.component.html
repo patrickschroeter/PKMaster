@@ -37,14 +37,7 @@
 
                                 <pk-button-conference-edit [conference]="conference"></pk-button-conference-edit>
 
-                                <pk-button
-                                    rounded
-                                    i18n-pkAlert
-                                    pkAlert="Duplicate Conference"
-                                    icon="content_copy"
-                                    (onClick)="cloneConference(conference)"
-                                    element--secondary>
-                                </pk-button>
+                                <pk-button-conference-clone [conference]="conference"></pk-button-conference-clone>
                             </pk-floating>
                         </pk-list-element>
                     </pk-list-content>
