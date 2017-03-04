@@ -380,8 +380,6 @@ export class FormService {
     @Loading('createNewForm')
     public createNewForm(submit: FormDetailDto): Observable<FormDetailDto> {
         const param: FormCreateDto = new FormCreateDto(submit);
-        param.title = submit.id ? 'Copy of ' + submit.title : submit.title;
-
         return this.formApi.addForm(param).map(form => {
             return this.form = form;
         });

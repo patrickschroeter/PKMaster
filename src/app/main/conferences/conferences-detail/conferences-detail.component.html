@@ -142,16 +142,7 @@
                 icon="supervisor_account"
                 (onClick)="assignMemberModal()">
             </pk-button>
-            <a routerLink="/conferences/{{ conference.id }}/edit">
-                <pk-button
-                    class="element--spacing-bottom-tiny"
-                    rounded
-                    i18n-pkAlert
-                    pkAlert="Edit Conference"
-                    icon="create"
-                    element--secondary>
-                </pk-button>
-            </a>
+            <pk-button-conference-edit [conference]="conference"></pk-button-conference-edit>
             <pk-button-conference-delete [conference]="conference" (success)="removeConference($event)"></pk-button-conference-delete>
         </pk-button-animation-wrapper>
     </pk-floating>

@@ -54,6 +54,7 @@ import { StatusPipe } from './pipes';
         elements.ButtonApplicationSubmitComponent,
         elements.ButtonApplicationValidateComponent,
         elements.ButtonConferenceDeleteComponent,
+        elements.ButtonConferenceEditComponent,
 
         /** Directives */
         directives.AccessDirective,
@@ -112,6 +113,7 @@ import { StatusPipe } from './pipes';
         elements.ButtonApplicationSubmitComponent,
         elements.ButtonApplicationValidateComponent,
         elements.ButtonConferenceDeleteComponent,
+        elements.ButtonConferenceEditComponent,
 
         /** Directives */
         directives.AccessDirective,

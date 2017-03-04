@@ -8,7 +8,12 @@ import { ModalService } from './../../modules/overlay';
 import { TranslationService } from './../../modules/translation';
 
 /** Models */
-import { ConferenceDetailDto, ConferenceCreateDto, FieldDto } from './../../swagger';
+import {
+    ConferenceDetailDto,
+    ConferenceListDto,
+    ConferenceCreateDto,
+    FieldDto
+} from './../../swagger';
 
 /**
  * A Component to list all conferences
@@ -102,10 +107,11 @@ export class ConferencesComponent implements OnInit {
      *
      * @memberOf ConferencesComponent
      */
-    public cloneConference(conference: ConferenceCreateDto) {
-        const param: ConferenceCreateDto = new ConferenceCreateDto(conference as ConferenceDetailDto);
-        param.description = 'Copy of ' + param.description;
-        this.createConference(param);
+    public cloneConference(conference: ConferenceListDto) {
+        this.conferenceService.getConferenceById(conference.id).subscribe((result: ConferenceDetailDto) => {
+            result.description = 'Copy of ' + result.description;
+            this.createConference(result);
+        });
     }
 
     /**

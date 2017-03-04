@@ -61,6 +61,20 @@ export class FormsComponent implements OnInit {
     }
 
     /**
+     * Clone Form
+     *
+     * @param {FormListDto} form
+     *
+     * @memberOf FormsComponent
+     */
+    public cloneForm(form: FormListDto): void {
+        this.formService.getFormById(form.id).subscribe((result: FormDetailDto) => {
+            result.title = 'Copy of ' + result.title;
+            this.createNewForm(result);
+        });
+    }
+
+    /**
      * Delete the form
      *
      * @param {FormDetailDto} form

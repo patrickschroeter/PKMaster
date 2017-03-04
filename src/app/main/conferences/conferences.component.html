@@ -35,15 +35,8 @@
                             <pk-floating horizontal top-right>
                                 <pk-button-conference-delete [conference]="conference" (success)="removeConference($event)"></pk-button-conference-delete>
 
-                                <a routerLink="/conferences/{{ conference.id }}/edit">
-                                    <pk-button
-                                        rounded
-                                        element--secondary
-                                        i18n-pkAlert
-                                            pkAlert="Edit Conference"
-                                        icon="create">
-                                    </pk-button>
-                                </a>
+                                <pk-button-conference-edit [conference]="conference"></pk-button-conference-edit>
+
                                 <pk-button
                                     rounded
                                     i18n-pkAlert
