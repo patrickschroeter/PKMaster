@@ -113,23 +113,6 @@ describe('Service: Form', () => {
                 } as any));
             });
         });
-
-        it('should copy the form (title restrictedAccess, formHasField)', () => {
-            spyOn(api, 'addForm').and.returnValue(new Observable((obs: Observer<any>) => { obs.next('value'); }));
-            const submit: FormDetailDto = new FormDetailDto(<any>{
-                id: 'id',
-                title: 'titel des tests',
-                restrictedAccess: true,
-                formHasField: [new Fields.Email]
-            });
-            service.createNewForm(submit).subscribe(() => {
-                expect(api.addForm).toHaveBeenCalledWith(new FormCreateDto({
-                    title: 'Copy of ' + submit.title,
-                    restrictedAccess: submit.restrictedAccess,
-                    formHasField: submit.formHasField
-                } as any));
-            });
-        });
     });
 
     describe('editElementError', () => {
