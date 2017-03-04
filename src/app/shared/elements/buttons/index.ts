@@ -8,3 +8,5 @@ export * from './button-application-validate';
 export * from './button-conference-delete';
 export * from './button-conference-edit';
 export * from './button-conference-clone';
+
+export * from './button-form-edit';

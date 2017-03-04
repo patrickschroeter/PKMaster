@@ -72,15 +72,7 @@
                                     icon="publish"
                                     (onClick)="activateForm(form)">
                                 </pk-button>
-                                <a routerLink="/forms/{{ form.id }}/edit">
-                                    <pk-button
-                                        rounded
-                                        i18n-pkAlert
-                                        pkAlert="Edit Form"
-                                        icon="create"
-                                        element--secondary>
-                                    </pk-button>
-                                </a>
+                                <pk-button-form-edit [form]="form"></pk-button-form-edit>
                                 <pk-button
                                     rounded
                                     i18n-pkAlert
