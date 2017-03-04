@@ -137,7 +137,7 @@ export class ConferenceService {
      * @memberOf ConferenceService
      */
     @Loading('removeConference')
-    public removeConference(conferenceId: string): Observable<any> {
+    public removeConference(conferenceId: string): Observable<string> {
         return this.conferenceApi.deleteConferenceById(conferenceId).map((result: any) => {
             return result;
         });

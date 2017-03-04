@@ -33,14 +33,8 @@
                             <pk-list-attribute name="room">{{ conference.roomOfEvent }}</pk-list-attribute>
 
                             <pk-floating horizontal top-right>
-                                <pk-button
-                                    rounded
-                                    element--error
-                                    i18n-pkAlert
-                                        pkAlert="Delete Conference"
-                                    icon="delete"
-                                    (onClick)="deleteConference(conference)">
-                                </pk-button>
+                                <pk-button-conference-delete [conference]="conference" (success)="removeConference($event)"></pk-button-conference-delete>
+
                                 <a routerLink="/conferences/{{ conference.id }}/edit">
                                     <pk-button
                                         rounded

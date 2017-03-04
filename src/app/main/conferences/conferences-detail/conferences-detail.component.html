@@ -152,15 +152,7 @@
                     element--secondary>
                 </pk-button>
             </a>
-            <pk-button
-                class="element--spacing-bottom-tiny"
-                rounded
-                element--error
-                i18n-pkAlert
-                pkAlert="Delete Conference"
-                icon="delete"
-                (onClick)="deleteConference()">
-            </pk-button>
+            <pk-button-conference-delete [conference]="conference" (success)="removeConference($event)"></pk-button-conference-delete>
         </pk-button-animation-wrapper>
     </pk-floating>
 

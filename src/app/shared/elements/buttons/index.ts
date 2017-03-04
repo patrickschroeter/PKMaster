@@ -4,3 +4,5 @@ export * from './button-application-rescind';
 export * from './button-application-deactivate';
 export * from './button-application-submit';
 export * from './button-application-validate';
+
+export * from './button-conference-delete';

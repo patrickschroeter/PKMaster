@@ -143,24 +143,15 @@ export class ConferencesEditComponent implements OnInit {
     }
 
     /**
-     * open the confirmation modal for deleting the conference
+     * Remove conference from conferences
+     *
+     * @param {ConferenceDetailDto} conference
+     * @returns {void}
+     *
+     * @memberOf ConferencesComponent
      */
-    public deleteConferenceModal(): void {
-        this.modalService.createConfirmationModal({
-            title: this.translationService.translate('confirmDeleteConferenceHeader'),
-            message: this.translationService.translate('confirmDeleteConferenceContent'),
-            confirm: this.deleteConference.bind(this)
-        });
-    }
-
-    /**
-     * delete conference
-     */
-    private deleteConference(): void {
-        this.conferenceService.removeConference(this.conference.id).subscribe(() => {
-            this.router.navigate(['conferences']);
-            this.modalService.destroyModal();
-        });
+    public removeConference(conference: ConferenceDetailDto): void {
+        this.router.navigate(['conferences']);
     }
 
     /**

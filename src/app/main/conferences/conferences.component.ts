@@ -109,28 +109,18 @@ export class ConferencesComponent implements OnInit {
     }
 
     /**
-     * Delete the conference
+     * Remove conference from conferences
      *
-     * @param {ConferenceDto} conference
+     * @param {ConferenceDetailDto} conference
+     * @returns {void}
      *
      * @memberOf ConferencesComponent
      */
-    public deleteConference(conference: ConferenceDetailDto) {
-        this.modalService.createConfirmationModal({
-            title: this.translationService.translate('confirmDeleteConferenceHeader'),
-            message: this.translationService.translate('confirmDeleteConferenceContent'),
-            /**
-             * modal callback on confirm
-             */
-            confirm: () => {
-                this.conferenceService.removeConference(conference.id).subscribe(result => {
-                    const index = _.findIndex(this.conferences, (obj: ConferenceDetailDto) => obj.id === conference.id);
-                    if (result && index !== -1) {
-                        this.conferences.splice(index, 1);
-                    }
-                    this.modalService.destroyModal();
-                });
-            }
-        });
+    public removeConference(conference: ConferenceDetailDto): void {
+        if (!conference) { return; }
+        const index = _.findIndex(this.conferences, (obj: ConferenceDetailDto) => obj.id === conference.id);
+        if (index !== -1) {
+            this.conferences.splice(index, 1);
+        }
     }
 }

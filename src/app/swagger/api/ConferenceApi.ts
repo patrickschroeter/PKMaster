@@ -148,7 +148,7 @@ export class ConferenceApi {
      *
      * @param conferenceId ID of the Conference
      */
-    public deleteConferenceById (conferenceId: string, extraHttpRequestParams?: any ) : Observable<{}> {
+    public deleteConferenceById (conferenceId: string, extraHttpRequestParams?: any ) : Observable<string> {
         const path = this.basePath + '/conferences/{conferenceId}'
             .replace('{' + 'conferenceId' + '}', String(conferenceId));
 
@@ -169,7 +169,7 @@ export class ConferenceApi {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return response.json();
+                    return response.toString();
                 }
             });
     }

@@ -142,7 +142,9 @@ export class RegisterComponent implements OnInit {
                 required: true,
                 placeholder: 'Password',
 
-                validationIds: [],
+                validationIds: [
+                    'minLength'
+                ],
 
                 styleIds: [
                     'small'
@@ -155,7 +157,9 @@ export class RegisterComponent implements OnInit {
                 required: true,
                 placeholder: 'Confirm Password',
 
-                validationIds: [],
+                validationIds: [
+                    'minLength'
+                ],
 
                 styleIds: [
                     'small'

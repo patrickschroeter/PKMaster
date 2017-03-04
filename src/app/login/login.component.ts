@@ -80,7 +80,6 @@ export class LoginComponent implements OnInit {
                 placeholder: 'E-Mail',
 
                 validationIds: [
-                    'useExternalEmail',
                     'isEmail'
                 ],
 
@@ -94,11 +93,6 @@ export class LoginComponent implements OnInit {
                 contentType: 'password',
                 required: true,
                 placeholder: 'Password',
-
-                validationIds: [
-                    'minLength',
-                    'maxLength'
-                ],
 
                 styleIds: [
                     'small'

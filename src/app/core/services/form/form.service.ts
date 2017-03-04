@@ -235,7 +235,6 @@ export class FormService {
      *
      * @memberOf FormService
      */
-    @Loading('getEditFormTemplate')
     public getEditFormTemplate(id?: string): Observable<FieldDto[]> {
         const formEdit = [
             {
@@ -273,7 +272,7 @@ export class FormService {
             setTimeout(() => {
                 observer.next(formEdit);
                 observer.complete();
-            }, 200);
+            }, 50);
         });
     }
 
