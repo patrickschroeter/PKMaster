@@ -146,6 +146,22 @@
         <source>Validate Application</source>
         <target>Validate Application</target>
       </trans-unit>
+      <trans-unit id="2f3eeae91d48164a479546896340a27f7fd51b98" datatype="html">
+        <source>Delete Conference</source>
+        <target>Delete Conference</target>
+      </trans-unit>
+      <trans-unit id="f1e12b700ef7f65b035db8299f5826b1dbb677f8" datatype="html">
+        <source>Edit Conference</source>
+        <target>Edit Conference</target>
+      </trans-unit>
+      <trans-unit id="b2ee444cf5f5b86bb0b2b16a68ec78e5c96891d8" datatype="html">
+        <source>Duplicate Conference</source>
+        <target>Duplicate Conference</target>
+      </trans-unit>
+      <trans-unit id="ab7ff5bffe2e374b2b1dc3b4f95219190d8c625b" datatype="html">
+        <source>Edit Form</source>
+        <target>Edit Form</target>
+      </trans-unit>
       <trans-unit id="e7477d42bec84a827f129e794bf5fb5b8ec0b20a" datatype="html">
         <source>Remove Element</source>
         <target>Remove Element</target>
@@ -474,14 +490,6 @@
         <source>Agenda</source>
         <target>Agenda</target>
       </trans-unit>
-      <trans-unit id="f1e12b700ef7f65b035db8299f5826b1dbb677f8" datatype="html">
-        <source>Edit Conference</source>
-        <target>Edit Conference</target>
-      </trans-unit>
-      <trans-unit id="2f3eeae91d48164a479546896340a27f7fd51b98" datatype="html">
-        <source>Delete Conference</source>
-        <target>Delete Conference</target>
-      </trans-unit>
       <trans-unit id="9ce27bd92660618296abba3c0d0cd76214cda073" datatype="html">
         <source>Save Conference</source>
         <target>Save Conference</target>
@@ -513,10 +521,6 @@
       <trans-unit id="02969438a91ab2201026e0f585ac971cb6f59338" datatype="html">
         <source>Room</source>
         <target>Room</target>
-      </trans-unit>
-      <trans-unit id="b2ee444cf5f5b86bb0b2b16a68ec78e5c96891d8" datatype="html">
-        <source>Duplicate Conference</source>
-        <target>Duplicate Conference</target>
       </trans-unit>
       <trans-unit id="04cea252d23d355285055a4a07fe059ff205ce0e" datatype="html">
         <source>Create New Conference</source>
@@ -633,10 +637,6 @@
       <trans-unit id="33eea7f0dc97e73d9d97081e239e24f1b88b398c" datatype="html">
         <source>Activate Form</source>
         <target>Activate Form</target>
-      </trans-unit>
-      <trans-unit id="ab7ff5bffe2e374b2b1dc3b4f95219190d8c625b" datatype="html">
-        <source>Edit Form</source>
-        <target>Edit Form</target>
       </trans-unit>
       <trans-unit id="e478930ada00514fc3485bc63457f77fb8fa368d" datatype="html">
         <source>Duplicate Form</source>
