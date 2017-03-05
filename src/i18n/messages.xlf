@@ -406,8 +406,8 @@
         <source>Delete assignment from application</source>
         <target/>
       </trans-unit>
-      <trans-unit id="c5bb9f8936cb33db2ca351a1b87a984fdf11917c" datatype="html">
-        <source>Comments</source>
+      <trans-unit id="829ab414ea406f913e8db5ae64100a0cd60869ed" datatype="html">
+        <source>No Changes Required</source>
         <target/>
       </trans-unit>
       <trans-unit id="c464e3891b174c24c5fc59bf338ef22659be7d9e" datatype="html">

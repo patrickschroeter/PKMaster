@@ -11,7 +11,7 @@ import { AlertProviderMock } from './../../../modules/alert/alert.module';
 import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 
 import { OverlayModule, ModalProviderMock } from './../../../modules/overlay/overlay.module';
-import { StatusPipe } from './../../../shared';
+import { StatusPipe, AccessDirective } from './../../../shared';
 
 describe('ApplicationsDetailComponent', () => {
     let component: ApplicationsDetailComponent;
@@ -21,7 +21,8 @@ describe('ApplicationsDetailComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 ApplicationsDetailComponent,
-                StatusPipe
+                StatusPipe,
+                AccessDirective
             ],
             imports: [
                 OverlayModule,

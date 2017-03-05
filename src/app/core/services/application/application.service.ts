@@ -184,13 +184,13 @@ export class ApplicationService {
      * @memberOf ApplicationService
      */
     @Loading('addCommentToApplication')
-    public addCommentToApplication(comment: CommentDto): Observable<CommentDto[]> {
+    public addCommentToApplication(comment: CommentDto): Observable<CommentDto> {
         if (!this.application) { return Observable.throw('No Application'); }
         const param: CommentCreateDto = new CommentCreateDto(comment);
         this.auth.getUser().subscribe(user => {
             param.userId = user.id;
         });
-        return this.applicationApi.addCommentToApplication(this.application.id, param).map((result: CommentDto[]) => {
+        return this.applicationApi.addCommentToApplication(this.application.id, param).map((result: CommentDto) => {
             return result;
         });
     }
@@ -331,6 +331,7 @@ export class ApplicationService {
     public assignConferenceToApplication(application: ApplicationDetailDto, conferenceId: string): Observable<ApplicationDetailDto> {
         this.application = application;
         return this.conferenceService.addApplicationToConference(application, conferenceId).map((result: ConferenceDetailDto) => {
+            this.application.statusId = Status.PENDING;
             this.application.conference = result;
             return this.application;
         });

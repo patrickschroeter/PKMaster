@@ -122,7 +122,7 @@ export class ApplicationsDetailComponent implements OnInit, OnAccess {
                 if (!application) { return this.router.navigate(['/applications']); }
                 this.application = application;
 
-                if (this.application.form.deprecated) {
+                if (this.application.hasStatus(Status.CREATED, Status.RESCINDED) && this.application.form.deprecated) {
                     this.alert.setAlert(
                         this.translationService.translate('updateRequiredHeader'),
                         this.translationService.translate('updateRequiredContent')
@@ -170,7 +170,7 @@ export class ApplicationsDetailComponent implements OnInit, OnAccess {
                 fieldType: 'textarea',
                 name: 'message',
                 label: 'Add Comment:',
-                required: true,
+                required: true
             },
             {
                 fieldType: 'checkbox',
@@ -180,14 +180,14 @@ export class ApplicationsDetailComponent implements OnInit, OnAccess {
                     'small'
                 ]
             },
-            {
-                fieldType: 'checkbox',
-                name: 'requiresChanges',
-                label: 'Requires Changes',
-                styleIds: [
-                    'small'
-                ]
-            }
+            // {
+            //     fieldType: 'checkbox',
+            //     name: 'requiresChanges',
+            //     label: 'Requires Changes',
+            //     styleIds: [
+            //         'small'
+            //     ]
+            // }
         ];
     }
 
@@ -246,8 +246,8 @@ export class ApplicationsDetailComponent implements OnInit, OnAccess {
         const comment: CommentCreateDto = new CommentCreateDto(values);
 
         this.savingComment = true;
-        this.applicationService.addCommentToApplication(comment).subscribe((result: CommentDto[]) => {
-            this.application.comments = result || [];
+        this.applicationService.addCommentToApplication(comment).subscribe((result: CommentDto) => {
+            this.application.comments.push(result);
             this.savingComment = false;
             this.initAddCommentForm();
         });
@@ -283,8 +283,8 @@ export class ApplicationsDetailComponent implements OnInit, OnAccess {
      * @memberOf ApplicationsDetailComponent
      */
     private addApplicationToConference(data: Selectable): void {
-        this.applicationService.assignConferenceToApplication(this.application, data.value).subscribe(application => {
-            this.application = application;
+        this.applicationService.assignConferenceToApplication(this.application, data.value).subscribe((result: ApplicationDetailDto) => {
+            this.application = result;
             this.modalService.destroyModal();
         });
     }
@@ -315,7 +315,7 @@ export class ApplicationsDetailComponent implements OnInit, OnAccess {
      * @memberOf ApplicationsDetailComponent
      */
     private submitApplication(application: ApplicationDetailDto): void {
-        this.applicationService.submitApplication(application).subscribe(result => {
+        this.applicationService.submitApplication(application).subscribe((result: ApplicationDetailDto) => {
             this.alert.setSuccessHint(
                 `submitApplication${application.id}`,
                 this.translationService.translate('applicationSubmitted')
@@ -351,7 +351,7 @@ export class ApplicationsDetailComponent implements OnInit, OnAccess {
      * @memberOf ApplicationsDetailComponent
      */
     private rescindApplication(application: ApplicationDetailDto): void {
-        this.applicationService.rescindApplication(application).subscribe(result => {
+        this.applicationService.rescindApplication(application).subscribe((result: ApplicationDetailDto) => {
             this.alert.setSuccessHint(
                 `rescindApplication${application.id}`,
                 this.translationService.translate('applicationRescinded')
@@ -387,7 +387,7 @@ export class ApplicationsDetailComponent implements OnInit, OnAccess {
      * @memberOf ApplicationsDetailComponent
      */
     private deactivateApplication(application: ApplicationDetailDto): void {
-        this.applicationService.deactivateApplication(application).subscribe(result => {
+        this.applicationService.deactivateApplication(application).subscribe((result: ApplicationDetailDto) => {
             this.alert.setSuccessHint(
                 `deactivateApplication${application.id}`,
                 this.translationService.translate('applicationDeactivated')
@@ -444,7 +444,7 @@ export class ApplicationsDetailComponent implements OnInit, OnAccess {
      * @memberOf ApplicationsDetailComponent
      */
     private saveApplication(param: ApplicationDetailDto): void {
-        this.applicationService.updateApplication(param).subscribe(result => {
+        this.applicationService.updateApplication(param).subscribe((result: ApplicationDetailDto) => {
             this.application = result;
         });
     }
