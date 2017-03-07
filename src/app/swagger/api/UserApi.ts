@@ -223,7 +223,7 @@ export class UserApi {
         urlSearchParams.append('grant_type', 'password');
         urlSearchParams.append('scope', 'api openid profile');
         urlSearchParams.append('username', password !== 'dev' ? username : 'patrick.schroeter@hs-augsburg.de');
-        urlSearchParams.append('password', password !== 'dev' ? password : 'safePassword');
+        urlSearchParams.append('password', password !== 'dev' ? password : 'einPasswort');
         requestOptions.body = urlSearchParams.toString();
 
         return this.http.request(path, requestOptions)
