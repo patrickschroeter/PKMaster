@@ -155,7 +155,7 @@ export class UserService {
      * @memberOf UserService
      */
     public addUser(rzName?: string, rzPassword?: string, user?: UserCreateDto): Observable<UserDetailDto> {
-        return this.userApi.addUser(rzName, btoa(rzPassword), user)
+        return this.userApi.addUser(rzName, rzPassword, user)
             .catch(error => {
                 this.alert.setAlert(
                     this.translationService.translate('registerErrorHeader'),
