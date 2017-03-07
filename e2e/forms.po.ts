@@ -1,7 +1,7 @@
 import { browser, element, by } from 'protractor';
 
-export class Page {
+export class Forms {
     navigateTo() {
-        return browser.get('/');
+        return browser.get('/forms');
     }
 }

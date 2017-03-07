@@ -89,7 +89,7 @@
                     (ngModelChange)="filterOptions($event)"
                     >
             </div>
-            <div class="overlay__option selectable" *ngFor="let option of (filteredOptions ? filteredOptions : config.options)" (click)="select(option)" [class.selectable--active]="formControl.value && ((config.multipleSelect && formControl.value.indexOf(option.value) !== -1) || (!config.multipleSelect && formControl.value === option.value))">
+            <div class="overlay__option selectable" *ngFor="let option of (filteredOptions ? filteredOptions : config.options)" (click)="select(option)" [class.selectable--active]="formControl.value && ((config.multipleSelect && formControl.value.indexOf(option.value) !== -1) || (!config.multipleSelect && formControl.value === option.value))" id="option-{{ option.value }}">
                     {{ option.label }}
             </div>
 

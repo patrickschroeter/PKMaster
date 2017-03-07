@@ -17,28 +17,33 @@
     class="navbar__link selectable left"
     routerLink="/applications"
     routerLinkActive="selectable--active"
+    id="nav-applications"
     i18n>Applications</a>
   <a
     *access="['ReadConferences', 'EditConferences']"
     class="navbar__link selectable left"
     routerLink="/conferences"
     routerLinkActive="selectable--active"
+    id="nav-conferences"
     i18n>Conferences</a>
   <a
     *access="['ReadForms', 'EditForms']"
     class="navbar__link selectable left"
     routerLink="/forms"
     routerLinkActive="selectable--active"
+    id="nav-forms"
     i18n>Forms</a>
   <a
     class="navbar__link selectable left"
     routerLink="/profile"
     routerLinkActive="selectable--active"
+    id=nav-profile
     i18n>Profile</a>
   <a
     *accessAdmin class="navbar__link selectable left"
     routerLink="/admin"
     routerLinkActive="selectable--active"
+    id="nav-admin"
     i18n>Admin</a>
 
   <pk-devider></pk-devider>

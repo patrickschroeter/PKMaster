@@ -1,5 +1,6 @@
 <ng-container *ngIf="element && !element.hidden">
     <div class="form__element element"
+        id="element-{{ element.name }}"
         [class.form__element--small]="hasStyle('small')"
         [class.form__element--aligned]="hasStyle('aligned')"
         (mouseover)="!disabled && showElementValidation(element)"
