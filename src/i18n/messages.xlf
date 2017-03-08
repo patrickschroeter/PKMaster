@@ -2,6 +2,18 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="71b1e4d4abccce300cf5bc0ff8ddbb6157a6e984" datatype="html">
+        <source>Edit Admin Profile</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="d7b35c384aecd25a516200d6921836374613dfe7" datatype="html">
+        <source>Cancel</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="32a98b3a980357f58fc8f622071e17088f56b553" datatype="html">
         <source>PK4.0</source>
         <target/>
@@ -190,14 +202,6 @@
         <source>Choose</source>
         <target/>
       </trans-unit>
-      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
-        <source>Save</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="d7b35c384aecd25a516200d6921836374613dfe7" datatype="html">
-        <source>Cancel</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="70a67e04629f6d412db0a12d51820b480788d795" datatype="html">
         <source>Create</source>
         <target/>
@@ -228,10 +232,6 @@
       </trans-unit>
       <trans-unit id="d3781ad331fdd0bc9055c45a41664ac467de63af" datatype="html">
         <source>Edit Profile</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="71b1e4d4abccce300cf5bc0ff8ddbb6157a6e984" datatype="html">
-        <source>Edit Admin Profile</source>
         <target/>
       </trans-unit>
       <trans-unit id="929fcc62b15a0b179efeb13b7a0eee554eb3610a" datatype="html">
@@ -330,6 +330,10 @@
         <source>Remove Role from User</source>
         <target/>
       </trans-unit>
+      <trans-unit id="b1b381321d4cef04605d3e6e8847ea2b72a03799" datatype="html">
+        <source>Identify</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="f261dce7aeb8ea3369a29227ff846efb409ccf6e" datatype="html">
         <source>Username or Password is wrong</source>
         <target/>
@@ -364,30 +368,6 @@
       </trans-unit>
       <trans-unit id="b5d8b6a8e3a1154cc9a219153bcaf61cd4fcaa32" datatype="html">
         <source>zum Login</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="b1b381321d4cef04605d3e6e8847ea2b72a03799" datatype="html">
-        <source>Identify</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="f5c106e55e99deef16e3598d9dc2725601ad1588" datatype="html">
-        <source>No own Applications here.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="16d65b47eb518d5d026cf2a9811d36d0ac7c7acc" datatype="html">
-        <source>Create Application</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="28b0d97a618b6d554406c5c4149641cd18783112" datatype="html">
-        <source>Own applications</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="cec9549efb5f43b4418377ec949e862bd2b35e16" datatype="html">
-        <source>Assigned applications</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="255cb5b41f7a18a13adc9ae75c8a2335275f31e4" datatype="html">
-        <source>All applications</source>
         <target/>
       </trans-unit>
       <trans-unit id="da73894dd15700c04aeb5e99b7b9ce3c254cd25a" datatype="html">
@@ -446,32 +426,24 @@
         <source>Add application to conference</source>
         <target/>
       </trans-unit>
-      <trans-unit id="038cc71c1d17f4e1e8bc6c05054cc0c71a4c6129" datatype="html">
-        <source>No Conferences here.</source>
+      <trans-unit id="f5c106e55e99deef16e3598d9dc2725601ad1588" datatype="html">
+        <source>No own Applications here.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="d500243572af7b8ce80f8069c4eaa1a4a8cb84b0" datatype="html">
-        <source>Create Conference</source>
+      <trans-unit id="16d65b47eb518d5d026cf2a9811d36d0ac7c7acc" datatype="html">
+        <source>Create Application</source>
         <target/>
       </trans-unit>
-      <trans-unit id="2f933b826a570836cab04f683970a2d22068458c" datatype="html">
-        <source>Date</source>
+      <trans-unit id="28b0d97a618b6d554406c5c4149641cd18783112" datatype="html">
+        <source>Own applications</source>
         <target/>
       </trans-unit>
-      <trans-unit id="8434d4a28744d7df82cd39ef8da4266fcbc40064" datatype="html">
-        <source>Start</source>
+      <trans-unit id="cec9549efb5f43b4418377ec949e862bd2b35e16" datatype="html">
+        <source>Assigned applications</source>
         <target/>
       </trans-unit>
-      <trans-unit id="b68ce78c3f2c548391d812c248217f8a212491e1" datatype="html">
-        <source>End</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="02969438a91ab2201026e0f585ac971cb6f59338" datatype="html">
-        <source>Room</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="04cea252d23d355285055a4a07fe059ff205ce0e" datatype="html">
-        <source>Create New Conference</source>
+      <trans-unit id="255cb5b41f7a18a13adc9ae75c8a2335275f31e4" datatype="html">
+        <source>All applications</source>
         <target/>
       </trans-unit>
       <trans-unit id="accad0ff6a338145562d85bf1752e12fee69230e" datatype="html">
@@ -526,80 +498,32 @@
         <source>Edit Conference Attributes</source>
         <target/>
       </trans-unit>
-      <trans-unit id="05161c2450f7fdfb5a209d7f4e50595b5e95cd30" datatype="html">
-        <source>No Forms here.</source>
+      <trans-unit id="038cc71c1d17f4e1e8bc6c05054cc0c71a4c6129" datatype="html">
+        <source>No Conferences here.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="43ea0cc41cfdf3dec9d67979e3f4251580ca0246" datatype="html">
-        <source>Create New Form</source>
+      <trans-unit id="d500243572af7b8ce80f8069c4eaa1a4a8cb84b0" datatype="html">
+        <source>Create Conference</source>
         <target/>
       </trans-unit>
-      <trans-unit id="109b3e0236cd127a82d9937802984369c520624a" datatype="html">
-        <source>Restriction</source>
+      <trans-unit id="2f933b826a570836cab04f683970a2d22068458c" datatype="html">
+        <source>Date</source>
         <target/>
       </trans-unit>
-      <trans-unit id="12ce9154fb4b6bd40e48658b72fe680d164e94e9" datatype="html">
-        <source>Validation</source>
+      <trans-unit id="8434d4a28744d7df82cd39ef8da4266fcbc40064" datatype="html">
+        <source>Start</source>
         <target/>
       </trans-unit>
-      <trans-unit id="b36e1450940b7f6028d8587568c7d669b53f7a06" datatype="html">
-        <source>Active</source>
+      <trans-unit id="b68ce78c3f2c548391d812c248217f8a212491e1" datatype="html">
+        <source>End</source>
         <target/>
       </trans-unit>
-      <trans-unit id="43c4133c7a0263d2e33dd4c2e74d40784b2e4b1c" datatype="html">
-        <source>Inactive</source>
+      <trans-unit id="02969438a91ab2201026e0f585ac971cb6f59338" datatype="html">
+        <source>Room</source>
         <target/>
       </trans-unit>
-      <trans-unit id="34d3b639a324d26d9bf14f75ecd4ce5d54e1c645" datatype="html">
-        <source>Restricted</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="3c4c080864b313cfdff5fdea6aae5da276246d99" datatype="html">
-        <source>Public</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="d983f24134383f7eb6ab4e397744564b3f7e5565" datatype="html">
-        <source>Delete Form</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="33eea7f0dc97e73d9d97081e239e24f1b88b398c" datatype="html">
-        <source>Activate Form</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="e478930ada00514fc3485bc63457f77fb8fa368d" datatype="html">
-        <source>Duplicate Form</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="b690d0f56d28502ca0b91ba73800e63c099686ae" datatype="html">
-        <source>Edit Form: <x id="INTERPOLATION"/></source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="183dcc7c706ea5420f7a85bcfed08a27948d4a32" datatype="html">
-        <source>No Elements in this form.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="f948a2571a986895f26f7368ce77486afa6661c7" datatype="html">
-        <source>Remove Form Element</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="3a26dd543568a5e05810fcf5d4232ad3a59a4258" datatype="html">
-        <source>Edit Form Element</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="ee6ce0acd038896d8b847073a1143dd206f8b893" datatype="html">
-        <source>Save Form</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1828619fb1b6eceb3c779765c4b522d02d25509d" datatype="html">
-        <source>Add Element Preset</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="8dff08abfbca58cfc4288aceee6c5876184ce275" datatype="html">
-        <source>Add Form Element</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="68fb25d2dee352ae9345debfb15a50504603cda5" datatype="html">
-        <source>Edit Form Attributes</source>
+      <trans-unit id="04cea252d23d355285055a4a07fe059ff205ce0e" datatype="html">
+        <source>Create New Conference</source>
         <target/>
       </trans-unit>
       <trans-unit id="513ca8277a42faac463e55b9929b01b16f4999c0" datatype="html">
@@ -640,6 +564,82 @@
       </trans-unit>
       <trans-unit id="776d04932c6a63e52288d036f67373d608b70c61" datatype="html">
         <source>Delete Element (if possible)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="b690d0f56d28502ca0b91ba73800e63c099686ae" datatype="html">
+        <source>Edit Form: <x id="INTERPOLATION"/></source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="183dcc7c706ea5420f7a85bcfed08a27948d4a32" datatype="html">
+        <source>No Elements in this form.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="f948a2571a986895f26f7368ce77486afa6661c7" datatype="html">
+        <source>Remove Form Element</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3a26dd543568a5e05810fcf5d4232ad3a59a4258" datatype="html">
+        <source>Edit Form Element</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="ee6ce0acd038896d8b847073a1143dd206f8b893" datatype="html">
+        <source>Save Form</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1828619fb1b6eceb3c779765c4b522d02d25509d" datatype="html">
+        <source>Add Element Preset</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8dff08abfbca58cfc4288aceee6c5876184ce275" datatype="html">
+        <source>Add Form Element</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="68fb25d2dee352ae9345debfb15a50504603cda5" datatype="html">
+        <source>Edit Form Attributes</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="d983f24134383f7eb6ab4e397744564b3f7e5565" datatype="html">
+        <source>Delete Form</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="05161c2450f7fdfb5a209d7f4e50595b5e95cd30" datatype="html">
+        <source>No Forms here.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="43ea0cc41cfdf3dec9d67979e3f4251580ca0246" datatype="html">
+        <source>Create New Form</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="109b3e0236cd127a82d9937802984369c520624a" datatype="html">
+        <source>Restriction</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="12ce9154fb4b6bd40e48658b72fe680d164e94e9" datatype="html">
+        <source>Validation</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="b36e1450940b7f6028d8587568c7d669b53f7a06" datatype="html">
+        <source>Active</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="43c4133c7a0263d2e33dd4c2e74d40784b2e4b1c" datatype="html">
+        <source>Inactive</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="34d3b639a324d26d9bf14f75ecd4ce5d54e1c645" datatype="html">
+        <source>Restricted</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3c4c080864b313cfdff5fdea6aae5da276246d99" datatype="html">
+        <source>Public</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="33eea7f0dc97e73d9d97081e239e24f1b88b398c" datatype="html">
+        <source>Activate Form</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="e478930ada00514fc3485bc63457f77fb8fa368d" datatype="html">
+        <source>Duplicate Form</source>
         <target/>
       </trans-unit>
     </body>
