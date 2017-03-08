@@ -59,6 +59,7 @@ export class RoleApiMock {
             PermissionApiMock.PERMISSION.Forms.Edit
         ],
         Member: [
+            PermissionApiMock.PERMISSION.Application.Create,
             PermissionApiMock.PERMISSION.Application.Read,
             PermissionApiMock.PERMISSION.Application.Comment,
             PermissionApiMock.PERMISSION.Application.Validate,

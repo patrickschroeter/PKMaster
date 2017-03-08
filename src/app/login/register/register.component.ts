@@ -74,11 +74,11 @@ export class RegisterComponent implements OnInit {
     private register(): void {
         this.userService.addUser(this.rzName, this.rzPassword, this.user).subscribe((result: UserDetailDto) => {
             console.log(result);
-            // this.next();
+            this.next();
         }, error => {
             console.error(error);
             this.error = true;
-            // this.next();
+            this.next();
         });
     }
 

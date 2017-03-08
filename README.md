@@ -226,17 +226,17 @@ formService als !singleton into element-edit.component?
 - ~~sobald Antrag eingereicht - nicht mehr löschbar~~
 - ~~sitzung in Antrag verlinkt~~
 - ~~Akzeptierung mit Bedingung (16 statt 20 Wochen) -> textlich in Kommentar~~
-- teilberechtigungen ( zb Sekreteriat )
+- ~~teilberechtigungen ( zb Sekreteriat )~~
 - ~~andere Formulare für Dozenten~~
 - nicht Fakultäts - sonder PK-Gebunden (Studiengang)
 - Facheigene & Fachfremde Fächer
-- Sitzungen Kopieren
-- Person mit mehreren Rollen
+- ~~Sitzungen Kopieren~~
+- ~~Person mit mehreren Rollen~~
 - ~~Admin nur formal nicht inhaltlich -> getrennte Oberfläche~~
 - ~~nicht RZ Email, validierung~~
-- pw SHA256 + Salk (100k) + Session Token
+- ~~pw SHA256 + Salk (100k) + Session Token~~
 - ~~MatrNr wenn Student~~
-- Versionierung? -> immer neu
+- ~~Versionierung? -> immer neu~~
 - Dozent: Lehrbeauftragter, Professor, wissenschaftl. Angestellte
 - Post + Put statt nur Post
 
@@ -251,7 +251,7 @@ formService als !singleton into element-edit.component?
 - Dozent bestätigen + Note eintragen (zusatz info angeben) -> kommentare?
 - ~~Antrag mit änderung Annehmen~~
 - Feld entfernen: unsichtbar außer wert vorhanden -> nicht neu befüllbar
-- Anträge versionieren + verlinken -> kommentare von allen Versionen anzeigen
+- ~~Anträge versionieren + verlinken -> kommentare von allen Versionen anzeigen~~
 
 ## 2.November (Rothaug)
 
@@ -283,14 +283,14 @@ formService als !singleton into element-edit.component?
 - ~~buttons reinanimieren~~
 - ~~content hinter buttons~~
 - ~~sortierung~~
-- detail spacing label <-> input
+- ~~detail spacing label <-> input~~
 - ~~Form X zu groß im vgl. pfeil~~
 - ~~default heller als gesetzte werte~~
 - ~~hintergrund für form -> layout test, vgl. kirby~~
 - ~~vorsicht mit richtungsmetapher: < != cancel, > != ok~~
 - ~~alert mehr whitespace (zu klein)~~
 - ~~buttons mit natürlicher breite~~
-- KONTRAST -> vgl. kirby
+- ~~KONTRAST -> vgl. kirby~~
 - ~~Notifications unten rechts: loadig & error & success~~
 - ~~content linksseitig -> notifications rechts -> vgl. kirby; was bei formen overview?~~
 - ~~Fläche? -> Statusmeldung, Passpartout~~
@@ -308,8 +308,8 @@ formService als !singleton into element-edit.component?
 - ~~liste: fläche weiß + abstände statt trennlinie~~
 - ~~liste: icons für orientierung/klassifizierung~~
 - ~~liste: buttons weisverlauf/weistransparenz~~
-- conferenz: trennlinie zur abgrenzung
-- tabs: nicht bis ganz oben, trennlinie evtl wie abgrenzung
+- ~~conferenz: trennlinie zur abgrenzung~~
+- ~~tabs: nicht bis ganz oben, trennlinie evtl wie abgrenzung~~
 - bearbeitungsrahmen dicker/farbe
 - Systeminfos vs eingegebene Werte + icons?
 

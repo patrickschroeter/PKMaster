@@ -222,8 +222,8 @@ export class UserApi {
         urlSearchParams.append('client_secret', 'frontendsecret');
         urlSearchParams.append('grant_type', 'password');
         urlSearchParams.append('scope', 'api openid profile');
-        urlSearchParams.append('username', password !== 'dev' ? username : 'patrick.schroeter@hs-augsburg.de');
-        urlSearchParams.append('password', password !== 'dev' ? password : 'einPasswort');
+        urlSearchParams.append('username', username);
+        urlSearchParams.append('password', password);
         requestOptions.body = urlSearchParams.toString();
 
         return this.http.request(path, requestOptions)

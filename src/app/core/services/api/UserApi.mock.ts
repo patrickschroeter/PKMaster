@@ -37,6 +37,15 @@ export class UserApiMock {
 
     static USER: UserDetailDto = UserApiMock.USERS[1];
 
+    static getUserByEmail(email: string): UserDetailDtoMock {
+        for (const user of UserApiMock.USERS) {
+            if (user.email === email) {
+                return user;
+            }
+        }
+        return UserApiMock.USERS[0];
+    }
+
 
     private list: UserDetailDto[] = [];
 

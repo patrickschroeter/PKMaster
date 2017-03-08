@@ -162,7 +162,7 @@ export class LoginComponent implements OnInit {
     public fake(username: string) {
         this.login({
             email: username,
-            password: 'dev'
+            password: 'einPasswort'
         });
     }
 }
