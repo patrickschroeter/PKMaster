@@ -7,7 +7,9 @@
             <ng-container *ngIf="!conferences.length">
                 <div class="empty-wrapper">
                     <div class="label" i18n>No Conferences here.</div>
-                    <pk-button icon="add" element--secondary (onClick)="overlay.toggle()" i18n-value value="Create Conference" class="element--spacing-top-large"></pk-button>
+                    <ng-container *accessEditConferences>
+                        <pk-button icon="add" element--secondary (onClick)="overlay.toggle()" i18n-value value="Create Conference" class="element--spacing-top-large"></pk-button>
+                    </ng-container>
                 </div>
             </ng-container>
 
@@ -25,7 +27,12 @@
                     <pk-list-content>
                         <pk-list-element *ngFor="let conference of conferences">
                             <pk-list-attribute primary name="conference">
-                                <a routerLink="/conferences/{{ conference.id }}">{{ conference.description }}</a>
+                                <ng-container *accessReadConferences>
+                                    <a routerLink="/conferences/{{ conference.id }}">{{ conference.description }}</a>
+                                </ng-container>
+                                <ng-container *accessReadConferences="1">
+                                    {{ conference.description }}
+                                </ng-container>
                             </pk-list-attribute>
                             <pk-list-attribute name="date">{{ conference.dateOfEvent | date }}</pk-list-attribute>
                             <pk-list-attribute name="time">{{ conference.startOfEvent }}</pk-list-attribute>
@@ -33,18 +40,26 @@
                             <pk-list-attribute name="room">{{ conference.roomOfEvent }}</pk-list-attribute>
 
                             <pk-floating horizontal top-right>
-                                <pk-button-conference-delete [conference]="conference" (success)="removeConference($event)"></pk-button-conference-delete>
+                                <ng-container *accessEditConferences>
+                                    <pk-button-conference-delete [conference]="conference" (success)="removeConference($event)"></pk-button-conference-delete>
+                                </ng-container>
 
-                                <pk-button-conference-edit [conference]="conference"></pk-button-conference-edit>
+                                <ng-container *accessEditConferences>
+                                    <pk-button-conference-edit [conference]="conference"></pk-button-conference-edit>
+                                </ng-container>
 
-                                <pk-button-conference-clone [conference]="conference"></pk-button-conference-clone>
+                                <ng-container *accessEditConferences>
+                                    <pk-button-conference-clone [conference]="conference"></pk-button-conference-clone>
+                                </ng-container>
                             </pk-floating>
                         </pk-list-element>
                     </pk-list-content>
                 </pk-list>
 
                 <pk-floating fixed top-right>
-                    <pk-button rounded i18n-pkAlert pkAlert="Create Conference" icon="add" element--secondary (onClick)="overlay.toggle()"></pk-button>
+                    <ng-container *accessEditConferences>
+                        <pk-button rounded i18n-pkAlert pkAlert="Create Conference" icon="add" element--secondary (onClick)="overlay.toggle()"></pk-button>
+                    </ng-container>
                 </pk-floating>
 
             </ng-container>

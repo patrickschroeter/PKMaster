@@ -27,6 +27,8 @@ import {
 } from './../../../swagger';
 import { OverlayComponent } from './../../../modules/overlay';
 
+import { Access, OnAccess } from './../../../shared/decorators/access.decorator';
+
 /**
  * Component to display the details of a conference
  *
@@ -39,7 +41,7 @@ import { OverlayComponent } from './../../../modules/overlay';
     templateUrl: './conferences-detail.component.html',
     styleUrls: ['./conferences-detail.component.scss']
 })
-export class ConferencesDetailComponent implements OnInit {
+export class ConferencesDetailComponent implements OnInit, OnAccess {
 
     /**
      * Default Layout Class

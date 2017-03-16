@@ -17,7 +17,7 @@
                 <a *ngIf="!application.form" routerLink="/applications/{{ application.id }}" i18n>No Title</a>
             </pk-list-attribute>
 
-            <pk-list-attribute name="date">
+            <pk-list-attribute [name]="application.conference ? 'date' : 'default'">
                 <ng-container *accessReadConferences="1">
                     {{ application.conference ? (application.conference.dateOfEvent | date) : ''}}
                 </ng-container>
