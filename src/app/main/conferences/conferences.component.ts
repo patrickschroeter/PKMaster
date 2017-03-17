@@ -48,7 +48,7 @@ export class ConferencesComponent implements OnInit, OnAccess {
      * @type {ConferenceDto[]}
      * @memberOf ConferencesComponent
      */
-    public conferences: ConferenceDetailDto[];
+    public conferences: ConferenceListDto[];
 
     /**
      * Form config for creating a new conference

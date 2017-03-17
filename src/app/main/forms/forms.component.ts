@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
 
@@ -13,6 +13,7 @@ import { TranslationService } from './../../modules/translation';
 
 /** Models */
 import { FormDetailDto, FormListDto } from './../../swagger';
+import { OverlayComponent } from './../../modules/overlay';
 
 import { Access, OnAccess } from './../../shared/decorators/access.decorator';
 
@@ -23,6 +24,8 @@ import { Access, OnAccess } from './../../shared/decorators/access.decorator';
 })
 export class FormsComponent implements OnInit, OnAccess {
     @HostBinding('class') classes = 'content--default';
+
+    @ViewChild(OverlayComponent) overlay: OverlayComponent;
 
     public forms: FormListDto[];
     private _newForm: Array<any>;

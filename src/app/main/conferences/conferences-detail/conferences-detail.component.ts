@@ -175,7 +175,6 @@ export class ConferencesDetailComponent implements OnInit, OnAccess {
             const applicationsByForm: ApplicationsByFormId = {};
             for (let i = 0; i < result.length; i++) {
                 const application: ApplicationDetailDto = result[i];
-                if (typeof application.filledForm === 'string') { application.filledForm = JSON.parse(application.filledForm); }
                 applicationsByForm[application.form.id] = applicationsByForm[application.form.id] || [];
                 applicationsByForm[application.form.id].push(application);
             }
@@ -282,7 +281,8 @@ export class ConferencesDetailComponent implements OnInit, OnAccess {
         if (!attendant) {
             this.conferenceService.assignAttendantToConference(this.conference, new AttendantCreateDto(user.value, type))
                 .subscribe((result: ConferenceDetailDto) => {
-                    this.conference = result;
+                    this.conference.update(result);
+                    this.populateConfigWithApplications();
                     this.updateSelectedUsers();
                 }, (error: Response) => {
                     this.alert.setAlert(error.statusText, error.text());
@@ -324,7 +324,8 @@ export class ConferencesDetailComponent implements OnInit, OnAccess {
     @Access('EditConferences')
     private saveConference(param: ConferenceDetailDto): void {
         this.conferenceService.saveConference(param).subscribe(result => {
-            this.conference = result;
+            this.conference.update(result);
+            this.populateConfigWithApplications();
         });
     }
 

@@ -67,6 +67,12 @@ export class ApplicationService {
         private configurationService: ConfigurationService
     ) { }
 
+    public setApplication(application: ApplicationDetailDto): void {
+        this.application = application;
+        console.log(this.application);
+
+    }
+
     /**
      * returns the observable to get a applicationn by the given id
      *

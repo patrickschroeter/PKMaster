@@ -275,8 +275,10 @@ export class FormsEditComponent implements OnInit, OnAccess {
      */
     @Access('EditForms')
     public saveFormAttributes(form: FormDetailDto): void {
-        this.formService.saveFormAttributes(form).subscribe(success => {
-            this.form = success;
+        const param: FormDetailDto = new FormDetailDto(form);
+        param.id = this.form.id;
+        this.formService.saveFormAttributes(param).subscribe(success => {
+            this.form.update(success);
             this.overlayAttributes.toggle(false);
             this.alert.setSuccessHint('form_attribute_saved', this.translationService.translate('savedFormAttributes'));
         });

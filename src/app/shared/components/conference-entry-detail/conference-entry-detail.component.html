@@ -53,7 +53,7 @@
 
                                             <ng-container *ngFor="let field of entry.fields">
                                                 <pk-list-attribute>
-                                                    {{ application.filledForm ? application.filledForm[field] : '' }}
+                                                    {{ application.values ? application.values[field] : '' }}
                                                 </pk-list-attribute>
                                             </ng-container>
 
