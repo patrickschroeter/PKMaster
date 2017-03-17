@@ -11,14 +11,19 @@
     <pk-list-content>
         <pk-list-element *ngFor="let application of applications" [name]="application.statusId | status">
 
+            <!--APPLICATION STATUS-->
             <pk-list-attribute name="state">{{ application.statusId | status }}</pk-list-attribute>
 
+            <!--APPLICATION TITLE-->
             <pk-list-attribute primary name="application">
                 <a *ngIf="application.form" routerLink="/applications/{{ application.id }}">{{ application.form.title }}</a>
                 <a *ngIf="!application.form"routerLink="/applications/{{ application.id }}" i18n>No Form to get Title from.</a>
             </pk-list-attribute>
 
+            <!--APPLICATION AUTHOR-->
             <pk-list-attribute name="person">{{ application.user ? application.user.lastname : '' }}</pk-list-attribute>
+
+            <!--APPLICATION CONFERENCE-->
             <pk-list-attribute [name]="application.conference ? 'date' : 'default'">
                 <ng-container *accessReadConferences="1">
                     {{ application.conference ? (application.conference.dateOfEvent | date) : ''}}
@@ -27,7 +32,11 @@
                     <a *ngIf="application.conference" routerLink="/conferences/{{ application.conference.id }}">{{ application.conference.dateOfEvent | date  }}</a>
                 </ng-container>
             </pk-list-attribute>
+
+            <!--APPLICATION DATE-->
             <pk-list-attribute name="date">{{ application.created | date }}</pk-list-attribute>
+
+            <!--APPLICTATION VERSION-->
             <pk-list-attribute name="version">{{ application.version }}</pk-list-attribute>
 
             <pk-floating horizontal top-right>

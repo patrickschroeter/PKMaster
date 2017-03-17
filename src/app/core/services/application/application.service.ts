@@ -143,7 +143,7 @@ export class ApplicationService {
     @Loading('getApplications')
     public getAssignedApplications(sort?: string, user?: UserDetailDto): Observable<ApplicationListDto[]> {
         return this.applicationApi.getApplicationsOfUser().map((result: ApplicationListDto[]) => {
-            // TODO filter on server
+            // TODO filter on server, missing assignment in ApplicationListDto
             // const applications = result.filter((obj: ApplicationListDto) => {
             //     const assignment = _.find(obj.assignments, (assign: UserDetailDto) => assign.id === user.id);
             //     return !!assignment;

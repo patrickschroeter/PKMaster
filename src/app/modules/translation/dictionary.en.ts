@@ -158,15 +158,15 @@ export const DICTIONARY_EN = {
     'assignMemberHeader': 'assign member to conference',
     'assignGuestHeader': 'assign guest to conference',
     'Error': 'Error',
-    'cantCreateApplication': 'coul\'d not create application',
+    'cantCreateApplication': 'Coul\'d not create application',
 
-    'updateRequiredHeader': 'update required',
-    'updateRequiredContent': 'the application is invalid. Please update the form.',
-    'updateRequiredProgress': 'the form of this application has been updated. It\'s possible that some values have been lost.',
+    'updateRequiredHeader': 'Update required',
+    'updateRequiredContent': 'The application is invalid. Please update the form.',
+    'updateRequiredProgress': 'The form of this application has been updated. It\'s possible that some values have been lost.',
 
-    'deleteFormErrorHeader': 'error',
-    'deleteFormErrorContent': 'there was an error deleting the form',
+    'deleteFormErrorHeader': 'Error',
+    'deleteFormErrorContent': 'There was an error deleting the form',
 
-    'registerErrorHeader': 'error',
-    'registerErrorContent': 'there was an error'
+    'registerErrorHeader': 'Error',
+    'registerErrorContent': 'There was an error'
 };

@@ -94,7 +94,7 @@ export class ModalAcceptApplicationComponent implements OnInit, OnAccess {
     /**
      * @description accepts the application (with condition)
      */
-    @Access('EditApplications')
+    @Access('AcceptApplications')
     public acceptApplication(form: AcceptApplication) {
         /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiresChanges, isPrivate: false });
         console.log(form);
@@ -110,7 +110,7 @@ export class ModalAcceptApplicationComponent implements OnInit, OnAccess {
     /**
      * @description declines the application with reasons
      */
-    @Access('EditApplications')
+    @Access('AcceptApplications')
     public declineApplication(form: AcceptApplication) {
         /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiresChanges, isPrivate: false });
         console.log(form);

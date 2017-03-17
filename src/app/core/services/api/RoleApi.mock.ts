@@ -12,29 +12,29 @@ export class RoleApiMock {
     static ROLE = {
         All: [
             /** Permissions */
-            // PermissionApiMock.PERMISSION.Permission.Read,
-            // PermissionApiMock.PERMISSION.Permission.Edit, // requires Permission.Read
+            PermissionApiMock.PERMISSION.Permission.Read,
+            PermissionApiMock.PERMISSION.Permission.Edit, // requires Permission.Read
             /** Roles */
-            // PermissionApiMock.PERMISSION.Roles.Read,
-            // PermissionApiMock.PERMISSION.Roles.Edit,
+            PermissionApiMock.PERMISSION.Roles.Read,
+            PermissionApiMock.PERMISSION.Roles.Edit,
             /** Users */
-            // PermissionApiMock.PERMISSION.Users.Read,
-            // PermissionApiMock.PERMISSION.Users.Edit,
+            PermissionApiMock.PERMISSION.Users.Read,
+            PermissionApiMock.PERMISSION.Users.Edit,
             /** Applications */
             PermissionApiMock.PERMISSION.Application.Create,
-            // PermissionApiMock.PERMISSION.Application.Read,
-            // PermissionApiMock.PERMISSION.Application.Edit,
-            // PermissionApiMock.PERMISSION.Application.Deactivate,
-            // PermissionApiMock.PERMISSION.Application.Comment,
-            // PermissionApiMock.PERMISSION.Application.Accept,
-            // PermissionApiMock.PERMISSION.Application.Submit,
-            // PermissionApiMock.PERMISSION.Application.Validate,
+            PermissionApiMock.PERMISSION.Application.Read,
+            PermissionApiMock.PERMISSION.Application.Edit,
+            PermissionApiMock.PERMISSION.Application.Deactivate,
+            PermissionApiMock.PERMISSION.Application.Comment,
+            PermissionApiMock.PERMISSION.Application.Accept,
+            PermissionApiMock.PERMISSION.Application.Submit,
+            PermissionApiMock.PERMISSION.Application.Validate,
             /** Conference */
-            // PermissionApiMock.PERMISSION.Conference.Read,
-            // PermissionApiMock.PERMISSION.Conference.Edit,
+            PermissionApiMock.PERMISSION.Conference.Read,
+            PermissionApiMock.PERMISSION.Conference.Edit,
             /** Forms */
-            // PermissionApiMock.PERMISSION.Forms.Read,
-            // PermissionApiMock.PERMISSION.Forms.Edit
+            PermissionApiMock.PERMISSION.Forms.Read,
+            PermissionApiMock.PERMISSION.Forms.Edit
         ],
         Admin: [
             PermissionApiMock.PERMISSION.Permission.Read,
