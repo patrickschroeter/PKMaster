@@ -21,7 +21,7 @@ export class RoleApiMock {
             // PermissionApiMock.PERMISSION.Users.Read,
             // PermissionApiMock.PERMISSION.Users.Edit,
             /** Applications */
-            // PermissionApiMock.PERMISSION.Application.Create,
+            PermissionApiMock.PERMISSION.Application.Create,
             // PermissionApiMock.PERMISSION.Application.Read,
             // PermissionApiMock.PERMISSION.Application.Edit,
             // PermissionApiMock.PERMISSION.Application.Deactivate,
@@ -30,7 +30,7 @@ export class RoleApiMock {
             // PermissionApiMock.PERMISSION.Application.Submit,
             // PermissionApiMock.PERMISSION.Application.Validate,
             /** Conference */
-            PermissionApiMock.PERMISSION.Conference.Read,
+            // PermissionApiMock.PERMISSION.Conference.Read,
             // PermissionApiMock.PERMISSION.Conference.Edit,
             /** Forms */
             // PermissionApiMock.PERMISSION.Forms.Read,

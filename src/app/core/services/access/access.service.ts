@@ -165,7 +165,7 @@ export class AccessConferencesDetail extends AccessService {
 export class AccessConferencesEdit extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess('EditConferences').map(redirectApplications.bind(this));
+        return this.hasAccess(['EditConferences', 'ReadConferences'], false).map(redirectApplications.bind(this));
     }
 }
 
@@ -184,7 +184,7 @@ export class AccessForms extends AccessService {
 export class AccessFormsEdit extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess('EditForms').map(redirectApplications.bind(this));
+        return this.hasAccess(['EditForms', 'ReadForms'], false).map(redirectApplications.bind(this));
     }
 }
 
@@ -225,7 +225,8 @@ export class AccessRolesEdit extends AccessService {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         return this.hasAccess([
             'EditRoles',
-        ], true).map(redirectAdminProfile.bind(this));
+            'ReadRoles'
+        ], false).map(redirectAdminProfile.bind(this));
     }
 }
 
@@ -266,7 +267,7 @@ export class AccessUsersDetail extends AccessService {
 export class AccessUsersEdit extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess('EditUsers').map(redirectAdminProfile.bind(this));
+        return this.hasAccess(['EditUsers', 'ReadUsers'], false).map(redirectAdminProfile.bind(this));
     }
 }
 

@@ -3,7 +3,10 @@ import { Router } from '@angular/router';
 import * as _ from 'lodash';
 
 /** Services */
-import { FormService } from './../../core';
+import {
+    FormService,
+    PermissionService
+} from './../../core';
 import { ModalService } from './../../modules/overlay';
 import { AlertService } from './../../modules/alert';
 import { TranslationService } from './../../modules/translation';
@@ -11,12 +14,14 @@ import { TranslationService } from './../../modules/translation';
 /** Models */
 import { FormDetailDto, FormListDto } from './../../swagger';
 
+import { Access, OnAccess } from './../../shared/decorators/access.decorator';
+
 @Component({
     selector: 'pk-forms',
     templateUrl: './forms.component.html',
     styleUrls: ['./forms.component.scss']
 })
-export class FormsComponent implements OnInit {
+export class FormsComponent implements OnInit, OnAccess {
     @HostBinding('class') classes = 'content--default';
 
     public forms: FormListDto[];
@@ -32,14 +37,38 @@ export class FormsComponent implements OnInit {
         private translationService: TranslationService,
         /** Services */
         private formService: FormService,
-        private alert: AlertService
+        public alert: AlertService,
+        public permission: PermissionService
     ) { }
 
     ngOnInit() {
+        this.getForms();
+        this.getNewFormTemplate();
+    }
+
+    /**
+     * get all forms from server
+     *
+     * @private
+     *
+     * @memberOf FormsComponent
+     */
+    @Access('ReadForms')
+    private getForms(): void {
         this.formService.getForms().subscribe(result => {
             this.forms = result;
         });
+    }
 
+    /**
+     * get the template to create a form
+     *
+     * @private
+     *
+     * @memberOf FormsComponent
+     */
+    @Access('EditForms')
+    private getNewFormTemplate(): void {
         this.formService.getEditFormTemplate().subscribe(result => {
             this.newForm = result;
         });
@@ -52,6 +81,7 @@ export class FormsComponent implements OnInit {
      *
      * @memberOf FormsComponent
      */
+    @Access('EditForms')
     public createNewForm(form: FormDetailDto): void {
         this.formService.createNewForm(form).subscribe(created => {
             if (created['id']) {
@@ -67,6 +97,7 @@ export class FormsComponent implements OnInit {
      *
      * @memberOf FormsComponent
      */
+    @Access('EditForms')
     public cloneForm(form: FormListDto): void {
         this.formService.getFormById(form.id).subscribe((result: FormDetailDto) => {
             result.title = 'Copy of ' + result.title;
@@ -81,6 +112,7 @@ export class FormsComponent implements OnInit {
      *
      * @memberOf FormsComponent
      */
+    @Access('EditForms')
     public deleteForm(form: FormDetailDto): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmDeleteFormHeader'),
@@ -110,6 +142,7 @@ export class FormsComponent implements OnInit {
      *
      * @memberOf FormsComponent
      */
+    @Access('EditForms')
     public activateForm(form: FormDetailDto): void {
         this.formService.activateForm(form.id).subscribe((result: FormDetailDto) => {
             const index = _.findIndex(this.forms, obj => obj.id === form.id);

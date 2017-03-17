@@ -1,7 +1,12 @@
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { FormService, FormElementService } from './../../../core';
+/** Services */
+import {
+    FormService,
+    FormElementService,
+    PermissionService
+} from './../../../core';
 import { AlertService } from './../../../modules/alert';
 import {
     OverlayComponent,
@@ -12,6 +17,8 @@ import { TranslationService } from './../../../modules/translation';
 /** Models */
 import { FieldDto, FormDetailDto } from './../../../swagger';
 import { Selectable } from './../../../models';
+
+import { Access, OnAccess } from './../../../shared/decorators/access.decorator';
 
 /**
  * A service taking care of adding/removing elements to a form
@@ -28,7 +35,7 @@ import { Selectable } from './../../../models';
         FormElementService
     ]
 })
-export class FormsEditComponent implements OnInit {
+export class FormsEditComponent implements OnInit, OnAccess {
 
     /**
      * Default Content Class for Styling
@@ -119,12 +126,13 @@ export class FormsEditComponent implements OnInit {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         /** Modules */
-        private alert: AlertService,
+        public alert: AlertService,
         private translationService: TranslationService,
         private modalService: ModalService,
         /** Services */
         private formService: FormService,
-        private elementService: FormElementService
+        private elementService: FormElementService,
+        public permission: PermissionService
     ) { }
 
     /**
@@ -150,6 +158,7 @@ export class FormsEditComponent implements OnInit {
      *
      * @memberOf FormsEditComponent
      */
+    @Access('ReadForms')
     private getForm(): void {
         this.activatedRoute.params.forEach((params: Params) => {
             this.formService.getFormById(params['id']).subscribe((form) => {
@@ -171,6 +180,7 @@ export class FormsEditComponent implements OnInit {
      *
      * @memberOf FormsEditComponent
      */
+    @Access('EditForms')
     public editElement(element: FieldDto): void {
         this.formService.editElementOfForm(element);
     }
@@ -180,6 +190,7 @@ export class FormsEditComponent implements OnInit {
      *
      * @memberOf FormsEditComponent
      */
+    @Access('EditForms')
     public addElement(): void {
         this.formService.editElementOfForm();
     }
@@ -191,6 +202,7 @@ export class FormsEditComponent implements OnInit {
      *
      * @memberOf FormsEditComponent
      */
+    @Access('EditForms')
     public addPreset(option?: Selectable): void {
         if (!option) {
             const presets = [
@@ -235,6 +247,7 @@ export class FormsEditComponent implements OnInit {
      *
      * @memberOf FormsEditComponent
      */
+    @Access('EditForms')
     public removeElement(element: FieldDto, index: number): void {
         this.formService.removeElement(element, index);
     }
@@ -245,6 +258,7 @@ export class FormsEditComponent implements OnInit {
      *
      * @memberOf FormsEditComponent
      */
+    @Access('EditForms')
     public editFormAttributes(): void {
         this.formService.getEditFormTemplate(this.form.id).subscribe(form => {
             this.editForm = form;
@@ -259,6 +273,7 @@ export class FormsEditComponent implements OnInit {
      *
      * @memberOf FormsEditComponent
      */
+    @Access('EditForms')
     public saveFormAttributes(form: FormDetailDto): void {
         this.formService.saveFormAttributes(form).subscribe(success => {
             this.form = success;
@@ -272,6 +287,7 @@ export class FormsEditComponent implements OnInit {
      *
      * @memberOf FormsEditComponent
      */
+    @Access('EditForms')
     public saveForm(): void {
         this.formService.saveForm().subscribe(form => {
             console.log(JSON.stringify(form));
@@ -285,6 +301,7 @@ export class FormsEditComponent implements OnInit {
      *
      * @memberOf FormsEditComponent
      */
+    @Access('EditForms')
     public deleteForm(): void {
         this.modalService.createConfirmationModal({
             title: this.translationService.translate('confirmDeleteFormHeader'),

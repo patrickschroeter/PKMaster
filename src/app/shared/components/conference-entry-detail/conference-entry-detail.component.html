@@ -43,10 +43,10 @@
 
                                             <pk-list-attribute name="state">{{ application.statusId | status }}</pk-list-attribute>
                                             <pk-list-attribute primary name="person">
-                                                <a *accessEditApplications routerLink="/applications/{{ application.id }}">
+                                                <a *accessReadApplications routerLink="/applications/{{ application.id }}">
                                                     {{ !application.user || application.user.lastname }}
                                                 </a>
-                                                <ng-container *accessEditApplications="1">
+                                                <ng-container *accessReadApplications="1">
                                                     {{ !application.user || application.user.lastname }}
                                                 </ng-container>
                                             </pk-list-attribute>
@@ -58,16 +58,18 @@
                                             </ng-container>
 
                                             <pk-floating horizontal top-right>
-                                                <pk-button
-                                                    *ngIf="application.hasStatus(status.PENDING)"
-                                                    class="application--spacing-bottom-tiny"
-                                                    rounded
-                                                    element--success
-                                                    i18n-pkAlert
-                                                        pkAlert="Accept/Decline Application"
-                                                    icon="thumbs_up_down"
-                                                    (onClick)="acceptModal.openModal(application)">
-                                                </pk-button>
+                                                <ng-container *accessEditApplications>
+                                                    <pk-button
+                                                        *ngIf="application.hasStatus(status.PENDING)"
+                                                        class="application--spacing-bottom-tiny"
+                                                        rounded
+                                                        element--success
+                                                        i18n-pkAlert
+                                                            pkAlert="Accept/Decline Application"
+                                                        icon="thumbs_up_down"
+                                                        (onClick)="acceptModal.openModal(application)">
+                                                    </pk-button>
+                                                </ng-container>
                                             </pk-floating>
 
                                         </pk-list-element>
