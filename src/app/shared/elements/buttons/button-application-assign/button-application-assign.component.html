@@ -1,10 +1,13 @@
-<pk-button
-    *ngIf="application.hasStatus(status.SUBMITTED, status.PENDING)"
-    class="element--spacing-bottom-tiny"
-    rounded
-    element--secondary
-    i18n-pkAlert
-    pkAlert="Assign User"
-    icon="supervisor_account"
-    (onClick)="assignUserModal(application)">
-</pk-button>
+<ng-container *ngIf="application">
+    <pk-button
+        *ngIf="application.hasStatus(status.SUBMITTED, status.PENDING)"
+        class="element--spacing-bottom-tiny"
+        rounded
+        element--secondary
+        i18n-pkAlert
+        pkAlert="Assign User"
+        icon="supervisor_account"
+        (onClick)="assignUserModal(application)">
+    </pk-button>
+</ng-container>
+

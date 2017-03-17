@@ -5,6 +5,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ConferencesComponent } from './conferences.component';
+import { AccessDirective } from './../../shared';
 
 import { CoreProviderMock } from './../../core/core.module';
 import { AlertProviderMock } from './../../modules/alert/alert.module';
@@ -18,7 +19,9 @@ describe('ConferencesComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                ConferencesComponent
+                ConferencesComponent,
+
+                AccessDirective
             ],
             imports: [
                 RouterTestingModule.withRoutes([
