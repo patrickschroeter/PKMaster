@@ -1,0 +1,69 @@
+<div class="pagination">
+    <div class="pagination__previous">
+        <pk-button
+            *ngIf="page > 1"
+            element--hover
+            i18n-pkAlert
+            pkAlert="Next Page"
+            icon="keyboard_arrow_left"
+            (onClick)="previousPage()">
+        </pk-button>
+    </div>
+    <div class="pagination__pages">
+        <div class="pagination__page" *ngIf="page > 2">
+            <pk-button
+                element--hover
+                i18n-pkAlert
+                pkAlert="Go to page"
+                [value]="page - 2"
+                (onClick)="goToPage(page - 2)">
+            </pk-button>
+        </div>
+        <div class="pagination__page" *ngIf="page > 1">
+            <pk-button
+                element--hover
+                i18n-pkAlert
+                pkAlert="Go to page"
+                [value]="page - 1"
+                (onClick)="previousPage()">
+            </pk-button>
+        </div>
+        <div class="pagination__page">
+            <pk-button
+                element--primary element--light
+                i18n-pkAlert
+                pkAlert="Go to page"
+                [value]="page"
+                (onClick)="goToPage(page)">
+            </pk-button>
+        </div>
+        <div class="pagination__page" *ngIf="hasNextPage > 0">
+            <pk-button
+                element--hover
+                i18n-pkAlert
+                pkAlert="Go to page"
+                [value]="page + 1"
+                (onClick)="nextPage()">
+            </pk-button>
+        </div>
+        <div class="pagination__page" *ngIf="hasNextPage > 1">
+            <pk-button
+                element--hover
+                i18n-pkAlert
+                pkAlert="Go to page"
+                [value]="page + 2"
+                (onClick)="goToPage(page + 2)">
+            </pk-button>
+        </div>
+    </div>
+    <div class="pagination__next">
+        <pk-button
+            *ngIf="hasNextPage"
+            element--hover
+            i18n-pkAlert
+            pkAlert="Next Page"
+            icon="keyboard_arrow_right"
+            (onClick)="nextPage()">
+        </pk-button>
+    </div>
+</div>

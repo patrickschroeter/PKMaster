@@ -8,7 +8,7 @@
         <pk-list-attribute i18n>Version</pk-list-attribute>
     </pk-list-header>
     <pk-list-content>
-        <pk-list-element *ngFor="let application of applications" [name]="application.statusId | status">
+        <pk-list-element *ngFor="let application of (list.length ? list : applications)" [name]="application.statusId | status">
 
             <pk-list-attribute name="state">{{ application.statusId | status }}</pk-list-attribute>
 
@@ -39,3 +39,5 @@
         </pk-list-element>
     </pk-list-content>
 </pk-list>
+
+<pk-pagination></pk-pagination>

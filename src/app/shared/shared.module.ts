@@ -31,6 +31,7 @@ import { StatusPipe } from './pipes';
         components.ModalAddConferenceListComponent,
 
         /** Application Lists */
+        components.PaginationComponent,
         components.ApplicationsListComponent,
         components.ApplicationsListOwnedComponent,
         components.ApplicationsListAssignedComponent,
@@ -64,7 +65,7 @@ import { StatusPipe } from './pipes';
         directives.AccessDirective,
 
         /** Pipes */
-        StatusPipe,
+        StatusPipe
     ],
     imports: [
         CommonModule,
@@ -97,6 +98,7 @@ import { StatusPipe } from './pipes';
         components.ModalAddConferenceListComponent,
 
         /** Application Lists */
+        components.PaginationComponent,
         components.ApplicationsListComponent,
         components.ApplicationsListOwnedComponent,
         components.ApplicationsListAssignedComponent,
@@ -136,5 +138,6 @@ import { StatusPipe } from './pipes';
 export class SharedModule { }
 
 export const SharedProviderMock = [
-    { provide: services.WindowService, useClass: services.WindowMock }
+    { provide: services.WindowService, useClass: services.WindowMock },
+    { provide: services.PaginationService, useClass: services.PaginationService }
 ];
