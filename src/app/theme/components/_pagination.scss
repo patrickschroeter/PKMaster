@@ -1,0 +1,32 @@
+.pagination {
+    position: relative;
+
+    &__previous {
+        position: absolute;
+        top: 0;
+        left: 4px;
+    }
+
+    &__next {
+        position: absolute;
+        top: 0;
+        right: 4px;
+    }
+
+    &__pages {
+        margin: 0 auto;
+        text-align: center;
+        font-size: 0;
+    }
+
+    &__page {
+        @extend .font_small;
+        display: inline-block;
+        margin: 0 4px;
+
+        /deep/ button {
+            text-align: center;
+            min-width: 37px;
+        }
+    }
+}
