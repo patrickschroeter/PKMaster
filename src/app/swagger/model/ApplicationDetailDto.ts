@@ -63,6 +63,7 @@ export class ApplicationDetailDto {
     // Client Only
 
     attributes?: Array<models.FieldDto>;
+    values?: { [index: string]: any };
 
     constructor(obj?: ApplicationDetailDto) {
         obj = obj || ({} as any);
@@ -73,6 +74,8 @@ export class ApplicationDetailDto {
         this.id = obj.id;
         this.created = obj.created;
         this.filledForm = obj.filledForm;
+        this.values = obj.filledForm ? JSON.parse(obj.filledForm): {};
+
         this.version = obj.version;
         this.isCurrent = !!obj.isCurrent;
         this.previousVersion = obj.previousVersion;

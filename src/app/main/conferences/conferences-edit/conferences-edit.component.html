@@ -8,6 +8,7 @@
             <div class="empty-wrapper">
                 <div class="label" i18n>No Elements here.</div>
                 <pk-button
+                    *accessEditConferences
                     class="element--spacing-top-large"
                     element--secondary
                     i18n-value
@@ -38,6 +39,7 @@
                 </pk-button>
             </a>
             <pk-button
+                *accessEditConferences
                 class="element--spacing-bottom-tiny"
                 rounded
                 element--secondary
@@ -48,6 +50,7 @@
             </pk-button>
             <pk-button-animation-wrapper animationDown>
                 <pk-button
+                    *accessEditConferences
                     class="element--spacing-bottom-tiny"
                     rounded
                     element--secondary
@@ -57,6 +60,7 @@
                     (onClick)="openEntryModal()">
                 </pk-button>
                 <pk-button
+                    *accessEditConferences
                     class="element--spacing-bottom-tiny"
                     rounded
                     element--secondary
@@ -65,7 +69,7 @@
                     icon="settings"
                     (onClick)="overlay.toggle()">
                 </pk-button>
-                <pk-button-conference-delete [conference]="conference" (success)="removeConference($event)"></pk-button-conference-delete>
+                <pk-button-conference-delete *accessEditConferences [conference]="conference" (success)="removeConference($event)"></pk-button-conference-delete>
             </pk-button-animation-wrapper>
         </pk-floating>
     </div>

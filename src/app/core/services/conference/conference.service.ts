@@ -15,7 +15,7 @@ import {
     ApplicationListDto,
     ApplicationDetailDto,
     AttendantCreateDto,
-
+    ConferenceListDto
 } from './../../../swagger';
 
 /** Decorators */
@@ -46,7 +46,7 @@ export class ConferenceService {
      * @type {ConferenceDetailDto[]}
      * @memberOf ConferenceService
      */
-    private conferences: ConferenceDetailDto[];
+    private conferences: ConferenceListDto[];
 
     /**
      * Creates an instance of ConferenceService.
@@ -82,12 +82,12 @@ export class ConferenceService {
     /**
      * request all conferences
      *
-     * @returns {Observable<ConferenceDetailDto[]>}
+     * @returns {Observable<ConferenceListDto[]>}
      *
      * @memberOf ConferenceService
      */
     @Loading('getConferences')
-    public getConferences(): Observable<ConferenceDetailDto[]> {
+    public getConferences(): Observable<ConferenceListDto[]> {
         return this.conferenceApi.getConferences().map(conferences => {
             // TODO: sort
             return this.conferences = conferences;

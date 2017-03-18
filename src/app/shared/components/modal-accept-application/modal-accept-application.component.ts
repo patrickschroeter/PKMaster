@@ -57,6 +57,7 @@ export class ModalAcceptApplicationComponent implements OnInit, OnAccess {
      */
     public openModal(application: ApplicationDetailDto): void {
         this.application = application;
+        this.applicationService.setApplication(application);
         setTimeout(() => {
             this.overlay.toggle(true);
         }, 0);
@@ -94,13 +95,11 @@ export class ModalAcceptApplicationComponent implements OnInit, OnAccess {
     /**
      * @description accepts the application (with condition)
      */
-    @Access('EditApplications')
+    @Access('AcceptApplications')
     public acceptApplication(form: AcceptApplication) {
         /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiresChanges, isPrivate: false });
-        console.log(form);
-
         this.applicationService.updateStatusOfApplication(Status.ACCEPTED).subscribe(result => {
-            this.application = result;
+            this.application.update(result);
             this.callback.emit(result);
             this.overlay.toggle(false);
             this.initAcceptForm();
@@ -110,13 +109,11 @@ export class ModalAcceptApplicationComponent implements OnInit, OnAccess {
     /**
      * @description declines the application with reasons
      */
-    @Access('EditApplications')
+    @Access('AcceptApplications')
     public declineApplication(form: AcceptApplication) {
         /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiresChanges, isPrivate: false });
-        console.log(form);
-
         this.applicationService.updateStatusOfApplication(Status.DENIED).subscribe(result => {
-            this.application = result;
+            this.application.update(result);
             this.callback.emit(result);
             this.overlay.toggle(false);
             this.initAcceptForm();

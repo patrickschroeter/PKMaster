@@ -37,6 +37,8 @@ export class UserApiMock {
 
     static USER: UserDetailDto = UserApiMock.USERS[1];
 
+    private list: UserDetailDto[] = [];
+
     static getUserByEmail(email: string): UserDetailDtoMock {
         for (const user of UserApiMock.USERS) {
             if (user.email === email) {
@@ -45,9 +47,6 @@ export class UserApiMock {
         }
         return UserApiMock.USERS[0];
     }
-
-
-    private list: UserDetailDto[] = [];
 
     constructor() { }
 

@@ -115,35 +115,29 @@ export class AccessApplications extends AccessService {
         return this.hasAccess([
             'ReadApplications',
             'CreateApplications'
-        ], true).map(access => {
-            if (!access) {
-                this.router.navigate(['', 'profile']);
-                return false;
-            }
-            return true;
-        });
+        ], true).map(redirectProfile.bind(this));
     }
 }
 
 @Injectable()
 export class AccessApplicationsDetail extends AccessService {
-    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         return this.hasAccess([
             'ReadApplications',
             'CreateApplications'
-        ], true);
+        ], true).map(redirectApplications.bind(this));
     }
 }
 
 @Injectable()
 export class AccessApplicationsEdit extends AccessService {
-    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         return this.hasAccess([
             'EditApplications',
             'CreateApplications'
-        ], true);
+        ], true).map(redirectApplications.bind(this));
     }
 }
 
@@ -152,26 +146,26 @@ export class AccessApplicationsEdit extends AccessService {
  */
 @Injectable()
 export class AccessConferences extends AccessService {
-    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess(AccessService.map.main, true);
+        return this.hasAccess(AccessService.map.main, true).map(redirectApplications.bind(this));
     }
 }
 
 
 @Injectable()
 export class AccessConferencesDetail extends AccessService {
-    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess('ReadConferences');
+        return this.hasAccess('ReadConferences').map(redirectApplications.bind(this));
     }
 }
 
 @Injectable()
 export class AccessConferencesEdit extends AccessService {
-    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess('EditConferences');
+        return this.hasAccess(['EditConferences', 'ReadConferences'], false).map(redirectApplications.bind(this));
     }
 }
 
@@ -180,17 +174,17 @@ export class AccessConferencesEdit extends AccessService {
  */
 @Injectable()
 export class AccessForms extends AccessService {
-    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess('ReadForms');
+        return this.hasAccess('ReadForms').map(redirectApplications.bind(this));
     }
 }
 
 @Injectable()
 export class AccessFormsEdit extends AccessService {
-    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess('EditForms');
+        return this.hasAccess(['EditForms', 'ReadForms'], false).map(redirectApplications.bind(this));
     }
 }
 
@@ -219,25 +213,20 @@ export class AccessRoles extends AccessService {
     constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         return this.hasAccess([
-            'ReadRoles'
-        ], true).map(access => {
-            if (!access) {
-                this.router.navigate(['', 'admin', 'profile']);
-                return false;
-            }
-            return true;
-        });
+            'ReadRoles',
+            'EditRoles'
+        ], true).map(redirectAdminProfile.bind(this));
     }
 }
 
 @Injectable()
 export class AccessRolesEdit extends AccessService {
-    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         return this.hasAccess([
             'EditRoles',
             'ReadRoles'
-        ], true);
+        ], false).map(redirectAdminProfile.bind(this));
     }
 }
 
@@ -246,9 +235,9 @@ export class AccessRolesEdit extends AccessService {
  */
 @Injectable()
 export class AccessPermissions extends AccessService {
-    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess('ReadPermissions');
+        return this.hasAccess('ReadPermissions').map(redirectAdminProfile.bind(this));
     }
 }
 
@@ -257,27 +246,53 @@ export class AccessPermissions extends AccessService {
  */
 @Injectable()
 export class AccessUsers extends AccessService {
-    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         return this.hasAccess([
             'ReadUsers',
             'EditUsers'
-        ], true);
+        ], true).map(redirectAdminProfile.bind(this));
     }
 }
 
 @Injectable()
 export class AccessUsersDetail extends AccessService {
-    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess('ReadUsers');
+        return this.hasAccess('ReadUsers').map(redirectAdminProfile.bind(this));
     }
 }
 
 @Injectable()
 export class AccessUsersEdit extends AccessService {
-    constructor(auth: AuthenticationService, perm: PermissionService) { super(auth, perm); }
+    constructor(auth: AuthenticationService, perm: PermissionService, private router: Router) { super(auth, perm); }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.hasAccess('EditUsers');
+        return this.hasAccess(['EditUsers', 'ReadUsers'], false).map(redirectAdminProfile.bind(this));
     }
+}
+
+
+/** Redirect */
+export function redirectAdminProfile(access: boolean): boolean {
+    if (!access) {
+        this.router.navigate(['', 'admin', 'profile']);
+        return false;
+    }
+    return true;
+}
+
+export function redirectProfile(access: boolean): boolean {
+    if (!access) {
+        this.router.navigate(['', 'profile']);
+        return false;
+    }
+    return true;
+}
+
+export function redirectApplications(access: boolean): boolean {
+    if (!access) {
+        this.router.navigate(['', 'applications']);
+        return false;
+    }
+    return true;
 }

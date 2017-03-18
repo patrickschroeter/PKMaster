@@ -3,9 +3,13 @@ import { Router } from '@angular/router';
 import * as _ from 'lodash';
 
 /** Services */
-import { ConferenceService } from './../../core';
+import {
+    ConferenceService,
+    PermissionService
+} from './../../core';
 import { ModalService } from './../../modules/overlay';
 import { TranslationService } from './../../modules/translation';
+import { AlertService } from './../../modules/alert';
 
 /** Models */
 import {
@@ -14,6 +18,8 @@ import {
     ConferenceCreateDto,
     FieldDto
 } from './../../swagger';
+
+import { Access, OnAccess } from './../../shared/decorators/access.decorator';
 
 /**
  * A Component to list all conferences
@@ -27,7 +33,7 @@ import {
     templateUrl: './conferences.component.html',
     styleUrls: ['./conferences.component.scss']
 })
-export class ConferencesComponent implements OnInit {
+export class ConferencesComponent implements OnInit, OnAccess {
 
     /**
      * Default Layout Class for component
@@ -42,7 +48,7 @@ export class ConferencesComponent implements OnInit {
      * @type {ConferenceDto[]}
      * @memberOf ConferencesComponent
      */
-    public conferences: ConferenceDetailDto[];
+    public conferences: ConferenceListDto[];
 
     /**
      * Form config for creating a new conference
@@ -70,6 +76,8 @@ export class ConferencesComponent implements OnInit {
         private translationService: TranslationService,
         /** Services */
         private conferenceService: ConferenceService,
+        public permission: PermissionService,
+        public alert: AlertService
     ) { }
 
     /**
@@ -78,10 +86,28 @@ export class ConferencesComponent implements OnInit {
      * @memberOf ConferencesComponent
      */
     ngOnInit() {
+        this.getConferences();
+        this.initConferenceForm();
+    }
+
+    /**
+     * load all conferences
+     *
+     * @memberOf ConferencesComponent
+     */
+    public getConferences(): void {
         this.conferenceService.getConferences().subscribe(conferences => {
             this.conferences = conferences;
         });
+    }
 
+    /**
+     * initialize the add conference form
+     *
+     * @memberOf ConferencesComponent
+     */
+    @Access('EditConferences')
+    public initConferenceForm(): void {
         this.newConference = this.conferenceService.getConferenceForm();
     }
 
@@ -92,6 +118,7 @@ export class ConferencesComponent implements OnInit {
      *
      * @memberOf ConferencesComponent
      */
+    @Access('EditConferences')
     public createConference(form: ConferenceCreateDto): void {
         this.conferenceService.createNewConference(form).subscribe(conference => {
             if (conference['id']) {
@@ -108,6 +135,7 @@ export class ConferencesComponent implements OnInit {
      *
      * @memberOf ConferencesComponent
      */
+    @Access('EditConferences')
     public removeConference(conference: ConferenceDetailDto): void {
         if (!conference) { return; }
         const index = _.findIndex(this.conferences, (obj: ConferenceDetailDto) => obj.id === conference.id);

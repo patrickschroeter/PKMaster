@@ -43,6 +43,9 @@ import { StatusPipe } from './pipes';
         elements.ConferenceEntryApplicationComponent,
         elements.ConferenceEntryListComponent,
 
+        /** Components */
+        components.CommentAddComponent,
+
         /** Elements */
         elements.LoadingComponent,
         elements.ButtonAnimationWrapperComponent,
@@ -54,6 +57,8 @@ import { StatusPipe } from './pipes';
         elements.ButtonApplicationDeactivateComponent,
         elements.ButtonApplicationSubmitComponent,
         elements.ButtonApplicationValidateComponent,
+        elements.ButtonApplicationAssignComponent,
+        elements.ButtonApplicationUnassignComponent,
 
         elements.ButtonConferenceDeleteComponent,
         elements.ButtonConferenceEditComponent,
@@ -107,6 +112,9 @@ import { StatusPipe } from './pipes';
         components.ConferenceEntryComponent,
         components.ConferenceEntryDetailComponent,
 
+        /** Components */
+        components.CommentAddComponent,
+
         /** Elements */
         elements.LoadingComponent,
         elements.ButtonAnimationWrapperComponent,
@@ -118,6 +126,8 @@ import { StatusPipe } from './pipes';
         elements.ButtonApplicationDeactivateComponent,
         elements.ButtonApplicationSubmitComponent,
         elements.ButtonApplicationValidateComponent,
+        elements.ButtonApplicationAssignComponent,
+        elements.ButtonApplicationUnassignComponent,
 
         elements.ButtonConferenceDeleteComponent,
         elements.ButtonConferenceEditComponent,

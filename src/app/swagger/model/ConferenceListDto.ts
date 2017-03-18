@@ -41,7 +41,7 @@ export class ConferenceListDto {
 
     numberOfConference: number;
 
-    constructor(obj: models.ConferenceDetailDto = new models.ConferenceDetailDto()) {
+    constructor(obj: models.ConferenceDetailDto | models.ConferenceListDto = new models.ConferenceDetailDto()) {
         this.id = obj.id;
         this.description = obj.description;
         this.dateOfEvent = obj.dateOfEvent;

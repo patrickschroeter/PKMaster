@@ -57,6 +57,10 @@ export class ConferenceDetailDto {
 
     constructor(obj?: models.ConferenceDetailDto) {
         obj = obj || ({} as any);
+        this.update(obj);
+    }
+
+    public update(obj: ConferenceDetailDto): void {
         this.id = obj.id;
         this.description = obj.description;
         this.dateOfEvent = obj.dateOfEvent;

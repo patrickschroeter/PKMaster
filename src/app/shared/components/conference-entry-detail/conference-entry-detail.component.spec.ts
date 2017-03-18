@@ -7,6 +7,9 @@ import { ConferenceEntryDetailComponent } from './conference-entry-detail.compon
 import { AccessDirective } from './../../';
 import { StatusPipe } from './../../../shared';
 
+import { CoreProviderMock } from './../../../core/core.module';
+import { AlertProviderMock } from './../../../modules/alert/alert.module';
+
 describe('ConferenceEntryDetailComponent', () => {
     let component: ConferenceEntryDetailComponent;
     let fixture: ComponentFixture<ConferenceEntryDetailComponent>;
@@ -18,7 +21,12 @@ describe('ConferenceEntryDetailComponent', () => {
 
                 AccessDirective,
                 StatusPipe
-            ], schemas: [NO_ERRORS_SCHEMA]
+            ],
+            providers: [
+                ...CoreProviderMock,
+                ...AlertProviderMock
+            ],
+            schemas: [NO_ERRORS_SCHEMA]
         })
             .compileComponents();
     }));

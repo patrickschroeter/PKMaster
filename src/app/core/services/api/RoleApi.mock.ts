@@ -13,7 +13,7 @@ export class RoleApiMock {
         All: [
             /** Permissions */
             PermissionApiMock.PERMISSION.Permission.Read,
-            PermissionApiMock.PERMISSION.Permission.Edit,
+            PermissionApiMock.PERMISSION.Permission.Edit, // requires Permission.Read
             /** Roles */
             PermissionApiMock.PERMISSION.Roles.Read,
             PermissionApiMock.PERMISSION.Roles.Edit,

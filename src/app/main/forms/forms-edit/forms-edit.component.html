@@ -13,6 +13,7 @@
                 <pk-dynamic-form-element [element]="element" [form]="dynamicForm.form" class="animation animation--trigger" dnd-sortable [sortableIndex]="i">
                     <pk-floating top-right horizontal>
                         <pk-button
+                            *accessEditForms
                             rounded
                             i18n-pkAlert
                             pkAlert="Remove Form Element"
@@ -22,6 +23,7 @@
                             element--error>
                         </pk-button>
                         <pk-button
+                            *accessEditForms
                             rounded
                             i18n-pkAlert
                             pkAlert="Edit Form Element"
@@ -43,6 +45,7 @@
             <pk-button rounded i18n-pkAlert pkAlert="Cancel" class="element--spacing-bottom-tiny" icon="clear" element--error></pk-button>
         </a>
         <pk-button
+            *accessEditForms
             rounded
             i18n-pkAlert
             pkAlert="Save Form"
@@ -51,8 +54,9 @@
             (onClick)="saveForm()"
             element--secondary>
         </pk-button>
-        <pk-button-animation-wrapper>
+        <pk-button-animation-wrapper *accessEditForms>
             <pk-button
+                *accessEditForms
                 rounded
                 i18n-pkAlert
                 pkAlert="Add Element Preset"
@@ -62,6 +66,7 @@
                 (onClick)="addPreset()">
             </pk-button>
             <pk-button
+                *accessEditForms
                 rounded
                 i18n-pkAlert
                 pkAlert="Add Form Element"
@@ -71,6 +76,7 @@
                 (onClick)="addElement()">
             </pk-button>
             <pk-button
+                *accessEditForms
                 rounded
                 i18n-pkAlert
                 pkAlert="Edit Form Attributes"
@@ -80,6 +86,7 @@
                 (onClick)="editFormAttributes()">
             </pk-button>
             <pk-button
+                *accessEditForms
                 class="element--spacing-bottom-tiny"
                 rounded
                 element--error
