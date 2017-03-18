@@ -46,42 +46,6 @@
         <source>Users</source>
         <target/>
       </trans-unit>
-      <trans-unit id="81b97b8ea996ad1e4f9fca8415021850214884b1" datatype="html">
-        <source>Status</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="fdf7cbdc140d0aab0f0b6c06065a0fd448ed6a2e" datatype="html">
-        <source>Title</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="d7293b61e9088c66421df2e367e0ccc00346cf9f" datatype="html">
-        <source>Author</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="e540a086395ced257d9fa5320242a39325b64f90" datatype="html">
-        <source>Conference</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="6986e0df8092d822ac2c076520d83994c78834fc" datatype="html">
-        <source>Modified</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="8fe73a4787b8068b2ba61f54ab7e0f9af2ea1fc9" datatype="html">
-        <source>Version</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="b023615c8da9157b65a8fb97eadde3cce09a7b13" datatype="html">
-        <source>No Form to get Title from.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1b051734b0ee9021991c91b3ed4e81c244322462" datatype="html">
-        <source>Created</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="e4f88639dbc1934cf5dfc00faa42a0bf1bddb82a" datatype="html">
-        <source>No Title</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="8934b397adae3b0e2c9b9afa93d4098986414c38" datatype="html">
         <source>No Elements here.</source>
         <target/>
@@ -156,6 +120,50 @@
       </trans-unit>
       <trans-unit id="ab7ff5bffe2e374b2b1dc3b4f95219190d8c625b" datatype="html">
         <source>Edit Form</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6c7b879d88546e0d204c704e3d314bcca28e2724" datatype="html">
+        <source>Next Page</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2cf98c8364cad7280a60677829a7bacf8e79ae85" datatype="html">
+        <source>Go to page</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="81b97b8ea996ad1e4f9fca8415021850214884b1" datatype="html">
+        <source>Status</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="fdf7cbdc140d0aab0f0b6c06065a0fd448ed6a2e" datatype="html">
+        <source>Title</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="d7293b61e9088c66421df2e367e0ccc00346cf9f" datatype="html">
+        <source>Author</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="e540a086395ced257d9fa5320242a39325b64f90" datatype="html">
+        <source>Conference</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6986e0df8092d822ac2c076520d83994c78834fc" datatype="html">
+        <source>Modified</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8fe73a4787b8068b2ba61f54ab7e0f9af2ea1fc9" datatype="html">
+        <source>Version</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="b023615c8da9157b65a8fb97eadde3cce09a7b13" datatype="html">
+        <source>No Form to get Title from.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1b051734b0ee9021991c91b3ed4e81c244322462" datatype="html">
+        <source>Created</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="e4f88639dbc1934cf5dfc00faa42a0bf1bddb82a" datatype="html">
+        <source>No Title</source>
         <target/>
       </trans-unit>
       <trans-unit id="e7477d42bec84a827f129e794bf5fb5b8ec0b20a" datatype="html">

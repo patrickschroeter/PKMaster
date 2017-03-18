@@ -28,7 +28,7 @@ export class PaginationService {
      * @memberOf PaginationService
      */
     public setOriginalList(list: any[]): void {
-        this.original = list;
+        this.original = list || [];
         this.paginate();
     }
 
