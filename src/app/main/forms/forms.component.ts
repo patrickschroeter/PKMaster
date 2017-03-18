@@ -111,10 +111,22 @@ export class FormsComponent implements OnInit {
      * @memberOf FormsComponent
      */
     public activateForm(form: FormDetailDto): void {
-        this.formService.activateForm(form.id).subscribe((result: FormDetailDto) => {
-            const index = _.findIndex(this.forms, obj => obj.id === form.id);
-            if (index > -1) {
-                this.forms[index] = result;
+        this.modalService.createConfirmationModal({
+            title: this.translationService.translate('confirmActivateFormHeader'),
+            message: this.translationService.translate('confirmActivateFormContent'),
+            confirm: () => {
+                this.formService.activateForm(form.id).subscribe((result: FormDetailDto) => {
+                    const index = _.findIndex(this.forms, obj => obj.id === form.id);
+                    if (index > -1) {
+                        this.forms[index] = result;
+                    }
+                }, error => {
+                    this.modalService.destroyModal();
+                    this.alert.setAlert(
+                        this.translationService.translate('activateFormErrorHeader'),
+                        this.translationService.translate('activateFormErrorContent')
+                    );
+                });
             }
         });
     }

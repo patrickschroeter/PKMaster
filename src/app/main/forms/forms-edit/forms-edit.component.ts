@@ -1,5 +1,6 @@
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import * as _ from 'lodash';
 
 import { FormService, FormElementService } from './../../../core';
 import { AlertService } from './../../../modules/alert';
@@ -260,10 +261,15 @@ export class FormsEditComponent implements OnInit {
      * @memberOf FormsEditComponent
      */
     public saveFormAttributes(form: FormDetailDto): void {
-        this.formService.saveFormAttributes(form).subscribe(success => {
-            this.form = success;
-            this.overlayAttributes.toggle(false);
+        const param: FormDetailDto = new FormDetailDto(this.form);
+        param.requiresValidation = form.requiresValidation;
+        param.title = form.title;
+        param.restrictedAccess = form.restrictedAccess;
+
+        this.formService.saveFormAttributes(param).subscribe(success => {
             this.alert.setSuccessHint('form_attribute_saved', this.translationService.translate('savedFormAttributes'));
+            this.overlayAttributes.toggle(false);
+            this.router.navigate(['/', 'forms', success.id, 'edit']);
         });
     }
 
