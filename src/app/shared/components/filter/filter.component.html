@@ -41,11 +41,21 @@
         <div class="filter__item">
             <pk-button
                 element--primary
-                [class.element--light]="filter.indexOf(status.SUBMITTED) === -1 || filter.indexOf(status.PENDING) === -1"
+                [class.element--light]="filter.indexOf(status.SUBMITTED) === -1"
                 i18n-pkAlert
-                pkAlert="Filter submitted and pending"
-                value="submitted & pending"
-                (onClick)="filterList(status.SUBMITTED, status.PENDING)">
+                pkAlert="Filter submitted"
+                value="submitted"
+                (onClick)="filterList(status.SUBMITTED)">
+            </pk-button>
+        </div>
+        <div class="filter__item">
+            <pk-button
+                element--primary
+                [class.element--light]="filter.indexOf(status.PENDING) === -1"
+                i18n-pkAlert
+                pkAlert="Filter pending"
+                value="pending"
+                (onClick)="filterList(status.PENDING)">
             </pk-button>
         </div>
         <div class="filter__item">

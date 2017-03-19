@@ -31,14 +31,15 @@ export class ListService {
         if (!status || !status.length) {
             this._filter = [];
         } else {
-            for (const filter of status) {
-                const index = _.findIndex(this._filter, obj => obj === filter);
-                if (index > -1) {
-                    this._filter.splice(index, 1);
-                } else {
-                    this._filter.push(filter);
-                }
-            }
+            this._filter = status;
+            // for (const filter of status) {
+            //     const index = _.findIndex(this._filter, obj => obj === filter);
+            //     if (index > -1) {
+            //         this._filter.splice(index, 1);
+            //     } else {
+            //         this._filter.push(filter);
+            //     }
+            // }
         }
         this.filter.next(this._filter);
         this.paginate();
