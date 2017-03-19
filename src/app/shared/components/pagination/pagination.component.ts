@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
-import { PaginationService } from './../../services';
+import { ListService } from './../../services';
 
 @Component({
     selector: 'pk-pagination',
@@ -19,7 +19,7 @@ export class PaginationComponent implements OnInit {
     public hasNextPage: number;
 
     constructor(
-        private pagination: PaginationService
+        private pagination: ListService
     ) { }
 
     ngOnInit() {

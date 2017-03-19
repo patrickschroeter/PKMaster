@@ -32,6 +32,7 @@ import { StatusPipe } from './pipes';
 
         /** Application Lists */
         components.PaginationComponent,
+        components.FilterComponent,
         components.ApplicationsListComponent,
         components.ApplicationsListOwnedComponent,
         components.ApplicationsListAssignedComponent,
@@ -104,6 +105,7 @@ import { StatusPipe } from './pipes';
 
         /** Application Lists */
         components.PaginationComponent,
+        components.FilterComponent,
         components.ApplicationsListComponent,
         components.ApplicationsListOwnedComponent,
         components.ApplicationsListAssignedComponent,
@@ -149,5 +151,5 @@ export class SharedModule { }
 
 export const SharedProviderMock = [
     { provide: services.WindowService, useClass: services.WindowMock },
-    { provide: services.PaginationService, useClass: services.PaginationService }
+    { provide: services.ListService, useClass: services.ListService }
 ];

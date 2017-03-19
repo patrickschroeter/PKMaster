@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as _ from 'lodash';
 
-import { PaginationService } from './../../services';
+import { ListService } from './../../services';
 
 /** Models */
 import {
@@ -14,7 +14,7 @@ import {
     selector: 'pk-applications-list',
     templateUrl: './applications-list.component.html',
     providers: [
-        PaginationService
+        ListService
     ]
 })
 export class ApplicationsListComponent implements OnInit {
@@ -27,14 +27,14 @@ export class ApplicationsListComponent implements OnInit {
     private status = Status;
 
     constructor(
-        protected pagination: PaginationService
+        protected listService: ListService
     ) { }
 
     ngOnInit() {
-        this.pagination.list.subscribe((result: ApplicationDetailDto[]) => {
+        this.listService.list.subscribe((result: ApplicationDetailDto[]) => {
             this.list = result;
         });
-        this.pagination.setOriginalList(this.applications);
+        this.listService.setOriginalList(this.applications);
     }
 }
 
@@ -42,14 +42,14 @@ export class ApplicationsListComponent implements OnInit {
     selector: 'pk-applications-list-owned',
     templateUrl: './applications-list-owned.component.html',
     providers: [
-        PaginationService
+        ListService
     ]
 })
 export class ApplicationsListOwnedComponent extends ApplicationsListComponent {
     constructor(
-        protected pagination: PaginationService
+        protected listService: ListService
     ) {
-        super(pagination);
+        super(listService);
     }
 }
 
@@ -57,13 +57,13 @@ export class ApplicationsListOwnedComponent extends ApplicationsListComponent {
     selector: 'pk-applications-list-assigned',
     templateUrl: './applications-list-assigned.component.html',
     providers: [
-        PaginationService
+        ListService
     ]
 })
 export class ApplicationsListAssignedComponent extends ApplicationsListComponent {
     constructor(
-        protected pagination: PaginationService
+        protected listService: ListService
     ) {
-        super(pagination);
+        super(listService);
     }
 }

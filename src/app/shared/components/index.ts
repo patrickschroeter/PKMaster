@@ -1,6 +1,7 @@
 export * from './navbar';
 
 export * from './pagination';
+export * from './filter';
 export * from './applications-list';
 
 export * from './conference-entry';

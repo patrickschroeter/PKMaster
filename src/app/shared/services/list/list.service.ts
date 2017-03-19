@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
+import * as _ from 'lodash';
 
 import { BehaviorSubject } from 'rxjs/Rx';
 
+import { Status, ApplicationListDto } from './../../../swagger';
+
 @Injectable()
-export class PaginationService {
+export class ListService {
 
     private original: any[];
 
@@ -18,7 +21,28 @@ export class PaginationService {
     public itemsPerPage: BehaviorSubject<number> = new BehaviorSubject<number>(this._itemsPerPage);
     public hasNextPage: BehaviorSubject<number> = new BehaviorSubject<number>(this._hasNextPage);
 
+    private _filter: Status[] = [];
+
+    public filter: BehaviorSubject<Status[]> = new BehaviorSubject<Status[]>(this._list);
+
     constructor() { }
+
+    public toggleFilter(status: Status[]) {
+        if (!status || !status.length) {
+            this._filter = [];
+        } else {
+            for (const filter of status) {
+                const index = _.findIndex(this._filter, obj => obj === filter);
+                if (index > -1) {
+                    this._filter.splice(index, 1);
+                } else {
+                    this._filter.push(filter);
+                }
+            }
+        }
+        this.filter.next(this._filter);
+        this.paginate();
+    }
 
     /**
      * set the original list and paginate the first time
@@ -75,15 +99,24 @@ export class PaginationService {
      * @memberOf PaginationComponent
      */
     private paginate() {
+        let original: any[] = this.original;
+
+        if (this._filter.length > 0) {
+            for (const status of this._filter) {
+                // Filter ApplicationListDto
+                original = original.filter((obj: ApplicationListDto) => this._filter.indexOf(obj.statusId) !== -1);
+            }
+        }
+
         const start = this._itemsPerPage * (this._page - 1);
-        if (this.original.length >= start) {
-            this._list = this.original.slice(start, start + this._itemsPerPage);
-            let rest = this.original.length - (start + this._itemsPerPage);
+        if (original.length >= start) {
+            this._list = original.slice(start, start + this._itemsPerPage);
+            let rest = original.length - (start + this._itemsPerPage);
             rest = rest > -1 ? rest : 0;
 
             this._hasNextPage = rest / this._itemsPerPage;
         } else {
-            this._list = this.original;
+            this._list = original;
 
             this._hasNextPage = 0;
         }

@@ -1,0 +1,72 @@
+<div class="filter">
+    <div class="filter__trigger">
+        <pk-button
+            element--hover
+            i18n-pkAlert
+            pkAlert="Filter list"
+            icon="filter_list">
+        </pk-button>
+    </div>
+
+    <div class="filter__list">
+        <div class="filter__item">
+            <pk-button
+                element--primary element--light
+                i18n-pkAlert
+                pkAlert="Filter all"
+                value="all"
+                (onClick)="filterList()">
+            </pk-button>
+        </div>
+        <div class="filter__item">
+            <pk-button
+                element--primary
+                [class.element--light]="filter.indexOf(status.DEACTIVATED) === -1"
+                i18n-pkAlert
+                pkAlert="Filter deactivated"
+                value="deactivated"
+                (onClick)="filterList(status.DEACTIVATED)">
+            </pk-button>
+        </div>
+        <div class="filter__item">
+            <pk-button
+                element--primary
+                [class.element--light]="filter.indexOf(status.CREATED) === -1"
+                i18n-pkAlert
+                pkAlert="Filter created"
+                value="created"
+                (onClick)="filterList(status.CREATED)">
+            </pk-button>
+        </div>
+        <div class="filter__item">
+            <pk-button
+                element--primary
+                [class.element--light]="filter.indexOf(status.SUBMITTED) === -1 || filter.indexOf(status.PENDING) === -1"
+                i18n-pkAlert
+                pkAlert="Filter submitted and pending"
+                value="submitted & pending"
+                (onClick)="filterList(status.SUBMITTED, status.PENDING)">
+            </pk-button>
+        </div>
+        <div class="filter__item">
+            <pk-button
+                element--primary
+                [class.element--light]="filter.indexOf(status.ACCEPTED) === -1"
+                i18n-pkAlert
+                pkAlert="Filter accepted"
+                value="accepted"
+                (onClick)="filterList(status.ACCEPTED)">
+            </pk-button>
+        </div>
+        <div class="filter__item">
+            <pk-button
+                element--primary
+                [class.element--light]="filter.indexOf(status.DENIED) === -1"
+                i18n-pkAlert
+                pkAlert="Filter denied"
+                value="denied"
+                (onClick)="filterList(status.DENIED)">
+            </pk-button>
+        </div>
+    </div>
+</div>

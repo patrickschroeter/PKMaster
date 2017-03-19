@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { PaginationService } from './pagination.service';
+import { ListService } from './pagination.service';
 
 describe('PaginationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [PaginationService]
+      providers: [ListService]
     });
   });
 
-  it('should ...', inject([PaginationService], (service: PaginationService) => {
+  it('should ...', inject([ListService], (service: ListService) => {
     expect(service).toBeTruthy();
   }));
 });
