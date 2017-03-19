@@ -83,7 +83,7 @@ export class ListService {
      * @memberOf PaginationService
      */
     public setOriginalList(list: any[]): void {
-        this.original = list || [];
+        this.original = _.cloneDeep(list) || [];
         this.paginate();
     }
 
@@ -142,7 +142,7 @@ export class ListService {
 
         /** Sort List */
         if (this._sortValue) {
-            this.original = original.sort((a: any, b: any) => {
+            original = original.sort((a: any, b: any) => {
                 if (a[this._sortValue] > b[this._sortValue]) {
                     return this._sortDirection;
                 } else {
