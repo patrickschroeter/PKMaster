@@ -32,6 +32,8 @@ export class ListService {
             this._filter = [];
         } else {
             this._filter = status;
+            console.log(status);
+
             // for (const filter of status) {
             //     const index = _.findIndex(this._filter, obj => obj === filter);
             //     if (index > -1) {

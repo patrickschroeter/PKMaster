@@ -18,19 +18,31 @@
     }
 
     &__trigger {
-        float: right;
+        @include clearfix();
         margin-bottom: 4px;
+        > * {
+            float: right;
+        }
     }
 
     &__list {
         display: none;
     }
 
+    &__group {
+        border-bottom: 1px solid $darkwhite;
+        padding-bottom: 4px;
+        padding-bottom: 4px;
+
+        &:last-child {
+            border: 0;
+        }
+    }
+
     &__item {
         padding-top: 4px;
 
         &:first-child {
-            border-bottom: 1px solid $darkwhite;
             padding-top: 0;
         }
     }

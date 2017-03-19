@@ -9,74 +9,67 @@
     </div>
 
     <div class="filter__list">
-        <div class="filter__item">
-            <pk-button
-                element--primary element--light
-                i18n-pkAlert
-                pkAlert="Filter all"
-                value="all"
-                (onClick)="filterList()">
-            </pk-button>
+        <div class="filter__group">
+            <div class="filter__item">
+                <div
+                    class="selectable"
+                    [class.selectable--active]="!filter.length"
+                    (click)="filterList()" i18n>All
+                </div>
+            </div>
         </div>
-        <div class="filter__item">
-            <pk-button
-                element--primary
-                [class.element--light]="filter.indexOf(status.DEACTIVATED) === -1"
-                i18n-pkAlert
-                pkAlert="Filter deactivated"
-                value="deactivated"
-                (onClick)="filterList(status.DEACTIVATED)">
-            </pk-button>
+        <div class="filter__group">
+            <div class="filter__item">
+                <div
+                    class="selectable"
+                    [class.selectable--active]="filter.indexOf(status.CREATED) !== -1 || filter.indexOf(status.SUBMITTED) !== -1 || filter.indexOf(status.PENDING) !== -1"
+                    (click)="filterList(status.CREATED, status.SUBMITTED, status.PENDING)" i18n>Active
+                </div>
+            </div>
         </div>
-        <div class="filter__item">
-            <pk-button
-                element--primary
-                [class.element--light]="filter.indexOf(status.CREATED) === -1"
-                i18n-pkAlert
-                pkAlert="Filter created"
-                value="created"
-                (onClick)="filterList(status.CREATED)">
-            </pk-button>
-        </div>
-        <div class="filter__item">
-            <pk-button
-                element--primary
-                [class.element--light]="filter.indexOf(status.SUBMITTED) === -1"
-                i18n-pkAlert
-                pkAlert="Filter submitted"
-                value="submitted"
-                (onClick)="filterList(status.SUBMITTED)">
-            </pk-button>
-        </div>
-        <div class="filter__item">
-            <pk-button
-                element--primary
-                [class.element--light]="filter.indexOf(status.PENDING) === -1"
-                i18n-pkAlert
-                pkAlert="Filter pending"
-                value="pending"
-                (onClick)="filterList(status.PENDING)">
-            </pk-button>
-        </div>
-        <div class="filter__item">
-            <pk-button
-                element--primary
-                [class.element--light]="filter.indexOf(status.ACCEPTED) === -1"
-                i18n-pkAlert
-                pkAlert="Filter accepted"
-                value="accepted"
-                (onClick)="filterList(status.ACCEPTED)">
-            </pk-button>
-        </div>
-        <div class="filter__item">
-            <pk-button
-                element--primary
-                [class.element--light]="filter.indexOf(status.DENIED) === -1"
-                i18n-pkAlert
-                pkAlert="Filter denied"
-                value="denied"
-                (onClick)="filterList(status.DENIED)">
-            </pk-button>
+        <div class="filter__group">
+            <div class="filter__item">
+                <div
+                    class="selectable"
+                    [class.selectable--active]="filter.indexOf(status.DEACTIVATED) !== -1"
+                    (click)="filterList(status.DEACTIVATED)" i18n>Deactivated
+                </div>
+            </div>
+            <div class="filter__item">
+                <div
+                    class="selectable"
+                    [class.selectable--active]="filter.indexOf(status.CREATED) !== -1"
+                    (click)="filterList(status.CREATED)" i18n>Created
+                </div>
+            </div>
+            <div class="filter__item">
+                <div
+                    class="selectable"
+                    [class.selectable--active]="filter.indexOf(status.SUBMITTED) !== -1"
+                    (click)="filterList(status.SUBMITTED)" i18n>Submitted
+                </div>
+            </div>
+            <div class="filter__item">
+                <div
+                    class="selectable"
+                    [class.selectable--active]="filter.indexOf(status.PENDING) !== -1"
+                    (click)="filterList(status.PENDING)" i18n>Pending
+                </div>
+            </div>
+            <div class="filter__item">
+                <div
+                    class="selectable"
+                    [class.selectable--active]="filter.indexOf(status.ACCEPTED) !== -1"
+                    (click)="filterList(status.ACCEPTED)" i18n>Accepted
+                </div>
+            </div>
+            <div class="filter__item">
+                <div
+                    class="selectable"
+                    [class.selectable--active]="filter.indexOf(status.DENIED) !== -1"
+                    (click)="filterList(status.DENIED)" i18n>Denied
+                </div>
+            </div>
         </div>
     </div>
 </div>
