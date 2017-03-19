@@ -23,6 +23,7 @@ export class ApplicationsListComponent implements OnInit {
     @Input() user: UserDetailDto;
 
     public list: ApplicationDetailDto[] = [];
+    public sort: string;
 
     private status = Status;
 
@@ -31,10 +32,18 @@ export class ApplicationsListComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        // not required to unsubscribe onDestroy because Service does not exist either
         this.listService.list.subscribe((result: ApplicationDetailDto[]) => {
             this.list = result;
         });
+        this.listService.sortValue.subscribe((result: string) => {
+            this.sort = result;
+        });
         this.listService.setOriginalList(this.applications);
+    }
+
+    public sortBy(key: string) {
+        this.listService.sortBy(key);
     }
 }
 

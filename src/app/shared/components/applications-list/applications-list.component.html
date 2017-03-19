@@ -2,12 +2,12 @@
 
 <pk-list>
     <pk-list-header>
-        <pk-list-attribute i18n>Status</pk-list-attribute>
+        <pk-list-attribute i18n (click)="sortBy('statusId')">Status</pk-list-attribute>
         <pk-list-attribute primary i18n>Title</pk-list-attribute>
         <pk-list-attribute *accessEditApplications i18n>Author</pk-list-attribute>
         <pk-list-attribute i18n>Conference</pk-list-attribute>
-        <pk-list-attribute i18n>Modified</pk-list-attribute>
-        <pk-list-attribute i18n>Version</pk-list-attribute>
+        <pk-list-attribute i18n (click)="sortBy('created')">Modified</pk-list-attribute>
+        <pk-list-attribute i18n (click)="sortBy('version')">Version</pk-list-attribute>
     </pk-list-header>
     <pk-list-content>
         <pk-list-element *ngFor="let application of (list.length ? list : applications)" [name]="application.statusId | status">

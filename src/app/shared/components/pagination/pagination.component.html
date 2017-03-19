@@ -28,7 +28,7 @@
                 (onClick)="previousPage()">
             </pk-button>
         </div>
-        <div class="pagination__page">
+        <div class="pagination__page" *ngIf="!(page === 1 && hasNextPage <= 0)">
             <pk-button
                 element--primary element--light
                 i18n-pkAlert

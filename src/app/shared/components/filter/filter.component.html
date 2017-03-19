@@ -9,6 +9,7 @@
     </div>
 
     <div class="filter__list">
+        <div class="filter__title" i18n>Filter</div>
         <div class="filter__group">
             <div class="filter__item">
                 <div
@@ -22,7 +23,7 @@
             <div class="filter__item">
                 <div
                     class="selectable"
-                    [class.selectable--active]="filter.indexOf(status.CREATED) !== -1 || filter.indexOf(status.SUBMITTED) !== -1 || filter.indexOf(status.PENDING) !== -1"
+                    [class.selectable--active]="filter.indexOf(status.CREATED) !== -1 && filter.indexOf(status.SUBMITTED) !== -1 && filter.indexOf(status.PENDING) !== -1"
                     (click)="filterList(status.CREATED, status.SUBMITTED, status.PENDING)" i18n>Active
                 </div>
             </div>
