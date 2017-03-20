@@ -150,45 +150,37 @@
         <source>Filter</source>
         <target>Filter</target>
       </trans-unit>
-      <trans-unit id="dd7c27172c16fd4486459a4d32d3d3915e0a3cf4" datatype="html">
-        <source>All
-                </source>
- target>
+      <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
+        <source>All</source>
+        <target>All</target>
       </trans-unit>
-      <trans-unit id="ecfc8da3ca177e74efa7dae45b1b29e78f38185b" datatype="html">
-        <source>Active
-                </source>
- target>
+      <trans-unit id="b36e1450940b7f6028d8587568c7d669b53f7a06" datatype="html">
+        <source>Active</source>
+        <target>Active</target>
       </trans-unit>
-      <trans-unit id="8730eb4d9c7dc2b3423fb1f37e3e475670846d2e" datatype="html">
-        <source>Deactivated
-                </source>
- target>
+      <trans-unit id="474dacda6aa159d1d66cf5b41313f6099aee68a4" datatype="html">
+        <source>Deactivated</source>
+        <target>Deactivated</target>
       </trans-unit>
-      <trans-unit id="d68bb14e507d28f1a189057a7e3b1d1cde091831" datatype="html">
-        <source>Created
-                </source>
- target>
+      <trans-unit id="1b051734b0ee9021991c91b3ed4e81c244322462" datatype="html">
+        <source>Created</source>
+        <target>Created</target>
       </trans-unit>
-      <trans-unit id="30e3da729923867c195d9d44997a67a360d7ce24" datatype="html">
-        <source>Submitted
-                </source>
- target>
+      <trans-unit id="c01908e4fc24012a2f6f8ff170cc4cd3293807e2" datatype="html">
+        <source>Submitted</source>
+        <target>Submitted</target>
       </trans-unit>
-      <trans-unit id="47e7037744d8b57da0156592612ec1df3b3fb8d5" datatype="html">
-        <source>Pending
-                </source>
- target>
+      <trans-unit id="e6a27066251ca1e04c5be86ad758380856df2506" datatype="html">
+        <source>Pending</source>
+        <target>Pending</target>
       </trans-unit>
-      <trans-unit id="1aa0d6ac0cffb95be4e1a3d72a92d2a89895f8e7" datatype="html">
-        <source>Accepted
-                </source>
- target>
+      <trans-unit id="7823909fb1d8d313382f6f4bd842f1a7ef6f08d1" datatype="html">
+        <source>Accepted</source>
+        <target>Accepted</target>
       </trans-unit>
-      <trans-unit id="d1a06e56ae5f5dec07583409ec78449d1817200a" datatype="html">
-        <source>Denied
-                </source>
- target>
+      <trans-unit id="51f4b425225192808bf62691b8196ff98533ef0f" datatype="html">
+        <source>Denied</source>
+        <target>Denied</target>
       </trans-unit>
       <trans-unit id="81b97b8ea996ad1e4f9fca8415021850214884b1" datatype="html">
         <source>Status</source>
@@ -669,10 +661,6 @@
       <trans-unit id="12ce9154fb4b6bd40e48658b72fe680d164e94e9" datatype="html">
         <source>Validation</source>
         <target>Validation</target>
-      </trans-unit>
-      <trans-unit id="b36e1450940b7f6028d8587568c7d669b53f7a06" datatype="html">
-        <source>Active</source>
-        <target>Active</target>
       </trans-unit>
       <trans-unit id="43c4133c7a0263d2e33dd4c2e74d40784b2e4b1c" datatype="html">
         <source>Inactive</source>

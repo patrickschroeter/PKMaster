@@ -15,8 +15,7 @@
                 <div
                     class="selectable"
                     [class.selectable--active]="!filter.length"
-                    (click)="filterList()" i18n>All
-                </div>
+                    (click)="filterList()" i18n>All</div>
             </div>
         </div>
         <div class="filter__group">
@@ -24,8 +23,7 @@
                 <div
                     class="selectable"
                     [class.selectable--active]="filter.indexOf(status.CREATED) !== -1 && filter.indexOf(status.SUBMITTED) !== -1 && filter.indexOf(status.PENDING) !== -1"
-                    (click)="filterList(status.CREATED, status.SUBMITTED, status.PENDING)" i18n>Active
-                </div>
+                    (click)="filterList(status.CREATED, status.SUBMITTED, status.PENDING)" i18n>Active</div>
             </div>
         </div>
         <div class="filter__group">
@@ -33,43 +31,37 @@
                 <div
                     class="selectable"
                     [class.selectable--active]="filter.indexOf(status.DEACTIVATED) !== -1"
-                    (click)="filterList(status.DEACTIVATED)" i18n>Deactivated
-                </div>
+                    (click)="filterList(status.DEACTIVATED)" i18n>Deactivated</div>
             </div>
             <div class="filter__item">
                 <div
                     class="selectable"
                     [class.selectable--active]="filter.indexOf(status.CREATED) !== -1"
-                    (click)="filterList(status.CREATED)" i18n>Created
-                </div>
+                    (click)="filterList(status.CREATED)" i18n>Created</div>
             </div>
             <div class="filter__item">
                 <div
                     class="selectable"
                     [class.selectable--active]="filter.indexOf(status.SUBMITTED) !== -1"
-                    (click)="filterList(status.SUBMITTED)" i18n>Submitted
-                </div>
+                    (click)="filterList(status.SUBMITTED)" i18n>Submitted</div>
             </div>
             <div class="filter__item">
                 <div
                     class="selectable"
                     [class.selectable--active]="filter.indexOf(status.PENDING) !== -1"
-                    (click)="filterList(status.PENDING)" i18n>Pending
-                </div>
+                    (click)="filterList(status.PENDING)" i18n>Pending</div>
             </div>
             <div class="filter__item">
                 <div
                     class="selectable"
                     [class.selectable--active]="filter.indexOf(status.ACCEPTED) !== -1"
-                    (click)="filterList(status.ACCEPTED)" i18n>Accepted
-                </div>
+                    (click)="filterList(status.ACCEPTED)" i18n>Accepted</div>
             </div>
             <div class="filter__item">
                 <div
                     class="selectable"
                     [class.selectable--active]="filter.indexOf(status.DENIED) !== -1"
-                    (click)="filterList(status.DENIED)" i18n>Denied
-                </div>
+                    (click)="filterList(status.DENIED)" i18n>Denied</div>
             </div>
         </div>
     </div>
