@@ -16,15 +16,15 @@
 
                 <pk-list>
                     <pk-list-header>
-                        <pk-list-attribute i18n>Status</pk-list-attribute>
-                        <pk-list-attribute primary i18n>Title</pk-list-attribute>
-                        <pk-list-attribute i18n>Modified</pk-list-attribute>
-                        <pk-list-attribute i18n>Version</pk-list-attribute>
-                        <pk-list-attribute i18n>Restriction</pk-list-attribute>
-                        <pk-list-attribute i18n>Validation</pk-list-attribute>
+                        <pk-list-attribute          i18n    (click)="sortBy('isActive')"           [class.list-element--sorting]="sort === 'isActive'">Status</pk-list-attribute>
+                        <pk-list-attribute primary  i18n    (click)="sortBy('title')"              [class.list-element--sorting]="sort === 'title'">Title</pk-list-attribute>
+                        <pk-list-attribute          i18n    (click)="sortBy('created')"            [class.list-element--sorting]="sort === 'created'">Modified</pk-list-attribute>
+                        <pk-list-attribute          i18n    (click)="sortBy('version')"            [class.list-element--sorting]="sort === 'version'">Version</pk-list-attribute>
+                        <pk-list-attribute          i18n    (click)="sortBy('restrictedAccess')"   [class.list-element--sorting]="sort === 'restrictedAccess'">Restriction</pk-list-attribute>
+                        <pk-list-attribute          i18n    (click)="sortBy('requiresValidation')" [class.list-element--sorting]="sort === 'requiresValidation'">Validation</pk-list-attribute>
                     </pk-list-header>
                     <pk-list-content>
-                        <pk-list-element *ngFor="let form of forms" [name]="form.isActive ? 'active' : 'inactive'">
+                        <pk-list-element *ngFor="let form of (list.length ? list : forms)" [name]="form.isActive ? 'active' : 'inactive'">
                             <pk-list-attribute state
                                 [class.list-element--active]="form.isActive"
                                 [class.list-element--inactive]="!form.isActive"
@@ -93,6 +93,8 @@
                         </pk-list-element>
                     </pk-list-content>
                 </pk-list>
+
+                <pk-pagination></pk-pagination>
 
                 <pk-floating fixed top-right *accessEditForms>
                     <pk-button

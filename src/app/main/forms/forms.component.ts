@@ -10,6 +10,7 @@ import {
 import { ModalService } from './../../modules/overlay';
 import { AlertService } from './../../modules/alert';
 import { TranslationService } from './../../modules/translation';
+import { ListService, List } from './../../shared';
 
 /** Models */
 import { FormDetailDto, FormListDto } from './../../swagger';
@@ -20,9 +21,12 @@ import { Access, OnAccess } from './../../shared/decorators/access.decorator';
 @Component({
     selector: 'pk-forms',
     templateUrl: './forms.component.html',
-    styleUrls: ['./forms.component.scss']
+    styleUrls: ['./forms.component.scss'],
+    providers: [
+        ListService
+    ]
 })
-export class FormsComponent implements OnInit, OnAccess {
+export class FormsComponent implements OnInit, OnAccess, List {
     @HostBinding('class') classes = 'content--default';
 
     @ViewChild(OverlayComponent) overlay: OverlayComponent;
@@ -31,6 +35,9 @@ export class FormsComponent implements OnInit, OnAccess {
     private _newForm: Array<any>;
     get newForm() { return this._newForm; }
     set newForm(form) { this._newForm = form; }
+
+    public list: FormListDto[] = [];
+    public sort: string;
 
     constructor(
         /** Angular */
@@ -41,12 +48,25 @@ export class FormsComponent implements OnInit, OnAccess {
         /** Services */
         private formService: FormService,
         public alert: AlertService,
-        public permission: PermissionService
+        public permission: PermissionService,
+        public listService: ListService
     ) { }
 
     ngOnInit() {
         this.getForms();
         this.getNewFormTemplate();
+
+        this.listService.list.subscribe((result: FormListDto[]) => {
+            this.list = result;
+        });
+        this.listService.sortValue.subscribe((result: string) => {
+            this.sort = result;
+        });
+        this.listService.setOriginalList(this.forms);
+    }
+
+    public sortBy(key: string) {
+        this.listService.sortBy(key);
     }
 
     /**

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as _ from 'lodash';
 
-import { ListService } from './../../services';
+import { ListService, List } from './../../services';
 
 /** Models */
 import {
@@ -17,7 +17,7 @@ import {
         ListService
     ]
 })
-export class ApplicationsListComponent implements OnInit {
+export class ApplicationsListComponent implements OnInit, List {
 
     @Input() applications: ApplicationDetailDto[];
     @Input() user: UserDetailDto;
@@ -28,7 +28,7 @@ export class ApplicationsListComponent implements OnInit {
     private status = Status;
 
     constructor(
-        protected listService: ListService
+        public listService: ListService
     ) { }
 
     ngOnInit() {
@@ -56,7 +56,7 @@ export class ApplicationsListComponent implements OnInit {
 })
 export class ApplicationsListOwnedComponent extends ApplicationsListComponent {
     constructor(
-        protected listService: ListService
+        public listService: ListService
     ) {
         super(listService);
     }
@@ -71,7 +71,7 @@ export class ApplicationsListOwnedComponent extends ApplicationsListComponent {
 })
 export class ApplicationsListAssignedComponent extends ApplicationsListComponent {
     constructor(
-        protected listService: ListService
+        public listService: ListService
     ) {
         super(listService);
     }

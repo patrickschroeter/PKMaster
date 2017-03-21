@@ -2,12 +2,12 @@
 
 <pk-list>
     <pk-list-header>
-        <pk-list-attribute i18n (click)="sortBy('statusId')">Status</pk-list-attribute>
-        <pk-list-attribute primary i18n>Title</pk-list-attribute>
-        <pk-list-attribute *accessEditApplications i18n>Author</pk-list-attribute>
-        <pk-list-attribute i18n>Conference</pk-list-attribute>
-        <pk-list-attribute i18n (click)="sortBy('created')">Modified</pk-list-attribute>
-        <pk-list-attribute i18n (click)="sortBy('version')">Version</pk-list-attribute>
+        <pk-list-attribute                          i18n    (click)="sortBy('statusId')"                [class.list-element--sorting]="sort === 'statusId'">Status</pk-list-attribute>
+        <pk-list-attribute primary                  i18n    (click)="sortBy('form.title')"              [class.list-element--sorting]="sort === 'form.title'">Title</pk-list-attribute>
+        <pk-list-attribute *accessEditApplications  i18n    (click)="sortBy('user.lastname')"           [class.list-element--sorting]="sort === 'user.lastname'">Author</pk-list-attribute>
+        <pk-list-attribute                          i18n    (click)="sortBy('conference.dateOfEvent')"  [class.list-element--sorting]="sort === 'conference.dateOfEvent'">Conference</pk-list-attribute>
+        <pk-list-attribute                          i18n    (click)="sortBy('created')"                 [class.list-element--sorting]="sort === 'created'">Modified</pk-list-attribute>
+        <pk-list-attribute                          i18n    (click)="sortBy('version')"                 [class.list-element--sorting]="sort === 'version'">Version</pk-list-attribute>
     </pk-list-header>
     <pk-list-content>
         <pk-list-element *ngFor="let application of (list.length ? list : applications)" [name]="application.statusId | status">

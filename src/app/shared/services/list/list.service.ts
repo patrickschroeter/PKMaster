@@ -5,6 +5,12 @@ import { BehaviorSubject } from 'rxjs/Rx';
 
 import { Status, ApplicationListDto } from './../../../swagger';
 
+export interface List {
+    listService: ListService;
+    list: any[];
+    sort: string;
+}
+
 @Injectable()
 export class ListService {
 
@@ -69,6 +75,7 @@ export class ListService {
         if (this._sortValue === key) {
             this._sortDirection *= -1;
         }
+
         this._sortValue = key;
         this.sortValue.next(this._sortValue);
         this.sortDirection.next(this._sortDirection);
@@ -130,7 +137,7 @@ export class ListService {
      * @memberOf PaginationComponent
      */
     private paginate() {
-        let original: any[] = this.original;
+        let original: any[] = _.cloneDeep(this.original);
 
         /** Filter List */
         if (this._filter.length > 0) {
@@ -142,11 +149,16 @@ export class ListService {
 
         /** Sort List */
         if (this._sortValue) {
+            const keys: string[] = this._sortValue.split('.');
             original = original.sort((a: any, b: any) => {
-                if (a[this._sortValue] > b[this._sortValue]) {
+                const valueA = this.getValue(a, keys);
+                const valueB = this.getValue(b, keys);
+                if (valueA > valueB || typeof valueA === 'undefined') {
                     return this._sortDirection;
-                } else {
+                } else if (valueA < valueB || typeof valueB === 'undefined') {
                     return this._sortDirection * -1;
+                } else {
+                    return 0;
                 }
             });
 
@@ -172,4 +184,24 @@ export class ListService {
         this.itemsPerPage.next(this._itemsPerPage);
     }
 
+    /**
+     * get the value of the object by keys[]
+     *
+     * @private
+     * @param {*} obj
+     * @param {string[]} keys
+     * @returns {*}
+     *
+     * @memberOf ListService
+     */
+    private getValue(obj: any, keys: string[]): any {
+        let value: any = obj;
+        for (const key of keys) {
+            if (typeof value[key] === 'undefined') {
+                return undefined;
+            }
+            value = value[key];
+        }
+        return value;
+    }
 }

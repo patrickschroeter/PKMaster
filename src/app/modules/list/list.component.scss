@@ -36,6 +36,10 @@
     }
 }
 
+.list-element--sorting {
+    color: $accent-color;
+}
+
 .list-element {
     // @extend .devider;
     @include clearfix();
@@ -144,7 +148,6 @@
     }
 
     // States
-
     &.list-element--created {
         $current-color: $accent-color;
         .list-element__attribute--state-icon { border-color: $current-color; background: transparent }
