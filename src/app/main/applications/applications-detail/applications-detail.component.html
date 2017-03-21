@@ -235,11 +235,11 @@
                 </ng-container>
 
                 <!--ACTION: ASSIGN USER-->
-                <ng-container *ngIf="isOwner()">
+                <ng-container *ngIf="isOwner() && application.hasStatus(status.SUBMITTED)">
                     <pk-button-application-assign [application]="application"></pk-button-application-assign>
                 </ng-container>
-                <ng-container *ngIf="!isOwner()">
-                    <ng-container *accessEditApplications>
+                <ng-container *ngIf="!isOwner() && application.hasStatus(status.SUBMITTED, status.PENDING)">
+                    <ng-container *accessValidateApplications>
                         <pk-button-application-assign [application]="application"></pk-button-application-assign>
                     </ng-container>
                 </ng-container>
@@ -268,8 +268,6 @@
         </pk-floating>
 
         <!--MODAL: ACCEPT APPLICATION-->
-        <ng-container *accessAcceptApplications>
-            <pk-modal-accept-application #acceptModal (callback)="updateApplication($event)"></pk-modal-accept-application>
-        </ng-container>
+        <pk-modal-accept-application #acceptModal (callback)="updateApplication($event)"></pk-modal-accept-application>
     </div>
 </ng-container>

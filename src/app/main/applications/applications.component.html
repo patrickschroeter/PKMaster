@@ -7,10 +7,10 @@
             <!--<h1 class="element element--spacing-bottom-small" i18n>Applications</h1>-->
 
             <div class="tab-navigation">
-                <div class="tab selectable" *accessCreateApplications (click)="activeTab = 'owned';" [ngClass]="{ 'selectable--active': activeTab === 'owned' }">Owned</div>
-                <div class="tab selectable" *ngIf="assignedApplications && assignedApplications.length" (click)="activeTab = 'assigned';" [ngClass]="{ 'selectable--active': activeTab === 'assigned' }">Assigned</div>
+                <div id="tab-owned" class="tab selectable" *accessCreateApplications (click)="activeTab = 'owned';" [ngClass]="{ 'selectable--active': activeTab === 'owned' }">Owned</div>
+                <div id="tab-assigned" class="tab selectable" *ngIf="assignedApplications && assignedApplications.length" (click)="activeTab = 'assigned';" [ngClass]="{ 'selectable--active': activeTab === 'assigned' }">Assigned</div>
                 <ng-container *accessReadApplications>
-                    <div class="tab selectable" *ngIf="applications && applications.length" (click)="activeTab = 'all';" [ngClass]="{ 'selectable--active': activeTab === 'all' }">All</div>
+                    <div id="tab-all" class="tab selectable" *ngIf="applications && applications.length" (click)="activeTab = 'all';" [ngClass]="{ 'selectable--active': activeTab === 'all' }">All</div>
                 </ng-container>
             </div>
 

@@ -130,7 +130,7 @@ export class FormApi {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return response.json();
+                    return response.toString();
                 }
             });
     }

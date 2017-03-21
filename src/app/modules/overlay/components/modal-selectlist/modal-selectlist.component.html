@@ -21,9 +21,7 @@
         <div class="overlay__option selectable"
             *ngFor="let option of (filteredOptions ? filteredOptions : list)"
             (click)="click(option)"
-            [class.selectable--active]="(selectedValues.indexOf(option.value) !== -1) || (selectedValue === option.value)">
-                {{ option.label }}
-        </div>
+            [class.selectable--active]="(selectedValues.indexOf(option.value) !== -1) || (selectedValue === option.value)" id="{{ option.label }}">{{ option.label }}</div>
 
     </pk-overlay-content>
 </pk-overlay>

@@ -8,7 +8,7 @@
         "start": "ng serve --env=api",
         "test": "ng test --watch=false",
         "lint": "tslint \"src/**/*.ts\" --noUnusedParameters --noUnusedLocals",
-        "e2e": "ng e2e",
+        "e2e": "ng e2e -s=false",
         "coverage": "ng test --watch=false --cc=true",
         "i18n": "cd src && ng-xi18n",
         "swagger": "rm -rf ./src/app/swagger | java -jar ./.swagger/swagger-codegen-cli.jar generate -i http://pk.multimedia.hs-augsburg.de:8000/swagger/v1/swagger.json -l typescript-angular2 -o ./src/app/swagger",

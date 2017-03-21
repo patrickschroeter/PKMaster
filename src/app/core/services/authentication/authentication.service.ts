@@ -215,7 +215,7 @@ export class AuthenticationService {
                 // update the permissions
                 .map((result: UserDetailDto) => {
                     const user = result;
-                    user.permissions = user.permissions.length ? user.permissions : UserApiMock.USERS[0].permissions;
+                    user.permissions = user.permissions.length ? user.permissions : UserApiMock.getUserByEmail(user.email).permissions;
                     return this.permission.updateUserPermissions(user);
                 })
                 // cache user

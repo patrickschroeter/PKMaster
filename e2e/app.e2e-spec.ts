@@ -1,25 +1,26 @@
 import { Page } from './app.po';
 import { Applications } from './applications.po';
 import { Forms } from './forms.po';
+import { Form } from './form.po';
 import { Login } from './login.po';
 
 import { browser, element, by } from 'protractor';
 
-describe('App', function () {
-    let page: Page;
+import { click } from './';
+import { Button, shouldSee } from './application.po';
+
+describe('The User', function () {
+
+    let App: Page;
     let LoginPage: Login;
-    let ApplicationsPage: Applications;
-    let FormsPage: Forms;
 
     beforeEach(() => {
-        page = new Page();
+        App = new Page();
         LoginPage = new Login();
-        ApplicationsPage = new Applications();
-        FormsPage = new Forms();
     });
 
-    it('should redirect to login form', () => {
-        page.navigateTo();
+    it('should be redirected to login form', () => {
+        App.navigateTo();
 
         const email = element(by.css('#email'));
         expect(email).toBeTruthy();
@@ -28,95 +29,456 @@ describe('App', function () {
         expect(password).toBeTruthy();
     });
 
-    describe('use case', () => {
+    it('should be able login', () => {
+        LoginPage.login();
 
-        const _formName: number = Date.now();
+        App.logout();
+    });
 
-        beforeEach(() => {
-            LoginPage.navigateTo();
-            LoginPage.setCredentials();
+});
+
+describe('The Almighty User', () => {
+
+    const formName = 'e2e-Form';
+
+    let App: Page;
+    let LoginPage: Login;
+    let ApplicationsPage: Applications;
+    let FormsPage: Forms;
+    let FormPage: Form;
+
+    beforeEach(() => {
+        App = new Page();
+        LoginPage = new Login();
+        ApplicationsPage = new Applications();
+        FormsPage = new Forms();
+        FormPage = new Form();
+
+        LoginPage.login();
+    });
+
+    afterEach(() => {
+        App.logout();
+    });
+
+    it('should go to form tab', () => {
+        App.goToTab('forms');
+    });
+
+    it('should create a new form with an element', () => {
+        App.goToTab('forms');
+
+        FormsPage.openNewFormModal();
+        FormsPage.createNewForm(formName, true, true);
+
+        FormPage.openNewElement();
+        FormPage.selectElementFieldType('Input');
+        FormPage.fillElement();
+        FormPage.saveElement();
+        FormPage.saveForm();
+    });
+
+    it('should create a valid application', () => {
+        ApplicationsPage.createFilledApplication();
+    });
+    it('should create a submitted application', () => {
+        ApplicationsPage.createSubmittedApplication();
+    });
+    it('should create a pending application', () => {
+        ApplicationsPage.createPendingApplication();
+    });
+    it('should create an accepted application', () => {
+        ApplicationsPage.createAcceptedApplication();
+    });
+    it('should create a denied application', () => {
+        ApplicationsPage.createDeniedApplication();
+    });
+});
+
+describe('The Student:', () => {
+
+    let App: Page;
+    let LoginPage: Login;
+    let ApplicationsPage: Applications;
+
+    let formId: string;
+
+    beforeAll(() => {
+        App = new Page();
+        LoginPage = new Login();
+        ApplicationsPage = new Applications();
+    });
+
+    beforeEach(() => {
+        LoginPage.login('student@pk.de');
+    });
+
+    afterEach(() => {
+        App.logout();
+    });
+
+    it('should be on applications page', () => {
+        expect(element(by.css('#applications')));
+    });
+
+    describe('should not see', () => {
+        it('forms', () => {
+            expect(browser.isElementPresent(by.css('#nav-forms'))).toBe(false);
+        });
+        it('admin', () => {
+            expect(browser.isElementPresent(by.css('#nav-admin'))).toBe(false);
+        });
+    });
+
+    it('should be able to create a form', () => {
+        ApplicationsPage.createFilledApplication();
+
+        browser.getCurrentUrl().then(url => {
+            formId = url.split('/')[4];
+        });
+    });
+});
+
+describe('Application Created', () => {
+    let App: Page;
+    let LoginPage: Login;
+    let ApplicationsPage: Applications;
+
+    let formId: string;
+
+    beforeAll(() => {
+        App = new Page();
+        LoginPage = new Login();
+        ApplicationsPage = new Applications();
+
+        LoginPage.login('student@pk.de');
+
+        ApplicationsPage.createFilledApplication();
+
+        browser.getCurrentUrl().then(url => {
+            formId = url.split('/')[4];
         });
 
-        fit('do all', () => {
-            /** login */
-            const submit = element(by.css('#login button'));
-            submit.click();
+        App.logout();
+    });
 
-            browser.wait(function() {
-                return browser.isElementPresent(by.css('#wrapper'));
-            }, 5000);
-
-            /** go to form tab */
-            const formTab = element(by.css('#nav-forms'));
-            formTab.click();
-
-            browser.wait(() => {
-                return browser.isElementPresent(by.css('#forms'));
-            }, 5000);
-
-            /** click new form button */
-            const newForm = element(by.buttonText('add'));
-            newForm.click();
-
-            browser.wait(() => {
-                return browser.isElementPresent(by.css('pk-overlay-content'));
-            }, 5000);
-
-            /** fill new form field */
-            const formName = element(by.css('#title'));
-            formName.sendKeys(_formName);
-
-            const restricted = element(by.css('[for="restrictedAccess"]'));
-            if (_formName % 2) {
-                restricted.click();
-            }
-            const validation = element(by.css('[for="requiresValidation"]'));
-            if (_formName % 3) {
-                validation.click();
-            }
-
-            const create = element(by.css('[value="Create"]'));
-            create.click();
-
-            browser.wait(() => {
-                return browser.isElementPresent(by.css('#form-edit'));
-            }, 5000);
-
-            /** open add new element */
-            const optionsButton = element(by.css('.animation--trigger > .element'));
-            optionsButton.click();
-
-            browser.sleep(500);
-
-            const newElement = element(by.buttonText('add'));
-            newElement.click();
-
-            browser.wait(() => {
-                return browser.isElementPresent(by.css('#form-add-attribute'));
-            }, 5000);
-
-            /** select field type */
-            const fieldType = element(by.css('#element-fieldType .element__option'));
-            fieldType.click();
-
-            browser.wait(() => {
-                return browser.isElementPresent(by.css('pk-overlay-content'));
-            }, 5000);
-
-            const input = element(by.css('#option-5c3914e9-a1ea-4c21-914a-39c2b5faa90c'));
-            input.click();
-
-            browser.wait(() => {
-                return browser.isElementPresent(by.css('#name'));
-            }, 5000);
-
-            /** fill element */
-            const fieldName = element(by.css('#name'));
-            fieldName.sendKeys('name');
-
-            const fieldRequired = element(by.css('#element-required .element__label'));
-
+    describe('student', () => {
+        beforeAll(() => {
+            LoginPage.login('student@pk.de');
+            App.goTo('/applications/' + formId);
+            App.openOptions();
         });
 
+        afterAll(() => {
+            App.logout();
+        });
+
+        shouldSee(
+            Button.Deactivate,
+            Button.Edit,
+            Button.Submit,
+            Button.Comment
+        );
+    });
+
+    describe('observer', () => {
+        beforeAll(() => {
+            LoginPage.login('observer@pk.de');
+            App.goTo('/applications/' + formId);
+            App.openOptions();
+        });
+
+        afterAll(() => {
+            App.logout();
+        });
+
+        shouldSee(
+            Button.Comment
+        );
+    });
+
+    describe('secreteriat', () => {
+        beforeAll(() => {
+            LoginPage.login('secreteriat@pk.de');
+            App.goTo('/applications/' + formId);
+            App.openOptions();
+        });
+
+        afterAll(() => {
+            App.logout();
+        });
+
+        shouldSee(
+            Button.Comment,
+            Button.Edit
+        );
+    });
+
+    describe('member', () => {
+        beforeAll(() => {
+            LoginPage.login('member@pk.de');
+            App.goTo('/applications/' + formId);
+            App.openOptions();
+        });
+
+        afterAll(() => {
+            App.logout();
+        });
+
+        shouldSee(
+            Button.Comment
+        );
+    });
+
+    describe('principal', () => {
+        beforeAll(() => {
+            LoginPage.login('principal@pk.de');
+            App.goTo('/applications/' + formId);
+            App.openOptions();
+        });
+
+        afterAll(() => {
+            App.logout();
+        });
+
+        shouldSee(
+            Button.Comment,
+            Button.Deactivate,
+            Button.Submit,
+            Button.Edit
+        );
+    });
+});
+
+describe('Application Submitted', () => {
+    let App: Page;
+    let LoginPage: Login;
+    let ApplicationsPage: Applications;
+
+    let formId: string;
+
+    beforeAll(() => {
+        App = new Page();
+        LoginPage = new Login();
+        ApplicationsPage = new Applications();
+
+        LoginPage.login('student@pk.de');
+
+        ApplicationsPage.createSubmittedApplication();
+
+        browser.getCurrentUrl().then(url => {
+            formId = url.split('/')[4];
+        });
+
+        App.logout();
+    });
+
+    describe('student', () => {
+        beforeAll(() => {
+            LoginPage.login('student@pk.de');
+            App.goTo('/applications/' + formId);
+            App.openOptions();
+        });
+
+        afterAll(() => {
+            App.logout();
+        });
+
+        shouldSee(
+            Button.Rescind,
+            Button.Assign,
+            Button.Comment
+        );
+    });
+
+    describe('observer', () => {
+        beforeAll(() => {
+            LoginPage.login('observer@pk.de');
+            App.goTo('/applications/' + formId);
+            App.openOptions();
+        });
+
+        afterAll(() => {
+            App.logout();
+        });
+
+        shouldSee(
+            Button.Comment
+        );
+    });
+
+    describe('secreteriat', () => {
+        beforeAll(() => {
+            LoginPage.login('secreteriat@pk.de');
+            App.goTo('/applications/' + formId);
+            App.openOptions();
+        });
+
+        afterAll(() => {
+            App.logout();
+        });
+
+        shouldSee(
+            Button.Rescind,
+            Button.Comment
+        );
+    });
+
+    describe('member', () => {
+        beforeAll(() => {
+            LoginPage.login('member@pk.de');
+            App.goTo('/applications/' + formId);
+            App.openOptions();
+        });
+
+        afterAll(() => {
+            App.logout();
+        });
+
+        shouldSee(
+            Button.Assign,
+            Button.Comment
+        );
+    });
+
+    describe('principal', () => {
+        beforeAll(() => {
+            LoginPage.login('principal@pk.de');
+            App.goTo('/applications/' + formId);
+            App.openOptions();
+        });
+
+        afterAll(() => {
+            App.logout();
+        });
+
+        shouldSee(
+            Button.Rescind,
+            Button.Conference,
+            Button.Assign,
+            Button.Comment
+        );
+    });
+});
+
+describe('Application Pending', () => {
+    let App: Page;
+    let LoginPage: Login;
+    let ApplicationsPage: Applications;
+
+    let formId: string;
+
+    beforeAll(() => {
+        App = new Page();
+        LoginPage = new Login();
+        ApplicationsPage = new Applications();
+
+        LoginPage.login('student@pk.de');
+
+        ApplicationsPage.createSubmittedApplication();
+
+        browser.getCurrentUrl().then(url => {
+            formId = url.split('/')[4];
+        });
+
+        App.logout();
+    });
+
+    describe('', () => {
+
+        beforeAll(() => {
+            LoginPage.login('principal@pk.de');
+
+            App.goTo('/applications/' + formId);
+
+            App.openOptions();
+            ApplicationsPage.assignApplicationToConference();
+
+            App.logout();
+        });
+
+        describe('student', () => {
+            beforeAll(() => {
+                LoginPage.login('student@pk.de');
+                App.goTo('/applications/' + formId);
+                App.openOptions();
+            });
+
+            afterAll(() => {
+                App.logout();
+            });
+
+            shouldSee(
+                Button.Comment
+            );
+        });
+
+        describe('observer', () => {
+            beforeAll(() => {
+                LoginPage.login('observer@pk.de');
+                App.goTo('/applications/' + formId);
+                App.openOptions();
+            });
+
+            afterAll(() => {
+                App.logout();
+            });
+
+            shouldSee(
+                Button.Comment
+            );
+        });
+
+        describe('secreteriat', () => {
+            beforeAll(() => {
+                LoginPage.login('secreteriat@pk.de');
+                App.goTo('/applications/' + formId);
+                App.openOptions();
+            });
+
+            afterAll(() => {
+                App.logout();
+            });
+
+            shouldSee(
+                Button.Comment
+            );
+        });
+
+        describe('member', () => {
+            beforeAll(() => {
+                LoginPage.login('member@pk.de');
+                App.goTo('/applications/' + formId);
+                App.openOptions();
+            });
+
+            afterAll(() => {
+                App.logout();
+            });
+
+            shouldSee(
+                Button.Assign,
+                Button.Comment
+            );
+        });
+
+        describe('principal', () => {
+            beforeAll(() => {
+                LoginPage.login('principal@pk.de');
+                App.goTo('/applications/' + formId);
+                App.openOptions();
+            });
+
+            afterAll(() => {
+                App.logout();
+            });
+
+            shouldSee(
+                Button.Assign,
+                Button.Accept,
+                Button.Conference,
+                Button.Comment
+            );
+        });
     });
 });
