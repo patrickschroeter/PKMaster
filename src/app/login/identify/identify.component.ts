@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 /** Models */
-import { FieldDto } from './../../swagger';
+import { FieldDto } from 'app/swagger';
 
 @Component({
     selector: 'pk-identify',

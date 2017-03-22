@@ -3,7 +3,7 @@ import { FormControl, AbstractControl, FormGroup } from '@angular/forms';
 
 import { DynamicFormComponent } from './../../dynamic-form.component';
 
-import { FieldDto } from './../../../../swagger';
+import { FieldDto } from 'app/swagger';
 
 @Component({
     selector: 'pk-textarea',

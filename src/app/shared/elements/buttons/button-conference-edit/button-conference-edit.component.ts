@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 /** Models */
-import { ConferenceDetailDto } from './../../../../swagger';
+import { ConferenceDetailDto } from 'app/swagger';
 
 @Component({
     selector: 'pk-button-conference-edit',

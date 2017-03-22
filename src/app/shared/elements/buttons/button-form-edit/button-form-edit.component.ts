@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 /** Models */
-import { FormDetailDto } from './../../../../swagger';
+import { FormDetailDto } from 'app/swagger';
 
 @Component({
     selector: 'pk-button-form-edit',

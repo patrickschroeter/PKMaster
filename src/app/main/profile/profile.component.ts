@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { AuthenticationService } from 'app/core';
 
-import { FieldDto, UserDetailDto } from './../../swagger';
+import { FieldDto, UserDetailDto } from 'app/swagger';
 import { Fields } from './../../models';
 
 @Component({

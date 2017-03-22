@@ -8,7 +8,7 @@ import {
  import { AlertService } from 'app/modules/alert';
 
 /** Models */
-import { UserDetailDto } from './../../swagger';
+import { UserDetailDto } from 'app/swagger';
 
 /** Decorators */
 import { Access, OnAccess } from 'app/shared/decorators/access.decorator';

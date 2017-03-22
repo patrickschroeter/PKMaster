@@ -21,7 +21,7 @@ import {
     UserDetailDto,
     CommentDto,
     Status
-} from './../../../swagger';
+} from 'app/swagger';
 import { Selectable } from './../../../models';
 
 /** Decorators */

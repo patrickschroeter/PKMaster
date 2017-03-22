@@ -25,7 +25,7 @@ import {
     ApplicationCreateDto,
     ApplicationListDto,
     Status
-} from './../../../swagger';
+} from 'app/swagger';
 import { ApplicationApiMock, FormApiMock, AuthenticationService, AuthenticationMock, ConferenceService, ConferenceMock } from './..';
 
 import { AlertProviderMock } from 'app/modules/alert/alert.module';

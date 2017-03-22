@@ -10,12 +10,12 @@ import { SharedModule } from 'app/shared/shared.module';
 import * as services from './services';
 import { ExtendHttpService } from './services/extend-http/extend-http.service';
 
-import { FormApi } from './../swagger/api/FormApi';
-import { ApplicationApi } from './../swagger/api/ApplicationApi';
-import { UserApi } from './../swagger/api/UserApi';
-import { ConferenceApi } from './../swagger/api/ConferenceApi';
-import { RoleApi } from './../swagger/api/RoleApi';
-import { ConfigurationApi } from './../swagger/api/ConfigurationApi';
+import { FormApi } from 'app/swagger/api/FormApi';
+import { ApplicationApi } from 'app/swagger/api/ApplicationApi';
+import { UserApi } from 'app/swagger/api/UserApi';
+import { ConferenceApi } from 'app/swagger/api/ConferenceApi';
+import { RoleApi } from 'app/swagger/api/RoleApi';
+import { ConfigurationApi } from 'app/swagger/api/ConfigurationApi';
 import {
     PermissionEndpoint,
     FormEndpoint,

@@ -5,11 +5,11 @@ import { Observable, Observer } from 'rxjs/Rx';
 
 import { ApplicationApiMock, FormEndpoint } from './';
 
-import { ApplicationDetailDto, UserDetailDto } from './../../../swagger';
-import { FormApi } from './../../../swagger/api/FormApi';
-import { ConferenceApi } from './../../../swagger/api/ConferenceApi';
-import { UserApi } from './../../../swagger/api/UserApi';
-import { CommentDto, CommentCreateDto } from './../../../swagger';
+import { ApplicationDetailDto, UserDetailDto } from 'app/swagger';
+import { FormApi } from 'app/swagger/api/FormApi';
+import { ConferenceApi } from 'app/swagger/api/ConferenceApi';
+import { UserApi } from 'app/swagger/api/UserApi';
+import { CommentDto, CommentCreateDto } from 'app/swagger';
 
 @Injectable()
 export class ApplicationEndpoint {

@@ -1,7 +1,7 @@
 import { Http, Headers, RequestOptionsArgs, Response, URLSearchParams } from '@angular/http';
 import { Injectable, Optional } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { FieldDefinitionDto, StyleDto, ValidationDto, StatusDto } from './../../../swagger';
+import { FieldDefinitionDto, StyleDto, ValidationDto, StatusDto } from 'app/swagger';
 
 @Injectable()
 export class ConfigurationApiMock {

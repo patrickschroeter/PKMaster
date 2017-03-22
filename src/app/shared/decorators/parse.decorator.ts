@@ -1,6 +1,6 @@
 /**
  */
-import * as swagger from './../../swagger/model/models';
+import * as swagger from 'app/swagger/model/models';
 
 export function Parse(name: string) {
     return function (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {

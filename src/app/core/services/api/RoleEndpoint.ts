@@ -6,7 +6,7 @@ import { RoleApiMock } from 'app/core';
 
 import { PermissionEndpoint } from './PermissionEndpoint';
 
-import { RoleDto } from './../../../swagger';
+import { RoleDto } from 'app/swagger';
 
 @Injectable()
 export class RoleEndpoint {

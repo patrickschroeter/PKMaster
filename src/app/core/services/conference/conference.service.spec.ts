@@ -7,7 +7,7 @@ import { ConferenceService } from './conference.service';
 
 import { ConferenceApiMock } from 'app/core';
 
-import { ConferenceApi, ConferenceCreateDto } from './../../../swagger';
+import { ConferenceApi, ConferenceCreateDto } from 'app/swagger';
 
 import { AlertProviderMock } from 'app/modules/alert/alert.module';
 import { TranslationProviderMock } from 'app/modules/translation/translation.module';

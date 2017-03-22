@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Injector } from '@angular/core';
 
 import { OverlayComponent } from './../';
 
-import { FieldDto } from './../../../../swagger';
+import { FieldDto } from 'app/swagger';
 
 @Component({
   selector: 'pk-modal-confirmation',

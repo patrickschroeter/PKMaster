@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Rx';
 
 import { FormElementService } from 'app/core';
-import { FieldDto } from './../../../swagger';
+import { FieldDto } from 'app/swagger';
 
 @Component({
     selector: 'pk-element-edit',

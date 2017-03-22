@@ -6,14 +6,14 @@ import { Observable, Observer } from 'rxjs/Rx';
 import { PermissionService } from './../permission/permission.service';
 import { AlertService } from 'app/modules/alert';
 import { TranslationService } from 'app/modules/translation';
-import { UserApi } from './../../../swagger/api/UserApi';
+import { UserApi } from 'app/swagger/api/UserApi';
 import { ConfigurationService } from './../';
 
 /** TODO */
 import { UserApiMock } from 'app/core';
 
 /** Models */
-import { UserDetailDto, UserCreateDto } from './../../../swagger';
+import { UserDetailDto, UserCreateDto } from 'app/swagger';
 
 /** Decorators */
 import { Loading } from 'app/shared/decorators/loading.decorator';

@@ -8,7 +8,7 @@ import { AlertService } from 'app/modules/alert';
 import { FormService } from './../form';
 import { ConfigurationService } from './../configuration';
 import { AuthenticationService } from './../authentication';
-import { ApplicationApi } from './../../../swagger/api/ApplicationApi';
+import { ApplicationApi } from 'app/swagger/api/ApplicationApi';
 import { TranslationService } from 'app/modules/translation';
 import { ConferenceService } from './../conference';
 
@@ -25,7 +25,7 @@ import {
     AssignmentCreateDto,
     ConferenceDetailDto,
     Status
-} from './../../../swagger';
+} from 'app/swagger';
 
 /** Decorators */
 import { Loading } from 'app/shared/decorators/loading.decorator';

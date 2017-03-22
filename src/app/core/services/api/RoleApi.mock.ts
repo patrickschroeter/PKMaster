@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs/Rx';
 
 import { PermissionApiMock } from './PermissionApi.mock';
-import { RoleDto } from './../../../swagger';
+import { RoleDto } from 'app/swagger';
 
 @Injectable()
 export class RoleApiMock {

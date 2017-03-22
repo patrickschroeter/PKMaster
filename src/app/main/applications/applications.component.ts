@@ -19,7 +19,7 @@ import {
     ApplicationListDto,
     ApplicationCreateDto,
     UserDetailDto
-} from './../../swagger';
+} from 'app/swagger';
 import { Selectable } from './../../models';
 
 /** Decorators */

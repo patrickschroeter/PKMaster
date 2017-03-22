@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable, Observer } from 'rxjs/Rx';
 
-import { ConferenceDetailDto } from './../../../swagger';
+import { ConferenceDetailDto } from 'app/swagger';
 
 @Injectable()
 export class ConferenceMock {

@@ -8,7 +8,7 @@ import { TranslationService } from 'app/modules/translation';
 import { ModalService } from 'app/modules/overlay';
 
 /** Models */
-import { ConferenceDetailDto } from './../../../../swagger';
+import { ConferenceDetailDto } from 'app/swagger';
 
 @Component({
     selector: 'pk-button-conference-delete',

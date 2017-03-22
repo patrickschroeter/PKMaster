@@ -13,7 +13,7 @@ import { TranslationService } from 'app/modules/translation';
 import { ModalService } from 'app/modules/overlay';
 
 /** Models */
-import { ApplicationDetailDto } from './../../../../swagger';
+import { ApplicationDetailDto } from 'app/swagger';
 
 /** Decorators */
 import { Access, OnAccess } from './../../../decorators/access.decorator';

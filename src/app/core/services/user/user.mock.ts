@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs/Rx';
 
-import { UserDetailDto, RoleDto } from './../../../swagger';
+import { UserDetailDto, RoleDto } from 'app/swagger';
 
 @Injectable()
 export class UserMock {

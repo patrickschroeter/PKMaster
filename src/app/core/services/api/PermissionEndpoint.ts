@@ -8,7 +8,7 @@ import {
     PermissionApiMock
 } from './';
 
-import { PermissionDto } from './../../../swagger';
+import { PermissionDto } from 'app/swagger';
 
 @Injectable()
 export class PermissionEndpoint {

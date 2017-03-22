@@ -9,7 +9,7 @@ import {
 
 /** Models */
 import { Credentials } from './../models';
-import { FieldDto } from './../swagger';
+import { FieldDto } from 'app/swagger';
 
 /**
  * The Login Component

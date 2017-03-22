@@ -17,7 +17,7 @@ import {
     ConferenceListDto,
     ConferenceCreateDto,
     FieldDto
-} from './../../swagger';
+} from 'app/swagger';
 
 import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 

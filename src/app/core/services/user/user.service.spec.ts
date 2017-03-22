@@ -3,7 +3,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { UserService } from './user.service';
 
-import { UserApi } from './../../../swagger';
+import { UserApi } from 'app/swagger';
 import { UserApiMock } from './../';
 
 import { AlertProviderMock } from 'app/modules/alert/alert.module';

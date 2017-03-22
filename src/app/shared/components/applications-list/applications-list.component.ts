@@ -8,7 +8,7 @@ import {
     ApplicationDetailDto,
     UserDetailDto,
     Status
-} from './../../../swagger';
+} from 'app/swagger';
 
 @Component({
     selector: 'pk-applications-list',

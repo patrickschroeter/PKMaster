@@ -8,8 +8,8 @@ import { FormApiMock } from './FormApi.mock';
 import { ConferenceApiMock } from './ConferenceApi.mock';
 import { UserApiMock } from './UserApi.mock';
 
-import { ApplicationDetailDto, CommentDto, UserDetailDto, Status } from './../../../swagger';
-import { FormApi } from './../../../swagger/api/FormApi';
+import { ApplicationDetailDto, CommentDto, UserDetailDto, Status } from 'app/swagger';
+import { FormApi } from 'app/swagger/api/FormApi';
 
 @Injectable()
 export class ApplicationApiMock {

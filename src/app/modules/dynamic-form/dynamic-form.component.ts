@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 
 import { DynamicFormService, InputValidationService } from './services';
 
-import { FieldDto } from './../../swagger';
+import { FieldDto } from 'app/swagger';
 
 /**
  *

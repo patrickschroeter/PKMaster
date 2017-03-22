@@ -11,7 +11,7 @@ import { UserApiMock, PermissionMock, PermissionService, ConfigurationService, C
 import { AlertProviderMock } from 'app/modules/alert/alert.module';
 import { TranslationProviderMock } from 'app/modules/translation/translation.module';
 
-import { UserApi, UserDetailDto } from './../../../swagger';
+import { UserApi, UserDetailDto } from 'app/swagger';
 
 
 describe('Service: Authentication', () => {

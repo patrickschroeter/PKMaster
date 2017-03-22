@@ -15,7 +15,7 @@ import {
     CommentDto,
     ApplicationDetailDto,
     Status
-} from './../../../swagger';
+} from 'app/swagger';
 import { AcceptApplication } from './../../../models';
 
 /** Decorators */

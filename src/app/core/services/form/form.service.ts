@@ -5,10 +5,10 @@ import * as _ from 'lodash';
 /** Services */
 import { AlertService } from 'app/modules/alert';
 import { TranslationService } from 'app/modules/translation';
-import { FormApi } from './../../../swagger/api/FormApi';
+import { FormApi } from 'app/swagger/api/FormApi';
 
 /** Models */
-import { FieldDto, FormDetailDto, FormCreateDto, FormListDto } from './../../../swagger';
+import { FieldDto, FormDetailDto, FormCreateDto, FormListDto } from 'app/swagger';
 
 /** Decorators */
 import { Loading } from 'app/shared/decorators/loading.decorator';

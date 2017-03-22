@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 
 import { Observable, Observer } from 'rxjs/Rx';
 
-import { FormDetailDto } from './../../../swagger';
+import { FormDetailDto } from 'app/swagger';
 
 @Injectable()
 export class FormApiMock {

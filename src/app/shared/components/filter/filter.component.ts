@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ListService } from './../../services';
-import { Status } from './../../../swagger';
+import { Status } from 'app/swagger';
 
 @Component({
     selector: 'pk-filter',

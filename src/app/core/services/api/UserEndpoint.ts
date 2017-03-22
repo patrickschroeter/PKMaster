@@ -4,7 +4,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 
 import { UserApiMock, AuthenticationService } from './../';
 
-import { UserDetailDto, RoleApi, RoleDto } from './../../../swagger';
+import { UserDetailDto, RoleApi, RoleDto } from 'app/swagger';
 
 @Injectable()
 export class UserEndpoint {

@@ -6,7 +6,7 @@ import { DynamicFormComponent } from './../../dynamic-form.component';
 import { OverlayComponent } from 'app/modules/overlay';
 
 /** Models */
-import { FieldDto } from './../../../../swagger';
+import { FieldDto } from 'app/swagger';
 import { Selectable } from './../../../../models';
 
 /**

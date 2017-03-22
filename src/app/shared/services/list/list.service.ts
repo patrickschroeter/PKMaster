@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 
 import { BehaviorSubject } from 'rxjs/Rx';
 
-import { Status, ApplicationListDto } from './../../../swagger';
+import { Status, ApplicationListDto } from 'app/swagger';
 
 export interface List {
     listService: ListService;

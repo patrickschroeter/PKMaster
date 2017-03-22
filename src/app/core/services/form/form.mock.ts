@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable, Observer } from 'rxjs/Rx';
 
-import { FieldDto } from './../../../swagger';
+import { FieldDto } from 'app/swagger';
 
 @Injectable()
 export class FormMock {

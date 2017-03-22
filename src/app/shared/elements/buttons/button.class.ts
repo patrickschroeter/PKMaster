@@ -1,6 +1,6 @@
 import { Input } from '@angular/core';
 
-import { ApplicationDetailDto, ApplicationListDto, Status } from './../../../swagger';
+import { ApplicationDetailDto, ApplicationListDto, Status } from 'app/swagger';
 
 export class Button {
 

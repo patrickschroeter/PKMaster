@@ -8,7 +8,7 @@ import { AlertService } from 'app/modules/alert';
 
 /** Models */
 import { ConferenceConfig } from './../../../models';
-import { ApplicationDetailDto, Status } from './../../../swagger';
+import { ApplicationDetailDto, Status } from 'app/swagger';
 import { ModalAcceptApplicationComponent } from './../../';
 
 import { Access, OnAccess } from './../../decorators/access.decorator';

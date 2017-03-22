@@ -4,7 +4,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 import { AlertService } from 'app/modules/alert';
 import { TranslationService } from 'app/modules/translation';
 
-import { RoleApi } from './../../../swagger';
+import { RoleApi } from 'app/swagger';
 
 @Injectable()
 export class RoleMock {

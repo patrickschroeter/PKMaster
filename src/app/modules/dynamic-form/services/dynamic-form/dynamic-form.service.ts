@@ -6,7 +6,7 @@ import { AlertService } from 'app/modules/alert';
 
 import { InputValidationService } from './../input-validation/input-validation.service';
 
-import { FieldDto } from './../../../../swagger';
+import { FieldDto } from 'app/swagger';
 
 @Injectable()
 export class DynamicFormService {

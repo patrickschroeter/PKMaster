@@ -10,7 +10,7 @@ import { AlertService } from 'app/modules/alert';
 import { TranslationService } from 'app/modules/translation';
 
 /** Models */
-import { FieldDto } from './../../../../swagger';
+import { FieldDto } from 'app/swagger';
 import { Selectable } from './../../../../models';
 
 /**

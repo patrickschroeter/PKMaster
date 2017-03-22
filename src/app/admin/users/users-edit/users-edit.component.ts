@@ -9,7 +9,7 @@ import {
 import { AlertService } from 'app/modules/alert';
 
 /** Models */
-import { UserDetailDto, FieldDto } from './../../../swagger';
+import { UserDetailDto, FieldDto } from 'app/swagger';
 import { Fields } from './../../../models';
 
 /** Decorators */

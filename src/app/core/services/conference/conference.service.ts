@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 /** Services */
 import { AlertService } from 'app/modules/alert';
 import { TranslationService } from 'app/modules/translation';
-import { ConferenceApi } from './../../../swagger/api/ConferenceApi';
+import { ConferenceApi } from 'app/swagger/api/ConferenceApi';
 
 /** Models */
 import {
@@ -16,7 +16,7 @@ import {
     ApplicationDetailDto,
     AttendantCreateDto,
     ConferenceListDto
-} from './../../../swagger';
+} from 'app/swagger';
 
 /** Decorators */
 import { Loading } from 'app/shared/decorators/loading.decorator';

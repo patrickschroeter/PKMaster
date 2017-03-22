@@ -13,7 +13,7 @@ import { TranslationService } from 'app/modules/translation';
 import { AlertService } from 'app/modules/alert';
 
 /** Models */
-import { UserDetailDto, FieldDto, RoleDto } from './../../../swagger';
+import { UserDetailDto, FieldDto, RoleDto } from 'app/swagger';
 import { Fields, Selectable } from './../../../models';
 
 /** Decorators */

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import * as _ from 'lodash';
 
 /** Models */
-import { FieldDto } from './../../../swagger';
+import { FieldDto } from 'app/swagger';
 import { Window } from './../../../models';
 import { OverlayComponent } from 'app/modules/overlay';
 

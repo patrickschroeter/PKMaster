@@ -5,7 +5,7 @@ import { AuthenticationService } from 'app/core';
 import { AlertService } from 'app/modules/alert';
 import { TranslationService } from 'app/modules/translation';
 
-import { UserDetailDto } from './../../../swagger';
+import { UserDetailDto } from 'app/swagger';
 import { Fields } from './../../../models';
 
 @Component({

@@ -11,7 +11,7 @@ import {
     CommentDto,
     ApplicationDetailDto,
     FieldDto
-} from './../../../swagger';
+} from 'app/swagger';
 
 @Component({
     selector: 'pk-comment-add',

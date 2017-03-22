@@ -16,7 +16,7 @@ import {
 import { TranslationService } from 'app/modules/translation';
 
 /** Models */
-import { FieldDto, FormDetailDto } from './../../../swagger';
+import { FieldDto, FormDetailDto } from 'app/swagger';
 import { Selectable } from './../../../models';
 
 import { Access, OnAccess } from 'app/shared/decorators/access.decorator';

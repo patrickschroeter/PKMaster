@@ -1,5 +1,5 @@
 /** Models */
-import { ApplicationDetailDto } from './../swagger';
+import { ApplicationDetailDto } from 'app/swagger';
 
 /**
  * Object of Applications by Form ID

@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs/Rx';
 
 import { RoleApiMock } from './RoleApi.mock';
-import { UserDetailDto, UserCreateDto } from './../../../swagger';
+import { UserDetailDto, UserCreateDto } from 'app/swagger';
 
 class UserDetailDtoMock implements UserDetailDto, UserCreateDto {
     id: string;

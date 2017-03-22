@@ -8,7 +8,7 @@ import {
 } from 'app/modules/dynamic-form';
 
 /** Models */
-import { FieldDto, UserDetailDto, UserCreateDto } from './../../swagger';
+import { FieldDto, UserDetailDto, UserCreateDto } from 'app/swagger';
 
 @Component({
     selector: 'pk-register',

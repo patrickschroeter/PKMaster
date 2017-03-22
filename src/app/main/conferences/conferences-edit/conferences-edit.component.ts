@@ -14,7 +14,7 @@ import { WindowService } from 'app/shared';
 import { ModalService } from 'app/modules/overlay';
 
 /** Models */
-import { ConferenceDetailDto, FormDetailDto, FieldDto } from './../../../swagger';
+import { ConferenceDetailDto, FormDetailDto, FieldDto } from 'app/swagger';
 import { Selectable, ConferenceConfig } from './../../../models';
 import { OverlayComponent } from 'app/modules/overlay';
 import {

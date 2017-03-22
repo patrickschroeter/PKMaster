@@ -15,7 +15,7 @@ import {
 
 import { Fields } from './../../../models';
 
-import { FormApi, FormDetailDto, FieldDto, FormCreateDto } from './../../../swagger';
+import { FormApi, FormDetailDto, FieldDto, FormCreateDto } from 'app/swagger';
 
 import { TranslationProviderMock } from 'app/modules/translation/translation.module';
 

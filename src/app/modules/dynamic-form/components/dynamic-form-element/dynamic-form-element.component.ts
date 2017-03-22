@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 
 import { DynamicFormService } from './../../services';
 
-import { FieldDto } from './../../../../swagger';
+import { FieldDto } from 'app/swagger';
 
 import { DynamicFormComponent } from './../../dynamic-form.component';
 

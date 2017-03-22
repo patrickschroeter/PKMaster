@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 /** Services */
-import { UserApi } from './../../../swagger';
+import { UserApi } from 'app/swagger';
 import { AlertService } from 'app/modules/alert';
 import { TranslationService } from 'app/modules/translation';
 
 /** Models */
-import { UserDetailDto, RoleDto, UserCreateDto } from './../../../swagger';
+import { UserDetailDto, RoleDto, UserCreateDto } from 'app/swagger';
 
 /** Decorators */
 import { Loading } from 'app/shared/decorators/loading.decorator';

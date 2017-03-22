@@ -4,7 +4,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 
 import { ConferenceApiMock } from './';
 
-import { ConferenceDetailDto, ApplicationDetailDto, ApplicationListDto } from './../../../swagger';
+import { ConferenceDetailDto, ApplicationDetailDto, ApplicationListDto } from 'app/swagger';
 
 @Injectable()
 export class ConferenceEndpoint {

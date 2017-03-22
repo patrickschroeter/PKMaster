@@ -24,7 +24,7 @@ import {
     UserDetailDto,
     UserListDto,
     AttendantCreateDto
-} from './../../../swagger';
+} from 'app/swagger';
 import { OverlayComponent } from 'app/modules/overlay';
 
 import { Access, OnAccess } from 'app/shared/decorators/access.decorator';

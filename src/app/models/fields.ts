@@ -1,4 +1,4 @@
-import { FieldDto } from './../swagger';
+import { FieldDto } from 'app/swagger';
 
 /**
  * A Field Element for dynamically create Forms

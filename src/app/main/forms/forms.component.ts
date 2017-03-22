@@ -13,7 +13,7 @@ import { TranslationService } from 'app/modules/translation';
 import { ListService, List } from 'app/shared';
 
 /** Models */
-import { FormDetailDto, FormListDto } from './../../swagger';
+import { FormDetailDto, FormListDto } from 'app/swagger';
 import { OverlayComponent } from 'app/modules/overlay';
 
 import { Access, OnAccess } from 'app/shared/decorators/access.decorator';

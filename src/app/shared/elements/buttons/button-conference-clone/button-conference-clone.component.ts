@@ -13,7 +13,7 @@ import {
     ConferenceDetailDto,
     ConferenceListDto,
     ConferenceCreateDto
-} from './../../../../swagger';
+} from 'app/swagger';
 
 @Component({
     selector: 'pk-button-conference-clone',

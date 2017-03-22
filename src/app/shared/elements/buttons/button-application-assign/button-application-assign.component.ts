@@ -14,7 +14,7 @@ import { ModalService } from 'app/modules/overlay';
 import { TranslationService } from 'app/modules/translation';
 
 /** Models */
-import { UserDetailDto, ApplicationDetailDto } from './../../../../swagger';
+import { UserDetailDto, ApplicationDetailDto } from 'app/swagger';
 import { Selectable } from './../../../../models';
 
 @Component({

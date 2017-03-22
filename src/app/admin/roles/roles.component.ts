@@ -9,7 +9,7 @@ import {
 import { AlertService } from 'app/modules/alert';
 
 /** Models */
-import { RoleDto, FieldDto } from './../../swagger';
+import { RoleDto, FieldDto } from 'app/swagger';
 
 /** Decorators */
 import { Access, OnAccess } from 'app/shared/decorators/access.decorator';

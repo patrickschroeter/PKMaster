@@ -9,7 +9,7 @@ import { TranslationService } from 'app/modules/translation';
 import { AlertService } from 'app/modules/alert';
 
 /** Models */
-import { RoleDto, FieldDto, PermissionDto } from './../../../swagger';
+import { RoleDto, FieldDto, PermissionDto } from 'app/swagger';
 import { Selectable } from './../../../models';
 
 /** Decorator */

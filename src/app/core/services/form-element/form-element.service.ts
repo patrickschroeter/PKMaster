@@ -20,7 +20,7 @@ import {
     FieldDefinitionDto,
     ValidationDto,
     StyleDto
-} from './../../../swagger';
+} from 'app/swagger';
 import { Fields, Selectable, FieldModel } from './../../../models';
 
 /** Decorators */

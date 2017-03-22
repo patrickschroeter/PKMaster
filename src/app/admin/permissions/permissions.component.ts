@@ -8,7 +8,7 @@ import { AlertService } from 'app/modules/alert';
 import { TranslationService } from 'app/modules/translation';
 
 /** Models */
-import { PermissionDto, FieldDto } from './../../swagger';
+import { PermissionDto, FieldDto } from 'app/swagger';
 import { OverlayComponent } from 'app/modules/overlay';
 
 /** Decorators */

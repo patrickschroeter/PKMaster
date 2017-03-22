@@ -15,7 +15,7 @@ import { TranslationProviderMock } from 'app/modules/translation/translation.mod
 import { AlertProviderMock } from 'app/modules/alert/alert.module';
 import { AlertService } from 'app/modules/alert';
 
-import { FieldDto } from './../../../swagger';
+import { FieldDto } from 'app/swagger';
 import { Fields } from './../../../models';
 
 describe('Service: FormElement', () => {

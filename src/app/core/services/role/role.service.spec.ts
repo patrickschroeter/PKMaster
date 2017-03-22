@@ -4,7 +4,7 @@ import { TestBed, async, inject } from '@angular/core/testing';
 import { RoleService } from './role.service';
 
 import { RoleApiMock } from './../api';
-import { RoleApi } from './../../../swagger';
+import { RoleApi } from 'app/swagger';
 import { AlertProviderMock } from 'app/modules/alert/alert.module';
 import { TranslationProviderMock } from 'app/modules/translation/translation.module';
 

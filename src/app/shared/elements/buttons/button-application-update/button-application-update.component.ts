@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Button } from './../button.class';
 
 /** Models */
-import { ApplicationDetailDto } from './../../../../swagger';
+import { ApplicationDetailDto } from 'app/swagger';
 
 @Component({
     selector: 'pk-button-application-update',

@@ -14,7 +14,7 @@ import { TranslationService } from 'app/modules/translation';
 import { OverlayComponent } from 'app/modules/overlay';
 
 /** Models */
-import { FieldDto, UserDetailDto } from './../../../swagger';
+import { FieldDto, UserDetailDto } from 'app/swagger';
 import { Fields, ChangePasswordForm } from './../../../models';
 
 /**

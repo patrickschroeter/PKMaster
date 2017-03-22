@@ -8,7 +8,7 @@ import { TranslationService } from 'app/modules/translation';
 import { PermissionEndpoint } from './../api/PermissionEndpoint';
 
 /** Models */
-import { UserDetailDto, PermissionDto } from './../../../swagger';
+import { UserDetailDto, PermissionDto } from 'app/swagger';
 
 /** Decorators */
 import { Loading } from 'app/shared/decorators/loading.decorator';

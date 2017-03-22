@@ -4,10 +4,10 @@ import { Observable } from 'rxjs/Rx';
 /** Services */
 import { AlertService } from 'app/modules/alert';
 import { TranslationService } from 'app/modules/translation';
-import { RoleApi } from './../../../swagger';
+import { RoleApi } from 'app/swagger';
 
 /** Models */
-import { RoleDto } from './../../../swagger';
+import { RoleDto } from 'app/swagger';
 
 /** Decorators */
 import { Loading } from 'app/shared/decorators/loading.decorator';

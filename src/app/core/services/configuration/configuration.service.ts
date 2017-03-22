@@ -3,14 +3,14 @@ import { Observable } from 'rxjs/Rx';
 import * as _ from 'lodash';
 
 /** ConfigurationApi */
-import { ConfigurationApi } from './../../../swagger';
+import { ConfigurationApi } from 'app/swagger';
 
 /** Models */
 import {
     FieldDefinitionDto,
     ValidationDto,
     StyleDto
-} from './../../../swagger';
+} from 'app/swagger';
 
 @Injectable()
 export class ConfigurationService {

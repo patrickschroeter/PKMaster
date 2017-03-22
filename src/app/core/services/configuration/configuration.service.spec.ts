@@ -3,7 +3,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { ConfigurationService } from './configuration.service';
 
-import { ConfigurationApi } from './../../../swagger';
+import { ConfigurationApi } from 'app/swagger';
 import { ConfigurationApiMock } from './../';
 
 describe('ConfigurationService', () => {

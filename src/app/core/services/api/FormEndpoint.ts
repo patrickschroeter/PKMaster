@@ -4,7 +4,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 
 import { FormApiMock } from './';
 
-import { FormDetailDto } from './../../../swagger';
+import { FormDetailDto } from 'app/swagger';
 
 @Injectable()
 export class FormEndpoint {

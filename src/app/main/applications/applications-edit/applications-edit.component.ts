@@ -16,7 +16,7 @@ import {
     ApplicationDetailDto,
     Status,
     UserDetailDto
-} from './../../../swagger';
+} from 'app/swagger';
 
 /** Decorators */
 import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
