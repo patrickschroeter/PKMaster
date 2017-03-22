@@ -12,7 +12,7 @@ import { AlertService } from 'app/modules/alert';
 import { RoleDto, FieldDto } from './../../swagger';
 
 /** Decorators */
-import { Access, OnAccess } from './../../shared/decorators/access.decorator';
+import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
 /**
  * Displays a list of all roles

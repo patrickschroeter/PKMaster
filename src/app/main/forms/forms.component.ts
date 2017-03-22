@@ -10,13 +10,13 @@ import {
 import { ModalService } from 'app/modules/overlay';
 import { AlertService } from 'app/modules/alert';
 import { TranslationService } from 'app/modules/translation';
-import { ListService, List } from './../../shared';
+import { ListService, List } from 'app/shared';
 
 /** Models */
 import { FormDetailDto, FormListDto } from './../../swagger';
 import { OverlayComponent } from 'app/modules/overlay';
 
-import { Access, OnAccess } from './../../shared/decorators/access.decorator';
+import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
 @Component({
     selector: 'pk-forms',

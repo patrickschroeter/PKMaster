@@ -5,7 +5,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { ConferenceEntryDetailComponent } from './conference-entry-detail.component';
 import { AccessDirective } from './../../';
-import { StatusPipe } from './../../../shared';
+import { StatusPipe } from 'app/shared';
 
 import { CoreProviderMock } from 'app/core/core.module';
 import { AlertProviderMock } from 'app/modules/alert/alert.module';

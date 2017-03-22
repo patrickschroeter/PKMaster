@@ -7,7 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NavbarComponent } from './navbar.component';
 
 import { CoreProviderMock } from 'app/core/core.module';
-import { AccessDirective } from './../../../shared';
+import { AccessDirective } from 'app/shared';
 
 describe('NavbarComponent', () => {
     let component: NavbarComponent;

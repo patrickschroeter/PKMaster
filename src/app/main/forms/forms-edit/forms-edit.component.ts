@@ -19,7 +19,7 @@ import { TranslationService } from 'app/modules/translation';
 import { FieldDto, FormDetailDto } from './../../../swagger';
 import { Selectable } from './../../../models';
 
-import { Access, OnAccess } from './../../../shared/decorators/access.decorator';
+import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
 /**
  * A service taking care of adding/removing elements to a form

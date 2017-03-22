@@ -10,7 +10,7 @@ import { RoleApi } from './../../../swagger';
 import { RoleDto } from './../../../swagger';
 
 /** Decorators */
-import { Loading } from './../../../shared/decorators/loading.decorator';
+import { Loading } from 'app/shared/decorators/loading.decorator';
 
 /**
  * A Service taking care of creation and edit of Roles

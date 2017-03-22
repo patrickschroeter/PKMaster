@@ -10,7 +10,7 @@ import {
 } from 'app/core';
 import { AlertService } from 'app/modules/alert';
 import { TranslationService } from 'app/modules/translation';
-import { WindowService } from './../../../shared';
+import { WindowService } from 'app/shared';
 import { ModalService } from 'app/modules/overlay';
 
 /** Models */
@@ -20,10 +20,10 @@ import { OverlayComponent } from 'app/modules/overlay';
 import {
     ModalAddConferenceEntryComponent,
     ModalAddConferenceListComponent
-} from './../../../shared';
+} from 'app/shared';
 
 /** Decorators */
-import { Access, OnAccess } from './../../../shared/decorators/access.decorator';
+import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
 @Component({
     selector: 'pk-conferences-edit',

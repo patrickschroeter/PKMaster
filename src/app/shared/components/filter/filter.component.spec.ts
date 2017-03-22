@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { FilterComponent } from './filter.component';
 
-import { SharedProviderMock } from './../../../shared/shared.module';
+import { SharedProviderMock } from 'app/shared/shared.module';
 
 describe('FilterComponent', () => {
   let component: FilterComponent;

@@ -11,7 +11,7 @@ import { AlertProviderMock } from 'app/modules/alert/alert.module';
 import { TranslationProviderMock } from 'app/modules/translation/translation.module';
 
 import { OverlayModule, ModalProviderMock } from 'app/modules/overlay/overlay.module';
-import { StatusPipe, AccessDirective } from './../../../shared';
+import { StatusPipe, AccessDirective } from 'app/shared';
 
 describe('ApplicationsDetailComponent', () => {
     let component: ApplicationsDetailComponent;

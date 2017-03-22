@@ -17,7 +17,7 @@ import { UserDetailDto, FieldDto, RoleDto } from './../../../swagger';
 import { Fields, Selectable } from './../../../models';
 
 /** Decorators */
-import { Access, OnAccess } from './../../../shared/decorators/access.decorator';
+import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
 /**
  *

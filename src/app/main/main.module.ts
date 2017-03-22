@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import * as main from './';
 import { MainRouting } from './main.routing';
 
-import { SharedModule } from './../shared/shared.module';
+import { SharedModule } from 'app/shared/shared.module';
 import { ListModule } from 'app/modules/list/list.module';
 import { FloatingModule } from 'app/modules/floating/floating.module';
 import { DynamicFormModule } from 'app/modules/dynamic-form/dynamic-form.module';

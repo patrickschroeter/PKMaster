@@ -11,7 +11,7 @@ import { FormApi } from './../../../swagger/api/FormApi';
 import { FieldDto, FormDetailDto, FormCreateDto, FormListDto } from './../../../swagger';
 
 /** Decorators */
-import { Loading } from './../../../shared/decorators/loading.decorator';
+import { Loading } from 'app/shared/decorators/loading.decorator';
 
 @Injectable()
 export class FormService {

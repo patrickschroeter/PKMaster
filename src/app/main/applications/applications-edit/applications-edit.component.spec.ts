@@ -12,7 +12,7 @@ import { CoreProviderMock } from 'app/core/core.module';
 import { AlertProviderMock } from 'app/modules/alert/alert.module';
 import { TranslationProviderMock } from 'app/modules/translation/translation.module';
 import { ModalProviderMock } from 'app/modules/overlay/overlay.module';
-import { StatusPipe } from './../../../shared';
+import { StatusPipe } from 'app/shared';
 
 describe('ApplicationsEditComponent', () => {
     let component: ApplicationsEditComponent;

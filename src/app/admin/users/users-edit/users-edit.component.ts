@@ -13,7 +13,7 @@ import { UserDetailDto, FieldDto } from './../../../swagger';
 import { Fields } from './../../../models';
 
 /** Decorators */
-import { Access, OnAccess } from './../../../shared/decorators/access.decorator';
+import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
 @Component({
     selector: 'pk-users-edit',

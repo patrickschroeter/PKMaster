@@ -24,7 +24,7 @@ import {
 import { Fields, Selectable, FieldModel } from './../../../models';
 
 /** Decorators */
-import { Loading } from './../../../shared/decorators/loading.decorator';
+import { Loading } from 'app/shared/decorators/loading.decorator';
 
 /**
  * A Service taking care of on Form Element

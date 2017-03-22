@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './';
 import { LoginRouting } from './login.routing';
 
-import { SharedModule } from './../shared/shared.module';
+import { SharedModule } from 'app/shared/shared.module';
 import { DynamicFormModule } from 'app/modules/dynamic-form/dynamic-form.module';
 import { ButtonModule } from 'app/modules/button/button.module';
 import { FloatingModule } from 'app/modules/floating/floating.module';

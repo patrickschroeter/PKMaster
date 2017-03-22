@@ -19,7 +19,7 @@ import {
     FieldDto
 } from './../../swagger';
 
-import { Access, OnAccess } from './../../shared/decorators/access.decorator';
+import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
 /**
  * A Component to list all conferences

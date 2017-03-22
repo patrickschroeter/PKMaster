@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { StyleguideComponent } from './';
 import { StyleguideRouting } from './styleguide.routing';
 
-import { SharedModule } from './../shared/shared.module';
+import { SharedModule } from 'app/shared/shared.module';
 import { ButtonModule } from 'app/modules/button/button.module';
 import { DynamicFormModule } from 'app/modules/dynamic-form/dynamic-form.module';
 

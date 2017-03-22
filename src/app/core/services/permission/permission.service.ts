@@ -11,7 +11,7 @@ import { PermissionEndpoint } from './../api/PermissionEndpoint';
 import { UserDetailDto, PermissionDto } from './../../../swagger';
 
 /** Decorators */
-import { Loading } from './../../../shared/decorators/loading.decorator';
+import { Loading } from 'app/shared/decorators/loading.decorator';
 
 @Injectable()
 export class PermissionService {

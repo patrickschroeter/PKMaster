@@ -12,7 +12,7 @@ import { PermissionDto, FieldDto } from './../../swagger';
 import { OverlayComponent } from 'app/modules/overlay';
 
 /** Decorators */
-import { Access, OnAccess } from './../../shared/decorators/access.decorator';
+import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
 @Component({
     selector: 'pk-permissions',

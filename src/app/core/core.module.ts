@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 import { environment } from './../../environments/environment';
 
-import { SharedModule } from './../shared/shared.module';
+import { SharedModule } from 'app/shared/shared.module';
 
 import * as services from './services';
 import { ExtendHttpService } from './services/extend-http/extend-http.service';

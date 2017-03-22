@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import * as admin from './';
 import { AdminRouting } from './admin.routing';
 
-import { SharedModule } from './../shared/shared.module';
+import { SharedModule } from 'app/shared/shared.module';
 import { ListModule } from 'app/modules/list/list.module';
 import { FloatingModule } from 'app/modules/floating/floating.module';
 import { DynamicFormModule } from 'app/modules/dynamic-form/dynamic-form.module';

@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { PaginationComponent } from './pagination.component';
 
-import { SharedProviderMock } from './../../shared.module';
+import { SharedProviderMock } from 'app/shared.module';
 
 describe('PaginationComponent', () => {
     let component: PaginationComponent;

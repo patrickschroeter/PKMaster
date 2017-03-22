@@ -5,7 +5,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ConferencesComponent } from './conferences.component';
-import { AccessDirective } from './../../shared';
+import { AccessDirective } from 'app/shared';
 
 import { CoreProviderMock } from 'app/core/core.module';
 import { AlertProviderMock } from 'app/modules/alert/alert.module';
