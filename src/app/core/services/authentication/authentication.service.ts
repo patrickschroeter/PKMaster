@@ -27,50 +27,13 @@ import { Loading } from 'app/shared/decorators/loading.decorator';
 @Injectable()
 export class AuthenticationService {
 
-    /**
-     * localStorage key for token
-     *
-     * @static
-     *
-     * @memberOf AuthenticationService
-     */
     static TOKEN_KEY = 'authtoken';
-
-    /**
-     * localStorage key for token expiration time
-     *
-     * @static
-     *
-     * @memberOf AuthenticationService
-     */
     static TOKEN_TIME_KEY = 'authtokentime';
 
-    /**
-     * time the token is valid
-     *
-     * @private
-     * @type {Number}
-     * @memberOf AuthenticationService
-     */
     private expiration = 0;
 
-    /**
-     * the user observable
-     *
-     * @private
-     * @type {Observable<AppUser>}
-     * @memberOf AuthenticationService
-     */
     private user: Observable<UserDetailDto>;
 
-    /**
-     * static function to get the token from localStorage
-     *
-     * @static
-     * @returns
-     *
-     * @memberOf AuthenticationService
-     */
     static getStaticToken() {
         return localStorage.getItem(AuthenticationService.TOKEN_KEY);
     }
@@ -114,7 +77,10 @@ export class AuthenticationService {
     get token(): string {
         const time = +localStorage.getItem(AuthenticationService.TOKEN_TIME_KEY);
         const token = localStorage.getItem(AuthenticationService.TOKEN_KEY);
-        if (time >= Date.now() && token) {
+        if (!token) {
+            this.logout();
+            return;
+        } else if (time >= Date.now()) {
             // TODO refresh token
             localStorage.setItem(AuthenticationService.TOKEN_TIME_KEY, (Date.now() + 120000000).toString());
             return token;

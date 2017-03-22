@@ -5,7 +5,7 @@
     "angular-cli": {},
     "scripts": {
         "ng": "ng",
-        "start": "ng serve --env=api",
+        "start": "ng serve",
         "test": "ng test --watch=false",
         "lint": "tslint \"src/**/*.ts\" --noUnusedParameters --noUnusedLocals",
         "e2e": "ng e2e -s=false",

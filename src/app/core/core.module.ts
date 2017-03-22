@@ -18,15 +18,9 @@ import { RoleApi } from 'app/swagger/api/RoleApi';
 import { ConfigurationApi } from 'app/swagger/api/ConfigurationApi';
 import {
     PermissionEndpoint,
-    FormEndpoint,
-    ApplicationEndpoint,
-    UserEndpoint,
-    ConferenceEndpoint,
-    RoleEndpoint,
 } from './services/api';
 
 const BASEPATH = 'http://pk.multimedia.hs-augsburg.de:8000';
-const API = !!environment.api;
 
 @NgModule({
     declarations: [
@@ -149,23 +143,23 @@ export function extendHttp(xhrBackend: XHRBackend, requestOptions: RequestOption
  *  Add Http Basepath
  */
 export function extendFormApi(http: Http) {
-    return API ? new FormApi(http, BASEPATH) : new FormEndpoint();
+    return new FormApi(http, BASEPATH) ;
 }
 
 export function extendApplicationApi(http: Http, formApi: FormApi, conferenceApi: ConferenceApi, userApi: UserApi) {
-    return API ? new ApplicationApi(http, BASEPATH) : new ApplicationEndpoint(formApi, conferenceApi, userApi);
+    return new ApplicationApi(http, BASEPATH);
 }
 
 export function extendConferenceApi(http: Http) {
-    return API ? new ConferenceApi(http, BASEPATH) : new ConferenceEndpoint();
+    return new ConferenceApi(http, BASEPATH);
 }
 
 export function extendUserApi(http: Http, roleApi: RoleApi) {
-    return API ? new UserApi(http, BASEPATH) : new UserEndpoint(roleApi);
+    return new UserApi(http, BASEPATH);
 }
 
 export function extendRoleApi(http: Http, permissionApi: PermissionEndpoint) {
-    return API ? new RoleApi(http, BASEPATH) : new RoleEndpoint(permissionApi);
+    return new RoleApi(http, BASEPATH);
 }
 export function extendConfigurationApi(http: Http) {
     return new ConfigurationApi(http, BASEPATH);
@@ -174,5 +168,5 @@ export function extendConfigurationApi(http: Http) {
 export function extendPermissionApi(http: Http) {
     return new PermissionEndpoint();
     // TODO: wait for permission api
-    // return API ? new PermissionApi(http, BASEPATH) : new PermissionEndpoint();
+    // return new PermissionApi(http, BASEPATH);
 }
