@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 
 /** Services */
-import { AlertService } from './../../../modules/alert';
-import { TranslationService } from './../../../modules/translation';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
 
 /** Models */
 import { FieldDto } from './../../../swagger';
 import { ConferenceConfig, Window } from './../../../models';
 
 /** Components */
-import { OverlayComponent } from './../../../modules/overlay';
+import { OverlayComponent } from 'app/modules/overlay';
 
 @Component({
   selector: 'pk-modal-add-conference-entry',

@@ -4,7 +4,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import {
     PermissionService
 } from 'app/core';
-import { AlertService } from './../../../modules/alert';
+import { AlertService } from 'app/modules/alert';
 
 /** Models */
 import { ConferenceConfig } from './../../../models';

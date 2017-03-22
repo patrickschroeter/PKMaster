@@ -3,11 +3,11 @@ import { FormControl, AbstractControl, FormGroup } from '@angular/forms';
 
 /** Components */
 import { DynamicFormComponent } from './../../dynamic-form.component';
-import { OverlayComponent } from './../../../../modules/overlay';
+import { OverlayComponent } from 'app/modules/overlay';
 
 /** Services */
-import { AlertService } from './../../../../modules/alert';
-import { TranslationService } from './../../../../modules/translation';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
 
 /** Models */
 import { FieldDto } from './../../../../swagger';

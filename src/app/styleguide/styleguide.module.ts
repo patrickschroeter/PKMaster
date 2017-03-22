@@ -5,8 +5,8 @@ import { StyleguideComponent } from './';
 import { StyleguideRouting } from './styleguide.routing';
 
 import { SharedModule } from './../shared/shared.module';
-import { ButtonModule } from './../modules/button/button.module';
-import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module';
+import { ButtonModule } from 'app/modules/button/button.module';
+import { DynamicFormModule } from 'app/modules/dynamic-form/dynamic-form.module';
 
 @NgModule({
     declarations: [

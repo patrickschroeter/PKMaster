@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 
 /** Services */
 import { FormService } from 'app/core';
-import { ModalService } from './../../../modules/overlay';
-import { TranslationService } from './../../../modules/translation';
+import { ModalService } from 'app/modules/overlay';
+import { TranslationService } from 'app/modules/translation';
 
 /** Models */
 import { ConferenceConfig, Selectable } from './../../../models';

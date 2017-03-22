@@ -10,8 +10,8 @@ import {
 } from 'app/core';
 
 /** Modules */
-import { ModalService } from './../../../../modules/overlay';
-import { TranslationService } from './../../../../modules/translation';
+import { ModalService } from 'app/modules/overlay';
+import { TranslationService } from 'app/modules/translation';
 
 /** Models */
 import { UserDetailDto, ApplicationDetailDto } from './../../../../swagger';

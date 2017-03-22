@@ -5,8 +5,8 @@ import { RoleService } from './role.service';
 
 import { RoleApiMock } from './../api';
 import { RoleApi } from './../../../swagger';
-import { AlertProviderMock } from './../../../modules/alert/alert.module';
-import { TranslationProviderMock } from './../../../modules/translation/translation.module';
+import { AlertProviderMock } from 'app/modules/alert/alert.module';
+import { TranslationProviderMock } from 'app/modules/translation/translation.module';
 
 describe('RoleService', () => {
     beforeEach(() => {

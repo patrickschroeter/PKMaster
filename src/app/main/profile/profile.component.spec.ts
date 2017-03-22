@@ -8,9 +8,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ProfileComponent } from './profile.component';
 
 import { CoreProviderMock } from 'app/core/core.module';
-import { AlertProviderMock } from './../../modules/alert/alert.module';
-import { TranslationProviderMock } from './../../modules/translation/translation.module';
-import { DynamicFormProviderMock } from './../../modules/dynamic-form/dynamic-form.module';
+import { AlertProviderMock } from 'app/modules/alert/alert.module';
+import { TranslationProviderMock } from 'app/modules/translation/translation.module';
+import { DynamicFormProviderMock } from 'app/modules/dynamic-form/dynamic-form.module';
 
 describe('ProfileComponent', () => {
     let component: ProfileComponent;

@@ -2,8 +2,8 @@
  * Required AlertService as alert
  * Required TranslationService as translationService
  */
-import { AlertService } from './../../modules/alert';
-import { TranslationService } from './../../modules/translation';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
 import { environment } from './../../../environments/environment';
 import { Observable } from 'rxjs/Rx';
 

@@ -9,13 +9,13 @@ import * as elements from './elements';
 import * as directives from './directives';
 import * as services from './services';
 
-import { FloatingModule } from './../modules/floating/floating.module';
-import { ButtonModule } from './../modules/button/button.module';
-import { DeviderModule } from './../modules/devider/devider.module';
-import { OverlayModule } from './../modules/overlay/overlay.module';
-import { ListModule } from './../modules/list/list.module';
-import { AlertDirectiveModule } from './../modules/alert/alert.module';
-import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module';
+import { FloatingModule } from 'app/modules/floating/floating.module';
+import { ButtonModule } from 'app/modules/button/button.module';
+import { DeviderModule } from 'app/modules/devider/devider.module';
+import { OverlayModule } from 'app/modules/overlay/overlay.module';
+import { ListModule } from 'app/modules/list/list.module';
+import { AlertDirectiveModule } from 'app/modules/alert/alert.module';
+import { DynamicFormModule } from 'app/modules/dynamic-form/dynamic-form.module';
 import { StatusPipe } from './pipes';
 
 @NgModule({

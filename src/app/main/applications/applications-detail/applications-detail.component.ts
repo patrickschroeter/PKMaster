@@ -10,9 +10,9 @@ import {
     ConferenceService,
     UserService
 } from 'app/core';
-import { AlertService } from './../../../modules/alert';
-import { OverlayComponent, ModalService } from './../../../modules/overlay';
-import { TranslationService } from './../../../modules/translation';
+import { AlertService } from 'app/modules/alert';
+import { OverlayComponent, ModalService } from 'app/modules/overlay';
+import { TranslationService } from 'app/modules/translation';
 
 /** Models */
 import {

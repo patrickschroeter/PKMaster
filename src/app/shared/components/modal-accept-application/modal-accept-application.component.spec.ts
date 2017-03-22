@@ -7,10 +7,10 @@ import { ModalAcceptApplicationComponent } from './modal-accept-application.comp
 
 /** Services */
 import { CoreProviderMock } from 'app/core/core.module';
-import { AlertProviderMock } from './../../../modules/alert/alert.module';
+import { AlertProviderMock } from 'app/modules/alert/alert.module';
 
 /** Components */
-import { OverlayComponent } from './../../../modules/overlay';
+import { OverlayComponent } from 'app/modules/overlay';
 
 describe('ModalAcceptApplicationComponent', () => {
     let component: ModalAcceptApplicationComponent;

@@ -8,15 +8,15 @@ import {
     FormService,
     PermissionService
 } from 'app/core';
-import { AlertService } from './../../../modules/alert';
-import { TranslationService } from './../../../modules/translation';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
 import { WindowService } from './../../../shared';
-import { ModalService } from './../../../modules/overlay';
+import { ModalService } from 'app/modules/overlay';
 
 /** Models */
 import { ConferenceDetailDto, FormDetailDto, FieldDto } from './../../../swagger';
 import { Selectable, ConferenceConfig } from './../../../models';
-import { OverlayComponent } from './../../../modules/overlay';
+import { OverlayComponent } from 'app/modules/overlay';
 import {
     ModalAddConferenceEntryComponent,
     ModalAddConferenceListComponent

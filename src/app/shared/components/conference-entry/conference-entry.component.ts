@@ -5,8 +5,8 @@ import * as _ from 'lodash';
 import {
     PermissionService
 } from 'app/core';
-import { ModalService } from './../../../modules/overlay';
-import { TranslationService } from './../../../modules/translation';
+import { ModalService } from 'app/modules/overlay';
+import { TranslationService } from 'app/modules/translation';
 import { WindowService } from './../../';
 
 /** Models */

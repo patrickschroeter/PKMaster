@@ -5,9 +5,9 @@ import { Button } from './../button.class';
 
 /** Services */
 import { ApplicationService } from 'app/core';
-import { AlertService } from './../../../../modules/alert';
-import { TranslationService } from './../../../../modules/translation';
-import { ModalService } from './../../../../modules/overlay';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
+import { ModalService } from 'app/modules/overlay';
 
 /** Models */
 import { ApplicationDetailDto } from './../../../../swagger';

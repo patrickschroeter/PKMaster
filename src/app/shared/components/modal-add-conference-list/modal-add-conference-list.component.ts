@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 /** Models */
 import { FieldDto } from './../../../swagger';
 import { Window } from './../../../models';
-import { OverlayComponent } from './../../../modules/overlay';
+import { OverlayComponent } from 'app/modules/overlay';
 
 @Component({
     selector: 'pk-modal-add-conference-list',

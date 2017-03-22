@@ -6,12 +6,12 @@ import { AuthenticationService } from 'app/core';
 import {
     DynamicFormService,
     InputValidationService
-} from './../../../modules/dynamic-form';
-import { AlertService } from './../../../modules/alert';
-import { TranslationService } from './../../../modules/translation';
+} from 'app/modules/dynamic-form';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
 
 /** Components */
-import { OverlayComponent } from './../../../modules/overlay';
+import { OverlayComponent } from 'app/modules/overlay';
 
 /** Models */
 import { FieldDto, UserDetailDto } from './../../../swagger';

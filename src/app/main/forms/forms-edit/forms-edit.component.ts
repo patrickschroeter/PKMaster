@@ -8,12 +8,12 @@ import {
     FormElementService,
     PermissionService
 } from 'app/core';
-import { AlertService } from './../../../modules/alert';
+import { AlertService } from 'app/modules/alert';
 import {
     OverlayComponent,
     ModalService
-} from './../../../modules/overlay';
-import { TranslationService } from './../../../modules/translation';
+} from 'app/modules/overlay';
+import { TranslationService } from 'app/modules/translation';
 
 /** Models */
 import { FieldDto, FormDetailDto } from './../../../swagger';

@@ -10,9 +10,9 @@ import {
     PermissionService,
     UserService
 } from 'app/core';
-import { ModalService } from './../../../modules/overlay';
-import { AlertService } from './../../../modules/alert';
-import { TranslationService } from './../../../modules/translation';
+import { ModalService } from 'app/modules/overlay';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
 
 /** Models */
 import { ConferenceConfig, Selectable, ApplicationsByFormId } from './../../../models';
@@ -25,7 +25,7 @@ import {
     UserListDto,
     AttendantCreateDto
 } from './../../../swagger';
-import { OverlayComponent } from './../../../modules/overlay';
+import { OverlayComponent } from 'app/modules/overlay';
 
 import { Access, OnAccess } from './../../../shared/decorators/access.decorator';
 

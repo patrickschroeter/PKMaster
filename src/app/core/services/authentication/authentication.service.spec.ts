@@ -8,8 +8,8 @@ import { Observer, Observable } from 'rxjs/Rx';
 import { AuthenticationService } from './authentication.service';
 
 import { UserApiMock, PermissionMock, PermissionService, ConfigurationService, ConfigurationMock } from 'app/core';
-import { AlertProviderMock } from './../../../modules/alert/alert.module';
-import { TranslationProviderMock } from './../../../modules/translation/translation.module';
+import { AlertProviderMock } from 'app/modules/alert/alert.module';
+import { TranslationProviderMock } from 'app/modules/translation/translation.module';
 
 import { UserApi, UserDetailDto } from './../../../swagger';
 

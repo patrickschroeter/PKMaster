@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Validators, FormControl, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import * as _ from 'lodash';
 
-import { AlertService } from './../../../../modules/alert';
+import { AlertService } from 'app/modules/alert';
 
 import { InputValidationService } from './../input-validation/input-validation.service';
 

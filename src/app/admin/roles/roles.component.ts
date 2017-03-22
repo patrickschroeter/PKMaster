@@ -6,7 +6,7 @@ import {
     RoleService,
     PermissionService
 } from 'app/core';
-import { AlertService } from './../../modules/alert';
+import { AlertService } from 'app/modules/alert';
 
 /** Models */
 import { RoleDto, FieldDto } from './../../swagger';

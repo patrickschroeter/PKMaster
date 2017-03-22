@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { AlertService } from './../../services';
-import { ModalService } from './../../../../modules/overlay';
+import { ModalService } from 'app/modules/overlay';
 import { Message } from './../../../../models';
 
 @Component({

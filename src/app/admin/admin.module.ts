@@ -5,13 +5,13 @@ import * as admin from './';
 import { AdminRouting } from './admin.routing';
 
 import { SharedModule } from './../shared/shared.module';
-import { ListModule } from './../modules/list/list.module';
-import { FloatingModule } from './../modules/floating/floating.module';
-import { DynamicFormModule } from './../modules/dynamic-form/dynamic-form.module';
-import { ButtonModule } from './../modules/button/button.module';
-import { OverlayModule } from './../modules/overlay/overlay.module';
-import { AlertDirectiveModule } from './../modules/alert/alert.module';
-import { DeviderModule } from './../modules/devider/devider.module';
+import { ListModule } from 'app/modules/list/list.module';
+import { FloatingModule } from 'app/modules/floating/floating.module';
+import { DynamicFormModule } from 'app/modules/dynamic-form/dynamic-form.module';
+import { ButtonModule } from 'app/modules/button/button.module';
+import { OverlayModule } from 'app/modules/overlay/overlay.module';
+import { AlertDirectiveModule } from 'app/modules/alert/alert.module';
+import { DeviderModule } from 'app/modules/devider/devider.module';
 
 @NgModule({
     declarations: [

@@ -7,9 +7,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ApplicationsComponent } from './applications.component';
 
 import { CoreProviderMock } from 'app/core/core.module';
-import { AlertProviderMock } from './../../modules/alert/alert.module';
-import { TranslationProviderMock } from './../../modules/translation/translation.module';
-import { ModalProviderMock } from './../../modules/overlay/overlay.module';
+import { AlertProviderMock } from 'app/modules/alert/alert.module';
+import { TranslationProviderMock } from 'app/modules/translation/translation.module';
+import { ModalProviderMock } from 'app/modules/overlay/overlay.module';
 
 import { AccessDirective } from './../../shared';
 import { StatusPipe } from './../../shared';

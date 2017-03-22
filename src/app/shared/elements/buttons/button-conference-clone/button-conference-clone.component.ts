@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 import {
     ConferenceService
 } from 'app/core';
-import { TranslationService } from './../../../../modules/translation';
-import { ModalService } from './../../../../modules/overlay';
+import { TranslationService } from 'app/modules/translation';
+import { ModalService } from 'app/modules/overlay';
 
 /** Models */
 import {

@@ -7,8 +7,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AdminProfileEditComponent } from './admin-profile-edit.component';
 
 import { CoreProviderMock } from 'app/core/core.module';
-import { AlertProviderMock } from './../../../modules/alert/alert.module';
-import { TranslationProviderMock } from './../../../modules/translation/translation.module';
+import { AlertProviderMock } from 'app/modules/alert/alert.module';
+import { TranslationProviderMock } from 'app/modules/translation/translation.module';
 
 describe('AdminProfileEditComponent', () => {
     let component: AdminProfileEditComponent;

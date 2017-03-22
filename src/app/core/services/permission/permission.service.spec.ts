@@ -9,8 +9,8 @@ import { PermissionApiMock as PERM } from './../api/PermissionApi.mock';
 import { RoleApiMock as ROLE } from './../api/RoleApi.mock';
 import { UserApiMock as USER } from './../api/UserApi.mock';
 
-import { AlertProviderMock } from './../../../modules/alert/alert.module';
-import { TranslationProviderMock } from './../../../modules/translation/translation.module';
+import { AlertProviderMock } from 'app/modules/alert/alert.module';
+import { TranslationProviderMock } from 'app/modules/translation/translation.module';
 
 describe('PermissionService', () => {
 

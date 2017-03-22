@@ -11,9 +11,9 @@ import { FormElementService } from './form-element.service';
 import { FormService, FormMock } from './../form';
 import { ConfigurationService, ConfigurationMock } from './../configuration';
 
-import { TranslationProviderMock } from './../../../modules/translation/translation.module';
-import { AlertProviderMock } from './../../../modules/alert/alert.module';
-import { AlertService } from './../../../modules/alert';
+import { TranslationProviderMock } from 'app/modules/translation/translation.module';
+import { AlertProviderMock } from 'app/modules/alert/alert.module';
+import { AlertService } from 'app/modules/alert';
 
 import { FieldDto } from './../../../swagger';
 import { Fields } from './../../../models';

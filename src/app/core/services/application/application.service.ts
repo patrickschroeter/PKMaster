@@ -4,12 +4,12 @@ import { Observable, Observer } from 'rxjs/Rx';
 import * as _ from 'lodash';
 
 /** Services */
-import { AlertService } from './../../../modules/alert';
+import { AlertService } from 'app/modules/alert';
 import { FormService } from './../form';
 import { ConfigurationService } from './../configuration';
 import { AuthenticationService } from './../authentication';
 import { ApplicationApi } from './../../../swagger/api/ApplicationApi';
-import { TranslationService } from './../../../modules/translation';
+import { TranslationService } from 'app/modules/translation';
 import { ConferenceService } from './../conference';
 
 /** Models */

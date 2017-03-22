@@ -6,7 +6,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RegisterComponent } from './register.component';
 
 import { CoreProviderMock } from 'app/core/core.module';
-import { DynamicFormProviderMock } from './../../modules/dynamic-form/dynamic-form.module';
+import { DynamicFormProviderMock } from 'app/modules/dynamic-form/dynamic-form.module';
 
 describe('RegisterComponent', () => {
     let component: RegisterComponent;

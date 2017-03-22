@@ -6,8 +6,8 @@ import { UserService } from './user.service';
 import { UserApi } from './../../../swagger';
 import { UserApiMock } from './../';
 
-import { AlertProviderMock } from './../../../modules/alert/alert.module';
-import { TranslationProviderMock } from './../../../modules/translation/translation.module';
+import { AlertProviderMock } from 'app/modules/alert/alert.module';
+import { TranslationProviderMock } from 'app/modules/translation/translation.module';
 
 describe('UserService', () => {
     beforeEach(() => {

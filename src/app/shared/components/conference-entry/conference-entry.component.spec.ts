@@ -8,9 +8,9 @@ import { ConferenceEntryComponent } from './conference-entry.component';
 import { CoreProviderMock } from 'app/core/core.module';
 import { WindowMock } from './../../../shared';
 
-import { TranslationProviderMock } from './../../../modules/translation/translation.module';
-import { AlertProviderMock } from './../../../modules/alert/alert.module';
-import { ModalProviderMock } from './../../../modules/overlay/overlay.module';
+import { TranslationProviderMock } from 'app/modules/translation/translation.module';
+import { AlertProviderMock } from 'app/modules/alert/alert.module';
+import { ModalProviderMock } from 'app/modules/overlay/overlay.module';
 
 describe('ConferenceEntryComponent', () => {
     let component: ConferenceEntryComponent;

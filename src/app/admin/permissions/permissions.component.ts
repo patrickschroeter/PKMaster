@@ -4,12 +4,12 @@ import * as _ from 'lodash';
 
 /** Services */
 import { PermissionService } from 'app/core';
-import { AlertService } from './../../modules/alert';
-import { TranslationService } from './../../modules/translation';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
 
 /** Models */
 import { PermissionDto, FieldDto } from './../../swagger';
-import { OverlayComponent } from './../../modules/overlay';
+import { OverlayComponent } from 'app/modules/overlay';
 
 /** Decorators */
 import { Access, OnAccess } from './../../shared/decorators/access.decorator';

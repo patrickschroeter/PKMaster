@@ -9,7 +9,7 @@ import { LoginComponent } from './login.component';
 
 import { CoreProviderMock } from 'app/core/core.module';
 import { AccessMain, AccessAdmin } from 'app/core';
-import { AlertProviderMock } from './../modules/alert/alert.module';
+import { AlertProviderMock } from 'app/modules/alert/alert.module';
 
 describe('LoginComponent', () => {
     let component: LoginComponent;

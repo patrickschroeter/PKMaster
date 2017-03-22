@@ -4,9 +4,9 @@ import * as _ from 'lodash';
 
 /** Services */
 import { RoleService, PermissionService } from 'app/core';
-import { OverlayComponent, ModalService } from './../../../modules/overlay';
-import { TranslationService } from './../../../modules/translation';
-import { AlertService } from './../../../modules/alert';
+import { OverlayComponent, ModalService } from 'app/modules/overlay';
+import { TranslationService } from 'app/modules/translation';
+import { AlertService } from 'app/modules/alert';
 
 /** Models */
 import { RoleDto, FieldDto, PermissionDto } from './../../../swagger';

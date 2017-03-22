@@ -7,10 +7,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ApplicationsDetailComponent } from './applications-detail.component';
 
 import { CoreProviderMock } from 'app/core/core.module';
-import { AlertProviderMock } from './../../../modules/alert/alert.module';
-import { TranslationProviderMock } from './../../../modules/translation/translation.module';
+import { AlertProviderMock } from 'app/modules/alert/alert.module';
+import { TranslationProviderMock } from 'app/modules/translation/translation.module';
 
-import { OverlayModule, ModalProviderMock } from './../../../modules/overlay/overlay.module';
+import { OverlayModule, ModalProviderMock } from 'app/modules/overlay/overlay.module';
 import { StatusPipe, AccessDirective } from './../../../shared';
 
 describe('ApplicationsDetailComponent', () => {

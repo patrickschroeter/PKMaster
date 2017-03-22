@@ -2,7 +2,7 @@
  * Required PermissionService as permission
  */
 import { PermissionService } from 'app/core';
-import { AlertService } from './../../modules/alert';
+import { AlertService } from 'app/modules/alert';
 import { environment } from './../../../environments/environment';
 
 export interface OnAccess {

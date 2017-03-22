@@ -5,7 +5,7 @@ import { UserService } from 'app/core';
 import {
     DynamicFormService,
     InputValidationService
-} from './../../modules/dynamic-form';
+} from 'app/modules/dynamic-form';
 
 /** Models */
 import { FieldDto, UserDetailDto, UserCreateDto } from './../../swagger';

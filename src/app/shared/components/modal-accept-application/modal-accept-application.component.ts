@@ -7,7 +7,7 @@ import {
     AuthenticationService,
     PermissionService
 } from 'app/core';
-import { AlertService } from './../../../modules/alert';
+import { AlertService } from 'app/modules/alert';
 
 /** Models */
 import {
@@ -22,7 +22,7 @@ import { AcceptApplication } from './../../../models';
 import { Access, OnAccess } from './../../../shared/decorators/access.decorator';
 
 /** Components */
-import { OverlayComponent } from './../../../modules/overlay';
+import { OverlayComponent } from 'app/modules/overlay';
 
 @Component({
     selector: 'pk-modal-accept-application',

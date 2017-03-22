@@ -7,9 +7,9 @@ import {
     ConferenceService,
     PermissionService
 } from 'app/core';
-import { ModalService } from './../../modules/overlay';
-import { TranslationService } from './../../modules/translation';
-import { AlertService } from './../../modules/alert';
+import { ModalService } from 'app/modules/overlay';
+import { TranslationService } from 'app/modules/translation';
+import { AlertService } from 'app/modules/alert';
 
 /** Models */
 import {

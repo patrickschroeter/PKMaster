@@ -5,7 +5,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 import * as _ from 'lodash';
 
 import { FormService } from './form.service';
-import { AlertService, AlertMock } from './../../../modules/alert';
+import { AlertService, AlertMock } from 'app/modules/alert';
 
 import {
     FormMock,
@@ -17,7 +17,7 @@ import { Fields } from './../../../models';
 
 import { FormApi, FormDetailDto, FieldDto, FormCreateDto } from './../../../swagger';
 
-import { TranslationProviderMock } from './../../../modules/translation/translation.module';
+import { TranslationProviderMock } from 'app/modules/translation/translation.module';
 
 describe('Service: Form', () => {
     beforeEach(() => {

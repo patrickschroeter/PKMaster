@@ -7,7 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ElementEditComponent } from './element-edit.component';
 
 import { CoreProviderMock } from 'app/core/core.module';
-import { AlertProviderMock } from './../../../modules/alert/alert.module';
+import { AlertProviderMock } from 'app/modules/alert/alert.module';
 
 describe('ElementEditComponent', () => {
     let component: ElementEditComponent;

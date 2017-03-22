@@ -10,8 +10,8 @@ import { UserApiMock } from './../../';
 /** Services */
 import { FormService } from './../form';
 import { ConfigurationService } from './../configuration';
-import { AlertService } from './../../../modules/alert';
-import { TranslationService } from './../../../modules/translation';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
 
 /** Models */
 import {

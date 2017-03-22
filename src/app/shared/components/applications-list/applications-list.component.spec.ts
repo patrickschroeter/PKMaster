@@ -8,9 +8,9 @@ import { ApplicationsListComponent } from './applications-list.component';
 
 import { CoreProviderMock } from 'app/core/core.module';
 import { SharedProviderMock } from './../../../shared/shared.module';
-import { AlertProviderMock } from './../../../modules/alert/alert.module';
-import { TranslationProviderMock } from './../../../modules/translation/translation.module';
-import { ModalProviderMock } from './../../../modules/overlay/overlay.module';
+import { AlertProviderMock } from 'app/modules/alert/alert.module';
+import { TranslationProviderMock } from 'app/modules/translation/translation.module';
+import { ModalProviderMock } from 'app/modules/overlay/overlay.module';
 
 import { AccessDirective } from './../../';
 import { StatusPipe } from './../../../shared';

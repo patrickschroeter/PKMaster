@@ -5,7 +5,7 @@ import {
     PermissionService,
     UserService
  } from 'app/core';
- import { AlertService } from './../../modules/alert';
+ import { AlertService } from 'app/modules/alert';
 
 /** Models */
 import { UserDetailDto } from './../../swagger';

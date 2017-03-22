@@ -28,8 +28,8 @@ import {
 } from './../../../swagger';
 import { ApplicationApiMock, FormApiMock, AuthenticationService, AuthenticationMock, ConferenceService, ConferenceMock } from './..';
 
-import { AlertProviderMock } from './../../../modules/alert/alert.module';
-import { TranslationProviderMock } from './../../../modules/translation/translation.module';
+import { AlertProviderMock } from 'app/modules/alert/alert.module';
+import { TranslationProviderMock } from 'app/modules/translation/translation.module';
 
 describe('Service: Application', () => {
     beforeEach(() => {

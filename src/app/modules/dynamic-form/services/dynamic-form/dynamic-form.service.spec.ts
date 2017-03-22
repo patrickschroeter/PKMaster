@@ -8,8 +8,8 @@ import { DynamicFormService } from './dynamic-form.service';
 import { InputValidationService, InputValidationMock } from './../input-validation';
 
 import { CoreProviderMock } from 'app/core/core.module';
-import { AlertProviderMock } from './../../../../modules/alert/alert.module';
-import { AlertService } from './../../../../modules/alert';
+import { AlertProviderMock } from 'app/modules/alert/alert.module';
+import { AlertService } from 'app/modules/alert';
 
 import { Fields } from './../../../../models';
 
