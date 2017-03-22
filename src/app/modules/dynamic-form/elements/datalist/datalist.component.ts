@@ -11,7 +11,7 @@ import { TranslationService } from 'app/modules/translation';
 
 /** Models */
 import { FieldDto } from 'app/swagger';
-import { Selectable } from './../../../../models';
+import { Selectable } from 'app/models';
 
 /**
  * A Datalist Component

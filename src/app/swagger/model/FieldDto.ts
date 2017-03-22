@@ -24,7 +24,7 @@
 
 'use strict';
 import * as models from './models';
-import { Selectable } from './../../models';
+import { Selectable } from 'app/models';
 
 export class FieldDto {
 

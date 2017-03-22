@@ -24,7 +24,7 @@
 
 'use strict';
 import * as models from './models';
-import { ConferenceConfig } from './../../models';
+import { ConferenceConfig } from 'app/models';
 
 export class ConferenceDetailDto {
 

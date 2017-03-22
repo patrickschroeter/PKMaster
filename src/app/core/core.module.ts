@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Http, XHRBackend, RequestOptions, HttpModule } from '@angular/http';
 import { Router } from '@angular/router';
 
-import { environment } from './../../environments/environment';
+import { environment } from 'app/../environments/environment';
 
 import { SharedModule } from 'app/shared/shared.module';
 

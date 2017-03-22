@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import * as _ from 'lodash';
 
 /** Models */
-import { ConferenceConfig, Selectable } from './../../../models';
+import { ConferenceConfig, Selectable } from 'app/models';
 
 @Component({
     selector: 'pk-conference-entry-config',

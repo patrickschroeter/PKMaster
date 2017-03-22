@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Injector } from '@angular/core';
 
 import { OverlayComponent } from './..';
 
-import { Selectable } from './../../../../models';
+import { Selectable } from 'app/models';
 
 @Component({
     selector: 'pk-modal-selectlist',

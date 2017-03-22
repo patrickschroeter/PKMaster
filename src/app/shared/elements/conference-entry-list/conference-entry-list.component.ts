@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import { WindowService } from './../../';
 
 /** Models */
-import { ConferenceConfig, Selectable } from './../../../models';
+import { ConferenceConfig, Selectable } from 'app/models';
 
 /**
  * A component to display a list of values

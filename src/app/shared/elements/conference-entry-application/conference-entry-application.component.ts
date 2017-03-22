@@ -6,7 +6,7 @@ import { ModalService } from 'app/modules/overlay';
 import { TranslationService } from 'app/modules/translation';
 
 /** Models */
-import { ConferenceConfig, Selectable } from './../../../models';
+import { ConferenceConfig, Selectable } from 'app/models';
 
 @Component({
     selector: 'pk-conference-entry-application',

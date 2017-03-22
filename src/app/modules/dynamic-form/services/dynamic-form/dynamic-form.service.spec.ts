@@ -11,7 +11,7 @@ import { CoreProviderMock } from 'app/core/core.module';
 import { AlertProviderMock } from 'app/modules/alert/alert.module';
 import { AlertService } from 'app/modules/alert';
 
-import { Fields } from './../../../../models';
+import { Fields } from 'app/models';
 
 describe('Service: DynamicForm', () => {
     beforeEach(() => {

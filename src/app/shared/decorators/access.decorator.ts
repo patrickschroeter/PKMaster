@@ -3,7 +3,7 @@
  */
 import { PermissionService } from 'app/core';
 import { AlertService } from 'app/modules/alert';
-import { environment } from './../../../environments/environment';
+import { environment } from 'app/../environments/environment';
 
 export interface OnAccess {
     permission: PermissionService;

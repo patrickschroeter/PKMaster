@@ -4,7 +4,7 @@
  */
 import { AlertService } from 'app/modules/alert';
 import { TranslationService } from 'app/modules/translation';
-import { environment } from './../../../environments/environment';
+import { environment } from 'app/../environments/environment';
 import { Observable } from 'rxjs/Rx';
 
 export interface OnLoading {

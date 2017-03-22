@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ModalAddConferenceEntryComponent } from './../../';
 
 /** Interfaces */
-import { Window } from './../../../models';
+import { Window } from 'app/models';
 
 @Injectable()
 export class WindowService {

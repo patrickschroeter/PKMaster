@@ -8,7 +8,7 @@ import {
 } from 'app/core';
 
 /** Models */
-import { Credentials } from './../models';
+import { Credentials } from 'app/models';
 import { FieldDto } from 'app/swagger';
 
 /**

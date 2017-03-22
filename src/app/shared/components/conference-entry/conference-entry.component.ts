@@ -10,7 +10,7 @@ import { TranslationService } from 'app/modules/translation';
 import { WindowService } from './../../';
 
 /** Models */
-import { ConferenceConfig, Selectable } from './../../../models';
+import { ConferenceConfig, Selectable } from 'app/models';
 
 /**
  * An configuration element of a conference

@@ -15,7 +15,7 @@ import { AlertService } from 'app/modules/alert';
 import { TranslationService } from 'app/modules/translation';
 
 /** Models */
-import { ConferenceConfig, Selectable, ApplicationsByFormId } from './../../../models';
+import { ConferenceConfig, Selectable, ApplicationsByFormId } from 'app/models';
 import {
     ConferenceDetailDto,
     ApplicationDetailDto,

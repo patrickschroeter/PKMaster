@@ -2,7 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Observable, Observer } from 'rxjs/Rx';
 
 /** Models */
-import { Alert, Message } from './../../../../models';
+import { Alert, Message } from 'app/models';
 
 @Injectable()
 export class AlertService {

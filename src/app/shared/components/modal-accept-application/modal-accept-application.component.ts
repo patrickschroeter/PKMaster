@@ -16,7 +16,7 @@ import {
     ApplicationDetailDto,
     Status
 } from 'app/swagger';
-import { AcceptApplication } from './../../../models';
+import { AcceptApplication } from 'app/models';
 
 /** Decorators */
 import { Access, OnAccess } from 'app/shared/decorators/access.decorator';

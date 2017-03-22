@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 
 /** Models */
 import { FieldDto } from 'app/swagger';
-import { Window } from './../../../models';
+import { Window } from 'app/models';
 import { OverlayComponent } from 'app/modules/overlay';
 
 @Component({

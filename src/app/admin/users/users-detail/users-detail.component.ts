@@ -14,7 +14,7 @@ import { AlertService } from 'app/modules/alert';
 
 /** Models */
 import { UserDetailDto, FieldDto, RoleDto } from 'app/swagger';
-import { Fields, Selectable } from './../../../models';
+import { Fields, Selectable } from 'app/models';
 
 /** Decorators */
 import { Access, OnAccess } from 'app/shared/decorators/access.decorator';

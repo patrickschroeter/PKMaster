@@ -16,7 +16,7 @@ import { AlertProviderMock } from 'app/modules/alert/alert.module';
 import { AlertService } from 'app/modules/alert';
 
 import { FieldDto } from 'app/swagger';
-import { Fields } from './../../../models';
+import { Fields } from 'app/models';
 
 describe('Service: FormElement', () => {
     beforeEach(() => {

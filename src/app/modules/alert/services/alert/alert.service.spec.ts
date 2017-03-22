@@ -5,7 +5,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 import { AlertService } from './alert.service';
 
 /** Models */
-import { Message, Alert } from './../../../../models';
+import { Message, Alert } from 'app/models';
 
 describe('Service: Alert', () => {
     const id = 'id', message = 'message', title = 'title';

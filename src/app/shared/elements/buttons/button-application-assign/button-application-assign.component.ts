@@ -15,7 +15,7 @@ import { TranslationService } from 'app/modules/translation';
 
 /** Models */
 import { UserDetailDto, ApplicationDetailDto } from 'app/swagger';
-import { Selectable } from './../../../../models';
+import { Selectable } from 'app/models';
 
 @Component({
     selector: 'pk-button-application-assign',

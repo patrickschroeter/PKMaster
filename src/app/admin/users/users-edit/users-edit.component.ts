@@ -10,7 +10,7 @@ import { AlertService } from 'app/modules/alert';
 
 /** Models */
 import { UserDetailDto, FieldDto } from 'app/swagger';
-import { Fields } from './../../../models';
+import { Fields } from 'app/models';
 
 /** Decorators */
 import { Access, OnAccess } from 'app/shared/decorators/access.decorator';

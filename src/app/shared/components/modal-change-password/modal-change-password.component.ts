@@ -15,7 +15,7 @@ import { OverlayComponent } from 'app/modules/overlay';
 
 /** Models */
 import { FieldDto, UserDetailDto } from 'app/swagger';
-import { Fields, ChangePasswordForm } from './../../../models';
+import { Fields, ChangePasswordForm } from 'app/models';
 
 /**
  * Modal to change the users password

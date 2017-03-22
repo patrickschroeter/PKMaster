@@ -13,7 +13,7 @@ import {
     FormApiMock
 } from './../';
 
-import { Fields } from './../../../models';
+import { Fields } from 'app/models';
 
 import { FormApi, FormDetailDto, FieldDto, FormCreateDto } from 'app/swagger';
 

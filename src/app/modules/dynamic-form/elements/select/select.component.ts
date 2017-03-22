@@ -7,7 +7,7 @@ import { OverlayComponent } from 'app/modules/overlay';
 
 /** Models */
 import { FieldDto } from 'app/swagger';
-import { Selectable } from './../../../../models';
+import { Selectable } from 'app/models';
 
 /**
  * A Select Component

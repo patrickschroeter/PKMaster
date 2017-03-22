@@ -10,7 +10,7 @@ import { AlertService } from 'app/modules/alert';
 
 /** Models */
 import { RoleDto, FieldDto, PermissionDto } from 'app/swagger';
-import { Selectable } from './../../../models';
+import { Selectable } from 'app/models';
 
 /** Decorator */
 import { Access, OnAccess } from 'app/shared/decorators/access.decorator';

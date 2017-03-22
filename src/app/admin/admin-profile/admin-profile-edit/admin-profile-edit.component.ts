@@ -6,7 +6,7 @@ import { AlertService } from 'app/modules/alert';
 import { TranslationService } from 'app/modules/translation';
 
 import { UserDetailDto } from 'app/swagger';
-import { Fields } from './../../../models';
+import { Fields } from 'app/models';
 
 @Component({
     selector: 'pk-admin-profile-edit',

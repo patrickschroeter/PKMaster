@@ -20,7 +20,7 @@ import {
     ApplicationCreateDto,
     UserDetailDto
 } from 'app/swagger';
-import { Selectable } from './../../models';
+import { Selectable } from 'app/models';
 
 /** Decorators */
 import { Access, OnAccess } from 'app/shared/decorators/access.decorator';

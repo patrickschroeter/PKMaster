@@ -7,7 +7,7 @@ import {
 import { AlertService } from 'app/modules/alert';
 
 /** Models */
-import { ConferenceConfig } from './../../../models';
+import { ConferenceConfig } from 'app/models';
 import { ApplicationDetailDto, Status } from 'app/swagger';
 import { ModalAcceptApplicationComponent } from './../../';
 

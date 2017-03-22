@@ -21,7 +21,7 @@ import {
     ValidationDto,
     StyleDto
 } from 'app/swagger';
-import { Fields, Selectable, FieldModel } from './../../../models';
+import { Fields, Selectable, FieldModel } from 'app/models';
 
 /** Decorators */
 import { Loading } from 'app/shared/decorators/loading.decorator';

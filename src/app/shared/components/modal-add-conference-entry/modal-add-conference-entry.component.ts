@@ -6,7 +6,7 @@ import { TranslationService } from 'app/modules/translation';
 
 /** Models */
 import { FieldDto } from 'app/swagger';
-import { ConferenceConfig, Window } from './../../../models';
+import { ConferenceConfig, Window } from 'app/models';
 
 /** Components */
 import { OverlayComponent } from 'app/modules/overlay';

@@ -14,7 +14,7 @@ import {
 } from './../../';
 
 /** Models */
-import { Selectable } from './../../../../models';
+import { Selectable } from 'app/models';
 
 @Injectable()
 export class ModalService {
