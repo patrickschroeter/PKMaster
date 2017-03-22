@@ -137,7 +137,7 @@ export class ListService {
      * @memberOf PaginationComponent
      */
     private paginate() {
-        let original: any[] = _.cloneDeep(this.original);
+        let original: any[] = this.original;
 
         /** Filter List */
         if (this._filter.length > 0) {

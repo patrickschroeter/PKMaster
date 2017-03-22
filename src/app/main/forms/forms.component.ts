@@ -55,14 +55,6 @@ export class FormsComponent implements OnInit, OnAccess, List {
     ngOnInit() {
         this.getForms();
         this.getNewFormTemplate();
-
-        this.listService.list.subscribe((result: FormListDto[]) => {
-            this.list = result;
-        });
-        this.listService.sortValue.subscribe((result: string) => {
-            this.sort = result;
-        });
-        this.listService.setOriginalList(this.forms);
     }
 
     public sortBy(key: string) {
@@ -80,6 +72,14 @@ export class FormsComponent implements OnInit, OnAccess, List {
     private getForms(): void {
         this.formService.getForms().subscribe(result => {
             this.forms = result;
+
+            this.listService.list.subscribe((list: FormListDto[]) => {
+                this.list = list;
+            });
+            this.listService.sortValue.subscribe((sort: string) => {
+                this.sort = sort;
+            });
+            this.listService.setOriginalList(this.forms);
         });
     }
 
