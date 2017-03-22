@@ -12,7 +12,7 @@ import { AlertProviderMock } from 'app/modules/alert/alert.module';
 import { TranslationProviderMock } from 'app/modules/translation/translation.module';
 import { ModalProviderMock } from 'app/modules/overlay/overlay.module';
 
-import { AccessDirective } from './../../';
+import { AccessDirective } from 'app/shared/';
 import { StatusPipe } from 'app/shared';
 
 describe('ApplicationsListComponent', () => {

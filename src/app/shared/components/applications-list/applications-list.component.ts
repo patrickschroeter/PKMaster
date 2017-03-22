@@ -6,6 +6,7 @@ import { ListService, List } from './../../services';
 /** Models */
 import {
     ApplicationDetailDto,
+    ApplicationListDto,
     UserDetailDto,
     Status
 } from 'app/swagger';
@@ -17,33 +18,29 @@ import {
         ListService
     ]
 })
-export class ApplicationsListComponent implements OnInit, List {
+export class ApplicationsListComponent extends List<ApplicationListDto> implements OnInit {
 
-    @Input() applications: ApplicationDetailDto[];
+    @Input() applications: ApplicationListDto[];
     @Input() user: UserDetailDto;
-
-    public list: ApplicationDetailDto[] = [];
-    public sort: string;
 
     private status = Status;
 
+    public list: ApplicationListDto[];
+    public sort: string;
+
     constructor(
         public listService: ListService
-    ) { }
+    ) {
+        super(listService);
+    }
 
     ngOnInit() {
         // not required to unsubscribe onDestroy because Service does not exist either
-        this.listService.list.subscribe((result: ApplicationDetailDto[]) => {
-            this.list = result;
-        });
-        this.listService.sortValue.subscribe((result: string) => {
-            this.sort = result;
-        });
-        this.listService.setOriginalList(this.applications);
+        this.initListDependencies(this.applications);
     }
 
-    public sortBy(key: string) {
-        this.listService.sortBy(key);
+    public sortBy(key: string): void {
+        super.sortBy(key);
     }
 }
 
@@ -55,10 +52,14 @@ export class ApplicationsListComponent implements OnInit, List {
     ]
 })
 export class ApplicationsListOwnedComponent extends ApplicationsListComponent {
+    public sort: string;
     constructor(
         public listService: ListService
     ) {
         super(listService);
+    }
+    public sortBy(key: string): void {
+        super.sortBy(key);
     }
 }
 
@@ -70,9 +71,13 @@ export class ApplicationsListOwnedComponent extends ApplicationsListComponent {
     ]
 })
 export class ApplicationsListAssignedComponent extends ApplicationsListComponent {
+    public sort: string;
     constructor(
         public listService: ListService
     ) {
         super(listService);
+    }
+    public sortBy(key: string): void {
+        super.sortBy(key);
     }
 }

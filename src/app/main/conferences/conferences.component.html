@@ -18,14 +18,14 @@
 
                 <pk-list>
                     <pk-list-header>
-                        <pk-list-attribute primary i18n>Description</pk-list-attribute>
-                        <pk-list-attribute i18n>Date</pk-list-attribute>
-                        <pk-list-attribute i18n>Start</pk-list-attribute>
-                        <pk-list-attribute i18n>End</pk-list-attribute>
-                        <pk-list-attribute i18n>Room</pk-list-attribute>
+                        <pk-list-attribute primary i18n    (click)="sortBy('description')"           [class.list-element--sorting]="sort === 'description'">Description</pk-list-attribute>
+                        <pk-list-attribute         i18n    (click)="sortBy('dateOfEvent')"           [class.list-element--sorting]="sort === 'dateOfEvent'">Date</pk-list-attribute>
+                        <pk-list-attribute         i18n    (click)="sortBy('startOfEvent')"          [class.list-element--sorting]="sort === 'startOfEvent'">Start</pk-list-attribute>
+                        <pk-list-attribute         i18n    (click)="sortBy('endOfEvent')"            [class.list-element--sorting]="sort === 'endOfEvent'">End</pk-list-attribute>
+                        <pk-list-attribute         i18n    (click)="sortBy('roomOfEvent')"           [class.list-element--sorting]="sort === 'roomOfEvent'">Room</pk-list-attribute>
                     </pk-list-header>
                     <pk-list-content>
-                        <pk-list-element *ngFor="let conference of conferences">
+                        <pk-list-element *ngFor="let conference of (list && list.length ? list : conferences)">
                             <pk-list-attribute primary name="conference">
                                 <ng-container *accessReadConferences>
                                     <a routerLink="/conferences/{{ conference.id }}">{{ conference.description }}</a>
@@ -67,6 +67,8 @@
 
     </div>
 </div>
+
+<pk-pagination></pk-pagination>
 
 <pk-overlay #overlay>
     <pk-overlay-header i18n>Create New Conference</pk-overlay-header>

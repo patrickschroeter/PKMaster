@@ -11,6 +11,8 @@ import { ModalService } from 'app/modules/overlay';
 import { TranslationService } from 'app/modules/translation';
 import { AlertService } from 'app/modules/alert';
 
+import { ListService, List } from 'app/shared';
+
 /** Models */
 import {
     ConferenceDetailDto,
@@ -31,32 +33,20 @@ import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 @Component({
     selector: 'pk-conferences',
     templateUrl: './conferences.component.html',
-    styleUrls: ['./conferences.component.scss']
+    styleUrls: ['./conferences.component.scss'],
+    providers: [
+        ListService
+    ]
 })
-export class ConferencesComponent implements OnInit, OnAccess {
+export class ConferencesComponent extends List<ConferenceListDto> implements OnInit, OnAccess {
 
-    /**
-     * Default Layout Class for component
-     *
-     * @memberOf ConferencesComponent
-     */
     @HostBinding('class') classes = 'content--default';
 
-    /**
-     * a list of all conferences
-     *
-     * @type {ConferenceDto[]}
-     * @memberOf ConferencesComponent
-     */
     public conferences: ConferenceListDto[];
-
-    /**
-     * Form config for creating a new conference
-     *
-     * @type {FieldDto[]}
-     * @memberOf ConferencesComponent
-     */
     public newConference: FieldDto[];
+
+    public list: ConferenceListDto[];
+    public sort: string;
 
     /**
      * Creates an instance of ConferencesComponent.
@@ -77,8 +67,11 @@ export class ConferencesComponent implements OnInit, OnAccess {
         /** Services */
         private conferenceService: ConferenceService,
         public permission: PermissionService,
-        public alert: AlertService
-    ) { }
+        public alert: AlertService,
+        public listService: ListService
+    ) {
+        super(listService);
+    }
 
     /**
      * implements OnInit
@@ -98,7 +91,13 @@ export class ConferencesComponent implements OnInit, OnAccess {
     public getConferences(): void {
         this.conferenceService.getConferences().subscribe(conferences => {
             this.conferences = conferences;
+
+            this.initListDependencies(conferences);
         });
+    }
+
+    public sortBy(key: string): void {
+        super.sortBy(key);
     }
 
     /**

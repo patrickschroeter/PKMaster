@@ -26,7 +26,7 @@ import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
         ListService
     ]
 })
-export class FormsComponent implements OnInit, OnAccess, List {
+export class FormsComponent extends List<FormListDto> implements OnInit, OnAccess {
     @HostBinding('class') classes = 'content--default';
 
     @ViewChild(OverlayComponent) overlay: OverlayComponent;
@@ -36,7 +36,7 @@ export class FormsComponent implements OnInit, OnAccess, List {
     get newForm() { return this._newForm; }
     set newForm(form) { this._newForm = form; }
 
-    public list: FormListDto[] = [];
+    public list: FormListDto[];
     public sort: string;
 
     constructor(
@@ -50,15 +50,17 @@ export class FormsComponent implements OnInit, OnAccess, List {
         public alert: AlertService,
         public permission: PermissionService,
         public listService: ListService
-    ) { }
+    ) {
+        super(listService);
+    }
 
     ngOnInit() {
         this.getForms();
         this.getNewFormTemplate();
     }
 
-    public sortBy(key: string) {
-        this.listService.sortBy(key);
+    public sortBy(key: string): void {
+        super.sortBy(key);
     }
 
     /**
@@ -73,13 +75,7 @@ export class FormsComponent implements OnInit, OnAccess, List {
         this.formService.getForms().subscribe(result => {
             this.forms = result;
 
-            this.listService.list.subscribe((list: FormListDto[]) => {
-                this.list = list;
-            });
-            this.listService.sortValue.subscribe((sort: string) => {
-                this.sort = sort;
-            });
-            this.listService.setOriginalList(this.forms);
+            this.initListDependencies(this.forms);
         });
     }
 

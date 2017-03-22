@@ -5,10 +5,27 @@ import { BehaviorSubject } from 'rxjs/Rx';
 
 import { Status, ApplicationListDto } from 'app/swagger';
 
-export interface List {
-    listService: ListService;
-    list: any[];
-    sort: string;
+export class List<T> {
+    public list: T[];
+    public sort: string;
+
+    constructor(
+        public listService: ListService
+    ) {}
+
+    public initListDependencies(list: T[]): void {
+        this.listService.list.subscribe((result: T[]) => {
+            this.list = result;
+        });
+        this.listService.sortValue.subscribe((result: string) => {
+            this.sort = result;
+        });
+        this.listService.setOriginalList(list);
+    }
+
+    public sortBy(key: string): void {
+        this.listService.sortBy(key);
+    }
 }
 
 @Injectable()

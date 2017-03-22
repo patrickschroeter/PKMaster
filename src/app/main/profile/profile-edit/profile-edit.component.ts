@@ -52,8 +52,11 @@ export class ProfileEditComponent implements OnInit {
      * @param {AppUser} user
      */
     public save(user: UserDetailDto) {
-        user.id = this.user.id;
-        this.auth.updateUser(user).subscribe(result => {
+        const param: UserDetailDto = new UserDetailDto(this.user);
+        param.firstname = user.firstname;
+        param.lastname = user.lastname;
+        param.email = user.email;
+        this.auth.updateUser(param).subscribe(result => {
             this.router.navigateByUrl('/profile');
             this.alert.setSuccessHint('UpdateUser' + result.id, this.translationService.translate('updatedUser'));
         });
