@@ -5,7 +5,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { ModalChangePasswordComponent } from './modal-change-password.component';
 
-import { CoreProviderMock } from './../../../core/core.module';
+import { CoreProviderMock } from 'app/core/core.module';
 
 import { DynamicFormProviderMock } from './../../../modules/dynamic-form/dynamic-form.module';
 import { AlertProviderMock } from './../../../modules/alert/alert.module';

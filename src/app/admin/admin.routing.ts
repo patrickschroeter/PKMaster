@@ -21,7 +21,7 @@ import {
     AccessUsers,
     AccessUsersDetail,
     AccessUsersEdit
-} from './../core';
+} from 'app/core';
 
 const routes: Routes = [
     {

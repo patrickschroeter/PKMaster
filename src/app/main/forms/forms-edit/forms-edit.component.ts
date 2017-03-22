@@ -7,7 +7,7 @@ import {
     FormService,
     FormElementService,
     PermissionService
-} from './../../../core';
+} from 'app/core';
 import { AlertService } from './../../../modules/alert';
 import {
     OverlayComponent,

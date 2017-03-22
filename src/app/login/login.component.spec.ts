@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
 
 import { LoginComponent } from './login.component';
 
-import { CoreProviderMock } from './../core/core.module';
-import { AccessMain, AccessAdmin } from './../core';
+import { CoreProviderMock } from 'app/core/core.module';
+import { AccessMain, AccessAdmin } from 'app/core';
 import { AlertProviderMock } from './../modules/alert/alert.module';
 
 describe('LoginComponent', () => {

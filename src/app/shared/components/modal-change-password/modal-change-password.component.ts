@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 /** Services */
-import { AuthenticationService } from './../../../core';
+import { AuthenticationService } from 'app/core';
 import {
     DynamicFormService,
     InputValidationService

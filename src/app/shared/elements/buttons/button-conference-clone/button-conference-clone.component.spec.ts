@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { ButtonConferenceCloneComponent } from './button-conference-clone.component';
 
-import { CoreProviderMock } from './../../../../core/core.module';
+import { CoreProviderMock } from 'app/core/core.module';
 
 describe('ButtonConferenceCloneComponent', () => {
     let component: ButtonConferenceCloneComponent;

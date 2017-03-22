@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthenticationService } from './../../../core';
+import { AuthenticationService } from 'app/core';
 
 @Component({
     selector: 'pk-navbar',

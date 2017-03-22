@@ -7,7 +7,7 @@ import { Button } from './../button.class';
 import {
     UserService,
     ApplicationService
-} from './../../../../core';
+} from 'app/core';
 
 /** Modules */
 import { ModalService } from './../../../../modules/overlay';

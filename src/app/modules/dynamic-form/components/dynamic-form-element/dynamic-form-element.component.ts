@@ -7,7 +7,7 @@ import { FieldDto } from './../../../../swagger';
 
 import { DynamicFormComponent } from './../../dynamic-form.component';
 
-import { ConfigurationService } from './../../../../core';
+import { ConfigurationService } from 'app/core';
 
 @Component({
     selector: 'pk-dynamic-form-element',

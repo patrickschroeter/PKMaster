@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 /** Services */
-import { FormService } from './../../../core';
+import { FormService } from 'app/core';
 import { ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 

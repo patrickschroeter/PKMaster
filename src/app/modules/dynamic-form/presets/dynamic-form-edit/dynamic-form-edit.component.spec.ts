@@ -7,7 +7,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DynamicFormEditComponent } from './dynamic-form-edit.component';
 
 import { DynamicFormProviderMock } from './../../dynamic-form.module';
-import { CoreProviderMock } from './../../../../core/core.module';
+import { CoreProviderMock } from 'app/core/core.module';
 
 describe('DynamicFormEditComponent', () => {
     let component: DynamicFormEditComponent;

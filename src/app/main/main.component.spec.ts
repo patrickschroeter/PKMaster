@@ -5,7 +5,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { MainComponent } from './main.component';
-import { PermissionService, PermissionMock, AuthenticationService, AuthenticationMock } from './../core/services';
+import { PermissionService, PermissionMock, AuthenticationService, AuthenticationMock } from 'app/core/services';
 
 describe('MainComponent', () => {
     let component: MainComponent;

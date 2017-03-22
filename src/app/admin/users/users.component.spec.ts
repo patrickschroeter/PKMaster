@@ -5,7 +5,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { UsersComponent } from './users.component';
 
-import { CoreProviderMock } from './../../core/core.module';
+import { CoreProviderMock } from 'app/core/core.module';
 import { AlertProviderMock } from './../../modules/alert/alert.module';
 
 describe('UsersComponent', () => {

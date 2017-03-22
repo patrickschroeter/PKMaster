@@ -9,7 +9,7 @@ import {
     PermissionService,
     ConferenceService,
     UserService
-} from './../../../core';
+} from 'app/core';
 import { AlertService } from './../../../modules/alert';
 import { OverlayComponent, ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';

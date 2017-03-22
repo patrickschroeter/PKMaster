@@ -5,7 +5,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import {
     UserService,
     PermissionService
-} from './../../../core';
+} from 'app/core';
 import { AlertService } from './../../../modules/alert';
 
 /** Models */

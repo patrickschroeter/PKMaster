@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { AdminComponent } from './admin.component';
 
-import { CoreProviderMock } from './../core/core.module';
+import { CoreProviderMock } from 'app/core/core.module';
 
 describe('AdminComponent', () => {
     let component: AdminComponent;

@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 import {
     ConferenceService,
     PermissionService
-} from './../../core';
+} from 'app/core';
 import { ModalService } from './../../modules/overlay';
 import { TranslationService } from './../../modules/translation';
 import { AlertService } from './../../modules/alert';

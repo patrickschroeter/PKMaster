@@ -6,7 +6,7 @@ import {
     ApplicationService,
     AuthenticationService,
     PermissionService
-} from './../../../core';
+} from 'app/core';
 import { AlertService } from './../../../modules/alert';
 
 /** Models */

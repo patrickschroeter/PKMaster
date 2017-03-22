@@ -6,7 +6,7 @@ import {
     ApplicationService,
     PermissionService,
     AuthenticationService
-} from './../../../core';
+} from 'app/core';
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 import { ModalService } from './../../../modules/overlay';

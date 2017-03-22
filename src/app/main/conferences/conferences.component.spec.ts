@@ -7,7 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ConferencesComponent } from './conferences.component';
 import { AccessDirective } from './../../shared';
 
-import { CoreProviderMock } from './../../core/core.module';
+import { CoreProviderMock } from 'app/core/core.module';
 import { AlertProviderMock } from './../../modules/alert/alert.module';
 import { ModalProviderMock } from './../../modules/overlay/overlay.module';
 import { TranslationProviderMock } from './../../modules/translation/translation.module';

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 /** Services */
 import {
     ConferenceService
-} from './../../../../core';
+} from 'app/core';
 import { TranslationService } from './../../../../modules/translation';
 import { ModalService } from './../../../../modules/overlay';
 

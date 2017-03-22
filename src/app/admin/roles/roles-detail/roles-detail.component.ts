@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import * as _ from 'lodash';
 
 /** Services */
-import { RoleService, PermissionService } from './../../../core';
+import { RoleService, PermissionService } from 'app/core';
 import { OverlayComponent, ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 import { AlertService } from './../../../modules/alert';

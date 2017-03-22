@@ -7,7 +7,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DatalistComponent } from './datalist.component';
 
 import { DynamicFormProviderMock } from './../../dynamic-form.module';
-import { CoreProviderMock } from './../../../../core/core.module';
+import { CoreProviderMock } from 'app/core/core.module';
 import { AlertProviderMock } from './../../../../modules/alert/alert.module';
 import { TranslationProviderMock } from './../../../../modules/translation/translation.module';
 

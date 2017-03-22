@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { Button } from './../button.class';
 
 /** Services */
-import { ApplicationService } from './../../../../core';
+import { ApplicationService } from 'app/core';
 import { AlertService } from './../../../../modules/alert';
 import { TranslationService } from './../../../../modules/translation';
 import { ModalService } from './../../../../modules/overlay';

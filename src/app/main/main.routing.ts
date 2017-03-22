@@ -12,7 +12,7 @@ import {
     AccessConferencesEdit,
     AccessForms,
     AccessFormsEdit
-} from './../core';
+} from 'app/core';
 
 const routes: Routes = [
     {

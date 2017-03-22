@@ -4,7 +4,7 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 import {
     PermissionService,
     UserService
- } from './../../core';
+ } from 'app/core';
  import { AlertService } from './../../modules/alert';
 
 /** Models */

@@ -7,7 +7,7 @@ import {
     UserService,
     PermissionService,
     RoleService
-} from './../../../core';
+} from 'app/core';
 import { ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 import { AlertService } from './../../../modules/alert';

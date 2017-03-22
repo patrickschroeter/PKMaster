@@ -5,7 +5,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { ConferenceEntryApplicationComponent } from './conference-entry-application.component';
 
-import { CoreProviderMock } from './../../../core/core.module';
+import { CoreProviderMock } from 'app/core/core.module';
 import { ModalProviderMock } from './../../../modules/overlay/overlay.module';
 import { TranslationProviderMock } from './../../../modules/translation/translation.module';
 

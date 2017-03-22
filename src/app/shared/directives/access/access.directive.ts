@@ -3,7 +3,7 @@
 
 import { Directive, ViewContainerRef, Input, TemplateRef } from '@angular/core';
 
-import { PermissionService, AccessService } from './../../../core';
+import { PermissionService, AccessService } from 'app/core';
 
 @Directive({
     // tslint:disable-next-line:directive-selector

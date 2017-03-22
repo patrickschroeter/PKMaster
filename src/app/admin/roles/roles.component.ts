@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import {
     RoleService,
     PermissionService
-} from './../../core';
+} from 'app/core';
 import { AlertService } from './../../modules/alert';
 
 /** Models */

@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import * as _ from 'lodash';
 
 /** Services */
-import { PermissionService } from './../../core';
+import { PermissionService } from 'app/core';
 import { AlertService } from './../../modules/alert';
 import { TranslationService } from './../../modules/translation';
 

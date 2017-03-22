@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 /** Services */
 import {
     PermissionService
-} from './../../../core';
+} from 'app/core';
 import { ModalService } from './../../../modules/overlay';
 import { TranslationService } from './../../../modules/translation';
 import { WindowService } from './../../';

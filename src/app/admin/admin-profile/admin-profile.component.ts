@@ -1,6 +1,6 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 
-import { AuthenticationService } from './../../core';
+import { AuthenticationService } from 'app/core';
 
 import { FieldDto, UserDetailDto } from './../../swagger';
 import { Fields } from './../../models';

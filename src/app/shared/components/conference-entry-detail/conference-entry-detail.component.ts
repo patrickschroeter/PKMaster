@@ -3,7 +3,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 /** Services */
 import {
     PermissionService
-} from './../../../core';
+} from 'app/core';
 import { AlertService } from './../../../modules/alert';
 
 /** Models */

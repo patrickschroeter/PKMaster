@@ -8,7 +8,7 @@ import { DynamicFormElementComponent } from './dynamic-form-element.component';
 
 import { DynamicFormService, DynamicFormMock } from './../../';
 
-import { CoreProviderMock } from './../../../../core/core.module';
+import { CoreProviderMock } from 'app/core/core.module';
 
 describe('DynamicFormElementComponent', () => {
     let component: DynamicFormElementComponent;

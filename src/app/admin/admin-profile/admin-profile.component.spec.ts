@@ -5,7 +5,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { AdminProfileComponent } from './admin-profile.component';
 
-import { CoreProviderMock } from './../../core/core.module';
+import { CoreProviderMock } from 'app/core/core.module';
 
 describe('AdminProfileComponent', () => {
     let component: AdminProfileComponent;

@@ -3,7 +3,7 @@ import { Component, OnInit, Input, HostBinding } from '@angular/core';
 /** Services */
 import {
     ApplicationService
-} from './../../../core';
+} from 'app/core';
 
 /** Models */
 import {

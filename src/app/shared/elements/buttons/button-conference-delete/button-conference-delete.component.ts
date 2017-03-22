@@ -3,7 +3,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 /** Services */
 import {
     ConferenceService
-} from './../../../../core';
+} from 'app/core';
 import { TranslationService } from './../../../../modules/translation';
 import { ModalService } from './../../../../modules/overlay';
 

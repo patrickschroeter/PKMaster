@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 import {
     FormService,
     PermissionService
-} from './../../core';
+} from 'app/core';
 import { ModalService } from './../../modules/overlay';
 import { AlertService } from './../../modules/alert';
 import { TranslationService } from './../../modules/translation';

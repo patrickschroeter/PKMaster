@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Rx';
 
-import { FormElementService } from './../../../core';
+import { FormElementService } from 'app/core';
 import { FieldDto } from './../../../swagger';
 
 @Component({

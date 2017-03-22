@@ -1,7 +1,7 @@
 /**
  * Required PermissionService as permission
  */
-import { PermissionService } from './../../core';
+import { PermissionService } from 'app/core';
 import { AlertService } from './../../modules/alert';
 import { environment } from './../../../environments/environment';
 

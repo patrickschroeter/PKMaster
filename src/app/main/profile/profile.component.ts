@@ -1,7 +1,7 @@
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { AuthenticationService } from './../../core';
+import { AuthenticationService } from 'app/core';
 
 import { FieldDto, UserDetailDto } from './../../swagger';
 import { Fields } from './../../models';

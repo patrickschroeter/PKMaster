@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { UserService } from './../../core';
+import { UserService } from 'app/core';
 import {
     DynamicFormService,
     InputValidationService

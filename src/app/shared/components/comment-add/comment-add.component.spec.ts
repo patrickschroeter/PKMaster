@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { CommentAddComponent } from './comment-add.component';
 
-import { CoreProviderMock } from './../../../core/core.module';
+import { CoreProviderMock } from 'app/core/core.module';
 
 describe('CommentAddComponent', () => {
     let component: CommentAddComponent;

@@ -7,7 +7,7 @@ import { ConferenceEntryDetailComponent } from './conference-entry-detail.compon
 import { AccessDirective } from './../../';
 import { StatusPipe } from './../../../shared';
 
-import { CoreProviderMock } from './../../../core/core.module';
+import { CoreProviderMock } from 'app/core/core.module';
 import { AlertProviderMock } from './../../../modules/alert/alert.module';
 
 describe('ConferenceEntryDetailComponent', () => {

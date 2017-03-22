@@ -5,7 +5,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 
 import { ConferenceService } from './conference.service';
 
-import { ConferenceApiMock } from './../../../core';
+import { ConferenceApiMock } from 'app/core';
 
 import { ConferenceApi, ConferenceCreateDto } from './../../../swagger';
 

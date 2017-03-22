@@ -7,7 +7,7 @@ import { DynamicFormService } from './dynamic-form.service';
 
 import { InputValidationService, InputValidationMock } from './../input-validation';
 
-import { CoreProviderMock } from './../../../../core/core.module';
+import { CoreProviderMock } from 'app/core/core.module';
 import { AlertProviderMock } from './../../../../modules/alert/alert.module';
 import { AlertService } from './../../../../modules/alert';
 

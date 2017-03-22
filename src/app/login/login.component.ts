@@ -5,7 +5,7 @@ import {
     AuthenticationService,
     AccessMain,
     AccessAdmin
-} from './../core';
+} from 'app/core';
 
 /** Models */
 import { Credentials } from './../models';

@@ -1,7 +1,7 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthenticationService } from './../../../core';
+import { AuthenticationService } from 'app/core';
 import { AlertService } from './../../../modules/alert';
 import { TranslationService } from './../../../modules/translation';
 

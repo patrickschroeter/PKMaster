@@ -10,7 +10,7 @@ import { UserApi } from './../../../swagger/api/UserApi';
 import { ConfigurationService } from './../';
 
 /** TODO */
-import { UserApiMock } from './../../../core';
+import { UserApiMock } from 'app/core';
 
 /** Models */
 import { UserDetailDto, UserCreateDto } from './../../../swagger';
