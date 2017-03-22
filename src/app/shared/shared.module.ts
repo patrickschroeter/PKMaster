@@ -69,6 +69,7 @@ import { StatusPipe } from './pipes';
 
         /** Directives */
         directives.AccessDirective,
+        directives.SortDirective,
 
         /** Pipes */
         StatusPipe
@@ -139,6 +140,7 @@ import { StatusPipe } from './pipes';
 
         /** Directives */
         directives.AccessDirective,
+        directives.SortDirective,
 
         /** Pipes */
         StatusPipe,

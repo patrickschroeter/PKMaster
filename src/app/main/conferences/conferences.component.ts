@@ -46,7 +46,6 @@ export class ConferencesComponent extends List<ConferenceListDto> implements OnI
     public newConference: FieldDto[];
 
     public list: ConferenceListDto[];
-    public sort: string;
 
     /**
      * Creates an instance of ConferencesComponent.
@@ -94,10 +93,6 @@ export class ConferencesComponent extends List<ConferenceListDto> implements OnI
 
             this.initListDependencies(conferences);
         });
-    }
-
-    public sortBy(key: string): void {
-        super.sortBy(key);
     }
 
     /**

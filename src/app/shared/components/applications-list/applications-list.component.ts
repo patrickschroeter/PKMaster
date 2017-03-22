@@ -26,7 +26,6 @@ export class ApplicationsListComponent extends List<ApplicationListDto> implemen
     private status = Status;
 
     public list: ApplicationListDto[];
-    public sort: string;
 
     constructor(
         public listService: ListService
@@ -38,10 +37,6 @@ export class ApplicationsListComponent extends List<ApplicationListDto> implemen
         // not required to unsubscribe onDestroy because Service does not exist either
         this.initListDependencies(this.applications);
     }
-
-    public sortBy(key: string): void {
-        super.sortBy(key);
-    }
 }
 
 @Component({
@@ -52,14 +47,10 @@ export class ApplicationsListComponent extends List<ApplicationListDto> implemen
     ]
 })
 export class ApplicationsListOwnedComponent extends ApplicationsListComponent {
-    public sort: string;
     constructor(
         public listService: ListService
     ) {
         super(listService);
-    }
-    public sortBy(key: string): void {
-        super.sortBy(key);
     }
 }
 
@@ -71,13 +62,9 @@ export class ApplicationsListOwnedComponent extends ApplicationsListComponent {
     ]
 })
 export class ApplicationsListAssignedComponent extends ApplicationsListComponent {
-    public sort: string;
     constructor(
         public listService: ListService
     ) {
         super(listService);
-    }
-    public sortBy(key: string): void {
-        super.sortBy(key);
     }
 }

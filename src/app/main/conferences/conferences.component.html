@@ -18,11 +18,11 @@
 
                 <pk-list>
                     <pk-list-header>
-                        <pk-list-attribute primary i18n    (click)="sortBy('description')"           [class.list-element--sorting]="sort === 'description'">Description</pk-list-attribute>
-                        <pk-list-attribute         i18n    (click)="sortBy('dateOfEvent')"           [class.list-element--sorting]="sort === 'dateOfEvent'">Date</pk-list-attribute>
-                        <pk-list-attribute         i18n    (click)="sortBy('startOfEvent')"          [class.list-element--sorting]="sort === 'startOfEvent'">Start</pk-list-attribute>
-                        <pk-list-attribute         i18n    (click)="sortBy('endOfEvent')"            [class.list-element--sorting]="sort === 'endOfEvent'">End</pk-list-attribute>
-                        <pk-list-attribute         i18n    (click)="sortBy('roomOfEvent')"           [class.list-element--sorting]="sort === 'roomOfEvent'">Room</pk-list-attribute>
+                        <pk-list-attribute primary i18n sort="description">Description</pk-list-attribute>
+                        <pk-list-attribute         i18n sort="dateOfEvent">Date</pk-list-attribute>
+                        <pk-list-attribute         i18n sort="startOfEvent">Start</pk-list-attribute>
+                        <pk-list-attribute         i18n sort="endOfEvent">End</pk-list-attribute>
+                        <pk-list-attribute         i18n sort="roomOfEvent">Room</pk-list-attribute>
                     </pk-list-header>
                     <pk-list-content>
                         <pk-list-element *ngFor="let conference of (list && list.length ? list : conferences)">

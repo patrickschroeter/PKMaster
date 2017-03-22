@@ -37,7 +37,6 @@ export class FormsComponent extends List<FormListDto> implements OnInit, OnAcces
     set newForm(form) { this._newForm = form; }
 
     public list: FormListDto[];
-    public sort: string;
 
     constructor(
         /** Angular */
@@ -57,10 +56,6 @@ export class FormsComponent extends List<FormListDto> implements OnInit, OnAcces
     ngOnInit() {
         this.getForms();
         this.getNewFormTemplate();
-    }
-
-    public sortBy(key: string): void {
-        super.sortBy(key);
     }
 
     /**

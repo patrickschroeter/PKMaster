@@ -7,24 +7,15 @@ import { Status, ApplicationListDto } from 'app/swagger';
 
 export class List<T> {
     public list: T[];
-    public sort: string;
 
     constructor(
         public listService: ListService
     ) {}
 
     public initListDependencies(list: T[]): void {
-        this.listService.list.subscribe((result: T[]) => {
+        this.listService.setOriginalList(list).subscribe((result: T[]) => {
             this.list = result;
         });
-        this.listService.sortValue.subscribe((result: string) => {
-            this.sort = result;
-        });
-        this.listService.setOriginalList(list);
-    }
-
-    public sortBy(key: string): void {
-        this.listService.sortBy(key);
     }
 }
 
@@ -106,9 +97,10 @@ export class ListService {
      *
      * @memberOf PaginationService
      */
-    public setOriginalList(list: any[]): void {
+    public setOriginalList(list: any[]): BehaviorSubject<any> {
         this.original = _.cloneDeep(list) || [];
         this.paginate();
+        return this.list;
     }
 
     /**
