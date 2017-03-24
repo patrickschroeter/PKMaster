@@ -15,7 +15,7 @@
             </h5>
             <h5>
                 <span i18n>Application Conference:</span>
-                <a *ngIf="application.conference" class="anchor anchor--hover" routerLink="/conferences/{{ application.conference.id }}" i18n>{{ application.conference.description }} on {{ application.conference.dateOfEvent | date }}</a>
+                <a *ngIf="application.conference" class="anchor anchor--hover" routerLink="/conferences/{{ application.conference.id }}" i18n="Conference ON date">{{ application.conference.description }} on {{ application.conference.dateOfEvent | date }}</a>
             </h5>
             <h5 *ngIf="application.confirmed">
                 <span i18n>Application Appraisal:</span>
@@ -106,6 +106,9 @@
                             </div>
                             <ng-container *ngFor="let comment of application.comments">
                                 <ng-container *ngIf="comment.requiresChanges">
+                                    <div class="comment">
+                                        <h6 i18n>Changes Required</h6>
+                                    </div>
                                     <div class="comment" [ngClass]="{ 'comment--private': comment.isPrivate }">
                                         <div class="comment__header">
                                             <div *ngIf="!comment.user" class="comment__author" i18n>No Author</div>
