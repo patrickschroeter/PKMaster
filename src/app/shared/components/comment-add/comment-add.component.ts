@@ -5,6 +5,8 @@ import {
     ApplicationService
 } from 'app/core';
 
+import { TranslationService } from 'app/modules/translation';
+
 /** Models */
 import {
     CommentCreateDto,
@@ -28,7 +30,8 @@ export class CommentAddComponent implements OnInit {
     public addComment: Array<FieldDto>;
 
     constructor(
-        private applicationService: ApplicationService
+        private applicationService: ApplicationService,
+        private translationService: TranslationService
     ) { }
 
     ngOnInit() {
@@ -65,13 +68,13 @@ export class CommentAddComponent implements OnInit {
             {
                 fieldType: 'textarea',
                 name: 'message',
-                label: 'Add Comment:',
+                label: this.translationService.translate('addComment'),
                 required: true
             },
             {
                 fieldType: 'checkbox',
                 name: 'isPrivate',
-                label: 'Privat',
+                label: this.translationService.translate('privat'),
                 styleIds: [
                     'small'
                 ]

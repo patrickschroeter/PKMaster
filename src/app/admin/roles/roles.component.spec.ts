@@ -8,6 +8,7 @@ import { RolesComponent } from './roles.component';
 
 import { CoreProviderMock } from 'app/core/core.module';
 import { AlertProviderMock } from 'app/modules/alert/alert.module';
+import { TranslationProviderMock } from 'app/modules/translation/translation.module';
 
 describe('RolesComponent', () => {
     let component: RolesComponent;
@@ -25,7 +26,8 @@ describe('RolesComponent', () => {
             ],
             providers: [
                 ...CoreProviderMock,
-                ...AlertProviderMock
+                ...AlertProviderMock,
+                ...TranslationProviderMock
             ],
             schemas: [NO_ERRORS_SCHEMA]
         })

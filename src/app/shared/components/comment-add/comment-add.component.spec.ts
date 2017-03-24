@@ -4,6 +4,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommentAddComponent } from './comment-add.component';
 
 import { CoreProviderMock } from 'app/core/core.module';
+import { TranslationProviderMock } from 'app/modules/translation/translation.module';
 
 describe('CommentAddComponent', () => {
     let component: CommentAddComponent;
@@ -13,7 +14,8 @@ describe('CommentAddComponent', () => {
         TestBed.configureTestingModule({
             declarations: [CommentAddComponent],
             providers: [
-                ...CoreProviderMock
+                ...CoreProviderMock,
+                ...TranslationProviderMock
             ],
             schemas: [NO_ERRORS_SCHEMA]
         })

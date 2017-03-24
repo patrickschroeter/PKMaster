@@ -7,6 +7,7 @@ import {
     PermissionService
 } from 'app/core';
 import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
 
 /** Models */
 import { RoleDto, FieldDto } from 'app/swagger';
@@ -79,7 +80,8 @@ export class RolesComponent implements OnInit, OnAccess {
         private roleService: RoleService,
         public permission: PermissionService,
         public alert: AlertService,
-        private router: Router
+        private router: Router,
+        private translationService: TranslationService
     ) { }
 
     /**
@@ -92,7 +94,7 @@ export class RolesComponent implements OnInit, OnAccess {
             {
                 fieldType: 'input',
                 name: 'name',
-                label: 'Role Name:',
+                label: this.translationService.translate('roleName'),
                 required: true
             }
         ];

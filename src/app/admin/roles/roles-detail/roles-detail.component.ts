@@ -75,7 +75,7 @@ export class RolesDetailComponent implements OnInit, OnAccess {
             {
                 fieldType: 'input',
                 name: 'name',
-                label: 'Role Name:',
+                label: this.translationService.translate('roleName'),
                 required: true,
                 value: this.role.name
             }

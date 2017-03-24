@@ -30,22 +30,7 @@ import { Loading } from 'app/shared/decorators/loading.decorator';
 @Injectable()
 export class ConferenceService {
 
-    /**
-     * The current conference
-     *
-     * @private
-     * @type {ConferenceDetailDto}
-     * @memberOf ConferenceService
-     */
     private conference: ConferenceDetailDto;
-
-    /**
-     * A list of all conferences
-     *
-     * @private
-     * @type {ConferenceDetailDto[]}
-     * @memberOf ConferenceService
-     */
     private conferences: ConferenceListDto[];
 
     /**
@@ -284,7 +269,7 @@ export class ConferenceService {
             {
                 fieldType: 'input',
                 name: 'description',
-                label: 'Conference Description:',
+                label: this.translationService.translate('conferenceDescription'),
                 required: true,
                 value: values ? values.description : ''
             },
@@ -292,7 +277,7 @@ export class ConferenceService {
                 fieldType: 'input',
                 name: 'numberOfConference',
                 contentType: 'number',
-                label: 'Number of Conference:',
+                label: this.translationService.translate('numberOfConference'),
                 required: true,
                 value: (values && values.numberOfConference) ? values.numberOfConference.toString() : ''
             },
@@ -300,7 +285,7 @@ export class ConferenceService {
                 fieldType: 'input',
                 name: 'dateOfEvent',
                 contentType: 'date',
-                label: 'Datum',
+                label: this.translationService.translate('datum'),
                 required: true,
                 value: (values && values.dateOfEvent) ? values.dateOfEvent.toString() : '',
                 styleIds: [
@@ -310,7 +295,7 @@ export class ConferenceService {
             {
                 fieldType: 'input',
                 name: 'startOfEvent',
-                label: 'Beginn',
+                label: this.translationService.translate('start'),
                 required: true,
                 value: (values && values.startOfEvent) ? values.startOfEvent.toString() : '',
                 styleIds: [
@@ -324,7 +309,7 @@ export class ConferenceService {
             {
                 fieldType: 'input',
                 name: 'endOfEvent',
-                label: 'Ende',
+                label: this.translationService.translate('end'),
                 required: true,
                 value: (values && values.endOfEvent) ? values.endOfEvent.toString() : '',
                 styleIds: [
@@ -338,7 +323,7 @@ export class ConferenceService {
             {
                 fieldType: 'input',
                 name: 'roomOfEvent',
-                label: 'Raum',
+                label: this.translationService.translate('room'),
                 required: true,
                 value: values ? values.roomOfEvent : '',
                 styleIds: [
