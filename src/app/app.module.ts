@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -11,6 +22,12 @@ import { AlertModule } from './modules/alert/alert.module';
 import { TranslationModule } from './modules/translation/translation.module';
 import { ModalModule } from './modules/overlay/overlay.module';
 
+/**
+ * AppModule
+ *
+ * @export
+ * @class AppModule
+ */
 @NgModule({
     declarations: [
         AppComponent,

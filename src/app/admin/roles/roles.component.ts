@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -29,50 +40,21 @@ import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 })
 export class RolesComponent implements OnInit, OnAccess {
 
-    /**
-     * Default Layout Class
-     *
-     * @memberOf RolesComponent
-     */
     @HostBinding('class') classes = 'content--default';
 
-    /**
-     * An Array of all Roles
-     *
-     * @type {RoleDto[]}
-     * @memberOf RolesComponent
-     */
     public roles: RoleDto[];
 
-    /**
-     * the Form for creata a new role
-     *
-     * @private
-     * @type {Array<FieldDto>}
-     * @memberOf RolesComponent
-     */
     private _newRole: Array<FieldDto>;
-
-    /**
-     * set newRole
-     *
-     * @memberOf RolesComponent
-     */
     set newRole(value) { this._newRole = value; }
-
-    /**
-     * get newRole
-     *
-     * @memberOf RolesComponent
-     */
     get newRole() { return this._newRole; }
 
     /**
      * Creates an instance of RolesComponent.
-     *
      * @param {RoleService} roleService
      * @param {PermissionService} permission
+     * @param {AlertService} alert
      * @param {Router} router
+     * @param {TranslationService} translationService
      *
      * @memberOf RolesComponent
      */

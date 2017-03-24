@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 
@@ -15,6 +26,14 @@ import { Fields } from 'app/models';
 /** Decorators */
 import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
+/**
+ * UsersEditComponent
+ *
+ * @export
+ * @class UsersEditComponent
+ * @implements {OnInit}
+ * @implements {OnAccess}
+ */
 @Component({
     selector: 'pk-users-edit',
     templateUrl: './users-edit.component.html',
@@ -26,6 +45,16 @@ export class UsersEditComponent implements OnInit, OnAccess {
     public user: UserDetailDto;
     public form: FieldDto[];
 
+    /**
+     * Creates an instance of UsersEditComponent.
+     * @param {UserService} userService
+     * @param {ActivatedRoute} activatedRoute
+     * @param {Router} router
+     * @param {PermissionService} permission
+     * @param {AlertService} alert
+     *
+     * @memberOf UsersEditComponent
+     */
     constructor(
         private userService: UserService,
         private activatedRoute: ActivatedRoute,
@@ -34,12 +63,21 @@ export class UsersEditComponent implements OnInit, OnAccess {
         public alert: AlertService
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf UsersEditComponent
+     */
     ngOnInit() {
         this.getUser();
     }
 
     /**
      * get the user by param id
+     *
+     * @private
+     *
+     * @memberOf UsersEditComponent
      */
     @Access('EditUsers')
     private getUser(): void {
@@ -57,7 +95,11 @@ export class UsersEditComponent implements OnInit, OnAccess {
 
     /**
      * initialize the user form
-     * @param {AppUser} user
+     *
+     * @private
+     * @param {UserDetailDto} user
+     *
+     * @memberOf UsersEditComponent
      */
     @Access('EditUsers')
     private initUserForm(user: UserDetailDto) {
@@ -71,7 +113,10 @@ export class UsersEditComponent implements OnInit, OnAccess {
 
     /**
      * save the user
-     * @param {AppUser} user
+     *
+     * @param {UserDetailDto} user
+     *
+     * @memberOf UsersEditComponent
      */
     @Access('EditUsers')
     public save(user: UserDetailDto): void {
@@ -83,6 +128,8 @@ export class UsersEditComponent implements OnInit, OnAccess {
 
     /**
      * cancel edit user
+     *
+     * @memberOf UsersEditComponent
      */
     @Access('EditUsers')
     public cancel(): void {

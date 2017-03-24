@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import * as _ from 'lodash';
@@ -15,6 +26,14 @@ import { Selectable } from 'app/models';
 /** Decorator */
 import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
+/**
+ * RolesDetailComponent
+ *
+ * @export
+ * @class RolesDetailComponent
+ * @implements {OnInit}
+ * @implements {OnAccess}
+ */
 @Component({
     selector: 'pk-roles-detail',
     templateUrl: './roles-detail.component.html',
@@ -30,6 +49,18 @@ export class RolesDetailComponent implements OnInit, OnAccess {
 
     private permissions: Selectable[];
 
+    /**
+     * Creates an instance of RolesDetailComponent.
+     * @param {ActivatedRoute} activatedRoute
+     * @param {Router} router
+     * @param {RoleService} roleService
+     * @param {ModalService} modalService
+     * @param {TranslationService} translationService
+     * @param {PermissionService} permission
+     * @param {AlertService} alert
+     *
+     * @memberOf RolesDetailComponent
+     */
     constructor(
         private activatedRoute: ActivatedRoute,
         private router: Router,
@@ -40,6 +71,11 @@ export class RolesDetailComponent implements OnInit, OnAccess {
         public alert: AlertService
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf RolesDetailComponent
+     */
     ngOnInit() {
         this.getRoleByRouteParam();
 
@@ -50,6 +86,10 @@ export class RolesDetailComponent implements OnInit, OnAccess {
 
     /**
      * Read Route Param and GET Role with param ID
+     *
+     * @private
+     *
+     * @memberOf RolesDetailComponent
      */
     @Access('ReadRoles')
     private getRoleByRouteParam(): void {
@@ -68,6 +108,10 @@ export class RolesDetailComponent implements OnInit, OnAccess {
 
     /**
      * Initialize the form to edit the roles attributes
+     *
+     * @private
+     *
+     * @memberOf RolesDetailComponent
      */
     @Access('EditRoles')
     private initEditRoleForm(): void {
@@ -84,7 +128,10 @@ export class RolesDetailComponent implements OnInit, OnAccess {
 
     /**
      * save the updated role
-     * @param {Object} form
+     *
+     * @param {RoleDto} form
+     *
+     * @memberOf RolesDetailComponent
      */
     @Access('EditRoles')
     public saveRoleAttribute(form: RoleDto): void {
@@ -97,7 +144,10 @@ export class RolesDetailComponent implements OnInit, OnAccess {
 
     /**
      * remove the given permission from the current role
-     * @param {Permission} permission
+     *
+     * @param {PermissionDto} permission
+     *
+     * @memberOf RolesDetailComponent
      */
     @Access('EditRoles')
     public removePermissionOfRole(permission: PermissionDto): void {
@@ -108,6 +158,8 @@ export class RolesDetailComponent implements OnInit, OnAccess {
 
     /**
      * open the modal to add permission to role
+     *
+     * @memberOf RolesDetailComponent
      */
     @Access('EditRoles')
     public addPermissionToRoleModal(): void {
@@ -124,7 +176,11 @@ export class RolesDetailComponent implements OnInit, OnAccess {
 
     /**
      * add the given permission to the role
+     *
+     * @private
      * @param {Selectable} data
+     *
+     * @memberOf RolesDetailComponent
      */
     @Access('EditRoles')
     private addPermissionToRole(data: Selectable): void {

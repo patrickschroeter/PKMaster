@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import * as _ from 'lodash';
@@ -20,7 +31,7 @@ import { Fields, Selectable } from 'app/models';
 import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
 /**
- *
+ * UsersDetailComponent
  *
  * @export
  * @class UsersDetailComponent
@@ -33,45 +44,19 @@ import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 })
 export class UsersDetailComponent implements OnInit, OnAccess {
 
-    /**
-     * Default Layout class
-     *
-     * @memberOf UsersDetailComponent
-     */
     @HostBinding('class') classes = 'content--default';
 
-    /**
-     * the selected user
-     *
-     * @type {UserDetailDto}
-     * @memberOf UsersDetailComponent
-     */
     public user: UserDetailDto;
-
-    /**
-     * the user form
-     *
-     * @type {FieldDto[]}
-     * @memberOf UsersDetailComponent
-     */
     public form: FieldDto[];
-
-    /**
-     * a list of all roles as Selectable
-     *
-     * @private
-     * @type {Selectable[]}
-     * @memberOf UsersDetailComponent
-     */
     private roles: Selectable[];
 
     /**
      * Creates an instance of UsersDetailComponent.
-     *
      * @param {UserService} userService
      * @param {ActivatedRoute} activatedRoute
      * @param {Router} router
      * @param {PermissionService} permission
+     * @param {AlertService} alert
      * @param {ModalService} modalService
      * @param {TranslationService} translationService
      * @param {RoleService} roleService

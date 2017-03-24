@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import * as _ from 'lodash';
@@ -14,6 +25,14 @@ import { OverlayComponent } from 'app/modules/overlay';
 /** Decorators */
 import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
+/**
+ * PermissionsComponent
+ *
+ * @export
+ * @class PermissionsComponent
+ * @implements {OnInit}
+ * @implements {OnAccess}
+ */
 @Component({
     selector: 'pk-permissions',
     templateUrl: './permissions.component.html',
@@ -29,18 +48,35 @@ export class PermissionsComponent implements OnInit, OnAccess {
 
     public editingPermission: PermissionDto;
 
+    /**
+     * Creates an instance of PermissionsComponent.
+     * @param {PermissionService} permission
+     * @param {AlertService} alert
+     * @param {TranslationService} translationService
+     *
+     * @memberOf PermissionsComponent
+     */
     constructor(
         public permission: PermissionService,
         public alert: AlertService,
         private translationService: TranslationService
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf PermissionsComponent
+     */
     ngOnInit() {
         this.getPermissions();
     }
 
     /**
      * Catch latest permissions from server
+     *
+     * @private
+     *
+     * @memberOf PermissionsComponent
      */
     @Access('ReadPermissions')
     private getPermissions(): void {
@@ -51,7 +87,10 @@ export class PermissionsComponent implements OnInit, OnAccess {
 
     /**
      * Creates a new form and opens the overlay
-     * @param {Permission} permission
+     *
+     * @param {PermissionDto} permission
+     *
+     * @memberOf PermissionsComponent
      */
     @Access('EditPermissions')
     public editPermission(permission: PermissionDto) {
@@ -81,7 +120,11 @@ export class PermissionsComponent implements OnInit, OnAccess {
 
     /**
      * updates an existing permission
+     *
      * @param {FormGroup} form
+     * @returns {void}
+     *
+     * @memberOf PermissionsComponent
      */
     @Access('EditPermissions')
     public updatePermission(form: FormGroup): void {
