@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Injectable } from '@angular/core';
 import {
     Router,
@@ -13,6 +24,15 @@ import { Observable, Observer } from 'rxjs/Rx';
 import { AuthenticationService } from './../authentication/authentication.service';
 import { PermissionService } from './../permission/permission.service';
 
+/**
+ * AccessService
+ *
+ * @export
+ * @class AccessService
+ * @implements {CanActivate}
+ * @implements {CanDeactivate<any>}
+ * @implements {CanLoad}
+ */
 export class AccessService implements CanActivate, CanDeactivate<any>, CanLoad {
 
     static map = {

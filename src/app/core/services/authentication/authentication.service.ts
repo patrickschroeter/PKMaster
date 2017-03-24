@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Observer } from 'rxjs/Rx';
@@ -93,7 +104,6 @@ export class AuthenticationService {
 
     /**
      * setter method for token, handling local storage
-     *
      *
      * @memberOf AuthenticationService
      */
@@ -211,7 +221,6 @@ export class AuthenticationService {
 
     /**
      * logout the user
-     *
      *
      * @memberOf AuthenticationService
      */

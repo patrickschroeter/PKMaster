@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import * as _ from 'lodash';
@@ -13,6 +24,12 @@ import { UserDetailDto, PermissionDto } from 'app/swagger';
 /** Decorators */
 import { Loading } from 'app/shared/decorators/loading.decorator';
 
+/**
+ * PermissionService
+ *
+ * @export
+ * @class PermissionService
+ */
 @Injectable()
 export class PermissionService {
 
@@ -21,6 +38,14 @@ export class PermissionService {
     set permissions(permissions: string[]) { this._permissions = permissions; }
     get permissions(): string[] { return this._permissions; }
 
+    /**
+     * Creates an instance of PermissionService.
+     * @param {PermissionEndpoint} permissionApi
+     * @param {AlertService} alert
+     * @param {TranslationService} translationService
+     *
+     * @memberOf PermissionService
+     */
     constructor(
         private permissionApi: PermissionEndpoint,
         private alert: AlertService,
