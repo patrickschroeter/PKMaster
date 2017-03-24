@@ -1,6 +1,18 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
+/** Services */
 import { UserService } from 'app/core';
 import {
     DynamicFormService,
@@ -11,6 +23,13 @@ import { TranslationService } from 'app/modules/translation';
 /** Models */
 import { FieldDto, UserDetailDto, UserCreateDto } from 'app/swagger';
 
+/**
+ * RegisterComponent
+ *
+ * @export
+ * @class RegisterComponent
+ * @implements {OnInit}
+ */
 @Component({
     selector: 'pk-register',
     templateUrl: './register.component.html',
@@ -31,6 +50,15 @@ export class RegisterComponent implements OnInit {
     private rzName: string;
     private rzPassword: string;
 
+    /**
+     * Creates an instance of RegisterComponent.
+     * @param {UserService} userService
+     * @param {DynamicFormService} dynamicFormService
+     * @param {InputValidationService} inputValidation
+     * @param {TranslationService} translationService
+     *
+     * @memberOf RegisterComponent
+     */
     constructor(
         private userService: UserService,
         private dynamicFormService: DynamicFormService,
@@ -38,6 +66,11 @@ export class RegisterComponent implements OnInit {
         private translationService: TranslationService
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf RegisterComponent
+     */
     ngOnInit() {
         this.step = 0;
         this.user = new UserCreateDto();
@@ -70,7 +103,6 @@ export class RegisterComponent implements OnInit {
 
     /**
      * go one step back in the registration process
-     *
      *
      * @memberOf RegisterComponent
      */
