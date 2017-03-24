@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
@@ -18,6 +29,15 @@ import { OverlayComponent } from 'app/modules/overlay';
 
 import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
+/**
+ * FormsComponent
+ *
+ * @export
+ * @class FormsComponent
+ * @extends {List<FormListDto>}
+ * @implements {OnInit}
+ * @implements {OnAccess}
+ */
 @Component({
     selector: 'pk-forms',
     templateUrl: './forms.component.html',
@@ -38,6 +58,18 @@ export class FormsComponent extends List<FormListDto> implements OnInit, OnAcces
 
     public list: FormListDto[];
 
+    /**
+     * Creates an instance of FormsComponent.
+     * @param {Router} router
+     * @param {ModalService} modalService
+     * @param {TranslationService} translationService
+     * @param {FormService} formService
+     * @param {AlertService} alert
+     * @param {PermissionService} permission
+     * @param {ListService} listService
+     *
+     * @memberOf FormsComponent
+     */
     constructor(
         /** Angular */
         private router: Router,
@@ -53,6 +85,11 @@ export class FormsComponent extends List<FormListDto> implements OnInit, OnAcces
         super(listService);
     }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf FormsComponent
+     */
     ngOnInit() {
         this.getForms();
         this.getNewFormTemplate();

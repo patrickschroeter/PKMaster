@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, HostBinding, ViewChild, Inject } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as _ from 'lodash';
@@ -25,6 +36,14 @@ import {
 /** Decorators */
 import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
+/**
+ * ConferencesEditComponent
+ *
+ * @export
+ * @class ConferencesEditComponent
+ * @implements {OnInit}
+ * @implements {OnAccess}
+ */
 @Component({
     selector: 'pk-conferences-edit',
     templateUrl: './conferences-edit.component.html',
@@ -49,6 +68,21 @@ export class ConferencesEditComponent implements OnInit, OnAccess {
 
     public editConferenceForm: FieldDto[];
 
+    /**
+     * Creates an instance of ConferencesEditComponent.
+     * @param {Router} router
+     * @param {ActivatedRoute} activatedRoute
+     * @param {AlertService} alert
+     * @param {TranslationService} translationService
+     * @param {ModalService} modalService
+     * @param {ConferenceService} conferenceService
+     * @param {FormService} formService
+     * @param {PermissionService} permission
+     * @param {WindowService} entryModalService
+     * @param {WindowService} listModalService
+     *
+     * @memberOf ConferencesEditComponent
+     */
     constructor(
         /** Angular */
         private router: Router,
@@ -65,6 +99,11 @@ export class ConferencesEditComponent implements OnInit, OnAccess {
         @Inject('ListModalService') private listModalService: WindowService
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf ConferencesEditComponent
+     */
     ngOnInit() {
         this.getConference();
         this.getFormsAsSelectable();
@@ -75,6 +114,10 @@ export class ConferencesEditComponent implements OnInit, OnAccess {
 
     /**
      * get the current conference
+     *
+     * @private
+     *
+     * @memberOf ConferencesEditComponent
      */
     @Access('ReadConferences')
     private getConference() {
@@ -95,6 +138,10 @@ export class ConferencesEditComponent implements OnInit, OnAccess {
 
     /**
      * get all forms as Selectable array
+     *
+     * @private
+     *
+     * @memberOf ConferencesEditComponent
      */
     private getFormsAsSelectable() {
         this.formService.getForms().subscribe(result => {
@@ -104,7 +151,11 @@ export class ConferencesEditComponent implements OnInit, OnAccess {
 
     /**
      * onError function for infalid conference id
-     * @param {String} id
+     *
+     * @private
+     * @param {string} id
+     *
+     * @memberOf ConferencesEditComponent
      */
     private onError(id: string) {
         this.router.navigate(['/conferences']);
@@ -113,7 +164,10 @@ export class ConferencesEditComponent implements OnInit, OnAccess {
 
     /**
      * update the conference attribute
-     * @param {Conference} conference
+     *
+     * @param {ConferenceDetailDto} conference
+     *
+     * @memberOf ConferencesEditComponent
      */
     @Access('EditConferences')
     public updateConference(conference: ConferenceDetailDto): void {
@@ -131,6 +185,8 @@ export class ConferencesEditComponent implements OnInit, OnAccess {
 
     /**
      * open the add entry modal
+     *
+     * @memberOf ConferencesEditComponent
      */
     @Access('EditConferences')
     public openEntryModal(): void {
@@ -142,7 +198,10 @@ export class ConferencesEditComponent implements OnInit, OnAccess {
 
     /**
      * add a new config element to the form
+     *
      * @param {ConferenceConfig} entry
+     *
+     * @memberOf ConferencesEditComponent
      */
     @Access('EditConferences')
     public addConfigElement(entry: ConferenceConfig) {
@@ -165,6 +224,8 @@ export class ConferencesEditComponent implements OnInit, OnAccess {
 
     /**
      * save the update conference
+     *
+     * @memberOf ConferencesEditComponent
      */
     @Access('EditConferences')
     public saveConference() {
@@ -177,7 +238,10 @@ export class ConferencesEditComponent implements OnInit, OnAccess {
 
     /**
      * remove the given element from the config
+     *
      * @param {ConferenceConfig} element
+     *
+     * @memberOf ConferencesEditComponent
      */
     @Access('EditConferences')
     public removeElement(element: ConferenceConfig) {

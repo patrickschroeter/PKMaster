@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Rx';
@@ -5,6 +16,14 @@ import { Subscription } from 'rxjs/Rx';
 import { FormElementService } from 'app/core';
 import { FieldDto } from 'app/swagger';
 
+/**
+ * ElementEditComponent
+ *
+ * @export
+ * @class ElementEditComponent
+ * @implements {OnInit}
+ * @implements {OnDestroy}
+ */
 @Component({
     selector: 'pk-element-edit',
     templateUrl: './element-edit.component.html',
@@ -36,8 +55,19 @@ export class ElementEditComponent implements OnInit, OnDestroy {
     private subscriptionHasSubmit: Subscription;
     private subscriptionHasValidations: Subscription;
 
+    /**
+     * Creates an instance of ElementEditComponent.
+     * @param {FormElementService} elementService
+     *
+     * @memberOf ElementEditComponent
+     */
     constructor(private elementService: FormElementService) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf ElementEditComponent
+     */
     ngOnInit() {
         this.subscribeElement();
         this.subscribeElementPreview();
@@ -47,6 +77,11 @@ export class ElementEditComponent implements OnInit, OnDestroy {
         this.subscribeHasValidations();
     }
 
+    /**
+     * implements OnDestroy
+     *
+     * @memberOf ElementEditComponent
+     */
     ngOnDestroy() {
         this.unsubscribeElement();
         this.unsubscribeElementPreview();
@@ -58,8 +93,10 @@ export class ElementEditComponent implements OnInit, OnDestroy {
 
     /**
      * @description dynamic form onChange event
-     * @param {FormElement} form
-     * @return {void}
+     *
+     * @param {FormGroup} form
+     *
+     * @memberOf ElementEditComponent
      */
     updateElement(form: FormGroup): void {
         this.elementService.updateElement(form);
@@ -67,7 +104,8 @@ export class ElementEditComponent implements OnInit, OnDestroy {
 
     /**
      * @description toggle the element prieview dom element
-     * @return {void}
+     *
+     * @memberOf ElementEditComponent
      */
     toggleElementPreview(): void {
         this.elementService.toggleElementPreview();
@@ -75,7 +113,8 @@ export class ElementEditComponent implements OnInit, OnDestroy {
 
     /**
      * @description add the validation select to the form
-     * @return {void}
+     *
+     * @memberOf ElementEditComponent
      */
     addValidations(): void {
         this.elementService.addValidations();
@@ -83,7 +122,8 @@ export class ElementEditComponent implements OnInit, OnDestroy {
 
     /**
      * @description add the styles select to the form
-     * @return {void}
+     *
+     * @memberOf ElementEditComponent
      */
     addStyles(): void {
         this.elementService.addStyles();
@@ -91,8 +131,10 @@ export class ElementEditComponent implements OnInit, OnDestroy {
 
     /**
      * @description save the current element to the current form
-     * @param {FormElement} element
-     * @return {void}
+     *
+     * @param {FieldDto} element
+     *
+     * @memberOf ElementEditComponent
      */
     saveElement(element: FieldDto): void {
         this.elementService.saveElement(element);
@@ -104,7 +146,8 @@ export class ElementEditComponent implements OnInit, OnDestroy {
 
     /**
      * @description cancel the current element
-     * @return {void}
+     *
+     * @memberOf ElementEditComponent
      */
     cancelElement(): void {
         this.elementService.cancelElement();
@@ -112,7 +155,8 @@ export class ElementEditComponent implements OnInit, OnDestroy {
 
     /**
      * @description remove the element from the form
-     * @return {void}
+     *
+     * @memberOf ElementEditComponent
      */
     removeElement(): void {
         this.elementService.removeElement();

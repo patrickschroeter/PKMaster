@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
@@ -25,6 +36,14 @@ import { Selectable } from 'app/models';
 /** Decorators */
 import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
+/**
+ * ApplicationsComponent
+ *
+ * @export
+ * @class ApplicationsComponent
+ * @implements {OnInit}
+ * @implements {OnAccess}
+ */
 @Component({
     selector: 'pk-applications',
     templateUrl: './applications.component.html',
@@ -43,6 +62,19 @@ export class ApplicationsComponent implements OnInit, OnAccess {
 
     public user: UserDetailDto;
 
+    /**
+     * Creates an instance of ApplicationsComponent.
+     * @param {Router} router
+     * @param {AlertService} alert
+     * @param {TranslationService} translationService
+     * @param {ModalService} modalService
+     * @param {ApplicationService} applicationService
+     * @param {FormService} formService
+     * @param {PermissionService} permission
+     * @param {AuthenticationService} auth
+     *
+     * @memberOf ApplicationsComponent
+     */
     constructor(
         /** Angular */
         private router: Router,
@@ -57,6 +89,11 @@ export class ApplicationsComponent implements OnInit, OnAccess {
         private auth: AuthenticationService
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf ApplicationsComponent
+     */
     ngOnInit() {
 
         /** get all forms */

@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
@@ -21,6 +32,14 @@ import {
 /** Decorators */
 import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
+/**
+ * ApplicationsEditComponent
+ *
+ * @export
+ * @class ApplicationsEditComponent
+ * @implements {OnInit}
+ * @implements {OnAccess}
+ */
 @Component({
     selector: 'pk-applications-edit',
     templateUrl: './applications-edit.component.html',
@@ -60,6 +79,11 @@ export class ApplicationsEditComponent implements OnInit, OnAccess {
         private auth: AuthenticationService
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf ApplicationsEditComponent
+     */
     ngOnInit() {
 
         /** Read Route Param and GET Application with param ID */
