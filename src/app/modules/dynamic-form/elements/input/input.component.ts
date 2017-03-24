@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { FormControl, AbstractControl, FormGroup } from '@angular/forms';
 
@@ -5,7 +16,13 @@ import { DynamicFormComponent } from './../../dynamic-form.component';
 
 import { FieldDto } from 'app/swagger';
 
-
+/**
+ * InputComponent
+ *
+ * @export
+ * @class InputComponent
+ * @implements {OnInit}
+ */
 @Component({
     selector: 'pk-input',
     templateUrl: './input.component.html'
@@ -22,8 +39,18 @@ export class InputComponent implements OnInit {
     get formControl() { return this._formControl; }
     set formControl(control: AbstractControl) { this._formControl = control; }
 
+    /**
+     * Creates an instance of InputComponent.
+     *
+     * @memberOf InputComponent
+     */
     constructor( ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf InputComponent
+     */
     ngOnInit() {
         if (!this.config) {
             this.config = new FieldDto();
@@ -35,7 +62,12 @@ export class InputComponent implements OnInit {
     }
 
     /**
-     * @description extract the Elements FormControl from the Parent, return null if no Parent set
+     * extract the Elements FormControl from the Parent, return null if no Parent set
+     *
+     * @private
+     * @returns {AbstractControl}
+     *
+     * @memberOf InputComponent
      */
     private getFormControl(): AbstractControl {
         if (this.form) {
@@ -44,8 +76,14 @@ export class InputComponent implements OnInit {
         return null;
     }
 
-    isDisabled() {
+    /**
+     * check if input is disabled
+     *
+     * @returns {boolean}
+     *
+     * @memberOf InputComponent
+     */
+    public isDisabled(): boolean {
         return this.disabled || (this.config && this.config.disabled);
     }
-
 }

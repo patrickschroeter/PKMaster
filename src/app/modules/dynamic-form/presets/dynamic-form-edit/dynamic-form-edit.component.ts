@@ -1,23 +1,45 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 /** Models */
 import { FieldDto } from 'app/swagger';
 
+/**
+ * DynamicFormEditComponent
+ *
+ * @export
+ * @class DynamicFormEditComponent
+ * @implements {OnInit}
+ */
 @Component({
     selector: 'pk-dynamic-form-edit',
     templateUrl: './dynamic-form-edit.component.html'
 })
-export class DynamicFormEditComponent implements OnInit {
+export class DynamicFormEditComponent {
 
     @Input() form: FieldDto[];
     @Output() onEdit: EventEmitter<any> = new EventEmitter();
 
     constructor() { }
 
-    ngOnInit() {
-    }
-
-    edit(element: any) {
+    /**
+     * onEdit Event
+     *
+     * @param {*} element
+     *
+     * @memberOf DynamicFormEditComponent
+     */
+    public edit(element: any) {
         this.onEdit.emit(element);
     }
 

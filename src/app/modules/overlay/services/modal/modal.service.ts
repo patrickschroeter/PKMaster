@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -16,11 +27,24 @@ import {
 /** Models */
 import { Selectable } from 'app/models';
 
+/**
+ * ModalService
+ *
+ * @export
+ * @class ModalService
+ */
 @Injectable()
 export class ModalService {
 
     private outlet: ModalOutletComponent;
 
+    /**
+     * Creates an instance of ModalService.
+     * @param {Router} router
+     * @param {TranslationService} translationService
+     *
+     * @memberOf ModalService
+     */
     constructor(
         private router: Router,
         private translationService: TranslationService
@@ -29,7 +53,11 @@ export class ModalService {
     /**
      * Register a ModalOutletComponent to the Service.
      * It's not able to register more than one Component.
-     * @param {ModalOutletComponent} component - the outlet component to create the modal in
+     *
+     * @param {ModalOutletComponent} component
+     * @returns {void}
+     *
+     * @memberOf ModalService
      */
     public register(component: ModalOutletComponent): void {
         if (this.outlet) {
@@ -40,6 +68,9 @@ export class ModalService {
 
     /**
      * Removes the open modal inside the registered ModalOutletComponent
+     *
+     *
+     * @memberOf ModalService
      */
     public destroyModal(): void {
         if (!this.outlet) {
@@ -50,9 +81,13 @@ export class ModalService {
 
     /**
      * Create an error Modal with injected parameters
-     * @param {Object} data - the data object for injection
-     * @param {String} data.title - the displayed title of the modal
-     * @param {String} data.message - the message to display in the modal content
+     *
+     * @param {{
+     *         title: string,
+     *         message: string
+     *     }} data
+     *
+     * @memberOf ModalService
      */
     public createErrorModal(data: {
         title: string,
@@ -66,6 +101,7 @@ export class ModalService {
 
     /**
      * Create an list modal with injected parameters
+     *
      * @param {Object} data - the data object for injection
      * @param {String} data.title - displayed title of the modal
      * @param {Array<Selectable>} data.list - list of elements to display
@@ -79,6 +115,8 @@ export class ModalService {
      * @param {Function} data.[redirectFn] - custom function to execute the redirect
      * @param {String} data.[selectedValue] - single value to highlight in the list
      * @param {Array<String>} data.[selectedValues] - array of values to highlight in the list
+     *
+     * @memberOf ModalService
      */
     public createListModal(data: {
         title: string,
@@ -114,11 +152,14 @@ export class ModalService {
 
     /**
      * Create an confirmation Modal with injected parameters
+     *
      * @param {Object} data - the data object for injection
      * @param {String} data.title - the displayed title of the modal
      * @param {String} data.message - the message to display in the modal content
      * @param {Function} data.confirm - the callback function for the confirm button
      * @param {Function} data.[cancel] - the callback function for the cancel button
+     *
+     * @memberOf ModalService
      */
     public createConfirmationModal(data: {
         title: string,
@@ -140,7 +181,10 @@ export class ModalService {
 
     /**
      * update the selected values
-     * @param {String[]} values
+     *
+     * @param {string[]} values
+     *
+     * @memberOf ModalService
      */
     public updateSelectedValues(values: string[]): void {
         this.outlet.updateSelectedValues(values);

@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, Input, HostBinding, ViewChild } from '@angular/core';
 import { FormControl, AbstractControl, FormGroup } from '@angular/forms';
 
@@ -26,89 +37,20 @@ import { Selectable } from 'app/models';
 })
 export class DatalistComponent implements OnInit {
 
-    /**
-     * Default Layout Class
-     *
-     * @memberOf DatalistComponent
-     */
     @HostBinding('class.element') element = true;
 
-    /**
-     * The OverlayComponent
-     *
-     * @type {OverlayComponent}
-     * @memberOf DatalistComponent
-     */
     @ViewChild('overlay') overlay: OverlayComponent;
 
-    /**
-     * the config Field
-     *
-     * @type {FieldDto}
-     * @memberOf DatalistComponent
-     */
     @Input() config: FieldDto;
-
-    /**
-     * Flag if Field is disabled
-     *
-     * @type {boolean}
-     * @memberOf DatalistComponent
-     */
     @Input() disabled: boolean;
-
-    /**
-     * the parent FormGroup
-     *
-     * @type {FormGroup}
-     * @memberOf DatalistComponent
-     */
     @Input() form: FormGroup;
 
-    /**
-     * the add options form
-     *
-     * @private
-     * @type {FieldDto[]}
-     * @memberOf DatalistComponent
-     */
     private _addOptionForm: FieldDto[];
-
-    /**
-     * set addOptionForm
-     *
-     * @memberOf DatalistComponent
-     */
     get addOptionForm() { return this._addOptionForm; }
-
-    /**
-     * set addOptionForm
-     *
-     * @memberOf DatalistComponent
-     */
     set addOptionForm(form) { this._addOptionForm = form; }
 
-    /**
-     * the datalist FormControl
-     *
-     * @private
-     * @type {AbstractControl}
-     * @memberOf DatalistComponent
-     */
     private _formControl: AbstractControl;
-
-    /**
-     * get formControl
-     *
-     * @memberOf DatalistComponent
-     */
     get formControl() { return this._formControl; }
-
-    /**
-     * set formControl
-     *
-     * @memberOf DatalistComponent
-     */
     set formControl(control: AbstractControl) { this._formControl = control; }
 
     /**
