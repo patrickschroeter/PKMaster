@@ -79,6 +79,9 @@ export class ConferenceEntryApplicationComponent implements OnInit {
 
     /**
      * gets the label of the form with the given id
+     *
+     * TODO: Known bug if id belongs to a form that !isCurrent -> no label to displayed
+     *
      * @param {String} id
      */
     public getLabelOfForm(id: string): string {

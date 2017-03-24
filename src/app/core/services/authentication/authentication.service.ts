@@ -82,7 +82,7 @@ export class AuthenticationService {
             return null;
         } else if (time >= Date.now()) {
             // TODO refresh token
-            localStorage.setItem(AuthenticationService.TOKEN_TIME_KEY, (Date.now() + 120000000).toString());
+            // localStorage.setItem(AuthenticationService.TOKEN_TIME_KEY, (Date.now() + 120000000).toString());
             return token;
         } else {
             this.logout();

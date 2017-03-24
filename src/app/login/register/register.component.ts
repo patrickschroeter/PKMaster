@@ -6,6 +6,7 @@ import {
     DynamicFormService,
     InputValidationService
 } from 'app/modules/dynamic-form';
+import { TranslationService } from 'app/modules/translation';
 
 /** Models */
 import { FieldDto, UserDetailDto, UserCreateDto } from 'app/swagger';
@@ -34,6 +35,7 @@ export class RegisterComponent implements OnInit {
         private userService: UserService,
         private dynamicFormService: DynamicFormService,
         private inputValidation: InputValidationService,
+        private translationService: TranslationService
     ) { }
 
     ngOnInit() {
@@ -42,6 +44,13 @@ export class RegisterComponent implements OnInit {
         this.initForms();
     }
 
+    /**
+     * go to next registration step (0 = rz, 1 = email, 2 = password)
+     *
+     * @param {*} [event]
+     *
+     * @memberOf RegisterComponent
+     */
     public next(event?: any) {
         switch (this.step) {
             case 0:
@@ -59,6 +68,12 @@ export class RegisterComponent implements OnInit {
         this.step += 1;
     }
 
+    /**
+     * go one step back in the registration process
+     *
+     *
+     * @memberOf RegisterComponent
+     */
     public back() {
         switch (this.step) {
             case 1:
@@ -71,6 +86,13 @@ export class RegisterComponent implements OnInit {
         this.step -= 1;
     }
 
+    /**
+     * register the new user
+     *
+     * @private
+     *
+     * @memberOf RegisterComponent
+     */
     private register(): void {
         this.userService.addUser(this.rzName, this.rzPassword, this.user).subscribe((result: UserDetailDto) => {
             console.log(result);
@@ -97,7 +119,7 @@ export class RegisterComponent implements OnInit {
                 name: 'rzName',
                 contentType: 'text',
                 required: true,
-                placeholder: 'RZ Name',
+                placeholder: this.translationService.translate('RZName'),
 
                 validationIds: [],
 
@@ -110,7 +132,7 @@ export class RegisterComponent implements OnInit {
                 name: 'rzPassword',
                 contentType: 'password',
                 required: true,
-                placeholder: 'RZ Password',
+                placeholder: this.translationService.translate('RZPassword'),
 
                 validationIds: [],
 
@@ -126,7 +148,7 @@ export class RegisterComponent implements OnInit {
                 name: 'email',
                 contentType: 'email',
                 required: true,
-                placeholder: 'hochschulexterne E-Mail',
+                placeholder: this.translationService.translate('externalEmail'),
 
                 validationIds: [
                     'useExternalEmail'
@@ -140,7 +162,7 @@ export class RegisterComponent implements OnInit {
                 name: 'password',
                 contentType: 'password',
                 required: true,
-                placeholder: 'Password',
+                placeholder: this.translationService.translate('password'),
 
                 validationIds: [
                     'minLength'
@@ -155,7 +177,7 @@ export class RegisterComponent implements OnInit {
                 name: 'passwordconfirm',
                 contentType: 'password',
                 required: true,
-                placeholder: 'Confirm Password',
+                placeholder: this.translationService.translate('confirmPassword'),
 
                 validationIds: [
                     'minLength'

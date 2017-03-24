@@ -62,6 +62,14 @@
         text-overflow: ellipsis;
         white-space: nowrap;
 
+        @media (max-width: 768px) {
+            display: none;
+
+            &[primary], &:first-child {
+                display: block;
+            }
+        }
+
         a:hover {
             color: $guidance-color;
         }

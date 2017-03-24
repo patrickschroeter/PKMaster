@@ -64,7 +64,10 @@ export class ApplicationsComponent implements OnInit, OnAccess {
             this.applicationTypes = [];
             for (let i = 0; i < forms.length; i++) {
                 const element = forms[i];
-                this.applicationTypes.push(new Selectable(element.id, element.title));
+                // TODO filter server side
+                if (element.isActive) {
+                    this.applicationTypes.push(new Selectable(element.id, element.title));
+                }
             }
         });
 

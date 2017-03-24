@@ -422,6 +422,14 @@
         <source>Identify</source>
         <target>Identify</target>
       </trans-unit>
+      <trans-unit id="1ad22cbf7b2dcf67174e7a3d23438ad86fabeebe" datatype="html">
+        <source>Owned</source>
+        <target>Owned</target>
+      </trans-unit>
+      <trans-unit id="03088e1b816c9ac10fa505770218637e47c40e81" datatype="html">
+        <source>Assigned</source>
+        <target>Assigned</target>
+      </trans-unit>
       <trans-unit id="f5c106e55e99deef16e3598d9dc2725601ad1588" datatype="html">
         <source>No own Applications here.</source>
         <target>No own Applications here.</target>
@@ -453,6 +461,7 @@
       <trans-unit id="5cef05de0938525d57ae7d9d349943700933ee21" datatype="html">
         <source><x id="INTERPOLATION"/> on <x id="INTERPOLATION_1"/></source>
         <target><x id="INTERPOLATION"/> on <x id="INTERPOLATION_1"/></target>
+        <note priority="1" from="description">Conference ON date</note>
       </trans-unit>
       <trans-unit id="4fa90bb7cbc460d7d3095d82b81e3acbcf697dba" datatype="html">
         <source>Application Appraisal:</source>
@@ -473,6 +482,10 @@
       <trans-unit id="829ab414ea406f913e8db5ae64100a0cd60869ed" datatype="html">
         <source>No Changes Required</source>
         <target>No Changes Required</target>
+      </trans-unit>
+      <trans-unit id="123914de91d707ef3a2cf8b676218a093fc5a759" datatype="html">
+        <source>Changes Required</source>
+        <target>Changes Required</target>
       </trans-unit>
       <trans-unit id="c464e3891b174c24c5fc59bf338ef22659be7d9e" datatype="html">
         <source>No Author</source>
