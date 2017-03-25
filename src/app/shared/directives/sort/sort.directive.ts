@@ -30,7 +30,7 @@ export class SortDirective implements OnInit {
 
     @Input() sort: string;
 
-    @HostListener('click', ['$event']) onClick() {
+    @HostListener('click') onClick() {
         this.listService.sortBy(this.sort);
     }
 

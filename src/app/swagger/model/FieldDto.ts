@@ -57,6 +57,7 @@ export class FieldDto {
     // Custom
 
     value?: string | string[];
+    hidden?: boolean;
 
     // optionTable?: string; -> enumOptionsTableId
 

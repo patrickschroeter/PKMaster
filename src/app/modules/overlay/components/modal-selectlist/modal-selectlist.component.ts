@@ -60,7 +60,7 @@ export class ModalSelectlistComponent implements OnInit {
         this.title = this.injector.get('title');
         this.list = this.injector.get('list');
         this.click = this.injector.get('click');
-        this.isFluid = this.injector.get('isFluid');
+        this.isFluid = !!this.injector.get('isFluid');
 
         this.emptyText = this.injector.get('emptyText');
         this.redirect = this.injector.get('redirect');

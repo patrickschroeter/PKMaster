@@ -69,11 +69,11 @@
 
                                 <!--ACTION: DELETE ASSIGNMENT-->
                                 <ng-container *ngIf="isOwner()">
-                                    <pk-button-application-unassign [application]="application"></pk-button-application-unassign>
+                                    <pk-button-application-unassign [application]="application" [user]="user"></pk-button-application-unassign>
                                 </ng-container>
                                 <ng-container *ngIf="!isAssigned()">
                                     <ng-container *accessEditApplications>
-                                        <pk-button-application-unassign [application]="application"></pk-button-application-unassign>
+                                        <pk-button-application-unassign [application]="application" [user]="user"></pk-button-application-unassign>
                                     </ng-container>
                                 </ng-container>
 

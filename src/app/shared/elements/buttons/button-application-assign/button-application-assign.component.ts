@@ -131,6 +131,8 @@ export class ButtonApplicationAssignComponent extends Button implements OnInit {
 })
 export class ButtonApplicationUnassignComponent extends ButtonApplicationAssignComponent implements OnInit {
 
+    @Input() user: UserDetailDto;
+
     /**
      * Creates an instance of ButtonApplicationUnassignComponent.
      * @param {ModalService} modalService
