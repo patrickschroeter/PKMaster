@@ -51,7 +51,7 @@ export class OverlayComponent {
         if (typeof state === 'undefined') {
             this.isOpen = !this.isOpen;
         } else {
-            this.isOpen = state;
+            this.isOpen = !!state;
         }
         if (!this.isOpen) {
             this.close.emit();
