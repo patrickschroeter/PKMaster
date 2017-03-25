@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, Input } from '@angular/core';
 import * as _ from 'lodash';
 
@@ -17,6 +28,14 @@ import { TranslationService } from 'app/modules/translation';
 import { UserDetailDto, ApplicationDetailDto } from 'app/swagger';
 import { Selectable } from 'app/models';
 
+/**
+ * ButtonApplicationAssignComponent
+ *
+ * @export
+ * @class ButtonApplicationAssignComponent
+ * @extends {Button}
+ * @implements {OnInit}
+ */
 @Component({
     selector: 'pk-button-application-assign',
     templateUrl: './button-application-assign.component.html',
@@ -28,6 +47,15 @@ export class ButtonApplicationAssignComponent extends Button implements OnInit {
 
     private users: Selectable[];
 
+    /**
+     * Creates an instance of ButtonApplicationAssignComponent.
+     * @param {ModalService} modalService
+     * @param {TranslationService} translationService
+     * @param {UserService} userService
+     * @param {ApplicationService} applicationService
+     *
+     * @memberOf ButtonApplicationAssignComponent
+     */
     constructor(
         protected modalService: ModalService,
         protected translationService: TranslationService,
@@ -37,6 +65,12 @@ export class ButtonApplicationAssignComponent extends Button implements OnInit {
         super();
     }
 
+    /**
+     * implements OnInit
+     *
+     *
+     * @memberOf ButtonApplicationAssignComponent
+     */
     ngOnInit() {
         this.userService.getUsers().subscribe(users => {
             this.users = users.map(obj => new Selectable(obj.id, `${obj.lastname}, ${obj.firstname}`));
@@ -83,13 +117,29 @@ export class ButtonApplicationAssignComponent extends Button implements OnInit {
 
 }
 
-
+/**
+ * ButtonApplicationUnassignComponent
+ *
+ * @export
+ * @class ButtonApplicationUnassignComponent
+ * @extends {ButtonApplicationAssignComponent}
+ * @implements {OnInit}
+ */
 @Component({
     selector: 'pk-button-application-unassign',
     templateUrl: './button-application-unassign.component.html'
 })
 export class ButtonApplicationUnassignComponent extends ButtonApplicationAssignComponent implements OnInit {
 
+    /**
+     * Creates an instance of ButtonApplicationUnassignComponent.
+     * @param {ModalService} modalService
+     * @param {TranslationService} translationService
+     * @param {UserService} userService
+     * @param {ApplicationService} applicationService
+     *
+     * @memberOf ButtonApplicationUnassignComponent
+     */
     constructor(
         protected modalService: ModalService,
         protected translationService: TranslationService,

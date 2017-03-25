@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Injectable } from '@angular/core';
 
 import { ModalAddConferenceEntryComponent } from './../../';
@@ -5,6 +16,12 @@ import { ModalAddConferenceEntryComponent } from './../../';
 /** Interfaces */
 import { Window } from 'app/models';
 
+/**
+ * WindowService
+ *
+ * @export
+ * @class WindowService
+ */
 @Injectable()
 export class WindowService {
 
@@ -14,7 +31,11 @@ export class WindowService {
 
     /**
      * sets the component instance to work with
+     *
      * @param {Window} modal
+     * @returns {WindowService}
+     *
+     * @memberOf WindowService
      */
     public setModal(modal: Window): WindowService {
         this.modal = modal;
@@ -23,7 +44,11 @@ export class WindowService {
 
     /**
      * sets a save callback function for the modal
+     *
      * @param {Function} save
+     * @returns {WindowService}
+     *
+     * @memberOf WindowService
      */
     public setModalSave(save: Function): WindowService {
         if (this.modal) {
@@ -36,6 +61,11 @@ export class WindowService {
 
     /**
      * opens the modal
+     *
+     * @param {Object} [options]
+     * @returns {WindowService}
+     *
+     * @memberOf WindowService
      */
     public openModal(options?: Object): WindowService {
         if (this.modal) {

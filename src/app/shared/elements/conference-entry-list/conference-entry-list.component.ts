@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, Input, Inject, Output, EventEmitter } from '@angular/core';
 import * as _ from 'lodash';
 
@@ -21,29 +32,9 @@ import { ConferenceConfig, Selectable } from 'app/models';
 })
 export class ConferenceEntryListComponent implements OnInit {
 
-    /**
-     * Input entry
-     *
-     * @type {ConferenceConfig}
-     * @memberOf ConferenceEntryListComponent
-     */
     @Input() entry: ConferenceConfig;
-
-    /**
-     * change event for numberOfInputs
-     *
-     * @type {EventEmitter<Number>}
-     * @memberOf ConferenceEntryListComponent
-     */
     @Output() change: EventEmitter<Number> = new EventEmitter<Number>();
 
-    /**
-     * number of fields in the list
-     *
-     * @private
-     * @type {number}
-     * @memberOf ConferenceEntryListComponent
-     */
     private numberOfListFields: number;
 
     /**

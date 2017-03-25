@@ -1,7 +1,25 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 import { ListService } from './../../services';
 
+/**
+ * PaginationComponent
+ *
+ * @export
+ * @class PaginationComponent
+ * @implements {OnInit}
+ */
 @Component({
     selector: 'pk-pagination',
     templateUrl: './pagination.component.html',
@@ -18,10 +36,21 @@ export class PaginationComponent implements OnInit {
     public page: number;
     public hasNextPage: number;
 
+    /**
+     * Creates an instance of PaginationComponent.
+     * @param {ListService} pagination
+     *
+     * @memberOf PaginationComponent
+     */
     constructor(
         private pagination: ListService
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf PaginationComponent
+     */
     ngOnInit() {
         this.pagination.itemsPerPage.subscribe((result: number) => {
             this.itemsPerPage = result;

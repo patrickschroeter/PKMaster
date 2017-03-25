@@ -1,4 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
+import { Component, Input } from '@angular/core';
 
 /** Services */
 import { FormService } from 'app/core';
@@ -8,12 +19,18 @@ import { TranslationService } from 'app/modules/translation';
 /** Models */
 import { ConferenceConfig, Selectable } from 'app/models';
 
+/**
+ * ConferenceEntryApplicationComponent
+ *
+ * @export
+ * @class ConferenceEntryApplicationComponent
+ */
 @Component({
     selector: 'pk-conference-entry-application',
     templateUrl: './conference-entry-application.component.html',
     styleUrls: ['./conference-entry-application.component.scss']
 })
-export class ConferenceEntryApplicationComponent implements OnInit {
+export class ConferenceEntryApplicationComponent {
 
     @Input() entry: ConferenceConfig;
     @Input() forms: Selectable[];
@@ -21,17 +38,26 @@ export class ConferenceEntryApplicationComponent implements OnInit {
     private cachedFormLabel: string;
     private cachedFormId: string;
 
+    /**
+     * Creates an instance of ConferenceEntryApplicationComponent.
+     * @param {FormService} formService
+     * @param {ModalService} modalService
+     * @param {TranslationService} translationService
+     *
+     * @memberOf ConferenceEntryApplicationComponent
+     */
     constructor(
         private formService: FormService,
         private modalService: ModalService,
         private translationService: TranslationService
     ) { }
 
-    ngOnInit() {
-    }
-
     /**
      * edit the displayed form fields
+     *
+     * @returns
+     *
+     * @memberOf ConferenceEntryApplicationComponent
      */
     public editFormFields() {
         if (!this.entry.formId) { return; }
@@ -55,7 +81,10 @@ export class ConferenceEntryApplicationComponent implements OnInit {
 
     /**
      * set/remove the selected element from the displayed fields
+     *
      * @param {Selectable} element
+     *
+     * @memberOf ConferenceEntryApplicationComponent
      */
     public toggleFormField(element: Selectable): void {
         if (!this.entry.fields) {
@@ -79,10 +108,12 @@ export class ConferenceEntryApplicationComponent implements OnInit {
 
     /**
      * gets the label of the form with the given id
-     *
      * TODO: Known bug if id belongs to a form that !isCurrent -> no label to displayed
      *
-     * @param {String} id
+     * @param {string} id
+     * @returns {string}
+     *
+     * @memberOf ConferenceEntryApplicationComponent
      */
     public getLabelOfForm(id: string): string {
         if (this.cachedFormLabel && this.cachedFormId === id) { return this.cachedFormLabel; }

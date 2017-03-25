@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 
@@ -5,6 +16,13 @@ import { BehaviorSubject } from 'rxjs/Rx';
 
 import { Status, ApplicationListDto } from 'app/swagger';
 
+/**
+ * List<T>
+ *
+ * @export
+ * @class List
+ * @template T
+ */
 export class List<T> {
     public list: T[];
 
@@ -19,6 +37,12 @@ export class List<T> {
     }
 }
 
+/**
+ * ListService
+ *
+ * @export
+ * @class ListService
+ */
 @Injectable()
 export class ListService {
 
@@ -45,6 +69,11 @@ export class ListService {
     public sortValue: BehaviorSubject<string> = new BehaviorSubject<string>(this._sortValue);
     public sortDirection: BehaviorSubject<number> = new BehaviorSubject<number>(this._sortDirection);
 
+    /**
+     * Creates an instance of ListService.
+     *
+     * @memberOf ListService
+     */
     constructor() { }
 
     /**

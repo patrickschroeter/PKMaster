@@ -1,10 +1,26 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 // tslint:disable:directive-selector-prefix
 // tslint:disable:directive-selector-name
-
 import { Directive, ViewContainerRef, Input, TemplateRef } from '@angular/core';
 
 import { PermissionService, AccessService } from 'app/core';
 
+/**
+ * AccessDirective
+ *
+ * @export
+ * @class AccessDirective
+ */
 @Directive({
     // tslint:disable-next-line:directive-selector
     selector: ` [access],
@@ -38,6 +54,14 @@ import { PermissionService, AccessService } from 'app/core';
 })
 export class AccessDirective {
 
+    /**
+     * Creates an instance of AccessDirective.
+     * @param {TemplateRef<any>} templateRef
+     * @param {ViewContainerRef} viewContainer
+     * @param {PermissionService} permission
+     *
+     * @memberOf AccessDirective
+     */
     constructor(
         private templateRef: TemplateRef<any>,
         private viewContainer: ViewContainerRef,

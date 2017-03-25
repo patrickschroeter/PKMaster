@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -15,6 +26,12 @@ import {
     ConferenceCreateDto
 } from 'app/swagger';
 
+/**
+ * ButtonConferenceCloneComponent
+ *
+ * @export
+ * @class ButtonConferenceCloneComponent
+ */
 @Component({
     selector: 'pk-button-conference-clone',
     templateUrl: './button-conference-clone.component.html'
@@ -23,6 +40,13 @@ export class ButtonConferenceCloneComponent {
 
     @Input() conference: ConferenceDetailDto;
 
+    /**
+     * Creates an instance of ButtonConferenceCloneComponent.
+     * @param {ConferenceService} conferenceService
+     * @param {Router} router
+     *
+     * @memberOf ButtonConferenceCloneComponent
+     */
     constructor(
         private conferenceService: ConferenceService,
         private router: Router

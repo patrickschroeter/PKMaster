@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 /** Services */
@@ -10,6 +21,12 @@ import { ModalService } from 'app/modules/overlay';
 /** Models */
 import { ConferenceDetailDto } from 'app/swagger';
 
+/**
+ * ButtonConferenceDeleteComponent
+ *
+ * @export
+ * @class ButtonConferenceDeleteComponent
+ */
 @Component({
     selector: 'pk-button-conference-delete',
     templateUrl: './button-conference-delete.component.html'
@@ -19,6 +36,14 @@ export class ButtonConferenceDeleteComponent {
     @Input() conference: ConferenceDetailDto;
     @Output() success: EventEmitter<ConferenceDetailDto> = new EventEmitter<ConferenceDetailDto>();
 
+    /**
+     * Creates an instance of ButtonConferenceDeleteComponent.
+     * @param {ModalService} modalService
+     * @param {TranslationService} translationService
+     * @param {ConferenceService} conferenceService
+     *
+     * @memberOf ButtonConferenceDeleteComponent
+     */
     constructor(
         private modalService: ModalService,
         private translationService: TranslationService,

@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, ViewChild, Input, EventEmitter, Output } from '@angular/core';
 import * as _ from 'lodash';
 
@@ -24,6 +35,14 @@ import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 /** Components */
 import { OverlayComponent } from 'app/modules/overlay';
 
+/**
+ * ModalAcceptApplicationComponent
+ *
+ * @export
+ * @class ModalAcceptApplicationComponent
+ * @implements {OnInit}
+ * @implements {OnAccess}
+ */
 @Component({
     selector: 'pk-modal-accept-application',
     templateUrl: './modal-accept-application.component.html',
@@ -40,6 +59,15 @@ export class ModalAcceptApplicationComponent implements OnInit, OnAccess {
 
     public application: ApplicationDetailDto;
 
+    /**
+     * Creates an instance of ModalAcceptApplicationComponent.
+     * @param {AuthenticationService} auth
+     * @param {ApplicationService} applicationService
+     * @param {PermissionService} permission
+     * @param {AlertService} alert
+     *
+     * @memberOf ModalAcceptApplicationComponent
+     */
     constructor(
         private auth: AuthenticationService,
         private applicationService: ApplicationService,
@@ -47,13 +75,22 @@ export class ModalAcceptApplicationComponent implements OnInit, OnAccess {
         public alert: AlertService
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     *
+     * @memberOf ModalAcceptApplicationComponent
+     */
     ngOnInit() {
-
         this.initAcceptForm();
     }
 
     /**
      * Opens the Modal and sets the given application
+     *
+     * @param {ApplicationDetailDto} application
+     *
+     * @memberOf ModalAcceptApplicationComponent
      */
     public openModal(application: ApplicationDetailDto): void {
         this.application = application;
@@ -65,6 +102,8 @@ export class ModalAcceptApplicationComponent implements OnInit, OnAccess {
 
     /**
      * close the overlay modal
+     *
+     * @memberOf ModalAcceptApplicationComponent
      */
     public closeModal() {
         this.overlay.toggle(false);
@@ -72,6 +111,8 @@ export class ModalAcceptApplicationComponent implements OnInit, OnAccess {
 
     /**
      * Create the Form to accept/decline the Application
+     *
+     * @memberOf ModalAcceptApplicationComponent
      */
     public initAcceptForm() {
         this.acceptForm = [
@@ -93,7 +134,11 @@ export class ModalAcceptApplicationComponent implements OnInit, OnAccess {
     }
 
     /**
-     * @description accepts the application (with condition)
+     * accepts the application (with condition)
+     *
+     * @param {AcceptApplication} form
+     *
+     * @memberOf ModalAcceptApplicationComponent
      */
     @Access('AcceptApplications')
     public acceptApplication(form: AcceptApplication) {
@@ -107,7 +152,11 @@ export class ModalAcceptApplicationComponent implements OnInit, OnAccess {
     }
 
     /**
-     * @description declines the application with reasons
+     * declines the application with reasons
+     *
+     * @param {AcceptApplication} form
+     *
+     * @memberOf ModalAcceptApplicationComponent
      */
     @Access('AcceptApplications')
     public declineApplication(form: AcceptApplication) {
@@ -121,7 +170,11 @@ export class ModalAcceptApplicationComponent implements OnInit, OnAccess {
     }
 
     /**
-     * @description adds the comment to the current application
+     * adds the comment to the current application
+     *
+     * @param {CommentDto} values
+     *
+     * @memberOf ModalAcceptApplicationComponent
      */
     public createNewComment(values: CommentDto) {
         const comment: CommentDto = values;

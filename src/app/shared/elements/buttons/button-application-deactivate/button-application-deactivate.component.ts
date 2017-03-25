@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, Output, EventEmitter } from '@angular/core';
 
 /** Parent */
@@ -18,6 +29,14 @@ import { ApplicationDetailDto } from 'app/swagger';
 /** Decorators */
 import { Access, OnAccess } from './../../../decorators/access.decorator';
 
+/**
+ * ButtonApplicationDeactivateComponent
+ *
+ * @export
+ * @class ButtonApplicationDeactivateComponent
+ * @extends {Button}
+ * @implements {OnAccess}
+ */
 @Component({
     selector: 'pk-button-application-deactivate',
     templateUrl: './button-application-deactivate.component.html'
@@ -28,6 +47,16 @@ export class ButtonApplicationDeactivateComponent extends Button implements OnAc
 
     public application: ApplicationDetailDto;
 
+    /**
+     * Creates an instance of ButtonApplicationDeactivateComponent.
+     * @param {ModalService} modalService
+     * @param {TranslationService} translationService
+     * @param {ApplicationService} applicationService
+     * @param {AlertService} alert
+     * @param {PermissionService} permission
+     *
+     * @memberOf ButtonApplicationDeactivateComponent
+     */
     constructor(
         private modalService: ModalService,
         private translationService: TranslationService,
@@ -41,6 +70,10 @@ export class ButtonApplicationDeactivateComponent extends Button implements OnAc
     /**
      * Creates a confirmation modal to confirm deactivating the selected application
      * TODO: Prevent deactivate foreign application with Create & Read permission
+     *
+     * @param {ApplicationDetailDto} application
+     *
+     * @memberOf ButtonApplicationDeactivateComponent
      */
     @Access(['CreateApplications', 'DeactivateApplications'])
     public deactivateApplicationModal(application: ApplicationDetailDto): void {
@@ -56,6 +89,11 @@ export class ButtonApplicationDeactivateComponent extends Button implements OnAc
     /**
      * Deactivate the selected application
      * TODO: Prevent deactivate foreign application with Create & Read permission
+     *
+     * @private
+     * @param {ApplicationDetailDto} application
+     *
+     * @memberOf ButtonApplicationDeactivateComponent
      */
     @Access(['CreateApplications', 'DeactivateApplications'])
     private deactivateApplication(application: ApplicationDetailDto): void {

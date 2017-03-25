@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -18,6 +29,12 @@ import { AlertDirectiveModule } from 'app/modules/alert/alert.module';
 import { DynamicFormModule } from 'app/modules/dynamic-form/dynamic-form.module';
 import { StatusPipe } from './pipes';
 
+/**
+ * SharedModule
+ *
+ * @export
+ * @class SharedModule
+ */
 @NgModule({
     declarations: [
         /** Navbar */

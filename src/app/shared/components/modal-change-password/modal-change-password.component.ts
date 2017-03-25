@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
@@ -32,37 +43,10 @@ import { Fields, ChangePasswordForm } from 'app/models';
 })
 export class ModalChangePasswordComponent implements OnInit {
 
-    /**
-     * Default Layout Class
-     *
-     * @type {OverlayComponent}
-     * @memberOf ModalChangePasswordComponent
-     */
     @ViewChild('overlay') overlay: OverlayComponent;
 
-    /**
-     * The user object
-     *
-     * @private
-     * @type {UserDetailDto}
-     * @memberOf ModalChangePasswordComponent
-     */
     private user: UserDetailDto;
-
-    /**
-     * the elements for the change password form
-     *
-     * @type {FieldDto[]}
-     * @memberOf ModalChangePasswordComponent
-     */
     public changePasswordElements: FieldDto[];
-
-    /**
-     * the FormGroup to change the password
-     *
-     * @type {FormGroup}
-     * @memberOf ModalChangePasswordComponent
-     */
     public changePasswordForm: FormGroup;
 
     /**

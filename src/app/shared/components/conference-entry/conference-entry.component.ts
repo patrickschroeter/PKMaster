@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter, Inject } from '@angular/core';
 import * as _ from 'lodash';
 
@@ -26,45 +37,12 @@ import { ConferenceConfig, Selectable } from 'app/models';
 })
 export class ConferenceEntryComponent implements OnInit {
 
-    /**
-     * input index of entry
-     *
-     * @type {string}
-     * @memberOf ConferenceEntryComponent
-     */
     @Input() index: string;
-
-    /**
-     * input list of all forms
-     *
-     * @type {Selectable[]}
-     * @memberOf ConferenceEntryComponent
-     */
     @Input() forms: Selectable[];
-
-    /**
-     * input the current entry
-     *
-     * @type {ConferenceConfig}
-     * @memberOf ConferenceEntryComponent
-     */
     @Input() entry: ConferenceConfig;
 
-    /**
-     * EventEmitter for removing the element
-     *
-     * @type {EventEmitter<ConferenceConfig>}
-     * @memberOf ConferenceEntryComponent
-     */
     @Output() remove: EventEmitter<ConferenceConfig> = new EventEmitter();
 
-    /**
-     * number of inputs for list
-     *
-     * @private
-     * @type {Number}
-     * @memberOf ConferenceEntryComponent
-     */
     private numberOfInputs: Number;
 
     /**
