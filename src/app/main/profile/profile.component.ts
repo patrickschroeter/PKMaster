@@ -12,10 +12,13 @@
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { AuthenticationService } from 'app/core';
+import {
+    AuthenticationService,
+    UserService
+} from 'app/core';
 
 import { FieldDto, UserDetailDto } from 'app/swagger';
-import { Fields } from 'app/models';
+import { Fields, FieldModel } from 'app/models';
 
 /**
  * ProfileComponent
@@ -45,6 +48,7 @@ export class ProfileComponent implements OnInit {
      */
     constructor(
         private auth: AuthenticationService,
+        private userService: UserService
     ) { }
 
     /**
@@ -66,13 +70,7 @@ export class ProfileComponent implements OnInit {
     private getUser() {
         this.auth.getUser().subscribe((user: UserDetailDto) => {
             this.user = user;
-            this.form = [
-                new Fields.Firstname(user.firstname),
-                new Fields.Lastname(user.lastname),
-                new Fields.Devider(),
-                new Fields.Email(user.email),
-                new Fields.Matrikelnummer(user.ldapId ? user.ldapId.toString() : '')
-            ];
+            this.form = this.userService.getUserForm(user);
         });
     }
 }

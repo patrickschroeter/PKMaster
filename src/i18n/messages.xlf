@@ -250,10 +250,6 @@
         <source>Cancel</source>
         <target/>
       </trans-unit>
-      <trans-unit id="70a67e04629f6d412db0a12d51820b480788d795" datatype="html">
-        <source>Create</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="5edf054f14aa57bc25a28cb7db01956fee53dac8" datatype="html">
         <source>Change Password</source>
         <target/>
@@ -304,6 +300,10 @@
       </trans-unit>
       <trans-unit id="fd73e1d615dbe5b4f163b867ba5583c0a1094892" datatype="html">
         <source>Create New Role</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="70a67e04629f6d412db0a12d51820b480788d795" datatype="html">
+        <source>Create</source>
         <target/>
       </trans-unit>
       <trans-unit id="4111a49e474497ab1c70ea61dd2c68d6cf582c8d" datatype="html">
@@ -394,12 +394,24 @@
         <source>Registrierung</source>
         <target/>
       </trans-unit>
+      <trans-unit id="84472ef6a352ed5cb8ff5596e3c7cfdbeb9dfa7b" datatype="html">
+        <source>Enter RZ credentials for authentication.</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="6709300fb7d34a76014220f2578b69cc1c74fd09" datatype="html">
         <source>Weiter</source>
         <target/>
       </trans-unit>
+      <trans-unit id="93cb8a7d5046628cfebdd1ae9897421f55e60411" datatype="html">
+        <source>Enter external e-mail as username.</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="c47252d6cffe14a672e7ef04b2cc30e761f240ae" datatype="html">
         <source>Zurück</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="ccee4487df92dd7f7839181371f55b755fd812f4" datatype="html">
+        <source>Enter password for the application.</source>
         <target/>
       </trans-unit>
       <trans-unit id="9adf7f973ff81475f3622c2a38a1e69a7dd433af" datatype="html">

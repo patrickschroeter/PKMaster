@@ -12,7 +12,10 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthenticationService } from 'app/core';
+import {
+    AuthenticationService,
+    UserService
+} from 'app/core';
 import { AlertService } from 'app/modules/alert';
 import { TranslationService } from 'app/modules/translation';
 
@@ -52,7 +55,8 @@ export class ProfileEditComponent implements OnInit {
         private router: Router,
         private auth: AuthenticationService,
         private alert: AlertService,
-        private translationService: TranslationService
+        private translationService: TranslationService,
+        private userService: UserService
     ) { }
 
     /**
@@ -75,12 +79,7 @@ export class ProfileEditComponent implements OnInit {
     private getUser() {
         this.auth.getUser().subscribe(user => {
             this.user = user;
-            this.form = [
-                new Fields.Firstname(user.firstname),
-                new Fields.Lastname(user.lastname),
-                new Fields.Devider(),
-                new Fields.Email(user.email, { required: true })
-            ];
+            this.form = this.userService.getUserEditForm(user);
         });
     }
 

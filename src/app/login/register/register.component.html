@@ -6,6 +6,7 @@
 
             <!--LDAP-->
             <ng-container *ngSwitchCase="0">
+                <h5 i18n>Enter RZ credentials for authentication.</h5>
                 <pk-dynamic-form [formElements]="ldapForm" #dynamicForm>
                     <pk-dynamic-form-content>
 
@@ -22,6 +23,7 @@
 
             <!--E-Mail-->
             <ng-container *ngSwitchCase="1">
+                <h5 i18n>Enter external e-mail as username.</h5>
                 <pk-dynamic-form [formElements]="emailForm" #dynamicForm>
                     <pk-dynamic-form-content>
 
@@ -42,6 +44,7 @@
 
             <!--Password-->
             <ng-container *ngSwitchCase="2">
+                <h5 i18n>Enter password for the application.</h5>
 
                 <pk-dynamic-form [formGroup]="passwordFormGroup" #dynamicForm>
                     <pk-dynamic-form-content>

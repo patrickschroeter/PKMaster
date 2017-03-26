@@ -52,5 +52,29 @@ export class UserMock {
         return new Observable((observer: Observer<any[]>) => observer.next([]));
     }
 
+    /**
+     * get user form
+     *
+     * @param {UserDetailDto} user
+     * @returns {FieldDto[]}
+     *
+     * @memberOf UserService
+     */
+    public getUserForm(user: UserDetailDto): any[] {
+        return [];
+    }
+
+    /**
+     * get user form
+     *
+     * @param {UserDetailDto} user
+     * @returns {FieldDto[]}
+     *
+     * @memberOf UserService
+     */
+    public getUserEditForm(user: UserDetailDto): any[] {
+        return [];
+    }
+
 
 }
