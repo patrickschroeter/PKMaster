@@ -76,7 +76,7 @@ export class ModalChangePasswordComponent implements OnInit {
     ngOnInit() {
         this.auth.getUser().subscribe(user => {
             this.user = user;
-        });
+        }, error => { console.error(error); });
 
         this.initChangePasswordField();
     }

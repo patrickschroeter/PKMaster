@@ -113,7 +113,7 @@ export class ApplicationsComponent implements OnInit, OnAccess {
             this.user = user;
             /** get applications */
             this.getApplications();
-        });
+        }, error => { console.error(error); });
     }
 
     private getApplications(): void {

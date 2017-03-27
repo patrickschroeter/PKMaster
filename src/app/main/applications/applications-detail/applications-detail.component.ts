@@ -181,7 +181,7 @@ export class ApplicationsDetailComponent implements OnInit, OnAccess {
         });
         this.auth.getUser().subscribe(user => {
             this.user = user;
-        });
+        }, error => { console.error(error); });
     }
 
     /**

@@ -71,6 +71,6 @@ export class ProfileComponent implements OnInit {
         this.auth.getUser().subscribe((user: UserDetailDto) => {
             this.user = user;
             this.form = this.userService.getUserForm(user);
-        });
+        }, error => { console.error(error); });
     }
 }

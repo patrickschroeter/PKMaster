@@ -128,7 +128,7 @@ export class ApplicationsEditComponent implements OnInit, OnAccess {
     private getUser(): void {
         this.auth.getUser().subscribe(user => {
             this.user = user;
-        });
+        }, error => { console.error(error); });
     }
 
     /**

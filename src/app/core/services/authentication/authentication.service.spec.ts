@@ -202,7 +202,7 @@ describe('Service: Authentication', () => {
             let user: UserDetailDto;
             service.getUser().subscribe(result => {
                 user = result;
-            });
+            }, error => { console.error(error); });
 
             expect(user).toEqual(name);
         });
@@ -258,7 +258,7 @@ describe('Service: Authentication', () => {
             service.login('username', 'password');
             service.getUser().subscribe(response => {
                 user = response;
-            });
+            }, error => { console.error(error); });
             expect(user).toBeTruthy();
         });
 

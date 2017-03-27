@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 export const DICTIONARY_DE = {
     errorRequired: 'Feld ist notwendig.',
     errorMaxLength: `Feld darf maximal { 0 } Zeichen lang sein. Derzeit { 1 }.`,
@@ -188,5 +199,16 @@ export const DICTIONARY_DE = {
     RZPassword: 'RZ-Passwort',
     externalEmail: 'hochschulexterne E-Mail',
     password: 'Passwort',
-    confirmPassword: 'Passwort bestätigen'
+    confirmPassword: 'Passwort bestätigen',
+
+    confirmActivateFormHeader: 'Aktiviere Formular',
+    confirmActivateFormContent: 'Wollen sie das Formular wirklich aktivieren?',
+    activateFormErrorHeader: 'Fehler',
+    activateFormErrorContent: 'Beim Aktivieren des Formulars ist ein Fehler aufgetreten.',
+    firstname: 'Vorname',
+    lastname: 'Nachname',
+    rzName: 'RZ-Name',
+    email: 'E-Mail',
+    employeeType: 'Typ',
+    ldapId: 'LDAP ID'
 };

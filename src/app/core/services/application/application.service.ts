@@ -182,7 +182,7 @@ export class ApplicationService {
         /* TODO: wait for token */
         this.auth.getUser().subscribe((user: UserDetailDto) => {
             application.userId = user.id;
-        });
+        }, error => { console.error(error); });
 
         application.statusId = Status.CREATED;
 
@@ -206,7 +206,7 @@ export class ApplicationService {
         const param: CommentCreateDto = new CommentCreateDto(comment);
         this.auth.getUser().subscribe(user => {
             param.userId = user.id;
-        });
+        }, error => { console.error(error); });
         return this.applicationApi.addCommentToApplication(this.application.id, param).map((result: CommentDto) => {
             return result;
         });

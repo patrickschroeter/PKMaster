@@ -69,7 +69,7 @@ export class AdminProfileComponent implements OnInit {
                 new Fields.Devider(),
                 new Fields.Email(user.email)
             ];
-        });
+        }, error => { console.error(error); });
     }
 
 }

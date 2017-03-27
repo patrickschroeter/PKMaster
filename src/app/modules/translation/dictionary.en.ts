@@ -198,5 +198,16 @@ export const DICTIONARY_EN = {
     RZPassword: 'RZ-Password',
     externalEmail: 'external E-Mail',
     password: 'Password',
-    confirmPassword: 'Confirm Password'
+    confirmPassword: 'Confirm Password',
+
+    confirmActivateFormHeader: 'Activate form',
+    confirmActivateFormContent: 'Do you really want to activate the form?',
+    activateFormErrorHeader: 'Error',
+    activateFormErrorContent: 'There was an error activating the form.',
+    firstname: 'Firstname',
+    lastname: 'Lastname',
+    rzName: 'RZ-Name',
+    email: 'E-Mail',
+    employeeType: 'Type',
+    ldapId: 'LDAP ID'
 };

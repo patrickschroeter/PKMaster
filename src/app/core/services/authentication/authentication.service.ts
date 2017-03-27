@@ -11,7 +11,7 @@
 
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Observer } from 'rxjs/Rx';
+import { Observable, Observer, Subject } from 'rxjs/Rx';
 
 /** Services */
 import { PermissionService } from './../permission/permission.service';
@@ -75,6 +75,7 @@ export class AuthenticationService {
             this.login().subscribe(() => { }, error => {
                 this.logout();
             });
+            // console.log(this.login());
         }
     }
 
@@ -156,68 +157,40 @@ export class AuthenticationService {
     @Loading('login')
     public login(username?: string, password?: string): Observable<UserDetailDto> {
         if (username && password) {
-            let observer: Observer<UserDetailDto>;
-            // the returned user observable
-            this.user = new Observable<UserDetailDto>((obs: Observer<any>) => {
-                observer = obs;
+            this.user = this.userApi.login(username, password).flatMap(bearer => {
+                this.expiration = (bearer.expires_in / 3) * 60 * 1000;
+                this.token = `${bearer.token_type} ${bearer.access_token}`;
 
-                // log the user in and save token
-                this.userApi.login(username, password).subscribe(bearer => {
-                    this.expiration = (bearer.expires_in / 3) * 60 * 1000;
-                    this.token = `${bearer.token_type} ${bearer.access_token}`;
-
-                    // get the user object
-                    this.publishCurrentUser(observer);
-                }, error => {
-                    observer.error(error);
-                });
-            })
-                // update the permissions
-                .map((result: UserDetailDto) => {
-                    const user = result;
-                    user.permissions = user.permissions.length ? user.permissions : UserApiMock.getUserByEmail(user.email).permissions;
-                    return this.permission.updateUserPermissions(user);
-                })
-                // cache user
-                .publishReplay(1).refCount();
+                return this.setUser();
+            });
 
             return this.user;
         } else {
             // the returned user observable
-            this.user = new Observable<UserDetailDto>((observer: Observer<any>) => {
-                // get the user object
-                this.publishCurrentUser(observer);
-            })
-                // update the permissions
-                .map((result: UserDetailDto) => {
-                    const user = result;
-                    user.permissions = user.permissions.length ? user.permissions : UserApiMock.getUserByEmail(user.email).permissions;
-                    return this.permission.updateUserPermissions(user);
-                })
-                // cache user
-                .publishReplay(1).refCount();
-
-            return this.user;
+            return this.setUser();
         }
     }
 
     /**
-     * publishes the current user to the given observer
+     * set the user observable using cache
      *
      * @private
-     * @param {Observer<any>} observer
+     * @returns {Observable<UserDetailDto>}
      *
      * @memberOf AuthenticationService
      */
-    private publishCurrentUser(observer: Observer<any>) {
-        this.userApi.getCurrentUser().subscribe(result => {
-            observer.next(result);
-            observer.complete();
-        }, error => {
-            observer.error(error);
-            observer.complete();
-        });
+    private setUser(): Observable<UserDetailDto> {
+        this.user = this.userApi.getCurrentUser()
+            .map((result: UserDetailDto) => {
+                if (!result) { return null; }
+                const user = result;
+                user.permissions = user.permissions.length ? user.permissions : UserApiMock.getUserByEmail(user.email).permissions;
+                return this.permission.updateUserPermissions(user);
+            })
+            .publishReplay(1).refCount();
+        return this.user;
     }
+
 
     /**
      * logout the user
@@ -230,6 +203,8 @@ export class AuthenticationService {
             this.user.subscribe((result: UserDetailDto) => {
                 this.permission.updateUserPermissions(result);
                 this.user = null;
+            }, error => {
+                console.error(error);
             });
         }
         this.router.navigate(['/login']);

@@ -80,7 +80,7 @@ export class ProfileEditComponent implements OnInit {
         this.auth.getUser().subscribe(user => {
             this.user = user;
             this.form = this.userService.getUserEditForm(user);
-        });
+        }, error => { console.error(error); });
     }
 
     /**

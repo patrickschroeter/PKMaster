@@ -82,7 +82,7 @@ export class AdminProfileEditComponent implements OnInit {
                 new Fields.Devider(),
                 new Fields.Email(user.email, { required: true })
             ];
-        });
+        }, error => { console.error(error); });
     }
 
     /**
