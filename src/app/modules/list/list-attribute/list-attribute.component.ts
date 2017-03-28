@@ -35,7 +35,10 @@ export class ListAttributeComponent implements AfterViewInit {
      *
      * @memberOf ListAttributeComponent
      */
-    constructor(private renderer: Renderer, private elementRef: ElementRef) { }
+    constructor(
+        private renderer: Renderer,
+        private elementRef: ElementRef
+    ) { }
 
     /**
      * implements AfterViewInit
@@ -44,7 +47,8 @@ export class ListAttributeComponent implements AfterViewInit {
      */
     ngAfterViewInit() {
         if (this.name) {
-            this.renderer.setElementClass(this.elementRef.nativeElement, `list-element__attribute--${this.name}`, true);
+            const name = this.name.split(' ').join('-');
+            this.renderer.setElementClass(this.elementRef.nativeElement, `list-element__attribute--${name}`, true);
         }
     }
 
