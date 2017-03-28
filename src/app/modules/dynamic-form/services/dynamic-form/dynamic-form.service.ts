@@ -1,18 +1,43 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Injectable } from '@angular/core';
 import { Validators, FormControl, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import * as _ from 'lodash';
 
-import { AlertService } from './../../../../modules/alert';
+import { AlertService } from 'app/modules/alert';
 
 import { InputValidationService } from './../input-validation/input-validation.service';
 
-import { FieldDto } from './../../../../swagger';
+import { FieldDto } from 'app/swagger';
 
+/**
+ * DynamicFormService
+ *
+ * @export
+ * @class DynamicFormService
+ */
 @Injectable()
 export class DynamicFormService {
 
     private validationTime = 2000;
 
+    /**
+     * Creates an instance of DynamicFormService.
+     * @param {FormBuilder} build
+     * @param {InputValidationService} inputValidation
+     * @param {AlertService} alert
+     *
+     * @memberOf DynamicFormService
+     */
     constructor(
         private build: FormBuilder,
         private inputValidation: InputValidationService,
@@ -20,9 +45,13 @@ export class DynamicFormService {
     ) { }
 
     /**
-     * @description generates a from group from FormElements
-     * @param {FormElement[]} input the input configuration
-     * @return {FormGroup}
+     * generates a from group from FormElements
+     *
+     * @param {FieldDto[]} [input]
+     * @param {any} [config={}]
+     * @returns {FormGroup}
+     *
+     * @memberOf DynamicFormService
      */
     public generateFormFromInput(input?: FieldDto[], config = {}): FormGroup {
         const options: { [key: string]: FormControl } = {};
@@ -39,9 +68,12 @@ export class DynamicFormService {
     }
 
     /**
-     * @description add missing FormControl to the form depending on input
-     * @param {FormGroup} form the form to extend
-     * @param {Field[]} input the input configuration
+     * add missing FormControl to the form depending on input
+     *
+     * @param {FormGroup} form
+     * @param {FieldDto[]} [input]
+     *
+     * @memberOf DynamicFormService
      */
     public updateFormFromInput(form: FormGroup, input?: FieldDto[]): void {
 
@@ -76,7 +108,14 @@ export class DynamicFormService {
     }
 
     /**
-     * @description removes the key from the array
+     * removes the key from the array
+     *
+     * @private
+     * @param {string[]} list
+     * @param {string} key
+     * @returns
+     *
+     * @memberOf DynamicFormService
      */
     private removeKeyFromList(list: string[], key: string) {
         const index: number = list.indexOf(key);
@@ -85,9 +124,13 @@ export class DynamicFormService {
     }
 
     /**
-     * @description adds information to the form element such as validations and formControl
-     * @param {FormElement} element
-     * @return {boolean}
+     * adds information to the form element such as validations and formControl
+     *
+     * @private
+     * @param {FieldDto} element
+     * @returns {FormControl}
+     *
+     * @memberOf DynamicFormService
      */
     private createFormControl(element: FieldDto): FormControl {
         if (!element || !element.name || element.disabled) { return null; }
@@ -103,9 +146,12 @@ export class DynamicFormService {
 
 
     /**
-     * @description shows error validation of an element
-     * @param {FormElement} element
-     * @return {boolean}
+     * shows error validation of an element
+     *
+     * @param {AbstractControl} [formControl]
+     * @returns {void}
+     *
+     * @memberOf DynamicFormService
      */
     public showElementValidation(formControl?: AbstractControl): void {
         if (!formControl) { return; }
@@ -117,9 +163,11 @@ export class DynamicFormService {
     }
 
     /**
-     * @description shows error validation
-     * @param {FormGroup|FormControl} form the form object to validate
-     * @return {void}
+     * shows error validation
+     *
+     * @param {(FormGroup | FormControl | AbstractControl)} form
+     *
+     * @memberOf DynamicFormService
      */
     public showValidation(form: FormGroup | FormControl | AbstractControl) {
         const message = this.inputValidation.getErrorMessage(form);

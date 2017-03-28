@@ -27,7 +27,7 @@ import {Injectable, Optional} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
-import { Parse } from './../../shared/decorators/parse.decorator';
+import { Parse } from 'app/shared/decorators/parse.decorator';
 
 /* tslint:disable:no-unused-variable member-ordering */
 
@@ -222,8 +222,8 @@ export class UserApi {
         urlSearchParams.append('client_secret', 'frontendsecret');
         urlSearchParams.append('grant_type', 'password');
         urlSearchParams.append('scope', 'api openid profile');
-        urlSearchParams.append('username', password !== 'dev' ? username : 'patrick.schroeter@hs-augsburg.de');
-        urlSearchParams.append('password', password !== 'dev' ? password : 'safePassword');
+        urlSearchParams.append('username', username);
+        urlSearchParams.append('password', password);
         requestOptions.body = urlSearchParams.toString();
 
         return this.http.request(path, requestOptions)

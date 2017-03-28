@@ -1,13 +1,24 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, OnChanges, HostBinding } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import * as _ from 'lodash';
 
 import { DynamicFormService, InputValidationService } from './services';
 
-import { FieldDto } from './../../swagger';
+import { FieldDto } from 'app/swagger';
 
 /**
- *
+ * DynamicFormComponent
  *
  * @export
  * @class DynamicFormComponent
@@ -22,81 +33,19 @@ import { FieldDto } from './../../swagger';
 })
 export class DynamicFormComponent implements OnInit, OnChanges {
 
-    /**
-     * Default Layout class
-     *
-     * @memberOf DynamicFormComponent
-     */
     @HostBinding('class.form') formClass = true;
 
-    /**
-     * Input: Array of Fields
-     *
-     * @type {FieldDto[]}
-     * @memberOf DynamicFormComponent
-     */
     @Input() formElements: FieldDto[];
-
-    /**
-     * Input: The FormGroup
-     *
-     * @type {FormGroup}
-     * @memberOf DynamicFormComponent
-     */
     @Input() formGroup: FormGroup;
 
-    /**
-     * Emitter for Changes
-     *
-     * @type {EventEmitter<any>}
-     * @memberOf DynamicFormComponent
-     */
     @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
 
-    /**
-     * the FormGroup
-     *
-     * @private
-     * @type {FormGroup}
-     * @memberOf DynamicFormComponent
-     */
     private _form: FormGroup;
-
-    /**
-     * get FormGroup
-     *
-     * @memberOf DynamicFormComponent
-     */
     get form() { return this._form; }
-
-    /**
-     * set FormGroup
-     *
-     * @memberOf DynamicFormComponent
-     */
     set form(formGroup: FormGroup) { this._form = formGroup; }
 
-    /**
-     * Flag to display the form validation on hover
-     *
-     * @private
-     *
-     * @memberOf DynamicFormComponent
-     */
     private _isFormValidationVisible = false;
-
-    /**
-     * get isFormValidationVisible
-     *
-     * @memberOf DynamicFormComponent
-     */
     get isFormValidationVisible() { return this._isFormValidationVisible; }
-
-    /**
-     * set isFormValidationVisible
-     *
-     * @memberOf DynamicFormComponent
-     */
     set isFormValidationVisible(isOpen: boolean) { this._isFormValidationVisible = isOpen; }
 
     /**

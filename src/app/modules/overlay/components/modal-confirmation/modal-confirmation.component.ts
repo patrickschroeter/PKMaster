@@ -1,9 +1,27 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, ViewChild, Injector } from '@angular/core';
 
 import { OverlayComponent } from './../';
 
-import { FieldDto } from './../../../../swagger';
+import { FieldDto } from 'app/swagger';
 
+/**
+ * ModalConfirmationComponent
+ *
+ * @export
+ * @class ModalConfirmationComponent
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'pk-modal-confirmation',
   templateUrl: './modal-confirmation.component.html',
@@ -22,6 +40,12 @@ export class ModalConfirmationComponent implements OnInit {
 
     public confirmationForm: FieldDto[];
 
+    /**
+     * Creates an instance of ModalConfirmationComponent.
+     * @param {Injector} injector
+     *
+     * @memberOf ModalConfirmationComponent
+     */
     constructor(private injector: Injector) {
         this.title = this.injector.get('title');
         this.message = this.injector.get('message');
@@ -31,6 +55,11 @@ export class ModalConfirmationComponent implements OnInit {
         this.cancelText = this.injector.get('cancelText');
     }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf ModalConfirmationComponent
+     */
     ngOnInit() {
         if (this.overlay instanceof OverlayComponent) {
             this.overlay.toggle(true);

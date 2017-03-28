@@ -36,6 +36,10 @@
     }
 }
 
+.list-element--sorting {
+    color: $accent-color;
+}
+
 .list-element {
     // @extend .devider;
     @include clearfix();
@@ -57,6 +61,14 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+
+        @media (max-width: 768px) {
+            display: none;
+
+            &[primary], &:first-child {
+                display: block;
+            }
+        }
 
         a:hover {
             color: $guidance-color;
@@ -144,7 +156,6 @@
     }
 
     // States
-
     &.list-element--created {
         $current-color: $accent-color;
         .list-element__attribute--state-icon { border-color: $current-color; background: transparent }

@@ -1,0 +1,11 @@
+<ng-container *ngIf="application && application.hasStatus(status.CREATED, status.RESCINDED)">
+    <pk-button
+        class="element--spacing-bottom-tiny"
+        rounded
+        element--error
+        i18n-pkAlert
+        pkAlert="Deactivate Application"
+        icon="delete"
+        (onClick)="deactivateApplicationModal(application)">
+    </pk-button>
+</ng-container>

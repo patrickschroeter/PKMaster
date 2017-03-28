@@ -27,7 +27,7 @@ import {Injectable, Optional} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
-import { Parse } from './../../shared/decorators/parse.decorator';
+import { Parse } from 'app/shared/decorators/parse.decorator';
 
 /* tslint:disable:no-unused-variable member-ordering */
 
@@ -51,7 +51,7 @@ export class ApplicationApi {
      * @param comment New Comment
      */
     @Parse('CommentDto')
-    public addCommentToApplication (applicationId: string, comment?: models.CommentCreateDto, extraHttpRequestParams?: any ) : Observable<Array<models.CommentDto>> {
+    public addCommentToApplication (applicationId: string, comment?: models.CommentCreateDto, extraHttpRequestParams?: any ) : Observable<models.CommentDto> {
         const path = this.basePath + '/applications/{applicationId}/comments'
             .replace('{' + 'applicationId' + '}', String(applicationId));
 

@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import * as _ from 'lodash';
@@ -7,19 +18,20 @@ import {
     UserService,
     PermissionService,
     RoleService
-} from './../../../core';
-import { ModalService } from './../../../modules/overlay';
-import { TranslationService } from './../../../modules/translation';
+} from 'app/core';
+import { ModalService } from 'app/modules/overlay';
+import { TranslationService } from 'app/modules/translation';
+import { AlertService } from 'app/modules/alert';
 
 /** Models */
-import { UserDetailDto, FieldDto, RoleDto } from './../../../swagger';
-import { Fields, Selectable } from './../../../models';
+import { UserDetailDto, FieldDto, RoleDto } from 'app/swagger';
+import { Fields, Selectable } from 'app/models';
 
 /** Decorators */
-import { Access } from './../../../shared/decorators/access.decorator';
+import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
 /**
- *
+ * UsersDetailComponent
  *
  * @export
  * @class UsersDetailComponent
@@ -30,47 +42,21 @@ import { Access } from './../../../shared/decorators/access.decorator';
     templateUrl: './users-detail.component.html',
     styleUrls: ['./users-detail.component.scss']
 })
-export class UsersDetailComponent implements OnInit {
+export class UsersDetailComponent implements OnInit, OnAccess {
 
-    /**
-     * Default Layout class
-     *
-     * @memberOf UsersDetailComponent
-     */
     @HostBinding('class') classes = 'content--default';
 
-    /**
-     * the selected user
-     *
-     * @type {UserDetailDto}
-     * @memberOf UsersDetailComponent
-     */
     public user: UserDetailDto;
-
-    /**
-     * the user form
-     *
-     * @type {FieldDto[]}
-     * @memberOf UsersDetailComponent
-     */
     public form: FieldDto[];
-
-    /**
-     * a list of all roles as Selectable
-     *
-     * @private
-     * @type {Selectable[]}
-     * @memberOf UsersDetailComponent
-     */
     private roles: Selectable[];
 
     /**
      * Creates an instance of UsersDetailComponent.
-     *
      * @param {UserService} userService
      * @param {ActivatedRoute} activatedRoute
      * @param {Router} router
      * @param {PermissionService} permission
+     * @param {AlertService} alert
      * @param {ModalService} modalService
      * @param {TranslationService} translationService
      * @param {RoleService} roleService
@@ -81,7 +67,8 @@ export class UsersDetailComponent implements OnInit {
         private userService: UserService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private permission: PermissionService,
+        public permission: PermissionService,
+        public alert: AlertService,
         private modalService: ModalService,
         private translationService: TranslationService,
         private roleService: RoleService

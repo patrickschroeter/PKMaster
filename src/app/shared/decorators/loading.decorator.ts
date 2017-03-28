@@ -1,12 +1,35 @@
 /**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
+/**
  * Required AlertService as alert
  * Required TranslationService as translationService
  */
-import { AlertService } from './../../modules/alert';
-import { TranslationService } from './../../modules/translation';
-import { environment } from './../../../environments/environment';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
+import { environment } from 'app/../environments/environment';
 import { Observable } from 'rxjs/Rx';
 
+export interface OnLoading {
+    alert: AlertService;
+    translationService: TranslationService;
+}
+
+/**
+ * Loading Decorator to add hints while getting data
+ *
+ * @export
+ * @param {string} name
+ * @returns
+ */
 export function Loading(name: string) {
     return function (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
         const originalMethod = descriptor.value;

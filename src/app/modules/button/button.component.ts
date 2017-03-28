@@ -1,5 +1,34 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostBinding, AfterViewInit, ElementRef, Renderer } from '@angular/core';
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
 
+import {
+    Component,
+    OnInit,
+    Input,
+    Output,
+    EventEmitter,
+    HostBinding,
+    AfterViewInit,
+    ElementRef,
+    Renderer
+} from '@angular/core';
+
+/**
+ * ButtonComponent
+ *
+ * @export
+ * @class ButtonComponent
+ * @implements {OnInit}
+ * @implements {AfterViewInit}
+ */
 @Component({
     selector: 'pk-button',
     templateUrl: './button.component.html',
@@ -16,8 +45,16 @@ export class ButtonComponent implements OnInit, AfterViewInit {
 
     private options: String[];
 
-    constructor(private renderer: Renderer, private elementRef: ElementRef) { }
+    constructor(
+        private renderer: Renderer,
+        private elementRef: ElementRef
+    ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf ButtonComponent
+     */
     ngOnInit() {
         this.options = [
             'rounded',
@@ -26,6 +63,11 @@ export class ButtonComponent implements OnInit, AfterViewInit {
         ];
     }
 
+    /**
+     * implements AfterViewInit
+     *
+     * @memberOf ButtonComponent
+     */
     ngAfterViewInit() {
         const nativeElement = this.elementRef.nativeElement;
         for (let i = 0; i < this.options.length; i++) {
@@ -36,7 +78,12 @@ export class ButtonComponent implements OnInit, AfterViewInit {
         }
     }
 
-    emit() {
+    /**
+     * emit button click
+     *
+     * @memberOf ButtonComponent
+     */
+    public emit() {
         this.onClick.emit();
     }
 

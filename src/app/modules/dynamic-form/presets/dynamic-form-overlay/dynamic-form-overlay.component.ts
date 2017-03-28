@@ -1,35 +1,33 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 /** Models */
-import { FieldDto, ConferenceDetailDto } from './../../../../swagger';
+import { FieldDto, ConferenceDetailDto } from 'app/swagger';
 
 /**
  * A wrapper for an Dynamic Form in Overlay
  *
  * @export
  * @class DynamicFormOverlayComponent
- * @implements {OnInit}
  */
 @Component({
     selector: 'pk-dynamic-form-overlay',
     templateUrl: './dynamic-form-overlay.component.html'
 })
-export class DynamicFormOverlayComponent implements OnInit {
+export class DynamicFormOverlayComponent {
 
-    /**
-     * the form config
-     *
-     * @type {FieldDto[]}
-     * @memberOf DynamicFormOverlayComponent
-     */
     @Input() form: FieldDto[];
 
-    /**
-     * the save event emitter
-     *
-     * @type {EventEmitter<any>}
-     * @memberOf DynamicFormOverlayComponent
-     */
     @Output() save: EventEmitter<any> = new EventEmitter();
 
     /**
@@ -38,14 +36,6 @@ export class DynamicFormOverlayComponent implements OnInit {
      * @memberOf DynamicFormOverlayComponent
      */
     constructor() { }
-
-    /**
-     * implements OnInit
-     *
-     * @memberOf DynamicFormOverlayComponent
-     */
-    ngOnInit() {
-    }
 
     /**
      * emits the value of the form

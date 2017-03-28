@@ -1,7 +1,23 @@
 /**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
  */
-import * as swagger from './../../swagger/model/models';
 
+import * as swagger from 'app/swagger/model/models';
+
+/**
+ * Parse Decorator to parse json to objects
+ *
+ * @export
+ * @param {string} name
+ * @returns
+ */
 export function Parse(name: string) {
     return function (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
         const originalMethod = descriptor.value;
@@ -44,14 +60,6 @@ export function Parse(name: string) {
 }
 
 export function parseObject(fn: any, element: any, name: string) {
-    // const object = Object.create(fn[name].prototype);
-    //
-    // for (const key in element) {
-    //     if (key) {
-    //         object[key] = element[key];
-    //     }
-    // }
-
     const object = new fn[name](element);
     return object;
 }

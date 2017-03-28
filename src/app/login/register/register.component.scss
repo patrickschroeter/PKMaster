@@ -1,1 +1,20 @@
 @import './../login.component.scss';
+
+.valid-wrapper {
+    text-align: center;
+    a {
+        display: inline-block;
+    }
+}
+
+h4 {
+    margin-bottom: 35px;
+}
+
+h5 {
+    text-align: center;
+}
+
+.cs-loader {
+    top: 17px;
+}

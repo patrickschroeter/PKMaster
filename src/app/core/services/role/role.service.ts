@@ -1,16 +1,27 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 /** Services */
-import { AlertService } from './../../../modules/alert';
-import { TranslationService } from './../../../modules/translation';
-import { RoleApi } from './../../../swagger';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
+import { RoleApi } from 'app/swagger';
 
 /** Models */
-import { RoleDto } from './../../../swagger';
+import { RoleDto } from 'app/swagger';
 
 /** Decorators */
-import { Loading } from './../../../shared/decorators/loading.decorator';
+import { Loading } from 'app/shared/decorators/loading.decorator';
 
 /**
  * A Service taking care of creation and edit of Roles

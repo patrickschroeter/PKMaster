@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { Response } from '@angular/http';
 import { ActivatedRoute, Router, Params } from '@angular/router';
@@ -9,13 +20,13 @@ import {
     ApplicationService,
     PermissionService,
     UserService
-} from './../../../core';
-import { ModalService } from './../../../modules/overlay';
-import { AlertService } from './../../../modules/alert';
-import { TranslationService } from './../../../modules/translation';
+} from 'app/core';
+import { ModalService } from 'app/modules/overlay';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
 
 /** Models */
-import { ConferenceConfig, Selectable, ApplicationsByFormId } from './../../../models';
+import { ConferenceConfig, Selectable, ApplicationsByFormId } from 'app/models';
 import {
     ConferenceDetailDto,
     ApplicationDetailDto,
@@ -24,11 +35,10 @@ import {
     UserDetailDto,
     UserListDto,
     AttendantCreateDto
-} from './../../../swagger';
-import { OverlayComponent } from './../../../modules/overlay';
+} from 'app/swagger';
+import { OverlayComponent } from 'app/modules/overlay';
 
-/** Decorators */
-import { Access } from './../../../shared/decorators/access.decorator';
+import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
 /**
  * Component to display the details of a conference
@@ -42,7 +52,7 @@ import { Access } from './../../../shared/decorators/access.decorator';
     templateUrl: './conferences-detail.component.html',
     styleUrls: ['./conferences-detail.component.scss']
 })
-export class ConferencesDetailComponent implements OnInit {
+export class ConferencesDetailComponent implements OnInit, OnAccess {
 
     /**
      * Default Layout Class
@@ -105,11 +115,12 @@ export class ConferencesDetailComponent implements OnInit {
         /** Modules */
         private modalService: ModalService,
         private translationService: TranslationService,
-        private alert: AlertService,
+        public alert: AlertService,
         /** Services */
         private conferenceService: ConferenceService,
         private applicationService: ApplicationService,
-        private userService: UserService
+        private userService: UserService,
+        public permission: PermissionService
     ) { }
 
     /**
@@ -129,6 +140,7 @@ export class ConferencesDetailComponent implements OnInit {
      *
      * @memberOf ConferencesDetailComponent
      */
+    @Access('ReadConferences')
     private getConference(): void {
         this.activatedRoute.params.forEach((params: Params) => {
             this.conferenceService.getConferenceById(params['id']).subscribe(conference => {
@@ -149,6 +161,7 @@ export class ConferencesDetailComponent implements OnInit {
      *
      * @memberOf ConferencesDetailComponent
      */
+    @Access('ReadConferences')
     private getUsers(): void {
         this.userService.getMembers().subscribe(result => {
             this.members = result;
@@ -165,6 +178,7 @@ export class ConferencesDetailComponent implements OnInit {
      *
      * @memberOf ConferencesDetailComponent
      */
+    @Access('ReadConferences')
     public populateConfigWithApplications() {
         if (!this.conference.config) { return; }
         this.conferenceService.getApplicationsByConference(this.conference.id).subscribe((result: ApplicationDetailDto[]) => {
@@ -172,7 +186,6 @@ export class ConferencesDetailComponent implements OnInit {
             const applicationsByForm: ApplicationsByFormId = {};
             for (let i = 0; i < result.length; i++) {
                 const application: ApplicationDetailDto = result[i];
-                if (typeof application.filledForm === 'string') { application.filledForm = JSON.parse(application.filledForm); }
                 applicationsByForm[application.form.id] = applicationsByForm[application.form.id] || [];
                 applicationsByForm[application.form.id].push(application);
             }
@@ -193,6 +206,7 @@ export class ConferencesDetailComponent implements OnInit {
      *
      * @memberOf ConferencesDetailComponent
      */
+    @Access('ReadConferences')
     private setApplication(config: ConferenceConfig, applications: ApplicationsByFormId) {
         if (!config || !applications) { return; }
         if (config.formId) {
@@ -206,25 +220,16 @@ export class ConferencesDetailComponent implements OnInit {
     }
 
     /**
-     * Delete the conference
+     * Remove conference from conferences
      *
+     * @param {ConferenceDetailDto} conference
+     * @returns {void}
      *
-     * @memberOf ConferencesDetailComponent
+     * @memberOf ConferencesComponent
      */
-    public deleteConference() {
-        this.modalService.createConfirmationModal({
-            title: this.translationService.translate('confirmDeleteConferenceHeader'),
-            message: this.translationService.translate('confirmDeleteConferenceContent'),
-            /**
-             * Confirm callback on confirm
-             */
-            confirm: () => {
-                this.conferenceService.removeConference(this.conference.id).subscribe(result => {
-                    this.router.navigate(['conferences']);
-                    this.modalService.destroyModal();
-                });
-            }
-        });
+    @Access('EditConferences')
+    public removeConference(conference: ConferenceDetailDto): void {
+        this.router.navigate(['conferences']);
     }
 
     /**
@@ -232,6 +237,7 @@ export class ConferencesDetailComponent implements OnInit {
      *
      * @memberOf ConferencesDetailComponent
      */
+    @Access('EditConferences')
     public assignMemberModal(): void {
         this.modalType = 'members';
         this.modalService.createListModal({
@@ -250,6 +256,7 @@ export class ConferencesDetailComponent implements OnInit {
      *
      * @memberOf ConferencesDetailComponent
      */
+    @Access('EditConferences')
     public assignGuestModal(): void {
         this.modalType = 'guests';
         this.modalService.createListModal({
@@ -272,6 +279,7 @@ export class ConferencesDetailComponent implements OnInit {
      *
      * @memberOf ConferencesDetailComponent
      */
+    @Access('EditConferences')
     private assignUser(user: Selectable): void {
         const group: string = this.modalType;
         const isMember: boolean = group === 'members';
@@ -284,7 +292,8 @@ export class ConferencesDetailComponent implements OnInit {
         if (!attendant) {
             this.conferenceService.assignAttendantToConference(this.conference, new AttendantCreateDto(user.value, type))
                 .subscribe((result: ConferenceDetailDto) => {
-                    this.conference = result;
+                    this.conference.update(result);
+                    this.populateConfigWithApplications();
                     this.updateSelectedUsers();
                 }, (error: Response) => {
                     this.alert.setAlert(error.statusText, error.text());
@@ -304,6 +313,7 @@ export class ConferencesDetailComponent implements OnInit {
      *
      * @memberOf ConferencesDetailComponent
      */
+    @Access('EditConferences')
     private updateSelectedUsers() {
         if (this.modalType) {
             if (this.modalType === 'members') {
@@ -322,9 +332,11 @@ export class ConferencesDetailComponent implements OnInit {
      *
      * @memberOf ConferencesDetailComponent
      */
+    @Access('EditConferences')
     private saveConference(param: ConferenceDetailDto): void {
         this.conferenceService.saveConference(param).subscribe(result => {
-            this.conference = result;
+            this.conference.update(result);
+            this.populateConfigWithApplications();
         });
     }
 
@@ -335,6 +347,7 @@ export class ConferencesDetailComponent implements OnInit {
      *
      * @memberOf ConferencesDetailComponent
      */
+    @Access('EditConferences')
     public unassignUser(user: UserDetailDto, type: string) {
         this.modalType = type;
         this.assignUser(new Selectable(user.id, user.id));

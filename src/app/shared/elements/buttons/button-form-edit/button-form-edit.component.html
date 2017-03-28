@@ -1,0 +1,12 @@
+<ng-container *ngIf="form">
+    <a routerLink="/forms/{{ form.id }}/edit">
+        <pk-button
+            class="element--spacing-bottom-tiny"
+            rounded
+            i18n-pkAlert
+                 pkAlert="Edit Form"
+            icon="create"
+            element--secondary>
+        </pk-button>
+    </a>
+</ng-container>

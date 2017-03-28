@@ -1,14 +1,15 @@
+<pk-filter></pk-filter>
+
 <pk-list>
     <pk-list-header>
-        <!--<pk-list-attribute name="state-icon" (click)="sortBy('status')"></pk-list-attribute>-->
-        <pk-list-attribute i18n>Status</pk-list-attribute>
-        <pk-list-attribute primary i18n>Title</pk-list-attribute>
-        <pk-list-attribute i18n>Conference</pk-list-attribute>
-        <pk-list-attribute i18n>Created</pk-list-attribute>
-        <pk-list-attribute i18n>Version</pk-list-attribute>
+        <pk-list-attribute                          i18n sort="statusId">Status</pk-list-attribute>
+        <pk-list-attribute primary                  i18n sort="form.title">Title</pk-list-attribute>
+        <pk-list-attribute                          i18n sort="conference.dateOfEvent">Conference</pk-list-attribute>
+        <pk-list-attribute                          i18n sort="created">Modified</pk-list-attribute>
+        <pk-list-attribute                          i18n sort="version">Version</pk-list-attribute>
     </pk-list-header>
     <pk-list-content>
-        <pk-list-element *ngFor="let application of applications" [name]="application.statusId | status">
+        <pk-list-element *ngFor="let application of (list.length ? list : applications)" [name]="application.statusId | status">
 
             <pk-list-attribute name="state">{{ application.statusId | status }}</pk-list-attribute>
 
@@ -17,7 +18,7 @@
                 <a *ngIf="!application.form" routerLink="/applications/{{ application.id }}" i18n>No Title</a>
             </pk-list-attribute>
 
-            <pk-list-attribute name="date">
+            <pk-list-attribute [name]="application.conference ? 'date' : 'default'">
                 <ng-container *accessReadConferences="1">
                     {{ application.conference ? (application.conference.dateOfEvent | date) : ''}}
                 </ng-container>
@@ -30,56 +31,14 @@
             <pk-list-attribute name="version">{{ application.version }}</pk-list-attribute>
 
             <pk-floating horizontal top-right>
-                <ng-container>
-                    <pk-button
-                        *ngIf="application.hasStatus(status.CREATED, status.RESCINDED)"
-                        rounded
-                        element--error
-                        i18n-pkAlert
-                        pkAlert="Deactivate Application"
-                        icon="delete"
-                        (onClick)="deactivateApplicationModal(application)">
-                    </pk-button>
-                </ng-container>
-                <a
-                    *ngIf="application.hasStatus(status.CREATED, status.RESCINDED)"
-                    routerLink="/applications/{{ application.id }}/edit">
-                    <pk-button
-                        *ngIf="application.form.deprecated"
-                        rounded
-                        element--secondary
-                        i18n-pkAlert
-                        pkAlert="Update Application"
-                        icon="refresh">
-                    </pk-button>
-                    <pk-button
-                        *ngIf="!application.form.deprecated"
-                        rounded
-                        element--secondary
-                        i18n-pkAlert
-                        pkAlert="Edit Application"
-                        icon="create">
-                    </pk-button>
-                </a>
-                <pk-button
-                    *ngIf="application.hasStatus(status.SUBMITTED)"
-                    rounded
-                    element--error
-                    i18n-pkAlert
-                    pkAlert="Recind Application"
-                    icon="undo"
-                    (onClick)="rescindApplicationModal(application)">
-                </pk-button>
-                <pk-button
-                    *ngIf="application.hasStatus(status.CREATED) && application.filledForm"
-                    rounded
-                    element--secondary
-                    i18n-pkAlert
-                    pkAlert="Submit Application"
-                    icon="send"
-                    (onClick)="submitApplicationModal(application)">
-                </pk-button>
+                <pk-button-application-deactivate [application]="application"></pk-button-application-deactivate>
+                <pk-button-application-update [application]="application"></pk-button-application-update>
+                <pk-button-application-edit [application]="application"></pk-button-application-edit>
+                <pk-button-application-rescind [application]="application"></pk-button-application-rescind>
+                <pk-button-application-submit [application]="application"></pk-button-application-submit>
             </pk-floating>
         </pk-list-element>
     </pk-list-content>
 </pk-list>
+
+<pk-pagination></pk-pagination>

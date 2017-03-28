@@ -1,16 +1,28 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 /** Services */
-import { UserApi } from './../../../swagger';
-import { AlertService } from './../../../modules/alert';
-import { TranslationService } from './../../../modules/translation';
+import { UserApi } from 'app/swagger';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
 
 /** Models */
-import { UserDetailDto, RoleDto } from './../../../swagger';
+import { FieldModel, Fields } from 'app/models';
+import { UserDetailDto, RoleDto, UserCreateDto, FieldDto } from 'app/swagger';
 
 /** Decorators */
-import { Loading } from './../../../shared/decorators/loading.decorator';
+import { Loading } from 'app/shared/decorators/loading.decorator';
 
 /**
  * A service taking care of the users
@@ -141,6 +153,144 @@ export class UserService {
         return this.userApi.addRoleToUser(userId, role).map((result: UserDetailDto) => {
             return result;
         });
+    }
+
+    /**
+     * Create a new user
+     *
+     * @param {String} [rzName]
+     * @param {String} [rzPassword]
+     * @param {UserCreateDto} [user]
+     * @param {*} [extraHttpRequestParams]
+     * @returns {Observable<UserDetailDto>}
+     *
+     * @memberOf UserService
+     */
+    public addUser(rzName?: string, rzPassword?: string, user?: UserCreateDto): Observable<UserDetailDto> {
+        return this.userApi.addUser(rzName, rzPassword, user)
+            .catch(error => {
+                this.alert.setAlert(
+                    this.translationService.translate('registerErrorHeader'),
+                    this.translationService.translate('registerErrorContent')
+                );
+
+                return Observable.throw('Wrong LDAP Credentials');
+            });
+    }
+
+    /**
+     * get user form
+     *
+     * @param {UserDetailDto} user
+     * @returns {FieldDto[]}
+     *
+     * @memberOf UserService
+     */
+    public getUserForm(user: UserDetailDto): FieldDto[] {
+        return [
+            new FieldModel(
+                user.rzName,
+                {
+                    label: this.translationService.translate('rzName'),
+                    name: 'rzName'
+                }
+            ),
+            new FieldModel(
+                user.email,
+                {
+                    label: this.translationService.translate('email'),
+                    name: 'email'
+                }
+            ),
+            new FieldModel(
+                user.employeeType,
+                {
+                    label: this.translationService.translate('employeeType'),
+                    name: 'employeeType'
+                }
+            ),
+            new FieldModel(
+                user.ldapId ? user.ldapId.toString() : '',
+                {
+                    label: this.translationService.translate('ldapId'),
+                    name: 'ldapId'
+                }
+            ),
+            new Fields.Devider(),
+            new FieldModel(
+                user.firstname,
+                {
+                    label: this.translationService.translate('firstname'),
+                    name: 'firstname'
+                }
+            ),
+            new FieldModel(
+                user.lastname,
+                {
+                    label: this.translationService.translate('lastname'),
+                    name: 'lastname'
+                }
+            )
+        ];
+    }
+
+    /**
+     * get user form
+     *
+     * @param {UserDetailDto} user
+     * @returns {FieldDto[]}
+     *
+     * @memberOf UserService
+     */
+    public getUserEditForm(user: UserDetailDto): FieldDto[] {
+        return [
+            new FieldModel(
+                user.rzName,
+                {
+                    label: this.translationService.translate('rzName'),
+                    name: 'rzName',
+                    disabled: 'true'
+                }
+            ),
+            new FieldModel(
+                user.email,
+                {
+                    label: this.translationService.translate('email'),
+                    name: 'email'
+                }
+            ),
+            new FieldModel(
+                user.employeeType,
+                {
+                    label: this.translationService.translate('employeeType'),
+                    name: 'employeeType',
+                    disabled: 'true'
+                }
+            ),
+            new FieldModel(
+                user.ldapId ? user.ldapId.toString() : '',
+                {
+                    label: this.translationService.translate('ldapId'),
+                    name: 'ldapId',
+                    disabled: 'true'
+                }
+            ),
+            new Fields.Devider(),
+            new FieldModel(
+                user.firstname,
+                {
+                    label: this.translationService.translate('firstname'),
+                    name: 'firstname'
+                }
+            ),
+            new FieldModel(
+                user.lastname,
+                {
+                    label: this.translationService.translate('lastname'),
+                    name: 'lastname'
+                }
+            )
+        ];
     }
 
 }

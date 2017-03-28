@@ -1,25 +1,45 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import * as _ from 'lodash';
 
 /** Services */
-import { RoleService, PermissionService } from './../../../core';
-import { OverlayComponent, ModalService } from './../../../modules/overlay';
-import { TranslationService } from './../../../modules/translation';
+import { RoleService, PermissionService } from 'app/core';
+import { OverlayComponent, ModalService } from 'app/modules/overlay';
+import { TranslationService } from 'app/modules/translation';
+import { AlertService } from 'app/modules/alert';
 
 /** Models */
-import { RoleDto, FieldDto, PermissionDto } from './../../../swagger';
-import { Selectable } from './../../../models';
+import { RoleDto, FieldDto, PermissionDto } from 'app/swagger';
+import { Selectable } from 'app/models';
 
 /** Decorator */
-import { Access } from './../../../shared/decorators/access.decorator';
+import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
+/**
+ * RolesDetailComponent
+ *
+ * @export
+ * @class RolesDetailComponent
+ * @implements {OnInit}
+ * @implements {OnAccess}
+ */
 @Component({
     selector: 'pk-roles-detail',
     templateUrl: './roles-detail.component.html',
     styleUrls: ['./roles-detail.component.scss']
 })
-export class RolesDetailComponent implements OnInit {
+export class RolesDetailComponent implements OnInit, OnAccess {
     @HostBinding('class') classes = 'content--default';
 
     @ViewChild('overlay') overlay: OverlayComponent;
@@ -29,15 +49,33 @@ export class RolesDetailComponent implements OnInit {
 
     private permissions: Selectable[];
 
+    /**
+     * Creates an instance of RolesDetailComponent.
+     * @param {ActivatedRoute} activatedRoute
+     * @param {Router} router
+     * @param {RoleService} roleService
+     * @param {ModalService} modalService
+     * @param {TranslationService} translationService
+     * @param {PermissionService} permission
+     * @param {AlertService} alert
+     *
+     * @memberOf RolesDetailComponent
+     */
     constructor(
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private roleService: RoleService,
         private modalService: ModalService,
         private translationService: TranslationService,
-        private permission: PermissionService
+        public permission: PermissionService,
+        public alert: AlertService
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf RolesDetailComponent
+     */
     ngOnInit() {
         this.getRoleByRouteParam();
 
@@ -48,6 +86,10 @@ export class RolesDetailComponent implements OnInit {
 
     /**
      * Read Route Param and GET Role with param ID
+     *
+     * @private
+     *
+     * @memberOf RolesDetailComponent
      */
     @Access('ReadRoles')
     private getRoleByRouteParam(): void {
@@ -66,6 +108,10 @@ export class RolesDetailComponent implements OnInit {
 
     /**
      * Initialize the form to edit the roles attributes
+     *
+     * @private
+     *
+     * @memberOf RolesDetailComponent
      */
     @Access('EditRoles')
     private initEditRoleForm(): void {
@@ -73,7 +119,7 @@ export class RolesDetailComponent implements OnInit {
             {
                 fieldType: 'input',
                 name: 'name',
-                label: 'Role Name:',
+                label: this.translationService.translate('roleName'),
                 required: true,
                 value: this.role.name
             }
@@ -82,7 +128,10 @@ export class RolesDetailComponent implements OnInit {
 
     /**
      * save the updated role
-     * @param {Object} form
+     *
+     * @param {RoleDto} form
+     *
+     * @memberOf RolesDetailComponent
      */
     @Access('EditRoles')
     public saveRoleAttribute(form: RoleDto): void {
@@ -95,7 +144,10 @@ export class RolesDetailComponent implements OnInit {
 
     /**
      * remove the given permission from the current role
-     * @param {Permission} permission
+     *
+     * @param {PermissionDto} permission
+     *
+     * @memberOf RolesDetailComponent
      */
     @Access('EditRoles')
     public removePermissionOfRole(permission: PermissionDto): void {
@@ -106,6 +158,8 @@ export class RolesDetailComponent implements OnInit {
 
     /**
      * open the modal to add permission to role
+     *
+     * @memberOf RolesDetailComponent
      */
     @Access('EditRoles')
     public addPermissionToRoleModal(): void {
@@ -122,7 +176,11 @@ export class RolesDetailComponent implements OnInit {
 
     /**
      * add the given permission to the role
+     *
+     * @private
      * @param {Selectable} data
+     *
+     * @memberOf RolesDetailComponent
      */
     @Access('EditRoles')
     private addPermissionToRole(data: Selectable): void {

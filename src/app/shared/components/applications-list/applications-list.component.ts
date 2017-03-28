@@ -1,203 +1,126 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, Input } from '@angular/core';
 import * as _ from 'lodash';
 
-/** Services */
-import {
-    ApplicationService,
-    FormService,
-    PermissionService,
-    AuthenticationService,
-} from './../../../core';
-import { AlertService } from './../../../modules/alert';
-import { TranslationService } from './../../../modules/translation';
-import { ModalService } from './../../../modules/overlay';
+import { ListService, List } from './../../services';
 
 /** Models */
 import {
     ApplicationDetailDto,
+    ApplicationListDto,
     UserDetailDto,
     Status
-} from './../../../swagger';
-import { Selectable } from './../../../models';
+} from 'app/swagger';
 
-/** Decorators */
-import { Access } from './../../../shared/decorators/access.decorator';
-
+/**
+ * ApplicationsListComponent
+ *
+ * @export
+ * @class ApplicationsListComponent
+ * @extends {List<ApplicationListDto>}
+ * @implements {OnInit}
+ */
 @Component({
     selector: 'pk-applications-list',
     templateUrl: './applications-list.component.html',
-    styleUrls: ['./applications-list.component.scss']
+    providers: [
+        ListService
+    ]
 })
-export class ApplicationsListComponent implements OnInit {
+export class ApplicationsListComponent extends List<ApplicationListDto> implements OnInit {
 
-    @Input() applications: ApplicationDetailDto[];
+    @Input() applications: ApplicationListDto[];
     @Input() user: UserDetailDto;
 
     private status = Status;
 
+    public list: ApplicationListDto[];
+
+    /**
+     * Creates an instance of ApplicationsListComponent.
+     * @param {ListService} listService
+     *
+     * @memberOf ApplicationsListComponent
+     */
     constructor(
-        private modalService: ModalService,
-        private translationService: TranslationService,
-        private applicationService: ApplicationService,
-        private alert: AlertService,
-        private permission: PermissionService
-    ) { }
+        public listService: ListService
+    ) {
+        super(listService);
+    }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf ApplicationsListComponent
+     */
     ngOnInit() {
+        // not required to unsubscribe onDestroy because Service does not exist either
+        this.initListDependencies(this.applications);
     }
-
-    /**
-     * update the application in the applications list
-     * @param {Application} application
-     */
-    private updateApplication(newapplication: ApplicationDetailDto, oldapplication: ApplicationDetailDto): void {
-        const index = _.findIndex(this.applications, (obj: ApplicationDetailDto) => obj.id === oldapplication.id);
-        if (index !== -1) {
-            this.applications[index] = newapplication;
-        }
-    }
-
-    /**
-     * Creates a confirmation modal to confirm deactivating the selected application
-     * TODO: Prevent deactivate foreign application with Create & Read permission
-     */
-    @Access(['CreateApplications', 'DeactivateApplications'])
-    public deactivateApplicationModal(application: ApplicationDetailDto): void {
-        this.modalService.createConfirmationModal({
-            title: this.translationService.translate('confirmDeactivateApplicationHeader'),
-            message: this.translationService.translate('confirmDeactivateApplicationContent'),
-            confirm: () => {
-                this.deactivateApplication(application);
-            }
-        });
-    }
-
-    /**
-     * Deactivate the selected application
-     * TODO: Prevent deactivate foreign application with Create & Read permission
-     */
-    @Access(['CreateApplications', 'DeactivateApplications'])
-    private deactivateApplication(application: ApplicationDetailDto): void {
-        this.applicationService.deactivateApplication(application).subscribe(result => {
-            this.updateApplication(result, application);
-            this.alert.setSuccessHint(`deactivateApplication${application.id}`,
-                this.translationService.translate('applicationDeactivated')
-            );
-            this.modalService.destroyModal();
-        });
-    }
-
-    /**
-     * Creates a confirmation modal to confirm rescinding the selected application
-     * TODO: Prevent rescind foreign application with Create & Read permission
-     */
-    @Access(['CreateApplications', 'EditApplications'])
-    public rescindApplicationModal(application: ApplicationDetailDto): void {
-        this.modalService.createConfirmationModal({
-            title: this.translationService.translate('confirmRescindApplicationHeader'),
-            message: this.translationService.translate('confirmRescindApplicationContent'),
-            confirm: () => {
-                this.rescindApplication(application);
-            }
-        });
-    }
-
-    /**
-     * Rescind the selected application
-     * TODO: Prevent rescind foreign application with Create & Read permission
-     */
-    @Access(['CreateApplications', 'EditApplications'])
-    private rescindApplication(application: ApplicationDetailDto): void {
-        this.applicationService.rescindApplication(application).subscribe(result => {
-            this.updateApplication(result, application);
-            this.alert.setSuccessHint(`rescindApplication${application.id}`, this.translationService.translate('applicationRescinded'));
-            this.modalService.destroyModal();
-        });
-    }
-
-    /**
-     * Creates a confirmation modal to confirm submitting the selected application
-     * TODO: Prevent submit foreign application with Create & Read permission
-     */
-    @Access(['CreateApplications', 'EditApplications'])
-    public submitApplicationModal(application: ApplicationDetailDto): void {
-        this.modalService.createConfirmationModal({
-            title: this.translationService.translate('confirmSubmitApplicationHeader'),
-            message: this.translationService.translate('confirmSubmitApplicationContent'),
-            confirm: () => {
-                this.submitApplication(application);
-            }
-        });
-    }
-
-    /**
-     * Submit the selected application
-     * TODO: Prevent submit foreign application with Create & Read permission
-     */
-    @Access(['CreateApplications', 'EditApplications'])
-    private submitApplication(application: ApplicationDetailDto): void {
-        this.applicationService.submitApplication(application).subscribe(result => {
-            this.updateApplication(result, application);
-            this.alert.setSuccessHint(`submitApplication${application.id}`, this.translationService.translate('applicationSubmitted'));
-            this.modalService.destroyModal();
-        });
-    }
-
-    /**
-     * open the confirm dialog for the validation
-     * @param {Application} application
-     */
-    public validateApplication(application: ApplicationDetailDto): void {
-        this.modalService.createConfirmationModal({
-            title: this.translationService.translate('confirmValidateApplicationHeader'),
-            message: this.translationService.translate('confirmValidateApplicationHeader'),
-            confirm: () => {
-                this.applicationService.confirmApplication(true, application).subscribe(result => {
-                    this.updateApplication(result, application);
-                    this.modalService.destroyModal();
-                });
-            },
-            cancel: () => {
-                this.applicationService.confirmApplication(false, application).subscribe(result => {
-                    this.updateApplication(result, application);
-                    this.modalService.destroyModal();
-                });
-            },
-            confirmText: this.translationService.translate('confirmValidateApplicationSave'),
-            cancelText: this.translationService.translate('confirmValidateApplicationCancel')
-        });
-    }
-
 }
 
+/**
+ * ApplicationsListOwnedComponent
+ *
+ * @export
+ * @class ApplicationsListOwnedComponent
+ * @extends {ApplicationsListComponent}
+ */
 @Component({
     selector: 'pk-applications-list-owned',
-    templateUrl: './applications-list-owned.component.html'
+    templateUrl: './applications-list-owned.component.html',
+    providers: [
+        ListService
+    ]
 })
 export class ApplicationsListOwnedComponent extends ApplicationsListComponent {
-
-    public deactivateApplicationModal(application: ApplicationDetailDto): void {
-        super.deactivateApplicationModal(application);
+    /**
+     * Creates an instance of ApplicationsListOwnedComponent.
+     * @param {ListService} listService
+     *
+     * @memberOf ApplicationsListOwnedComponent
+     */
+    constructor(
+        public listService: ListService
+    ) {
+        super(listService);
     }
-
-    public submitApplicationModal(application: ApplicationDetailDto): void {
-        super.submitApplicationModal(application);
-    }
-
-    public rescindApplicationModal(application: ApplicationDetailDto): void {
-        super.rescindApplicationModal(application);
-    }
-
 }
 
+/**
+ * ApplicationsListAssignedComponent
+ *
+ * @export
+ * @class ApplicationsListAssignedComponent
+ * @extends {ApplicationsListComponent}
+ */
 @Component({
     selector: 'pk-applications-list-assigned',
-    templateUrl: './applications-list-assigned.component.html'
+    templateUrl: './applications-list-assigned.component.html',
+    providers: [
+        ListService
+    ]
 })
 export class ApplicationsListAssignedComponent extends ApplicationsListComponent {
-
-    public validateApplication(application: ApplicationDetailDto): void {
-        super.validateApplication(application);
+    /**
+     * Creates an instance of ApplicationsListAssignedComponent.
+     * @param {ListService} listService
+     *
+     * @memberOf ApplicationsListAssignedComponent
+     */
+    constructor(
+        public listService: ListService
+    ) {
+        super(listService);
     }
-
 }

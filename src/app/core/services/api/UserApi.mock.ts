@@ -1,16 +1,26 @@
-// tslint:disable:max-line-length
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
 
+// tslint:disable:max-line-length
 import { Injectable } from '@angular/core';
 
 import { Observable, Observer } from 'rxjs/Rx';
 
 import { RoleApiMock } from './RoleApi.mock';
-import { UserDetailDto, UserCreateDto } from './../../../swagger';
+import { UserDetailDto, UserCreateDto } from 'app/swagger';
 
 class UserDetailDtoMock implements UserDetailDto, UserCreateDto {
     id: string;
     token?: string;
-    password?: string;
+    password: string;
     email: string;
     ldapId?: number;
     firstname?: string;
@@ -37,8 +47,16 @@ export class UserApiMock {
 
     static USER: UserDetailDto = UserApiMock.USERS[1];
 
-
     private list: UserDetailDto[] = [];
+
+    static getUserByEmail(email: string): UserDetailDtoMock {
+        for (const user of UserApiMock.USERS) {
+            if (user.email === email) {
+                return user;
+            }
+        }
+        return UserApiMock.USERS[0];
+    }
 
     constructor() { }
 

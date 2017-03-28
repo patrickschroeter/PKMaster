@@ -1,25 +1,44 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import * as _ from 'lodash';
 
 /** Services */
-import { PermissionService } from './../../core';
-import { AlertService } from './../../modules/alert';
-import { TranslationService } from './../../modules/translation';
+import { PermissionService } from 'app/core';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
 
 /** Models */
-import { PermissionDto, FieldDto } from './../../swagger';
-import { OverlayComponent } from './../../modules/overlay';
+import { PermissionDto, FieldDto } from 'app/swagger';
+import { OverlayComponent } from 'app/modules/overlay';
 
 /** Decorators */
-import { Access } from './../../shared/decorators/access.decorator';
+import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
+/**
+ * PermissionsComponent
+ *
+ * @export
+ * @class PermissionsComponent
+ * @implements {OnInit}
+ * @implements {OnAccess}
+ */
 @Component({
     selector: 'pk-permissions',
     templateUrl: './permissions.component.html',
     styleUrls: ['./permissions.component.scss']
 })
-export class PermissionsComponent implements OnInit {
+export class PermissionsComponent implements OnInit, OnAccess {
     @HostBinding('class') classes = 'content--default';
 
     @ViewChild('overlay') overlay: OverlayComponent;
@@ -29,18 +48,35 @@ export class PermissionsComponent implements OnInit {
 
     public editingPermission: PermissionDto;
 
+    /**
+     * Creates an instance of PermissionsComponent.
+     * @param {PermissionService} permission
+     * @param {AlertService} alert
+     * @param {TranslationService} translationService
+     *
+     * @memberOf PermissionsComponent
+     */
     constructor(
-        private permission: PermissionService,
-        private alertService: AlertService,
+        public permission: PermissionService,
+        public alert: AlertService,
         private translationService: TranslationService
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf PermissionsComponent
+     */
     ngOnInit() {
         this.getPermissions();
     }
 
     /**
      * Catch latest permissions from server
+     *
+     * @private
+     *
+     * @memberOf PermissionsComponent
      */
     @Access('ReadPermissions')
     private getPermissions(): void {
@@ -51,7 +87,10 @@ export class PermissionsComponent implements OnInit {
 
     /**
      * Creates a new form and opens the overlay
-     * @param {Permission} permission
+     *
+     * @param {PermissionDto} permission
+     *
+     * @memberOf PermissionsComponent
      */
     @Access('EditPermissions')
     public editPermission(permission: PermissionDto) {
@@ -81,13 +120,17 @@ export class PermissionsComponent implements OnInit {
 
     /**
      * updates an existing permission
+     *
      * @param {FormGroup} form
+     * @returns {void}
+     *
+     * @memberOf PermissionsComponent
      */
     @Access('EditPermissions')
     public updatePermission(form: FormGroup): void {
         const onError = () => {
             this.overlay.toggle(false);
-            this.alertService.setAlert(
+            this.alert.setAlert(
                 this.translationService.translate('headerError'),
                 this.translationService.translate('errorUpdatePermission')
             );

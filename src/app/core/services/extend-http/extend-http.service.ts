@@ -1,3 +1,11 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * Credits to https://www.illucit.com/blog/2016/03/angular2-http-authentication-interceptor/
+ *
+ */
+
 import { Injectable } from '@angular/core';
 import { Http, Request, RequestOptionsArgs, ConnectionBackend, RequestOptions, Headers, Response } from '@angular/http';
 import { Router } from '@angular/router';
@@ -6,9 +14,12 @@ import { Observable, Observer } from 'rxjs/Rx';
 import { AuthenticationService } from './..';
 
 /**
- * Credits to https://www.illucit.com/blog/2016/03/angular2-http-authentication-interceptor/
+ * ExtendHttpService
+ *
+ * @export
+ * @class ExtendHttpService
+ * @extends {Http}
  */
-
 @Injectable()
 export class ExtendHttpService extends Http {
 
@@ -29,7 +40,7 @@ export class ExtendHttpService extends Http {
         if (!options) { options = { headers: new Headers() }; };
         options.headers.set('Authorization', AuthenticationService.getStaticToken());
         options.headers.set('Accept', 'application/json');
-        // TODO: hack
+        // Differentiate between login and other requests
         if (typeof url === 'string' && (url as string).indexOf('/connect/token') !== -1) {
             options.headers.set('Content-Type', 'application/x-www-form-urlencoded');
         } else {

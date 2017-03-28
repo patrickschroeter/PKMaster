@@ -1,15 +1,28 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+/** Services */
 import {
     AuthenticationService,
     AccessMain,
     AccessAdmin
-} from './../core';
+} from 'app/core';
+import { TranslationService } from 'app/modules/translation';
 
 /** Models */
-import { Credentials } from './../models';
-import { FieldDto } from './../swagger';
+import { Credentials } from 'app/models';
+import { FieldDto } from 'app/swagger';
 
 /**
  * The Login Component
@@ -43,11 +56,11 @@ export class LoginComponent implements OnInit {
 
     /**
      * Creates an instance of LoginComponent.
-     *
      * @param {AuthenticationService} authentication
      * @param {Router} router
      * @param {AccessMain} mainRoute
      * @param {AccessAdmin} adminRoute
+     * @param {TranslationService} translationService
      *
      * @memberOf LoginComponent
      */
@@ -55,7 +68,8 @@ export class LoginComponent implements OnInit {
         private authentication: AuthenticationService,
         private router: Router,
         private mainRoute: AccessMain,
-        private adminRoute: AccessAdmin
+        private adminRoute: AccessAdmin,
+        private translationService: TranslationService
     ) { }
 
     /**
@@ -70,6 +84,13 @@ export class LoginComponent implements OnInit {
         this.initLoginForm();
     }
 
+    /**
+     * initialize the login form
+     *
+     * @private
+     *
+     * @memberOf LoginComponent
+     */
     private initLoginForm(): void {
         this.loginForm = [
             {
@@ -77,10 +98,9 @@ export class LoginComponent implements OnInit {
                 name: 'email',
                 contentType: 'email',
                 required: true,
-                placeholder: 'E-Mail',
+                placeholder: this.translationService.translate('email'),
 
                 validationIds: [
-                    'useExternalEmail',
                     'isEmail'
                 ],
 
@@ -93,12 +113,7 @@ export class LoginComponent implements OnInit {
                 name: 'password',
                 contentType: 'password',
                 required: true,
-                placeholder: 'Password',
-
-                validationIds: [
-                    'minLength',
-                    'maxLength'
-                ],
+                placeholder: this.translationService.translate('password'),
 
                 styleIds: [
                     'small'
@@ -168,7 +183,7 @@ export class LoginComponent implements OnInit {
     public fake(username: string) {
         this.login({
             email: username,
-            password: 'dev'
+            password: 'einPasswort'
         });
     }
 }

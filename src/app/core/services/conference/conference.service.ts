@@ -1,11 +1,22 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs/Rx';
 import * as _ from 'lodash';
 
 /** Services */
-import { AlertService } from './../../../modules/alert';
-import { TranslationService } from './../../../modules/translation';
-import { ConferenceApi } from './../../../swagger/api/ConferenceApi';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
+import { ConferenceApi } from 'app/swagger/api/ConferenceApi';
 
 /** Models */
 import {
@@ -15,11 +26,11 @@ import {
     ApplicationListDto,
     ApplicationDetailDto,
     AttendantCreateDto,
-
-} from './../../../swagger';
+    ConferenceListDto
+} from 'app/swagger';
 
 /** Decorators */
-import { Loading } from './../../../shared/decorators/loading.decorator';
+import { Loading } from 'app/shared/decorators/loading.decorator';
 
 /**
  * A Service taking care of the Conference
@@ -30,23 +41,8 @@ import { Loading } from './../../../shared/decorators/loading.decorator';
 @Injectable()
 export class ConferenceService {
 
-    /**
-     * The current conference
-     *
-     * @private
-     * @type {ConferenceDetailDto}
-     * @memberOf ConferenceService
-     */
     private conference: ConferenceDetailDto;
-
-    /**
-     * A list of all conferences
-     *
-     * @private
-     * @type {ConferenceDetailDto[]}
-     * @memberOf ConferenceService
-     */
-    private conferences: ConferenceDetailDto[];
+    private conferences: ConferenceListDto[];
 
     /**
      * Creates an instance of ConferenceService.
@@ -82,12 +78,12 @@ export class ConferenceService {
     /**
      * request all conferences
      *
-     * @returns {Observable<ConferenceDetailDto[]>}
+     * @returns {Observable<ConferenceListDto[]>}
      *
      * @memberOf ConferenceService
      */
     @Loading('getConferences')
-    public getConferences(): Observable<ConferenceDetailDto[]> {
+    public getConferences(): Observable<ConferenceListDto[]> {
         return this.conferenceApi.getConferences().map(conferences => {
             // TODO: sort
             return this.conferences = conferences;
@@ -137,7 +133,7 @@ export class ConferenceService {
      * @memberOf ConferenceService
      */
     @Loading('removeConference')
-    public removeConference(conferenceId: string): Observable<any> {
+    public removeConference(conferenceId: string): Observable<string> {
         return this.conferenceApi.deleteConferenceById(conferenceId).map((result: any) => {
             return result;
         });
@@ -284,7 +280,7 @@ export class ConferenceService {
             {
                 fieldType: 'input',
                 name: 'description',
-                label: 'Conference Description:',
+                label: this.translationService.translate('conferenceDescription'),
                 required: true,
                 value: values ? values.description : ''
             },
@@ -292,7 +288,7 @@ export class ConferenceService {
                 fieldType: 'input',
                 name: 'numberOfConference',
                 contentType: 'number',
-                label: 'Number of Conference:',
+                label: this.translationService.translate('numberOfConference'),
                 required: true,
                 value: (values && values.numberOfConference) ? values.numberOfConference.toString() : ''
             },
@@ -300,7 +296,7 @@ export class ConferenceService {
                 fieldType: 'input',
                 name: 'dateOfEvent',
                 contentType: 'date',
-                label: 'Datum',
+                label: this.translationService.translate('datum'),
                 required: true,
                 value: (values && values.dateOfEvent) ? values.dateOfEvent.toString() : '',
                 styleIds: [
@@ -310,7 +306,7 @@ export class ConferenceService {
             {
                 fieldType: 'input',
                 name: 'startOfEvent',
-                label: 'Beginn',
+                label: this.translationService.translate('start'),
                 required: true,
                 value: (values && values.startOfEvent) ? values.startOfEvent.toString() : '',
                 styleIds: [
@@ -324,7 +320,7 @@ export class ConferenceService {
             {
                 fieldType: 'input',
                 name: 'endOfEvent',
-                label: 'Ende',
+                label: this.translationService.translate('end'),
                 required: true,
                 value: (values && values.endOfEvent) ? values.endOfEvent.toString() : '',
                 styleIds: [
@@ -338,7 +334,7 @@ export class ConferenceService {
             {
                 fieldType: 'input',
                 name: 'roomOfEvent',
-                label: 'Raum',
+                label: this.translationService.translate('room'),
                 required: true,
                 value: values ? values.roomOfEvent : '',
                 styleIds: [

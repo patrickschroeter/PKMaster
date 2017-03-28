@@ -1,0 +1,22 @@
+@media print {
+    @page { margin: 0; }
+    body { margin: 1.6cm; }
+    #nav, pk-floating, pk-button, pk-alert {
+        display: none !important;
+    }
+
+    /** scroll body */
+    html {
+        padding: 0 !important;
+        overflow-y: auto;
+    }
+    body {
+        height: auto !important;
+    }
+    #wrapper {
+        height: auto !important;
+    }
+    #content {
+        width: 100vw !important;
+    }
+}

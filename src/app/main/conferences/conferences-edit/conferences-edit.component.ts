@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, HostBinding, ViewChild, Inject } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as _ from 'lodash';
@@ -5,24 +16,34 @@ import * as _ from 'lodash';
 /** Services */
 import {
     ConferenceService,
-    FormService
-} from './../../../core';
-import { AlertService } from './../../../modules/alert';
-import { TranslationService } from './../../../modules/translation';
-import { WindowService } from './../../../shared';
-import { ModalService } from './../../../modules/overlay';
+    FormService,
+    PermissionService
+} from 'app/core';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
+import { WindowService } from 'app/shared';
+import { ModalService } from 'app/modules/overlay';
 
 /** Models */
-import { ConferenceDetailDto, FormDetailDto, FieldDto } from './../../../swagger';
-import { Selectable, ConferenceConfig } from './../../../models';
-import { OverlayComponent } from './../../../modules/overlay';
+import { ConferenceDetailDto, FormDetailDto, FieldDto } from 'app/swagger';
+import { Selectable, ConferenceConfig } from 'app/models';
+import { OverlayComponent } from 'app/modules/overlay';
 import {
     ModalAddConferenceEntryComponent,
     ModalAddConferenceListComponent
- } from './../../../shared';
+} from 'app/shared';
 
-/** TODO */ import { ApplicationApiMock } from './../../../core';
+/** Decorators */
+import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
+/**
+ * ConferencesEditComponent
+ *
+ * @export
+ * @class ConferencesEditComponent
+ * @implements {OnInit}
+ * @implements {OnAccess}
+ */
 @Component({
     selector: 'pk-conferences-edit',
     templateUrl: './conferences-edit.component.html',
@@ -32,7 +53,8 @@ import {
         { provide: 'ListModalService', useClass: WindowService }
     ]
 })
-export class ConferencesEditComponent implements OnInit {
+export class ConferencesEditComponent implements OnInit, OnAccess {
+
     @HostBinding('class') classes = 'content--default';
 
     @ViewChild('overlay') overlay: OverlayComponent;
@@ -46,21 +68,42 @@ export class ConferencesEditComponent implements OnInit {
 
     public editConferenceForm: FieldDto[];
 
+    /**
+     * Creates an instance of ConferencesEditComponent.
+     * @param {Router} router
+     * @param {ActivatedRoute} activatedRoute
+     * @param {AlertService} alert
+     * @param {TranslationService} translationService
+     * @param {ModalService} modalService
+     * @param {ConferenceService} conferenceService
+     * @param {FormService} formService
+     * @param {PermissionService} permission
+     * @param {WindowService} entryModalService
+     * @param {WindowService} listModalService
+     *
+     * @memberOf ConferencesEditComponent
+     */
     constructor(
         /** Angular */
         private router: Router,
         private activatedRoute: ActivatedRoute,
         /** Modules */
-        private alert: AlertService,
+        public alert: AlertService,
         private translationService: TranslationService,
         private modalService: ModalService,
         /** Services */
         private conferenceService: ConferenceService,
         private formService: FormService,
+        public permission: PermissionService,
         @Inject('EntryModalService') private entryModalService: WindowService,
         @Inject('ListModalService') private listModalService: WindowService
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf ConferencesEditComponent
+     */
     ngOnInit() {
         this.getConference();
         this.getFormsAsSelectable();
@@ -71,7 +114,12 @@ export class ConferencesEditComponent implements OnInit {
 
     /**
      * get the current conference
+     *
+     * @private
+     *
+     * @memberOf ConferencesEditComponent
      */
+    @Access('ReadConferences')
     private getConference() {
         this.activatedRoute.params.forEach((params: Params) => {
             this.conferenceService.getConferenceById(params['id']).subscribe(conference => {
@@ -90,6 +138,10 @@ export class ConferencesEditComponent implements OnInit {
 
     /**
      * get all forms as Selectable array
+     *
+     * @private
+     *
+     * @memberOf ConferencesEditComponent
      */
     private getFormsAsSelectable() {
         this.formService.getForms().subscribe(result => {
@@ -99,7 +151,11 @@ export class ConferencesEditComponent implements OnInit {
 
     /**
      * onError function for infalid conference id
-     * @param {String} id
+     *
+     * @private
+     * @param {string} id
+     *
+     * @memberOf ConferencesEditComponent
      */
     private onError(id: string) {
         this.router.navigate(['/conferences']);
@@ -108,8 +164,12 @@ export class ConferencesEditComponent implements OnInit {
 
     /**
      * update the conference attribute
-     * @param {Conference} conference
+     *
+     * @param {ConferenceDetailDto} conference
+     *
+     * @memberOf ConferencesEditComponent
      */
+    @Access('EditConferences')
     public updateConference(conference: ConferenceDetailDto): void {
         const param: ConferenceDetailDto = _.cloneDeep(this.conference);
         param.description = conference.description;
@@ -125,7 +185,10 @@ export class ConferencesEditComponent implements OnInit {
 
     /**
      * open the add entry modal
+     *
+     * @memberOf ConferencesEditComponent
      */
+    @Access('EditConferences')
     public openEntryModal(): void {
         this.entryModalService
             .setModal(this.addEntryModal)
@@ -135,37 +198,36 @@ export class ConferencesEditComponent implements OnInit {
 
     /**
      * add a new config element to the form
+     *
      * @param {ConferenceConfig} entry
+     *
+     * @memberOf ConferencesEditComponent
      */
+    @Access('EditConferences')
     public addConfigElement(entry: ConferenceConfig) {
         this.conference.config = this.conference.config || [];
         this.conference.config.push(entry);
     }
 
     /**
-     * open the confirmation modal for deleting the conference
+     * Remove conference from conferences
+     *
+     * @param {ConferenceDetailDto} conference
+     * @returns {void}
+     *
+     * @memberOf ConferencesComponent
      */
-    public deleteConferenceModal(): void {
-        this.modalService.createConfirmationModal({
-            title: this.translationService.translate('confirmDeleteConferenceHeader'),
-            message: this.translationService.translate('confirmDeleteConferenceContent'),
-            confirm: this.deleteConference.bind(this)
-        });
-    }
-
-    /**
-     * delete conference
-     */
-    private deleteConference(): void {
-        this.conferenceService.removeConference(this.conference.id).subscribe(() => {
-            this.router.navigate(['conferences']);
-            this.modalService.destroyModal();
-        });
+    @Access('EditConferences')
+    public removeConference(conference: ConferenceDetailDto): void {
+        this.router.navigate(['conferences']);
     }
 
     /**
      * save the update conference
+     *
+     * @memberOf ConferencesEditComponent
      */
+    @Access('EditConferences')
     public saveConference() {
         console.log(JSON.stringify(this.conference.config));
         this.conferenceService.saveConference(this.conference).subscribe(result => {
@@ -176,8 +238,12 @@ export class ConferencesEditComponent implements OnInit {
 
     /**
      * remove the given element from the config
+     *
      * @param {ConferenceConfig} element
+     *
+     * @memberOf ConferencesEditComponent
      */
+    @Access('EditConferences')
     public removeElement(element: ConferenceConfig) {
         const index = _.findIndex(this.conference.config, (obj: ConferenceConfig) => obj === element);
         if (index !== -1) {

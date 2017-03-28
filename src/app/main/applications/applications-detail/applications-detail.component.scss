@@ -5,3 +5,14 @@
         color: $success;
     }
 }
+
+.block {
+    .comment {
+        &.comment--changes {
+            display: none;
+            &:last-child {
+                display: block;
+            }
+        }
+    }
+}

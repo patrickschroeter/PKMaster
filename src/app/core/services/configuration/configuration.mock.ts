@@ -1,9 +1,20 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import * as _ from 'lodash';
 
 /** ConfigurationApi */
-import { ConfigurationApi } from './../../../swagger';
+import { ConfigurationApi } from 'app/swagger';
 
 /** Models */
 import {
@@ -11,7 +22,7 @@ import {
     ValidationDto,
     StyleDto,
     StatusDto
-} from './../../../swagger';
+} from 'app/swagger';
 
 @Injectable()
 export class ConfigurationMock {

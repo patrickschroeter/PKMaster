@@ -1,24 +1,51 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 /** Services */
-import { ApplicationService } from './../../../core';
-import { AlertService } from './../../../modules/alert';
-import { TranslationService } from './../../../modules/translation';
-import { ModalService } from './../../../modules/overlay';
+import {
+    ApplicationService,
+    PermissionService,
+    AuthenticationService
+} from 'app/core';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
+import { ModalService } from 'app/modules/overlay';
 
 /** Models */
 import {
     ApplicationDetailDto,
-    Status
-} from './../../../swagger';
+    Status,
+    UserDetailDto
+} from 'app/swagger';
 
+/** Decorators */
+import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
+
+/**
+ * ApplicationsEditComponent
+ *
+ * @export
+ * @class ApplicationsEditComponent
+ * @implements {OnInit}
+ * @implements {OnAccess}
+ */
 @Component({
     selector: 'pk-applications-edit',
     templateUrl: './applications-edit.component.html',
     styleUrls: ['./applications-edit.component.scss']
 })
-export class ApplicationsEditComponent implements OnInit {
+export class ApplicationsEditComponent implements OnInit, OnAccess {
     @HostBinding('class') classes = 'content--default';
 
     private _application: ApplicationDetailDto;
@@ -27,6 +54,8 @@ export class ApplicationsEditComponent implements OnInit {
     set application(application: ApplicationDetailDto) { this._application = application; }
 
     public status = Status;
+
+    private user: UserDetailDto;
 
     /**
      * Creates an instance of ApplicationsEditComponent.
@@ -43,15 +72,24 @@ export class ApplicationsEditComponent implements OnInit {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private applicationService: ApplicationService,
-        private alert: AlertService,
         private translationService: TranslationService,
-        private modalService: ModalService
+        private modalService: ModalService,
+        public alert: AlertService,
+        public permission: PermissionService,
+        private auth: AuthenticationService
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf ApplicationsEditComponent
+     */
     ngOnInit() {
 
         /** Read Route Param and GET Application with param ID */
         this.getApplicationByRouteParam();
+
+        this.getUser();
     }
 
     /**
@@ -66,6 +104,10 @@ export class ApplicationsEditComponent implements OnInit {
             this.applicationService.getApplicationById(params['id']).subscribe((application) => {
                 this.application = application;
 
+                if (!this.permission.hasPermission('ReadApplications') && !this.isOwner()) {
+                    return this.router.navigate(['/applications']);
+                }
+
                 this.checkStatusForEdit();
 
                 this.updateDeprecatedForm();
@@ -74,6 +116,19 @@ export class ApplicationsEditComponent implements OnInit {
                 console.error(error);
             });
         });
+    }
+
+    /**
+     * get the current user
+     *
+     * @private
+     *
+     * @memberOf ApplicationsEditComponent
+     */
+    private getUser(): void {
+        this.auth.getUser().subscribe(user => {
+            this.user = user;
+        }, error => { console.error(error); });
     }
 
     /**
@@ -94,6 +149,17 @@ export class ApplicationsEditComponent implements OnInit {
             );
             return;
         }
+    }
+
+    /**
+     * check if the current user is owner of the application
+     *
+     * @returns {boolean}
+     *
+     * @memberOf ApplicationsDetailComponent
+     */
+    public isOwner(): boolean {
+        return this.user.id === this.application.user.id;
     }
 
     /**
@@ -161,6 +227,10 @@ export class ApplicationsEditComponent implements OnInit {
             this.modalService.destroyModal();
             this.router.navigate(['applications']);
         });
+    }
+
+    public onDeactivateSuccess(application: ApplicationDetailDto) {
+        this.router.navigate(['applications']);
     }
 
 }

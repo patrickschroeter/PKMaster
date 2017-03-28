@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as _ from 'lodash';
@@ -9,10 +20,10 @@ import {
     PermissionService,
     ConferenceService,
     UserService
-} from './../../../core';
-import { AlertService } from './../../../modules/alert';
-import { OverlayComponent, ModalService } from './../../../modules/overlay';
-import { TranslationService } from './../../../modules/translation';
+} from 'app/core';
+import { AlertService } from 'app/modules/alert';
+import { OverlayComponent, ModalService } from 'app/modules/overlay';
+import { TranslationService } from 'app/modules/translation';
 
 /** Models */
 import {
@@ -21,11 +32,11 @@ import {
     UserDetailDto,
     CommentDto,
     Status
-} from './../../../swagger';
-import { Selectable } from './../../../models';
+} from 'app/swagger';
+import { Selectable } from 'app/models';
 
 /** Decorators */
-import { Access } from './../../../shared/decorators/access.decorator';
+import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
 /**
  * The ApplicationsDetailComponent
@@ -39,16 +50,13 @@ import { Access } from './../../../shared/decorators/access.decorator';
     templateUrl: './applications-detail.component.html',
     styleUrls: ['./applications-detail.component.scss']
 })
-export class ApplicationsDetailComponent implements OnInit {
+export class ApplicationsDetailComponent implements OnInit, OnAccess {
     @HostBinding('class') classes = 'content--default';
 
     private _application: ApplicationDetailDto;
 
     get application() { return this._application; }
     set application(application: ApplicationDetailDto) { this._application = application; }
-
-    public addComment: Array<any>;
-    public savingComment: Boolean;
 
     public conferences: any[];
 
@@ -78,13 +86,13 @@ export class ApplicationsDetailComponent implements OnInit {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         /** Modules */
-        private alert: AlertService,
+        public alert: AlertService,
         private translationService: TranslationService,
         private modalService: ModalService,
         /** Services */
         private applicationService: ApplicationService,
         private auth: AuthenticationService,
-        private permission: PermissionService,
+        public permission: PermissionService,
         private conferenceService: ConferenceService,
         private userService: UserService
     ) { }
@@ -98,9 +106,6 @@ export class ApplicationsDetailComponent implements OnInit {
 
         /** Read Route Param and GET Application with param ID */
         this.getApplicationByRouteParam();
-
-        /** init the form */
-        this.initAddCommentForm();
 
         /** get all conferences */
         this.getConferenceList();
@@ -122,7 +127,10 @@ export class ApplicationsDetailComponent implements OnInit {
                 if (!application) { return this.router.navigate(['/applications']); }
                 this.application = application;
 
-                if (this.application.form.deprecated) {
+                if (!this.permission.hasPermission('ReadApplications') && !this.isOwner() && !this.isAssigned()) {
+                    return this.router.navigate(['/applications']);
+                }
+                if (this.application.hasStatus(Status.CREATED, Status.RESCINDED) && this.application.form.deprecated) {
                     this.alert.setAlert(
                         this.translationService.translate('updateRequiredHeader'),
                         this.translationService.translate('updateRequiredContent')
@@ -158,40 +166,6 @@ export class ApplicationsDetailComponent implements OnInit {
     }
 
     /**
-     * initializes or resets the add comment form
-     *
-     * @private
-     *
-     * @memberOf ApplicationsDetailComponent
-     */
-    private initAddCommentForm(): void {
-        this.addComment = [
-            {
-                fieldType: 'textarea',
-                name: 'message',
-                label: 'Add Comment:',
-                required: true,
-            },
-            {
-                fieldType: 'checkbox',
-                name: 'isPrivate',
-                label: 'Privat',
-                styleIds: [
-                    'small'
-                ]
-            },
-            {
-                fieldType: 'checkbox',
-                name: 'requiresChanges',
-                label: 'Requires Changes',
-                styleIds: [
-                    'small'
-                ]
-            }
-        ];
-    }
-
-    /**
      * get users as Selectable[]
      *
      * @private
@@ -207,7 +181,7 @@ export class ApplicationsDetailComponent implements OnInit {
         });
         this.auth.getUser().subscribe(user => {
             this.user = user;
-        });
+        }, error => { console.error(error); });
     }
 
     /**
@@ -225,6 +199,17 @@ export class ApplicationsDetailComponent implements OnInit {
     }
 
     /**
+     * check if the current user is owner of the application
+     *
+     * @returns {boolean}
+     *
+     * @memberOf ApplicationsDetailComponent
+     */
+    public isOwner(): boolean {
+        return this.user.id === this.application.user.id;
+    }
+
+    /**
      * update the application with the given one
      *
      * @param {ApplicationDetailDto} application
@@ -232,25 +217,7 @@ export class ApplicationsDetailComponent implements OnInit {
      * @memberOf ApplicationsDetailComponent
      */
     public updateApplication(application: ApplicationDetailDto): void {
-        this.application = application;
-    }
-
-    /**
-     * Creates and adds a new comment to the application
-     *
-     * @param {CommentDto} values
-     *
-     * @memberOf ApplicationsDetailComponent
-     */
-    public createNewComment(values: CommentCreateDto): void {
-        const comment: CommentCreateDto = new CommentCreateDto(values);
-
-        this.savingComment = true;
-        this.applicationService.addCommentToApplication(comment).subscribe((result: CommentDto[]) => {
-            this.application.comments = result || [];
-            this.savingComment = false;
-            this.initAddCommentForm();
-        });
+        this.application.update(application);
     }
 
     /**
@@ -283,8 +250,8 @@ export class ApplicationsDetailComponent implements OnInit {
      * @memberOf ApplicationsDetailComponent
      */
     private addApplicationToConference(data: Selectable): void {
-        this.applicationService.assignConferenceToApplication(this.application, data.value).subscribe(application => {
-            this.application = application;
+        this.applicationService.assignConferenceToApplication(this.application, data.value).subscribe((result: ApplicationDetailDto) => {
+            this.application.update(result);
             this.modalService.destroyModal();
         });
     }
@@ -315,12 +282,12 @@ export class ApplicationsDetailComponent implements OnInit {
      * @memberOf ApplicationsDetailComponent
      */
     private submitApplication(application: ApplicationDetailDto): void {
-        this.applicationService.submitApplication(application).subscribe(result => {
+        this.applicationService.submitApplication(application).subscribe((result: ApplicationDetailDto) => {
             this.alert.setSuccessHint(
                 `submitApplication${application.id}`,
                 this.translationService.translate('applicationSubmitted')
             );
-            this.application = result;
+            this.application.update(result);
             this.modalService.destroyModal();
         });
     }
@@ -351,12 +318,12 @@ export class ApplicationsDetailComponent implements OnInit {
      * @memberOf ApplicationsDetailComponent
      */
     private rescindApplication(application: ApplicationDetailDto): void {
-        this.applicationService.rescindApplication(application).subscribe(result => {
+        this.applicationService.rescindApplication(application).subscribe((result: ApplicationDetailDto) => {
             this.alert.setSuccessHint(
                 `rescindApplication${application.id}`,
                 this.translationService.translate('applicationRescinded')
             );
-            this.application = result;
+            this.application.update(result);
             this.modalService.destroyModal();
         });
     }
@@ -387,52 +354,14 @@ export class ApplicationsDetailComponent implements OnInit {
      * @memberOf ApplicationsDetailComponent
      */
     private deactivateApplication(application: ApplicationDetailDto): void {
-        this.applicationService.deactivateApplication(application).subscribe(result => {
+        this.applicationService.deactivateApplication(application).subscribe((result: ApplicationDetailDto) => {
             this.alert.setSuccessHint(
                 `deactivateApplication${application.id}`,
                 this.translationService.translate('applicationDeactivated')
             );
-            this.application = result;
+            this.application.update(result);
             this.modalService.destroyModal();
         });
-    }
-
-    /**
-     * opens the assignment modal for users
-     *
-     * @memberOf ApplicationsDetailComponent
-     */
-    public assignUserModal() {
-        this.modalService.createListModal({
-            title: this.translationService.translate('assignUserHeader'),
-            list: this.users,
-            click: this.assignUser.bind(this),
-
-            selectedValues: this.application.assignments ? this.application.assignments.map(obj => obj.id) : [],
-
-            emptyText: this.translationService.translate('noUsersAvailable')
-        });
-    }
-
-    /**
-     * add/remove a user from the application
-     *
-     * @param {Selectable} user
-     *
-     * @memberOf ApplicationsDetailComponent
-     */
-    public assignUser(user: Selectable): void {
-        const index = _.findIndex(this.application.assignments, (obj: UserDetailDto) => obj.id === user.value);
-        if (index === -1) {
-            this.applicationService.assignUserToApplication(this.application, user.value).subscribe((result: ApplicationDetailDto) => {
-                this.application = result;
-                this.modalService.updateSelectedValues(this.application.assignments.map(obj => obj.id));
-            });
-        } else {
-            this.applicationService.removeAssignmentFromApplication(this.application, user.value).subscribe(result => {
-                this.modalService.updateSelectedValues(this.application.assignments.map(obj => obj.id));
-            });
-        }
     }
 
     /**
@@ -444,20 +373,9 @@ export class ApplicationsDetailComponent implements OnInit {
      * @memberOf ApplicationsDetailComponent
      */
     private saveApplication(param: ApplicationDetailDto): void {
-        this.applicationService.updateApplication(param).subscribe(result => {
-            this.application = result;
+        this.applicationService.updateApplication(param).subscribe((result: ApplicationDetailDto) => {
+            this.application.update(result);
         });
-    }
-
-    /**
-     * remove user from the application
-     *
-     * @param {UserDetailDto} user
-     *
-     * @memberOf ApplicationsDetailComponent
-     */
-    public unassignUser(user: UserDetailDto) {
-        this.assignUser(new Selectable(user.id, user.id));
     }
 
     /**

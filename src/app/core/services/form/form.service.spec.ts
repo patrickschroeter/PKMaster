@@ -1,11 +1,21 @@
-/* tslint:disable:no-unused-variable */
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
 
+/* tslint:disable:no-unused-variable */
 import { TestBed, async, inject } from '@angular/core/testing';
 import { Observable, Observer } from 'rxjs/Rx';
 import * as _ from 'lodash';
 
 import { FormService } from './form.service';
-import { AlertService, AlertMock } from './../../../modules/alert';
+import { AlertService, AlertMock } from 'app/modules/alert';
 
 import {
     FormMock,
@@ -13,11 +23,11 @@ import {
     FormApiMock
 } from './../';
 
-import { Fields } from './../../../models';
+import { Fields } from 'app/models';
 
-import { FormApi, FormDetailDto, FieldDto, FormCreateDto } from './../../../swagger';
+import { FormApi, FormDetailDto, FieldDto, FormCreateDto } from 'app/swagger';
 
-import { TranslationProviderMock } from './../../../modules/translation/translation.module';
+import { TranslationProviderMock } from 'app/modules/translation/translation.module';
 
 describe('Service: Form', () => {
     beforeEach(() => {
@@ -110,23 +120,6 @@ describe('Service: Form', () => {
                 expect(api.addForm).toHaveBeenCalledWith(new FormCreateDto({
                     title: submit.title,
                     restrictedAccess: submit.restrictedAccess,
-                } as any));
-            });
-        });
-
-        it('should copy the form (title restrictedAccess, formHasField)', () => {
-            spyOn(api, 'addForm').and.returnValue(new Observable((obs: Observer<any>) => { obs.next('value'); }));
-            const submit: FormDetailDto = new FormDetailDto(<any>{
-                id: 'id',
-                title: 'titel des tests',
-                restrictedAccess: true,
-                formHasField: [new Fields.Email]
-            });
-            service.createNewForm(submit).subscribe(() => {
-                expect(api.addForm).toHaveBeenCalledWith(new FormCreateDto({
-                    title: 'Copy of ' + submit.title,
-                    restrictedAccess: submit.restrictedAccess,
-                    formHasField: submit.formHasField
                 } as any));
             });
         });

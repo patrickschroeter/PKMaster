@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, ViewChild, Input, EventEmitter, Output } from '@angular/core';
 import * as _ from 'lodash';
 
@@ -6,7 +17,8 @@ import {
     ApplicationService,
     AuthenticationService,
     PermissionService
-} from './../../../core';
+} from 'app/core';
+import { AlertService } from 'app/modules/alert';
 
 /** Models */
 import {
@@ -14,47 +26,75 @@ import {
     CommentDto,
     ApplicationDetailDto,
     Status
-} from './../../../swagger';
-import { AcceptApplication } from './../../../models';
+} from 'app/swagger';
+import { AcceptApplication } from 'app/models';
 
 /** Decorators */
-import { Access } from './../../../shared/decorators/access.decorator';
+import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
 /** Components */
-import { OverlayComponent } from './../../../modules/overlay';
+import { OverlayComponent } from 'app/modules/overlay';
 
+/**
+ * ModalAcceptApplicationComponent
+ *
+ * @export
+ * @class ModalAcceptApplicationComponent
+ * @implements {OnInit}
+ * @implements {OnAccess}
+ */
 @Component({
     selector: 'pk-modal-accept-application',
     templateUrl: './modal-accept-application.component.html',
     styleUrls: ['./modal-accept-application.component.scss'],
     exportAs: 'acceptModal'
 })
-export class ModalAcceptApplicationComponent implements OnInit {
+export class ModalAcceptApplicationComponent implements OnInit, OnAccess {
 
     @ViewChild('overlay') overlay: OverlayComponent;
 
-    @Output() change: EventEmitter<ApplicationDetailDto> = new EventEmitter();
+    @Output() callback: EventEmitter<ApplicationDetailDto> = new EventEmitter();
 
     public acceptForm: FieldDto[];
 
     public application: ApplicationDetailDto;
 
+    /**
+     * Creates an instance of ModalAcceptApplicationComponent.
+     * @param {AuthenticationService} auth
+     * @param {ApplicationService} applicationService
+     * @param {PermissionService} permission
+     * @param {AlertService} alert
+     *
+     * @memberOf ModalAcceptApplicationComponent
+     */
     constructor(
         private auth: AuthenticationService,
         private applicationService: ApplicationService,
-        private permission: PermissionService
+        public permission: PermissionService,
+        public alert: AlertService
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     *
+     * @memberOf ModalAcceptApplicationComponent
+     */
     ngOnInit() {
-
         this.initAcceptForm();
     }
 
     /**
      * Opens the Modal and sets the given application
+     *
+     * @param {ApplicationDetailDto} application
+     *
+     * @memberOf ModalAcceptApplicationComponent
      */
     public openModal(application: ApplicationDetailDto): void {
         this.application = application;
+        this.applicationService.setApplication(application);
         setTimeout(() => {
             this.overlay.toggle(true);
         }, 0);
@@ -62,6 +102,8 @@ export class ModalAcceptApplicationComponent implements OnInit {
 
     /**
      * close the overlay modal
+     *
+     * @memberOf ModalAcceptApplicationComponent
      */
     public closeModal() {
         this.overlay.toggle(false);
@@ -69,6 +111,8 @@ export class ModalAcceptApplicationComponent implements OnInit {
 
     /**
      * Create the Form to accept/decline the Application
+     *
+     * @memberOf ModalAcceptApplicationComponent
      */
     public initAcceptForm() {
         this.acceptForm = [
@@ -90,35 +134,47 @@ export class ModalAcceptApplicationComponent implements OnInit {
     }
 
     /**
-     * @description accepts the application (with condition)
+     * accepts the application (with condition)
+     *
+     * @param {AcceptApplication} form
+     *
+     * @memberOf ModalAcceptApplicationComponent
      */
-    @Access('EditApplications')
+    @Access('AcceptApplications')
     public acceptApplication(form: AcceptApplication) {
         /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiresChanges, isPrivate: false });
         this.applicationService.updateStatusOfApplication(Status.ACCEPTED).subscribe(result => {
-            this.application = result;
-            this.change.emit(result);
+            this.application.update(result);
+            this.callback.emit(result);
             this.overlay.toggle(false);
             this.initAcceptForm();
         });
     }
 
     /**
-     * @description declines the application with reasons
+     * declines the application with reasons
+     *
+     * @param {AcceptApplication} form
+     *
+     * @memberOf ModalAcceptApplicationComponent
      */
-    @Access('EditApplications')
+    @Access('AcceptApplications')
     public declineApplication(form: AcceptApplication) {
         /** TODO */ this.createNewComment({ message: form.accept_message, requiresChanges: form.accept_requiresChanges, isPrivate: false });
         this.applicationService.updateStatusOfApplication(Status.DENIED).subscribe(result => {
-            this.application = result;
-            this.change.emit(result);
+            this.application.update(result);
+            this.callback.emit(result);
             this.overlay.toggle(false);
             this.initAcceptForm();
         });
     }
 
     /**
-     * @description adds the comment to the current application
+     * adds the comment to the current application
+     *
+     * @param {CommentDto} values
+     *
+     * @memberOf ModalAcceptApplicationComponent
      */
     public createNewComment(values: CommentDto) {
         const comment: CommentDto = values;

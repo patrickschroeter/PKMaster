@@ -1,22 +1,33 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Observer } from 'rxjs/Rx';
+import { Observable, Observer, Subject } from 'rxjs/Rx';
 
 /** Services */
 import { PermissionService } from './../permission/permission.service';
-import { AlertService } from './../../../modules/alert';
-import { TranslationService } from './../../../modules/translation';
-import { UserApi } from './../../../swagger/api/UserApi';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
+import { UserApi } from 'app/swagger/api/UserApi';
 import { ConfigurationService } from './../';
 
 /** TODO */
-import { UserApiMock } from './../../../core';
+import { UserApiMock } from 'app/core';
 
 /** Models */
-import { UserDetailDto, UserCreateDto } from './../../../swagger';
+import { UserDetailDto, UserCreateDto } from 'app/swagger';
 
 /** Decorators */
-import { Loading } from './../../../shared/decorators/loading.decorator';
+import { Loading } from 'app/shared/decorators/loading.decorator';
 
 /**
  * A Service taking care of the user beeing logged in
@@ -27,50 +38,13 @@ import { Loading } from './../../../shared/decorators/loading.decorator';
 @Injectable()
 export class AuthenticationService {
 
-    /**
-     * localStorage key for token
-     *
-     * @static
-     *
-     * @memberOf AuthenticationService
-     */
     static TOKEN_KEY = 'authtoken';
-
-    /**
-     * localStorage key for token expiration time
-     *
-     * @static
-     *
-     * @memberOf AuthenticationService
-     */
     static TOKEN_TIME_KEY = 'authtokentime';
 
-    /**
-     * time the token is valid
-     *
-     * @private
-     * @type {Number}
-     * @memberOf AuthenticationService
-     */
     private expiration = 0;
 
-    /**
-     * the user observable
-     *
-     * @private
-     * @type {Observable<AppUser>}
-     * @memberOf AuthenticationService
-     */
     private user: Observable<UserDetailDto>;
 
-    /**
-     * static function to get the token from localStorage
-     *
-     * @static
-     * @returns
-     *
-     * @memberOf AuthenticationService
-     */
     static getStaticToken() {
         return localStorage.getItem(AuthenticationService.TOKEN_KEY);
     }
@@ -101,6 +75,7 @@ export class AuthenticationService {
             this.login().subscribe(() => { }, error => {
                 this.logout();
             });
+            // console.log(this.login());
         }
     }
 
@@ -114,9 +89,12 @@ export class AuthenticationService {
     get token(): string {
         const time = +localStorage.getItem(AuthenticationService.TOKEN_TIME_KEY);
         const token = localStorage.getItem(AuthenticationService.TOKEN_KEY);
-        if (time >= Date.now() && token) {
+        if (!token) {
+            this.logout();
+            return null;
+        } else if (time >= Date.now()) {
             // TODO refresh token
-            localStorage.setItem(AuthenticationService.TOKEN_TIME_KEY, (Date.now() + 120000000).toString());
+            // localStorage.setItem(AuthenticationService.TOKEN_TIME_KEY, (Date.now() + 120000000).toString());
             return token;
         } else {
             this.logout();
@@ -127,7 +105,6 @@ export class AuthenticationService {
 
     /**
      * setter method for token, handling local storage
-     *
      *
      * @memberOf AuthenticationService
      */
@@ -180,72 +157,43 @@ export class AuthenticationService {
     @Loading('login')
     public login(username?: string, password?: string): Observable<UserDetailDto> {
         if (username && password) {
-            let observer: Observer<UserDetailDto>;
-            // the returned user observable
-            this.user = new Observable<UserDetailDto>((obs: Observer<any>) => {
-                observer = obs;
+            this.user = this.userApi.login(username, password).flatMap(bearer => {
+                this.expiration = (bearer.expires_in / 3) * 60 * 1000;
+                this.token = `${bearer.token_type} ${bearer.access_token}`;
 
-                // log the user in and save token
-                this.userApi.login(username, password).subscribe(bearer => {
-                    this.expiration = (bearer.expires_in / 3) * 60 * 1000;
-                    this.token = `${bearer.token_type} ${bearer.access_token}`;
-
-                    // get the user object
-                    this.publishCurrentUser(observer);
-                }, error => {
-                    observer.error(error);
-                });
-            })
-                // update the permissions
-                .map((result: UserDetailDto) => {
-                    const user = result;
-                    user.permissions = user.permissions.length ? user.permissions : UserApiMock.USERS[0].permissions;
-                    return this.permission.updateUserPermissions(user);
-                })
-                // cache user
-                .publishReplay(1).refCount();
+                return this.setUser();
+            });
 
             return this.user;
         } else {
             // the returned user observable
-            this.user = new Observable<UserDetailDto>((observer: Observer<any>) => {
-                // get the user object
-                this.publishCurrentUser(observer);
-            })
-                // update the permissions
-                .map((result: UserDetailDto) => {
-                    const user = result;
-                    user.permissions = user.permissions.length ? user.permissions : UserApiMock.USERS[0].permissions;
-                    return this.permission.updateUserPermissions(user);
-                })
-                // cache user
-                .publishReplay(1).refCount();
-
-            return this.user;
+            return this.setUser();
         }
     }
 
     /**
-     * publishes the current user to the given observer
+     * set the user observable using cache
      *
      * @private
-     * @param {Observer<any>} observer
+     * @returns {Observable<UserDetailDto>}
      *
      * @memberOf AuthenticationService
      */
-    private publishCurrentUser(observer: Observer<any>) {
-        this.userApi.getCurrentUser().subscribe(result => {
-            observer.next(result);
-            observer.complete();
-        }, error => {
-            observer.error(error);
-            observer.complete();
-        });
+    private setUser(): Observable<UserDetailDto> {
+        this.user = this.userApi.getCurrentUser()
+            .map((result: UserDetailDto) => {
+                if (!result) { return null; }
+                const user = result;
+                user.permissions = user.permissions.length ? user.permissions : UserApiMock.getUserByEmail(user.email).permissions;
+                return this.permission.updateUserPermissions(user);
+            })
+            .publishReplay(1).refCount();
+        return this.user;
     }
+
 
     /**
      * logout the user
-     *
      *
      * @memberOf AuthenticationService
      */
@@ -255,6 +203,8 @@ export class AuthenticationService {
             this.user.subscribe((result: UserDetailDto) => {
                 this.permission.updateUserPermissions(result);
                 this.user = null;
+            }, error => {
+                console.error(error);
             });
         }
         this.router.navigate(['/login']);

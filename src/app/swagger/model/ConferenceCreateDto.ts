@@ -50,6 +50,6 @@ export class ConferenceCreateDto {
         this.roomOfEvent = obj.roomOfEvent;
         this.numberOfConference = obj.numberOfConference;
 
-        this.configJson = obj.config ? JSON.stringify(obj.config) : '';
+        this.configJson = obj.config ? JSON.stringify(obj.config) : '[]';
     }
 }

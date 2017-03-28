@@ -1,5 +1,15 @@
-/* tslint:disable:no-unused-variable */
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
 
+/* tslint:disable:no-unused-variable */
 import { TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
 import { EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -11,12 +21,12 @@ import { FormElementService } from './form-element.service';
 import { FormService, FormMock } from './../form';
 import { ConfigurationService, ConfigurationMock } from './../configuration';
 
-import { TranslationProviderMock } from './../../../modules/translation/translation.module';
-import { AlertProviderMock } from './../../../modules/alert/alert.module';
-import { AlertService } from './../../../modules/alert';
+import { TranslationProviderMock } from 'app/modules/translation/translation.module';
+import { AlertProviderMock } from 'app/modules/alert/alert.module';
+import { AlertService } from 'app/modules/alert';
 
-import { FieldDto } from './../../../swagger';
-import { Fields } from './../../../models';
+import { FieldDto } from 'app/swagger';
+import { Fields } from 'app/models';
 
 describe('Service: FormElement', () => {
     beforeEach(() => {

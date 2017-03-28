@@ -1,0 +1,12 @@
+<ng-container *ngIf="application && application.hasStatus(status.CREATED, status.RESCINDED) && application.form.deprecated">
+    <a routerLink="/applications/{{ application.id }}/edit">
+        <pk-button
+            class="element--spacing-bottom-tiny"
+            rounded
+            element--secondary
+            i18n-pkAlert
+            pkAlert="Update Application"
+            icon="refresh">
+        </pk-button>
+    </a>
+</ng-container>

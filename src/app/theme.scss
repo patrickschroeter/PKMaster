@@ -4,6 +4,7 @@
 @import './theme/_mixins.scss';
 @import './theme/_typescale.scss';
 @import './theme/_animations.scss';
+@import './theme/_print.scss';
 
 /** libraries */
 @import './theme/ng2-dnd.scss';
@@ -24,3 +25,4 @@
 @import './theme/components/_comment-block.scss';
 @import './theme/components/_tabs.scss';
 @import './theme/components/_block.scss';
+@import './theme/components/_pagination.scss';

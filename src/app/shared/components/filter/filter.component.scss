@@ -1,0 +1,55 @@
+@import '../../../config.scss';
+
+.filter {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 99;
+    padding: 4px;
+    border: 1px solid transparent;
+    border-radius: 2px;
+
+    &:hover {
+        background: $mediumwhite;
+        border-color: $darkwhite;
+        .filter__list {
+            display: block;
+        }
+    }
+
+    &__trigger {
+        @include clearfix();
+        margin-bottom: 4px;
+        > * {
+            float: right;
+        }
+    }
+
+    &__list {
+        display: none;
+    }
+
+    &__title {
+        position: absolute;
+        top: 11px;
+        left: 16px;
+    }
+
+    &__group {
+        border-bottom: 1px solid $darkwhite;
+        padding-bottom: 4px;
+        padding-top: 4px;
+
+        &:last-child {
+            border: 0;
+        }
+    }
+
+    &__item {
+        padding-top: 4px;
+
+        &:first-child {
+            padding-top: 0;
+        }
+    }
+}

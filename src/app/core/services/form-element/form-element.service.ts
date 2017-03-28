@@ -1,5 +1,15 @@
-// tslint:disable:no-use-before-declare
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
 
+// tslint:disable:no-use-before-declare
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable, BehaviorSubject, Observer } from 'rxjs/Rx';
@@ -10,8 +20,8 @@ import { UserApiMock } from './../../';
 /** Services */
 import { FormService } from './../form';
 import { ConfigurationService } from './../configuration';
-import { AlertService } from './../../../modules/alert';
-import { TranslationService } from './../../../modules/translation';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
 
 /** Models */
 import {
@@ -20,11 +30,11 @@ import {
     FieldDefinitionDto,
     ValidationDto,
     StyleDto
-} from './../../../swagger';
-import { Fields, Selectable, FieldModel } from './../../../models';
+} from 'app/swagger';
+import { Fields, Selectable, FieldModel } from 'app/models';
 
 /** Decorators */
-import { Loading } from './../../../shared/decorators/loading.decorator';
+import { Loading } from 'app/shared/decorators/loading.decorator';
 
 /**
  * A Service taking care of on Form Element

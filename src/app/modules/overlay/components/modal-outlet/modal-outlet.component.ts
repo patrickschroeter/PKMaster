@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import {
     Component,
     OnInit,
@@ -13,6 +24,13 @@ import { ModalSelectlistComponent } from './../modal-selectlist/modal-selectlist
 import { ModalConfirmationComponent } from './../modal-confirmation/modal-confirmation.component';
 import { ModalService } from './../../services/modal/modal.service';
 
+/**
+ * ModalOutletComponent
+ *
+ * @export
+ * @class ModalOutletComponent
+ * @implements {OnInit}
+ */
 @Component({
     selector: 'pk-modal-outlet',
     templateUrl: './modal-outlet.component.html',
@@ -29,11 +47,23 @@ export class ModalOutletComponent implements OnInit {
 
     private component: any;
 
+    /**
+     * Creates an instance of ModalOutletComponent.
+     * @param {ComponentFactoryResolver} resolver
+     * @param {ModalService} modalService
+     *
+     * @memberOf ModalOutletComponent
+     */
     constructor(
         private resolver: ComponentFactoryResolver,
         private modalService: ModalService
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf ModalOutletComponent
+     */
     ngOnInit() {
         this.modalService.register(this);
     }
@@ -68,6 +98,11 @@ export class ModalOutletComponent implements OnInit {
         this.outlet.insert(component.hostView);
     }
 
+    /**
+     * destroy the outlet
+     *
+     * @memberOf ModalOutletComponent
+     */
     public destroy() {
         this.outlet.clear();
     }

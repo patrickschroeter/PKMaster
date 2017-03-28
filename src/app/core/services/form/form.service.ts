@@ -1,18 +1,35 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Injectable, EventEmitter } from '@angular/core';
 import { Observable, Observer } from 'rxjs/Rx';
 import * as _ from 'lodash';
 
 /** Services */
-import { AlertService } from './../../../modules/alert';
-import { TranslationService } from './../../../modules/translation';
-import { FormApi } from './../../../swagger/api/FormApi';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
+import { FormApi } from 'app/swagger/api/FormApi';
 
 /** Models */
-import { FieldDto, FormDetailDto, FormCreateDto, FormListDto } from './../../../swagger';
+import { FieldDto, FormDetailDto, FormCreateDto, FormListDto } from 'app/swagger';
 
 /** Decorators */
-import { Loading } from './../../../shared/decorators/loading.decorator';
+import { Loading } from 'app/shared/decorators/loading.decorator';
 
+/**
+ * FormService
+ *
+ * @export
+ * @class FormService
+ */
 @Injectable()
 export class FormService {
 
@@ -26,6 +43,14 @@ export class FormService {
 
     private editElement: EventEmitter<FieldDto> = new EventEmitter();
 
+    /**
+     * Creates an instance of FormService.
+     * @param {AlertService} alert
+     * @param {FormApi} formApi
+     * @param {TranslationService} translationService
+     *
+     * @memberOf FormService
+     */
     constructor(
         private alert: AlertService,
         private formApi: FormApi,
@@ -235,7 +260,6 @@ export class FormService {
      *
      * @memberOf FormService
      */
-    @Loading('getEditFormTemplate')
     public getEditFormTemplate(id?: string): Observable<FieldDto[]> {
         const formEdit = [
             {
@@ -273,7 +297,7 @@ export class FormService {
             setTimeout(() => {
                 observer.next(formEdit);
                 observer.complete();
-            }, 200);
+            }, 50);
         });
     }
 
@@ -381,8 +405,6 @@ export class FormService {
     @Loading('createNewForm')
     public createNewForm(submit: FormDetailDto): Observable<FormDetailDto> {
         const param: FormCreateDto = new FormCreateDto(submit);
-        param.title = submit.id ? 'Copy of ' + submit.title : submit.title;
-
         return this.formApi.addForm(param).map(form => {
             return this.form = form;
         });

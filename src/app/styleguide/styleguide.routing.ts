@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { StyleguideComponent } from './';
 
 const routes: Routes = [
-    { path: '', component: StyleguideComponent },
+    { path: '', component: StyleguideComponent }
 ];
 
 @NgModule({

@@ -7,67 +7,68 @@
             <!--<h1 class="element element--spacing-bottom-small" i18n>Applications</h1>-->
 
             <div class="tab-navigation">
-                <div class="tab selectable" *accessCreateApplications (click)="activeTab = 'owned';" [ngClass]="{ 'selectable--active': activeTab === 'owned' }">Owned</div>
-                <div class="tab selectable" *ngIf="assignedApplications && assignedApplications.length" (click)="activeTab = 'assigned';" [ngClass]="{ 'selectable--active': activeTab === 'assigned' }">Assigned</div>
+                <div id="tab-owned" class="tab selectable" *accessCreateApplications (click)="activeTab = 'owned';" [ngClass]="{ 'selectable--active': activeTab === 'owned' }" i18n>Owned</div>
+                <div id="tab-assigned" class="tab selectable" *ngIf="assignedApplications && assignedApplications.length" (click)="activeTab = 'assigned';" [ngClass]="{ 'selectable--active': activeTab === 'assigned' }" i18n>Assigned</div>
                 <ng-container *accessReadApplications>
-                    <div class="tab selectable" *ngIf="applications && applications.length" (click)="activeTab = 'all';" [ngClass]="{ 'selectable--active': activeTab === 'all' }">All</div>
+                    <div id="tab-all" class="tab selectable" *ngIf="applications && applications.length" (click)="activeTab = 'all';" [ngClass]="{ 'selectable--active': activeTab === 'all' }" i18n>All</div>
                 </ng-container>
             </div>
 
-            <!--Owned Applications-->
-            <ng-container *accessCreateApplications>
-                <ng-container *ngIf="ownApplications && activeTab === 'owned'">
-                    <ng-container *ngIf="!ownApplications.length">
-                        <h2 i18n>Applications</h2>
-                        <div class="empty-wrapper">
-                            <div class="label" i18n>No own Applications here.</div>
-                            <pk-button
-                                class="element--spacing-top-large"
-                                element--secondary
-                                i18n-value
-                                value="Create Application"
-                                icon="add"
-                                (onClick)="createApplicationModal()">
-                            </pk-button>
-                        </div>
-                    </ng-container>
+            <div class="rel">
+                <!--Owned Applications-->
+                <ng-container *accessCreateApplications>
+                    <ng-container *ngIf="ownApplications && activeTab === 'owned'">
+                        <ng-container *ngIf="!ownApplications.length">
+                            <h2 i18n>Applications</h2>
+                            <div class="empty-wrapper">
+                                <div class="label" i18n>No own Applications here.</div>
+                                <pk-button
+                                    class="element--spacing-top-large"
+                                    element--secondary
+                                    i18n-value
+                                    value="Create Application"
+                                    icon="add"
+                                    (onClick)="createApplicationModal()">
+                                </pk-button>
+                            </div>
+                        </ng-container>
 
-                    <ng-container *ngIf="ownApplications.length">
-                        <h2 i18n>Own applications</h2>
-                        <pk-applications-list-owned [applications]="ownApplications" [user]="user"></pk-applications-list-owned>
+                        <ng-container *ngIf="ownApplications.length">
+                            <h2 i18n>Own applications</h2>
+                            <pk-applications-list-owned [applications]="ownApplications" [user]="user"></pk-applications-list-owned>
 
-                        <pk-floating fixed top-right>
-                            <pk-button
-                                element--secondary
-                                rounded
-                                i18n-pkAlert
-                                    pkAlert="Create Application"
-                                icon="add"
-                                (onClick)="createApplicationModal()">
-                            </pk-button>
-                        </pk-floating>
-                    </ng-container>
-                </ng-container>
-            </ng-container>
-
-            <!--Assigned Applications-->
-            <ng-container *ngIf="assignedApplications && activeTab === 'assigned'">
-                <ng-container *ngIf="assignedApplications.length">
-                    <h2 i18n>Assigned applications</h2>
-                    <pk-applications-list-assigned [applications]="assignedApplications"></pk-applications-list-assigned>
-                </ng-container>
-            </ng-container>
-
-            <!--All Applications-->
-            <ng-container *accessReadApplications>
-                <ng-container *ngIf="applications && activeTab === 'all'">
-                    <ng-container *ngIf="applications.length">
-                        <h2 i18n>All applications</h2>
-                        <pk-applications-list [applications]="applications"></pk-applications-list>
+                            <pk-floating fixed top-right>
+                                <pk-button
+                                    element--secondary
+                                    rounded
+                                    i18n-pkAlert
+                                        pkAlert="Create Application"
+                                    icon="add"
+                                    (onClick)="createApplicationModal()">
+                                </pk-button>
+                            </pk-floating>
+                        </ng-container>
                     </ng-container>
                 </ng-container>
-            </ng-container>
 
+                <!--Assigned Applications-->
+                <ng-container *ngIf="assignedApplications && activeTab === 'assigned'">
+                    <ng-container *ngIf="assignedApplications.length">
+                        <h2 i18n>Assigned applications</h2>
+                        <pk-applications-list-assigned [applications]="assignedApplications"></pk-applications-list-assigned>
+                    </ng-container>
+                </ng-container>
+
+                <!--All Applications-->
+                <ng-container *accessReadApplications>
+                    <ng-container *ngIf="applications && activeTab === 'all'">
+                        <ng-container *ngIf="applications.length">
+                            <h2 i18n>All applications</h2>
+                            <pk-applications-list [applications]="applications"></pk-applications-list>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+            </div>
         </ng-container>
 
     </div>

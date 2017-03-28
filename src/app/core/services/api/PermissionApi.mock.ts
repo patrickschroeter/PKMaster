@@ -1,9 +1,20 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 // tslint:disable:max-line-length
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs/Rx';
 
 
-import { PermissionDto } from './../../../swagger';
+import { PermissionDto } from 'app/swagger';
 
 @Injectable()
 export class PermissionApiMock {
@@ -165,6 +176,8 @@ export class PermissionApiMock {
         PermissionApiMock.PERMISSION_OBJECT.Application.Deactivate,
         PermissionApiMock.PERMISSION_OBJECT.Application.Comment,
         PermissionApiMock.PERMISSION_OBJECT.Application.Accept,
+        PermissionApiMock.PERMISSION_OBJECT.Application.Submit,
+        PermissionApiMock.PERMISSION_OBJECT.Application.Validate,
         /** Conference */
         PermissionApiMock.PERMISSION_OBJECT.Conference.Read,
         PermissionApiMock.PERMISSION_OBJECT.Conference.Edit,

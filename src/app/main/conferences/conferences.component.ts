@@ -1,14 +1,38 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
 
 /** Services */
-import { ConferenceService } from './../../core';
-import { ModalService } from './../../modules/overlay';
-import { TranslationService } from './../../modules/translation';
+import {
+    ConferenceService,
+    PermissionService
+} from 'app/core';
+import { ModalService } from 'app/modules/overlay';
+import { TranslationService } from 'app/modules/translation';
+import { AlertService } from 'app/modules/alert';
+
+import { ListService, List } from 'app/shared';
 
 /** Models */
-import { ConferenceDetailDto, ConferenceCreateDto, FieldDto } from './../../swagger';
+import {
+    ConferenceDetailDto,
+    ConferenceListDto,
+    ConferenceCreateDto,
+    FieldDto
+} from 'app/swagger';
+
+import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
 /**
  * A Component to list all conferences
@@ -20,32 +44,19 @@ import { ConferenceDetailDto, ConferenceCreateDto, FieldDto } from './../../swag
 @Component({
     selector: 'pk-conferences',
     templateUrl: './conferences.component.html',
-    styleUrls: ['./conferences.component.scss']
+    styleUrls: ['./conferences.component.scss'],
+    providers: [
+        ListService
+    ]
 })
-export class ConferencesComponent implements OnInit {
+export class ConferencesComponent extends List<ConferenceListDto> implements OnInit, OnAccess {
 
-    /**
-     * Default Layout Class for component
-     *
-     * @memberOf ConferencesComponent
-     */
     @HostBinding('class') classes = 'content--default';
 
-    /**
-     * a list of all conferences
-     *
-     * @type {ConferenceDto[]}
-     * @memberOf ConferencesComponent
-     */
-    public conferences: ConferenceDetailDto[];
-
-    /**
-     * Form config for creating a new conference
-     *
-     * @type {FieldDto[]}
-     * @memberOf ConferencesComponent
-     */
+    public conferences: ConferenceListDto[];
     public newConference: FieldDto[];
+
+    public list: ConferenceListDto[];
 
     /**
      * Creates an instance of ConferencesComponent.
@@ -65,7 +76,12 @@ export class ConferencesComponent implements OnInit {
         private translationService: TranslationService,
         /** Services */
         private conferenceService: ConferenceService,
-    ) { }
+        public permission: PermissionService,
+        public alert: AlertService,
+        public listService: ListService
+    ) {
+        super(listService);
+    }
 
     /**
      * implements OnInit
@@ -73,10 +89,30 @@ export class ConferencesComponent implements OnInit {
      * @memberOf ConferencesComponent
      */
     ngOnInit() {
+        this.getConferences();
+        this.initConferenceForm();
+    }
+
+    /**
+     * load all conferences
+     *
+     * @memberOf ConferencesComponent
+     */
+    public getConferences(): void {
         this.conferenceService.getConferences().subscribe(conferences => {
             this.conferences = conferences;
-        });
 
+            this.initListDependencies(conferences);
+        });
+    }
+
+    /**
+     * initialize the add conference form
+     *
+     * @memberOf ConferencesComponent
+     */
+    @Access('EditConferences')
+    public initConferenceForm(): void {
         this.newConference = this.conferenceService.getConferenceForm();
     }
 
@@ -87,6 +123,7 @@ export class ConferencesComponent implements OnInit {
      *
      * @memberOf ConferencesComponent
      */
+    @Access('EditConferences')
     public createConference(form: ConferenceCreateDto): void {
         this.conferenceService.createNewConference(form).subscribe(conference => {
             if (conference['id']) {
@@ -96,41 +133,19 @@ export class ConferencesComponent implements OnInit {
     }
 
     /**
-     * clone conference
+     * Remove conference from conferences
      *
-     * @param {ConferenceCreateDto} conference
-     *
-     * @memberOf ConferencesComponent
-     */
-    public cloneConference(conference: ConferenceCreateDto) {
-        const param: ConferenceCreateDto = new ConferenceCreateDto(conference as ConferenceDetailDto);
-        param.description = 'Copy of ' + param.description;
-        this.createConference(param);
-    }
-
-    /**
-     * Delete the conference
-     *
-     * @param {ConferenceDto} conference
+     * @param {ConferenceDetailDto} conference
+     * @returns {void}
      *
      * @memberOf ConferencesComponent
      */
-    public deleteConference(conference: ConferenceDetailDto) {
-        this.modalService.createConfirmationModal({
-            title: this.translationService.translate('confirmDeleteConferenceHeader'),
-            message: this.translationService.translate('confirmDeleteConferenceContent'),
-            /**
-             * modal callback on confirm
-             */
-            confirm: () => {
-                this.conferenceService.removeConference(conference.id).subscribe(result => {
-                    const index = _.findIndex(this.conferences, (obj: ConferenceDetailDto) => obj.id === conference.id);
-                    if (result && index !== -1) {
-                        this.conferences.splice(index, 1);
-                    }
-                    this.modalService.destroyModal();
-                });
-            }
-        });
+    @Access('EditConferences')
+    public removeConference(conference: ConferenceDetailDto): void {
+        if (!conference) { return; }
+        const index = _.findIndex(this.conferences, (obj: ConferenceDetailDto) => obj.id === conference.id);
+        if (index !== -1) {
+            this.conferences.splice(index, 1);
+        }
     }
 }

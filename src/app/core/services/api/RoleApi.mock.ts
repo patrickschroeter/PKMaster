@@ -1,9 +1,20 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 // tslint:disable:max-line-length
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs/Rx';
 
 import { PermissionApiMock } from './PermissionApi.mock';
-import { RoleDto } from './../../../swagger';
+import { RoleDto } from 'app/swagger';
 
 @Injectable()
 export class RoleApiMock {
@@ -13,7 +24,7 @@ export class RoleApiMock {
         All: [
             /** Permissions */
             PermissionApiMock.PERMISSION.Permission.Read,
-            PermissionApiMock.PERMISSION.Permission.Edit,
+            PermissionApiMock.PERMISSION.Permission.Edit, // requires Permission.Read
             /** Roles */
             PermissionApiMock.PERMISSION.Roles.Read,
             PermissionApiMock.PERMISSION.Roles.Edit,
@@ -65,19 +76,23 @@ export class RoleApiMock {
             PermissionApiMock.PERMISSION.Conference.Read
         ],
         Docent: [
-            PermissionApiMock.PERMISSION.Application.Create
+            PermissionApiMock.PERMISSION.Application.Create,
+            PermissionApiMock.PERMISSION.Application.Validate,
         ],
         Student: [
             PermissionApiMock.PERMISSION.Application.Create
         ],
 
         Observer: [
-            PermissionApiMock.PERMISSION.Application.Read
+            PermissionApiMock.PERMISSION.Application.Read,
+            PermissionApiMock.PERMISSION.Application.Comment,
         ],
         Secreteriat: [
             PermissionApiMock.PERMISSION.Application.Create,
             PermissionApiMock.PERMISSION.Application.Read,
-            PermissionApiMock.PERMISSION.Application.Edit
+            PermissionApiMock.PERMISSION.Application.Edit,
+            PermissionApiMock.PERMISSION.Application.Comment,
+            PermissionApiMock.PERMISSION.Conference.Read,
         ]
     };
 

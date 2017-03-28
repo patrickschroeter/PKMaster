@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -5,13 +16,15 @@ import { Router } from '@angular/router';
 import {
     RoleService,
     PermissionService
-} from './../../core';
+} from 'app/core';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
 
 /** Models */
-import { RoleDto, FieldDto } from './../../swagger';
+import { RoleDto, FieldDto } from 'app/swagger';
 
 /** Decorators */
-import { Access } from './../../shared/decorators/access.decorator';
+import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
 /**
  * Displays a list of all roles
@@ -25,59 +38,32 @@ import { Access } from './../../shared/decorators/access.decorator';
     templateUrl: './roles.component.html',
     styleUrls: ['./roles.component.scss']
 })
-export class RolesComponent implements OnInit {
+export class RolesComponent implements OnInit, OnAccess {
 
-    /**
-     * Default Layout Class
-     *
-     * @memberOf RolesComponent
-     */
     @HostBinding('class') classes = 'content--default';
 
-    /**
-     * An Array of all Roles
-     *
-     * @type {RoleDto[]}
-     * @memberOf RolesComponent
-     */
     public roles: RoleDto[];
 
-    /**
-     * the Form for creata a new role
-     *
-     * @private
-     * @type {Array<FieldDto>}
-     * @memberOf RolesComponent
-     */
     private _newRole: Array<FieldDto>;
-
-    /**
-     * set newRole
-     *
-     * @memberOf RolesComponent
-     */
     set newRole(value) { this._newRole = value; }
-
-    /**
-     * get newRole
-     *
-     * @memberOf RolesComponent
-     */
     get newRole() { return this._newRole; }
 
     /**
      * Creates an instance of RolesComponent.
-     *
      * @param {RoleService} roleService
      * @param {PermissionService} permission
+     * @param {AlertService} alert
      * @param {Router} router
+     * @param {TranslationService} translationService
      *
      * @memberOf RolesComponent
      */
     constructor(
         private roleService: RoleService,
-        private permission: PermissionService,
-        private router: Router
+        public permission: PermissionService,
+        public alert: AlertService,
+        private router: Router,
+        private translationService: TranslationService
     ) { }
 
     /**
@@ -90,7 +76,7 @@ export class RolesComponent implements OnInit {
             {
                 fieldType: 'input',
                 name: 'name',
-                label: 'Role Name:',
+                label: this.translationService.translate('roleName'),
                 required: true
             }
         ];

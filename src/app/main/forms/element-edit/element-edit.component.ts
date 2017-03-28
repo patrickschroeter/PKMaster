@@ -1,15 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs/Rx';
 
-import { FormElementService } from './../../../core';
-import { FieldDto } from './../../../swagger';
+import { FormElementService } from 'app/core';
+import { FieldDto } from 'app/swagger';
 
+/**
+ * ElementEditComponent
+ *
+ * @export
+ * @class ElementEditComponent
+ * @implements {OnInit}
+ * @implements {OnDestroy}
+ */
 @Component({
     selector: 'pk-element-edit',
     templateUrl: './element-edit.component.html',
     styleUrls: ['./element-edit.component.scss'],
 })
-export class ElementEditComponent implements OnInit {
+export class ElementEditComponent implements OnInit, OnDestroy {
 
     /** The current Element as FormElement[] */
     private _element: Array<FieldDto>;
@@ -28,8 +48,26 @@ export class ElementEditComponent implements OnInit {
     /** Flag if Element has Styles */
     public elementHasStyles: Boolean = false;
 
+    private subscriptionElement: Subscription;
+    private subscriptionElementPreview: Subscription;
+    private subscriptionHasPreview: Subscription;
+    private subscriptionHasStyles: Subscription;
+    private subscriptionHasSubmit: Subscription;
+    private subscriptionHasValidations: Subscription;
+
+    /**
+     * Creates an instance of ElementEditComponent.
+     * @param {FormElementService} elementService
+     *
+     * @memberOf ElementEditComponent
+     */
     constructor(private elementService: FormElementService) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf ElementEditComponent
+     */
     ngOnInit() {
         this.subscribeElement();
         this.subscribeElementPreview();
@@ -40,9 +78,25 @@ export class ElementEditComponent implements OnInit {
     }
 
     /**
+     * implements OnDestroy
+     *
+     * @memberOf ElementEditComponent
+     */
+    ngOnDestroy() {
+        this.unsubscribeElement();
+        this.unsubscribeElementPreview();
+        this.unsubscribeHasPreview();
+        this.unsubscribeHasStyles();
+        this.unsubscribeHasSubmit();
+        this.unsubscribeHasValidations();
+    }
+
+    /**
      * @description dynamic form onChange event
-     * @param {FormElement} form
-     * @return {void}
+     *
+     * @param {FormGroup} form
+     *
+     * @memberOf ElementEditComponent
      */
     updateElement(form: FormGroup): void {
         this.elementService.updateElement(form);
@@ -50,7 +104,8 @@ export class ElementEditComponent implements OnInit {
 
     /**
      * @description toggle the element prieview dom element
-     * @return {void}
+     *
+     * @memberOf ElementEditComponent
      */
     toggleElementPreview(): void {
         this.elementService.toggleElementPreview();
@@ -58,7 +113,8 @@ export class ElementEditComponent implements OnInit {
 
     /**
      * @description add the validation select to the form
-     * @return {void}
+     *
+     * @memberOf ElementEditComponent
      */
     addValidations(): void {
         this.elementService.addValidations();
@@ -66,7 +122,8 @@ export class ElementEditComponent implements OnInit {
 
     /**
      * @description add the styles select to the form
-     * @return {void}
+     *
+     * @memberOf ElementEditComponent
      */
     addStyles(): void {
         this.elementService.addStyles();
@@ -74,8 +131,10 @@ export class ElementEditComponent implements OnInit {
 
     /**
      * @description save the current element to the current form
-     * @param {FormElement} element
-     * @return {void}
+     *
+     * @param {FieldDto} element
+     *
+     * @memberOf ElementEditComponent
      */
     saveElement(element: FieldDto): void {
         this.elementService.saveElement(element);
@@ -87,7 +146,8 @@ export class ElementEditComponent implements OnInit {
 
     /**
      * @description cancel the current element
-     * @return {void}
+     *
+     * @memberOf ElementEditComponent
      */
     cancelElement(): void {
         this.elementService.cancelElement();
@@ -95,7 +155,8 @@ export class ElementEditComponent implements OnInit {
 
     /**
      * @description remove the element from the form
-     * @return {void}
+     *
+     * @memberOf ElementEditComponent
      */
     removeElement(): void {
         this.elementService.removeElement();
@@ -112,9 +173,13 @@ export class ElementEditComponent implements OnInit {
      * @return {void}
      */
     subscribeElement(): void {
-        this.elementService.getElement().subscribe(element => {
+        this.subscriptionElement = this.elementService.getElement().subscribe(element => {
             this.element = element;
         });
+    }
+
+    unsubscribeElement(): void {
+        this.subscriptionElement.unsubscribe();
     }
 
     /**
@@ -122,9 +187,13 @@ export class ElementEditComponent implements OnInit {
      * @return {void}
      */
     subscribeElementPreview(): void {
-        this.elementService.getElementPreview().subscribe(preview => {
+        this.subscriptionElementPreview = this.elementService.getElementPreview().subscribe(preview => {
             this.elementPreview = preview;
         });
+    }
+
+    unsubscribeElementPreview(): void {
+        this.subscriptionElementPreview.unsubscribe();
     }
 
     /**
@@ -132,9 +201,13 @@ export class ElementEditComponent implements OnInit {
      * @return {void}
      */
     subscribeHasSubmit(): void {
-        this.elementService.getElementHasSubmit().subscribe(hasSubmit => {
+        this.subscriptionHasSubmit = this.elementService.getElementHasSubmit().subscribe(hasSubmit => {
             this.elementHasSubmit = hasSubmit;
         });
+    }
+
+    unsubscribeHasSubmit(): void {
+        this.subscriptionHasSubmit.unsubscribe();
     }
 
     /**
@@ -142,9 +215,13 @@ export class ElementEditComponent implements OnInit {
      * @return {void}
      */
     subscribeHasPreview(): void {
-        this.elementService.getElementHasPreview().subscribe(hasPreview => {
+        this.subscriptionHasPreview = this.elementService.getElementHasPreview().subscribe(hasPreview => {
             this.elementHasPreview = hasPreview;
         });
+    }
+
+    unsubscribeHasPreview(): void {
+        this.subscriptionHasPreview.unsubscribe();
     }
 
     /**
@@ -152,9 +229,13 @@ export class ElementEditComponent implements OnInit {
      * @return {void}
      */
     subscribeHasValidations(): void {
-        this.elementService.getElementHasValidations().subscribe(hasValidations => {
+        this.subscriptionHasValidations = this.elementService.getElementHasValidations().subscribe(hasValidations => {
             this.elementHasValidations = hasValidations;
         });
+    }
+
+    unsubscribeHasValidations(): void {
+        this.subscriptionHasValidations.unsubscribe();
     }
 
     /**
@@ -162,8 +243,12 @@ export class ElementEditComponent implements OnInit {
      * @return {void}
      */
     subscribeHasStyles(): void {
-        this.elementService.getElementHasStyles().subscribe(hasStyles => {
+        this.subscriptionHasStyles = this.elementService.getElementHasStyles().subscribe(hasStyles => {
             this.elementHasStyles = hasStyles;
         });
+    }
+
+    unsubscribeHasStyles(): void {
+        this.subscriptionHasStyles.unsubscribe();
     }
 }

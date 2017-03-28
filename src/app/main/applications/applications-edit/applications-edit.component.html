@@ -25,14 +25,5 @@
         <a routerLink="/applications/{{ application.id }}">
             <pk-button rounded i18n-pkAlert pkAlert="Cancel" class="element--spacing-bottom-tiny" icon="clear" element--error></pk-button>
         </a>
-        <pk-button
-            *ngIf="application.hasStatus(status.CREATED, status.RESCINDED)"
-            rounded
-            element--error
-            i18n-pkAlert
-                 pkAlert="Deactivate Application"
-            icon="delete"
-            (onClick)="deactivateApplicationModal(application)">
-        </pk-button>
     </pk-floating>
 </div>

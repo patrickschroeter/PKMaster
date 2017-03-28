@@ -1,16 +1,30 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
 
+import { Component, HostBinding } from '@angular/core';
+
+/**
+ * ListHeaderComponent
+ *
+ * @export
+ * @class ListHeaderComponent
+ */
 @Component({
     selector: 'pk-list-header',
     template: '<ng-content></ng-content>'
 })
-export class ListHeaderComponent implements OnInit {
+export class ListHeaderComponent {
 
     @HostBinding('class.list-element') element = true;
 
     constructor() { }
-
-    ngOnInit() {
-    }
 
 }

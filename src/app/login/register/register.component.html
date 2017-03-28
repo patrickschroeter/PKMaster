@@ -2,21 +2,87 @@
     <div class="login-block">
         <h1 i18n>Registrierung</h1>
 
-        <ng-container *ngIf="error">
-            <div class="invalid-wrapper" i18n>RZ-Name or Password is wrong</div>
+        <ng-container [ngSwitch]="step">
+
+            <!--LDAP-->
+            <ng-container *ngSwitchCase="0">
+                <h5 i18n>Enter RZ credentials for authentication.</h5>
+                <pk-dynamic-form [formElements]="ldapForm" #dynamicForm>
+                    <pk-dynamic-form-content>
+
+                        <pk-dynamic-form-element *ngFor="let element of ldapForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
+
+                    </pk-dynamic-form-content>
+
+                    <pk-dynamic-form-submit>
+                        <pk-button (onClick)="next(dynamicForm.form.value)" i18n-value value="Weiter" icon="arrow_forward" [class]="(dynamicForm.form && dynamicForm.form.valid) ? 'element--success' : 'element--disabled'"></pk-button>
+                    </pk-dynamic-form-submit>
+
+                </pk-dynamic-form>
+            </ng-container>
+
+            <!--E-Mail-->
+            <ng-container *ngSwitchCase="1">
+                <h5 i18n>Enter external e-mail as username.</h5>
+                <pk-dynamic-form [formElements]="emailForm" #dynamicForm>
+                    <pk-dynamic-form-content>
+
+                        <pk-dynamic-form-element *ngFor="let element of emailForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
+
+                    </pk-dynamic-form-content>
+
+                    <pk-dynamic-form-submit>
+                        <pk-button (onClick)="next(dynamicForm.form.value)" i18n-value value="Weiter" icon="arrow_forward" [class]="(dynamicForm.form && dynamicForm.form.valid) ? 'element--success' : 'element--disabled'"></pk-button>
+                    </pk-dynamic-form-submit>
+
+                    <pk-dynamic-form-cancel>
+                        <pk-button (onClick)="back()" i18n-value value="Zurück" icon="arrow_back" element--error></pk-button>
+                    </pk-dynamic-form-cancel>
+
+                </pk-dynamic-form>
+            </ng-container>
+
+            <!--Password-->
+            <ng-container *ngSwitchCase="2">
+                <h5 i18n>Enter password for the application.</h5>
+
+                <pk-dynamic-form [formGroup]="passwordFormGroup" #dynamicForm>
+                    <pk-dynamic-form-content>
+                        <pk-dynamic-form-element *ngFor="let element of passwordForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
+                    </pk-dynamic-form-content>
+
+                    <pk-dynamic-form-submit>
+                        <pk-button (onClick)="next(dynamicForm.form.value)" i18n-value value="Registrieren" icon="security" [class]="(dynamicForm.form && dynamicForm.form.valid) ? 'element--success' : 'element--disabled'"></pk-button>
+                    </pk-dynamic-form-submit>
+
+                    <pk-dynamic-form-cancel>
+                        <pk-button (onClick)="back()" i18n-value value="Zurück" icon="arrow_back" element--error></pk-button>
+                    </pk-dynamic-form-cancel>
+                </pk-dynamic-form>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="3">
+                <pk-loading></pk-loading>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="4">
+                <ng-container *ngIf="error">
+                    <div class="invalid-wrapper" i18n>RZ-Name or Password is wrong</div>
+                </ng-container>
+
+                <ng-container *ngIf="!error">
+                    <div class="valid-wrapper">
+                        <h4 i18n>Registrierung erfolgreich</h4>
+                        <a routerLink="/login">
+                            <pk-button i18n-value value="zum Login" icon="security" element--success></pk-button>
+                        </a>
+                    </div>
+                </ng-container>
+            </ng-container>
         </ng-container>
+    </div>
 
-        <pk-dynamic-form [formElements]="registerForm" #dynamicForm>
-            <pk-dynamic-form-content>
-
-                <pk-dynamic-form-element *ngFor="let element of registerForm" [element]="element" [form]="dynamicForm.form"></pk-dynamic-form-element>
-
-            </pk-dynamic-form-content>
-
-            <pk-dynamic-form-submit>
-                <pk-button (onClick)="register(dynamicForm.form.value)" i18n-value value="Registrieren" icon="security" [class]="(dynamicForm.form && dynamicForm.form.valid) ? 'element--success' : 'element--disabled'"></pk-button>
-            </pk-dynamic-form-submit>
-
-        </pk-dynamic-form>
+    <div class="login-actions">
+        <a routerLink="/login">Abbrechen</a>
     </div>
 </div>

@@ -11,6 +11,7 @@
             <div class="empty-wrapper">
                 <div class="label" i18n>No attendant members.</div>
                 <pk-button
+                    *accessEditConferences
                     class="element--spacing-top-large"
                     element--secondary
                     i18n-value
@@ -38,6 +39,7 @@
 
                                 <pk-floating top-right horizontal>
                                     <pk-button
+                                        *accessEditConferences
                                         rounded
                                         i18n-pkAlert
                                         pkAlert="Remove Member from Conference"
@@ -56,6 +58,7 @@
             <div class="empty-wrapper">
                 <div class="label" i18n>No attendant guests.</div>
                 <pk-button
+                    *accessEditConferences
                     class="element--spacing-top-large"
                     element--secondary
                     i18n-value
@@ -83,6 +86,7 @@
 
                                 <pk-floating top-right horizontal>
                                     <pk-button
+                                        *accessEditConferences
                                         rounded
                                         i18n-pkAlert
                                         pkAlert="Remove Guest from Conference"
@@ -123,8 +127,9 @@
                 icon="arrow_back">
             </pk-button>
         </a>
-        <pk-button-animation-wrapper>
+        <pk-button-animation-wrapper *accessEditConferences>
             <pk-button
+                *accessEditConferences
                 class="element--spacing-bottom-tiny"
                 rounded
                 element--secondary
@@ -134,6 +139,7 @@
                 (onClick)="assignGuestModal()">
             </pk-button>
             <pk-button
+                *accessEditConferences
                 class="element--spacing-bottom-tiny"
                 rounded
                 element--secondary
@@ -142,25 +148,8 @@
                 icon="supervisor_account"
                 (onClick)="assignMemberModal()">
             </pk-button>
-            <a routerLink="/conferences/{{ conference.id }}/edit">
-                <pk-button
-                    class="element--spacing-bottom-tiny"
-                    rounded
-                    i18n-pkAlert
-                    pkAlert="Edit Conference"
-                    icon="create"
-                    element--secondary>
-                </pk-button>
-            </a>
-            <pk-button
-                class="element--spacing-bottom-tiny"
-                rounded
-                element--error
-                i18n-pkAlert
-                pkAlert="Delete Conference"
-                icon="delete"
-                (onClick)="deleteConference()">
-            </pk-button>
+            <pk-button-conference-edit *accessEditConferences [conference]="conference"></pk-button-conference-edit>
+            <pk-button-conference-delete *accessEditConferences [conference]="conference" (success)="removeConference($event)"></pk-button-conference-delete>
         </pk-button-animation-wrapper>
     </pk-floating>
 

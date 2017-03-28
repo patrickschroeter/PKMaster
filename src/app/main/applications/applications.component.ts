@@ -1,3 +1,14 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
@@ -8,10 +19,10 @@ import {
     FormService,
     PermissionService,
     AuthenticationService
-} from './../../core';
-import { AlertService } from './../../modules/alert';
-import { TranslationService } from './../../modules/translation';
-import { ModalService } from './../../modules/overlay';
+} from 'app/core';
+import { AlertService } from 'app/modules/alert';
+import { TranslationService } from 'app/modules/translation';
+import { ModalService } from 'app/modules/overlay';
 
 /** Models */
 import {
@@ -19,18 +30,26 @@ import {
     ApplicationListDto,
     ApplicationCreateDto,
     UserDetailDto
-} from './../../swagger';
-import { Selectable } from './../../models';
+} from 'app/swagger';
+import { Selectable } from 'app/models';
 
 /** Decorators */
-import { Access } from './../../shared/decorators/access.decorator';
+import { Access, OnAccess } from 'app/shared/decorators/access.decorator';
 
+/**
+ * ApplicationsComponent
+ *
+ * @export
+ * @class ApplicationsComponent
+ * @implements {OnInit}
+ * @implements {OnAccess}
+ */
 @Component({
     selector: 'pk-applications',
     templateUrl: './applications.component.html',
     styleUrls: ['./applications.component.scss']
 })
-export class ApplicationsComponent implements OnInit {
+export class ApplicationsComponent implements OnInit, OnAccess {
     @HostBinding('class') classes = 'content--default';
 
     public ownApplications: ApplicationListDto[];
@@ -43,28 +62,49 @@ export class ApplicationsComponent implements OnInit {
 
     public user: UserDetailDto;
 
+    /**
+     * Creates an instance of ApplicationsComponent.
+     * @param {Router} router
+     * @param {AlertService} alert
+     * @param {TranslationService} translationService
+     * @param {ModalService} modalService
+     * @param {ApplicationService} applicationService
+     * @param {FormService} formService
+     * @param {PermissionService} permission
+     * @param {AuthenticationService} auth
+     *
+     * @memberOf ApplicationsComponent
+     */
     constructor(
         /** Angular */
         private router: Router,
         /** Modules */
-        private alert: AlertService,
+        public alert: AlertService,
         private translationService: TranslationService,
         private modalService: ModalService,
         /** Services */
         private applicationService: ApplicationService,
         private formService: FormService,
-        private permission: PermissionService,
+        public permission: PermissionService,
         private auth: AuthenticationService
     ) { }
 
+    /**
+     * implements OnInit
+     *
+     * @memberOf ApplicationsComponent
+     */
     ngOnInit() {
 
-        /** get all forms */
+        /** get all active forms */
         this.formService.getForms().subscribe(forms => {
             this.applicationTypes = [];
             for (let i = 0; i < forms.length; i++) {
                 const element = forms[i];
-                this.applicationTypes.push(new Selectable(element.id, element.title));
+                // TODO filter server side
+                if (element.isActive) {
+                    this.applicationTypes.push(new Selectable(element.id, element.title));
+                }
             }
         });
 
@@ -73,13 +113,22 @@ export class ApplicationsComponent implements OnInit {
             this.user = user;
             /** get applications */
             this.getApplications();
-        });
+        }, error => { console.error(error); });
     }
 
+    /**
+     * Get all applications (owned, assigned, all)
+     *
+     * @private
+     *
+     * @memberOf ApplicationsComponent
+     */
     private getApplications(): void {
-        this.activeTab = 'owned';
         this.applicationService.getOwnApplications(null, this.user).subscribe(result => {
             this.ownApplications = result;
+            if (!this.activeTab) {
+                this.activeTab = 'owned';
+            }
         });
         this.applicationService.getAssignedApplications(null, this.user).subscribe(result => {
             this.assignedApplications = result;
@@ -87,18 +136,27 @@ export class ApplicationsComponent implements OnInit {
         this.getAllApplications();
     }
 
+    /**
+     * get all applications with protection
+     *
+     * @private
+     *
+     * @memberOf ApplicationsComponent
+     */
     @Access('ReadApplications')
     private getAllApplications(): void {
+        this.activeTab = 'all';
         this.applicationService.getApplications().subscribe(result => {
-            if (result && result.length) {
-                this.activeTab = 'all';
-            }
             this.applications = result;
         });
     }
 
     /**
      * Sort all applications by the sortValue string
+     *
+     * @param {string} sortValue
+     *
+     * @memberOf ApplicationsComponent
      */
     public sortBy(sortValue: string): void {
         this.applicationService.getApplications(sortValue);
@@ -106,6 +164,8 @@ export class ApplicationsComponent implements OnInit {
 
     /**
      * Creates a list modal to select the form for the new application
+     *
+     * @memberOf ApplicationsComponent
      */
     @Access('CreateApplications')
     public createApplicationModal(): void {
@@ -124,6 +184,11 @@ export class ApplicationsComponent implements OnInit {
 
     /**
      * Create a new application with the selected form
+     *
+     * @private
+     * @param {Selectable} listelement
+     *
+     * @memberOf ApplicationsComponent
      */
     @Access('CreateApplications')
     private createApplication(listelement: Selectable): void {

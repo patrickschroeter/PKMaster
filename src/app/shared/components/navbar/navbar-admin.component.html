@@ -13,9 +13,9 @@
   </div>
 
   <a *accessMain class="navbar__link selectable left" routerLink="/applications" routerLinkActive="selectable--active" i18n>Main</a>
-  <a *accessReadRoles class="navbar__link selectable left" routerLink="/admin/roles" routerLinkActive="selectable--active" i18n>Roles</a>
+  <a *access="['ReadRoles', 'EditRoles']" class="navbar__link selectable left" routerLink="/admin/roles" routerLinkActive="selectable--active" i18n>Roles</a>
   <a *accessReadPermissions class="navbar__link selectable left" routerLink="/admin/permissions" routerLinkActive="selectable--active" i18n>Permissions</a>
-  <a *accessReadUsers class="navbar__link selectable left" routerLink="/admin/users" routerLinkActive="selectable--active" i18n>Users</a>
+  <a *access="['ReadUsers', 'EditUsers']" class="navbar__link selectable left" routerLink="/admin/users" routerLinkActive="selectable--active" i18n>Users</a>
   <a class="navbar__link selectable left" routerLink="/admin/profile" routerLinkActive="selectable--active" i18n>Profile</a>
 
   <pk-devider></pk-devider>

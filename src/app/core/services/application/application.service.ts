@@ -1,15 +1,26 @@
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
+
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Observer } from 'rxjs/Rx';
 import * as _ from 'lodash';
 
 /** Services */
-import { AlertService } from './../../../modules/alert';
+import { AlertService } from 'app/modules/alert';
 import { FormService } from './../form';
 import { ConfigurationService } from './../configuration';
 import { AuthenticationService } from './../authentication';
-import { ApplicationApi } from './../../../swagger/api/ApplicationApi';
-import { TranslationService } from './../../../modules/translation';
+import { ApplicationApi } from 'app/swagger/api/ApplicationApi';
+import { TranslationService } from 'app/modules/translation';
 import { ConferenceService } from './../conference';
 
 /** Models */
@@ -25,10 +36,10 @@ import {
     AssignmentCreateDto,
     ConferenceDetailDto,
     Status
-} from './../../../swagger';
+} from 'app/swagger';
 
 /** Decorators */
-import { Loading } from './../../../shared/decorators/loading.decorator';
+import { Loading } from 'app/shared/decorators/loading.decorator';
 
 /**
  * A Service taking care of applications
@@ -66,6 +77,12 @@ export class ApplicationService {
         private conferenceService: ConferenceService,
         private configurationService: ConfigurationService
     ) { }
+
+    public setApplication(application: ApplicationDetailDto): void {
+        this.application = application;
+        console.log(this.application);
+
+    }
 
     /**
      * returns the observable to get a applicationn by the given id
@@ -143,7 +160,7 @@ export class ApplicationService {
     @Loading('getApplications')
     public getAssignedApplications(sort?: string, user?: UserDetailDto): Observable<ApplicationListDto[]> {
         return this.applicationApi.getApplicationsOfUser().map((result: ApplicationListDto[]) => {
-            // TODO filter on server
+            // TODO filter on server, missing assignment in ApplicationListDto
             // const applications = result.filter((obj: ApplicationListDto) => {
             //     const assignment = _.find(obj.assignments, (assign: UserDetailDto) => assign.id === user.id);
             //     return !!assignment;
@@ -165,7 +182,7 @@ export class ApplicationService {
         /* TODO: wait for token */
         this.auth.getUser().subscribe((user: UserDetailDto) => {
             application.userId = user.id;
-        });
+        }, error => { console.error(error); });
 
         application.statusId = Status.CREATED;
 
@@ -184,13 +201,13 @@ export class ApplicationService {
      * @memberOf ApplicationService
      */
     @Loading('addCommentToApplication')
-    public addCommentToApplication(comment: CommentDto): Observable<CommentDto[]> {
+    public addCommentToApplication(comment: CommentDto): Observable<CommentDto> {
         if (!this.application) { return Observable.throw('No Application'); }
         const param: CommentCreateDto = new CommentCreateDto(comment);
         this.auth.getUser().subscribe(user => {
             param.userId = user.id;
-        });
-        return this.applicationApi.addCommentToApplication(this.application.id, param).map((result: CommentDto[]) => {
+        }, error => { console.error(error); });
+        return this.applicationApi.addCommentToApplication(this.application.id, param).map((result: CommentDto) => {
             return result;
         });
     }
@@ -331,6 +348,7 @@ export class ApplicationService {
     public assignConferenceToApplication(application: ApplicationDetailDto, conferenceId: string): Observable<ApplicationDetailDto> {
         this.application = application;
         return this.conferenceService.addApplicationToConference(application, conferenceId).map((result: ConferenceDetailDto) => {
+            this.application.statusId = Status.PENDING;
             this.application.conference = result;
             return this.application;
         });
@@ -346,7 +364,7 @@ export class ApplicationService {
      * @memberOf ApplicationService
      */
     public confirmApplication(confirmation: boolean, application: ApplicationDetailDto): Observable<ApplicationDetailDto> {
-        const param = _.cloneDeep(application);
+        const param: ApplicationDetailDto = new ApplicationDetailDto(application);
         param.confirmed = confirmation;
 
         return this.updateApplication(param).map((result: ApplicationDetailDto) => {

@@ -1,5 +1,15 @@
-/* tslint:disable:no-unused-variable */
+/**
+ *
+ * @author Patrick Schröter <patrick.schroeter@hotmail.de>
+ *
+ * @license CreativeCommons BY-NC-SA 4.0 2017
+ *
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+ *
+ */
 
+/* tslint:disable:no-unused-variable */
 import { TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
@@ -25,11 +35,11 @@ import {
     ApplicationCreateDto,
     ApplicationListDto,
     Status
-} from './../../../swagger';
+} from 'app/swagger';
 import { ApplicationApiMock, FormApiMock, AuthenticationService, AuthenticationMock, ConferenceService, ConferenceMock } from './..';
 
-import { AlertProviderMock } from './../../../modules/alert/alert.module';
-import { TranslationProviderMock } from './../../../modules/translation/translation.module';
+import { AlertProviderMock } from 'app/modules/alert/alert.module';
+import { TranslationProviderMock } from 'app/modules/translation/translation.module';
 
 describe('Service: Application', () => {
     beforeEach(() => {
