@@ -16,7 +16,7 @@
         "serve-i18n:en": "ng serve --aot --i18n-file=src/i18n/messages.en.xlf --locale=en --i18n-format=xlf",
         "build-i18n:de": "ng build -op dist/de --aot --bh /de/ --i18n-file=src/i18n/messages.de.xlf --i18n-format=xlf --locale=de --prod",
         "build-i18n:en": "ng build -op dist/en --aot --bh /en/ --i18n-file=src/i18n/messages.en.xlf --i18n-format=xlf --locale=en --prod",
-        "build-i18n": "npm run build-i18n:de && npm run build-i18n:en",
+        "build-i18n": "npm run build-i18n:de && npm run build-i18n:en && cp src/sample.htaccess dist/ && cd dist/ && mv sample.htaccess .htaccess",
         "doc": "./node_modules/.bin/compodoc -p src/tsconfig.json",
         "doc:serve": "./node_modules/.bin/compodoc -p src/tsconfig.json -s"
     },

@@ -703,6 +703,10 @@
         <source>Delete Element (if possible)</source>
         <target>Delete Element (if possible)</target>
       </trans-unit>
+      <trans-unit id="2af94c0e8f38a78035949f4dc4cd339a9a6e060f" datatype="html">
+        <source>Passwort vergessen</source>
+        <target>Forgot password</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

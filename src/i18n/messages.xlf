@@ -390,6 +390,14 @@
         <source>Login</source>
         <target/>
       </trans-unit>
+      <trans-unit id="2af94c0e8f38a78035949f4dc4cd339a9a6e060f" datatype="html">
+        <source>Passwort vergessen</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9adf7f973ff81475f3622c2a38a1e69a7dd433af" datatype="html">
+        <source>Registrieren</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="def96c6a5d7fc151bc3ff5165bbfee9fba0652a7" datatype="html">
         <source>Registrierung</source>
         <target/>
@@ -412,10 +420,6 @@
       </trans-unit>
       <trans-unit id="ccee4487df92dd7f7839181371f55b755fd812f4" datatype="html">
         <source>Enter password for the application.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="9adf7f973ff81475f3622c2a38a1e69a7dd433af" datatype="html">
-        <source>Registrieren</source>
         <target/>
       </trans-unit>
       <trans-unit id="ed096a3ecc6e3691a3352e8f84d99dcaeb0d6418" datatype="html">
