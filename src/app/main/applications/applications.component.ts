@@ -96,7 +96,7 @@ export class ApplicationsComponent implements OnInit, OnAccess {
      */
     ngOnInit() {
 
-        /** get all forms */
+        /** get all active forms */
         this.formService.getForms().subscribe(forms => {
             this.applicationTypes = [];
             for (let i = 0; i < forms.length; i++) {
@@ -116,10 +116,19 @@ export class ApplicationsComponent implements OnInit, OnAccess {
         }, error => { console.error(error); });
     }
 
+    /**
+     * Get all applications (owned, assigned, all)
+     *
+     * @private
+     *
+     * @memberOf ApplicationsComponent
+     */
     private getApplications(): void {
-        this.activeTab = 'owned';
         this.applicationService.getOwnApplications(null, this.user).subscribe(result => {
             this.ownApplications = result;
+            if (!this.activeTab) {
+                this.activeTab = 'owned';
+            }
         });
         this.applicationService.getAssignedApplications(null, this.user).subscribe(result => {
             this.assignedApplications = result;
@@ -127,18 +136,27 @@ export class ApplicationsComponent implements OnInit, OnAccess {
         this.getAllApplications();
     }
 
+    /**
+     * get all applications with protection
+     *
+     * @private
+     *
+     * @memberOf ApplicationsComponent
+     */
     @Access('ReadApplications')
     private getAllApplications(): void {
+        this.activeTab = 'all';
         this.applicationService.getApplications().subscribe(result => {
-            if (result && result.length) {
-                this.activeTab = 'all';
-            }
             this.applications = result;
         });
     }
 
     /**
      * Sort all applications by the sortValue string
+     *
+     * @param {string} sortValue
+     *
+     * @memberOf ApplicationsComponent
      */
     public sortBy(sortValue: string): void {
         this.applicationService.getApplications(sortValue);
@@ -146,6 +164,8 @@ export class ApplicationsComponent implements OnInit, OnAccess {
 
     /**
      * Creates a list modal to select the form for the new application
+     *
+     * @memberOf ApplicationsComponent
      */
     @Access('CreateApplications')
     public createApplicationModal(): void {
@@ -164,6 +184,11 @@ export class ApplicationsComponent implements OnInit, OnAccess {
 
     /**
      * Create a new application with the selected form
+     *
+     * @private
+     * @param {Selectable} listelement
+     *
+     * @memberOf ApplicationsComponent
      */
     @Access('CreateApplications')
     private createApplication(listelement: Selectable): void {

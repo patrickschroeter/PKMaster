@@ -392,7 +392,7 @@
       </trans-unit>
       <trans-unit id="def96c6a5d7fc151bc3ff5165bbfee9fba0652a7" datatype="html">
         <source>Registrierung</source>
-        <target>Registrierung</target>
+        <target>Registration</target>
       </trans-unit>
       <trans-unit id="84472ef6a352ed5cb8ff5596e3c7cfdbeb9dfa7b" datatype="html">
         <source>Enter RZ credentials for authentication.</source>
@@ -400,7 +400,7 @@
       </trans-unit>
       <trans-unit id="6709300fb7d34a76014220f2578b69cc1c74fd09" datatype="html">
         <source>Weiter</source>
-        <target>Weiter</target>
+        <target>Next</target>
       </trans-unit>
       <trans-unit id="93cb8a7d5046628cfebdd1ae9897421f55e60411" datatype="html">
         <source>Enter external e-mail as username.</source>
@@ -416,7 +416,7 @@
       </trans-unit>
       <trans-unit id="9adf7f973ff81475f3622c2a38a1e69a7dd433af" datatype="html">
         <source>Registrieren</source>
-        <target>Registrieren</target>
+        <target>Register</target>
       </trans-unit>
       <trans-unit id="ed096a3ecc6e3691a3352e8f84d99dcaeb0d6418" datatype="html">
         <source>RZ-Name or Password is wrong</source>
@@ -424,11 +424,11 @@
       </trans-unit>
       <trans-unit id="8e0e3d7ca9965169167adafde945f102e2181dd1" datatype="html">
         <source>Registrierung erfolgreich</source>
-        <target>Registrierung erfolgreich</target>
+        <target>Registration successfully</target>
       </trans-unit>
       <trans-unit id="b5d8b6a8e3a1154cc9a219153bcaf61cd4fcaa32" datatype="html">
         <source>zum Login</source>
-        <target>zum Login</target>
+        <target>back to login</target>
       </trans-unit>
       <trans-unit id="b1b381321d4cef04605d3e6e8847ea2b72a03799" datatype="html">
         <source>Identify</source>
@@ -466,6 +466,10 @@
         <source>Application Status:</source>
         <target>Application Status:</target>
       </trans-unit>
+      <trans-unit id="814efcc244d182cabfdcdf7754097cdd023514d9" datatype="html">
+        <source>Verified</source>
+        <target>Verified</target>
+      </trans-unit>
       <trans-unit id="6b0266f99586d17a1a372503a0e5abd35e979e0b" datatype="html">
         <source>Application Conference:</source>
         <target>Application Conference:</target>
@@ -475,21 +479,13 @@
         <target><x id="INTERPOLATION"/> on <x id="INTERPOLATION_1"/></target>
         <note priority="1" from="description">Conference ON date</note>
       </trans-unit>
-      <trans-unit id="4fa90bb7cbc460d7d3095d82b81e3acbcf697dba" datatype="html">
-        <source>Application Appraisal:</source>
-        <target>Application Appraisal:</target>
-      </trans-unit>
-      <trans-unit id="814efcc244d182cabfdcdf7754097cdd023514d9" datatype="html">
-        <source>Verified</source>
-        <target>Verified</target>
-      </trans-unit>
       <trans-unit id="77e5a7a9d2c918ed617d5a9d7b42f07533939f49" datatype="html">
         <source>Assigned Docents:</source>
         <target>Assigned Docents:</target>
       </trans-unit>
       <trans-unit id="d6507e7b5ae51f1734f3e169ef4cf6ef56f0001f" datatype="html">
         <source>Vorname</source>
-        <target>Vorname</target>
+        <target>Firstname</target>
       </trans-unit>
       <trans-unit id="829ab414ea406f913e8db5ae64100a0cd60869ed" datatype="html">
         <source>No Changes Required</source>

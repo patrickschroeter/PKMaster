@@ -466,6 +466,10 @@
         <source>Application Status:</source>
         <target/>
       </trans-unit>
+      <trans-unit id="814efcc244d182cabfdcdf7754097cdd023514d9" datatype="html">
+        <source>Verified</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="6b0266f99586d17a1a372503a0e5abd35e979e0b" datatype="html">
         <source>Application Conference:</source>
         <target/>
@@ -474,14 +478,6 @@
         <source><x id="INTERPOLATION"/> on <x id="INTERPOLATION_1"/></source>
         <target/>
         <note priority="1" from="description">Conference ON date</note>
-      </trans-unit>
-      <trans-unit id="4fa90bb7cbc460d7d3095d82b81e3acbcf697dba" datatype="html">
-        <source>Application Appraisal:</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="814efcc244d182cabfdcdf7754097cdd023514d9" datatype="html">
-        <source>Verified</source>
-        <target/>
       </trans-unit>
       <trans-unit id="77e5a7a9d2c918ed617d5a9d7b42f07533939f49" datatype="html">
         <source>Assigned Docents:</source>
