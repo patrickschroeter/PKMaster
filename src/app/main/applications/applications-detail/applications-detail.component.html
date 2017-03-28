@@ -11,17 +11,14 @@
                     <span class="label__status label--{{ application.statusId | status }}">
                         {{ application.statusId | status }}
                     </span>
+                    <span class="label--verified" *ngIf="application.confirmed">
+                        (<span i18n>Verified</span>)
+                    </span>
                 </span>
             </h5>
             <h5 *ngIf="application.conference">
                 <span i18n>Application Conference:</span>
                 <a class="anchor anchor--hover" routerLink="/conferences/{{ application.conference.id }}" i18n="Conference ON date">{{ application.conference.description }} on {{ application.conference.dateOfEvent | date }}</a>
-            </h5>
-            <h5 *ngIf="application.confirmed">
-                <span i18n>Application Appraisal:</span>
-                <span class="label">
-                    <span class="label--verified" i18n>Verified</span>
-                </span>
             </h5>
         </div>
 
