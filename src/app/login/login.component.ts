@@ -12,11 +12,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+/** Services */
 import {
     AuthenticationService,
     AccessMain,
     AccessAdmin
 } from 'app/core';
+import { TranslationService } from 'app/modules/translation';
 
 /** Models */
 import { Credentials } from 'app/models';
@@ -54,11 +56,11 @@ export class LoginComponent implements OnInit {
 
     /**
      * Creates an instance of LoginComponent.
-     *
      * @param {AuthenticationService} authentication
      * @param {Router} router
      * @param {AccessMain} mainRoute
      * @param {AccessAdmin} adminRoute
+     * @param {TranslationService} translationService
      *
      * @memberOf LoginComponent
      */
@@ -66,7 +68,8 @@ export class LoginComponent implements OnInit {
         private authentication: AuthenticationService,
         private router: Router,
         private mainRoute: AccessMain,
-        private adminRoute: AccessAdmin
+        private adminRoute: AccessAdmin,
+        private translationService: TranslationService
     ) { }
 
     /**
@@ -95,7 +98,7 @@ export class LoginComponent implements OnInit {
                 name: 'email',
                 contentType: 'email',
                 required: true,
-                placeholder: 'E-Mail',
+                placeholder: this.translationService.translate('email'),
 
                 validationIds: [
                     'isEmail'
@@ -110,7 +113,7 @@ export class LoginComponent implements OnInit {
                 name: 'password',
                 contentType: 'password',
                 required: true,
-                placeholder: 'Password',
+                placeholder: this.translationService.translate('password'),
 
                 styleIds: [
                     'small'

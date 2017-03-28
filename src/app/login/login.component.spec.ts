@@ -21,6 +21,7 @@ import { LoginComponent } from './login.component';
 import { CoreProviderMock } from 'app/core/core.module';
 import { AccessMain, AccessAdmin } from 'app/core';
 import { AlertProviderMock } from 'app/modules/alert/alert.module';
+import { TranslationProviderMock } from 'app/modules/translation/translation.module';
 
 describe('LoginComponent', () => {
     let component: LoginComponent;
@@ -37,7 +38,8 @@ describe('LoginComponent', () => {
                 AccessMain,
                 AccessAdmin,
                 ...CoreProviderMock,
-                ...AlertProviderMock
+                ...AlertProviderMock,
+                ...TranslationProviderMock
             ],
             schemas: [NO_ERRORS_SCHEMA]
         })
