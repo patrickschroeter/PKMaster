@@ -203,7 +203,9 @@ export class FormsComponent extends List<FormListDto> implements OnInit, OnAcces
                     const index = _.findIndex(this.forms, obj => obj.id === form.id);
                     if (index > -1) {
                         this.forms[index] = result;
+                        this.initListDependencies(this.forms);
                     }
+                    this.modalService.destroyModal();
                 }, error => {
                     this.modalService.destroyModal();
                     this.alert.setAlert(
